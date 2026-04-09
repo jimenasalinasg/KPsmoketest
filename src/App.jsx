@@ -17,7 +17,7 @@ const BLUE_D = "#2c6cb5";
 // ── CONFIG — update these when you have data ─────────────
 const GO_LIVE_DATE = "March 31, 2026";
 const SMOKE_WINDOW = "Mar 31 – Apr 1, 2026";
-const WEEK1_WINDOW = "Mar 29 – Apr 4, 2026";
+const WEEK1_WINDOW = "Mar 31 – Apr 10, 2026";
 const BID_TOTAL = 3600;
 
 // ── SMOKE TEST DATA ───────────────────────────────────────
@@ -45,20 +45,23 @@ const SMOKE = {
 
 // ── WEEK 1 DATA ───────────────────────────────────────────
 const WEEK1 = {
-  sessions: null,
-  users: null,
-  prompters: null,
-  retention: null,        // %
-  dropoff: null,          // % bounce <10s
-  highlighted: null,
-  copied: null,
-  rageclicks: null,
-  pillTop: null,          // e.g. "Similar projects (32)"
-  pillBot: null,          // e.g. "Inst. Documents (7)"
+  sessions: 389,
+  users: 201,
+  prompters: 58,
+  prompts: 132,
+  retention: null,
+  dropoff: 93,
+  highlighted: 132,
+  copied: 30,
+  rageclicks: 2,
+  pillTop: "Similar projects (39)",
+  pillBot: "Institutional documents (12)",
+  tourCompletion: 56,
   observations: [
-    // Add up to 3 short observations here, e.g.:
-    // "Usuario pico el martes a las 10am — coincide con comunicación por email.",
-    // "Similar projects sigue siendo la categoría más accedida.",
+    "Double down on Similar Projects — it is the most accessed category across all periods, organic and post-launch.",
+    "The AI assistant is working — 2.3 prompts per user signals real engagement beyond a one-time trial.",
+    "Week 1 beat all organic records with 389 sessions and 201 unique users. This establishes a strong baseline for Q2 reporting.",
+    "Prompters are your power users — 58 out of 201 unique users (29%) used the AI assistant.",
   ],
 };
 
@@ -283,10 +286,10 @@ function Week1() {
       {/* KPIs */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 10, marginBottom: 16 }}>
         <MetricCard label="Sessions" value={fmt(WEEK1.sessions)} desc={WEEK1.users ? `${WEEK1.users} unique users` : null} />
-        <MetricCard label="Prompters" value={fmt(WEEK1.prompters)} desc="Used the AI assistant" />
-        <MetricCard label="Returning Users" value={pct(WEEK1.retention)} desc="Visited more than once" />
+        <MetricCard label="Prompters" value={fmt(WEEK1.prompters)} desc={WEEK1.prompts ? `${WEEK1.prompts} prompts enviados` : "Used the AI assistant"} />
         <MetricCard label="Drop-off <10s" value={pct(WEEK1.dropoff)} desc="Left within 10 seconds" invert />
         <MetricCard label="Content Engagement" value={fmt(engagement)} desc={engagement ? `${WEEK1.highlighted} highlights · ${WEEK1.copied} copies` : null} />
+        <MetricCard label="Tour Completion" value={pct(WEEK1.tourCompletion)} desc="Finished onboarding tour" />
       </div>
 
       {/* Knowledge categories */}
@@ -314,7 +317,7 @@ function Week1() {
       {/* Observations */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 14 }}>
-          Observaciones
+          Quick Wins
         </div>
         {WEEK1.observations.length > 0 ? (
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -326,7 +329,7 @@ function Week1() {
           </div>
         ) : (
           <div style={{ fontSize: 11, color: INK3, fontStyle: "italic" }}>
-            Sin observaciones aún — se agregarán cuando haya datos.
+            No quick wins yet — will be added once data is available.
           </div>
         )}
       </div>
