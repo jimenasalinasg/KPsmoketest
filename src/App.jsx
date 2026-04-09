@@ -27,16 +27,19 @@ const SMOKE = {
   uniqueUsers: true,
   internalFiltered: true,
   rageclicks: true,
-  sessions: 150,
-  users: 102,
-  prompters: 32,
-  prompts: 80,
-  avgTime: "20.28s",
-  dropoff: 91,
-  highlighted: 182,
-  copied: 15,
+  sessions: 169,
+  users: 112,
+  prompters: 34,
+  prompts: 99,
+  avgTime: "20.69s",
+  dropoff: 90,
+  highlighted: 239,
+  copied: 26,
   rageclicksCount: 0,
   tourCompletion: 66,
+  openSearch: 94,
+  pillTop: "Similar projects (3)",
+  pillBot: "Institutional documents (1)",
   notes: "",
 };
 
@@ -208,6 +211,35 @@ function SmokeTest() {
           ))}
         </div>
       </div>
+
+      {/* Knowledge categories */}
+      {(SMOKE.pillTop || SMOKE.pillBot) && (
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", marginBottom: 16 }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 14 }}>
+            Knowledge Categories (48h)
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {SMOKE.pillTop && (
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 14px", background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8 }}>
+                <div>
+                  <div style={{ fontSize: 9, textTransform: "uppercase", color: BLUE_D, marginBottom: 3 }}>Most accessed</div>
+                  <div style={{ fontSize: 13, fontWeight: 500, color: BLUE_D }}>{SMOKE.pillTop.replace(/\s*\(\d+\)$/, '')}</div>
+                </div>
+                <span style={{ fontSize: 12, fontWeight: 500, color: BLUE_D }}>{SMOKE.pillTop.match(/\((\d+)\)/)?.[1]} interactions</span>
+              </div>
+            )}
+            {SMOKE.pillBot && (
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 14px", background: BG, border: `1px solid ${BDR}`, borderRadius: 8 }}>
+                <div>
+                  <div style={{ fontSize: 9, textTransform: "uppercase", color: INK3, marginBottom: 3 }}>Least accessed</div>
+                  <div style={{ fontSize: 13, fontWeight: 500, color: INK2 }}>{SMOKE.pillBot.replace(/\s*\(\d+\)$/, '')}</div>
+                </div>
+                <span style={{ fontSize: 12, fontWeight: 500, color: INK3 }}>{SMOKE.pillBot.match(/\((\d+)\)/)?.[1]} interactions</span>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Notes */}
       {SMOKE.notes && (
