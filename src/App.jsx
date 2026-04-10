@@ -45,23 +45,30 @@ const SMOKE = {
 
 // ── WEEK 1 DATA ───────────────────────────────────────────
 const WEEK1 = {
-  sessions: 389,
-  users: 201,
-  prompters: 58,
-  prompts: 132,
+  sessions: 693,
+  users: 336,
+  prompters: 114,
+  prompts: 300,
   retention: null,
-  dropoff: 93,
-  highlighted: 132,
-  copied: 30,
+  dropoff: 92,
+  highlighted: 411,
+  copied: 73,
   rageclicks: 2,
   pillTop: "Similar projects (39)",
   pillBot: "Institutional documents (12)",
-  tourCompletion: 56,
+  tourCompletion: 57,
+  thumbsUp: 2,
+  thumbsDown: 2,
+  prompts_sample: [
+    { text: "can you please summarize the general bank wide benefits?", rating: "down" },
+    { text: "dime las lecciones aprendidas que apuntan a problemas de efectividad en el desarrollo en operaciones de la división HNP", rating: "mixed" },
+    { text: "necesito dos proyectos de SCL/MIG", rating: "up" },
+  ],
   observations: [
     "Double down on Similar Projects — it is the most accessed category across all periods, organic and post-launch.",
     "The AI assistant is working — 2.3 prompts per user signals real engagement beyond a one-time trial.",
-    "Week 1 beat all organic records with 389 sessions and 201 unique users. This establishes a strong baseline for Q2 reporting.",
-    "Prompters are your power users — 58 out of 201 unique users (29%) used the AI assistant.",
+    "Week 1 beat all organic records with 693 sessions and 336 unique users. This establishes a strong baseline for Q2 reporting.",
+    "Prompters are your power users — 114 out of 336 unique users (34%) used the AI assistant.",
   ],
 };
 
@@ -286,10 +293,24 @@ function Week1() {
       {/* KPIs */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 10, marginBottom: 16 }}>
         <MetricCard label="Sessions" value={fmt(WEEK1.sessions)} desc={WEEK1.users ? `${WEEK1.users} unique users` : null} />
-        <MetricCard label="Prompters" value={fmt(WEEK1.prompters)} desc={WEEK1.prompts ? `${WEEK1.prompts} prompts enviados` : "Used the AI assistant"} />
+        <MetricCard label="Prompters" value={fmt(WEEK1.prompters)} desc={WEEK1.prompts ? `${WEEK1.prompts} prompts sent` : "Used the AI assistant"} />
         <MetricCard label="Drop-off <10s" value={pct(WEEK1.dropoff)} desc="Left within 10 seconds" invert />
         <MetricCard label="Content Engagement" value={fmt(engagement)} desc={engagement ? `${WEEK1.highlighted} highlights · ${WEEK1.copied} copies` : null} />
         <MetricCard label="Tour Completion" value={pct(WEEK1.tourCompletion)} desc="Finished onboarding tour" />
+        {(WEEK1.thumbsUp != null || WEEK1.thumbsDown != null) && (
+          <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
+            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9 }}>Response Feedback</div>
+            <div style={{ display: "flex", gap: 20, marginBottom: 7 }}>
+              <div>
+                <div style={{ fontSize: 28, fontWeight: 500, color: GREEN, lineHeight: 1 }}>👍 {WEEK1.thumbsUp ?? "—"}</div>
+              </div>
+              <div>
+                <div style={{ fontSize: 28, fontWeight: 500, color: RED, lineHeight: 1 }}>👎 {WEEK1.thumbsDown ?? "—"}</div>
+              </div>
+            </div>
+            <div style={{ fontSize: 10, color: INK3 }}>AI assistant responses rated</div>
+          </div>
+        )}
       </div>
 
       {/* Knowledge categories */}
@@ -313,6 +334,28 @@ function Week1() {
           ))}
         </div>
       </div>
+
+      {/* Sample Prompts */}
+      {WEEK1.prompts_sample?.length > 0 && (
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", marginBottom: 16 }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 14 }}>
+            Sample Prompts — Response Feedback
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {WEEK1.prompts_sample.map((p, i) => {
+              const icon = p.rating === "up" ? "👍" : p.rating === "down" ? "👎" : "👍👎";
+              const bg = p.rating === "up" ? "#edfaf4" : p.rating === "down" ? "#fef0ee" : "#fffbeb";
+              const border = p.rating === "up" ? "#a7f3d0" : p.rating === "down" ? "#fca5a5" : "#fde68a";
+              return (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 14px", background: bg, border: `1px solid ${border}`, borderRadius: 8 }}>
+                  <span style={{ fontSize: 16, flexShrink: 0 }}>{icon}</span>
+                  <span style={{ fontSize: 11, color: INK2, lineHeight: 1.5, fontStyle: "italic" }}>"{p.text}"</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Observations */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
