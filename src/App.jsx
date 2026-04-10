@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+
+
 const BLUE = "#4a90e2";
 const GREEN = "#22a05b";
 const RED = "#d94f3d";
@@ -45,20 +47,49 @@ const SMOKE = {
 
 // ── WEEK 1 DATA ───────────────────────────────────────────
 const WEEK1 = {
-  sessions: 693,
-  users: 336,
-  prompters: 114,
-  prompts: 300,
+  sessions: 793,
+  users: 370,
+  prompters: 130,
+  prompts: 352,
   retention: null,
   dropoff: 92,
-  highlighted: 411,
-  copied: 73,
-  rageclicks: 2,
-  pillTop: "Similar projects (39)",
-  pillBot: "Institutional documents (12)",
-  tourCompletion: 57,
+  highlighted: 433,
+  highlightedOpenSearch: 357,
+  copied: 86,
+  copiedOpenSearch: 63,
+  rageclicks: 4,
+  pillTop: "Similar projects (51)",
+  pillBot: "Institutional documents and Literature (16)",
+  tourCompletion: 56,
   thumbsUp: 2,
   thumbsDown: 2,
+  countries: [
+    { name: "United States (HQ)", code: "US", users: 217, pct: 62 },
+    { name: "Argentina",          code: "AR", users: 23,  pct: 7 },
+    { name: "Brazil",             code: "BR", users: 15,  pct: 4 },
+    { name: "Uruguay",            code: "UY", users: 14,  pct: 4 },
+    { name: "Peru",               code: "PE", users: 12,  pct: 3 },
+    { name: "Colombia",           code: "CO", users: 11,  pct: 3 },
+    { name: "Panama",             code: "PA", users: 10,  pct: 3 },
+    { name: "Barbados",           code: "BB", users: 5,   pct: 1 },
+    { name: "Cayman Islands",     code: "KY", users: 5,   pct: 1 },
+    { name: "El Salvador",        code: "SV", users: 5,   pct: 1 },
+    { name: "Mexico",             code: "MX", users: 5,   pct: 1 },
+    { name: "Paraguay",           code: "PY", users: 5,   pct: 1 },
+    { name: "Bolivia",            code: "BO", users: 4,   pct: 1 },
+    { name: "Chile",              code: "CL", users: 4,   pct: 1 },
+    { name: "Trinidad & Tobago",  code: "TT", users: 4,   pct: 1 },
+    { name: "Dominican Republic", code: "DO", users: 3,   pct: 1 },
+    { name: "Ecuador",            code: "EC", users: 3,   pct: 1 },
+    { name: "Honduras",           code: "HN", users: 3,   pct: 1 },
+    { name: "Spain",              code: "ES", users: 3,   pct: 1 },
+    { name: "Belize",             code: "BZ", users: 2,   pct: 1 },
+    { name: "Nicaragua",          code: "NI", users: 2,   pct: 1 },
+    { name: "Bahamas",            code: "BS", users: 1,   pct: 0 },
+    { name: "Canada",             code: "CA", users: 1,   pct: 0 },
+    { name: "Jamaica",            code: "JM", users: 1,   pct: 0 },
+    { name: "Suriname",           code: "SR", users: 1,   pct: 0 },
+  ],
   prompts_sample: [
     { text: "can you please summarize the general bank wide benefits?", rating: "down" },
     { text: "dime las lecciones aprendidas que apuntan a problemas de efectividad en el desarrollo en operaciones de la división HNP", rating: "mixed" },
@@ -66,9 +97,9 @@ const WEEK1 = {
   ],
   observations: [
     "Double down on Similar Projects — it is the most accessed category across all periods, organic and post-launch.",
-    "The AI assistant is working — 2.3 prompts per user signals real engagement beyond a one-time trial.",
-    "Week 1 beat all organic records with 693 sessions and 336 unique users. This establishes a strong baseline for Q2 reporting.",
-    "Prompters are your power users — 114 out of 336 unique users (34%) used the AI assistant.",
+    "The AI assistant is working — 2.7 prompts per user signals real engagement beyond a one-time trial.",
+    "Week 1 beat all organic records with 793 sessions and 370 unique users. This establishes a strong baseline for Q2 reporting.",
+    "Prompters are your power users — 130 out of 370 unique users (35%) used the AI assistant.",
   ],
 };
 
@@ -262,6 +293,89 @@ function SmokeTest() {
   );
 }
 
+
+// ── GEOGRAPHIC REACH ─────────────────────────────────────
+function GeoMap() {
+  const countries = WEEK1.countries;
+  const maxUsers = Math.max(...countries.filter(c => c.code !== "US").map(c => c.users));
+
+  // Emoji flags via regional indicator letters
+  const flag = (code) => {
+    if (!code) return "🌐";
+    return [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("");
+  };
+
+  const usData = countries.find(c => c.code === "US");
+  const regional = countries.filter(c => c.code !== "US");
+
+  return (
+    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", marginBottom: 16 }}>
+      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>
+        Geographic Reach — Users by Country
+      </div>
+      <div style={{ fontSize: 10, color: INK3, marginBottom: 16 }}>
+        351 users · 25 countries · Mar 31 – Apr 10, 2026
+      </div>
+
+      {/* HQ callout */}
+      <div style={{ background: "#1464A0", borderRadius: 8, padding: "12px 16px", marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <span style={{ fontSize: 22 }}>{flag("US")}</span>
+          <div>
+            <div style={{ fontSize: 12, fontWeight: 600, color: "#fff" }}>United States (HQ)</div>
+            <div style={{ fontSize: 10, color: "#a8c4e0" }}>217 users</div>
+          </div>
+        </div>
+        <div style={{ textAlign: "right" }}>
+          <div style={{ fontSize: 22, fontWeight: 700, color: "#fff", letterSpacing: "-0.02em" }}>62%</div>
+          <div style={{ fontSize: 9, color: "#a8c4e0" }}>of total</div>
+        </div>
+        <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: 99, height: 8, width: 120, overflow: "hidden" }}>
+          <div style={{ width: "62%", height: "100%", background: "#fff", borderRadius: 99 }} />
+        </div>
+      </div>
+
+      {/* Regional bar chart */}
+      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: INK3, marginBottom: 12 }}>
+        Regional breakdown (excl. HQ)
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
+        {regional.map((c, i) => (
+          <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <span style={{ fontSize: 18, flexShrink: 0, width: 26, textAlign: "center" }}>{flag(c.code)}</span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
+                <span style={{ fontSize: 11, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
+                <span style={{ fontSize: 11, color: INK3, flexShrink: 0, marginLeft: 8, fontVariantNumeric: "tabular-nums" }}>{c.users}</span>
+              </div>
+              <div style={{ background: BG, borderRadius: 99, height: 5, overflow: "hidden" }}>
+                <div style={{
+                  width: `${(c.users / maxUsers) * 100}%`,
+                  height: "100%",
+                  background: c.users >= 20 ? "#1464A0" : c.users >= 10 ? "#2c6cb5" : c.users >= 5 ? BLUE : "#7ab3e0",
+                  borderRadius: 99,
+                }} />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Summary */}
+      <div style={{ marginTop: 16, padding: "10px 14px", background: BLUE_L, borderRadius: 8, border: `1px solid ${BLUE_M}`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: BLUE_D, marginBottom: 2 }}>Total reach</div>
+          <div style={{ fontSize: 14, fontWeight: 600, color: BLUE_D }}>25 countries</div>
+        </div>
+        <div style={{ textAlign: "right" }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: BLUE_D, marginBottom: 2 }}>Users outside HQ</div>
+          <div style={{ fontSize: 14, fontWeight: 600, color: BLUE_D }}>134 users · 38%</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── WEEK 1 VIEW ───────────────────────────────────────────
 function Week1() {
   const engagement = (WEEK1.highlighted != null && WEEK1.copied != null)
@@ -295,7 +409,7 @@ function Week1() {
         <MetricCard label="Sessions" value={fmt(WEEK1.sessions)} desc={WEEK1.users ? `${WEEK1.users} unique users` : null} />
         <MetricCard label="Prompters" value={fmt(WEEK1.prompters)} desc={WEEK1.prompts ? `${WEEK1.prompts} prompts sent` : "Used the AI assistant"} />
         <MetricCard label="Drop-off <10s" value={pct(WEEK1.dropoff)} desc="Left within 10 seconds" invert />
-        <MetricCard label="Content Engagement" value={fmt(engagement)} desc={engagement ? `${WEEK1.highlighted} highlights · ${WEEK1.copied} copies` : null} />
+        <MetricCard label="Content Engagement" value={fmt(engagement)} desc={`${WEEK1.highlighted} highlights · ${WEEK1.copied} copies · ${WEEK1.highlightedOpenSearch} highlights in Open Search · ${WEEK1.copiedOpenSearch} copies in Open Search`} />
         <MetricCard label="Tour Completion" value={pct(WEEK1.tourCompletion)} desc="Finished onboarding tour" />
         {(WEEK1.thumbsUp != null || WEEK1.thumbsDown != null) && (
           <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
@@ -312,6 +426,9 @@ function Week1() {
           </div>
         )}
       </div>
+
+      {/* Geographic map */}
+      <GeoMap />
 
       {/* Knowledge categories */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", marginBottom: 16 }}>
