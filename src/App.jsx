@@ -409,7 +409,57 @@ function Week1() {
         <MetricCard label="Sessions" value={fmt(WEEK1.sessions)} desc={WEEK1.users ? `${WEEK1.users} unique users` : null} />
         <MetricCard label="Prompters" value={fmt(WEEK1.prompters)} desc={WEEK1.prompts ? `${WEEK1.prompts} prompts sent` : "Used the AI assistant"} />
         <MetricCard label="Drop-off <10s" value={pct(WEEK1.dropoff)} desc="Left within 10 seconds" invert />
-        <MetricCard label="Content Engagement" value={fmt(engagement)} desc={`${WEEK1.highlighted} highlights · ${WEEK1.copied} copies · ${WEEK1.highlightedOpenSearch} highlights in Open Search · ${WEEK1.copiedOpenSearch} copies in Open Search`} />
+        {/* Content Engagement custom card */}
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9 }}>Content Engagement</div>
+          <div style={{ fontSize: 30, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 14 }}>{fmt(engagement)}</div>
+
+          {/* Highlights bar */}
+          <div style={{ marginBottom: 12 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+              <span style={{ fontSize: 10, color: INK2, fontWeight: 500 }}>Highlights</span>
+              <span style={{ fontSize: 10, color: INK3 }}>{WEEK1.highlighted} total</span>
+            </div>
+            <div style={{ background: BG, borderRadius: 99, height: 8, overflow: "hidden", marginBottom: 3 }}>
+              <div style={{ width: "100%", height: "100%", background: "#c2d9f7", borderRadius: 99, position: "relative" }}>
+                <div style={{ width: `${(WEEK1.highlightedOpenSearch / WEEK1.highlighted) * 100}%`, height: "100%", background: BLUE, borderRadius: 99 }} />
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 12, fontSize: 9, color: INK3 }}>
+              <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: BLUE }} />
+                Open Search: {WEEK1.highlightedOpenSearch}
+              </span>
+              <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: "#c2d9f7" }} />
+                Contextual Search: {WEEK1.highlighted - WEEK1.highlightedOpenSearch}
+              </span>
+            </div>
+          </div>
+
+          {/* Copies bar */}
+          <div>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+              <span style={{ fontSize: 10, color: INK2, fontWeight: 500 }}>Copies</span>
+              <span style={{ fontSize: 10, color: INK3 }}>{WEEK1.copied} total</span>
+            </div>
+            <div style={{ background: BG, borderRadius: 99, height: 8, overflow: "hidden", marginBottom: 3 }}>
+              <div style={{ width: "100%", height: "100%", background: "#fde68a", borderRadius: 99, position: "relative" }}>
+                <div style={{ width: `${(WEEK1.copiedOpenSearch / WEEK1.copied) * 100}%`, height: "100%", background: "#d97706", borderRadius: 99 }} />
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 12, fontSize: 9, color: INK3 }}>
+              <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: "#d97706" }} />
+                Open Search: {WEEK1.copiedOpenSearch}
+              </span>
+              <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: "#fde68a" }} />
+                Contextual Search: {WEEK1.copied - WEEK1.copiedOpenSearch}
+              </span>
+            </div>
+          </div>
+        </div>
         <MetricCard label="Tour Completion" value={pct(WEEK1.tourCompletion)} desc="Finished onboarding tour" />
         {(WEEK1.thumbsUp != null || WEEK1.thumbsDown != null) && (
           <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
