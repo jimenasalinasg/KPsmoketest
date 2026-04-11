@@ -47,48 +47,48 @@ const SMOKE = {
 
 // ── WEEK 1 DATA ───────────────────────────────────────────
 const WEEK1 = {
-  sessions: 793,
-  users: 370,
-  prompters: 130,
-  prompts: 352,
+  sessions: 757,
+  users: 360,
+  prompters: 125,
+  prompts: 333,
   retention: null,
   dropoff: 92,
-  highlighted: 433,
-  highlightedOpenSearch: 357,
-  copied: 86,
-  copiedOpenSearch: 63,
-  rageclicks: 4,
-  pillTop: "Similar projects (51)",
-  pillBot: "Institutional documents and Literature (16)",
-  tourCompletion: 56,
+  highlighted: 416,
+  highlightedOpenSearch: 340,
+  copied: 75,
+  copiedOpenSearch: 52,
+  rageclicks: 3,
+  pillTop: "Similar projects (45)",
+  pillBot: "Institutional documents (14)",
+  tourCompletion: 55,
   thumbsUp: 2,
   thumbsDown: 2,
   countries: [
-    { name: "United States (HQ)", code: "US", users: 217, pct: 62 },
-    { name: "Argentina",          code: "AR", users: 23,  pct: 7 },
-    { name: "Brazil",             code: "BR", users: 15,  pct: 4 },
-    { name: "Uruguay",            code: "UY", users: 14,  pct: 4 },
-    { name: "Peru",               code: "PE", users: 12,  pct: 3 },
-    { name: "Colombia",           code: "CO", users: 11,  pct: 3 },
-    { name: "Panama",             code: "PA", users: 10,  pct: 3 },
-    { name: "Barbados",           code: "BB", users: 5,   pct: 1 },
-    { name: "Cayman Islands",     code: "KY", users: 5,   pct: 1 },
-    { name: "El Salvador",        code: "SV", users: 5,   pct: 1 },
-    { name: "Mexico",             code: "MX", users: 5,   pct: 1 },
-    { name: "Paraguay",           code: "PY", users: 5,   pct: 1 },
-    { name: "Bolivia",            code: "BO", users: 4,   pct: 1 },
-    { name: "Chile",              code: "CL", users: 4,   pct: 1 },
-    { name: "Trinidad & Tobago",  code: "TT", users: 4,   pct: 1 },
-    { name: "Dominican Republic", code: "DO", users: 3,   pct: 1 },
-    { name: "Ecuador",            code: "EC", users: 3,   pct: 1 },
-    { name: "Honduras",           code: "HN", users: 3,   pct: 1 },
-    { name: "Spain",              code: "ES", users: 3,   pct: 1 },
-    { name: "Belize",             code: "BZ", users: 2,   pct: 1 },
-    { name: "Nicaragua",          code: "NI", users: 2,   pct: 1 },
-    { name: "Bahamas",            code: "BS", users: 1,   pct: 0 },
-    { name: "Canada",             code: "CA", users: 1,   pct: 0 },
-    { name: "Jamaica",            code: "JM", users: 1,   pct: 0 },
-    { name: "Suriname",           code: "SR", users: 1,   pct: 0 },
+    { name: "United States (HQ)", code: "US", users: 225, pct: 63 },
+    { name: "Argentina",          code: "AR", users: 24,  pct: 7  },
+    { name: "Brazil",             code: "BR", users: 15,  pct: 4  },
+    { name: "Uruguay",            code: "UY", users: 14,  pct: 4  },
+    { name: "Peru",               code: "PE", users: 12,  pct: 3  },
+    { name: "Colombia",           code: "CO", users: 11,  pct: 3  },
+    { name: "Panama",             code: "PA", users: 10,  pct: 3  },
+    { name: "Barbados",           code: "BB", users: 5,   pct: 1  },
+    { name: "Cayman Islands",     code: "KY", users: 5,   pct: 1  },
+    { name: "El Salvador",        code: "SV", users: 5,   pct: 1  },
+    { name: "Mexico",             code: "MX", users: 5,   pct: 1  },
+    { name: "Paraguay",           code: "PY", users: 5,   pct: 1  },
+    { name: "Bolivia",            code: "BO", users: 4,   pct: 1  },
+    { name: "Chile",              code: "CL", users: 4,   pct: 1  },
+    { name: "Spain",              code: "ES", users: 4,   pct: 1  },
+    { name: "Trinidad & Tobago",  code: "TT", users: 4,   pct: 1  },
+    { name: "Dominican Republic", code: "DO", users: 3,   pct: 1  },
+    { name: "Ecuador",            code: "EC", users: 3,   pct: 1  },
+    { name: "Honduras",           code: "HN", users: 3,   pct: 1  },
+    { name: "Belize",             code: "BZ", users: 2,   pct: 1  },
+    { name: "Nicaragua",          code: "NI", users: 2,   pct: 1  },
+    { name: "Bahamas",            code: "BS", users: 1,   pct: 0  },
+    { name: "Canada",             code: "CA", users: 1,   pct: 0  },
+    { name: "Jamaica",            code: "JM", users: 1,   pct: 0  },
+    { name: "Suriname",           code: "SR", users: 1,   pct: 0  },
   ],
   prompts_sample: [
     { text: "can you please summarize the general bank wide benefits?", rating: "down" },
@@ -98,8 +98,8 @@ const WEEK1 = {
   observations: [
     "Double down on Similar Projects — it is the most accessed category across all periods, organic and post-launch.",
     "The AI assistant is working — 2.7 prompts per user signals real engagement beyond a one-time trial.",
-    "Week 1 beat all organic records with 793 sessions and 370 unique users. This establishes a strong baseline for Q2 reporting.",
-    "Prompters are your power users — 130 out of 370 unique users (35%) used the AI assistant.",
+    "Week 1 beat all organic records with 757 sessions and 360 unique users. This establishes a strong baseline for Q2 reporting.",
+    "Prompters are your power users — 125 out of 360 unique users (35%) used the AI assistant.",
   ],
 };
 
@@ -314,7 +314,7 @@ function GeoMap() {
         Geographic Reach — Users by Country
       </div>
       <div style={{ fontSize: 10, color: INK3, marginBottom: 16 }}>
-        351 users · 25 countries · Mar 31 – Apr 10, 2026
+        360 users · 25 countries · Mar 31 – Apr 10, 2026
       </div>
 
       {/* HQ callout */}
@@ -323,15 +323,15 @@ function GeoMap() {
           <span style={{ fontSize: 22 }}>{flag("US")}</span>
           <div>
             <div style={{ fontSize: 12, fontWeight: 600, color: "#fff" }}>United States (HQ)</div>
-            <div style={{ fontSize: 10, color: "#a8c4e0" }}>217 users</div>
+            <div style={{ fontSize: 10, color: "#a8c4e0" }}>225 users</div>
           </div>
         </div>
         <div style={{ textAlign: "right" }}>
-          <div style={{ fontSize: 22, fontWeight: 700, color: "#fff", letterSpacing: "-0.02em" }}>62%</div>
+          <div style={{ fontSize: 22, fontWeight: 700, color: "#fff", letterSpacing: "-0.02em" }}>63%</div>
           <div style={{ fontSize: 9, color: "#a8c4e0" }}>of total</div>
         </div>
         <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: 99, height: 8, width: 120, overflow: "hidden" }}>
-          <div style={{ width: "62%", height: "100%", background: "#fff", borderRadius: 99 }} />
+          <div style={{ width: "63%", height: "100%", background: "#fff", borderRadius: 99 }} />
         </div>
       </div>
 
@@ -369,7 +369,7 @@ function GeoMap() {
         </div>
         <div style={{ textAlign: "right" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: BLUE_D, marginBottom: 2 }}>Users outside HQ</div>
-          <div style={{ fontSize: 14, fontWeight: 600, color: BLUE_D }}>134 users · 38%</div>
+          <div style={{ fontSize: 14, fontWeight: 600, color: BLUE_D }}>135 users · 37%</div>
         </div>
       </div>
     </div>
