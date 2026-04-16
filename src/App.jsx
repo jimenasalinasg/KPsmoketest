@@ -191,9 +191,35 @@ function StatusBadge({ value }) {
   );
 }
 
+// ── ORGANIC BENCHMARKS (Sep 2025 – Mar 28, 2026 · 15 periods avg) ──
+const BENCH = {
+  sessions: 280,
+  users: 102,
+  dropoff: 88,
+  highlighted: 204,
+  prompters: 48,
+  retention: 33,
+};
+
 // ── METRIC CARD ───────────────────────────────────────────
-function MetricCard({ label, value, desc, invert = false, isGood = null }) {
+function MetricCard({ label, value, desc, invert = false, bench }) {
   const hasValue = value != null;
+
+  // Calculate badge: compare numeric value to bench
+  let badge = null;
+  if (hasValue && bench != null) {
+    const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
+    if (!isNaN(numVal) && bench > 0) {
+      const ratio = numVal / bench;
+      const higher = ratio >= 1;
+      // For invert metrics (drop-off), higher is worse
+      const isGood = invert ? !higher : higher;
+      const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
+      const label2 = ratio >= 1 ? `↑ ${pctDiff}%` : `↓ ${pctDiff}%`;
+      badge = { label: label2, isGood, bench };
+    }
+  }
+
   return (
     <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
       <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9 }}>{label}</div>
@@ -202,6 +228,16 @@ function MetricCard({ label, value, desc, invert = false, isGood = null }) {
       </div>
       {!hasValue && <div style={{ fontSize: 10, color: INK3, fontStyle: "italic" }}>pending data</div>}
       {desc && hasValue && <div style={{ fontSize: 10, color: INK3, marginTop: 5, lineHeight: 1.5 }}>{desc}</div>}
+      {badge && (
+        <div style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 6 }}>
+          <span style={{
+            fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99,
+            background: badge.isGood ? "#edfaf4" : "#fef0ee",
+            color: badge.isGood ? GREEN : RED,
+          }}>{badge.label} vs organic avg</span>
+          <span style={{ fontSize: 9, color: INK3 }}>({badge.bench})</span>
+        </div>
+      )}
     </div>
   );
 }
@@ -465,13 +501,21 @@ function Week1({ data = WEEK1 }) {
 
       {/* KPIs */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 10, marginBottom: 16 }}>
-        <MetricCard label="Sessions" value={fmt(data.sessions)} desc={data.users ? `${data.users} unique users · one user can have multiple sessions` : null} />
-        <MetricCard label="Prompters" value={fmt(data.prompters)} desc={data.prompts ? `${data.prompts} prompts sent · users who engaged with the AI assistant` : null} />
-        <MetricCard label="Drop-off <10s" value={pct(data.dropoff)} desc="Sessions ending under 10s · lower is better" invert />
+        <MetricCard label="Sessions" value={fmt(data.sessions)} desc={data.users ? `${data.users} unique users · one user can have multiple sessions` : null} bench={BENCH.sessions} />
+        <MetricCard label="Prompters" value={fmt(data.prompters)} desc={data.prompts ? `${data.prompts} prompts sent · users who engaged with the AI assistant` : null} bench={BENCH.prompters} />
+        <MetricCard label="Drop-off <10s" value={pct(data.dropoff)} desc="Sessions ending under 10s · lower is better" invert bench={BENCH.dropoff} />
         {/* Content Engagement custom card */}
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9 }}>Content Engagement</div>
-          <div style={{ fontSize: 30, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 14 }}>{fmt(engagement)}</div>
+          <div style={{ fontSize: 30, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>{fmt(engagement)}</div>
+          {engagement != null && (
+            <div style={{ marginBottom: 10, display: "flex", alignItems: "center", gap: 6 }}>
+              <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: "#edfaf4", color: GREEN }}>
+                ↑ {Math.round(((engagement / (BENCH.highlighted)) - 1) * 100)}% vs organic avg
+              </span>
+              <span style={{ fontSize: 9, color: INK3 }}>({BENCH.highlighted} avg highlights)</span>
+            </div>
+          )}
 
           {/* Highlights bar */}
           <div style={{ marginBottom: 12 }}>
@@ -520,7 +564,7 @@ function Week1({ data = WEEK1 }) {
           </div>
         </div>
         <MetricCard label="Tour Completion" value={pct(data.tourCompletion)} desc="Users who finished the onboarding tour" />
-        <MetricCard label="Retention Rate" value={data.retention != null ? `${data.retention}%` : null} desc="Users who returned after their first visit · biweekly" />
+        <MetricCard label="Retention Rate" value={data.retention != null ? `${data.retention}%` : null} desc="Users who returned after their first visit · biweekly" bench={BENCH.retention} />
         {(data.thumbsUp != null || data.thumbsDown != null) && (
           <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9 }}>Response Feedback</div>
