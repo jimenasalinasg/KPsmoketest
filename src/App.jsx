@@ -192,37 +192,11 @@ function StatusBadge({ value }) {
 }
 
 // ── METRIC CARD ───────────────────────────────────────────
-// ── TOOLTIP ───────────────────────────────────────────────
-function Tooltip({ text }) {
-  const [show, setShow] = useState(false);
-  return (
-    <span style={{ position: "relative", display: "inline-flex", alignItems: "center", marginLeft: 5, cursor: "help" }}
-      onMouseEnter={() => setShow(true)}
-      onMouseLeave={() => setShow(false)}
-    >
-      <span style={{ fontSize: 9, color: INK3, border: `1px solid ${BDR}`, borderRadius: "50%", width: 13, height: 13, display: "inline-flex", alignItems: "center", justifyContent: "center", lineHeight: 1, fontWeight: 500 }}>i</span>
-      {show && (
-        <div style={{
-          position: "absolute", bottom: "calc(100% + 6px)", left: "50%", transform: "translateX(-50%)",
-          background: INK, color: "#fff", fontSize: 10, lineHeight: 1.5,
-          padding: "8px 10px", borderRadius: 7, whiteSpace: "normal", width: 200,
-          zIndex: 999, pointerEvents: "none", boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-        }}>
-          {text}
-          <div style={{ position: "absolute", top: "100%", left: "50%", transform: "translateX(-50%)", borderWidth: 5, borderStyle: "solid", borderColor: `${INK} transparent transparent transparent` }} />
-        </div>
-      )}
-    </span>
-  );
-}
-
-function MetricCard({ label, value, desc, invert = false, isGood = null, tooltip }) {
+function MetricCard({ label, value, desc, invert = false, isGood = null }) {
   const hasValue = value != null;
   return (
     <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
-      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9, display: "flex", alignItems: "center" }}>
-        {label}{tooltip && <Tooltip text={tooltip} />}
-      </div>
+      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9 }}>{label}</div>
       <div style={{ fontSize: 30, fontWeight: 500, color: hasValue ? INK : BDR, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>
         {hasValue ? value : "—"}
       </div>
@@ -491,9 +465,9 @@ function Week1({ data = WEEK1 }) {
 
       {/* KPIs */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 10, marginBottom: 16 }}>
-        <MetricCard label="Sessions" value={fmt(data.sessions)} desc={data.users ? `${data.users} unique users` : null} tooltip="Total number of visits to the platform. One user can have multiple sessions." />
-        <MetricCard label="Prompters" value={fmt(data.prompters)} desc={data.prompts ? `${data.prompts} prompts sent` : "Used the AI assistant"} tooltip="Users who sent at least one prompt to the Knowledge Assistant. Shows real AI engagement beyond browsing." />
-        <MetricCard label="Drop-off <10s" value={pct(data.dropoff)} desc="Left within 10 seconds" invert tooltip="Sessions that ended in under 10 seconds of active time. High % means users left before engaging. Lower is better." />
+        <MetricCard label="Sessions" value={fmt(data.sessions)} desc={data.users ? `${data.users} unique users · one user can have multiple sessions` : null} />
+        <MetricCard label="Prompters" value={fmt(data.prompters)} desc={data.prompts ? `${data.prompts} prompts sent · users who engaged with the AI assistant` : null} />
+        <MetricCard label="Drop-off <10s" value={pct(data.dropoff)} desc="Sessions ending under 10s · lower is better" invert />
         {/* Content Engagement custom card */}
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9 }}>Content Engagement</div>
@@ -545,8 +519,8 @@ function Week1({ data = WEEK1 }) {
             </div>
           </div>
         </div>
-        <MetricCard label="Tour Completion" value={pct(data.tourCompletion)} desc="Finished onboarding tour" tooltip="Percentage of users who completed the onboarding tour. Signals how well users are introduced to the platform's features." />
-        <MetricCard label="Retention Rate" value={data.retention != null ? `${data.retention}%` : null} desc="Returning users per week" tooltip="Percentage of users who came back to the platform after their first visit. Measures stickiness and recurring value." />
+        <MetricCard label="Tour Completion" value={pct(data.tourCompletion)} desc="Users who finished the onboarding tour" />
+        <MetricCard label="Retention Rate" value={data.retention != null ? `${data.retention}%` : null} desc="Users who returned after their first visit · biweekly" />
         {(data.thumbsUp != null || data.thumbsDown != null) && (
           <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9 }}>Response Feedback</div>
