@@ -199,6 +199,9 @@ const BENCH = {
   highlighted: 204,
   prompters: 48,
   retention: 33,
+  tourCompletion: 58,
+  pillTop: 25,
+  pillBot: 5,
 };
 
 // ── METRIC CARD ───────────────────────────────────────────
@@ -563,7 +566,7 @@ function Week1({ data = WEEK1 }) {
             </div>
           </div>
         </div>
-        <MetricCard label="Tour Completion" value={pct(data.tourCompletion)} desc="Users who finished the onboarding tour" />
+        <MetricCard label="Tour Completion" value={pct(data.tourCompletion)} desc="Users who finished the onboarding tour" bench={BENCH.tourCompletion} />
         <MetricCard label="Retention Rate" value={data.retention != null ? `${data.retention}%` : null} desc="Users who returned after their first visit · biweekly" bench={BENCH.retention} />
         {(data.thumbsUp != null || data.thumbsDown != null) && (
           <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
@@ -590,19 +593,35 @@ function Week1({ data = WEEK1 }) {
           Knowledge Categories
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          {[{ data: top, isTop: true, label: "Most accessed" }, { data: bot, isTop: false, label: "Least accessed" }].map(({ data, isTop, label }) => (
-            <div key={label} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 14px", background: isTop ? BLUE_L : BG, border: `1px solid ${isTop ? BLUE_M : BDR}`, borderRadius: 8, gap: 8 }}>
-              <div>
-                <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: isTop ? BLUE_D : INK3, marginBottom: 3 }}>{label}</div>
-                <div style={{ fontSize: 13, fontWeight: 500, color: isTop ? BLUE_D : INK2 }}>
-                  {data ? data.name : <span style={{ color: BDR, fontStyle: "italic", fontWeight: 400 }}>pending data</span>}
+          {[{ item: top, isTop: true, label: "Most accessed", bench: BENCH.pillTop }, { item: bot, isTop: false, label: "Least accessed", bench: BENCH.pillBot }].map(({ item, isTop, label, bench }) => {
+            const benchBadge = item?.count != null ? (() => {
+              const ratio = item.count / bench;
+              const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
+              const higher = ratio >= 1;
+              return { label: higher ? `↑ ${pctDiff}%` : `↓ ${pctDiff}%`, isGood: higher };
+            })() : null;
+            return (
+              <div key={label} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 14px", background: isTop ? BLUE_L : BG, border: `1px solid ${isTop ? BLUE_M : BDR}`, borderRadius: 8, gap: 8 }}>
+                <div>
+                  <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: isTop ? BLUE_D : INK3, marginBottom: 3 }}>{label}</div>
+                  <div style={{ fontSize: 13, fontWeight: 500, color: isTop ? BLUE_D : INK2 }}>
+                    {item ? item.name : <span style={{ color: BDR, fontStyle: "italic", fontWeight: 400 }}>pending data</span>}
+                  </div>
+                  {benchBadge && (
+                    <div style={{ marginTop: 5, display: "flex", alignItems: "center", gap: 5 }}>
+                      <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: benchBadge.isGood ? "#edfaf4" : "#fef0ee", color: benchBadge.isGood ? GREEN : RED }}>
+                        {benchBadge.label} vs organic avg
+                      </span>
+                      <span style={{ fontSize: 9, color: INK3 }}>({bench} avg)</span>
+                    </div>
+                  )}
                 </div>
+                {item?.count != null && (
+                  <span style={{ fontSize: 12, fontWeight: 500, color: isTop ? BLUE_D : INK3 }}>{item.count} interactions</span>
+                )}
               </div>
-              {data?.count != null && (
-                <span style={{ fontSize: 12, fontWeight: 500, color: isTop ? BLUE_D : INK3 }}>{data.count} interactions</span>
-              )}
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
