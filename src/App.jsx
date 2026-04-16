@@ -61,8 +61,8 @@ const WEEK1 = {
   pillTop: "Similar projects (45)",
   pillBot: "Institutional documents (14)",
   tourCompletion: 55,
-  thumbsUp: 1,
-  thumbsDown: 2,
+  thumbsUp: 2,
+  thumbsDown: 1,
   countries: [
     { name: "United States (HQ)", code: "US", users: 225, pct: 63 },
     { name: "Argentina",          code: "AR", users: 24,  pct: 7  },
@@ -92,7 +92,7 @@ const WEEK1 = {
   ],
   prompts_sample: [
     { text: "can you please summarize the general bank wide benefits?", rating: "down" },
-    { text: "dime las lecciones aprendidas que apuntan a problemas de efectividad en el desarrollo en operaciones de la división HNP", rating: "down" },
+    { text: "dime las lecciones aprendidas que apuntan a problemas de efectividad en el desarrollo en operaciones de la división HNP", rating: "up" },
     { text: "necesito dos proyectos de SCL/MIG", rating: "up" },
   ],
   observations: [
@@ -119,8 +119,8 @@ const WEEK12 = {
   pillTop: "Similar projects (51)",
   pillBot: "Institutional documents (15)",
   tourCompletion: 54,
-  thumbsUp: 1,
-  thumbsDown: 2,
+  thumbsUp: 2,
+  thumbsDown: 1,
   window: "Mar 31 – Apr 17, 2026",
   countries: [
     { name: "United States (HQ)", code: "US", users: 274, pct: 62 },
