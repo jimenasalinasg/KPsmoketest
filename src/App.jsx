@@ -61,9 +61,8 @@ const WEEK1 = {
   pillTop: "Similar projects (45)",
   pillBot: "Institutional documents (14)",
   tourCompletion: 55,
-  thumbsUp: 2,
+  thumbsUp: 1,
   thumbsDown: 2,
-  window: "Mar 31 – Apr 10, 2026",
   countries: [
     { name: "United States (HQ)", code: "US", users: 225, pct: 63 },
     { name: "Argentina",          code: "AR", users: 24,  pct: 7  },
@@ -93,7 +92,7 @@ const WEEK1 = {
   ],
   prompts_sample: [
     { text: "can you please summarize the general bank wide benefits?", rating: "down" },
-    { text: "dime las lecciones aprendidas que apuntan a problemas de efectividad en el desarrollo en operaciones de la división HNP", rating: "mixed" },
+    { text: "dime las lecciones aprendidas que apuntan a problemas de efectividad en el desarrollo en operaciones de la división HNP", rating: "down" },
     { text: "necesito dos proyectos de SCL/MIG", rating: "up" },
   ],
   observations: [
@@ -120,8 +119,8 @@ const WEEK12 = {
   pillTop: "Similar projects (51)",
   pillBot: "Institutional documents (15)",
   tourCompletion: 54,
-  thumbsUp: 2,
-  thumbsDown: 3,
+  thumbsUp: 1,
+  thumbsDown: 2,
   window: "Mar 31 – Apr 17, 2026",
   countries: [
     { name: "United States (HQ)", code: "US", users: 274, pct: 62 },
@@ -579,10 +578,35 @@ function Week1({ data = WEEK1 }) {
                 <div style={{ fontSize: 28, fontWeight: 500, color: RED, lineHeight: 1 }}>👎 {data.thumbsDown ?? "—"}</div>
               </div>
             </div>
-            <div style={{ fontSize: 10, color: INK3 }}>AI assistant responses rated</div>
+            <div style={{ fontSize: 10, color: INK3, marginBottom: 8 }}>AI assistant responses rated</div>
+            <div style={{ padding: "8px 12px", background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 7, fontSize: 9, color: "#92400e", lineHeight: 1.5 }}>
+              ⚠ Volume is still low to derive conclusions. This indicator will become meaningful from the second period onward.
+            </div>
           </div>
         )}
       </div>
+
+      {/* Sample Prompts */}
+      {data.prompts_sample?.length > 0 && (
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", marginBottom: 16 }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 14 }}>
+            Sample Prompts — Response Feedback
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {data.prompts_sample.map((p, i) => {
+              const icon = p.rating === "up" ? "👍" : p.rating === "down" ? "👎" : "👍👎";
+              const bg = p.rating === "up" ? "#edfaf4" : p.rating === "down" ? "#fef0ee" : "#fffbeb";
+              const border = p.rating === "up" ? "#a7f3d0" : p.rating === "down" ? "#fca5a5" : "#fde68a";
+              return (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 14px", background: bg, border: `1px solid ${border}`, borderRadius: 8 }}>
+                  <span style={{ fontSize: 16, flexShrink: 0 }}>{icon}</span>
+                  <span style={{ fontSize: 11, color: INK2, lineHeight: 1.5, fontStyle: "italic" }}>"{p.text}"</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Geographic map */}
       <GeoMap data={data} />
