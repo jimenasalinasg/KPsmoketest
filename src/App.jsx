@@ -121,6 +121,7 @@ const WEEK12 = {
   tourCompletion: 54,
   thumbsUp: 2,
   thumbsDown: 1,
+  sourcePanelClicks: 26,
   window: "Mar 31 – Apr 17, 2026",
   countries: [
     { name: "United States (HQ)", code: "US", users: 274, pct: 62 },
@@ -567,6 +568,9 @@ function Week1({ data = WEEK1 }) {
         </div>
         <MetricCard label="Tour Completion" value={pct(data.tourCompletion)} desc="Users who finished the onboarding tour" bench={BENCH.tourCompletion} />
         <MetricCard label="Retention Rate" value={data.retention != null ? `${data.retention}%` : null} desc="Users who returned after their first visit · biweekly" bench={BENCH.retention} />
+        {data.sourcePanelClicks != null && (
+          <MetricCard label="Source panel clicks" value={fmt(data.sourcePanelClicks)} desc="Clicks on source panel in Knowledge Assistant" />
+        )}
         {(data.thumbsUp != null || data.thumbsDown != null) && (
           <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9 }}>Response Feedback</div>
