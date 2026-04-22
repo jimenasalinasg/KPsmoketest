@@ -205,11 +205,16 @@ const BENCH = {
   // Monthly benchmarks (avg of organic biweekly periods Sep 2025–Mar 2026)
   monthly: {
     sessions: 502,
+    users: 502,
     prompts: 397,
     highlights: 380,
     copies: 158,
     sourceClicks: 142,
     pillPageviews: 932,
+    tourCompletion: 83,
+    retention: 32,
+    pillTop: 25,
+    pillBot: 5,
   },
 };
 
@@ -748,11 +753,11 @@ function EngagementCard({ highlighted, highlightedOpenSearch, copied, copiedOpen
 const APRIL = {
   sessions: 1118,
   users: 449,
-  prompters: 170,
+  prompters: 69,
   prompts: 132, // pending validation
   avgTime: "15.49s",
   dropoff: 92,
-  retention: 29.3,
+  retention: null,
   highlighted: 399,
   highlightedOpenSearch: 304,
   copied: 95,
@@ -766,8 +771,46 @@ const APRIL = {
   newUsers: 381,
   thumbsUp: 1,
   thumbsDown: 2,
-  topCountry: "Argentina",
-  topCountryCode: "AR",
+  topCountry: "Colombia",
+  topCountryCode: "CO",
+  totalCountries: 35,
+  countries: [
+    { name: "United States (HQ)", code: "US", users: 1000, pct: 57 },
+    { name: "Colombia",           code: "CO", users: 142,  pct: 8  },
+    { name: "Argentina",          code: "AR", users: 109,  pct: 6  },
+    { name: "Brazil",             code: "BR", users: 79,   pct: 4  },
+    { name: "Spain",              code: "ES", users: 50,   pct: 3  },
+    { name: "Peru",               code: "PE", users: 49,   pct: 3  },
+    { name: "Uruguay",            code: "UY", users: 49,   pct: 3  },
+    { name: "Netherlands",        code: "NL", users: 48,   pct: 3  },
+    { name: "Panama",             code: "PA", users: 39,   pct: 2  },
+    { name: "Paraguay",           code: "PY", users: 34,   pct: 2  },
+    { name: "Mexico",             code: "MX", users: 27,   pct: 1  },
+    { name: "El Salvador",        code: "SV", users: 23,   pct: 1  },
+    { name: "Bolivia",            code: "BO", users: 21,   pct: 1  },
+    { name: "Dominican Republic", code: "DO", users: 21,   pct: 1  },
+    { name: "Ecuador",            code: "EC", users: 20,   pct: 1  },
+    { name: "Chile",              code: "CL", users: 18,   pct: 0  },
+    { name: "Cayman Islands",     code: "KY", users: 16,   pct: 0  },
+    { name: "Honduras",           code: "HN", users: 15,   pct: 0  },
+    { name: "Jamaica",            code: "JM", users: 15,   pct: 0  },
+    { name: "Costa Rica",         code: "CR", users: 13,   pct: 0  },
+    { name: "Malta",              code: "MT", users: 13,   pct: 0  },
+    { name: "Trinidad & Tobago",  code: "TT", users: 13,   pct: 0  },
+    { name: "Barbados",           code: "BB", users: 12,   pct: 0  },
+    { name: "Guatemala",          code: "GT", users: 9,    pct: 0  },
+    { name: "Belize",             code: "BZ", users: 8,    pct: 0  },
+    { name: "Ireland",            code: "IE", users: 8,    pct: 0  },
+    { name: "Suriname",           code: "SR", users: 7,    pct: 0  },
+    { name: "Bahamas",            code: "BS", users: 5,    pct: 0  },
+    { name: "Nicaragua",          code: "NI", users: 4,    pct: 0  },
+    { name: "Canada",             code: "CA", users: 3,    pct: 0  },
+    { name: "Guyana",             code: "GY", users: 3,    pct: 0  },
+    { name: "United Kingdom",     code: "GB", users: 2,    pct: 0  },
+    { name: "Belgium",            code: "BE", users: 1,    pct: 0  },
+    { name: "Germany",            code: "DE", users: 1,    pct: 0  },
+    { name: "Venezuela",          code: "VE", users: 1,    pct: 0  },
+  ],
   promptGalleryClicks: 39,
   recentSearchClicks: 20,
   newSearchClicks: 4,
@@ -882,27 +925,69 @@ function Monthly() {
               <span>{APRIL.users} users</span><span>3,600 total</span>
             </div>
           </div>
-          <MCard label="Unique users" value={String(APRIL.users)} desc="Total for the period" accent />
+          <MCard label="Unique users" value={String(APRIL.users)} desc="Total for the period" accent bench={BENCH.monthly.users} />
           <MCard label="New users" value={String(APRIL.newUsers)} desc="First-time visitors" />
           <MCard label="Sessions" value={APRIL.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} />
-          <MCard label="% Onboarding completed" value={`${APRIL.tourCompletion}%`} desc="Users who finished the tour" />
-          <MCard label="% Returning users" value={`${APRIL.retention}%`} desc="Biweekly retention" />
-          <MCard label="Countries" value="—" desc="Geographic reach" />
-          <MCard label="Top country (excl. HQ)" value={APRIL.topCountry} desc="Pending count" flagCode={APRIL.topCountryCode} />
+          <MCard label="% Onboarding completed" value={`${APRIL.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
+          <MCard label="% Returning users" value={APRIL.retention != null ? `${APRIL.retention}%` : null} desc="Biweekly retention" bench={BENCH.monthly.retention} />
+          <MCard label="Countries" value={String(APRIL.totalCountries)} desc="Geographic reach" />
           <MCard label="CSAT — Customer Satisfaction Score" value="—" desc="Coming soon" />
         </Grid>
 
       </Section>
 
+      {/* Compact geo */}
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px", marginTop: 10 }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
+          🌎 Geographic Reach — {APRIL.users.toLocaleString()} users · {APRIL.totalCountries} countries
+        </div>
+        {/* HQ bar */}
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+          <span style={{ fontSize: 16, flexShrink: 0 }}>🇺🇸</span>
+          <div style={{ flex: 1 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
+              <span style={{ fontSize: 10, fontWeight: 600, color: INK2 }}>United States (HQ)</span>
+              <span style={{ fontSize: 10, color: INK3 }}>1,000 · 57%</span>
+            </div>
+            <div style={{ background: BG, borderRadius: 99, height: 6, overflow: "hidden" }}>
+              <div style={{ width: "57%", height: "100%", background: "#1464A0", borderRadius: 99 }} />
+            </div>
+          </div>
+        </div>
+        {/* Top 8 regional */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 16px" }}>
+          {APRIL.countries.filter(c => c.code !== "US").slice(0, 10).map((c, i) => {
+            const flag = (code) => [...code.toUpperCase()].map(ch => String.fromCodePoint(ch.charCodeAt(0) + 127397)).join("");
+            const maxUsers = APRIL.countries.filter(c => c.code !== "US")[0].users;
+            return (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
+                <span style={{ fontSize: 12, flexShrink: 0 }}>{flag(c.code)}</span>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 1 }}>
+                    <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
+                    <span style={{ fontSize: 9, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
+                  </div>
+                  <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
+                    <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: BLUE, borderRadius: 99 }} />
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic" }}>
+          + {APRIL.totalCountries - 11} more countries · {APRIL.countries.filter(c => c.code !== "US").slice(10).reduce((s, c) => s + c.users, 0)} users
+        </div>
+      </div>
+
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "24px 0" }} />
 
-      {/* ── CONTEXTUAL SEARCH ── */}
       <Section emoji="🔍" title="Contextual Search">
         <Grid cols="repeat(auto-fit, minmax(200px, 1fr))">
           <MCard label="Queries (pill views)" value={String(APRIL.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
-          <MCard label="Most used pill" value="Similar projects" desc="56 interactions" small />
-          <MCard label={<>Least used<br/>pill</>} value="Institutional documents" desc="16 interactions" small />
+          <MCard label="Most used pill — Similar projects" value="56" desc="interactions" small bench={BENCH.monthly.pillTop} />
+          <MCard label={<>Least used pill —<br/>Institutional docs</>} value="16" desc="interactions" small bench={BENCH.monthly.pillBot} />
         </Grid>
         <div style={{ marginTop: 10 }}>
           <EngagementCard
@@ -923,7 +1008,7 @@ function Monthly() {
       <Section emoji="🤖" title="Knowledge Assistant">
         <Grid>
           <MCard label="Sessions (Open Search)" value={String(APRIL.openSearchVisits)} desc="Visits to the Knowledge Assistant" bench={BENCH.monthly.sessions} />
-          <MCard label="Prompters (≥1 prompt)" value={String(APRIL.prompters)} desc="38% of unique users" accent />
+          <MCard label="Prompters (≥1 prompt)" value={String(APRIL.prompters)} desc={`${Math.round(APRIL.prompters/APRIL.users*100)}% of unique users`} accent />
           <MCard label="Prompts sent" value={String(APRIL.prompts)} desc="Pending validation" accent bench={BENCH.monthly.prompts} />
           <MCard label="Source panel clicks" value={String(APRIL.sourceClicks)} desc="Clicks on source panel" bench={BENCH.monthly.sourceClicks} />
           <MCard label="👍 Thumbs Up" value={String(APRIL.thumbsUp)} desc="Positively rated responses" />
@@ -986,20 +1071,6 @@ function Monthly() {
         </Grid>
       </Section>
 
-      {/* ── DIVIDER ── */}
-      <div style={{ borderTop: `2px solid ${BDR}`, margin: "24px 0" }} />
-
-      {/* ── QUALITATIVE OBSERVATIONS ── */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 14 }}>
-          💬 Qualitative Observations
-        </div>
-        {[1, 2, 3].map(i => (
-          <div key={i} style={{ padding: "12px 14px", background: BG, borderRadius: 8, borderLeft: `3px solid ${BDR}`, marginBottom: 8, minHeight: 44 }}>
-            <span style={{ fontSize: 10, color: BDR, fontStyle: "italic" }}>Observation {i} — pending</span>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
