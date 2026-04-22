@@ -32,7 +32,7 @@ const SMOKE = {
   sessions: 169,
   users: 112,
   prompters: 34,
-  prompts: 99,
+  prompts: 34,
   avgTime: "20.69s",
   dropoff: 90,
   highlighted: 239,
@@ -50,7 +50,7 @@ const WEEK1 = {
   sessions: 757,
   users: 360,
   prompters: 125,
-  prompts: 333,
+  prompts: 230,
   retention: 18.6,
   dropoff: 92,
   highlighted: 416,
@@ -108,7 +108,7 @@ const WEEK12 = {
   sessions: 1011,
   users: 439,
   prompters: 166,
-  prompts: 450,
+  prompts: 392,
   retention: 18.6,
   dropoff: 92,
   highlighted: 497,
@@ -210,8 +210,8 @@ const BENCH = {
     highlights: 380,
     copies: 158,
     sourceClicks: 142,
-    pillPageviews: 932,
-    tourCompletion: 83,
+    pillPageviews: 87,
+    tourCompletion: 58,
     retention: 32,
     pillTop: 25,
     pillBot: 5,
@@ -669,8 +669,6 @@ function Week1({ data = WEEK1 }) {
     </div>
   );
 }
-
-// ── ENGAGEMENT CARD (reusable for Monthly) ────────────────
 function EngagementCard({ highlighted, highlightedOpenSearch, copied, copiedOpenSearch, benchHighlights, benchCopies }) {
   const total = highlighted + copied;
   const hlContextual = highlighted - highlightedOpenSearch;
@@ -930,7 +928,6 @@ function Monthly() {
           <MCard label="Sessions" value={APRIL.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} />
           <MCard label="% Onboarding completed" value={`${APRIL.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
           <MCard label="% Returning users" value={APRIL.retention != null ? `${APRIL.retention}%` : null} desc="Biweekly retention" bench={BENCH.monthly.retention} />
-          <MCard label="Countries" value={String(APRIL.totalCountries)} desc="Geographic reach" />
           <MCard label="CSAT — Customer Satisfaction Score" value="—" desc="Coming soon" />
         </Grid>
 
@@ -941,43 +938,45 @@ function Monthly() {
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
           🌎 Geographic Reach — {APRIL.users.toLocaleString()} users · {APRIL.totalCountries} countries
         </div>
-        {/* HQ bar */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
-          <span style={{ fontSize: 16, flexShrink: 0 }}>🇺🇸</span>
+        {/* HQ bar — full width */}
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
+          <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
           <div style={{ flex: 1 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
-              <span style={{ fontSize: 10, fontWeight: 600, color: INK2 }}>United States (HQ)</span>
-              <span style={{ fontSize: 10, color: INK3 }}>1,000 · 57%</span>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
+              <span style={{ fontSize: 11, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
+              <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>1,000 · 57%</span>
             </div>
-            <div style={{ background: BG, borderRadius: 99, height: 6, overflow: "hidden" }}>
+            <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
               <div style={{ width: "57%", height: "100%", background: "#1464A0", borderRadius: 99 }} />
             </div>
           </div>
         </div>
-        {/* Top 8 regional */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 16px" }}>
-          {APRIL.countries.filter(c => c.code !== "US").slice(0, 10).map((c, i) => {
-            const flag = (code) => [...code.toUpperCase()].map(ch => String.fromCodePoint(ch.charCodeAt(0) + 127397)).join("");
-            const maxUsers = APRIL.countries.filter(c => c.code !== "US")[0].users;
-            return (
-              <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
-                <span style={{ fontSize: 12, flexShrink: 0 }}>{flag(c.code)}</span>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 1 }}>
-                    <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
-                    <span style={{ fontSize: 9, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
-                  </div>
-                  <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
-                    <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: BLUE, borderRadius: 99 }} />
+        {/* All regional countries — 3 columns */}
+        {(() => {
+          const regional = APRIL.countries.filter(c => c.code !== "US");
+          const maxUsers = regional[0].users;
+          const flag = (code) => [...code.toUpperCase()].map(ch => String.fromCodePoint(ch.charCodeAt(0) + 127397)).join("");
+          return (
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px 16px" }}>
+              {regional.map((c, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
+                  <span style={{ fontSize: 13, flexShrink: 0 }}>{flag(c.code)}</span>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
+                      <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
+                      <span style={{ fontSize: 9, color: INK3, flexShrink: 0, marginLeft: 4, fontVariantNumeric: "tabular-nums" }}>{c.users}</span>
+                    </div>
+                    <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
+                      <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%",
+                        background: c.users >= 100 ? "#1464A0" : c.users >= 40 ? "#2c6cb5" : c.users >= 15 ? BLUE : "#7ab3e0",
+                        borderRadius: 99 }} />
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-        <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic" }}>
-          + {APRIL.totalCountries - 11} more countries · {APRIL.countries.filter(c => c.code !== "US").slice(10).reduce((s, c) => s + c.users, 0)} users
-        </div>
+              ))}
+            </div>
+          );
+        })()}
       </div>
 
       {/* ── DIVIDER ── */}
@@ -1070,6 +1069,19 @@ function Monthly() {
           </div>
         </Grid>
       </Section>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "24px 0" }} />
+
+      {/* Signal */}
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", borderLeft: `3px solid ${BLUE}` }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 12 }}>
+          Signal — Prompt engagement pattern
+        </div>
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.7, margin: 0 }}>
+          The majority of prompters sent a single prompt during April, suggesting the platform is still in early exploration mode. A smaller but meaningful group sent between 2 and 5 prompts, signaling emerging habitual use. This pattern is typical of early adoption — the key metric to watch in coming periods is whether the recurring group grows as a share of total prompters.
+        </p>
+      </div>
 
     </div>
   );
