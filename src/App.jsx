@@ -999,8 +999,18 @@ function Monthly() {
           <MCard label="Prompters (≥1 prompt)" value={String(APRIL.prompters)} desc={`${Math.round(APRIL.prompters/APRIL.users*100)}% of unique users`} accent />
           <MCard label="Prompts sent" value={String(APRIL.prompts)} desc="Median: 1 per prompter" accent bench={BENCH.monthly.prompts} />
           <MCard label="Source panel clicks" value={String(APRIL.sourceClicks)} desc="Clicks on source panel" />
-          <MCard label="👍 Thumbs Up" value={String(APRIL.thumbsUp)} desc="Positively rated responses" />
-          <MCard label="👎 Thumbs Down" value={String(APRIL.thumbsDown)} desc="Negatively rated responses" />
+          <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
+            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
+            <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
+              <div>
+                <div style={{ fontSize: 28, fontWeight: 500, color: GREEN, letterSpacing: "-0.03em", lineHeight: 1 }}>👍 {APRIL.thumbsUp}</div>
+              </div>
+              <div>
+                <div style={{ fontSize: 28, fontWeight: 500, color: RED, letterSpacing: "-0.03em", lineHeight: 1 }}>👎 {APRIL.thumbsDown}</div>
+              </div>
+            </div>
+            <div style={{ fontSize: 9, color: INK3, marginTop: 8 }}>AI responses rated by users</div>
+          </div>
           <MCard label="Prompt Gallery clicks" value={String(APRIL.promptGalleryClicks)} />
           <MCard label="Recent Search clicks" value={String(APRIL.recentSearchClicks)} />
           <MCard label="New Search clicks" value={String(APRIL.newSearchClicks)} />
