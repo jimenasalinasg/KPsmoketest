@@ -206,7 +206,7 @@ const BENCH = {
   monthly: {
     sessions: 502,
     users: 502,
-    prompts: 397,
+    prompts: 264,
     highlights: 380,
     copies: 158,
     sourceClicks: 142,
@@ -752,7 +752,7 @@ const APRIL = {
   sessions: 1118,
   users: 449,
   prompters: 69,
-  prompts: 132, // pending validation
+  prompts: 429,
   avgTime: "15.49s",
   dropoff: 92,
   retention: null,
@@ -988,27 +988,16 @@ function Monthly() {
           <MCard label="Most used pill — Similar projects" value="56" desc="interactions" small bench={BENCH.monthly.pillTop} />
           <MCard label={<>Least used pill —<br/>Institutional docs</>} value="16" desc="interactions" small bench={BENCH.monthly.pillBot} />
         </Grid>
-        <div style={{ marginTop: 10 }}>
-          <EngagementCard
-            highlighted={APRIL.highlighted}
-            highlightedOpenSearch={APRIL.highlightedOpenSearch}
-            copied={APRIL.copied}
-            copiedOpenSearch={APRIL.copiedOpenSearch}
-            benchHighlights={BENCH.monthly.highlights}
-            benchCopies={BENCH.monthly.copies}
-          />
-        </div>
       </Section>
 
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "24px 0" }} />
 
-      {/* ── KNOWLEDGE ASSISTANT ── */}
-      <Section emoji="🤖" title="Knowledge Assistant">
+      <Section emoji="🤖" title="Knowledge Assistant (Open Search)">
         <Grid>
           <MCard label="Sessions (Open Search)" value={String(APRIL.openSearchVisits)} desc="Visits to the Knowledge Assistant" bench={BENCH.monthly.sessions} />
           <MCard label="Prompters (≥1 prompt)" value={String(APRIL.prompters)} desc={`${Math.round(APRIL.prompters/APRIL.users*100)}% of unique users`} accent />
-          <MCard label="Prompts sent" value={String(APRIL.prompts)} desc="Pending validation" accent bench={BENCH.monthly.prompts} />
+          <MCard label="Prompts sent" value={String(APRIL.prompts)} desc={`${Math.round(APRIL.prompts/APRIL.prompters*100)/100 > 0 ? (APRIL.prompts/APRIL.prompters).toFixed(1) : '—'} per prompter`} accent bench={BENCH.monthly.prompts} />
           <MCard label="Source panel clicks" value={String(APRIL.sourceClicks)} desc="Clicks on source panel" bench={BENCH.monthly.sourceClicks} />
           <MCard label="👍 Thumbs Up" value={String(APRIL.thumbsUp)} desc="Positively rated responses" />
           <MCard label="👎 Thumbs Down" value={String(APRIL.thumbsDown)} desc="Negatively rated responses" />
