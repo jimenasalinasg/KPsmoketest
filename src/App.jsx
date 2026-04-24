@@ -205,7 +205,7 @@ const BENCH = {
   // Monthly benchmarks (avg of organic biweekly periods Sep 2025–Mar 2026)
   monthly: {
     sessions: 502,
-    users: 502,
+    users: 192,
     prompts: 264,
     highlights: 380,
     copies: 158,
@@ -923,7 +923,7 @@ function Monthly() {
               <span>{APRIL.users} users</span><span>3,600 total</span>
             </div>
           </div>
-          <MCard label="Unique users" value={String(APRIL.users)} desc="Total for the period" accent bench={BENCH.monthly.users} />
+          <MCard label="Users reached" value={String(APRIL.users)} desc="Total for the period" accent bench={BENCH.monthly.users} />
           <MCard label="New users" value={String(APRIL.newUsers)} desc="First-time visitors" />
           <MCard label="Sessions" value={APRIL.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} />
           <MCard label="% Onboarding completed" value={`${APRIL.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
@@ -997,8 +997,8 @@ function Monthly() {
         <Grid>
           <MCard label="Sessions (Open Search)" value={String(APRIL.openSearchVisits)} desc="Visits to the Knowledge Assistant" bench={BENCH.monthly.sessions} />
           <MCard label="Prompters (≥1 prompt)" value={String(APRIL.prompters)} desc={`${Math.round(APRIL.prompters/APRIL.users*100)}% of unique users`} accent />
-          <MCard label="Prompts sent" value={String(APRIL.prompts)} desc={`${Math.round(APRIL.prompts/APRIL.prompters*100)/100 > 0 ? (APRIL.prompts/APRIL.prompters).toFixed(1) : '—'} per prompter`} accent bench={BENCH.monthly.prompts} />
-          <MCard label="Source panel clicks" value={String(APRIL.sourceClicks)} desc="Clicks on source panel" bench={BENCH.monthly.sourceClicks} />
+          <MCard label="Prompts sent" value={String(APRIL.prompts)} desc="Median: 1 per prompter" accent bench={BENCH.monthly.prompts} />
+          <MCard label="Source panel clicks" value={String(APRIL.sourceClicks)} desc="Clicks on source panel" />
           <MCard label="👍 Thumbs Up" value={String(APRIL.thumbsUp)} desc="Positively rated responses" />
           <MCard label="👎 Thumbs Down" value={String(APRIL.thumbsDown)} desc="Negatively rated responses" />
           <MCard label="Prompt Gallery clicks" value={String(APRIL.promptGalleryClicks)} />
