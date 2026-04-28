@@ -1031,7 +1031,13 @@ function Monthly() {
       {/* ── LWA ── */}
       <Section emoji="📝" title="Lessons Writing Assistant (LWA)">
 
-        <div style={{ fontSize: 9, color: INK3, marginBottom: 10, fontStyle: "italic" }}>Adoption</div>
+        {/* Context block */}
+        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "12px 16px", marginBottom: 14 }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 6 }}>Context — Q1 2026 Institutional baseline</div>
+          <p style={{ fontSize: 11, color: BLUE_D, lineHeight: 1.6, margin: 0 }}>
+            During Q1 2026, <strong>784 lessons</strong> were created across <strong>452 operations</strong> registered in the Client Portal — independent of the KP platform. This provides important context: LWA usage within KP represents an emerging channel alongside existing institutional lesson-creation practices.
+          </p>
+        </div>
         <Grid cols="repeat(auto-fit, minmax(150px, 1fr))">
           <MCard label="LWA visits" value={String(APRIL.lwa.visits)} accent />
           <MCard label="Unique users" value={String(APRIL.lwa.uniqueUsers)} accent />
