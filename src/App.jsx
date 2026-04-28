@@ -749,24 +749,24 @@ function EngagementCard({ highlighted, highlightedOpenSearch, copied, copiedOpen
 // ── MONTHLY REPORT ────────────────────────────────────────
 // April 2026 data (partial — through Apr 21)
 const APRIL = {
-  sessions: 1118,
-  users: 449,
-  prompters: 69,
-  prompts: 429,
-  avgTime: "15.49s",
+  sessions: 1446,
+  users: 552,
+  prompters: 206,
+  prompts: 77, // partial — to be updated
+  avgTime: "15.65s",
   dropoff: 92,
-  retention: null,
-  highlighted: 399,
-  highlightedOpenSearch: 304,
-  copied: 95,
-  copiedOpenSearch: 65,
-  sourceClicks: 28,
-  pillPageviews: 166,
-  pillTop: "Similar projects (56)",
-  pillBot: "Institutional documents (16)",
-  openSearchVisits: 577,
-  tourCompletion: 55,
-  newUsers: 381,
+  retention: 16.7,
+  highlighted: 494,
+  highlightedOpenSearch: 336,
+  copied: 123,
+  copiedOpenSearch: 75,
+  sourceClicks: 39,
+  pillPageviews: 228,
+  pillTop: "Similar projects (77)",
+  pillBot: "Institutional documents (18)",
+  openSearchVisits: 634,
+  tourCompletion: 56,
+  newUsers: 490,
   thumbsUp: 1,
   thumbsDown: 2,
   topCountry: "Colombia",
@@ -809,29 +809,28 @@ const APRIL = {
     { name: "Germany",            code: "DE", users: 1,    pct: 0  },
     { name: "Venezuela",          code: "VE", users: 1,    pct: 0  },
   ],
-  promptGalleryClicks: 39,
-  recentSearchClicks: 20,
+  promptGalleryClicks: 42,
+  recentSearchClicks: 21,
   newSearchClicks: 4,
   lwa: {
-    visits: 65,
-    bounce: 33,
-    uniqueUsers: 38,
-    usersCreated: 2,
-    lessonsStartedTotal: 28,
-    lessonsStartedExecution: 20,
-    lessonsStartedPCR: 8,
-    edited: 3,
-    completed: 5,
-    avgTime: "42m 46s",
+    visits: 113,
+    uniqueUsers: 56,
+    usersCreated: 3,
+    lessonsStartedTotal: 44,
+    lessonsStartedExecution: 31,
+    lessonsStartedPCR: 13,
+    edited: 6,
+    completed: 7,
+    avgTime: "36m 46s",
     copiesButton: 2,
-    copiesCursor: 3,
-    copiesCombined: 5,
-    pctReviewed: 60,
+    copiesCursor: 6,
+    copiesCombined: 8,
+    pctReviewed: 86,
   },
 };
 
 function Monthly() {
-  const MONTH = "April 2026";
+  const MONTH = "April 2026 — through Apr 28";
 
   const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
 
@@ -905,7 +904,7 @@ function Monthly() {
         <span style={{ fontSize: 14 }}>⚠️</span>
         <div>
           <div style={{ fontSize: 11, fontWeight: 600, color: "#92400e" }}>Metrics in progress</div>
-          <div style={{ fontSize: 10, color: "#b45309", marginTop: 2 }}>April data is partial — through Apr 21, 2026. Some figures are pending validation. Final numbers will be updated at month close.</div>
+          <div style={{ fontSize: 10, color: "#b45309", marginTop: 2 }}>April data is partial — through Apr 28, 2026. Some figures are pending validation. Final numbers will be updated at month close.</div>
         </div>
       </div>
 
@@ -928,7 +927,7 @@ function Monthly() {
           <MCard label="Sessions" value={APRIL.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} />
           <MCard label="% Onboarding completed" value={`${APRIL.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
           <MCard label="% Returning users" value={APRIL.retention != null ? `${APRIL.retention}%` : null} desc="Biweekly retention" bench={BENCH.monthly.retention} />
-          <MCard label="CSAT — Customer Satisfaction Score" value="—" desc="Coming soon" />
+          <MCard label="CSAT — Customer Satisfaction Score" value="75%" desc="out of 5 responses" />
         </Grid>
 
       </Section>
@@ -1077,8 +1076,14 @@ function Monthly() {
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 12 }}>
           Signal — Prompt engagement pattern
         </div>
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.7, margin: "0 0 12px 0" }}>
+          Most prompters sent a single prompt in April, consistent with early adoption behavior. A smaller group is developing recurring use (2–5 prompts). Watch the share of repeat prompters as the key indicator of platform stickiness in coming months.
+        </p>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+          Signal — LWA quality shift
+        </div>
         <p style={{ fontSize: 12, color: INK2, lineHeight: 1.7, margin: 0 }}>
-          The majority of prompters sent a single prompt during April, suggesting the platform is still in early exploration mode. A smaller but meaningful group sent between 2 and 5 prompts, signaling emerging habitual use. This pattern is typical of early adoption — the key metric to watch in coming periods is whether the recurring group grows as a share of total prompters.
+          86% of lessons were reviewed before completion in April (up from 3% in March), suggesting users are engaging more deliberately with the AI output rather than publishing as-is. Average time to save also increased to 36m — a sign of higher-effort, higher-quality lesson creation.
         </p>
       </div>
 
