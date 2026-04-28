@@ -750,7 +750,7 @@ function EngagementCard({ highlighted, highlightedOpenSearch, copied, copiedOpen
 // April 2026 data (partial — through Apr 21)
 const APRIL = {
   sessions: 1446,
-  users: 552,
+  users: 555,
   prompters: 206,
   prompts: 77, // partial — to be updated
   avgTime: "15.65s",
@@ -769,44 +769,43 @@ const APRIL = {
   newUsers: 490,
   thumbsUp: 1,
   thumbsDown: 2,
-  topCountry: "Colombia",
-  topCountryCode: "CO",
-  totalCountries: 35,
+  topCountry: "Argentina",
+  topCountryCode: "AR",
+  totalCountries: 34,
   countries: [
-    { name: "United States (HQ)", code: "US", users: 1000, pct: 57 },
-    { name: "Colombia",           code: "CO", users: 142,  pct: 8  },
-    { name: "Argentina",          code: "AR", users: 109,  pct: 6  },
-    { name: "Brazil",             code: "BR", users: 79,   pct: 4  },
-    { name: "Spain",              code: "ES", users: 50,   pct: 3  },
-    { name: "Peru",               code: "PE", users: 49,   pct: 3  },
-    { name: "Uruguay",            code: "UY", users: 49,   pct: 3  },
-    { name: "Netherlands",        code: "NL", users: 48,   pct: 3  },
-    { name: "Panama",             code: "PA", users: 39,   pct: 2  },
-    { name: "Paraguay",           code: "PY", users: 34,   pct: 2  },
-    { name: "Mexico",             code: "MX", users: 27,   pct: 1  },
-    { name: "El Salvador",        code: "SV", users: 23,   pct: 1  },
-    { name: "Bolivia",            code: "BO", users: 21,   pct: 1  },
-    { name: "Dominican Republic", code: "DO", users: 21,   pct: 1  },
-    { name: "Ecuador",            code: "EC", users: 20,   pct: 1  },
-    { name: "Chile",              code: "CL", users: 18,   pct: 0  },
-    { name: "Cayman Islands",     code: "KY", users: 16,   pct: 0  },
-    { name: "Honduras",           code: "HN", users: 15,   pct: 0  },
-    { name: "Jamaica",            code: "JM", users: 15,   pct: 0  },
-    { name: "Costa Rica",         code: "CR", users: 13,   pct: 0  },
-    { name: "Malta",              code: "MT", users: 13,   pct: 0  },
-    { name: "Trinidad & Tobago",  code: "TT", users: 13,   pct: 0  },
-    { name: "Barbados",           code: "BB", users: 12,   pct: 0  },
-    { name: "Guatemala",          code: "GT", users: 9,    pct: 0  },
-    { name: "Belize",             code: "BZ", users: 8,    pct: 0  },
-    { name: "Ireland",            code: "IE", users: 8,    pct: 0  },
-    { name: "Suriname",           code: "SR", users: 7,    pct: 0  },
-    { name: "Bahamas",            code: "BS", users: 5,    pct: 0  },
+    { name: "United States (HQ)", code: "US", users: 818,  pct: 58 },
+    { name: "Argentina",          code: "AR", users: 88,   pct: 6  },
+    { name: "Brazil",             code: "BR", users: 78,   pct: 6  },
+    { name: "Colombia",           code: "CO", users: 64,   pct: 5  },
+    { name: "Uruguay",            code: "UY", users: 38,   pct: 3  },
+    { name: "Peru",               code: "PE", users: 37,   pct: 3  },
+    { name: "Panama",             code: "PA", users: 36,   pct: 3  },
+    { name: "Spain",              code: "ES", users: 24,   pct: 2  },
+    { name: "Paraguay",           code: "PY", users: 23,   pct: 2  },
+    { name: "El Salvador",        code: "SV", users: 20,   pct: 1  },
+    { name: "Mexico",             code: "MX", users: 20,   pct: 1  },
+    { name: "Ecuador",            code: "EC", users: 17,   pct: 1  },
+    { name: "Dominican Republic", code: "DO", users: 15,   pct: 1  },
+    { name: "Bolivia",            code: "BO", users: 13,   pct: 1  },
+    { name: "Chile",              code: "CL", users: 13,   pct: 1  },
+    { name: "Honduras",           code: "HN", users: 12,   pct: 1  },
+    { name: "Jamaica",            code: "JM", users: 12,   pct: 1  },
+    { name: "Costa Rica",         code: "CR", users: 11,   pct: 1  },
+    { name: "Trinidad & Tobago",  code: "TT", users: 11,   pct: 1  },
+    { name: "Cayman Islands",     code: "KY", users: 10,   pct: 1  },
+    { name: "Barbados",           code: "BB", users: 9,    pct: 1  },
+    { name: "Guatemala",          code: "GT", users: 9,    pct: 1  },
+    { name: "Belize",             code: "BZ", users: 6,    pct: 0  },
+    { name: "Suriname",           code: "SR", users: 5,    pct: 0  },
+    { name: "Bahamas",            code: "BS", users: 4,    pct: 0  },
+    { name: "Canada",             code: "CA", users: 4,    pct: 0  },
+    { name: "Guyana",             code: "GY", users: 4,    pct: 0  },
     { name: "Nicaragua",          code: "NI", users: 4,    pct: 0  },
-    { name: "Canada",             code: "CA", users: 3,    pct: 0  },
-    { name: "Guyana",             code: "GY", users: 3,    pct: 0  },
     { name: "United Kingdom",     code: "GB", users: 2,    pct: 0  },
     { name: "Belgium",            code: "BE", users: 1,    pct: 0  },
     { name: "Germany",            code: "DE", users: 1,    pct: 0  },
+    { name: "Haiti",              code: "HT", users: 1,    pct: 0  },
+    { name: "Portugal",           code: "PT", users: 1,    pct: 0  },
     { name: "Venezuela",          code: "VE", users: 1,    pct: 0  },
   ],
   promptGalleryClicks: 42,
@@ -943,10 +942,10 @@ function Monthly() {
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
               <span style={{ fontSize: 11, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
-              <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>1,000 · 57%</span>
+              <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>818 · 58%</span>
             </div>
             <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
-              <div style={{ width: "57%", height: "100%", background: "#1464A0", borderRadius: 99 }} />
+              <div style={{ width: "58%", height: "100%", background: "#1464A0", borderRadius: 99 }} />
             </div>
           </div>
         </div>
