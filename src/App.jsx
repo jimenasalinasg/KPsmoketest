@@ -133,8 +133,8 @@ const WEEK12 = {
     { name: "Panama",             code: "PA", users: 10,  pct: 2  },
     { name: "Cayman Islands",     code: "KY", users: 9,   pct: 2  },
     { name: "El Salvador",        code: "SV", users: 7,   pct: 2  },
-    { name: "Mexico",             code: "MX", users: 6,   pct: 1  },
-    { name: "Trinidad & Tobago",  code: "TT", users: 6,   pct: 1  },
+    { name: "Mexico",             code: "MX", users: 7,   pct: 1  },
+    { name: "Trinidad & Tobago",  code: "TT", users: 7,   pct: 1  },
     { name: "Barbados",           code: "BB", users: 5,   pct: 1  },
     { name: "Chile",              code: "CL", users: 5,   pct: 1  },
     { name: "Paraguay",           code: "PY", users: 5,   pct: 1  },
@@ -749,26 +749,26 @@ function EngagementCard({ highlighted, highlightedOpenSearch, copied, copiedOpen
 // ── MONTHLY REPORT ────────────────────────────────────────
 // April 2026 data (partial — through Apr 21)
 const APRIL = {
-  sessions: 1446,
-  users: 555,
-  prompters: 206,
+  sessions: 1582,
+  users: 578,
+  prompters: 222,
   prompts: 77, // partial — to be updated
-  avgTime: "15.65s",
+  avgTime: "16.02s",
   dropoff: 92,
   retention: 16.7,
-  highlighted: 494,
-  highlightedOpenSearch: 336,
-  copied: 123,
-  copiedOpenSearch: 75,
+  highlighted: 540,
+  highlightedOpenSearch: 364,
+  copied: 149,
+  copiedOpenSearch: 89,
   sourceClicks: 39,
-  pillPageviews: 228,
-  pillTop: "Similar projects (77)",
-  pillBot: "Institutional documents (18)",
-  openSearchVisits: 634,
-  tourCompletion: 56,
-  newUsers: 490,
+  pillPageviews: 253,
+  pillTop: "Similar projects (78)",
+  pillBot: "Institutional documents (20)",
+  openSearchVisits: 651,
+  tourCompletion: 55,
+  newUsers: 487,
   thumbsUp: 1,
-  thumbsDown: 2,
+  thumbsDown: 3,
   topCountry: "Argentina",
   topCountryCode: "AR",
   totalCountries: 34,
@@ -812,24 +812,24 @@ const APRIL = {
   recentSearchClicks: 21,
   newSearchClicks: 4,
   lwa: {
-    visits: 113,
-    uniqueUsers: 56,
-    usersCreated: 3,
-    lessonsStartedTotal: 44,
-    lessonsStartedExecution: 31,
-    lessonsStartedPCR: 13,
-    edited: 6,
-    completed: 7,
-    avgTime: "36m 46s",
-    copiesButton: 2,
-    copiesCursor: 6,
-    copiesCombined: 8,
-    pctReviewed: 86,
+    visits: 138,
+    uniqueUsers: 58,
+    usersCreated: 4,
+    lessonsStartedTotal: 49,
+    lessonsStartedExecution: 34,
+    lessonsStartedPCR: 15,
+    edited: 8,
+    completed: 9,
+    avgTime: "30m 13s",
+    copiesButton: 4,
+    copiesCursor: 7,
+    copiesCombined: 11,
+    pctReviewed: 89,
   },
 };
 
 function Monthly() {
-  const MONTH = "April 2026 — through Apr 28";
+  const MONTH = "April 2026 — through Apr 29";
 
   const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
 
@@ -903,7 +903,7 @@ function Monthly() {
         <span style={{ fontSize: 14 }}>⚠️</span>
         <div>
           <div style={{ fontSize: 11, fontWeight: 600, color: "#92400e" }}>Metrics in progress</div>
-          <div style={{ fontSize: 10, color: "#b45309", marginTop: 2 }}>April data is partial — through Apr 28, 2026. Some figures are pending validation. Final numbers will be updated at month close.</div>
+          <div style={{ fontSize: 10, color: "#b45309", marginTop: 2 }}>April data is partial — through Apr 29, 2026. Some figures are pending validation. Final numbers will be updated at month close.</div>
         </div>
       </div>
 
@@ -995,7 +995,7 @@ function Monthly() {
         <Grid>
           <MCard label="Sessions (Open Search)" value={String(APRIL.openSearchVisits)} desc="Visits to the Knowledge Assistant" bench={BENCH.monthly.sessions} />
           <MCard label="Prompters (≥1 prompt)" value={String(APRIL.prompters)} desc={`${Math.round(APRIL.prompters/APRIL.users*100)}% of unique users`} accent />
-          <MCard label="Prompts sent" value={String(APRIL.prompts)} desc="Median: 1 per prompter" accent bench={BENCH.monthly.prompts} />
+          <MCard label="Prompts sent" value={String(APRIL.prompts)} desc="Median: 1 per prompter" accent />
           <MCard label="Source panel clicks" value={String(APRIL.sourceClicks)} desc="Clicks on source panel" />
           <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
