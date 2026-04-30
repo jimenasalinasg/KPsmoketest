@@ -64,7 +64,7 @@ const WEEK1 = {
   thumbsUp: 2,
   thumbsDown: 1,
   countries: [
-    { name: "United States (HQ)", code: "US", users: 225, pct: 63 },
+    { name: "United States (HQ)", code: "US", users: 335, pct: 58 },
     { name: "Argentina",          code: "AR", users: 24,  pct: 7  },
     { name: "Brazil",             code: "BR", users: 15,  pct: 4  },
     { name: "Uruguay",            code: "UY", users: 14,  pct: 4  },
@@ -83,7 +83,7 @@ const WEEK1 = {
     { name: "Dominican Republic", code: "DO", users: 3,   pct: 1  },
     { name: "Ecuador",            code: "EC", users: 3,   pct: 1  },
     { name: "Honduras",           code: "HN", users: 3,   pct: 1  },
-    { name: "Belize",             code: "BZ", users: 2,   pct: 1  },
+    { name: "Belize",             code: "BZ", users: 4,   pct: 1  },
     { name: "Nicaragua",          code: "NI", users: 2,   pct: 1  },
     { name: "Bahamas",            code: "BS", users: 1,   pct: 0  },
     { name: "Canada",             code: "CA", users: 1,   pct: 0  },
@@ -124,7 +124,7 @@ const WEEK12 = {
   sourcePanelClicks: 26,
   window: "Mar 31 – Apr 17, 2026",
   countries: [
-    { name: "United States (HQ)", code: "US", users: 274, pct: 62 },
+    { name: "United States (HQ)", code: "US", users: 335, pct: 58 },
     { name: "Argentina",          code: "AR", users: 26,  pct: 6  },
     { name: "Brazil",             code: "BR", users: 20,  pct: 5  },
     { name: "Peru",               code: "PE", users: 17,  pct: 4  },
@@ -144,7 +144,7 @@ const WEEK12 = {
     { name: "Dominican Republic", code: "DO", users: 3,   pct: 0  },
     { name: "Ecuador",            code: "EC", users: 3,   pct: 0  },
     { name: "Jamaica",            code: "JM", users: 3,   pct: 0  },
-    { name: "Belize",             code: "BZ", users: 2,   pct: 0  },
+    { name: "Belize",             code: "BZ", users: 4,   pct: 1  },
     { name: "Canada",             code: "CA", users: 2,   pct: 0  },
     { name: "Guatemala",          code: "GT", users: 2,   pct: 0  },
     { name: "Nicaragua",          code: "NI", users: 2,   pct: 0  },
@@ -207,6 +207,7 @@ const BENCH = {
     sessions: 502,
     users: 192,
     prompts: 264,
+    prompters: 96,
     highlights: 380,
     copies: 158,
     sourceClicks: 142,
@@ -749,24 +750,24 @@ function EngagementCard({ highlighted, highlightedOpenSearch, copied, copiedOpen
 // ── MONTHLY REPORT ────────────────────────────────────────
 // April 2026 data (partial — through Apr 21)
 const APRIL = {
-  sessions: 1582,
-  users: 578,
-  prompters: 222,
-  prompts: 77, // partial — to be updated
-  avgTime: "16.02s",
+  sessions: 1600,
+  users: 581,
+  prompters: 223,
+  prompts: 429,
+  avgTime: "16.23s",
   dropoff: 92,
-  retention: 16.7,
-  highlighted: 540,
-  highlightedOpenSearch: 364,
-  copied: 149,
-  copiedOpenSearch: 89,
-  sourceClicks: 39,
+  retention: 13.67,
+  highlighted: 560,
+  highlightedOpenSearch: 382,
+  copied: 162,
+  copiedOpenSearch: 100,
+  sourceClicks: 52,
   pillPageviews: 253,
   pillTop: "Similar projects (78)",
   pillBot: "Institutional documents (20)",
-  openSearchVisits: 651,
+  openSearchVisits: 653,
   tourCompletion: 55,
-  newUsers: 487,
+  newUsers: 489,
   thumbsUp: 1,
   thumbsDown: 3,
   topCountry: "Argentina",
@@ -795,7 +796,7 @@ const APRIL = {
     { name: "Cayman Islands",     code: "KY", users: 10,   pct: 1  },
     { name: "Barbados",           code: "BB", users: 9,    pct: 1  },
     { name: "Guatemala",          code: "GT", users: 9,    pct: 1  },
-    { name: "Belize",             code: "BZ", users: 6,    pct: 0  },
+    { name: "Belize",             code: "BZ", users: 4,   pct: 1  },
     { name: "Suriname",           code: "SR", users: 5,    pct: 0  },
     { name: "Bahamas",            code: "BS", users: 4,    pct: 0  },
     { name: "Canada",             code: "CA", users: 4,    pct: 0  },
@@ -812,24 +813,24 @@ const APRIL = {
   recentSearchClicks: 21,
   newSearchClicks: 4,
   lwa: {
-    visits: 138,
+    visits: 145,
     uniqueUsers: 58,
     usersCreated: 4,
-    lessonsStartedTotal: 49,
-    lessonsStartedExecution: 34,
+    lessonsStartedTotal: 51,
+    lessonsStartedExecution: 36,
     lessonsStartedPCR: 15,
-    edited: 8,
+    edited: 9,
     completed: 9,
     avgTime: "30m 13s",
     copiesButton: 4,
-    copiesCursor: 7,
-    copiesCombined: 11,
-    pctReviewed: 89,
+    copiesCursor: 8,
+    copiesCombined: 12,
+    pctReviewed: 100,
   },
 };
 
 function Monthly() {
-  const MONTH = "April 2026 — through Apr 29";
+  const MONTH = "April 2026 — through Apr 30";
 
   const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
 
@@ -892,19 +893,31 @@ function Monthly() {
     <div style={{ maxWidth: 900, margin: "0 auto", padding: "28px 16px 56px" }}>
 
       {/* Header */}
-      <div style={{ marginBottom: 28 }}>
-        <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
-        <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
-        <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory</div>
-      </div>
-
-      {/* Metrics in progress banner */}
-      <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 8, padding: "10px 16px", marginBottom: 24, display: "flex", alignItems: "center", gap: 10 }}>
-        <span style={{ fontSize: 14 }}>⚠️</span>
+      <div style={{ marginBottom: 20, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
         <div>
-          <div style={{ fontSize: 11, fontWeight: 600, color: "#92400e" }}>Metrics in progress</div>
-          <div style={{ fontSize: 10, color: "#b45309", marginTop: 2 }}>April data is partial — through Apr 29, 2026. Some figures are pending validation. Final numbers will be updated at month close.</div>
+          <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
+          <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
+          <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory</div>
         </div>
+        <button
+          onClick={() => {
+            const rows = [
+              ["Month","Sessions","Users Reached","New Users","Prompters","Prompts","Highlights Total","Highlights Open Search","Copies Total","Copies Open Search","Source Clicks","Pill Pageviews","Pill Top","Pill Bot","Open Search Visits","Tour Completion %","Retention %","Thumbs Up","Thumbs Down","CSAT","Prompt Gallery Clicks","Recent Search Clicks","New Search Clicks","LWA Visits","LWA Unique Users","LWA Users Created","LWA Lessons Started","LWA Lessons Execution","LWA Lessons PCR","LWA Completed","LWA Edited","LWA Avg Time","LWA Copies Combined","LWA Copies Button","LWA Copies Cursor","LWA % Reviewed"],
+              [MONTH, APRIL.sessions, APRIL.users, APRIL.newUsers, APRIL.prompters, APRIL.prompts, APRIL.highlighted, APRIL.highlightedOpenSearch, APRIL.copied, APRIL.copiedOpenSearch, APRIL.sourceClicks, APRIL.pillPageviews, APRIL.pillTop, APRIL.pillBot, APRIL.openSearchVisits, APRIL.tourCompletion, APRIL.retention ?? "", APRIL.thumbsUp, APRIL.thumbsDown, "75%", APRIL.promptGalleryClicks, APRIL.recentSearchClicks, APRIL.newSearchClicks, APRIL.lwa.visits, APRIL.lwa.uniqueUsers, APRIL.lwa.usersCreated, APRIL.lwa.lessonsStartedTotal, APRIL.lwa.lessonsStartedExecution, APRIL.lwa.lessonsStartedPCR, APRIL.lwa.completed, APRIL.lwa.edited, APRIL.lwa.avgTime, APRIL.lwa.copiesCombined, APRIL.lwa.copiesButton, APRIL.lwa.copiesCursor, APRIL.lwa.pctReviewed + "%"]
+            ];
+            const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
+            const blob = new Blob([csv], { type: "text/csv" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `KP_Monthly_${MONTH.replace(/ /g, "_")}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+          }}
+          style={{ fontFamily: "inherit", fontSize: 10, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: 6, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
+        >
+          ↓ Export CSV
+        </button>
       </div>
 
       {/* ── GENERAL USABILITY ── */}
@@ -942,7 +955,7 @@ function Monthly() {
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
               <span style={{ fontSize: 11, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
-              <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>818 · 58%</span>
+              <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>335 · 58%</span>
             </div>
             <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
               <div style={{ width: "58%", height: "100%", background: "#1464A0", borderRadius: 99 }} />
@@ -994,8 +1007,8 @@ function Monthly() {
       <Section emoji="🤖" title="Knowledge Assistant (Open Search)">
         <Grid>
           <MCard label="Sessions (Open Search)" value={String(APRIL.openSearchVisits)} desc="Visits to the Knowledge Assistant" bench={BENCH.monthly.sessions} />
-          <MCard label="Prompters (≥1 prompt)" value={String(APRIL.prompters)} desc={`${Math.round(APRIL.prompters/APRIL.users*100)}% of unique users`} accent />
-          <MCard label="Prompts sent" value={String(APRIL.prompts)} desc="Median: 1 per prompter" accent />
+          <MCard label="Prompters (≥1 prompt)" value={String(APRIL.prompters)} desc={`${Math.round(APRIL.prompters/APRIL.users*100)}% of users reached`} accent bench={BENCH.monthly.prompters} />
+          <MCard label="Prompts sent" value={String(APRIL.prompts)} desc="Median: 1 per prompter" accent bench={BENCH.monthly.prompts} />
           <MCard label="Source panel clicks" value={String(APRIL.sourceClicks)} desc="Clicks on source panel" />
           <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
