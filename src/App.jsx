@@ -997,7 +997,7 @@ function Monthly() {
         <Grid cols="repeat(auto-fit, minmax(200px, 1fr))">
           <MCard label="Queries (pill views)" value={String(APRIL.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
           <MCard label="Most used pill — Similar projects" value="56" desc="interactions" small bench={BENCH.monthly.pillTop} />
-          <MCard label={<>Least used pill —<br/>Institutional docs</>} value="16" desc="interactions" small bench={BENCH.monthly.pillBot} />
+          <MCard label={<>Least used pill —<br/>Institutional docs</>} value="20" desc="interactions" small bench={BENCH.monthly.pillBot} />
         </Grid>
       </Section>
 
