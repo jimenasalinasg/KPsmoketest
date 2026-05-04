@@ -988,6 +988,9 @@ function Monthly() {
             </div>
           );
         })()}
+        <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
+          Country data reflects session location by IP. Users who accessed the platform from multiple countries within the period may appear in more than one country.
+        </div>
       </div>
 
       {/* ── DIVIDER ── */}
