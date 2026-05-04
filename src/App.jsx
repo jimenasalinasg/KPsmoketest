@@ -64,11 +64,11 @@ const WEEK1 = {
   thumbsUp: 2,
   thumbsDown: 1,
   countries: [
-    { name: "United States (HQ)", code: "US", users: 335, pct: 58 },
+    { name: "United States (HQ)", code: "US", users: 340, pct: 58 },
     { name: "Argentina",          code: "AR", users: 24,  pct: 7  },
     { name: "Brazil",             code: "BR", users: 15,  pct: 4  },
     { name: "Uruguay",            code: "UY", users: 14,  pct: 4  },
-    { name: "Peru",               code: "PE", users: 12,  pct: 3  },
+    { name: "Peru",               code: "PE", users: 18,  pct: 3  },
     { name: "Colombia",           code: "CO", users: 11,  pct: 3  },
     { name: "Panama",             code: "PA", users: 10,  pct: 3  },
     { name: "Barbados",           code: "BB", users: 5,   pct: 1  },
@@ -124,10 +124,10 @@ const WEEK12 = {
   sourcePanelClicks: 26,
   window: "Mar 31 – Apr 17, 2026",
   countries: [
-    { name: "United States (HQ)", code: "US", users: 335, pct: 58 },
+    { name: "United States (HQ)", code: "US", users: 340, pct: 58 },
     { name: "Argentina",          code: "AR", users: 26,  pct: 6  },
     { name: "Brazil",             code: "BR", users: 20,  pct: 5  },
-    { name: "Peru",               code: "PE", users: 17,  pct: 4  },
+    { name: "Peru",               code: "PE", users: 18,  pct: 3  },
     { name: "Uruguay",            code: "UY", users: 16,  pct: 4  },
     { name: "Colombia",           code: "CO", users: 12,  pct: 3  },
     { name: "Panama",             code: "PA", users: 10,  pct: 2  },
@@ -750,24 +750,24 @@ function EngagementCard({ highlighted, highlightedOpenSearch, copied, copiedOpen
 // ── MONTHLY REPORT ────────────────────────────────────────
 // April 2026 data (partial — through Apr 21)
 const APRIL = {
-  sessions: 1600,
-  users: 581,
-  prompters: 223,
+  sessions: 1632,
+  users: 588,
+  prompters: 226,
   prompts: 429,
-  avgTime: "16.23s",
+  avgTime: "16.31s",
   dropoff: 92,
-  retention: 13.67,
-  highlighted: 560,
-  highlightedOpenSearch: 382,
-  copied: 162,
-  copiedOpenSearch: 100,
+  retention: 10.9,
+  highlighted: 579,
+  highlightedOpenSearch: 393,
+  copied: 167,
+  copiedOpenSearch: 101,
   sourceClicks: 52,
-  pillPageviews: 253,
+  pillPageviews: 255,
   pillTop: "Similar projects (78)",
   pillBot: "Institutional documents (20)",
-  openSearchVisits: 653,
+  openSearchVisits: 663,
   tourCompletion: 55,
-  newUsers: 489,
+  newUsers: 531,
   thumbsUp: 1,
   thumbsDown: 3,
   topCountry: "Argentina",
@@ -779,7 +779,7 @@ const APRIL = {
     { name: "Brazil",             code: "BR", users: 78,   pct: 6  },
     { name: "Colombia",           code: "CO", users: 64,   pct: 5  },
     { name: "Uruguay",            code: "UY", users: 38,   pct: 3  },
-    { name: "Peru",               code: "PE", users: 37,   pct: 3  },
+    { name: "Peru",               code: "PE", users: 18,  pct: 3  },
     { name: "Panama",             code: "PA", users: 36,   pct: 3  },
     { name: "Spain",              code: "ES", users: 24,   pct: 2  },
     { name: "Paraguay",           code: "PY", users: 23,   pct: 2  },
@@ -791,7 +791,7 @@ const APRIL = {
     { name: "Chile",              code: "CL", users: 13,   pct: 1  },
     { name: "Honduras",           code: "HN", users: 12,   pct: 1  },
     { name: "Jamaica",            code: "JM", users: 12,   pct: 1  },
-    { name: "Costa Rica",         code: "CR", users: 11,   pct: 1  },
+    { name: "Costa Rica",         code: "CR", users: 5,   pct: 1  },
     { name: "Trinidad & Tobago",  code: "TT", users: 11,   pct: 1  },
     { name: "Cayman Islands",     code: "KY", users: 10,   pct: 1  },
     { name: "Barbados",           code: "BB", users: 9,    pct: 1  },
@@ -813,24 +813,24 @@ const APRIL = {
   recentSearchClicks: 21,
   newSearchClicks: 4,
   lwa: {
-    visits: 145,
-    uniqueUsers: 58,
-    usersCreated: 4,
-    lessonsStartedTotal: 51,
-    lessonsStartedExecution: 36,
-    lessonsStartedPCR: 15,
-    edited: 9,
-    completed: 9,
-    avgTime: "30m 13s",
+    visits: 154,
+    uniqueUsers: 60,
+    usersCreated: 5,
+    lessonsStartedTotal: 56,
+    lessonsStartedExecution: 40,
+    lessonsStartedPCR: 16,
+    edited: 11,
+    completed: 11,
+    avgTime: "23m 40s",
     copiesButton: 4,
-    copiesCursor: 8,
-    copiesCombined: 12,
+    copiesCursor: 9,
+    copiesCombined: 13,
     pctReviewed: 100,
   },
 };
 
 function Monthly() {
-  const MONTH = "April 2026 — through Apr 30";
+  const MONTH = "April 2026";
 
   const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
 
@@ -955,7 +955,7 @@ function Monthly() {
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
               <span style={{ fontSize: 11, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
-              <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>335 · 58%</span>
+              <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>340 · 58%</span>
             </div>
             <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
               <div style={{ width: "58%", height: "100%", background: "#1464A0", borderRadius: 99 }} />
@@ -1091,17 +1091,17 @@ function Monthly() {
 
       {/* Signal */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", borderLeft: `3px solid ${BLUE}` }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 12 }}>
-          Signal — Prompt engagement pattern
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+          Signal — Prompt engagement
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.7, margin: "0 0 12px 0" }}>
-          Most prompters sent a single prompt in April, consistent with early adoption behavior. A smaller group is developing recurring use (2–5 prompts). Watch the share of repeat prompters as the key indicator of platform stickiness in coming months.
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0" }}>
+          Most prompters sent a single prompt in April (median: 1). A smaller group is developing recurring use. Watch the share of repeat prompters as the key stickiness indicator in coming months.
         </p>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
-          Signal — LWA quality shift
+          Signal — LWA quality
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.7, margin: 0 }}>
-          86% of lessons were reviewed before completion in April (up from 3% in March), suggesting users are engaging more deliberately with the AI output rather than publishing as-is. Average time to save also increased to 36m — a sign of higher-effort, higher-quality lesson creation.
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0 }}>
+          100% of lessons were reviewed before completion in April — up from 3% in March. Average time to save dropped to 23m 40s, suggesting users are getting more efficient with the tool while maintaining quality.
         </p>
       </div>
 
