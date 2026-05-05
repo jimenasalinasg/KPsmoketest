@@ -920,7 +920,25 @@ function Monthly() {
         </button>
       </div>
 
-      {/* ── GENERAL USABILITY ── */}
+      {/* Cumulative metrics since Sep 2025 */}
+      <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px", marginBottom: 24 }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
+          Cumulative totals — Sep 1, 2025 to Apr 30, 2026
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+          {[
+            { label: "Sessions", value: "5,999" },
+            { label: "Users reached", value: "1,357" },
+            { label: "Prompters", value: "587" },
+            { label: "Prompts sent", value: "2,406" },
+          ].map((m, i) => (
+            <div key={i}>
+              <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: 9, color: "#a8c4e0", textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
       <Section emoji="📊" title="General Usability">
         <Grid>
           {/* Penetration — custom card with bar */}
