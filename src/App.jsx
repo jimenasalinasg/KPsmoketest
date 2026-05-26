@@ -1263,6 +1263,26 @@ function MayMonthly() {
         </div>
       </div>
 
+      {/* Cumulative totals */}
+      <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
+          Cumulative totals — Sep 1, 2025 to May 25, 2026
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+          {[
+            { label: "Sessions", value: "6,837" },
+            { label: "Users reached", value: "1,501" },
+            { label: "Prompters", value: "640" },
+            { label: "Prompts sent", value: "2,406" },
+          ].map((m, i) => (
+            <div key={i}>
+              <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: 9, color: "#a8c4e0", textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* ── GENERAL USABILITY ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
@@ -1383,7 +1403,7 @@ function MayMonthly() {
 
 // ── APP ───────────────────────────────────────────────────
 export default function App() {
-  const [view, setView] = useState("monthly");
+  const [view, setView] = useState("may");
 
   const tabBtn = (label, v, sublabel) => (
     <button onClick={() => setView(v)} style={{
@@ -1415,11 +1435,11 @@ export default function App() {
           <div style={{ fontSize: 14, fontWeight: 500, color: INK }}>Post Go-live Key Metrics</div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          {tabBtn("Smoke Test", "smoke", "0–48h")}
-          {tabBtn("Week 1 Pulse", "week1", "Mar 31–Apr 10")}
+          {tabBtn("May 2026", "may", "May 2026")}
+          {tabBtn("Apr 2026", "monthly", "Apr 2026")}
           {tabBtn("Week 1+2", "week12", "Mar 31–Apr 17")}
-          {tabBtn("Monthly Report", "monthly", "Apr 2026")}
-          {tabBtn("Monthly Report", "may", "May 2026")}
+          {tabBtn("Week 1 Pulse", "week1", "Mar 31–Apr 10")}
+          {tabBtn("Smoke Test", "smoke", "0–48h")}
         </div>
       </div>
 
