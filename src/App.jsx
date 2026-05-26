@@ -1130,6 +1130,257 @@ function Monthly() {
   );
 }
 
+// ── MAY 2026 DATA ─────────────────────────────────────────
+// Partial — through May 25, 2026
+const MAY = {
+  sessions: 829,
+  users: 308,
+  first_time: 143,
+  prompters: 108,
+  prompts: null, // pending
+  avgTime: "20.39s",
+  dropoff: 87,
+  retention: null, // pending
+  highlighted: 379,
+  highlightedOpenSearch: 169,
+  copied: 143,
+  copiedOpenSearch: 71,
+  sourceClicks: 37,
+  pillPageviews: 64,
+  pillTop: "Lessons Learned (13)",
+  pillBot: "Institutional Documents (7)",
+  openSearchVisits: 93,
+  tourCompletion: 52,
+  thumbsUp: 1,
+  thumbsDown: 2,
+  promptGalleryClicks: 11,
+  recentSearchClicks: 10,
+  newSearchClicks: 1,
+  totalCountries: 27,
+  countries: [
+    { name: "United States (HQ)", code: "US", users: 172, pct: 56 },
+    { name: "Brazil",             code: "BR", users: 20,  pct: 6  },
+    { name: "Colombia",           code: "CO", users: 15,  pct: 5  },
+    { name: "Argentina",          code: "AR", users: 14,  pct: 5  },
+    { name: "Peru",               code: "PE", users: 11,  pct: 4  },
+    { name: "Costa Rica",         code: "CR", users: 8,   pct: 3  },
+    { name: "El Salvador",        code: "SV", users: 8,   pct: 3  },
+    { name: "Panama",             code: "PA", users: 8,   pct: 3  },
+    { name: "Paraguay",           code: "PY", users: 8,   pct: 3  },
+    { name: "Barbados",           code: "BB", users: 6,   pct: 2  },
+    { name: "Nicaragua",          code: "NI", users: 6,   pct: 2  },
+    { name: "Bolivia",            code: "BO", users: 4,   pct: 1  },
+    { name: "Cayman Islands",     code: "KY", users: 4,   pct: 1  },
+    { name: "Ecuador",            code: "EC", users: 4,   pct: 1  },
+    { name: "Mexico",             code: "MX", users: 4,   pct: 1  },
+    { name: "Uruguay",            code: "UY", users: 4,   pct: 1  },
+    { name: "Belize",             code: "BZ", users: 3,   pct: 1  },
+    { name: "Chile",              code: "CL", users: 3,   pct: 1  },
+    { name: "Guatemala",          code: "GT", users: 3,   pct: 1  },
+    { name: "Bahamas",            code: "BS", users: 2,   pct: 1  },
+    { name: "Dominican Republic", code: "DO", users: 2,   pct: 1  },
+    { name: "Honduras",           code: "HN", users: 2,   pct: 1  },
+    { name: "Trinidad & Tobago",  code: "TT", users: 2,   pct: 1  },
+    { name: "Guyana",             code: "GY", users: 1,   pct: 0  },
+    { name: "Haiti",              code: "HT", users: 1,   pct: 0  },
+    { name: "Jamaica",            code: "JM", users: 1,   pct: 0  },
+    { name: "Spain",              code: "ES", users: 1,   pct: 0  },
+  ],
+};
+
+// ── MAY MONTHLY VIEW ──────────────────────────────────────
+function MayMonthly() {
+  const MONTH = "May 2026 — through May 25";
+
+  const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
+
+  const MCard = ({ label, value, desc, accent, small, bench }) => {
+    let badge = null;
+    if (value && value !== "—" && bench != null) {
+      const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
+      if (!isNaN(numVal) && bench > 0) {
+        const ratio = numVal / bench;
+        const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
+        const higher = ratio >= 1;
+        badge = { label: higher ? `↑ ${pctDiff}%` : `↓ ${pctDiff}%`, isGood: higher };
+      }
+    }
+    return (
+      <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8 }}>{label}</div>
+        <div style={{ fontSize: small ? 16 : 28, fontWeight: 500, letterSpacing: small ? "-0.01em" : "-0.03em", lineHeight: 1.2, color: value && value !== "—" ? (accent ? BLUE_D : INK) : BDR }}>{value || "—"}</div>
+        {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6, marginBottom: badge ? 6 : 0 }}>{desc}</div>}
+        {badge && (
+          <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
+            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: badge.isGood ? "#edfaf4" : "#fef0ee", color: badge.isGood ? GREEN : RED }}>
+              {badge.label} vs monthly avg
+            </span>
+            <span style={{ fontSize: 9, color: INK3 }}>({bench})</span>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const regional = MAY.countries.filter(c => c.code !== "US");
+  const usData = MAY.countries.find(c => c.code === "US");
+  const maxUsers = regional[0].users;
+  const outsideHQ = MAY.users - usData.users;
+
+  return (
+    <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
+
+      {/* Header */}
+      <div style={{ marginBottom: 20, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+        <div>
+          <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
+          <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
+          <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory</div>
+        </div>
+        <button
+          onClick={() => {
+            const rows = [
+              ["Month","Sessions","Users Reached","New Users","Prompters","Prompts","Highlights Total","Highlights Open Search","Copies Total","Copies Open Search","Source Clicks","Pill Pageviews","Pill Top","Pill Bot","Open Search Visits","Tour Completion %","Retention %","Thumbs Up","Thumbs Down","Prompt Gallery Clicks","Recent Search Clicks","New Search Clicks"],
+              [MONTH, MAY.sessions, MAY.users, MAY.first_time, MAY.prompters, MAY.prompts ?? "", MAY.highlighted, MAY.highlightedOpenSearch, MAY.copied, MAY.copiedOpenSearch, MAY.sourceClicks, MAY.pillPageviews, MAY.pillTop, MAY.pillBot, MAY.openSearchVisits, MAY.tourCompletion, MAY.retention ?? "", MAY.thumbsUp, MAY.thumbsDown, MAY.promptGalleryClicks, MAY.recentSearchClicks, MAY.newSearchClicks]
+            ];
+            const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
+            const blob = new Blob([csv], { type: "text/csv" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url; a.download = `KP_Monthly_May_2026.csv`; a.click();
+            URL.revokeObjectURL(url);
+          }}
+          style={{ fontFamily: "inherit", fontSize: 10, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: 6, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
+        >↓ Export CSV</button>
+      </div>
+
+      {/* Metrics in progress banner */}
+      <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 8, padding: "10px 16px", display: "flex", alignItems: "center", gap: 10 }}>
+        <span style={{ fontSize: 14 }}>⚠️</span>
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 600, color: "#92400e" }}>Metrics in progress</div>
+          <div style={{ fontSize: 10, color: "#b45309", marginTop: 2 }}>May data is partial — through May 25, 2026. Final numbers will be updated at month close.</div>
+        </div>
+      </div>
+
+      {/* ── GENERAL USABILITY ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
+        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(MAY.users/3600*100*10)/10}%</div>
+          <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
+            <div style={{ width: `${Math.round(MAY.users/3600*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
+          </div>
+          <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between" }}>
+            <span>{MAY.users} users</span><span>3,600 total</span>
+          </div>
+        </div>
+        <MCard label="Users reached" value={String(MAY.users)} desc="Total for the period" accent bench={BENCH.monthly.users} />
+        <MCard label="New users" value={String(MAY.first_time)} desc="First-time visitors" />
+        <MCard label="Sessions" value={MAY.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} />
+        <MCard label="% Onboarding completed" value={`${MAY.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
+        <MCard label="% Returning users" value={MAY.retention != null ? `${MAY.retention}%` : null} desc="Biweekly retention" bench={BENCH.monthly.retention} />
+        <MCard label="CSAT — Customer Satisfaction Score" value="—" desc="Coming soon" />
+      </div>
+
+      {/* Geo */}
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
+          🌎 Geographic Reach — {MAY.users.toLocaleString()} users · {MAY.totalCountries} countries
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
+          <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
+          <div style={{ flex: 1 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
+              <span style={{ fontSize: 11, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
+              <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usData.pct}%</span>
+            </div>
+            <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
+              <div style={{ width: `${usData.pct}%`, height: "100%", background: "#1464A0", borderRadius: 99 }} />
+            </div>
+          </div>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px 16px" }}>
+          {regional.map((c, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
+              <span style={{ fontSize: 13, flexShrink: 0 }}>{flag(c.code)}</span>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
+                  <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
+                  <span style={{ fontSize: 9, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
+                </div>
+                <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
+                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 15 ? "#1464A0" : c.users >= 8 ? BLUE : "#7ab3e0", borderRadius: 99 }} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
+          Country data reflects session location by IP. Users who accessed the platform from multiple countries within the period may appear in more than one country.
+        </div>
+      </div>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      {/* ── CONTEXTUAL SEARCH ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
+        <MCard label="Queries (pill views)" value={String(MAY.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
+        <MCard label="Most used pill — Lessons Learned" value="13" desc="interactions · first time leading 🆕" small bench={BENCH.monthly.pillTop} />
+        <MCard label={<>Least used pill —<br/>Institutional docs</>} value="7" desc="interactions" small bench={BENCH.monthly.pillBot} />
+      </div>
+      <EngagementCard
+        highlighted={MAY.highlighted}
+        highlightedOpenSearch={MAY.highlightedOpenSearch}
+        copied={MAY.copied}
+        copiedOpenSearch={MAY.copiedOpenSearch}
+        benchHighlights={BENCH.monthly.highlights}
+        benchCopies={BENCH.monthly.copies}
+      />
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      {/* ── KNOWLEDGE ASSISTANT ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant (Open Search)</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
+        <MCard label="Sessions (Open Search)" value={String(MAY.openSearchVisits)} desc="Visits to the Knowledge Assistant" bench={BENCH.monthly.sessions} />
+        <MCard label="Prompters (≥1 prompt)" value={String(MAY.prompters)} desc={`${Math.round(MAY.prompters/MAY.users*100)}% of users reached`} accent bench={BENCH.monthly.prompters} />
+        <MCard label="Prompts sent" value={MAY.prompts != null ? String(MAY.prompts) : null} desc="Median: 1 per prompter" accent bench={MAY.prompts ? BENCH.monthly.prompts : null} />
+        <MCard label="Source panel clicks" value={String(MAY.sourceClicks)} desc="Clicks on source panel" />
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
+          <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
+            <div style={{ fontSize: 28, fontWeight: 500, color: GREEN, letterSpacing: "-0.03em", lineHeight: 1 }}>👍 {MAY.thumbsUp}</div>
+            <div style={{ fontSize: 28, fontWeight: 500, color: RED, letterSpacing: "-0.03em", lineHeight: 1 }}>👎 {MAY.thumbsDown}</div>
+          </div>
+          <div style={{ fontSize: 9, color: INK3, marginTop: 8 }}>AI responses rated by users</div>
+        </div>
+        <MCard label="Prompt Gallery clicks" value={String(MAY.promptGalleryClicks)} />
+        <MCard label="Recent Search clicks" value={String(MAY.recentSearchClicks)} />
+        <MCard label="New Search clicks" value={String(MAY.newSearchClicks)} />
+      </div>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      {/* Signal */}
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", borderLeft: `3px solid ${BLUE}` }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+          Signal — Pill shift
+        </div>
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0 }}>
+          For the first time since launch, Lessons Learned surpassed Similar Projects as the most accessed contextual search category in May. This suggests users are shifting from project discovery toward applied knowledge extraction — a meaningful signal of platform maturity.
+        </p>
+      </div>
+
+    </div>
+  );
+}
+
 // ── APP ───────────────────────────────────────────────────
 export default function App() {
   const [view, setView] = useState("monthly");
@@ -1168,10 +1419,11 @@ export default function App() {
           {tabBtn("Week 1 Pulse", "week1", "Mar 31–Apr 10")}
           {tabBtn("Week 1+2", "week12", "Mar 31–Apr 17")}
           {tabBtn("Monthly Report", "monthly", "Apr 2026")}
+          {tabBtn("Monthly Report", "may", "May 2026")}
         </div>
       </div>
 
-      {view === "smoke" ? <SmokeTest /> : view === "week1" ? <Week1 data={WEEK1} /> : view === "week12" ? <Week1 data={WEEK12} /> : <Monthly />}
+      {view === "smoke" ? <SmokeTest /> : view === "week1" ? <Week1 data={WEEK1} /> : view === "week12" ? <Week1 data={WEEK12} /> : view === "may" ? <MayMonthly /> : <Monthly />}
 
       <div style={{ textAlign: "center", padding: 18, fontSize: 9, color: INK3, letterSpacing: "0.06em", borderTop: `1px solid ${BDR}` }}>
         IDB Knowledge Platform · Post Go-live Key Metrics · Go-live {GO_LIVE_DATE}
