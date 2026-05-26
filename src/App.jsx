@@ -902,8 +902,45 @@ function Monthly() {
         <button
           onClick={() => {
             const rows = [
-              ["Month","Sessions","Users Reached","New Users","Prompters","Prompts","Highlights Total","Highlights Open Search","Copies Total","Copies Open Search","Source Clicks","Pill Pageviews","Pill Top","Pill Bot","Open Search Visits","Tour Completion %","Retention %","Thumbs Up","Thumbs Down","CSAT","Prompt Gallery Clicks","Recent Search Clicks","New Search Clicks","LWA Visits","LWA Unique Users","LWA Users Created","LWA Lessons Started","LWA Lessons Execution","LWA Lessons PCR","LWA Completed","LWA Edited","LWA Avg Time","LWA Copies Combined","LWA Copies Button","LWA Copies Cursor","LWA % Reviewed"],
-              [MONTH, APRIL.sessions, APRIL.users, APRIL.newUsers, APRIL.prompters, APRIL.prompts, APRIL.highlighted, APRIL.highlightedOpenSearch, APRIL.copied, APRIL.copiedOpenSearch, APRIL.sourceClicks, APRIL.pillPageviews, APRIL.pillTop, APRIL.pillBot, APRIL.openSearchVisits, APRIL.tourCompletion, APRIL.retention ?? "", APRIL.thumbsUp, APRIL.thumbsDown, "75%", APRIL.promptGalleryClicks, APRIL.recentSearchClicks, APRIL.newSearchClicks, APRIL.lwa.visits, APRIL.lwa.uniqueUsers, APRIL.lwa.usersCreated, APRIL.lwa.lessonsStartedTotal, APRIL.lwa.lessonsStartedExecution, APRIL.lwa.lessonsStartedPCR, APRIL.lwa.completed, APRIL.lwa.edited, APRIL.lwa.avgTime, APRIL.lwa.copiesCombined, APRIL.lwa.copiesButton, APRIL.lwa.copiesCursor, APRIL.lwa.pctReviewed + "%"]
+              ["Metric", "Value"],
+              ["Month", MONTH],
+              ["Sessions", APRIL.sessions],
+              ["Users reached", APRIL.users],
+              ["New users", APRIL.newUsers],
+              ["Prompters", APRIL.prompters],
+              ["Prompts sent", APRIL.prompts],
+              ["Highlights total", APRIL.highlighted],
+              ["Highlights Open Search", APRIL.highlightedOpenSearch],
+              ["Highlights Contextual Search", APRIL.highlighted - APRIL.highlightedOpenSearch],
+              ["Copies total", APRIL.copied],
+              ["Copies Open Search", APRIL.copiedOpenSearch],
+              ["Copies Contextual Search", APRIL.copied - APRIL.copiedOpenSearch],
+              ["Source panel clicks", APRIL.sourceClicks],
+              ["Pill pageviews", APRIL.pillPageviews],
+              ["Most used pill", APRIL.pillTop],
+              ["Least used pill", APRIL.pillBot],
+              ["Open Search visits", APRIL.openSearchVisits],
+              ["Tour completion %", APRIL.tourCompletion + "%"],
+              ["Retention %", APRIL.retention != null ? APRIL.retention + "%" : ""],
+              ["CSAT", "75%"],
+              ["Thumbs up", APRIL.thumbsUp],
+              ["Thumbs down", APRIL.thumbsDown],
+              ["Prompt Gallery clicks", APRIL.promptGalleryClicks],
+              ["Recent Search clicks", APRIL.recentSearchClicks],
+              ["New Search clicks", APRIL.newSearchClicks],
+              ["LWA visits", APRIL.lwa.visits],
+              ["LWA unique users", APRIL.lwa.uniqueUsers],
+              ["LWA users who created lessons", APRIL.lwa.usersCreated],
+              ["LWA lessons started total", APRIL.lwa.lessonsStartedTotal],
+              ["LWA lessons started Execution", APRIL.lwa.lessonsStartedExecution],
+              ["LWA lessons started PCR", APRIL.lwa.lessonsStartedPCR],
+              ["LWA lessons completed", APRIL.lwa.completed],
+              ["LWA lessons edited", APRIL.lwa.edited],
+              ["LWA avg time to save", APRIL.lwa.avgTime],
+              ["LWA copies combined", APRIL.lwa.copiesCombined],
+              ["LWA copies via button", APRIL.lwa.copiesButton],
+              ["LWA copies via cursor", APRIL.lwa.copiesCursor],
+              ["LWA % reviewed before completing", APRIL.lwa.pctReviewed + "%"],
             ];
             const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
             const blob = new Blob([csv], { type: "text/csv" });
@@ -1240,8 +1277,31 @@ function MayMonthly() {
         <button
           onClick={() => {
             const rows = [
-              ["Month","Sessions","Users Reached","New Users","Prompters","Prompts","Highlights Total","Highlights Open Search","Copies Total","Copies Open Search","Source Clicks","Pill Pageviews","Pill Top","Pill Bot","Open Search Visits","Tour Completion %","Retention %","Thumbs Up","Thumbs Down","Prompt Gallery Clicks","Recent Search Clicks","New Search Clicks"],
-              [MONTH, MAY.sessions, MAY.users, MAY.first_time, MAY.prompters, MAY.prompts ?? "", MAY.highlighted, MAY.highlightedOpenSearch, MAY.copied, MAY.copiedOpenSearch, MAY.sourceClicks, MAY.pillPageviews, MAY.pillTop, MAY.pillBot, MAY.openSearchVisits, MAY.tourCompletion, MAY.retention ?? "", MAY.thumbsUp, MAY.thumbsDown, MAY.promptGalleryClicks, MAY.recentSearchClicks, MAY.newSearchClicks]
+              ["Metric", "Value"],
+              ["Month", MONTH],
+              ["Sessions", MAY.sessions],
+              ["Users reached", MAY.users],
+              ["New users", MAY.first_time],
+              ["Prompters", MAY.prompters],
+              ["Prompts sent", MAY.prompts ?? ""],
+              ["Highlights total", MAY.highlighted],
+              ["Highlights Open Search", MAY.highlightedOpenSearch],
+              ["Highlights Contextual Search", MAY.highlighted - MAY.highlightedOpenSearch],
+              ["Copies total", MAY.copied],
+              ["Copies Open Search", MAY.copiedOpenSearch],
+              ["Copies Contextual Search", MAY.copied - MAY.copiedOpenSearch],
+              ["Source panel clicks", MAY.sourceClicks],
+              ["Pill pageviews", MAY.pillPageviews],
+              ["Most used pill", MAY.pillTop],
+              ["Least used pill", MAY.pillBot],
+              ["Open Search visits", MAY.openSearchVisits],
+              ["Tour completion %", MAY.tourCompletion + "%"],
+              ["Retention %", MAY.retention != null ? MAY.retention + "%" : ""],
+              ["Thumbs up", MAY.thumbsUp],
+              ["Thumbs down", MAY.thumbsDown],
+              ["Prompt Gallery clicks", MAY.promptGalleryClicks],
+              ["Recent Search clicks", MAY.recentSearchClicks],
+              ["New Search clicks", MAY.newSearchClicks],
             ];
             const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
             const blob = new Blob([csv], { type: "text/csv" });
