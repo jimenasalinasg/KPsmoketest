@@ -1194,6 +1194,21 @@ const MAY = {
   recentSearchClicks: 10,
   newSearchClicks: 1,
   totalCountries: 27,
+  lwa: {
+    visits: 94,
+    uniqueUsers: 35,
+    usersCreated: 8,
+    lessonsStartedTotal: 44,
+    lessonsStartedExecution: 36,
+    lessonsStartedPCR: 8,
+    edited: 4,
+    completed: 17,
+    avgTime: "4m 55s",
+    copiesButton: 1,
+    copiesCursor: 11,
+    copiesCombined: 12,
+    pctReviewed: 24,
+  },
   countries: [
     { name: "United States (HQ)", code: "US", users: 172, pct: 56 },
     { name: "Brazil",             code: "BR", users: 20,  pct: 6  },
@@ -1302,6 +1317,19 @@ function MayMonthly() {
               ["Prompt Gallery clicks", MAY.promptGalleryClicks],
               ["Recent Search clicks", MAY.recentSearchClicks],
               ["New Search clicks", MAY.newSearchClicks],
+              ["LWA visits", MAY.lwa.visits],
+              ["LWA unique users", MAY.lwa.uniqueUsers],
+              ["LWA users who created lessons", MAY.lwa.usersCreated],
+              ["LWA lessons started total", MAY.lwa.lessonsStartedTotal],
+              ["LWA lessons started Execution", MAY.lwa.lessonsStartedExecution],
+              ["LWA lessons started PCR", MAY.lwa.lessonsStartedPCR],
+              ["LWA lessons completed", MAY.lwa.completed],
+              ["LWA lessons edited", MAY.lwa.edited],
+              ["LWA avg time to save", MAY.lwa.avgTime],
+              ["LWA copies combined", MAY.lwa.copiesCombined],
+              ["LWA copies via button", MAY.lwa.copiesButton],
+              ["LWA copies via cursor", MAY.lwa.copiesCursor],
+              ["LWA % reviewed before completing", MAY.lwa.pctReviewed + "%"],
             ];
             const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
             const blob = new Blob([csv], { type: "text/csv" });
@@ -1447,13 +1475,68 @@ function MayMonthly() {
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
+      {/* ── LWA ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant (LWA)</div>
+
+      {/* Context block */}
+      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "12px 16px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 6 }}>Context — Q1 2026 Institutional baseline</div>
+        <p style={{ fontSize: 11, color: BLUE_D, lineHeight: 1.6, margin: 0 }}>
+          During Q1 2026, <strong>784 lessons</strong> were created across <strong>452 operations</strong> registered in the Client Portal — independent of the KP platform. This provides important context: LWA usage within KP represents an emerging channel alongside existing institutional lesson-creation practices.
+        </p>
+      </div>
+
+      <div style={{ fontSize: 9, color: INK3, fontStyle: "italic" }}>Adoption</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
+        <MCard label="LWA visits" value={String(MAY.lwa.visits)} accent />
+        <MCard label="Unique users" value={String(MAY.lwa.uniqueUsers)} accent />
+      </div>
+
+      <div style={{ fontSize: 9, color: INK3, fontStyle: "italic" }}>Usage & Completion</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
+        <MCard label="Users who created lessons" value={String(MAY.lwa.usersCreated)} />
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Lessons started</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{MAY.lwa.lessonsStartedTotal}</div>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{MAY.lwa.lessonsStartedExecution} Execution</span>
+            <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BG, color: INK3, fontWeight: 500 }}>{MAY.lwa.lessonsStartedPCR} PCR</span>
+          </div>
+        </div>
+        <MCard label="Lessons completed" value={String(MAY.lwa.completed)} desc="Clicked 'Complete lesson'" accent />
+        <MCard label="% Reviewed before completing" value={`${MAY.lwa.pctReviewed}%`} desc="Quality: with prior edits" />
+      </div>
+
+      <div style={{ fontSize: 9, color: INK3, fontStyle: "italic" }}>Effort & Perceived value</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
+        <MCard label="Avg. time to save" value={MAY.lwa.avgTime} small desc="From first click to final save" />
+        <MCard label="Lessons edited" value={String(MAY.lwa.edited)} desc="In unique sessions" />
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Combined copies</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{MAY.lwa.copiesCombined}</div>
+          <div style={{ display: "flex", gap: 8 }}>
+            <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{MAY.lwa.copiesButton} via button</span>
+            <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BG, color: INK3, fontWeight: 500 }}>{MAY.lwa.copiesCursor} via cursor</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
       {/* Signal */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", borderLeft: `3px solid ${BLUE}` }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Pill shift
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0 }}>
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0" }}>
           For the first time since launch, Lessons Learned surpassed Similar Projects as the most accessed contextual search category in May. This suggests users are shifting from project discovery toward applied knowledge extraction — a meaningful signal of platform maturity.
+        </p>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+          Signal — LWA efficiency
+        </div>
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0 }}>
+          Average time to save a lesson dropped sharply to 4m 55s in May (from 23m 40s in April), while completions rose to 17. Users are getting faster with the tool.
         </p>
       </div>
 
