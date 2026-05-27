@@ -1347,7 +1347,7 @@ function MayMonthly() {
         <span style={{ fontSize: 14 }}>⚠️</span>
         <div>
           <div style={{ fontSize: 11, fontWeight: 600, color: "#92400e" }}>Metrics in progress</div>
-          <div style={{ fontSize: 10, color: "#b45309", marginTop: 2 }}>May data is partial — through May 25, 2026. Final numbers will be updated at month close.</div>
+          <div style={{ fontSize: 10, color: "#b45309", marginTop: 2 }}>May data is partial — through May 27, 2026. Final numbers will be updated at month close.</div>
         </div>
       </div>
 
@@ -1358,9 +1358,9 @@ function MayMonthly() {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {[
-            { label: "Sessions", value: "6,837" },
-            { label: "Users reached", value: "1,501" },
-            { label: "Prompters", value: "640" },
+            { label: "Sessions", value: "6,963" },
+            { label: "Users reached", value: "1,524" },
+            { label: "Prompters", value: "653" },
             { label: "Prompts sent", value: "2,406" },
           ].map((m, i) => (
             <div key={i}>
