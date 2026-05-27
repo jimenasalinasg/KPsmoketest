@@ -1168,29 +1168,29 @@ function Monthly() {
 }
 
 // ── MAY 2026 DATA ─────────────────────────────────────────
-// Partial — through May 25, 2026
+// Partial — through May 27, 2026
 const MAY = {
-  sessions: 829,
-  users: 308,
-  first_time: 143,
-  prompters: 108,
+  sessions: 957,
+  users: 344,
+  first_time: 166,
+  prompters: 123,
   prompts: null, // pending
-  avgTime: "20.39s",
+  avgTime: "19.88s",
   dropoff: 87,
-  retention: null, // pending
-  highlighted: 379,
-  highlightedOpenSearch: 169,
-  copied: 143,
-  copiedOpenSearch: 71,
+  retention: 18.7,
+  highlighted: 414,
+  highlightedOpenSearch: 195,
+  copied: 159,
+  copiedOpenSearch: 86,
   sourceClicks: 37,
-  pillPageviews: 64,
-  pillTop: "Lessons Learned (13)",
-  pillBot: "Institutional Documents (7)",
+  pillPageviews: 125,
+  pillTop: "Similar Projects (40)",
+  pillBot: "Literature (10)",
   openSearchVisits: 93,
-  tourCompletion: 52,
+  tourCompletion: 53,
   thumbsUp: 1,
   thumbsDown: 2,
-  promptGalleryClicks: 11,
+  promptGalleryClicks: 14,
   recentSearchClicks: 10,
   newSearchClicks: 1,
   totalCountries: 27,
@@ -1210,29 +1210,29 @@ const MAY = {
     pctReviewed: 24,
   },
   countries: [
-    { name: "United States (HQ)", code: "US", users: 172, pct: 56 },
+    { name: "United States (HQ)", code: "US", users: 182, pct: 53 },
+    { name: "Colombia",           code: "CO", users: 35,  pct: 10 },
     { name: "Brazil",             code: "BR", users: 20,  pct: 6  },
-    { name: "Colombia",           code: "CO", users: 15,  pct: 5  },
-    { name: "Argentina",          code: "AR", users: 14,  pct: 5  },
-    { name: "Peru",               code: "PE", users: 11,  pct: 4  },
-    { name: "Costa Rica",         code: "CR", users: 8,   pct: 3  },
-    { name: "El Salvador",        code: "SV", users: 8,   pct: 3  },
-    { name: "Panama",             code: "PA", users: 8,   pct: 3  },
-    { name: "Paraguay",           code: "PY", users: 8,   pct: 3  },
+    { name: "Argentina",          code: "AR", users: 14,  pct: 4  },
+    { name: "Panama",             code: "PA", users: 12,  pct: 3  },
+    { name: "Peru",               code: "PE", users: 11,  pct: 3  },
+    { name: "Costa Rica",         code: "CR", users: 8,   pct: 2  },
+    { name: "El Salvador",        code: "SV", users: 8,   pct: 2  },
+    { name: "Paraguay",           code: "PY", users: 8,   pct: 2  },
     { name: "Barbados",           code: "BB", users: 6,   pct: 2  },
     { name: "Nicaragua",          code: "NI", users: 6,   pct: 2  },
+    { name: "Uruguay",            code: "UY", users: 6,   pct: 2  },
     { name: "Bolivia",            code: "BO", users: 4,   pct: 1  },
     { name: "Cayman Islands",     code: "KY", users: 4,   pct: 1  },
     { name: "Ecuador",            code: "EC", users: 4,   pct: 1  },
     { name: "Mexico",             code: "MX", users: 4,   pct: 1  },
-    { name: "Uruguay",            code: "UY", users: 4,   pct: 1  },
     { name: "Belize",             code: "BZ", users: 3,   pct: 1  },
     { name: "Chile",              code: "CL", users: 3,   pct: 1  },
     { name: "Guatemala",          code: "GT", users: 3,   pct: 1  },
+    { name: "Trinidad & Tobago",  code: "TT", users: 3,   pct: 1  },
     { name: "Bahamas",            code: "BS", users: 2,   pct: 1  },
     { name: "Dominican Republic", code: "DO", users: 2,   pct: 1  },
     { name: "Honduras",           code: "HN", users: 2,   pct: 1  },
-    { name: "Trinidad & Tobago",  code: "TT", users: 2,   pct: 1  },
     { name: "Guyana",             code: "GY", users: 1,   pct: 0  },
     { name: "Haiti",              code: "HT", users: 1,   pct: 0  },
     { name: "Jamaica",            code: "JM", users: 1,   pct: 0  },
@@ -1242,7 +1242,7 @@ const MAY = {
 
 // ── MAY MONTHLY VIEW ──────────────────────────────────────
 function MayMonthly() {
-  const MONTH = "May 2026 — through May 25";
+  const MONTH = "May 2026 — through May 27";
 
   const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
 
@@ -1437,8 +1437,8 @@ function MayMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard label="Queries (pill views)" value={String(MAY.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
-        <MCard label="Most used pill — Lessons Learned" value="13" desc="interactions · first time leading 🆕" small bench={BENCH.monthly.pillTop} />
-        <MCard label={<>Least used pill —<br/>Institutional docs</>} value="7" desc="interactions" small bench={BENCH.monthly.pillBot} />
+        <MCard label="Most used pill — Similar Projects" value="40" desc="interactions" small bench={BENCH.monthly.pillTop} />
+        <MCard label={<>Least used pill —<br/>Literature</>} value="10" desc="interactions" small bench={BENCH.monthly.pillBot} />
       </div>
       <EngagementCard
         highlighted={MAY.highlighted}
@@ -1527,10 +1527,10 @@ function MayMonthly() {
       {/* Signal */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", borderLeft: `3px solid ${BLUE}` }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
-          Signal — Pill shift
+          Signal — Pill engagement
         </div>
         <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0" }}>
-          For the first time since launch, Lessons Learned surpassed Similar Projects as the most accessed contextual search category in May. This suggests users are shifting from project discovery toward applied knowledge extraction — a meaningful signal of platform maturity.
+          Similar Projects returned as the most accessed pill in May with 40 interactions, after Lessons Learned briefly led in an earlier period. Literature appeared as the least used pill for the first time — a broader distribution of content categories signals growing platform exploration.
         </p>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — LWA efficiency
