@@ -967,7 +967,7 @@ function Monthly() {
             { label: "Sessions", value: "5,999" },
             { label: "Users reached", value: "1,357" },
             { label: "Prompters", value: "587" },
-            { label: "Prompts sent", value: "2,406" },
+            { label: "Prompts sent", value: "3,180" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -1168,29 +1168,30 @@ function Monthly() {
 }
 
 // ── MAY 2026 DATA ─────────────────────────────────────────
-// Partial — through May 27, 2026
+// Partial — through May 29, 2026
 const MAY = {
-  sessions: 957,
-  users: 344,
+  sessions: 1017,
+  users: 358,
   first_time: 166,
-  prompters: 123,
-  prompts: null, // pending
-  avgTime: "19.88s",
+  prompters: 143,
+  prompts: 625,
+  avgTime: "19.92s",
   dropoff: 87,
   retention: 18.7,
-  highlighted: 414,
-  highlightedOpenSearch: 195,
-  copied: 159,
-  copiedOpenSearch: 86,
-  sourceClicks: 37,
-  pillPageviews: 125,
+  highlighted: 448,
+  highlightedOpenSearch: 217,
+  copied: 180,
+  copiedOpenSearch: 99,
+  sourceClicks: 48,
+  pillPageviews: 128,
   pillTop: "Similar Projects (40)",
   pillBot: "Literature (10)",
-  openSearchVisits: 93,
-  tourCompletion: 53,
+  openSearchVisits: 143,
+  tourCompletion: 52,
+  csat: "82.4%",
   thumbsUp: 1,
   thumbsDown: 2,
-  promptGalleryClicks: 14,
+  promptGalleryClicks: 16,
   recentSearchClicks: 10,
   newSearchClicks: 1,
   totalCountries: 27,
@@ -1210,17 +1211,17 @@ const MAY = {
     pctReviewed: 24,
   },
   countries: [
-    { name: "United States (HQ)", code: "US", users: 182, pct: 53 },
+    { name: "United States (HQ)", code: "US", users: 192, pct: 54 },
     { name: "Colombia",           code: "CO", users: 35,  pct: 10 },
     { name: "Brazil",             code: "BR", users: 20,  pct: 6  },
     { name: "Argentina",          code: "AR", users: 14,  pct: 4  },
     { name: "Panama",             code: "PA", users: 12,  pct: 3  },
     { name: "Peru",               code: "PE", users: 11,  pct: 3  },
+    { name: "El Salvador",        code: "SV", users: 9,   pct: 3  },
+    { name: "Paraguay",           code: "PY", users: 9,   pct: 3  },
     { name: "Costa Rica",         code: "CR", users: 8,   pct: 2  },
-    { name: "El Salvador",        code: "SV", users: 8,   pct: 2  },
-    { name: "Paraguay",           code: "PY", users: 8,   pct: 2  },
+    { name: "Nicaragua",          code: "NI", users: 7,   pct: 2  },
     { name: "Barbados",           code: "BB", users: 6,   pct: 2  },
-    { name: "Nicaragua",          code: "NI", users: 6,   pct: 2  },
     { name: "Uruguay",            code: "UY", users: 6,   pct: 2  },
     { name: "Bolivia",            code: "BO", users: 4,   pct: 1  },
     { name: "Cayman Islands",     code: "KY", users: 4,   pct: 1  },
@@ -1233,16 +1234,16 @@ const MAY = {
     { name: "Bahamas",            code: "BS", users: 2,   pct: 1  },
     { name: "Dominican Republic", code: "DO", users: 2,   pct: 1  },
     { name: "Honduras",           code: "HN", users: 2,   pct: 1  },
+    { name: "Spain",              code: "ES", users: 2,   pct: 1  },
     { name: "Guyana",             code: "GY", users: 1,   pct: 0  },
     { name: "Haiti",              code: "HT", users: 1,   pct: 0  },
     { name: "Jamaica",            code: "JM", users: 1,   pct: 0  },
-    { name: "Spain",              code: "ES", users: 1,   pct: 0  },
   ],
 };
 
 // ── MAY MONTHLY VIEW ──────────────────────────────────────
 function MayMonthly() {
-  const MONTH = "May 2026 — through May 27";
+  const MONTH = "May 2026 — through May 29";
 
   const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
 
@@ -1342,26 +1343,17 @@ function MayMonthly() {
         >↓ Export CSV</button>
       </div>
 
-      {/* Metrics in progress banner */}
-      <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 8, padding: "10px 16px", display: "flex", alignItems: "center", gap: 10 }}>
-        <span style={{ fontSize: 14 }}>⚠️</span>
-        <div>
-          <div style={{ fontSize: 11, fontWeight: 600, color: "#92400e" }}>Metrics in progress</div>
-          <div style={{ fontSize: 10, color: "#b45309", marginTop: 2 }}>May data is partial — through May 27, 2026. Final numbers will be updated at month close.</div>
-        </div>
-      </div>
-
       {/* Cumulative totals */}
       <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
-          Cumulative totals — Sep 1, 2025 to May 25, 2026
+          Cumulative totals — Sep 1, 2025 to May 29, 2026
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {[
-            { label: "Sessions", value: "6,963" },
-            { label: "Users reached", value: "1,524" },
-            { label: "Prompters", value: "653" },
-            { label: "Prompts sent", value: "2,406" },
+            { label: "Sessions", value: "7,023" },
+            { label: "Users reached", value: "1,538" },
+            { label: "Prompters", value: "673" },
+            { label: "Prompts sent", value: "3,180" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -1389,7 +1381,7 @@ function MayMonthly() {
         <MCard label="Sessions" value={MAY.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} />
         <MCard label="% Onboarding completed" value={`${MAY.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
         <MCard label="% Returning users" value={MAY.retention != null ? `${MAY.retention}%` : null} desc="Biweekly retention" bench={BENCH.monthly.retention} />
-        <MCard label="CSAT — Customer Satisfaction Score" value="—" desc="Coming soon" />
+        <MCard label="CSAT — Customer Satisfaction Score" value={MAY.csat ?? "—"} desc={MAY.csat ? "Customer satisfaction" : "Coming soon"} />
       </div>
 
       {/* Geo */}
