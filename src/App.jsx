@@ -1168,36 +1168,36 @@ function Monthly() {
 }
 
 // ── MAY 2026 DATA ─────────────────────────────────────────
-// Partial — through May 29, 2026
+// Partial — May 31, 2026
 const MAY = {
-  sessions: 1017,
-  users: 358,
-  first_time: 166,
-  prompters: 143,
+  sessions: 1052,
+  users: 363,
+  first_time: 268,
+  prompters: 133,
   prompts: 625,
-  avgTime: "19.92s",
+  avgTime: "20.2s",
   dropoff: 87,
-  retention: 18.7,
-  highlighted: 448,
+  retention: 16,
+  highlighted: 463,
   highlightedOpenSearch: 217,
-  copied: 180,
+  copied: 191,
   copiedOpenSearch: 99,
-  sourceClicks: 48,
-  pillPageviews: 128,
+  sourceClicks: 50,
+  pillPageviews: 130,
   pillTop: "Similar Projects (40)",
   pillBot: "Literature (10)",
-  openSearchVisits: 143,
+  openSearchVisits: 144,
   tourCompletion: 52,
   csat: "82.4%",
   thumbsUp: 1,
   thumbsDown: 2,
-  promptGalleryClicks: 16,
+  promptGalleryClicks: 17,
   recentSearchClicks: 10,
-  newSearchClicks: 1,
+  newSearchClicks: 17,
   totalCountries: 27,
   lwa: {
-    visits: 94,
-    uniqueUsers: 35,
+    visits: 98,
+    uniqueUsers: 37,
     usersCreated: 8,
     lessonsStartedTotal: 44,
     lessonsStartedExecution: 36,
@@ -1211,15 +1211,15 @@ const MAY = {
     pctReviewed: 24,
   },
   countries: [
-    { name: "United States (HQ)", code: "US", users: 192, pct: 54 },
+    { name: "United States (HQ)", code: "US", users: 194, pct: 53 },
     { name: "Colombia",           code: "CO", users: 35,  pct: 10 },
     { name: "Brazil",             code: "BR", users: 20,  pct: 6  },
-    { name: "Argentina",          code: "AR", users: 14,  pct: 4  },
+    { name: "Argentina",          code: "AR", users: 15,  pct: 4  },
     { name: "Panama",             code: "PA", users: 12,  pct: 3  },
     { name: "Peru",               code: "PE", users: 11,  pct: 3  },
-    { name: "El Salvador",        code: "SV", users: 9,   pct: 3  },
-    { name: "Paraguay",           code: "PY", users: 9,   pct: 3  },
-    { name: "Costa Rica",         code: "CR", users: 8,   pct: 2  },
+    { name: "Costa Rica",         code: "CR", users: 9,   pct: 2  },
+    { name: "El Salvador",        code: "SV", users: 9,   pct: 2  },
+    { name: "Paraguay",           code: "PY", users: 9,   pct: 2  },
     { name: "Nicaragua",          code: "NI", users: 7,   pct: 2  },
     { name: "Barbados",           code: "BB", users: 6,   pct: 2  },
     { name: "Uruguay",            code: "UY", users: 6,   pct: 2  },
@@ -1230,11 +1230,11 @@ const MAY = {
     { name: "Belize",             code: "BZ", users: 3,   pct: 1  },
     { name: "Chile",              code: "CL", users: 3,   pct: 1  },
     { name: "Guatemala",          code: "GT", users: 3,   pct: 1  },
+    { name: "Spain",              code: "ES", users: 3,   pct: 1  },
     { name: "Trinidad & Tobago",  code: "TT", users: 3,   pct: 1  },
     { name: "Bahamas",            code: "BS", users: 2,   pct: 1  },
     { name: "Dominican Republic", code: "DO", users: 2,   pct: 1  },
     { name: "Honduras",           code: "HN", users: 2,   pct: 1  },
-    { name: "Spain",              code: "ES", users: 2,   pct: 1  },
     { name: "Guyana",             code: "GY", users: 1,   pct: 0  },
     { name: "Haiti",              code: "HT", users: 1,   pct: 0  },
     { name: "Jamaica",            code: "JM", users: 1,   pct: 0  },
@@ -1243,7 +1243,7 @@ const MAY = {
 
 // ── MAY MONTHLY VIEW ──────────────────────────────────────
 function MayMonthly() {
-  const MONTH = "May 2026 — through May 29";
+  const MONTH = "May 2026";
 
   const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
 
@@ -1346,12 +1346,12 @@ function MayMonthly() {
       {/* Cumulative totals */}
       <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
-          Cumulative totals — Sep 1, 2025 to May 29, 2026
+          Cumulative totals — Sep 1, 2025 to Jun 1, 2026
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {[
-            { label: "Sessions", value: "7,023" },
-            { label: "Users reached", value: "1,538" },
+            { label: "Sessions", value: "7,202" },
+            { label: "Users reached", value: "1,574" },
             { label: "Prompters", value: "673" },
             { label: "Prompts sent", value: "3,180" },
           ].map((m, i) => (
@@ -1381,7 +1381,39 @@ function MayMonthly() {
         <MCard label="Sessions" value={MAY.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} />
         <MCard label="% Onboarding completed" value={`${MAY.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
         <MCard label="% Returning users" value={MAY.retention != null ? `${MAY.retention}%` : null} desc="Biweekly retention" bench={BENCH.monthly.retention} />
-        <MCard label="CSAT — Customer Satisfaction Score" value={MAY.csat ?? "—"} desc={MAY.csat ? "Customer satisfaction" : "Coming soon"} />
+      </div>
+
+      {/* CSAT block */}
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
+          <div>
+            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6 }}>CSAT — Customer Satisfaction Score</div>
+            <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>82.4%</div>
+            <div style={{ fontSize: 10, color: INK3, marginTop: 4 }}>24 responses · Apr 21 – May 26, 2026</div>
+          </div>
+          <div style={{ textAlign: "right" }}>
+            <div style={{ fontSize: 11, color: INK2, marginBottom: 4 }}>Avg rating: <strong>4.2 / 5</strong></div>
+            <div style={{ display: "flex", gap: 4, justifyContent: "flex-end" }}>
+              {[{r:1,n:2},{r:2,n:0},{r:3,n:3},{r:4,n:4},{r:5,n:15}].map(({r,n}) => (
+                <div key={r} style={{ textAlign: "center" }}>
+                  <div style={{ fontSize: 8, color: INK3, marginBottom: 2 }}>{r}★</div>
+                  <div style={{ width: 22, background: BG, borderRadius: 4, overflow: "hidden", height: 40, display: "flex", alignItems: "flex-end" }}>
+                    <div style={{ width: "100%", height: `${(n/15)*100}%`, background: n === 0 ? BDR : r >= 4 ? GREEN : r === 3 ? AMBER : RED, borderRadius: 2 }} />
+                  </div>
+                  <div style={{ fontSize: 8, color: INK3, marginTop: 2 }}>{n}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ padding: "8px 12px", background: "#edfaf4", border: "1px solid #a7f3d0", borderRadius: 7, fontSize: 10, color: "#065f46" }}>
+            👍 <strong>Most valued:</strong> "Found quickly · Content clear · Simple and smooth · Useful for work"
+          </div>
+          <div style={{ padding: "8px 12px", background: "#fef0ee", border: "1px solid #fca5a5", borderRadius: 7, fontSize: 10, color: "#7f1d1d" }}>
+            👎 <strong>Least valued:</strong> "Cannot search" · "Didn't fully find what I needed" · "Experience felt slow"
+          </div>
+        </div>
       </div>
 
       {/* Geo */}
