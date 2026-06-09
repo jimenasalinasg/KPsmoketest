@@ -1,1632 +1,1125 @@
-import { useState } from "react";
-
-
-
-const BLUE = "#4a90e2";
-const GREEN = "#22a05b";
-const RED = "#d94f3d";
-const AMBER = "#d97706";
-const BG = "#f7f8fb";
-const SURF = "#ffffff";
-const BDR = "#e4e7f2";
-const INK = "#1a1e2e";
-const INK2 = "#3d4460";
-const INK3 = "#8b93b8";
-const BLUE_L = "#eaf2fc";
-const BLUE_M = "#c2d9f7";
-const BLUE_D = "#2c6cb5";
-
-// ── CONFIG — update these when you have data ─────────────
-const GO_LIVE_DATE = "March 31, 2026";
-const SMOKE_WINDOW = "Mar 31 – Apr 1, 2026";
-const WEEK1_WINDOW = "Mar 31 – Apr 10, 2026";
-const BID_TOTAL = 3600;
-
-// ── SMOKE TEST DATA ───────────────────────────────────────
-// true = confirmed ✓, false = issue ✗, null = pending
-const SMOKE = {
-  capturedSessions: true,
-  uniqueUsers: true,
-  internalFiltered: true,
-  rageclicks: true,
-  sessions: 169,
-  users: 112,
-  prompters: 34,
-  prompts: 34,
-  avgTime: "20.69s",
-  dropoff: 90,
-  highlighted: 239,
-  copied: 26,
-  rageclicksCount: 0,
-  tourCompletion: 66,
-  openSearch: 94,
-  pillTop: "Similar projects (3)",
-  pillBot: "Institutional documents (1)",
-  notes: "",
-};
-
-// ── WEEK 1 DATA ───────────────────────────────────────────
-const WEEK1 = {
-  sessions: 757,
-  users: 360,
-  prompters: 125,
-  prompts: 230,
-  retention: 18.6,
-  dropoff: 92,
-  highlighted: 416,
-  highlightedOpenSearch: 340,
-  copied: 75,
-  copiedOpenSearch: 52,
-  rageclicks: 3,
-  pillTop: "Similar projects (45)",
-  pillBot: "Institutional documents (14)",
-  tourCompletion: 55,
-  thumbsUp: 2,
-  thumbsDown: 1,
-  countries: [
-    { name: "United States (HQ)", code: "US", users: 340, pct: 58 },
-    { name: "Argentina",          code: "AR", users: 24,  pct: 7  },
-    { name: "Brazil",             code: "BR", users: 15,  pct: 4  },
-    { name: "Uruguay",            code: "UY", users: 14,  pct: 4  },
-    { name: "Peru",               code: "PE", users: 18,  pct: 3  },
-    { name: "Colombia",           code: "CO", users: 11,  pct: 3  },
-    { name: "Panama",             code: "PA", users: 10,  pct: 3  },
-    { name: "Barbados",           code: "BB", users: 5,   pct: 1  },
-    { name: "Cayman Islands",     code: "KY", users: 5,   pct: 1  },
-    { name: "El Salvador",        code: "SV", users: 5,   pct: 1  },
-    { name: "Mexico",             code: "MX", users: 5,   pct: 1  },
-    { name: "Paraguay",           code: "PY", users: 5,   pct: 1  },
-    { name: "Bolivia",            code: "BO", users: 4,   pct: 1  },
-    { name: "Chile",              code: "CL", users: 4,   pct: 1  },
-    { name: "Spain",              code: "ES", users: 4,   pct: 1  },
-    { name: "Trinidad & Tobago",  code: "TT", users: 4,   pct: 1  },
-    { name: "Dominican Republic", code: "DO", users: 3,   pct: 1  },
-    { name: "Ecuador",            code: "EC", users: 3,   pct: 1  },
-    { name: "Honduras",           code: "HN", users: 3,   pct: 1  },
-    { name: "Belize",             code: "BZ", users: 4,   pct: 1  },
-    { name: "Nicaragua",          code: "NI", users: 2,   pct: 1  },
-    { name: "Bahamas",            code: "BS", users: 1,   pct: 0  },
-    { name: "Canada",             code: "CA", users: 1,   pct: 0  },
-    { name: "Jamaica",            code: "JM", users: 1,   pct: 0  },
-    { name: "Suriname",           code: "SR", users: 1,   pct: 0  },
-  ],
-  prompts_sample: [
-    { text: "can you please summarize the general bank wide benefits?", rating: "down" },
-    { text: "dime las lecciones aprendidas que apuntan a problemas de efectividad en el desarrollo en operaciones de la división HNP", rating: "up" },
-    { text: "necesito dos proyectos de SCL/MIG", rating: "up" },
-  ],
-  observations: [
-    "Double down on Similar Projects — it is the most accessed category across all periods, organic and post-launch.",
-    "The AI assistant is working — 2.7 prompts per user signals real engagement beyond a one-time trial.",
-    "Week 1 beat all organic records with 757 sessions and 360 unique users. This establishes a strong baseline for Q2 reporting.",
-    "Prompters are your power users — 125 out of 360 unique users (35%) used the AI assistant.",
-  ],
-};
-
-// ── WEEK 1+2 DATA ─────────────────────────────────────────
-const WEEK12 = {
-  sessions: 1011,
-  users: 439,
-  prompters: 166,
-  prompts: 392,
-  retention: 18.6,
-  dropoff: 92,
-  highlighted: 497,
-  highlightedOpenSearch: 408,
-  copied: 88,
-  copiedOpenSearch: 61,
-  rageclicks: 3,
-  pillTop: "Similar projects (51)",
-  pillBot: "Institutional documents (15)",
-  tourCompletion: 54,
-  thumbsUp: 2,
-  thumbsDown: 1,
-  sourcePanelClicks: 26,
-  window: "Mar 31 – Apr 17, 2026",
-  countries: [
-    { name: "United States (HQ)", code: "US", users: 340, pct: 58 },
-    { name: "Argentina",          code: "AR", users: 26,  pct: 6  },
-    { name: "Brazil",             code: "BR", users: 20,  pct: 5  },
-    { name: "Peru",               code: "PE", users: 18,  pct: 3  },
-    { name: "Uruguay",            code: "UY", users: 16,  pct: 4  },
-    { name: "Colombia",           code: "CO", users: 12,  pct: 3  },
-    { name: "Panama",             code: "PA", users: 10,  pct: 2  },
-    { name: "Cayman Islands",     code: "KY", users: 9,   pct: 2  },
-    { name: "El Salvador",        code: "SV", users: 7,   pct: 2  },
-    { name: "Mexico",             code: "MX", users: 7,   pct: 1  },
-    { name: "Trinidad & Tobago",  code: "TT", users: 7,   pct: 1  },
-    { name: "Barbados",           code: "BB", users: 5,   pct: 1  },
-    { name: "Chile",              code: "CL", users: 5,   pct: 1  },
-    { name: "Paraguay",           code: "PY", users: 5,   pct: 1  },
-    { name: "Spain",              code: "ES", users: 5,   pct: 1  },
-    { name: "Bolivia",            code: "BO", users: 4,   pct: 0  },
-    { name: "Honduras",           code: "HN", users: 4,   pct: 0  },
-    { name: "Dominican Republic", code: "DO", users: 3,   pct: 0  },
-    { name: "Ecuador",            code: "EC", users: 3,   pct: 0  },
-    { name: "Jamaica",            code: "JM", users: 3,   pct: 0  },
-    { name: "Belize",             code: "BZ", users: 4,   pct: 1  },
-    { name: "Canada",             code: "CA", users: 2,   pct: 0  },
-    { name: "Guatemala",          code: "GT", users: 2,   pct: 0  },
-    { name: "Nicaragua",          code: "NI", users: 2,   pct: 0  },
-    { name: "Suriname",           code: "SR", users: 2,   pct: 0  },
-    { name: "Bahamas",            code: "BS", users: 1,   pct: 0  },
-  ],
-  prompts_sample: WEEK1.prompts_sample,
-  observations: [
-    "1,011 sessions across 2 weeks — platform sustaining strong engagement post bank-wide launch.",
-    "439 unique users reached — 12.2% of 3,600 Staff & Consultants in just two weeks.",
-    "166 prompters (38% of unique users) — growing share of users going deeper with the AI assistant.",
-    "Retention at 18.6% — baseline established for Q2 tracking.",
-  ],
-};
-
-// ── HELPERS ───────────────────────────────────────────────
-function pct(n) { return n != null ? `${n}%` : null; }
-function fmt(n) { return n != null ? n.toLocaleString() : null; }
-
-// ── PLACEHOLDER ───────────────────────────────────────────
-function Placeholder({ label }) {
-  return (
-    <span style={{ color: BDR, fontSize: 11, fontStyle: "italic" }}>
-      {label || "pending data"}
-    </span>
-  );
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KP Field Findings · IDB Knowledge Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&family=Fraunces:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D1B2E;--navy-2:#162236;
+  --blue:#2563EB;--blue-light:#EFF6FF;--blue-mid:#3B82F6;
+  --teal:#0F766E;--teal-light:#F0FDFA;--teal-mid:#14B8A6;
+  --amber:#92400E;--amber-light:#FFFBEB;--amber-mid:#F59E0B;
+  --red:#991B1B;--red-light:#FEF2F2;--red-mid:#EF4444;
+  --purple:#5B21B6;--purple-light:#F5F3FF;--purple-mid:#8B5CF6;
+  --ink:#111827;--ink-muted:#6B7280;--ink-faint:#9CA3AF;
+  --surface:#F3F4F6;--surface-2:#E5E7EB;--white:#FFFFFF;
+  --border:rgba(0,0,0,0.08);--border-strong:rgba(0,0,0,0.15);
+  --col-co:#14B8A6;--col-br:#F59E0B;--col-cr:#6366F1;--col-cr:#6366F1;
 }
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--surface);color:var(--ink);min-height:100vh;font-size:14px}
 
-// ── STATUS BADGE ──────────────────────────────────────────
-function StatusBadge({ value }) {
-  if (value === null) return (
-    <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 99, background: BG, color: INK3, border: `1px dashed ${BDR}`, fontWeight: 500 }}>
-      — pending
-    </span>
-  );
-  return value ? (
-    <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 99, background: "#edfaf4", color: GREEN, fontWeight: 500 }}>
-      ✓ confirmed
-    </span>
-  ) : (
-    <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 99, background: "#fef0ee", color: RED, fontWeight: 500 }}>
-      ✗ issue
-    </span>
-  );
+/* ── HEADER ── */
+.header{background:var(--navy);padding:0}
+.header-top{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2.5rem 0}
+.brand-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:3px}
+.header-title{font-family:'IBM Plex Sans',sans-serif;font-weight:600;font-size:1.1rem;color:#fff}
+.tab-nav{display:flex;gap:2px;padding:0 2.5rem;margin-top:1rem;overflow-x:auto}
+.tab-btn{background:none;border:none;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;color:rgba(255,255,255,0.4);letter-spacing:0.08em;text-transform:uppercase;padding:0.625rem 1rem;border-bottom:2px solid transparent;transition:all 0.15s;display:flex;align-items:center;gap:7px;white-space:nowrap;border-radius:4px 4px 0 0}
+.tab-btn:hover{color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.05)}
+.tab-btn.active{color:#fff;border-bottom-color:var(--blue-mid);background:rgba(255,255,255,0.07)}
+.tab-btn.disabled{opacity:0.25;cursor:default;pointer-events:none}
+.tab-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.td-sint{background:#3B82F6}.td-co{background:var(--col-co)}.td-br{background:var(--col-br)}.td-cr{background:#6366F1}.td-dim{background:rgba(255,255,255,0.2)}.td-cr{background:#6366F1}
+
+/* ── VIEWS ── */
+.view{display:none}.view.active{display:block}
+
+/* ── SUBHEADER ── */
+.subheader{background:var(--white);border-bottom:1px solid var(--border);padding:1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.report-label{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-faint);margin-bottom:2px}
+.report-title{font-size:1.5rem;font-weight:600;color:var(--ink);line-height:1}
+.report-source{font-size:12px;color:var(--ink-faint);margin-top:3px}
+.export-btn{display:flex;align-items:center;gap:6px;background:var(--white);border:1px solid var(--border-strong);border-radius:6px;padding:7px 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;color:var(--ink-muted);cursor:pointer;letter-spacing:0.06em;transition:all 0.15s;white-space:nowrap}
+.export-btn:hover{background:var(--surface);color:var(--ink);border-color:var(--ink-muted)}
+
+/* ── CUMULATIVE ── */
+.cumulative{background:var(--navy);margin:1.5rem 2.5rem 0;border-radius:10px;padding:1.25rem 2rem}
+.cum-label{font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.14em;color:rgba(255,255,255,0.4);margin-bottom:0.875rem}
+.cum-stats{display:flex;flex-wrap:wrap;gap:0}
+.cum-item{padding-right:2.5rem}
+.cum-val{font-family:'IBM Plex Mono',monospace;font-size:1.75rem;font-weight:500;color:#fff;line-height:1}
+.cum-lbl{font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.35);margin-top:3px}
+.cum-div{width:1px;background:rgba(255,255,255,0.1);margin-right:2.5rem;align-self:stretch}
+
+/* ── STAT CARDS ── */
+.section{padding:1.5rem 2.5rem 0}
+.section-head{display:flex;align-items:center;gap:8px;margin-bottom:1rem}
+.section-mono{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-muted);font-weight:500}
+.stat-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:0.875rem}
+.stat-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1rem 1.1rem}
+.stat-card.hi{border-color:rgba(37,99,235,0.25);background:var(--blue-light)}
+.sc-label{font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-faint);margin-bottom:0.5rem}
+.sc-val{font-family:'IBM Plex Mono',monospace;font-size:1.75rem;font-weight:500;color:var(--ink);line-height:1;margin-bottom:4px}
+.sc-val.blue{color:var(--blue)}
+.sc-sub{font-size:11px;color:var(--ink-muted);margin-bottom:8px}
+.delta{display:inline-flex;align-items:center;gap:4px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;padding:2px 7px;border-radius:4px}
+.up{background:#DCFCE7;color:#166534}.dn{background:#FEE2E2;color:#991B1B}.neu{background:var(--surface-2);color:var(--ink-muted)}
+
+/* ── TWO COL ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;padding:1.5rem 2.5rem 0}
+.full-w{padding:1.5rem 2.5rem 0}
+
+/* ── TABLE CARD ── */
+.table-card{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.tc-head{padding:0.875rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.tc-title{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-muted);font-weight:500}
+.tc-sub{font-size:11px;color:var(--ink-faint)}
+
+.ch-row{display:flex;align-items:center;gap:10px;padding:9px 1.1rem;border-bottom:1px solid var(--border)}
+.ch-row:last-child{border-bottom:none}
+.ch-badge{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:500;padding:2px 6px;border-radius:3px;flex-shrink:0;width:54px;text-align:center;letter-spacing:0.06em}
+.b-crit{background:var(--red-light);color:var(--red)}.b-high{background:#FEF3C7;color:#92400E}.b-mid{background:var(--surface-2);color:var(--ink-muted)}
+.ch-info{flex:1}.ch-name{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:1px}.ch-sub2{font-size:11px;color:var(--ink-faint)}.ch-count{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-faint);white-space:nowrap}
+
+.opp-row{display:flex;align-items:center;gap:10px;padding:9px 1.1rem;border-bottom:1px solid var(--border)}
+.opp-row:last-child{border-bottom:none}
+.opp-num{width:20px;height:20px;border-radius:50%;background:var(--navy);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.opp-name{font-size:12px;flex:1;color:var(--ink);line-height:1.3}
+.opp-bar-wrap{width:64px;flex-shrink:0}
+.opp-bar-bg{height:3px;background:var(--surface-2);border-radius:2px;overflow:hidden}
+.opp-bar-fill{height:100%;border-radius:2px;background:var(--teal-mid)}
+.opp-pct{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;width:36px;text-align:right;white-space:nowrap}
+.pct-h{color:var(--teal)}.pct-m{color:var(--amber)}.pct-l{color:var(--ink-faint)}
+
+/* ── MODES ── */
+.modes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.875rem}
+.mode-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:0.875rem 1rem;display:flex;align-items:center;gap:10px}
+.mode-rank{font-family:'IBM Plex Mono',monospace;font-size:1.1rem;font-weight:500;color:var(--ink-faint);width:24px;flex-shrink:0}
+.mode-rank.top{color:var(--blue)}
+.mode-name{font-size:12px;font-weight:500;color:var(--ink);line-height:1.3;margin-bottom:2px}
+.mode-pts{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-faint)}
+
+/* ── TOOLS ── */
+.tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.875rem}
+.tool-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:0.875rem 1rem;display:flex;align-items:center;gap:10px}
+.tool-num{font-family:'IBM Plex Mono',monospace;font-size:1.3rem;font-weight:500;color:var(--ink);flex-shrink:0;width:32px}
+.tool-info{flex:1}
+.tool-name{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:4px}
+.tool-bar-bg{height:3px;background:var(--surface-2);border-radius:2px;overflow:hidden}
+.tool-bar-fill{height:100%;border-radius:2px;background:var(--blue-mid)}
+
+/* ── TOP BLOCK (takeaways + quotes) ── */
+.top-block{display:grid;grid-template-columns:1fr 310px;gap:0.875rem;padding:1.5rem 2.5rem 0}
+.tk-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.875rem}
+.tk-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1.1rem;position:relative;overflow:hidden}
+.tk-card:first-child{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:start}
+.tk-card:first-child .tk-signal{border-top:none;padding-top:0;margin-top:0;border-left:2px solid var(--blue-light);padding-left:0.875rem}
+.tk-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.tc1::before{background:var(--teal-mid)}.tc2::before{background:var(--amber-mid)}.tc3::before{background:var(--red-mid)}.tc4::before{background:var(--purple-mid)}
+.tk-num{font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-faint);margin-bottom:6px}
+.tk-tension{font-size:12px;font-weight:600;color:var(--ink);line-height:1.4}
+.tk-signal{font-size:11px;color:var(--ink-muted);line-height:1.6;border-top:1px solid var(--border);padding-top:0.75rem;margin-top:0.75rem}
+.tk-impl{font-size:10px;font-style:italic;color:var(--ink-faint);border-top:1px solid var(--border);padding-top:0.75rem;margin-top:0.5rem;line-height:1.5}
+
+/* ── QUOTES COL ── */
+.quotes-col{display:flex;flex-direction:column;gap:0.875rem}
+.quote-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1rem 1.1rem;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:0.625rem}
+.quote-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:2px}
+.quote-card:nth-child(1)::before{background:var(--teal-mid)}.quote-card:nth-child(2)::before{background:var(--amber-mid)}.quote-card:nth-child(3)::before{background:var(--red-mid)}
+.q-glyph{font-size:1.5rem;color:var(--surface-2);line-height:0.7;font-weight:700;user-select:none}
+.q-text{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:0.8rem;line-height:1.65;color:var(--ink);flex:1}
+.q-foot{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.q-tag{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;padding:2px 7px;border-radius:3px}
+.qt-teal{background:var(--teal-light);color:var(--teal)}.qt-amber{background:var(--amber-light);color:var(--amber)}.qt-red{background:var(--red-light);color:var(--red)}
+.q-etapa{font-size:10px;color:var(--ink-faint);white-space:nowrap}
+
+.pb{height:2.5rem}
+
+/* ══ SÍNTESIS ══ */
+.sint-subheader{background:var(--white);border-bottom:1px solid var(--border);padding:1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.sint-pills{display:flex;gap:8px}
+.sint-pill{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:4px 12px 4px 8px}
+.sp-dot{width:7px;height:7px;border-radius:50%}
+.sp-dot.co{background:var(--col-co)}.sp-dot.br{background:var(--col-br)}.sp-dot.cr{background:#6366F1}
+.sp-text{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-muted)}
+
+.sint-scale{background:var(--navy);margin:1.5rem 2.5rem 0;border-radius:10px;padding:1.25rem 2rem}
+.ss-label{font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.14em;color:rgba(255,255,255,0.4);margin-bottom:0.875rem}
+.ss-items{display:flex;flex-wrap:wrap;gap:0}
+.ss-item{padding-right:2rem}
+.ss-val{font-family:'IBM Plex Mono',monospace;font-size:1.75rem;font-weight:500;color:#fff;line-height:1}
+.ss-lbl{font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.35);margin-top:3px}
+.ss-div{width:1px;background:rgba(255,255,255,0.1);margin-right:2rem;align-self:stretch}
+
+.sint-page{padding:1.5rem 2.5rem 4rem}
+.sh{display:flex;align-items:baseline;gap:10px;margin-bottom:1rem}
+.sh-num{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;color:var(--ink-faint);letter-spacing:0.1em}
+.sh-title{font-size:1.05rem;font-weight:600;color:var(--ink)}
+.sh-title em{font-style:italic;color:var(--blue);font-weight:300}
+.sh-rule{flex:1;height:1px;background:var(--border)}
+
+.editorial{background:var(--navy);border-radius:10px;padding:1.75rem 2rem;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.ed-lead{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:1rem;line-height:1.75;color:rgba(255,255,255,0.9)}
+.ed-lead strong{font-style:normal;font-weight:600;color:var(--amber-mid)}
+.ed-body{font-size:12px;color:rgba(255,255,255,0.5);line-height:1.75;border-left:1px solid rgba(255,255,255,0.1);padding-left:1.5rem}
+
+.universals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.875rem;margin-bottom:1.5rem}
+.u-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1.1rem;position:relative;overflow:hidden}
+.u-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.uc1::before{background:var(--teal-mid)}.uc2::before{background:var(--amber-mid)}.uc3::before{background:var(--red-mid)}.uc4::before{background:var(--purple-mid)}.uc5::before{background:#3B82F6}.uc6::before{background:#EC4899}
+.u-label{font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-faint);margin-bottom:6px}
+.u-signal{font-size:12px;font-weight:600;color:var(--ink);line-height:1.35;margin-bottom:6px}
+.u-body{font-size:11px;color:var(--ink-muted);line-height:1.6}
+.u-tags{display:flex;gap:6px;margin-top:0.75rem}
+.u-tag{font-family:'IBM Plex Mono',monospace;font-size:9px;padding:2px 7px;border-radius:3px}
+.tag-co{background:var(--teal-light);color:var(--teal)}.tag-br{background:var(--amber-light);color:var(--amber)}.tag-cr{background:#EEF2FF;color:#4338CA}
+
+.trust-bar{background:var(--amber-light);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;display:grid;grid-template-columns:auto 1fr;gap:1.5rem;align-items:center}
+.trust-num{font-family:'IBM Plex Mono',monospace;font-size:2.5rem;font-weight:500;color:var(--amber);line-height:1}
+.trust-lbl{font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber);margin-top:2px}
+.trust-body{font-size:12px;color:var(--ink-muted);line-height:1.7}
+.trust-body strong{color:var(--ink);font-weight:500}
+
+.opp-compare{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:0.5rem}
+.occ-head-row{display:grid;grid-template-columns:1fr 20px 1fr}
+.occ-h{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;padding:8px 12px}
+.occ-h.co{color:var(--teal)}.occ-h.br{color:var(--amber);text-align:right}
+.occ-body-grid{display:grid;grid-template-columns:1fr 20px 1fr}
+.occ-row{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--border)}
+.occ-row:last-child{border-bottom:none}
+.occ-row.br{flex-direction:row-reverse}
+.occ-rank{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--ink-faint);width:14px;text-align:center;flex-shrink:0}
+.occ-name{font-size:11px;color:var(--ink);flex:1;line-height:1.3}
+.occ-name.br{text-align:right}
+.occ-pct{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;width:34px;flex-shrink:0}
+.occ-pct.co{color:var(--teal)}.occ-pct.br{color:var(--amber);text-align:right}
+.occ-mid{border-left:1px solid var(--border);border-right:1px solid var(--border)}
+.occ-note{font-size:11px;color:var(--ink-faint);margin-bottom:1.5rem;padding:6px 2px 0}
+.occ-note strong{color:var(--ink-muted)}
+
+.diverge-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.25rem;margin-bottom:2rem}
+.div-card{border-radius:8px;padding:1.4rem;border:1px solid var(--border)}
+.div-card.co{background:rgba(20,184,166,0.04);border-color:rgba(20,184,166,0.2)}
+.div-card.br{background:rgba(245,158,11,0.04);border-color:rgba(245,158,11,0.2)}
+.div-head{display:flex;align-items:center;gap:8px;margin-bottom:1.1rem}
+.div-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.div-dot.co{background:var(--col-co)}.div-dot.br{background:var(--col-br)}
+.div-ctry{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.08em}
+.div-ctry.co{color:var(--teal)}.div-ctry.br{color:var(--amber)}
+.div-item{display:flex;gap:10px;padding:11px 0;border-bottom:1px solid var(--border)}
+.div-item:last-child{border-bottom:none}
+.div-bul{width:3px;height:3px;border-radius:50%;margin-top:7px;flex-shrink:0}
+.div-item.co .div-bul{background:var(--teal-mid)}.div-item.br .div-bul{background:var(--amber-mid)}
+.div-text{font-size:11.5px;color:var(--ink-muted);line-height:1.6}
+
+.impl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.875rem;margin-bottom:1.5rem}
+.impl-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1.1rem;display:flex;flex-direction:column;gap:0.625rem}
+.impl-ey{font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-faint)}
+.impl-title{font-size:12px;font-weight:600;color:var(--ink);line-height:1.35}
+.impl-body{font-size:11px;color:var(--ink-muted);line-height:1.65;flex:1}
+.impl-sw{font-size:11px;font-style:italic;color:var(--teal);border-top:1px solid var(--border);padding-top:0.625rem;line-height:1.5}
+
+.hypothesis{background:var(--navy);border-radius:10px;padding:1.75rem 2rem;display:grid;grid-template-columns:2px 1fr;gap:1.5rem}
+.hyp-bar{background:var(--amber-mid);border-radius:2px}
+.hyp-label{font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.35);margin-bottom:0.625rem}
+.hyp-text{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:1.05rem;color:#fff;line-height:1.65;margin-bottom:0.875rem}
+.hyp-text strong{font-style:normal;font-weight:600;color:var(--amber-mid)}
+.hyp-sub{font-size:11px;color:rgba(255,255,255,0.4);line-height:1.65}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;background:var(--white)}
+.ft{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-faint);letter-spacing:0.06em}
+
+@media(max-width:900px){
+  .stat-cards,.modes-grid,.tools-grid,.universals-grid,.impl-grid{grid-template-columns:1fr 1fr}
+  .two-col,.top-block,.diverge-grid,.editorial{grid-template-columns:1fr}
+  .tk-grid{grid-template-columns:1fr}.tk-card:first-child{grid-template-columns:1fr}
+  .sint-page,.section,.full-w,.top-block,.two-col{padding-left:1.25rem;padding-right:1.25rem}
+  .cumulative,.sint-scale{margin-left:1.25rem;margin-right:1.25rem}
 }
+</style>
+</head>
+<body>
 
-// ── ORGANIC BENCHMARKS (Sep 2025 – Mar 28, 2026 · 15 periods avg) ──
-const BENCH = {
-  sessions: 280,
-  users: 102,
-  dropoff: 88,
-  highlighted: 204,
-  prompters: 48,
-  retention: 33,
-  tourCompletion: 58,
-  pillTop: 25,
-  pillBot: 5,
-  // Monthly benchmarks (avg of organic biweekly periods Sep 2025–Mar 2026)
-  monthly: {
-    sessions: 502,
-    users: 192,
-    prompts: 264,
-    prompters: 96,
-    highlights: 380,
-    copies: 158,
-    sourceClicks: 142,
-    pillPageviews: 87,
-    tourCompletion: 58,
-    retention: 32,
-    pillTop: 25,
-    pillBot: 5,
+<!-- HEADER -->
+<header class="header">
+  <div class="header-top">
+    <div>
+      <div class="brand-label">IDB Knowledge Platform · VPS/KLD</div>
+      <div class="header-title">Field Research Findings</div>
+    </div>
+  </div>
+  <nav class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('sintesis',this)">SYNTHESIS</button>
+    <button class="tab-btn" onclick="switchTab('colombia',this)">🇨🇴 COLOMBIA · MAY 26–27</button>
+    <button class="tab-btn" onclick="switchTab('brasil',this)">🇧🇷 BRASIL · JUN 1</button>
+    <button class="tab-btn" onclick="switchTab('costarica',this)">🇨🇷 COSTA RICA · JUN 8</button>
+    <button class="tab-btn disabled">🇵🇦 PANAMÁ — coming soon</button>
+  </nav>
+</header>
+
+<!-- ══════════ SÍNTESIS ══════════ -->
+<div id="view-sintesis" class="view active">
+  <div class="sint-subheader">
+    <div>
+      <div class="report-label">Comparative Report</div>
+      <div class="report-title">Synthesis</div>
+      <div class="report-source">IDB Knowledge Platform · Source: Field missions + survey data</div>
+    </div>
+    <div class="sint-pills">
+      <div class="sint-pill"><span class="sp-dot co"></span><span class="sp-text">🇨🇴 Colombia · May 26–27</span></div>
+      <div class="sint-pill"><span class="sp-dot br"></span><span class="sp-text">Brasil · Jun 1, 2026</span></div>
+          <div class="sint-pill"><span class="sp-dot cr"></span><span class="sp-text">🇨🇷 Costa Rica · Jun 8</span></div>
+    </div>
+  </div>
+
+  <div class="sint-scale">
+    <div class="ss-label">Cumulative totals — all 3 missions</div>
+    <div class="ss-items">
+      <div class="ss-item"><div class="ss-val">3</div><div class="ss-lbl">Countries</div></div>
+      <div class="ss-div"></div>
+      <div class="ss-item"><div class="ss-val">41</div><div class="ss-lbl">Participants</div></div>
+      <div class="ss-div"></div>
+      <div class="ss-item"><div class="ss-val">139</div><div class="ss-lbl">Challenges</div></div>
+      <div class="ss-div"></div>
+      <div class="ss-item"><div class="ss-val">496</div><div class="ss-lbl">Votes</div></div>
+      <div class="ss-div"></div>
+      <div class="ss-item"><div class="ss-val">~80%</div><div class="ss-lbl">Use AI daily</div></div>
+      <div class="ss-div"></div>
+      <div class="ss-item"><div class="ss-val">≥87%</div><div class="ss-lbl">Prefer traceability</div></div>
+    </div>
+  </div>
+
+  <div class="sint-page">
+    <div class="editorial">
+      <p class="ed-lead">Three countries, three operational contexts. And yet, <strong>the same desire</strong>: an institutional knowledge source that is reliable, traceable and speaks the language of real work — not the language of the formal archive.</p>
+      <p class="ed-body">What emerges isn't a technology or access problem. It's an epistemic trust problem. Teams already use AI daily — 64% in Colombia, 85% in Brasil, 75% in Costa Rica. But they don't trust it for official documents. Costa Rica adds a new signal: the spontaneous benchmark is no longer Copilot — it's Claude. The question is no longer whether they'll use AI. It's which one, and for what.</p>
+    </div>
+
+    <div class="sh"><span class="sh-num">01</span><h2 class="sh-title">Universal signals — <em>what crosses borders</em></h2><span class="sh-rule"></span></div>
+    <div class="universals-grid">
+      <div class="u-card uc1">
+        <p class="u-label">Trust · Universal</p>
+        <p class="u-signal">Traceability over speed — always</p>
+        <p class="u-body">Colombia: 100%, Brasil: 87%, Costa Rica: 60% prefer slower answers with cited sources. CR is the first country where speed preference appears (40%) — but the majority still demands traceability. <em style="color:var(--ink-faint);font-size:10px">"La respuesta muestra la fuente de manera que se puede validar." [The answer shows the source in a way that can be validated] — CR participant</em></p>
+        <div class="u-tags"><span class="u-tag tag-co">🇨🇴 100%</span><span class="u-tag tag-br">🇧🇷 87%</span><span class="u-tag tag-cr">🇨🇷 60%</span></div>
+      </div>
+      <div class="u-card uc2">
+        <p class="u-label">Tools · Universal</p>
+        <p class="u-signal">Copilot #1, but Claude is rising</p>
+        <p class="u-body">Copilot leads all 3 countries (11 mentions each in CO/CR, 18 in BR). Claude is growing: 3→4→6 mentions across CO, CR, BR. In CR, ChatGPT ties with colegas at 8 — the most AI-diverse tool mix of the three missions.</p>
+        <div class="u-tags"><span class="u-tag tag-co">🇨🇴 Colombia</span><span class="u-tag tag-br">🇧🇷 Brasil</span><span class="u-tag tag-cr">🇨🇷 Costa Rica</span></div>
+      </div>
+      <div class="u-card uc3">
+        <p class="u-label">Adoption · Universal</p>
+        <p class="u-signal">Complement, not replace — across all 3</p>
+        <p class="u-body">0% want the KP as their main tool in any country. CR: 7 complement + 6 find sources = 76% see it as a layer, not a replacement. <em style="color:var(--ink-faint);font-size:10px">"Ya lo hace" [It already does it] — one CR participant, when asked what they need from the platform in one click.</em></p>
+        <div class="u-tags"><span class="u-tag tag-co">🇨🇴 Colombia</span><span class="u-tag tag-br">🇧🇷 Brasil</span><span class="u-tag tag-cr">🇨🇷 Costa Rica</span></div>
+      </div>
+      <div class="u-card uc4">
+        <p class="u-label">Source quality · Universal</p>
+        <p class="u-signal">Integration #1 need in CR; cited sources #1 in CO+BR</p>
+        <p class="u-body">CO and BR rank fuentes confiables y citadas as #1 to switch. CR flips it — integración con herramientas actuales is #1, fuentes #2. CR users are already more integrated in their workflows and want seamless embedding, not just better search.</p>
+        <div class="u-tags"><span class="u-tag tag-co">🇨🇴 cited sources first</span><span class="u-tag tag-br">🇧🇷 cited sources first</span><span class="u-tag tag-cr">🇨🇷 tool integration first</span></div>
+      </div>
+      <div class="u-card uc5">
+        <p class="u-label">AI Use · Universal</p>
+        <p class="u-signal">AI daily: BR 85% · CR 75% · CO 64%</p>
+        <p class="u-body">All three missions show majority daily AI use — and 0% "never" in any country. CR and BR are most mature. The benchmark CR named for retention: <em style="color:var(--ink-faint);font-size:10px">"Parecerse más a Claude" [Be more like Claude] — CR participant, Mentimeter retention question.</em></p>
+        <div class="u-tags"><span class="u-tag tag-co">🇨🇴 64%</span><span class="u-tag tag-br">🇧🇷 85%</span><span class="u-tag tag-cr">🇨🇷 75%</span></div>
+      </div>
+      <div class="u-card uc6">
+        <p class="u-label">Platform perception · Universal</p>
+        <p class="u-signal">Prior use highest in CR — and so is utility rating</p>
+        <p class="u-body">CR: 46% had used KP before (vs 33% CO, 20% BR) — and 91% rate it useful, the highest across missions. More familiarity → higher perceived value. But bugs in Convergencia integration threaten this trust: projects that don't appear break the adoption cycle.</p>
+        <div class="u-tags"><span class="u-tag tag-co">🇨🇴 33% / 57%</span><span class="u-tag tag-br">🇧🇷 20% / 65%</span><span class="u-tag tag-cr">🇨🇷 46% / 91%</span></div>
+      </div>
+    </div>
+
+    <div class="trust-bar">
+      <div><div class="trust-num">60–100%</div><div class="trust-lbl">all 3 countries</div></div>
+      <p class="trust-body"><strong>Prefer traceability over speed.</strong> In all 3 missions, the majority chose slower-but-traceable over fast-but-unverified. Costa Rica is the first country where 40% preferred speed — a signal of growing AI confidence, not declining quality standards. Across all three: <em>"El link a la fuente oficial, siempre hago cross check" [The link to the official source, I always cross-check] (CR) · "Que utilice fuentes oficiales" [That it uses official sources] (CR) · "Que la herramienta se use de manera masiva por funcionarios del BID" [That it be used widely by BID staff] (BR). <strong>Social proof and institutional provenance are the two trust levers — design for both.</strong></p>
+    </div>
+
+    <div class="sh"><span class="sh-num">02</span><h2 class="sh-title">Opportunities — where they <em>converge</em> and <em>diverge</em></h2><span class="sh-rule"></span></div>
+    <div style="padding:0.25rem 0 0.5rem">
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:1.25rem">
+        <span style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-muted)"><span style="width:10px;height:10px;border-radius:2px;background:#14B8A6"></span>🇨🇴 Colombia</span>
+        <span style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-muted)"><span style="width:10px;height:10px;border-radius:2px;background:#F59E0B"></span>🇧🇷 Brasil</span>
+        <span style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-muted)"><span style="width:10px;height:10px;border-radius:2px;background:#6366F1"></span>🇨🇷 Costa Rica</span>
+      </div>
+      <div id="opp-bars-chart" style="display:flex;flex-direction:column;gap:18px"></div>
+      <p class="occ-note" style="margin-top:1rem">% of participants who said they would use each feature. Ordered by average approval across 3 missions. <strong>Key read:</strong> Connect with AI agents is the widest spread (38%→70%→100%) — the clearest signal of growing AI maturity across countries. Detect gaps and Consult policies hit 100% in Costa Rica while remaining strong across all three.</p>
+    </div>
+    <script>
+    (function(){
+      const oppData = [
+        { label: "Detect gaps in a document",        co: 88, br: 88, cr: 100 },
+        { label: "Consult policies (exact citation)", co: 88, br: 92, cr: 100 },
+        { label: "Find rigorous evidence",            co: 63, br: 90, cr: 100 },
+        { label: "How a topic evolved (region)",      co: 75, br: 73, cr: 100 },
+        { label: "Connect with AI agents",            co: 38, br: 70, cr: 100 },
+        { label: "Search & download operations",      co: 100, br: 79, cr: 67  },
+        { label: "Map country/sector ecosystem",      co: 75, br: 69, cr: 67  },
+        { label: "Draft first POD version",           co: 100, br: 71, cr: 71  },
+      ];
+      oppData.sort((a,b)=>((b.co+b.br+b.cr)/3)-((a.co+a.br+a.cr)/3));
+
+      const container = document.getElementById('opp-bars-chart');
+      if (!container) return;
+      const isDark = matchMedia('(prefers-color-scheme:dark)').matches;
+      const textPri = isDark?'#e5e5e5':'#111827';
+      const textSec = isDark?'#9CA3AF':'#6B7280';
+      const bgTrack = isDark?'rgba(255,255,255,0.08)':'rgba(0,0,0,0.06)';
+      const countries = [
+        {key:'co',color:'#14B8A6',label:'Colombia'},
+        {key:'br',color:'#F59E0B',label:'Brasil'},
+        {key:'cr',color:'#6366F1',label:'Costa Rica'},
+      ];
+
+      oppData.forEach(d=>{
+        const avg = Math.round((d.co+d.br+d.cr)/3);
+        const row = document.createElement('div');
+        row.style.cssText='display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:center';
+
+        const labelEl = document.createElement('div');
+        labelEl.style.cssText=`font-size:12px;color:${textPri};line-height:1.35;text-align:right`;
+        labelEl.textContent=d.label;
+        row.appendChild(labelEl);
+
+        const barsCol = document.createElement('div');
+        barsCol.style.cssText='display:flex;flex-direction:column;gap:4px';
+
+        countries.forEach(c=>{
+          const pct=d[c.key];
+          const barRow=document.createElement('div');
+          barRow.style.cssText='display:flex;align-items:center;gap:8px';
+          const track=document.createElement('div');
+          track.style.cssText=`flex:1;height:14px;background:${bgTrack};border-radius:3px;overflow:hidden`;
+          const fill=document.createElement('div');
+          fill.style.cssText=`height:100%;width:${pct}%;background:${c.color};border-radius:3px`;
+          track.appendChild(fill);
+          const pctLabel=document.createElement('div');
+          pctLabel.style.cssText=`font-size:11px;font-weight:500;color:${c.color};width:34px;flex-shrink:0`;
+          pctLabel.textContent=pct+'%';
+          barRow.appendChild(track);
+          barRow.appendChild(pctLabel);
+          barsCol.appendChild(barRow);
+        });
+
+        const avgBadge=document.createElement('div');
+        avgBadge.style.cssText=`font-size:10px;color:${textSec};margin-top:1px`;
+        avgBadge.textContent='avg '+avg+'%';
+        barsCol.appendChild(avgBadge);
+
+        row.appendChild(barsCol);
+        container.appendChild(row);
+      });
+    })();
+    </script>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.25rem;margin-bottom:2rem">
+
+      <div class="div-card co">
+        <div class="div-head"><span class="div-dot co"></span><span class="div-ctry co">🇨🇴 Colombia · Unique tensions</span></div>
+        <div class="div-item co"><span class="div-bul"></span><p class="div-text"><strong>TdR (Terms of Reference) as the most urgent use case.</strong> When designing a new operation, teams search for TdR from similar past projects to avoid starting from scratch. Today there's no centralized way to find them — it's the most concrete, immediately solvable gap the platform could close.</p></div>
+        <div class="div-item co"><span class="div-bul"></span><p class="div-text"><strong>Draft POD as #1 opportunity.</strong> Colombia wants generation more than search — already trusts enough to want outputs, not just inputs. The most generation-forward profile of the three missions.</p></div>
+        <div class="div-item co"><span class="div-bul"></span><p class="div-text"><strong>Knowledge Careers gap.</strong> KM work isn't valued or visible. Metrics reward academic publications over field execution. Knowledge work often happens outside working hours with no system to capture it.</p></div>
+      </div>
+
+      <div class="div-card br">
+        <div class="div-head"><span class="div-dot br"></span><span class="div-ctry br">🇧🇷 Brasil · Unique tensions</span></div>
+        <div class="div-item br"><span class="div-bul"></span><p class="div-text"><strong>Portfolio intelligence demand.</strong> Specialists need disbursement projections by month and project, risks by sector/region. Today this is built manually in Excel — the platform could replace it.</p></div>
+        <div class="div-item br"><span class="div-bul"></span><p class="div-text"><strong>PCR automation — explicit demand.</strong> "Why isn't there a system that automatically generates a PCR (Project Completion Report)?" Teams want closure documents generated from execution data, not written from scratch.</p></div>
+        <div class="div-item br"><span class="div-bul"></span><p class="div-text"><strong>Institutional memory dispersed.</strong> Lessons learned by state, municipality and execution mechanism aren't accessible. The most experienced country context — with the hardest knowledge retrieval problem.</p></div>
+      </div>
+
+      <div class="div-card" style="background:rgba(99,102,241,0.04);border-color:rgba(99,102,241,0.2)">
+        <div class="div-head"><span class="div-dot" style="background:#6366F1"></span><span class="div-ctry" style="color:#6366F1">🇨🇷 Costa Rica · Unique tensions</span></div>
+        <div class="div-item co"><span class="div-bul" style="background:#6366F1"></span><p class="div-text"><strong>"Be more like Claude."</strong> The most candid retention signal in the corpus — a user named Claude as the benchmark spontaneously. The platform must win on institutional specialization, not by restricting access to generic AI.</p></div>
+        <div class="div-item co"><span class="div-bul" style="background:#6366F1"></span><p class="div-text"><strong>Cross-window silos — BID Invest, BID Lab, BID.</strong> No structured cross-visibility between windows. Users can't consult environmental/social docs from BID Invest projects. Synergies still depend on personal relationships.</p></div>
+        <div class="div-item co"><span class="div-bul" style="background:#6366F1"></span><p class="div-text"><strong>Highest prior use (46%) — but Convergencia has bugs.</strong> Most mature adopter across 3 missions, yet technical failures erode trust. Projects that don't appear in the platform break the adoption cycle built over months.</p></div>
+      </div>
+
+    </div>
+    <div class="sh"><span class="sh-num">04</span><h2 class="sh-title">Design <em>implications</em> — what to do with all this</h2><span class="sh-rule"></span></div>
+    <div class="impl-grid">
+      <div class="impl-card"><p class="impl-ey">Trust architecture · All 3 countries</p><p class="impl-title">Design for the citation, not the answer</p><p class="impl-body">Every result must show its evidence chain visibly and clickably: source doc, section, date. Not as collapsed metadata — as part of the result itself. Costa Rica makes this explicit: <em>"la respuesta muestra la fuente de manera que se puede validar"</em> — and users already do cross-checks before using any AI output in official documents.</p><p class="impl-sw">→ Trust isn't built with disclaimers — it's built with radical source transparency.</p></div>
+
+      <div class="impl-card"><p class="impl-ey">Positioning · Costa Rica signal</p><p class="impl-title">Don't replace Copilot — and don't try to replace Claude either</p><p class="impl-body">Copilot has speed and BID integration. Claude has conversational fluency. Costa Rica users already use Claude directly (4 mentions) and named it as the retention benchmark. The platform's edge is neither: it's the only tool with cited BID institutional knowledge — real bank documents, specific operations, policies with page numbers.</p><p class="impl-sw">→ The platform wins where neither Copilot nor Claude can go: institutional precision with provenance.</p></div>
+
+      <div class="impl-card"><p class="impl-ey">Differentiated roadmap · 3 trust curves</p><p class="impl-title">Colombia generates. Brasil verifies. Costa Rica integrates.</p><p class="impl-body">Colombia wants outputs (Draft POD #1). Brasil prioritizes evidence before generating (Consult policies #1). Costa Rica — the most mature adopter — wants the platform embedded in their existing workflow: integration with tools is their #1 switching trigger, unlike the other two missions.</p><p class="impl-sw">→ One platform, three entry points on the trust curve. UX must adapt to where each user is.</p></div>
+
+      <div class="impl-card"><p class="impl-ey">MVP → next expansion</p><p class="impl-title">Similar projects is live. Next: exact policy citation + TC contextual search</p><p class="impl-body">The MVP already covers similar projects. The clearest expansion validated across all 3 missions: <strong>consult policies with exact citation</strong> (top-3 in all countries) and <strong>deeper TC integration in contextual search</strong> — Cooperaciones Técnicas appear as key instruments in Colombia and Brasil but aren't fully surfaced in search results today.</p><p class="impl-sw">→ Expand from what works. Both next features are low-lift, high-signal for institutional trust.</p></div>
+
+      <div class="impl-card"><p class="impl-ey">Cross-window · Costa Rica priority</p><p class="impl-title">BID Invest + BID Lab integration: a governance problem, not a technical one</p><p class="impl-body">Costa Rica surfaced the sharpest version of this: users from BID can't consult BID Invest environmental and social documents. Synergies between windows depend on personal relationships. This is the use case that makes the platform truly institutional — but it requires cross-team governance decisions before any technical work.</p><p class="impl-sw">→ Align with BID Invest and BID Lab teams before scoping. The blocker is access policy, not engineering.</p></div>
+
+      <div class="impl-card"><p class="impl-ey">Big bets · Align with Project Preparation team</p><p class="impl-title">PCR automation + portfolio intelligence: legitimate, scoped, not solo</p><p class="impl-body">Brasil named PCR automation explicitly. The vision — capturing execution changes and synthesizing at closure — redefines the platform as a production system. Same with portfolio intelligence (disbursements, risks by region). Both are part of the Project Preparation project roadmap: these field signals should feed that team's prioritization, not be built in parallel.</p><p class="impl-sw">→ Share these findings with the Project Preparation team. They're building the infrastructure these use cases need.</p></div>
+    </div>
+
+    <div class="hypothesis">
+      <div class="hyp-bar"></div>
+      <div>
+        <p class="hyp-label">Design hypothesis · Transversal</p>
+        <p class="hyp-text">The Knowledge Platform doesn't compete in the generative AI market. It competes in the market of <strong>institutional trust</strong>. Its differential advantage isn't response speed but knowledge traceability — and that's exactly what no generalist tool can offer.</p>
+        <p class="hyp-sub">Colombia, Brasil, and Costa Rica — with distinct operational profiles and adoption curves — converge on the same signal: <em>we don't need more information, we need information we can trust, embedded in how we already work</em>. That is the platform the IDB has the unique opportunity to build.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ COLOMBIA ══════════ -->
+<div id="view-colombia" class="view">
+  <div class="subheader">
+    <div>
+      <div class="report-label">Mission Report</div>
+      <div class="report-title">🇨🇴 Colombia</div>
+      <div class="report-source">IDB Knowledge Platform · Source: Field mission + Mentimeter survey · Bogotá, 26–27 May 2026</div>
+    </div>
+    <button class="export-btn" onclick="exportCSV('colombia')">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 10v1.5A1.5 1.5 0 003.5 13h7a1.5 1.5 0 001.5-1.5V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      ↓ Export raw data
+    </button>
+  </div>
+
+  <div class="cumulative">
+    <div class="cum-label">Cumulative totals — 🇨🇴 Colombia mission · May 26–27, 2026</div>
+    <div class="cum-stats">
+      <div class="cum-item"><div class="cum-val">12</div><div class="cum-lbl">Participants</div></div>
+      <div class="cum-div"></div>
+      <div class="cum-item"><div class="cum-val">19</div><div class="cum-lbl">Challenges</div></div>
+      <div class="cum-div"></div>
+      <div class="cum-item"><div class="cum-val">64</div><div class="cum-lbl">Votes</div></div>
+      <div class="cum-div"></div>
+      <div class="cum-item"><div class="cum-val">33%</div><div class="cum-lbl">Prior KP use</div></div>
+      <div class="cum-div"></div>
+      <div class="cum-item"><div class="cum-val">57%</div><div class="cum-lbl">Rated KP useful (4–5)</div></div>
+      <div class="cum-div"></div>
+      <div class="cum-item"><div class="cum-val">64%</div><div class="cum-lbl">Use AI daily</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><span class="section-mono">&#9646; General Usability</span></div>
+    <div class="stat-cards">
+      <div class="stat-card hi">
+        <div class="sc-label">Prior platform use</div>
+        <div class="sc-val blue">33%</div>
+        <div class="sc-sub">Had used it before</div>
+        <span class="delta neu">50% never used it</span>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">Adoption intent</div>
+        <div class="sc-val">100%</div>
+        <div class="sc-sub">Would complement tools</div>
+        <span class="delta up">↑ 0% as main tool</span>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">Integration #1 need</div>
+        <div class="sc-val">#1</div>
+        <div class="sc-sub">Cited reliable sources</div>
+        <span class="delta neu">vs. speed</span>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">Source preference</div>
+        <div class="sc-val">100%</div>
+        <div class="sc-sub">Prefer traceability</div>
+        <span class="delta up">↑ vs speed</span>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">Internal tools sufficient</div>
+        <div class="sc-val">4.8</div>
+        <div class="sc-sub">Score /10</div>
+        <span class="delta neu">Neutral</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="top-block">
+    <div>
+      <div class="section-head" style="margin-bottom:0.875rem"><span class="section-mono">&#9646; Key tensions from the mission</span></div>
+      <div class="tk-grid" id="tk-colombia"></div>
+    </div>
+    <div>
+      <div class="section-head" style="margin-bottom:0.875rem"><span class="section-mono">&#9646; Top quotes</span></div>
+      <div class="quotes-col" id="q-colombia"></div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="table-card">
+      <div class="tc-head"><span class="tc-title">Challenges by stage</span><span class="tc-sub">19 reported · 64 votes</span></div>
+      <div id="ch-colombia"></div>
+    </div>
+    <div class="table-card">
+      <div class="tc-head"><span class="tc-title">Opportunities ranking</span><span class="tc-sub">% would use it</span></div>
+      <div id="opp-colombia"></div>
+    </div>
+  </div>
+
+  <div class="full-w">
+    <div class="section-head"><span class="section-mono">&#9646; Preferred use modes</span></div>
+    <div class="modes-grid" id="modes-colombia"></div>
+  </div>
+
+  <div class="full-w">
+    <div class="section-head"><span class="section-mono">&#9646; Current tools used · mentions</span></div>
+    <div class="tools-grid" id="tools-colombia"></div>
+  </div>
+  <div class="pb"></div>
+</div>
+
+<!-- ══════════ BRASIL ══════════ -->
+<div id="view-brasil" class="view">
+  <div class="subheader">
+    <div>
+      <div class="report-label">Mission Report</div>
+      <div class="report-title">🇧🇷 Brasil</div>
+      <div class="report-source">IDB Knowledge Platform · Source: Field mission + Mentimeter survey (PT) · 1 Jun 2026</div>
+    </div>
+    <button class="export-btn" onclick="exportCSV('brasil')">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 10v1.5A1.5 1.5 0 003.5 13h7a1.5 1.5 0 001.5-1.5V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      ↓ Export raw data
+    </button>
+  </div>
+
+  <div class="cumulative">
+    <div class="cum-label">Cumulative totals — 🇧🇷 Brasil mission · June 1, 2026</div>
+    <div class="cum-stats">
+      <div class="cum-item"><div class="cum-val">20</div><div class="cum-lbl">Participants</div></div>
+      <div class="cum-div"></div>
+      <div class="cum-item"><div class="cum-val">107</div><div class="cum-lbl">Challenges</div></div>
+      <div class="cum-div"></div>
+      <div class="cum-item"><div class="cum-val">383</div><div class="cum-lbl">Votes</div></div>
+      <div class="cum-div"></div>
+      <div class="cum-item"><div class="cum-val">20%</div><div class="cum-lbl">Prior KP use</div></div>
+      <div class="cum-div"></div>
+      <div class="cum-item"><div class="cum-val">65%</div><div class="cum-lbl">Rated KP useful (4–5)</div></div>
+      <div class="cum-div"></div>
+      <div class="cum-item"><div class="cum-val">85%</div><div class="cum-lbl">Use AI daily</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><span class="section-mono">&#9646; General Usability</span></div>
+    <div class="stat-cards">
+      <div class="stat-card hi">
+        <div class="sc-label">Prior platform use</div>
+        <div class="sc-val blue">20%</div>
+        <div class="sc-sub">Had used it before</div>
+        <span class="delta neu">60% never used it</span>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">Adoption intent</div>
+        <div class="sc-val">87%</div>
+        <div class="sc-sub">Complement or find sources</div>
+        <span class="delta up">↑ 0% as main tool</span>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">Integration #1 need</div>
+        <div class="sc-val">#1</div>
+        <div class="sc-sub">Cited reliable sources</div>
+        <span class="delta neu">vs. speed</span>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">Source preference</div>
+        <div class="sc-val">87%</div>
+        <div class="sc-sub">Prefer traceability</div>
+        <span class="delta up">↑ vs speed</span>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">Internal tools sufficient</div>
+        <div class="sc-val">4.0</div>
+        <div class="sc-sub">Score /10</div>
+        <span class="delta dn">↓ vs Colombia 4.8</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="top-block">
+    <div>
+      <div class="section-head" style="margin-bottom:0.875rem"><span class="section-mono">&#9646; Key tensions from the mission</span></div>
+      <div class="tk-grid" id="tk-brasil"></div>
+    </div>
+    <div>
+      <div class="section-head" style="margin-bottom:0.875rem"><span class="section-mono">&#9646; Top quotes</span></div>
+      <div class="quotes-col" id="q-brasil"></div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="table-card">
+      <div class="tc-head"><span class="tc-title">Challenges by stage</span><span class="tc-sub">107 reported · 383 votes</span></div>
+      <div id="ch-brasil"></div>
+    </div>
+    <div class="table-card">
+      <div class="tc-head"><span class="tc-title">Opportunities ranking</span><span class="tc-sub">% would use it</span></div>
+      <div id="opp-brasil"></div>
+    </div>
+  </div>
+
+  <div class="full-w">
+    <div class="section-head"><span class="section-mono">&#9646; Preferred use modes</span></div>
+    <div class="modes-grid" id="modes-brasil"></div>
+  </div>
+
+  <div class="full-w">
+    <div class="section-head"><span class="section-mono">&#9646; Current tools used · mentions</span></div>
+    <div class="tools-grid" id="tools-brasil"></div>
+  </div>
+  <div class="pb"></div>
+</div>
+
+
+<!-- ══════════ COSTA RICA ══════════ -->
+<div id="view-costarica" class="view">
+  <div class="subheader">
+    <div>
+      <div class="report-label">Mission Report</div>
+      <div class="report-title">🇨🇷 Costa Rica</div>
+      <div class="report-source">IDB Knowledge Platform · Source: Field mission + Mentimeter survey · San José, 8 Jun 2026</div>
+    </div>
+    <button class="export-btn" onclick="exportCSV('costarica')">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 10v1.5A1.5 1.5 0 003.5 13h7a1.5 1.5 0 001.5-1.5V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      ↓ Export raw data
+    </button>
+  </div>
+
+  <div class="cumulative">
+    <div class="cum-label">Cumulative totals — 🇨🇷 Costa Rica mission · June 8, 2026</div>
+    <div class="cum-stats">
+      <div class="cum-item"><div class="cum-val">12</div><div class="cum-lbl">Participants</div></div>
+      <div class="cum-div"></div>
+      <div class="cum-item"><div class="cum-val">13</div><div class="cum-lbl">Challenges</div></div>
+      <div class="cum-div"></div>
+      <div class="cum-item"><div class="cum-val">49</div><div class="cum-lbl">Votes</div></div>
+      <div class="cum-div"></div>
+      <div class="cum-item"><div class="cum-val">46%</div><div class="cum-lbl">Prior KP use</div></div>
+      <div class="cum-div"></div>
+      <div class="cum-item"><div class="cum-val">91%</div><div class="cum-lbl">Rated KP useful (4–5)</div></div>
+      <div class="cum-div"></div>
+      <div class="cum-item"><div class="cum-val">75%</div><div class="cum-lbl">Use AI daily</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><span class="section-mono">&#9646; General Usability</span></div>
+    <div class="stat-cards">
+      <div class="stat-card hi">
+        <div class="sc-label">Prior KP use</div>
+        <div class="sc-val blue">46%</div>
+        <div class="sc-sub">Had used it before</div>
+        <span class="delta up">↑ highest across missions</span>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">Rated KP useful (4–5)</div>
+        <div class="sc-val">91%</div>
+        <div class="sc-sub">0% rated 1–2</div>
+        <span class="delta up">↑ highest across missions</span>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">Use AI daily</div>
+        <div class="sc-val">75%</div>
+        <div class="sc-sub">25% weekly, 0% never</div>
+        <span class="delta neu">vs BR 85% / CO 64%</span>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">Adoption intent</div>
+        <div class="sc-val">81%</div>
+        <div class="sc-sub">Complement or find sources</div>
+        <span class="delta up">↑ 0% as main tool</span>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">Integration #1 need</div>
+        <div class="sc-val">#1</div>
+        <div class="sc-sub">Tool integration with stack</div>
+        <span class="delta neu">≠ other countries</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="top-block">
+    <div>
+      <div class="section-head" style="margin-bottom:0.875rem"><span class="section-mono">&#9646; Key tensions from the mission</span></div>
+      <div class="tk-grid" id="tk-costarica"></div>
+    </div>
+    <div>
+      <div class="section-head" style="margin-bottom:0.875rem"><span class="section-mono">&#9646; Top quotes</span></div>
+      <div class="quotes-col" id="q-costarica"></div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="table-card">
+      <div class="tc-head"><span class="tc-title">Challenges by stage</span><span class="tc-sub">13 reported · 49 votes</span></div>
+      <div id="ch-costarica"></div>
+    </div>
+    <div class="table-card">
+      <div class="tc-head"><span class="tc-title">Opportunities ranking</span><span class="tc-sub">% would use it</span></div>
+      <div id="opp-costarica"></div>
+    </div>
+  </div>
+
+  <div class="full-w">
+    <div class="section-head"><span class="section-mono">&#9646; Preferred use modes</span></div>
+    <div class="modes-grid" id="modes-costarica"></div>
+  </div>
+
+  <div class="full-w">
+    <div class="section-head"><span class="section-mono">&#9646; Current tools used · mentions</span></div>
+    <div class="tools-grid" id="tools-costarica"></div>
+  </div>
+  <div class="pb"></div>
+</div>
+
+
+<!-- ══════════ COSTA RICA ══════════ -->
+<div id="view-costarica" class="view">
+  <div class="subheader">
+    <div>
+      <div class="report-label">Mission Report</div>
+      <div class="report-title">🇨🇷 Costa Rica</div>
+      <div class="report-source">IDB Knowledge Platform · Source: Field mission + Mentimeter survey · June 8, 2026</div>
+    </div>
+    <button class="export-btn" onclick="exportCSV('costarica')">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M4 6l3 3 3-3M2 10v1.5A1.5 1.5 0 003.5 13h7a1.5 1.5 0 001.5-1.5V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      ↓ Export raw data
+    </button>
+  </div>
+
+  <div class="cumulative">
+    <div class="cum-label">Cumulative totals — 🇨🇷 Costa Rica mission · June 8, 2026</div>
+    <div class="cum-stats">
+      <div class="cum-item"><div class="cum-val">12</div><div class="cum-lbl">Participants</div></div>
+      <div class="cum-div"></div>
+      <div class="cum-item"><div class="cum-val">13</div><div class="cum-lbl">Challenges</div></div>
+      <div class="cum-div"></div>
+      <div class="cum-item"><div class="cum-val">49</div><div class="cum-lbl">Votes</div></div>
+      <div class="cum-div"></div>
+      <div class="cum-item"><div class="cum-val">46%</div><div class="cum-lbl">Prior KP use</div></div>
+      <div class="cum-div"></div>
+      <div class="cum-item"><div class="cum-val">91%</div><div class="cum-lbl">Rated KP useful (4–5)</div></div>
+      <div class="cum-div"></div>
+      <div class="cum-item"><div class="cum-val">75%</div><div class="cum-lbl">Use AI daily</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><span class="section-mono">&#9646; General Usability</span></div>
+    <div class="stat-cards">
+      <div class="stat-card hi">
+        <div class="sc-label">Prior platform use</div>
+        <div class="sc-val blue">46%</div>
+        <div class="sc-sub">Had used it before</div>
+        <span class="delta up">↑ highest across missions</span>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">Adoption intent</div>
+        <div class="sc-val">81%</div>
+        <div class="sc-sub">Complement or find sources</div>
+        <span class="delta up">↑ 0% as main tool</span>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">Integration #1 need</div>
+        <div class="sc-val">#1</div>
+        <div class="sc-sub">Tool integration</div>
+        <span class="delta neu">≠ other countries</span>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">Source preference</div>
+        <div class="sc-val">60%</div>
+        <div class="sc-sub">Prefer traceability</div>
+        <span class="delta neu">40% prefer speed</span>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">Internal tools sufficient</div>
+        <div class="sc-val">5.4</div>
+        <div class="sc-sub">Score /10</div>
+        <span class="delta up">↑ vs Colombia 4.8</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="top-block">
+    <div>
+      <div class="section-head" style="margin-bottom:0.875rem"><span class="section-mono">&#9646; Key tensions from the mission</span></div>
+      <div class="tk-grid" id="tk-costarica"></div>
+    </div>
+    <div>
+      <div class="section-head" style="margin-bottom:0.875rem"><span class="section-mono">&#9646; Top quotes</span></div>
+      <div class="quotes-col" id="q-costarica"></div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="table-card">
+      <div class="tc-head"><span class="tc-title">Challenges by stage</span><span class="tc-sub">13 reported · 49 votes</span></div>
+      <div id="ch-costarica"></div>
+    </div>
+    <div class="table-card">
+      <div class="tc-head"><span class="tc-title">Opportunities ranking</span><span class="tc-sub">% would use it</span></div>
+      <div id="opp-costarica"></div>
+    </div>
+  </div>
+
+  <div class="full-w">
+    <div class="section-head"><span class="section-mono">&#9646; Preferred use modes</span></div>
+    <div class="modes-grid" id="modes-costarica"></div>
+  </div>
+
+  <div class="full-w">
+    <div class="section-head"><span class="section-mono">&#9646; Current tools used · mentions</span></div>
+    <div class="tools-grid" id="tools-costarica"></div>
+  </div>
+  <div class="pb"></div>
+</div>
+
+<footer>
+  <span class="ft">© 2026 IDB KNOWLEDGE PLATFORM · VPS/KLD</span>
+  <span class="ft" id="footer-label" style="text-align:center">SYNTHESIS · COMPARATIVE REPORT</span>
+  <span class="ft" style="text-align:right">INTERNAL USE ONLY</span>
+</footer>
+
+<script>
+const DATA = {
+  colombia: {
+    takeaways: [
+      {num:"Tension 1",tension:"Knowledge Loop — Gap between operations and analytical knowledge",signal:"Need to systematize non-visible knowledge: workshop minutes, semester reports, TC products. Knowledge is generated but doesn't circulate.",impl:"The platform must expand beyond the institutional archive and make field knowledge visible.",cls:"tc1"},
+      {num:"Tension 2",tension:"Systems interoperability",signal:"1,500+ agents operating without articulation. Duplicated dashboards and parallel initiatives without integration between bank platforms.",impl:"Interoperability isn't a technical problem — it's a governance problem.",cls:"tc2"},
+      {num:"Tension 3",tension:"Demand for personalization and ad hoc reporting",signal:"Reports are built from scratch for each corporate request. Organic use of Claude grows even with personal funding.",impl:"The platform must enable continuous production, not just access to the accumulated stock.",cls:"tc3"},
+      {num:"Tension 4 · Knowledge Careers",tension:"Non-transferable tacit knowledge and misaligned incentives",signal:"Knowledge work happens outside working hours. Metrics reward academic publications over field execution. Access to synergies depends on personal networks, not systems.",impl:"The most valuable knowledge — field knowledge — isn't systematized or transferred.",cls:"tc4"}
+    ],
+    quotes: [
+      {text:"What makes the platform different is the curated knowledge. But there are too many dashboards. Make it one single place — I have eighty things to do at once.",tag:"Fragmentation",tagCls:"qt-teal",etapa:"Plenary session"},
+      {text:"The fact that the information comes from BID documents gives me peace of mind.",tag:"Trust",tagCls:"qt-amber",etapa:"Day 2 · Synergies"},
+      {text:"We're always doing a lot — the problem is connecting what we do in an organized way.",tag:"Coordination",tagCls:"qt-red",etapa:"Synergies session"}
+    ],
+    challenges: [
+      {name:"TdR and similar contracts — no centralized access",sub:"Execution · Documents",badge:"CRITICAL",bcls:"b-crit",count:"4 reports"},
+      {name:"Quick search for similar projects",sub:"Preparation · Search",badge:"HIGH",bcls:"b-high",count:"2 reports"},
+      {name:"Platform fragmentation, lack of integration",sub:"Preparation · Tools",badge:"HIGH",bcls:"b-high",count:"2 reports"},
+      {name:"Process and tool harmonization",sub:"Execution · Tools",badge:"HIGH",bcls:"b-high",count:"2 reports"},
+      {name:"Results matrix historical traceability",sub:"Closure · Tools",badge:"MED",bcls:"b-mid",count:"1 report"},
+      {name:"Disbursements and portfolio in manual Excel",sub:"Execution · Data",badge:"MED",bcls:"b-mid",count:"1 report"}
+    ],
+    opportunities: [
+      {name:"Draft the first POD version",pct:100},
+      {name:"Search and download operations or documents",pct:100},
+      {name:"Detect gaps in a document",pct:88},
+      {name:"Consult policies with exact citation",pct:88},
+      {name:"Map ecosystem of a country and sector",pct:75},
+      {name:"How a topic has evolved in the region",pct:75},
+      {name:"Find rigorous evidence for decisions",pct:63},
+      {name:"Connect with AI agents",pct:38}
+    ],
+    modes: [
+      {rank:1,name:"Create document from existing content",pts:"22 pts"},
+      {rank:2,name:"Search for a quick answer",pts:"18 pts"},
+      {rank:3,name:"Compare or analyze information",pts:"17 pts"},
+      {rank:4,name:"Export data to spreadsheet",pts:"16 pts"}
+    ],
+    tools: [
+      {name:"Copilot",count:11,pct:100},{name:"Colleagues",count:10,pct:91},
+      {name:"SharePoint/EzShare",count:7,pct:64},{name:"Google",count:6,pct:55},
+      {name:"BID Catalog",count:6,pct:55},{name:"Claude",count:3,pct:27},
+      {name:"ChatGPT",count:2,pct:18},{name:"Other",count:3,pct:27}
+    ]
   },
-};
-
-// ── METRIC CARD ───────────────────────────────────────────
-function MetricCard({ label, value, desc, invert = false, bench }) {
-  const hasValue = value != null;
-
-  // Calculate badge: compare numeric value to bench
-  let badge = null;
-  if (hasValue && bench != null) {
-    const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
-    if (!isNaN(numVal) && bench > 0) {
-      const ratio = numVal / bench;
-      const higher = ratio >= 1;
-      // For invert metrics (drop-off), higher is worse
-      const isGood = invert ? !higher : higher;
-      const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
-      const label2 = ratio >= 1 ? `↑ ${pctDiff}%` : `↓ ${pctDiff}%`;
-      badge = { label: label2, isGood, bench };
-    }
+  brasil: {
+    takeaways: [
+      {num:"Tension 1",tension:"Institutional memory untraceable — knowledge dispersed in old programs",signal:"In older programs it's hard to find documents and execution agreements. Lessons learned by state, municipality and execution mechanism aren't accessible.",impl:"The platform must be where the BID's operational memory becomes queryable, not just formal publications.",cls:"tc1"},
+      {num:"Tension 2",tension:"Portfolio intelligence demand — transversal data inaccessible",signal:"Specialists need disbursement projections by month and project, risks by sector/borrower/executor/region. Today this is done manually in Excel.",impl:"The opportunity isn't just document search — it's building real-time portfolio intelligence.",cls:"tc2"},
+      {num:"Tension 3",tension:"PCR automático — closure document generation is a critical pain point",signal:"'Why isn't there a system that automatically generates a PCR?' Changes made during execution aren't recorded, making closure difficult.",impl:"The most desired use case isn't search — it's automated document generation with traceability.",cls:"tc3"},
+      {num:"Tension 4 · Trust",tension:"Adoption conditioned on traceability — speed doesn't compensate without cited sources",signal:"87% prefer answers with greater traceability even if slower. The unanimous demand: clear reference with link to source document.",impl:"Adoption isn't won with speed but with precision and source transparency.",cls:"tc4"}
+    ],
+    quotes: [
+      {text:"I'd like portfolio-level information: lessons learned from a specific execution mechanism in a specific state or municipality in Brasil, and a risk compilation by sector, borrower, executor, and region.",tag:"Portfolio intelligence",tagCls:"qt-teal",etapa:"Preparation"},
+      {text:"Future ask: why isn't there a system or tool that automatically generates a PCR?",tag:"Automation",tagCls:"qt-amber",etapa:"Closure & Evaluation"},
+      {text:"If the tool is used widely and frequently by BID staff across the board — that would be a powerful signal of reliability.",tag:"Adoption & trust",tagCls:"qt-red",etapa:"Plenary session"}
+    ],
+    challenges: [
+      {name:"Search for linked and similar operations",sub:"Preparation · Search",badge:"CRITICAL",bcls:"b-crit",count:"23 reports"},
+      {name:"Theoretical references and operation design docs",sub:"Preparation · Documents",badge:"HIGH",bcls:"b-high",count:"11 reports"},
+      {name:"Structured data for evidence in documents",sub:"Preparation · Data",badge:"HIGH",bcls:"b-high",count:"11 reports"},
+      {name:"Lessons learned from execution",sub:"Execution · Documents",badge:"HIGH",bcls:"b-high",count:"10 reports"},
+      {name:"Tools for bank policy alignment",sub:"Execution · Tools",badge:"HIGH",bcls:"b-high",count:"8 reports"},
+      {name:"Historical documents in older programs",sub:"Closure · Documents",badge:"MED",bcls:"b-mid",count:"6 reports"}
+    ],
+    opportunities: [
+      {name:"Consult policies with exact citation",pct:92},
+      {name:"Find rigorous evidence for decisions",pct:90},
+      {name:"Detect gaps in a document",pct:88},
+      {name:"Buscar y descargar un grupo de operaciones",pct:79},
+      {name:"How a topic has evolved in the region",pct:73},
+      {name:"Draft the first POD version",pct:71},
+      {name:"Connect with AI agents",pct:70},
+      {name:"Map ecosystem of a country and sector",pct:69}
+    ],
+    modes: [
+      {rank:1,name:"Create document from existing content",pts:"60 pts"},
+      {rank:2,name:"Compare or analyze information",pts:"58 pts"},
+      {rank:3,name:"Search for a quick answer",pts:"52 pts"},
+      {rank:4,name:"Export data to spreadsheet",pts:"24 pts"}
+    ],
+    tools: [
+      {name:"Copilot",count:18,pct:100},{name:"SharePoint/EzShare",count:16,pct:89},
+      {name:"Colleagues",count:15,pct:83},{name:"Google",count:14,pct:78},
+      {name:"ChatGPT",count:11,pct:61},{name:"BID Catalog",count:8,pct:44},
+      {name:"Claude",count:6,pct:33},{name:"Other",count:6,pct:33}
+    ]
+  }
+  ,costarica: {
+    takeaways: [
+      {num:"Tension 1",tension:"Integration as adoption condition — the platform cannot live in a silo",signal:"Costa Rica is the only mission where tool integration surpasses cited sources as the #1 requirement to switch to the platform. They already use Copilot 11 times — they want the KP to plug into that ecosystem, not compete with it.",impl:"The value proposition only materializes if the platform speaks with the existing stack: Teams, SharePoint, email. Without integration, it is just another tool.",cls:"tc1"},
+      {num:"Tension 2",tension:"High prior adoption, already formed expectations — the most demanding user base",signal:"46% had already used the platform before — double Colombia. This creates higher expectations: 'be more like Claude', 'no generic answers', 'quality'. The bar is set. These users don't need onboarding — they need depth.",impl:"Costa Rica doesn't need basic onboarding — it needs depth. Expert users are the hardest to recover if the first real experience disappoints.",cls:"tc2"},
+      {num:"Tension 3",tension:"Institutional planning documents — a very specific, concrete gap",signal:"The hottest challenge is Programming/Documents (3 reports): institutional capacity analyses, market studies, country system evaluations. And Preparation stage has 6 reports focused on documents for the Ministry of Planning — content that isn't in the platform today.",impl:"Costa Rica has a very specific need profile — policy documents and institutional assessments — that the platform must be able to serve with precision and traceability.",cls:"tc3"},
+      {num:"Tension 4 · Productivity",tension:"The platform already works for some — the challenge is scaling that trust",signal:"'It already does it' [Ya lo hace] appears as an answer to what the platform should help you do — one participant is already satisfied. But alongside 'be more like Claude' and 'no generic answers' — there is a gap between satisfied users and demanding ones.",impl:"Growth in CR doesn't come from new users but from deepening with existing ones — converting occasional users into daily ones.",cls:"tc4"}
+    ],
+    quotes: [
+      {text:"The answer shows the source in a way that can be validated. I always cross-check — I need the link to the official source.",tag:"Traceability & sources",tagCls:"qt-teal",etapa:"Trust in official documents"},
+      {text:"No generic answers. Be more like Claude.",tag:"Response quality",tagCls:"qt-amber",etapa:"What would make you return?"},
+      {text:"Let users themselves rate the lesson learned — that would give it credibility.",tag:"Social validation",tagCls:"qt-red",etapa:"What would you need to see?"}
+    ],
+    challenges: [
+      {name:"Institutional capacity analyses, market studies, country system evaluations",sub:"Programming · Documents",badge:"CRITICAL",bcls:"b-crit",count:"3 reports"},
+      {name:"Elaboration documents for Ministry of Planning",sub:"Preparation · Documents",badge:"HIGH",bcls:"b-high",count:"6 reports"},
+      {name:"Project status visualization (planning, updates, progress)",sub:"Execution · Tools",badge:"HIGH",bcls:"b-high",count:"4 reports"},
+      {name:"Information search for programming stage",sub:"Preparation · Search",badge:"HIGH",bcls:"b-high",count:"3 reports"},
+      {name:"Tools and collaboration in execution",sub:"Execution · Other",badge:"MED",bcls:"b-mid",count:"3 reports"},
+      {name:"No closure & evaluation challenges reported",sub:"Closure & Evaluation",badge:"N/A",bcls:"b-mid",count:"0 reports"}
+    ],
+    opportunities: [
+      {name:"Detect gaps in a document",pct:100},
+      {name:"Consult policies with exact citation",pct:100},
+      {name:"Find rigorous evidence for decision-making",pct:100},
+      {name:"How a topic has evolved in the region",pct:100},
+      {name:"Connect with AI agents",pct:100},
+      {name:"Draft the first POD version",pct:71},
+      {name:"Map ecosystem of a country and sector",pct:67},
+      {name:"Search and download a group of operations or documents",pct:67}
+    ],
+    modes: [
+      {rank:1,name:"Create document from existing content",pts:"14 pts"},
+      {rank:2,name:"Search for a quick answer",pts:"10 pts"},
+      {rank:3,name:"Compare or analyze information",pts:"7 pts"},
+      {rank:4,name:"Export data to spreadsheet",pts:"5 pts"}
+    ],
+    tools: [
+      {name:"Copilot",count:11,pct:100},
+      {name:"ChatGPT",count:8,pct:73},
+      {name:"Colleagues",count:8,pct:73},
+      {name:"Google",count:7,pct:64},
+      {name:"SharePoint/EzShare",count:7,pct:64},
+      {name:"Claude",count:4,pct:36},
+      {name:"BID Catalog",count:4,pct:36},
+      {name:"Other",count:0,pct:0}
+    ]
   }
 
-  return (
-    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
-      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9 }}>{label}</div>
-      <div style={{ fontSize: 30, fontWeight: 500, color: hasValue ? INK : BDR, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>
-        {hasValue ? value : "—"}
+};
+
+function pctCls(p){return p>=75?'pct-h':p>=50?'pct-m':'pct-l'}
+
+function renderCountry(k){
+  const d=DATA[k];
+
+  // Takeaways
+  document.getElementById('tk-'+k).innerHTML=d.takeaways.map(t=>`
+    <div class="tk-card ${t.cls}">
+      <div><p class="tk-num">${t.num}</p><p class="tk-tension">${t.tension}</p></div>
+      <div><p class="tk-signal">${t.signal}</p><p class="tk-impl">${t.impl}</p></div>
+    </div>`).join('');
+
+  // Quotes
+  document.getElementById('q-'+k).innerHTML=d.quotes.map(q=>`
+    <div class="quote-card">
+      <span class="q-glyph">"</span>
+      <p class="q-text">${q.text}</p>
+      <div class="q-foot">
+        <span class="q-tag ${q.tagCls}">${q.tag}</span>
+        <span class="q-etapa">${q.etapa}</span>
       </div>
-      {!hasValue && <div style={{ fontSize: 10, color: INK3, fontStyle: "italic" }}>pending data</div>}
-      {desc && hasValue && <div style={{ fontSize: 10, color: INK3, marginTop: 5, lineHeight: 1.5 }}>{desc}</div>}
-      {badge && (
-        <div style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 6 }}>
-          <span style={{
-            fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99,
-            background: badge.isGood ? "#edfaf4" : "#fef0ee",
-            color: badge.isGood ? GREEN : RED,
-          }}>{badge.label} vs organic avg</span>
-          <span style={{ fontSize: 9, color: INK3 }}>({badge.bench})</span>
-        </div>
-      )}
-    </div>
-  );
+    </div>`).join('');
+
+  // Challenges
+  document.getElementById('ch-'+k).innerHTML=d.challenges.map(c=>`
+    <div class="ch-row">
+      <span class="ch-badge ${c.bcls}">${c.badge}</span>
+      <div class="ch-info"><div class="ch-name">${c.name}</div><div class="ch-sub2">${c.sub}</div></div>
+      <span class="ch-count">${c.count}</span>
+    </div>`).join('');
+
+  // Opportunities
+  document.getElementById('opp-'+k).innerHTML=d.opportunities.map((o,i)=>`
+    <div class="opp-row">
+      <span class="opp-num">${i+1}</span>
+      <span class="opp-name">${o.name}</span>
+      <div class="opp-bar-wrap"><div class="opp-bar-bg"><div class="opp-bar-fill" style="width:${o.pct}%"></div></div></div>
+      <span class="opp-pct ${pctCls(o.pct)}">${o.pct}%</span>
+    </div>`).join('');
+
+  // Modes
+  document.getElementById('modes-'+k).innerHTML=d.modes.map(m=>`
+    <div class="mode-card">
+      <div class="mode-rank${m.rank<=2?' top':''}">${m.rank}</div>
+      <div><div class="mode-name">${m.name}</div><div class="mode-pts">${m.pts}</div></div>
+    </div>`).join('');
+
+  // Tools
+  document.getElementById('tools-'+k).innerHTML=d.tools.map(t=>`
+    <div class="tool-card">
+      <div class="tool-num">${t.count}</div>
+      <div class="tool-info">
+        <div class="tool-name">${t.name}</div>
+        <div class="tool-bar-bg"><div class="tool-bar-fill" style="width:${t.pct}%"></div></div>
+      </div>
+    </div>`).join('');
 }
 
-// ── PENETRATION BAR ───────────────────────────────────────
-function PenetrationBar({ users }) {
-  const hasData = users != null;
-  const pct = hasData ? ((users / BID_TOTAL) * 100).toFixed(1) : 0;
-  return (
-    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px", marginBottom: 16 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10, flexWrap: "wrap", gap: 4 }}>
-        <span style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3 }}>
-          Penetración — Staff & Consultores IDB
-        </span>
-        <span style={{ fontSize: 9, color: INK3 }}>
-          {hasData ? `${users.toLocaleString()} de ${BID_TOTAL.toLocaleString()}` : `— de ${BID_TOTAL.toLocaleString()}`}
-        </span>
-      </div>
-      <div style={{ background: BG, borderRadius: 99, height: 8, overflow: "hidden", marginBottom: 8 }}>
-        <div style={{ height: "100%", width: `${pct}%`, background: BLUE, borderRadius: 99, transition: "width 0.4s ease" }} />
-      </div>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <span style={{ fontSize: 12, fontWeight: 500, color: hasData ? BLUE_D : INK3 }}>
-          {hasData ? `${pct}% del universo objetivo` : "pending data"}
-        </span>
-        <span style={{ fontSize: 10, color: AMBER }}>🚀 Go-live: {GO_LIVE_DATE}</span>
-      </div>
-    </div>
-  );
+function switchTab(tab,btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('view-'+tab).classList.add('active');
+  btn.classList.add('active');
+  const labels={sintesis:'SYNTHESIS · COMPARATIVE REPORT',colombia:'COLOMBIA · MISSION REPORT · 26–27 MAY 2026',brasil:'BRASIL · MISSION REPORT · 1 JUN 2026',costarica:'COSTA RICA · MISSION REPORT · 8 JUN 2026'};
+  document.getElementById('footer-label').textContent=labels[tab]||'';
 }
 
-// ── SMOKE TEST VIEW ───────────────────────────────────────
-function SmokeTest() {
-  const checks = [
-    { label: "FullStory capturando sesiones correctamente", value: SMOKE.capturedSessions },
-    { label: "Usuarios únicos identificados", value: SMOKE.uniqueUsers },
-    { label: "Tráfico interno filtrado", value: SMOKE.internalFiltered },
-    { label: "Sin rage clicks críticos en primeras 48h", value: SMOKE.rageclicks },
+function exportCSV(country){
+  const d=DATA[country];
+  const rows=[
+    ['Section','Item','Value','Notes'],
+    ['','','',''],
+    ['OPPORTUNITIES','','',''],
+    ...d.opportunities.map((o,i)=>[`Opportunity ${i+1}`,o.name,`${o.pct}%`,'% would use it']),
+    ['','','',''],
+    ['CHALLENGES','','',''],
+    ...d.challenges.map(c=>['Challenge',c.name,c.count,`${c.badge} · ${c.sub}`]),
+    ['','','',''],
+    ['USE MODES','','',''],
+    ...d.modes.map(m=>[`Mode ${m.rank}`,m.name,m.pts,'']),
+    ['','','',''],
+    ['TOOLS','','',''],
+    ...d.tools.map(t=>['Tool',t.name,`${t.count} mentions`,`${t.pct}% of max`]),
+    ['','','',''],
+    ['QUOTES','','',''],
+    ...d.quotes.map((q,i)=>[`Quote ${i+1}`,q.text,q.tag,q.etapa])
   ];
-
-  const allConfirmed = checks.every(c => c.value === true);
-  const hasIssue = checks.some(c => c.value === false);
-  const isPending = checks.some(c => c.value === null);
-
-  return (
-    <div style={{ maxWidth: 860, margin: "0 auto", padding: "28px 16px 56px" }}>
-
-      {/* Status banner */}
-      <div style={{
-        borderRadius: 10, padding: "14px 20px", marginBottom: 24,
-        background: allConfirmed ? "#edfaf4" : hasIssue ? "#fef0ee" : "#fffbeb",
-        border: `1px solid ${allConfirmed ? "#a7f3d0" : hasIssue ? "#fca5a5" : "#fde68a"}`,
-        display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap",
-      }}>
-        <span style={{ fontSize: 20 }}>{allConfirmed ? "✅" : hasIssue ? "🚨" : "⏳"}</span>
-        <div>
-          <div style={{ fontSize: 13, fontWeight: 500, color: allConfirmed ? GREEN : hasIssue ? RED : AMBER }}>
-            {allConfirmed ? "Smoke test passed — medición OK" : hasIssue ? "Issues detectados — revisar antes de continuar" : "Smoke test en progreso — datos pendientes"}
-          </div>
-          <div style={{ fontSize: 10, color: INK3, marginTop: 2 }}>
-            Go-live: {GO_LIVE_DATE} · Ventana de validación: {SMOKE_WINDOW}
-          </div>
-        </div>
-      </div>
-
-      {/* Checklist */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "20px 22px", marginBottom: 16 }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 16 }}>
-          Checklist de validación técnica
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          {checks.map((c, i) => (
-            <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "10px 14px", background: BG, borderRadius: 8 }}>
-              <span style={{ fontSize: 12, color: INK2 }}>{c.label}</span>
-              <StatusBadge value={c.value} />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* First numbers */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "20px 22px", marginBottom: 16 }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 16 }}>
-          Primeros números (48h)
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: 10 }}>
-          {[
-            { label: "Sesiones", val: SMOKE.sessions, color: BLUE_D },
-            { label: "Usuarios únicos", val: SMOKE.users, color: BLUE_D },
-            { label: "Prompters", val: SMOKE.prompters, color: BLUE_D },
-            { label: "Prompts enviados", val: SMOKE.prompts, color: BLUE_D },
-            { label: "Avg time", val: SMOKE.avgTime, color: INK },
-            { label: "Drop-off <10s", val: SMOKE.dropoff != null ? `${SMOKE.dropoff}%` : null, color: SMOKE.dropoff > 85 ? AMBER : GREEN },
-            { label: "Highlights", val: SMOKE.highlighted, color: INK },
-            { label: "Copies", val: SMOKE.copied, color: INK },
-            { label: "Rage clicks", val: SMOKE.rageclicksCount, color: SMOKE.rageclicksCount === 0 ? GREEN : RED },
-            { label: "Tour completion", val: SMOKE.tourCompletion != null ? `${SMOKE.tourCompletion}%` : null, color: INK },
-          ].map((m, i) => (
-            <div key={i} style={{ textAlign: "center", padding: "14px 10px", background: BG, borderRadius: 8 }}>
-              <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: INK3, marginBottom: 8 }}>{m.label}</div>
-              <div style={{ fontSize: 22, fontWeight: 500, color: m.val != null ? m.color : BDR }}>
-                {m.val != null ? m.val : "—"}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Knowledge categories */}
-      {(SMOKE.pillTop || SMOKE.pillBot) && (
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", marginBottom: 16 }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 14 }}>
-            Knowledge Categories (48h)
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {SMOKE.pillTop && (
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 14px", background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8 }}>
-                <div>
-                  <div style={{ fontSize: 9, textTransform: "uppercase", color: BLUE_D, marginBottom: 3 }}>Most accessed</div>
-                  <div style={{ fontSize: 13, fontWeight: 500, color: BLUE_D }}>{SMOKE.pillTop.replace(/\s*\(\d+\)$/, '')}</div>
-                </div>
-                <span style={{ fontSize: 12, fontWeight: 500, color: BLUE_D }}>{SMOKE.pillTop.match(/\((\d+)\)/)?.[1]} interactions</span>
-              </div>
-            )}
-            {SMOKE.pillBot && (
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 14px", background: BG, border: `1px solid ${BDR}`, borderRadius: 8 }}>
-                <div>
-                  <div style={{ fontSize: 9, textTransform: "uppercase", color: INK3, marginBottom: 3 }}>Least accessed</div>
-                  <div style={{ fontSize: 13, fontWeight: 500, color: INK2 }}>{SMOKE.pillBot.replace(/\s*\(\d+\)$/, '')}</div>
-                </div>
-                <span style={{ fontSize: 12, fontWeight: 500, color: INK3 }}>{SMOKE.pillBot.match(/\((\d+)\)/)?.[1]} interactions</span>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* Notes */}
-      {SMOKE.notes && (
-        <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 10, padding: "14px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: AMBER, marginBottom: 6 }}>Observación</div>
-          <div style={{ fontSize: 12, color: INK2, lineHeight: 1.6 }}>{SMOKE.notes}</div>
-        </div>
-      )}
-    </div>
-  );
+  const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`KP-field-findings-${country}-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
 }
 
-
-// ── GEOGRAPHIC REACH ─────────────────────────────────────
-function GeoMap({ data }) {
-  const countries = data.countries;
-  const maxUsers = Math.max(...countries.filter(c => c.code !== "US").map(c => c.users));
-
-  const flag = (code) => {
-    if (!code) return "🌐";
-    return [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("");
-  };
-
-  const usData = countries.find(c => c.code === "US");
-  const regional = countries.filter(c => c.code !== "US");
-  const totalUsers = data.users;
-  const outsideHQ = totalUsers - (usData?.users || 0);
-  const outsidePct = Math.round((outsideHQ / totalUsers) * 100);
-
-  return (
-    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", marginBottom: 16 }}>
-      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>
-        Geographic Reach — Users by Country
-      </div>
-      <div style={{ fontSize: 10, color: INK3, marginBottom: 16 }}>
-        {totalUsers} users · {countries.length} countries · {data.window}
-      </div>
-
-      {/* HQ callout */}
-      <div style={{ background: "#1464A0", borderRadius: 8, padding: "12px 16px", marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <span style={{ fontSize: 22 }}>{flag("US")}</span>
-          <div>
-            <div style={{ fontSize: 12, fontWeight: 600, color: "#fff" }}>United States (HQ)</div>
-            <div style={{ fontSize: 10, color: "#a8c4e0" }}>{usData?.users} users</div>
-          </div>
-        </div>
-        <div style={{ textAlign: "right" }}>
-          <div style={{ fontSize: 22, fontWeight: 700, color: "#fff", letterSpacing: "-0.02em" }}>{usData?.pct}%</div>
-          <div style={{ fontSize: 9, color: "#a8c4e0" }}>of total</div>
-        </div>
-        <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: 99, height: 8, width: 120, overflow: "hidden" }}>
-          <div style={{ width: `${usData?.pct}%`, height: "100%", background: "#fff", borderRadius: 99 }} />
-        </div>
-      </div>
-
-      {/* Regional bar chart */}
-      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: INK3, marginBottom: 12 }}>
-        Regional breakdown (excl. HQ)
-      </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
-        {regional.map((c, i) => (
-          <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <span style={{ fontSize: 18, flexShrink: 0, width: 26, textAlign: "center" }}>{flag(c.code)}</span>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-                <span style={{ fontSize: 11, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
-                <span style={{ fontSize: 11, color: INK3, flexShrink: 0, marginLeft: 8, fontVariantNumeric: "tabular-nums" }}>{c.users}</span>
-              </div>
-              <div style={{ background: BG, borderRadius: 99, height: 5, overflow: "hidden" }}>
-                <div style={{
-                  width: `${(c.users / maxUsers) * 100}%`,
-                  height: "100%",
-                  background: c.users >= 20 ? "#1464A0" : c.users >= 10 ? "#2c6cb5" : c.users >= 5 ? BLUE : "#7ab3e0",
-                  borderRadius: 99,
-                }} />
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Summary */}
-      <div style={{ marginTop: 16, padding: "10px 14px", background: BLUE_L, borderRadius: 8, border: `1px solid ${BLUE_M}`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <div>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: BLUE_D, marginBottom: 2 }}>Total reach</div>
-          <div style={{ fontSize: 14, fontWeight: 600, color: BLUE_D }}>{countries.length} countries</div>
-        </div>
-        <div style={{ textAlign: "right" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: BLUE_D, marginBottom: 2 }}>Users outside HQ</div>
-          <div style={{ fontSize: 14, fontWeight: 600, color: BLUE_D }}>{outsideHQ} users · {outsidePct}%</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ── WEEK 1 VIEW ───────────────────────────────────────────
-function Week1({ data = WEEK1 }) {
-  const engagement = (data.highlighted != null && data.copied != null)
-    ? data.highlighted + data.copied : null;
-
-  const parse = str => { if (!str) return null; const m = str.match(/^(.+?)\s*\((\d+)\)$/); return m ? { name: m[1].trim(), count: parseInt(m[2]) } : { name: str, count: null }; };
-  const top = parse(data.pillTop);
-  const bot = parse(data.pillBot);
-
-  return (
-    <div style={{ maxWidth: 860, margin: "0 auto", padding: "28px 16px 56px" }}>
-
-      {/* Header */}
-      <div style={{ marginBottom: 24 }}>
-        <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>
-          Post Go-live · {data === WEEK1 ? "Week 1" : "Week 1 + 2"}
-        </div>
-        <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>
-          {data.window || WEEK1_WINDOW}
-        </div>
-        <div style={{ fontSize: 11, color: INK3 }}>
-          Primer pulso post lanzamiento bank-wide · Go-live: {GO_LIVE_DATE} · Fuente: FullStory
-        </div>
-      </div>
-
-      {/* Penetration */}
-      <PenetrationBar users={data.users} />
-
-      {/* KPIs */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 10, marginBottom: 16 }}>
-        <MetricCard label="Sessions" value={fmt(data.sessions)} desc={data.users ? `${data.users} unique users · one user can have multiple sessions` : null} bench={BENCH.sessions} />
-        <MetricCard label="Prompters" value={fmt(data.prompters)} desc={data.prompts ? `${data.prompts} prompts sent · users who engaged with the AI assistant` : null} bench={BENCH.prompters} />
-        <MetricCard label="Drop-off <10s" value={pct(data.dropoff)} desc="Sessions ending under 10s · lower is better" invert bench={BENCH.dropoff} />
-        {/* Content Engagement custom card */}
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9 }}>Content Engagement</div>
-          <div style={{ fontSize: 30, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>{fmt(engagement)}</div>
-          {engagement != null && (
-            <div style={{ marginBottom: 10, display: "flex", alignItems: "center", gap: 6 }}>
-              <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: "#edfaf4", color: GREEN }}>
-                ↑ {Math.round(((engagement / (BENCH.highlighted)) - 1) * 100)}% vs organic avg
-              </span>
-              <span style={{ fontSize: 9, color: INK3 }}>({BENCH.highlighted} avg highlights)</span>
-            </div>
-          )}
-
-          {/* Highlights bar */}
-          <div style={{ marginBottom: 12 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-              <span style={{ fontSize: 10, color: INK2, fontWeight: 500 }}>Highlights</span>
-              <span style={{ fontSize: 10, color: INK3 }}>{data.highlighted} total</span>
-            </div>
-            <div style={{ background: BG, borderRadius: 99, height: 8, overflow: "hidden", marginBottom: 3 }}>
-              <div style={{ width: "100%", height: "100%", background: "#c2d9f7", borderRadius: 99, position: "relative" }}>
-                <div style={{ width: `${(data.highlightedOpenSearch / data.highlighted) * 100}%`, height: "100%", background: BLUE, borderRadius: 99 }} />
-              </div>
-            </div>
-            <div style={{ display: "flex", gap: 12, fontSize: 9, color: INK3 }}>
-              <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: BLUE }} />
-                Open Search: {data.highlightedOpenSearch}
-              </span>
-              <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: "#c2d9f7" }} />
-                Contextual Search: {data.highlighted - data.highlightedOpenSearch}
-              </span>
-            </div>
-          </div>
-
-          {/* Copies bar */}
-          <div>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-              <span style={{ fontSize: 10, color: INK2, fontWeight: 500 }}>Copies</span>
-              <span style={{ fontSize: 10, color: INK3 }}>{data.copied} total</span>
-            </div>
-            <div style={{ background: BG, borderRadius: 99, height: 8, overflow: "hidden", marginBottom: 3 }}>
-              <div style={{ width: "100%", height: "100%", background: "#fde68a", borderRadius: 99, position: "relative" }}>
-                <div style={{ width: `${(data.copiedOpenSearch / data.copied) * 100}%`, height: "100%", background: "#d97706", borderRadius: 99 }} />
-              </div>
-            </div>
-            <div style={{ display: "flex", gap: 12, fontSize: 9, color: INK3 }}>
-              <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: "#d97706" }} />
-                Open Search: {data.copiedOpenSearch}
-              </span>
-              <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: "#fde68a" }} />
-                Contextual Search: {data.copied - data.copiedOpenSearch}
-              </span>
-            </div>
-          </div>
-        </div>
-        <MetricCard label="Tour Completion" value={pct(data.tourCompletion)} desc="Users who finished the onboarding tour" bench={BENCH.tourCompletion} />
-        <MetricCard label="Retention Rate" value={data.retention != null ? `${data.retention}%` : null} desc="Users who returned after their first visit · biweekly" bench={BENCH.retention} />
-        {data.sourcePanelClicks != null && (
-          <MetricCard label="Source panel clicks" value={fmt(data.sourcePanelClicks)} desc="Clicks on source panel in Knowledge Assistant" />
-        )}
-        {(data.thumbsUp != null || data.thumbsDown != null) && (
-          <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9 }}>Response Feedback</div>
-            <div style={{ display: "flex", gap: 20, marginBottom: 7 }}>
-              <div>
-                <div style={{ fontSize: 28, fontWeight: 500, color: GREEN, lineHeight: 1 }}>👍 {data.thumbsUp ?? "—"}</div>
-              </div>
-              <div>
-                <div style={{ fontSize: 28, fontWeight: 500, color: RED, lineHeight: 1 }}>👎 {data.thumbsDown ?? "—"}</div>
-              </div>
-            </div>
-            <div style={{ fontSize: 10, color: INK3, marginBottom: 8 }}>AI assistant responses rated</div>
-            <div style={{ padding: "8px 12px", background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 7, fontSize: 9, color: "#92400e", lineHeight: 1.5 }}>
-              ⚠ Volume is still low to derive conclusions. This indicator will become meaningful from the second period onward.
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Sample Prompts */}
-      {data.prompts_sample?.length > 0 && (
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", marginBottom: 16 }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 14 }}>
-            Sample Prompts — Response Feedback
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {data.prompts_sample.map((p, i) => {
-              const icon = p.rating === "up" ? "👍" : p.rating === "down" ? "👎" : "👍👎";
-              const bg = p.rating === "up" ? "#edfaf4" : p.rating === "down" ? "#fef0ee" : "#fffbeb";
-              const border = p.rating === "up" ? "#a7f3d0" : p.rating === "down" ? "#fca5a5" : "#fde68a";
-              return (
-                <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 14px", background: bg, border: `1px solid ${border}`, borderRadius: 8 }}>
-                  <span style={{ fontSize: 16, flexShrink: 0 }}>{icon}</span>
-                  <span style={{ fontSize: 11, color: INK2, lineHeight: 1.5, fontStyle: "italic" }}>"{p.text}"</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* Geographic map */}
-      <GeoMap data={data} />
-
-      {/* Knowledge categories */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", marginBottom: 16 }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 14 }}>
-          Knowledge Categories
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          {[{ item: top, isTop: true, label: "Most accessed", bench: BENCH.pillTop }, { item: bot, isTop: false, label: "Least accessed", bench: BENCH.pillBot }].map(({ item, isTop, label, bench }) => {
-            const benchBadge = item?.count != null ? (() => {
-              const ratio = item.count / bench;
-              const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
-              const higher = ratio >= 1;
-              return { label: higher ? `↑ ${pctDiff}%` : `↓ ${pctDiff}%`, isGood: higher };
-            })() : null;
-            return (
-              <div key={label} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 14px", background: isTop ? BLUE_L : BG, border: `1px solid ${isTop ? BLUE_M : BDR}`, borderRadius: 8, gap: 8 }}>
-                <div>
-                  <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: isTop ? BLUE_D : INK3, marginBottom: 3 }}>{label}</div>
-                  <div style={{ fontSize: 13, fontWeight: 500, color: isTop ? BLUE_D : INK2 }}>
-                    {item ? item.name : <span style={{ color: BDR, fontStyle: "italic", fontWeight: 400 }}>pending data</span>}
-                  </div>
-                  {benchBadge && (
-                    <div style={{ marginTop: 5, display: "flex", alignItems: "center", gap: 5 }}>
-                      <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: benchBadge.isGood ? "#edfaf4" : "#fef0ee", color: benchBadge.isGood ? GREEN : RED }}>
-                        {benchBadge.label} vs organic avg
-                      </span>
-                      <span style={{ fontSize: 9, color: INK3 }}>({bench} avg)</span>
-                    </div>
-                  )}
-                </div>
-                {item?.count != null && (
-                  <span style={{ fontSize: 12, fontWeight: 500, color: isTop ? BLUE_D : INK3 }}>{item.count} interactions</span>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-}
-function EngagementCard({ highlighted, highlightedOpenSearch, copied, copiedOpenSearch, benchHighlights, benchCopies }) {
-  const total = highlighted + copied;
-  const hlContextual = highlighted - highlightedOpenSearch;
-  const cpContextual = copied - copiedOpenSearch;
-
-  const BadgeComp = ({ val, bench, label }) => {
-    if (!val || !bench) return null;
-    const ratio = val / bench;
-    const pct = Math.round(Math.abs(ratio - 1) * 100);
-    const up = ratio >= 1;
-    return (
-      <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: up ? "#edfaf4" : "#fef0ee", color: up ? GREEN : RED }}>
-        {up ? "↑" : "↓"} {pct}% vs avg
-      </span>
-    );
-  };
-
-  return (
-    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
-      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9 }}>Content Engagement</div>
-      <div style={{ fontSize: 30, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 14 }}>{total}</div>
-
-      {/* Highlights bar */}
-      <div style={{ marginBottom: 12 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4, alignItems: "center" }}>
-          <span style={{ fontSize: 10, color: INK2, fontWeight: 500 }}>Highlights</span>
-          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <BadgeComp val={highlighted} bench={benchHighlights} />
-            <span style={{ fontSize: 10, color: INK3 }}>{highlighted} total</span>
-          </div>
-        </div>
-        <div style={{ background: BG, borderRadius: 99, height: 8, overflow: "hidden", marginBottom: 3 }}>
-          <div style={{ width: "100%", height: "100%", background: "#c2d9f7", borderRadius: 99, position: "relative" }}>
-            <div style={{ width: `${(highlightedOpenSearch / highlighted) * 100}%`, height: "100%", background: BLUE, borderRadius: 99 }} />
-          </div>
-        </div>
-        <div style={{ display: "flex", gap: 12, fontSize: 9, color: INK3 }}>
-          <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-            <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: BLUE }} />
-            Open Search: {highlightedOpenSearch}
-          </span>
-          <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-            <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: "#c2d9f7" }} />
-            Contextual Search: {hlContextual}
-          </span>
-        </div>
-      </div>
-
-      {/* Copies bar */}
-      <div>
-        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4, alignItems: "center" }}>
-          <span style={{ fontSize: 10, color: INK2, fontWeight: 500 }}>Copies</span>
-          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <BadgeComp val={copied} bench={benchCopies} />
-            <span style={{ fontSize: 10, color: INK3 }}>{copied} total</span>
-          </div>
-        </div>
-        <div style={{ background: BG, borderRadius: 99, height: 8, overflow: "hidden", marginBottom: 3 }}>
-          <div style={{ width: "100%", height: "100%", background: "#fde68a", borderRadius: 99, position: "relative" }}>
-            <div style={{ width: `${(copiedOpenSearch / copied) * 100}%`, height: "100%", background: "#d97706", borderRadius: 99 }} />
-          </div>
-        </div>
-        <div style={{ display: "flex", gap: 12, fontSize: 9, color: INK3 }}>
-          <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-            <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: "#d97706" }} />
-            Open Search: {copiedOpenSearch}
-          </span>
-          <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-            <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: "#fde68a" }} />
-            Contextual Search: {cpContextual}
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ── MONTHLY REPORT ────────────────────────────────────────
-// April 2026 data (partial — through Apr 21)
-const APRIL = {
-  sessions: 1632,
-  users: 588,
-  prompters: 226,
-  prompts: 429,
-  avgTime: "16.31s",
-  dropoff: 92,
-  retention: 10.9,
-  returningUsers: 228,
-  highlighted: 579,
-  highlightedOpenSearch: 393,
-  copied: 167,
-  copiedOpenSearch: 101,
-  sourceClicks: 52,
-  pillPageviews: 255,
-  pillTop: "Similar projects (78)",
-  pillBot: "Institutional documents (20)",
-  openSearchVisits: 663,
-  tourCompletion: 55,
-  newUsers: 531,
-  thumbsUp: 1,
-  thumbsDown: 3,
-  topCountry: "Argentina",
-  topCountryCode: "AR",
-  totalCountries: 34,
-  countries: [
-    { name: "United States (HQ)", code: "US", users: 818,  pct: 58 },
-    { name: "Argentina",          code: "AR", users: 88,   pct: 6  },
-    { name: "Brazil",             code: "BR", users: 78,   pct: 6  },
-    { name: "Colombia",           code: "CO", users: 64,   pct: 5  },
-    { name: "Uruguay",            code: "UY", users: 38,   pct: 3  },
-    { name: "Peru",               code: "PE", users: 18,  pct: 3  },
-    { name: "Panama",             code: "PA", users: 36,   pct: 3  },
-    { name: "Spain",              code: "ES", users: 24,   pct: 2  },
-    { name: "Paraguay",           code: "PY", users: 23,   pct: 2  },
-    { name: "El Salvador",        code: "SV", users: 20,   pct: 1  },
-    { name: "Mexico",             code: "MX", users: 20,   pct: 1  },
-    { name: "Ecuador",            code: "EC", users: 17,   pct: 1  },
-    { name: "Dominican Republic", code: "DO", users: 15,   pct: 1  },
-    { name: "Bolivia",            code: "BO", users: 13,   pct: 1  },
-    { name: "Chile",              code: "CL", users: 13,   pct: 1  },
-    { name: "Honduras",           code: "HN", users: 12,   pct: 1  },
-    { name: "Jamaica",            code: "JM", users: 12,   pct: 1  },
-    { name: "Costa Rica",         code: "CR", users: 5,   pct: 1  },
-    { name: "Trinidad & Tobago",  code: "TT", users: 11,   pct: 1  },
-    { name: "Cayman Islands",     code: "KY", users: 10,   pct: 1  },
-    { name: "Barbados",           code: "BB", users: 9,    pct: 1  },
-    { name: "Guatemala",          code: "GT", users: 9,    pct: 1  },
-    { name: "Belize",             code: "BZ", users: 4,   pct: 1  },
-    { name: "Suriname",           code: "SR", users: 5,    pct: 0  },
-    { name: "Bahamas",            code: "BS", users: 4,    pct: 0  },
-    { name: "Canada",             code: "CA", users: 4,    pct: 0  },
-    { name: "Guyana",             code: "GY", users: 4,    pct: 0  },
-    { name: "Nicaragua",          code: "NI", users: 4,    pct: 0  },
-    { name: "United Kingdom",     code: "GB", users: 2,    pct: 0  },
-    { name: "Belgium",            code: "BE", users: 1,    pct: 0  },
-    { name: "Germany",            code: "DE", users: 1,    pct: 0  },
-    { name: "Haiti",              code: "HT", users: 1,    pct: 0  },
-    { name: "Portugal",           code: "PT", users: 1,    pct: 0  },
-    { name: "Venezuela",          code: "VE", users: 1,    pct: 0  },
-  ],
-  promptGalleryClicks: 42,
-  recentSearchClicks: 21,
-  newSearchClicks: 4,
-  lwa: {
-    visits: 154,
-    uniqueUsers: 60,
-    usersCreated: 5,
-    lessonsStartedTotal: 56,
-    lessonsStartedExecution: 40,
-    lessonsStartedPCR: 16,
-    edited: 11,
-    completed: 11,
-    avgTime: "23m 40s",
-    copiesButton: 4,
-    copiesCursor: 9,
-    copiesCombined: 13,
-    pctReviewed: 100,
-  },
-};
-
-function Monthly() {
-  const MONTH = "April 2026";
-
-  const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
-
-  // ── reusable card ──
-  const MCard = ({ label, value, desc, accent, small, flagCode, bench }) => {
-    let badge = null;
-    if (value && value !== "—" && bench != null) {
-      const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
-      if (!isNaN(numVal) && bench > 0) {
-        const ratio = numVal / bench;
-        const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
-        const higher = ratio >= 1;
-        badge = { label: higher ? `↑ ${pctDiff}%` : `↓ ${pctDiff}%`, isGood: higher };
-      }
-    }
-    return (
-    <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8 }}>{label}</div>
-      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6, overflow: "hidden" }}>
-        {flagCode && <span style={{ fontSize: 20, lineHeight: 1, flexShrink: 0 }}>{flag(flagCode)}</span>}
-        <div style={{
-          fontSize: flagCode ? 14 : small ? 16 : 28,
-          fontWeight: 500,
-          letterSpacing: flagCode || small ? "-0.01em" : "-0.03em",
-          lineHeight: 1.2,
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          whiteSpace: "nowrap",
-          color: value && value !== "—" ? (accent ? BLUE_D : INK) : BDR
-        }}>{value || "—"}</div>
-      </div>
-      {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginBottom: badge ? 6 : 0 }}>{desc}</div>}
-      {badge && (
-        <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
-          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: badge.isGood ? "#edfaf4" : "#fef0ee", color: badge.isGood ? GREEN : RED }}>
-            {badge.label} vs monthly avg
-          </span>
-          <span style={{ fontSize: 9, color: INK3 }}>({bench})</span>
-        </div>
-      )}
-    </div>
-  );
-  };
-
-  // ── section wrapper ──
-  const Section = ({ title, emoji, children }) => (
-    <div style={{ marginBottom: 20 }}>
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
-        {emoji} {title}
-      </div>
-      {children}
-    </div>
-  );
-
-  const Grid = ({ cols = "repeat(auto-fit, minmax(160px, 1fr))", children }) => (
-    <div style={{ display: "grid", gridTemplateColumns: cols, gap: 10 }}>{children}</div>
-  );
-
-  return (
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: "28px 16px 56px" }}>
-
-      {/* Header */}
-      <div style={{ marginBottom: 20, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
-        <div>
-          <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
-          <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
-          <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory</div>
-        </div>
-        <button
-          onClick={() => {
-            const rows = [
-              ["Metric", "Value"],
-              ["Month", MONTH],
-              ["Sessions", APRIL.sessions],
-              ["Users reached", APRIL.users],
-              ["New users", APRIL.newUsers],
-              ["Prompters", APRIL.prompters],
-              ["Prompts sent", APRIL.prompts],
-              ["Highlights total", APRIL.highlighted],
-              ["Highlights Open Search", APRIL.highlightedOpenSearch],
-              ["Highlights Contextual Search", APRIL.highlighted - APRIL.highlightedOpenSearch],
-              ["Copies total", APRIL.copied],
-              ["Copies Open Search", APRIL.copiedOpenSearch],
-              ["Copies Contextual Search", APRIL.copied - APRIL.copiedOpenSearch],
-              ["Source panel clicks", APRIL.sourceClicks],
-              ["Pill pageviews", APRIL.pillPageviews],
-              ["Most used pill", APRIL.pillTop],
-              ["Least used pill", APRIL.pillBot],
-              ["Open Search visits", APRIL.openSearchVisits],
-              ["Tour completion %", APRIL.tourCompletion + "%"],
-              ["Retention %", APRIL.retention != null ? APRIL.retention + "%" : ""],
-              ["CSAT", "75%"],
-              ["Thumbs up", APRIL.thumbsUp],
-              ["Thumbs down", APRIL.thumbsDown],
-              ["Prompt Gallery clicks", APRIL.promptGalleryClicks],
-              ["Recent Search clicks", APRIL.recentSearchClicks],
-              ["New Search clicks", APRIL.newSearchClicks],
-              ["LWA visits", APRIL.lwa.visits],
-              ["LWA unique users", APRIL.lwa.uniqueUsers],
-              ["LWA users who created lessons", APRIL.lwa.usersCreated],
-              ["LWA lessons started total", APRIL.lwa.lessonsStartedTotal],
-              ["LWA lessons started Execution", APRIL.lwa.lessonsStartedExecution],
-              ["LWA lessons started PCR", APRIL.lwa.lessonsStartedPCR],
-              ["LWA lessons completed", APRIL.lwa.completed],
-              ["LWA lessons edited", APRIL.lwa.edited],
-              ["LWA avg time to save", APRIL.lwa.avgTime],
-              ["LWA copies combined", APRIL.lwa.copiesCombined],
-              ["LWA copies via button", APRIL.lwa.copiesButton],
-              ["LWA copies via cursor", APRIL.lwa.copiesCursor],
-              ["LWA % reviewed before completing", APRIL.lwa.pctReviewed + "%"],
-            ];
-            const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
-            const blob = new Blob([csv], { type: "text/csv" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = `KP_Monthly_${MONTH.replace(/ /g, "_")}.csv`;
-            a.click();
-            URL.revokeObjectURL(url);
-          }}
-          style={{ fontFamily: "inherit", fontSize: 10, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: 6, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
-        >
-          ↓ Export CSV
-        </button>
-      </div>
-
-      {/* Cumulative metrics since Sep 2025 */}
-      <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px", marginBottom: 24 }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
-          Cumulative totals — Sep 1, 2025 to Apr 30, 2026
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
-          {[
-            { label: "Sessions", value: "5,999" },
-            { label: "Users reached", value: "1,357" },
-            { label: "Prompters", value: "587" },
-            { label: "Prompts sent", value: "3,180" },
-          ].map((m, i) => (
-            <div key={i}>
-              <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
-              <div style={{ fontSize: 9, color: "#a8c4e0", textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <Section emoji="📊" title="General Usability">
-        <Grid>
-          {/* Penetration — custom card with bar */}
-          <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
-            <div style={{ fontSize: 28, fontWeight: 500, letterSpacing: "-0.03em", lineHeight: 1, color: BLUE_D, marginBottom: 10 }}>12.5%</div>
-            <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
-              <div style={{ width: "12.5%", height: "100%", background: BLUE_D, borderRadius: 99 }} />
-            </div>
-            <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between" }}>
-              <span>{APRIL.users} users</span><span>3,600 total</span>
-            </div>
-          </div>
-          <MCard label="Users reached" value={String(APRIL.users)} desc="Total for the period" accent bench={BENCH.monthly.users} />
-          <MCard label="New users" value={String(APRIL.newUsers)} desc="First-time visitors" />
-          <MCard label="Sessions" value={APRIL.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} />
-          <MCard label="% Onboarding completed" value={`${APRIL.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
-          <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
-            <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{APRIL.returningUsers}</div>
-            <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Users with more than one session within the month</div>
-            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D }}>{Math.round(APRIL.returningUsers/APRIL.users*100)}% of users reached</span>
-          </div>
-          <MCard label="CSAT — Customer Satisfaction Score" value="75%" desc="out of 5 responses" />
-        </Grid>
-
-      </Section>
-
-      {/* Compact geo */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px", marginTop: 10 }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
-          🌎 Geographic Reach — {APRIL.users.toLocaleString()} users · {APRIL.totalCountries} countries
-        </div>
-        {/* HQ bar — full width */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
-          <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
-          <div style={{ flex: 1 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-              <span style={{ fontSize: 11, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
-              <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>340 · 58%</span>
-            </div>
-            <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
-              <div style={{ width: "58%", height: "100%", background: "#1464A0", borderRadius: 99 }} />
-            </div>
-          </div>
-        </div>
-        {/* All regional countries — 3 columns */}
-        {(() => {
-          const regional = APRIL.countries.filter(c => c.code !== "US");
-          const maxUsers = regional[0].users;
-          const flag = (code) => [...code.toUpperCase()].map(ch => String.fromCodePoint(ch.charCodeAt(0) + 127397)).join("");
-          return (
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px 16px" }}>
-              {regional.map((c, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
-                  <span style={{ fontSize: 13, flexShrink: 0 }}>{flag(c.code)}</span>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
-                      <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
-                      <span style={{ fontSize: 9, color: INK3, flexShrink: 0, marginLeft: 4, fontVariantNumeric: "tabular-nums" }}>{c.users}</span>
-                    </div>
-                    <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
-                      <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%",
-                        background: c.users >= 100 ? "#1464A0" : c.users >= 40 ? "#2c6cb5" : c.users >= 15 ? BLUE : "#7ab3e0",
-                        borderRadius: 99 }} />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          );
-        })()}
-        <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
-          Country data reflects session location by IP. Users who accessed the platform from multiple countries within the period may appear in more than one country.
-        </div>
-      </div>
-
-      {/* ── DIVIDER ── */}
-      <div style={{ borderTop: `2px solid ${BDR}`, margin: "24px 0" }} />
-
-      <Section emoji="🔍" title="Contextual Search">
-        <Grid cols="repeat(auto-fit, minmax(200px, 1fr))">
-          <MCard label="Queries (pill views)" value={String(APRIL.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
-          <MCard label="Most used pill — Similar projects" value="56" desc="interactions" small bench={BENCH.monthly.pillTop} />
-          <MCard label={<>Least used pill —<br/>Institutional docs</>} value="20" desc="interactions" small bench={BENCH.monthly.pillBot} />
-        </Grid>
-      </Section>
-
-      {/* ── DIVIDER ── */}
-      <div style={{ borderTop: `2px solid ${BDR}`, margin: "24px 0" }} />
-
-      <Section emoji="🤖" title="Knowledge Assistant (Open Search)">
-        <Grid>
-          <MCard label="Sessions (Open Search)" value={String(APRIL.openSearchVisits)} desc="Visits to the Knowledge Assistant" bench={BENCH.monthly.sessions} />
-          <MCard label="Prompters (≥1 prompt)" value={String(APRIL.prompters)} desc={`${Math.round(APRIL.prompters/APRIL.users*100)}% of users reached`} accent bench={BENCH.monthly.prompters} />
-          <MCard label="Prompts sent" value={String(APRIL.prompts)} desc="Median: 1 per prompter" accent bench={BENCH.monthly.prompts} />
-          <MCard label="Source panel clicks" value={String(APRIL.sourceClicks)} desc="Clicks on source panel" />
-          <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
-            <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
-              <div>
-                <div style={{ fontSize: 28, fontWeight: 500, color: GREEN, letterSpacing: "-0.03em", lineHeight: 1 }}>👍 {APRIL.thumbsUp}</div>
-              </div>
-              <div>
-                <div style={{ fontSize: 28, fontWeight: 500, color: RED, letterSpacing: "-0.03em", lineHeight: 1 }}>👎 {APRIL.thumbsDown}</div>
-              </div>
-            </div>
-            <div style={{ fontSize: 9, color: INK3, marginTop: 8 }}>AI responses rated by users</div>
-          </div>
-          <MCard label="Prompt Gallery clicks" value={String(APRIL.promptGalleryClicks)} />
-          <MCard label="Recent Search clicks" value={String(APRIL.recentSearchClicks)} />
-          <MCard label="New Search clicks" value={String(APRIL.newSearchClicks)} />
-        </Grid>
-        <div style={{ marginTop: 10 }}>
-          <EngagementCard
-            highlighted={APRIL.highlighted}
-            highlightedOpenSearch={APRIL.highlightedOpenSearch}
-            copied={APRIL.copied}
-            copiedOpenSearch={APRIL.copiedOpenSearch}
-            benchHighlights={BENCH.monthly.highlights}
-            benchCopies={BENCH.monthly.copies}
-          />
-        </div>
-      </Section>
-
-      {/* ── DIVIDER ── */}
-      <div style={{ borderTop: `2px solid ${BDR}`, margin: "24px 0" }} />
-
-      {/* ── LWA ── */}
-      <Section emoji="📝" title="Lessons Writing Assistant (LWA)">
-
-        {/* Context block */}
-        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "12px 16px", marginBottom: 14 }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 6 }}>Context — Q1 2026 Institutional baseline</div>
-          <p style={{ fontSize: 11, color: BLUE_D, lineHeight: 1.6, margin: 0 }}>
-            During Q1 2026, <strong>784 lessons</strong> were created across <strong>452 operations</strong> registered in the Client Portal — independent of the KP platform. This provides important context: LWA usage within KP represents an emerging channel alongside existing institutional lesson-creation practices.
-          </p>
-        </div>
-        <Grid cols="repeat(auto-fit, minmax(150px, 1fr))">
-          <MCard label="LWA visits" value={String(APRIL.lwa.visits)} accent />
-          <MCard label="Unique users" value={String(APRIL.lwa.uniqueUsers)} accent />
-        </Grid>
-
-        <div style={{ fontSize: 9, color: INK3, marginBottom: 10, marginTop: 16, fontStyle: "italic" }}>Usage & Completion</div>
-        <Grid cols="repeat(auto-fit, minmax(150px, 1fr))">
-          <MCard label="Users who created lessons" value={String(APRIL.lwa.usersCreated)} />
-          <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Lessons started</div>
-            <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{APRIL.lwa.lessonsStartedTotal}</div>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-              <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{APRIL.lwa.lessonsStartedExecution} Execution</span>
-              <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BG, color: INK3, fontWeight: 500 }}>{APRIL.lwa.lessonsStartedPCR} PCR</span>
-            </div>
-          </div>
-          <MCard label="Lessons completed" value={String(APRIL.lwa.completed)} desc="Clicked 'Complete lesson'" accent />
-          <MCard label="% Reviewed before completing" value={`${APRIL.lwa.pctReviewed}%`} desc="Quality: with prior edits" />
-        </Grid>
-
-        <div style={{ fontSize: 9, color: INK3, marginBottom: 10, marginTop: 16, fontStyle: "italic" }}>Effort & Perceived value</div>
-        <Grid cols="repeat(auto-fit, minmax(160px, 1fr))">
-          <MCard label="Avg. time to save" value={APRIL.lwa.avgTime} small desc="From first click to final save" />
-          <MCard label="Lessons edited" value={String(APRIL.lwa.edited)} desc="In unique sessions" />
-          <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Combined copies</div>
-            <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{APRIL.lwa.copiesCombined}</div>
-            <div style={{ display: "flex", gap: 8 }}>
-              <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{APRIL.lwa.copiesButton} via button</span>
-              <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BG, color: INK3, fontWeight: 500 }}>{APRIL.lwa.copiesCursor} via cursor</span>
-            </div>
-          </div>
-        </Grid>
-      </Section>
-
-      {/* ── DIVIDER ── */}
-      <div style={{ borderTop: `2px solid ${BDR}`, margin: "24px 0" }} />
-
-      {/* Signal */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", borderLeft: `3px solid ${BLUE}` }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
-          Signal — Prompt engagement
-        </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0" }}>
-          Most prompters sent a single prompt in April (median: 1). A smaller group is developing recurring use. Watch the share of repeat prompters as the key stickiness indicator in coming months.
-        </p>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
-          Signal — LWA quality
-        </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0 }}>
-          100% of lessons were reviewed before completion in April — up from 3% in March. Average time to save dropped to 23m 40s, suggesting users are getting more efficient with the tool while maintaining quality.
-        </p>
-      </div>
-
-    </div>
-  );
-}
-
-// ── MAY 2026 DATA ─────────────────────────────────────────
-// Partial — May 31, 2026
-const MAY = {
-  sessions: 1052,
-  users: 363,
-  first_time: 268,
-  prompters: 133,
-  prompts: 625,
-  avgTime: "20.2s",
-  dropoff: 87,
-  retention: 16,
-  returningUsers: 131,
-  highlighted: 463,
-  highlightedOpenSearch: 217,
-  copied: 191,
-  copiedOpenSearch: 99,
-  sourceClicks: 50,
-  pillPageviews: 130,
-  pillTop: "Similar Projects (40)",
-  pillBot: "Literature (10)",
-  openSearchVisits: 144,
-  tourCompletion: 52,
-  csat: "82.4%",
-  thumbsUp: 1,
-  thumbsDown: 2,
-  promptGalleryClicks: 17,
-  recentSearchClicks: 10,
-  newSearchClicks: 17,
-  totalCountries: 27,
-  lwa: {
-    visits: 98,
-    uniqueUsers: 37,
-    usersCreated: 8,
-    lessonsStartedTotal: 44,
-    lessonsStartedExecution: 36,
-    lessonsStartedPCR: 8,
-    edited: 4,
-    completed: 17,
-    avgTime: "4m 55s",
-    copiesButton: 1,
-    copiesCursor: 11,
-    copiesCombined: 12,
-    pctReviewed: 24,
-  },
-  countries: [
-    { name: "United States (HQ)", code: "US", users: 194, pct: 53 },
-    { name: "Colombia",           code: "CO", users: 35,  pct: 10 },
-    { name: "Brazil",             code: "BR", users: 20,  pct: 6  },
-    { name: "Argentina",          code: "AR", users: 15,  pct: 4  },
-    { name: "Panama",             code: "PA", users: 12,  pct: 3  },
-    { name: "Peru",               code: "PE", users: 11,  pct: 3  },
-    { name: "Costa Rica",         code: "CR", users: 9,   pct: 2  },
-    { name: "El Salvador",        code: "SV", users: 9,   pct: 2  },
-    { name: "Paraguay",           code: "PY", users: 9,   pct: 2  },
-    { name: "Nicaragua",          code: "NI", users: 7,   pct: 2  },
-    { name: "Barbados",           code: "BB", users: 6,   pct: 2  },
-    { name: "Uruguay",            code: "UY", users: 6,   pct: 2  },
-    { name: "Bolivia",            code: "BO", users: 4,   pct: 1  },
-    { name: "Cayman Islands",     code: "KY", users: 4,   pct: 1  },
-    { name: "Ecuador",            code: "EC", users: 4,   pct: 1  },
-    { name: "Mexico",             code: "MX", users: 4,   pct: 1  },
-    { name: "Belize",             code: "BZ", users: 3,   pct: 1  },
-    { name: "Chile",              code: "CL", users: 3,   pct: 1  },
-    { name: "Guatemala",          code: "GT", users: 3,   pct: 1  },
-    { name: "Spain",              code: "ES", users: 3,   pct: 1  },
-    { name: "Trinidad & Tobago",  code: "TT", users: 3,   pct: 1  },
-    { name: "Bahamas",            code: "BS", users: 2,   pct: 1  },
-    { name: "Dominican Republic", code: "DO", users: 2,   pct: 1  },
-    { name: "Honduras",           code: "HN", users: 2,   pct: 1  },
-    { name: "Guyana",             code: "GY", users: 1,   pct: 0  },
-    { name: "Haiti",              code: "HT", users: 1,   pct: 0  },
-    { name: "Jamaica",            code: "JM", users: 1,   pct: 0  },
-  ],
-};
-
-// ── MAY MONTHLY VIEW ──────────────────────────────────────
-function MayMonthly() {
-  const MONTH = "May 2026";
-
-  const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
-
-  const MCard = ({ label, value, desc, accent, small, bench }) => {
-    let badge = null;
-    if (value && value !== "—" && bench != null) {
-      const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
-      if (!isNaN(numVal) && bench > 0) {
-        const ratio = numVal / bench;
-        const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
-        const higher = ratio >= 1;
-        badge = { label: higher ? `↑ ${pctDiff}%` : `↓ ${pctDiff}%`, isGood: higher };
-      }
-    }
-    return (
-      <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8 }}>{label}</div>
-        <div style={{ fontSize: small ? 16 : 28, fontWeight: 500, letterSpacing: small ? "-0.01em" : "-0.03em", lineHeight: 1.2, color: value && value !== "—" ? (accent ? BLUE_D : INK) : BDR }}>{value || "—"}</div>
-        {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6, marginBottom: badge ? 6 : 0 }}>{desc}</div>}
-        {badge && (
-          <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
-            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: badge.isGood ? "#edfaf4" : "#fef0ee", color: badge.isGood ? GREEN : RED }}>
-              {badge.label} vs monthly avg
-            </span>
-            <span style={{ fontSize: 9, color: INK3 }}>({bench})</span>
-          </div>
-        )}
-      </div>
-    );
-  };
-
-  const regional = MAY.countries.filter(c => c.code !== "US");
-  const usData = MAY.countries.find(c => c.code === "US");
-  const maxUsers = regional[0].users;
-  const outsideHQ = MAY.users - usData.users;
-
-  return (
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
-
-      {/* Header */}
-      <div style={{ marginBottom: 20, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
-        <div>
-          <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
-          <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
-          <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory</div>
-        </div>
-        <button
-          onClick={() => {
-            const rows = [
-              ["Metric", "Value"],
-              ["Month", MONTH],
-              ["Sessions", MAY.sessions],
-              ["Users reached", MAY.users],
-              ["New users", MAY.first_time],
-              ["Prompters", MAY.prompters],
-              ["Prompts sent", MAY.prompts ?? ""],
-              ["Highlights total", MAY.highlighted],
-              ["Highlights Open Search", MAY.highlightedOpenSearch],
-              ["Highlights Contextual Search", MAY.highlighted - MAY.highlightedOpenSearch],
-              ["Copies total", MAY.copied],
-              ["Copies Open Search", MAY.copiedOpenSearch],
-              ["Copies Contextual Search", MAY.copied - MAY.copiedOpenSearch],
-              ["Source panel clicks", MAY.sourceClicks],
-              ["Pill pageviews", MAY.pillPageviews],
-              ["Most used pill", MAY.pillTop],
-              ["Least used pill", MAY.pillBot],
-              ["Open Search visits", MAY.openSearchVisits],
-              ["Tour completion %", MAY.tourCompletion + "%"],
-              ["Retention %", MAY.retention != null ? MAY.retention + "%" : ""],
-              ["Thumbs up", MAY.thumbsUp],
-              ["Thumbs down", MAY.thumbsDown],
-              ["Prompt Gallery clicks", MAY.promptGalleryClicks],
-              ["Recent Search clicks", MAY.recentSearchClicks],
-              ["New Search clicks", MAY.newSearchClicks],
-              ["LWA visits", MAY.lwa.visits],
-              ["LWA unique users", MAY.lwa.uniqueUsers],
-              ["LWA users who created lessons", MAY.lwa.usersCreated],
-              ["LWA lessons started total", MAY.lwa.lessonsStartedTotal],
-              ["LWA lessons started Execution", MAY.lwa.lessonsStartedExecution],
-              ["LWA lessons started PCR", MAY.lwa.lessonsStartedPCR],
-              ["LWA lessons completed", MAY.lwa.completed],
-              ["LWA lessons edited", MAY.lwa.edited],
-              ["LWA avg time to save", MAY.lwa.avgTime],
-              ["LWA copies combined", MAY.lwa.copiesCombined],
-              ["LWA copies via button", MAY.lwa.copiesButton],
-              ["LWA copies via cursor", MAY.lwa.copiesCursor],
-              ["LWA % reviewed before completing", MAY.lwa.pctReviewed + "%"],
-            ];
-            const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
-            const blob = new Blob([csv], { type: "text/csv" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url; a.download = `KP_Monthly_May_2026.csv`; a.click();
-            URL.revokeObjectURL(url);
-          }}
-          style={{ fontFamily: "inherit", fontSize: 10, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: 6, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
-        >↓ Export CSV</button>
-      </div>
-
-      {/* Cumulative totals */}
-      <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
-          Cumulative totals — Sep 1, 2025 to Jun 1, 2026
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
-          {[
-            { label: "Sessions", value: "7,202" },
-            { label: "Users reached", value: "1,574" },
-            { label: "Prompters", value: "673" },
-            { label: "Prompts sent", value: "3,180" },
-          ].map((m, i) => (
-            <div key={i}>
-              <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
-              <div style={{ fontSize: 9, color: "#a8c4e0", textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ── GENERAL USABILITY ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability</div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(MAY.users/3600*100*10)/10}%</div>
-          <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
-            <div style={{ width: `${Math.round(MAY.users/3600*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
-          </div>
-          <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between" }}>
-            <span>{MAY.users} users</span><span>3,600 total</span>
-          </div>
-        </div>
-        <MCard label="Users reached" value={String(MAY.users)} desc="Total for the period" accent bench={BENCH.monthly.users} />
-        <MCard label="New users" value={String(MAY.first_time)} desc="First-time visitors" />
-        <MCard label="Sessions" value={MAY.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} />
-        <MCard label="% Onboarding completed" value={`${MAY.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{MAY.returningUsers}</div>
-          <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Users with more than one session within the month</div>
-          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D }}>{Math.round(MAY.returningUsers/MAY.users*100)}% of users reached</span>
-        </div>
-      </div>
-
-      {/* CSAT block */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
-          <div>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6 }}>CSAT — Customer Satisfaction Score</div>
-            <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>82.4%</div>
-            <div style={{ fontSize: 10, color: INK3, marginTop: 4 }}>24 responses · Apr 21 – May 26, 2026</div>
-          </div>
-          <div style={{ textAlign: "right" }}>
-            <div style={{ fontSize: 11, color: INK2, marginBottom: 4 }}>Avg rating: <strong>4.2 / 5</strong></div>
-            <div style={{ display: "flex", gap: 4, justifyContent: "flex-end" }}>
-              {[{r:1,n:2},{r:2,n:0},{r:3,n:3},{r:4,n:4},{r:5,n:15}].map(({r,n}) => (
-                <div key={r} style={{ textAlign: "center" }}>
-                  <div style={{ fontSize: 8, color: INK3, marginBottom: 2 }}>{r}★</div>
-                  <div style={{ width: 22, background: BG, borderRadius: 4, overflow: "hidden", height: 40, display: "flex", alignItems: "flex-end" }}>
-                    <div style={{ width: "100%", height: `${(n/15)*100}%`, background: n === 0 ? BDR : r >= 4 ? GREEN : r === 3 ? AMBER : RED, borderRadius: 2 }} />
-                  </div>
-                  <div style={{ fontSize: 8, color: INK3, marginTop: 2 }}>{n}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <div style={{ padding: "8px 12px", background: "#edfaf4", border: "1px solid #a7f3d0", borderRadius: 7, fontSize: 10, color: "#065f46" }}>
-            👍 <strong>Most valued:</strong> "Found quickly · Content clear · Simple and smooth · Useful for work"
-          </div>
-          <div style={{ padding: "8px 12px", background: "#fef0ee", border: "1px solid #fca5a5", borderRadius: 7, fontSize: 10, color: "#7f1d1d" }}>
-            👎 <strong>Least valued:</strong> "Cannot search" · "Didn't fully find what I needed" · "Experience felt slow"
-          </div>
-        </div>
-      </div>
-
-      {/* Geo */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
-          🌎 Geographic Reach — {MAY.users.toLocaleString()} users · {MAY.totalCountries} countries
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
-          <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
-          <div style={{ flex: 1 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-              <span style={{ fontSize: 11, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
-              <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usData.pct}%</span>
-            </div>
-            <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
-              <div style={{ width: `${usData.pct}%`, height: "100%", background: "#1464A0", borderRadius: 99 }} />
-            </div>
-          </div>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px 16px" }}>
-          {regional.map((c, i) => (
-            <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
-              <span style={{ fontSize: 13, flexShrink: 0 }}>{flag(c.code)}</span>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
-                  <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
-                  <span style={{ fontSize: 9, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
-                </div>
-                <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
-                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 15 ? "#1464A0" : c.users >= 8 ? BLUE : "#7ab3e0", borderRadius: 99 }} />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
-          Country data reflects session location by IP. Users who accessed the platform from multiple countries within the period may appear in more than one country.
-        </div>
-      </div>
-
-      {/* ── DIVIDER ── */}
-      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
-
-      {/* ── CONTEXTUAL SEARCH ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search</div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
-        <MCard label="Queries (pill views)" value={String(MAY.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
-        <MCard label="Most used pill — Similar Projects" value="40" desc="interactions" small bench={BENCH.monthly.pillTop} />
-        <MCard label={<>Least used pill —<br/>Literature</>} value="10" desc="interactions" small bench={BENCH.monthly.pillBot} />
-      </div>
-      <EngagementCard
-        highlighted={MAY.highlighted}
-        highlightedOpenSearch={MAY.highlightedOpenSearch}
-        copied={MAY.copied}
-        copiedOpenSearch={MAY.copiedOpenSearch}
-        benchHighlights={BENCH.monthly.highlights}
-        benchCopies={BENCH.monthly.copies}
-      />
-
-      {/* ── DIVIDER ── */}
-      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
-
-      {/* ── KNOWLEDGE ASSISTANT ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant (Open Search)</div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard label="Sessions (Open Search)" value={String(MAY.openSearchVisits)} desc="Visits to the Knowledge Assistant" bench={BENCH.monthly.sessions} />
-        <MCard label="Prompters (≥1 prompt)" value={String(MAY.prompters)} desc={`${Math.round(MAY.prompters/MAY.users*100)}% of users reached`} accent bench={BENCH.monthly.prompters} />
-        <MCard label="Prompts sent" value={MAY.prompts != null ? String(MAY.prompts) : null} desc="Median: 1 per prompter" accent bench={MAY.prompts ? BENCH.monthly.prompts : null} />
-        <MCard label="Source panel clicks" value={String(MAY.sourceClicks)} desc="Clicks on source panel" />
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
-          <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
-            <div style={{ fontSize: 28, fontWeight: 500, color: GREEN, letterSpacing: "-0.03em", lineHeight: 1 }}>👍 {MAY.thumbsUp}</div>
-            <div style={{ fontSize: 28, fontWeight: 500, color: RED, letterSpacing: "-0.03em", lineHeight: 1 }}>👎 {MAY.thumbsDown}</div>
-          </div>
-          <div style={{ fontSize: 9, color: INK3, marginTop: 8 }}>AI responses rated by users</div>
-        </div>
-        <MCard label="Prompt Gallery clicks" value={String(MAY.promptGalleryClicks)} />
-        <MCard label="Recent Search clicks" value={String(MAY.recentSearchClicks)} />
-        <MCard label="New Search clicks" value={String(MAY.newSearchClicks)} />
-      </div>
-
-      {/* ── DIVIDER ── */}
-      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
-
-      {/* ── LWA ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant (LWA)</div>
-
-      {/* Context block */}
-      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "12px 16px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 6 }}>Context — Q1 2026 Institutional baseline</div>
-        <p style={{ fontSize: 11, color: BLUE_D, lineHeight: 1.6, margin: 0 }}>
-          During Q1 2026, <strong>784 lessons</strong> were created across <strong>452 operations</strong> registered in the Client Portal — independent of the KP platform. This provides important context: LWA usage within KP represents an emerging channel alongside existing institutional lesson-creation practices.
-        </p>
-      </div>
-
-      <div style={{ fontSize: 9, color: INK3, fontStyle: "italic" }}>Adoption</div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
-        <MCard label="LWA visits" value={String(MAY.lwa.visits)} accent />
-        <MCard label="Unique users" value={String(MAY.lwa.uniqueUsers)} accent />
-      </div>
-
-      <div style={{ fontSize: 9, color: INK3, fontStyle: "italic" }}>Usage & Completion</div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
-        <MCard label="Users who created lessons" value={String(MAY.lwa.usersCreated)} />
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Lessons started</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{MAY.lwa.lessonsStartedTotal}</div>
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{MAY.lwa.lessonsStartedExecution} Execution</span>
-            <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BG, color: INK3, fontWeight: 500 }}>{MAY.lwa.lessonsStartedPCR} PCR</span>
-          </div>
-        </div>
-        <MCard label="Lessons completed" value={String(MAY.lwa.completed)} desc="Clicked 'Complete lesson'" accent />
-        <MCard label="% Reviewed before completing" value={`${MAY.lwa.pctReviewed}%`} desc="Quality: with prior edits" />
-      </div>
-
-      <div style={{ fontSize: 9, color: INK3, fontStyle: "italic" }}>Effort & Perceived value</div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard label="Avg. time to save" value={MAY.lwa.avgTime} small desc="From first click to final save" />
-        <MCard label="Lessons edited" value={String(MAY.lwa.edited)} desc="In unique sessions" />
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Combined copies</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{MAY.lwa.copiesCombined}</div>
-          <div style={{ display: "flex", gap: 8 }}>
-            <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{MAY.lwa.copiesButton} via button</span>
-            <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BG, color: INK3, fontWeight: 500 }}>{MAY.lwa.copiesCursor} via cursor</span>
-          </div>
-        </div>
-      </div>
-
-      {/* ── DIVIDER ── */}
-      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
-
-      {/* Signal */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", borderLeft: `3px solid ${BLUE}` }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
-          Signal — Pill engagement
-        </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0" }}>
-          Similar Projects returned as the most accessed pill in May with 40 interactions, after Lessons Learned briefly led in an earlier period. Literature appeared as the least used pill for the first time — a broader distribution of content categories signals growing platform exploration.
-        </p>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
-          Signal — LWA efficiency
-        </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0 }}>
-          Average time to save a lesson dropped sharply to 4m 55s in May (from 23m 40s in April), while completions rose to 17. Users are getting faster with the tool.
-        </p>
-      </div>
-
-    </div>
-  );
-}
-
-// ── APP ───────────────────────────────────────────────────
-export default function App() {
-  const [view, setView] = useState("may");
-
-  const tabBtn = (label, v, sublabel) => (
-    <button onClick={() => setView(v)} style={{
-      fontFamily: "inherit", fontSize: 11, fontWeight: 500,
-      padding: "6px 14px", border: `1px solid ${view === v ? BLUE : BDR}`,
-      borderRadius: 6, cursor: "pointer", letterSpacing: "0.04em", textTransform: "uppercase",
-      background: view === v ? BLUE : SURF, color: view === v ? "#fff" : INK3,
-      display: "flex", flexDirection: "column", alignItems: "center", gap: 1,
-    }}>
-      {label}
-      {sublabel && <span style={{ fontSize: 8, opacity: 0.8, letterSpacing: "0.06em" }}>{sublabel}</span>}
-    </button>
-  );
-
-  return (
-    <div style={{ fontFamily: "'DM Mono', monospace", background: BG, minHeight: "100vh", color: INK, fontSize: 13 }}>
-
-      {/* Topbar */}
-      <div style={{
-        background: SURF, borderBottom: `1px solid ${BDR}`,
-        padding: "12px 20px", display: "flex", alignItems: "center",
-        justifyContent: "space-between", gap: 10, flexWrap: "wrap",
-        position: "sticky", top: 0, zIndex: 20,
-      }}>
-        <div>
-          <div style={{ fontSize: 9, letterSpacing: "0.14em", textTransform: "uppercase", color: BLUE, fontWeight: 500, marginBottom: 2 }}>
-            IDB Knowledge Platform
-          </div>
-          <div style={{ fontSize: 14, fontWeight: 500, color: INK }}>Post Go-live Key Metrics</div>
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          {tabBtn("May 2026", "may", "May 2026")}
-          {tabBtn("Apr 2026", "monthly", "Apr 2026")}
-          {tabBtn("Week 1+2", "week12", "Mar 31–Apr 17")}
-          {tabBtn("Week 1 Pulse", "week1", "Mar 31–Apr 10")}
-          {tabBtn("Smoke Test", "smoke", "0–48h")}
-        </div>
-      </div>
-
-      {view === "smoke" ? <SmokeTest /> : view === "week1" ? <Week1 data={WEEK1} /> : view === "week12" ? <Week1 data={WEEK12} /> : view === "may" ? <MayMonthly /> : <Monthly />}
-
-      <div style={{ textAlign: "center", padding: 18, fontSize: 9, color: INK3, letterSpacing: "0.06em", borderTop: `1px solid ${BDR}` }}>
-        IDB Knowledge Platform · Post Go-live Key Metrics · Go-live {GO_LIVE_DATE}
-      </div>
-    </div>
-  );
-}
+renderCountry('colombia');
+renderCountry('brasil');
+renderCountry('costarica');
+renderCountry('costarica');
+</script>
+</body>
+</html>
