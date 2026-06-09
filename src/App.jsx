@@ -996,7 +996,8 @@ function Monthly() {
           <MCard label="% Onboarding completed" value={`${APRIL.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
           <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
-            <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>{APRIL.returningUsers}</div>
+            <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{APRIL.returningUsers}</div>
+            <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Users with more than one session within the month</div>
             <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D }}>{Math.round(APRIL.returningUsers/APRIL.users*100)}% of users reached</span>
           </div>
           <MCard label="CSAT — Customer Satisfaction Score" value="75%" desc="out of 5 responses" />
@@ -1388,7 +1389,8 @@ function MayMonthly() {
         <MCard label="% Onboarding completed" value={`${MAY.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>{MAY.returningUsers}</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{MAY.returningUsers}</div>
+          <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Users with more than one session within the month</div>
           <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D }}>{Math.round(MAY.returningUsers/MAY.users*100)}% of users reached</span>
         </div>
       </div>
