@@ -757,6 +757,7 @@ const APRIL = {
   avgTime: "16.31s",
   dropoff: 92,
   retention: 10.9,
+  returningUsers: 228,
   highlighted: 579,
   highlightedOpenSearch: 393,
   copied: 167,
@@ -993,7 +994,11 @@ function Monthly() {
           <MCard label="New users" value={String(APRIL.newUsers)} desc="First-time visitors" />
           <MCard label="Sessions" value={APRIL.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} />
           <MCard label="% Onboarding completed" value={`${APRIL.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
-          <MCard label="% Returning users" value={APRIL.retention != null ? `${APRIL.retention}%` : null} desc="Biweekly retention" bench={BENCH.monthly.retention} />
+          <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
+            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
+            <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>{APRIL.returningUsers}</div>
+            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D }}>{Math.round(APRIL.returningUsers/APRIL.users*100)}% of users reached</span>
+          </div>
           <MCard label="CSAT — Customer Satisfaction Score" value="75%" desc="out of 5 responses" />
         </Grid>
 
@@ -1178,6 +1183,7 @@ const MAY = {
   avgTime: "20.2s",
   dropoff: 87,
   retention: 16,
+  returningUsers: 131,
   highlighted: 463,
   highlightedOpenSearch: 217,
   copied: 191,
@@ -1380,7 +1386,11 @@ function MayMonthly() {
         <MCard label="New users" value={String(MAY.first_time)} desc="First-time visitors" />
         <MCard label="Sessions" value={MAY.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} />
         <MCard label="% Onboarding completed" value={`${MAY.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
-        <MCard label="% Returning users" value={MAY.retention != null ? `${MAY.retention}%` : null} desc="Biweekly retention" bench={BENCH.monthly.retention} />
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>{MAY.returningUsers}</div>
+          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D }}>{Math.round(MAY.returningUsers/MAY.users*100)}% of users reached</span>
+        </div>
       </div>
 
       {/* CSAT block */}
