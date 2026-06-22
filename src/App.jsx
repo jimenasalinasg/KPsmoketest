@@ -968,7 +968,7 @@ function Monthly() {
             { label: "Sessions", value: "5,999" },
             { label: "Users reached", value: "1,357" },
             { label: "Prompters", value: "587" },
-            { label: "Prompts sent", value: "3,180" },
+            { label: "Prompts sent", value: "2,555" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -1360,7 +1360,7 @@ function MayMonthly() {
             { label: "Sessions", value: "7,202" },
             { label: "Users reached", value: "1,574" },
             { label: "Prompters", value: "673" },
-            { label: "Prompts sent", value: "3,180" },
+            { label: "Prompts sent", value: "3,199" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -1772,7 +1772,7 @@ function JuneMonthly() {
             { label: "Sessions", value: "7,924" },
             { label: "Users reached", value: "1,693" },
             { label: "Prompters", value: "732" },
-            { label: "Prompts sent", value: "3,180" },
+            { label: "Prompts sent", value: "3,721" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
