@@ -1400,30 +1400,16 @@ function MayMonthly() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
           <div>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6 }}>CSAT — Customer Satisfaction Score</div>
-            <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>82.4%</div>
-            <div style={{ fontSize: 10, color: INK3, marginTop: 4 }}>24 responses · Apr 21 – May 26, 2026</div>
-          </div>
-          <div style={{ textAlign: "right" }}>
-            <div style={{ fontSize: 11, color: INK2, marginBottom: 4 }}>Avg rating: <strong>4.2 / 5</strong></div>
-            <div style={{ display: "flex", gap: 4, justifyContent: "flex-end" }}>
-              {[{r:1,n:2},{r:2,n:0},{r:3,n:3},{r:4,n:4},{r:5,n:15}].map(({r,n}) => (
-                <div key={r} style={{ textAlign: "center" }}>
-                  <div style={{ fontSize: 8, color: INK3, marginBottom: 2 }}>{r}★</div>
-                  <div style={{ width: 22, background: BG, borderRadius: 4, overflow: "hidden", height: 40, display: "flex", alignItems: "flex-end" }}>
-                    <div style={{ width: "100%", height: `${(n/15)*100}%`, background: n === 0 ? BDR : r >= 4 ? GREEN : r === 3 ? AMBER : RED, borderRadius: 2 }} />
-                  </div>
-                  <div style={{ fontSize: 8, color: INK3, marginTop: 2 }}>{n}</div>
-                </div>
-              ))}
-            </div>
+            <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>76.5%</div>
+            <div style={{ fontSize: 10, color: INK3, marginTop: 4 }}>17 responses · May 2026</div>
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           <div style={{ padding: "8px 12px", background: "#edfaf4", border: "1px solid #a7f3d0", borderRadius: 7, fontSize: 10, color: "#065f46" }}>
-            👍 <strong>Most valued:</strong> "Found quickly · Content clear · Simple and smooth · Useful for work"
+            👍 <strong>Most valued:</strong> "Found quickly · Content clear · Simple and smooth · Useful for work" — most repeated combo on 5★ responses
           </div>
           <div style={{ padding: "8px 12px", background: "#fef0ee", border: "1px solid #fca5a5", borderRadius: 7, fontSize: 10, color: "#7f1d1d" }}>
-            👎 <strong>Least valued:</strong> "Cannot search" · "Didn't fully find what I needed" · "Experience felt slow"
+            👎 <strong>Least valued:</strong> "Didn't find what I needed" · "Experience felt slow" · "I cannot search" — points to <strong>search relevance/discoverability</strong>, not technical errors
           </div>
         </div>
       </div>
@@ -1807,6 +1793,29 @@ function JuneMonthly() {
         </div>
       </div>
 
+      {/* CSAT block */}
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
+        <div style={{ marginBottom: 14 }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6 }}>CSAT — Customer Satisfaction Score</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>58.3%</div>
+          <div style={{ fontSize: 10, color: INK3, marginTop: 4, display: "flex", alignItems: "center", gap: 8 }}>
+            <span>12 responses · June 2026</span>
+            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: "#fef0ee", color: RED }}>↓ 18.2pp vs May</span>
+          </div>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ padding: "8px 12px", background: "#edfaf4", border: "1px solid #a7f3d0", borderRadius: 7, fontSize: 10, color: "#065f46" }}>
+            👍 <strong>Most valued:</strong> same pattern as May — "Found quickly · Content clear · Simple and smooth · Useful for work" on 5★ responses
+          </div>
+          <div style={{ padding: "8px 12px", background: "#fef0ee", border: "1px solid #fca5a5", borderRadius: 7, fontSize: 10, color: "#7f1d1d" }}>
+            👎 <strong>Least valued — technical failures, not UX:</strong> frequent crashes requiring restart, API connection issue, authorization failure, and a specific <strong>400 error on TC RG-T4150</strong>. Two additional comments on content clarity and not finding what was needed.
+          </div>
+          <div style={{ padding: "8px 12px", background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 7, fontSize: 10, color: "#92400e" }}>
+            ⚠ <strong>Recommendation:</strong> log the 400 error / TC RG-T4150 as a separate technical ticket — it is not general product feedback and should not be treated as a UX signal.
+          </div>
+        </div>
+      </div>
+
       {/* Geo */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
@@ -1928,8 +1937,14 @@ function JuneMonthly() {
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — LWA slowdown
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0 }}>
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0" }}>
           LWA activity dropped sharply in June (22 visits, 0 completions) compared to April and May. This is a preliminary, partial-month figure — worth monitoring at month close to confirm whether this is a real decline or a reporting-window artifact.
+        </p>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+          Signal — CSAT shift: relevance → technical
+        </div>
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0 }}>
+          CSAT dropped 18.2pp from May (76.5%) to June (58.3%), but the <em>nature</em> of the complaints changed. May's negative feedback pointed to search relevance and discoverability ("didn't find what I needed," "cannot search") — a product/UX issue. June's negative feedback names concrete technical failures: crashes, an API connection issue, an authorization failure, and a specific 400 error on TC RG-T4150. This reframes part of the CSAT drop as a technical incident rather than a product gap, and should be tracked separately from general satisfaction trends.
         </p>
       </div>
 
