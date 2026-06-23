@@ -963,12 +963,13 @@ function Monthly() {
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to Apr 30, 2026
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
           {[
             { label: "Sessions", value: "5,999" },
             { label: "Users reached", value: "1,357" },
             { label: "Prompters", value: "587" },
             { label: "Prompts sent", value: "2,555" },
+            { label: "Penetration", value: "37.7%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -1179,7 +1180,7 @@ const MAY = {
   sessions: 1052,
   users: 363,
   first_time: 268,
-  prompters: 133,
+  prompters: 145,
   prompts: 625,
   avgTime: "20.2s",
   dropoff: 87,
@@ -1254,7 +1255,7 @@ function MayMonthly() {
 
   const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
 
-  const MCard = ({ label, value, desc, accent, small, bench }) => {
+  const MCard = ({ label, value, desc, accent, small, bench, momentum }) => {
     let badge = null;
     if (value && value !== "—" && bench != null) {
       const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
@@ -1265,17 +1266,28 @@ function MayMonthly() {
         badge = { label: higher ? `↑ ${pctDiff}%` : `↓ ${pctDiff}%`, isGood: higher };
       }
     }
+    let momentumBadge = null;
+    if (value && value !== "—" && momentum != null) {
+      const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
+      if (!isNaN(numVal) && momentum > 0) {
+        const ratio = numVal / momentum;
+        const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
+        const higher = ratio >= 1;
+        momentumBadge = { label: higher ? `↑${pctDiff}%` : `↓${pctDiff}%` };
+      }
+    }
     return (
       <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8 }}>{label}</div>
         <div style={{ fontSize: small ? 16 : 28, fontWeight: 500, letterSpacing: small ? "-0.01em" : "-0.03em", lineHeight: 1.2, color: value && value !== "—" ? (accent ? BLUE_D : INK) : BDR }}>{value || "—"}</div>
-        {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6, marginBottom: badge ? 6 : 0 }}>{desc}</div>}
+        {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6, marginBottom: (badge || momentumBadge) ? 6 : 0 }}>{desc}</div>}
         {badge && (
-          <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4, flexWrap: "wrap" }}>
             <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: badge.isGood ? "#edfaf4" : "#fef0ee", color: badge.isGood ? GREEN : RED }}>
               {badge.label} vs monthly avg
             </span>
             <span style={{ fontSize: 9, color: INK3 }}>({bench})</span>
+            {momentumBadge && <span style={{ fontSize: 9, color: INK3 }}>· {momentumBadge.label} vs last month</span>}
           </div>
         )}
       </div>
@@ -1355,12 +1367,13 @@ function MayMonthly() {
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to Jun 1, 2026
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
           {[
             { label: "Sessions", value: "7,202" },
             { label: "Users reached", value: "1,574" },
             { label: "Prompters", value: "673" },
             { label: "Prompts sent", value: "3,199" },
+            { label: "Penetration", value: "43.7%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -1383,9 +1396,9 @@ function MayMonthly() {
             <span>{MAY.users} users</span><span>3,600 total</span>
           </div>
         </div>
-        <MCard label="Users reached" value={String(MAY.users)} desc="Total for the period" accent bench={BENCH.monthly.users} />
+        <MCard label="Users reached" value={String(MAY.users)} desc="Total for the period" accent bench={BENCH.monthly.users} momentum={APRIL.users} />
         <MCard label="New users" value={String(MAY.first_time)} desc="First-time visitors" />
-        <MCard label="Sessions" value={MAY.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} />
+        <MCard label="Sessions" value={MAY.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={APRIL.sessions} />
         <MCard label="% Onboarding completed" value={`${MAY.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
@@ -1478,7 +1491,7 @@ function MayMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant (Open Search)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard label="Sessions (Open Search)" value={String(MAY.openSearchVisits)} desc="Visits to the Knowledge Assistant" bench={BENCH.monthly.sessions} />
-        <MCard label="Prompters (≥1 prompt)" value={String(MAY.prompters)} desc={`${Math.round(MAY.prompters/MAY.users*100)}% of users reached`} accent bench={BENCH.monthly.prompters} />
+        <MCard label="Prompters (≥1 prompt)" value={String(MAY.prompters)} desc={`${Math.round(MAY.prompters/MAY.users*100)}% of users reached`} accent bench={BENCH.monthly.prompters} momentum={APRIL.prompters} />
         <MCard label="Prompts sent" value={MAY.prompts != null ? String(MAY.prompts) : null} desc="Median: 1 per prompter" accent bench={MAY.prompts ? BENCH.monthly.prompts : null} />
         <MCard label="Source panel clicks" value={String(MAY.sourceClicks)} desc="Clicks on source panel" />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
@@ -1569,30 +1582,30 @@ function MayMonthly() {
 // ── JUNE 2026 DATA ────────────────────────────────────────
 // Preliminary — through Jun 22, 2026
 const JUNE = {
-  sessions: 798,
-  users: 306,
+  sessions: 856,
+  users: 328,
   first_time: 250,
   prompters: 133,
-  prompts: null, // pending
-  avgTime: "20.6s",
+  prompts: 522,
+  avgTime: "20.85s",
   dropoff: 86,
   returningUsers: 102,
-  highlighted: 474,
-  highlightedOpenSearch: 248,
-  copied: 188,
-  copiedOpenSearch: 94,
-  sourceClicks: 41,
-  pillPageviews: 277,
+  highlighted: 547,
+  highlightedOpenSearch: 318,
+  copied: 238,
+  copiedOpenSearch: 143,
+  sourceClicks: 47,
+  pillPageviews: 286,
   pillTop: "Similar Projects (82)",
-  pillBot: "Institutional Documents (26)",
-  openSearchVisits: 207,
-  tourCompletion: 48,
+  pillBot: "Data (27)",
+  openSearchVisits: 252,
+  tourCompletion: 49,
   thumbsUp: 0,
   thumbsDown: 1,
   promptGalleryClicks: 27,
-  recentSearchClicks: 12,
+  recentSearchClicks: 13,
   newSearchClicks: 106,
-  totalCountries: 29,
+  totalCountries: 28,
   lwa: {
     visits: 22,
     uniqueUsers: 14,
@@ -1609,33 +1622,33 @@ const JUNE = {
     pctReviewed: 0,
   },
   countries: [
-    { name: "United States (HQ)", code: "US", users: 136, pct: 44 },
-    { name: "Brazil",             code: "BR", users: 66,  pct: 21 },
-    { name: "Costa Rica",         code: "CR", users: 21,  pct: 7  },
-    { name: "Colombia",           code: "CO", users: 13,  pct: 4  },
-    { name: "Argentina",          code: "AR", users: 11,  pct: 4  },
-    { name: "Uruguay",            code: "UY", users: 10,  pct: 3  },
+    { name: "United States (HQ)", code: "US", users: 146, pct: 44 },
+    { name: "Brazil",             code: "BR", users: 70,  pct: 21 },
+    { name: "Costa Rica",         code: "CR", users: 21,  pct: 6  },
+    { name: "Colombia",           code: "CO", users: 15,  pct: 5  },
+    { name: "Argentina",          code: "AR", users: 11,  pct: 3  },
+    { name: "Uruguay",            code: "UY", users: 11,  pct: 3  },
     { name: "Panama",             code: "PA", users: 9,   pct: 3  },
+    { name: "Barbados",           code: "BB", users: 7,   pct: 2  },
     { name: "Dominican Republic", code: "DO", users: 6,   pct: 2  },
-    { name: "Barbados",           code: "BB", users: 4,   pct: 1  },
+    { name: "Ecuador",            code: "EC", users: 4,   pct: 1  },
     { name: "Honduras",           code: "HN", users: 4,   pct: 1  },
     { name: "Mexico",             code: "MX", users: 4,   pct: 1  },
     { name: "Bolivia",            code: "BO", users: 3,   pct: 1  },
-    { name: "Ecuador",            code: "EC", users: 3,   pct: 1  },
+    { name: "Peru",               code: "PE", users: 3,   pct: 1  },
     { name: "Spain",              code: "ES", users: 3,   pct: 1  },
     { name: "Bahamas",            code: "BS", users: 2,   pct: 1  },
     { name: "Belize",             code: "BZ", users: 2,   pct: 1  },
+    { name: "Cayman Islands",     code: "KY", users: 2,   pct: 1  },
     { name: "France",             code: "FR", users: 2,   pct: 1  },
     { name: "Guatemala",          code: "GT", users: 2,   pct: 1  },
+    { name: "Jamaica",            code: "JM", users: 2,   pct: 1  },
     { name: "Paraguay",           code: "PY", users: 2,   pct: 1  },
-    { name: "Peru",               code: "PE", users: 2,   pct: 1  },
     { name: "Trinidad & Tobago",  code: "TT", users: 2,   pct: 1  },
     { name: "United Kingdom",     code: "GB", users: 2,   pct: 1  },
-    { name: "Cayman Islands",     code: "KY", users: 1,   pct: 0  },
     { name: "Chile",              code: "CL", users: 1,   pct: 0  },
     { name: "El Salvador",        code: "SV", users: 1,   pct: 0  },
     { name: "Haiti",              code: "HT", users: 1,   pct: 0  },
-    { name: "Jamaica",            code: "JM", users: 1,   pct: 0  },
     { name: "Suriname",           code: "SR", users: 1,   pct: 0  },
   ],
 };
@@ -1646,7 +1659,7 @@ function JuneMonthly() {
 
   const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
 
-  const MCard = ({ label, value, desc, accent, small, bench }) => {
+  const MCard = ({ label, value, desc, accent, small, bench, momentum }) => {
     let badge = null;
     if (value && value !== "—" && bench != null) {
       const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
@@ -1657,17 +1670,28 @@ function JuneMonthly() {
         badge = { label: higher ? `↑ ${pctDiff}%` : `↓ ${pctDiff}%`, isGood: higher };
       }
     }
+    let momentumBadge = null;
+    if (value && value !== "—" && momentum != null) {
+      const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
+      if (!isNaN(numVal) && momentum > 0) {
+        const ratio = numVal / momentum;
+        const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
+        const higher = ratio >= 1;
+        momentumBadge = { label: higher ? `↑${pctDiff}%` : `↓${pctDiff}%` };
+      }
+    }
     return (
       <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8 }}>{label}</div>
         <div style={{ fontSize: small ? 16 : 28, fontWeight: 500, letterSpacing: small ? "-0.01em" : "-0.03em", lineHeight: 1.2, color: value && value !== "—" ? (accent ? BLUE_D : INK) : BDR }}>{value || "—"}</div>
-        {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6, marginBottom: badge ? 6 : 0 }}>{desc}</div>}
+        {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6, marginBottom: (badge || momentumBadge) ? 6 : 0 }}>{desc}</div>}
         {badge && (
-          <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4, flexWrap: "wrap" }}>
             <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: badge.isGood ? "#edfaf4" : "#fef0ee", color: badge.isGood ? GREEN : RED }}>
               {badge.label} vs monthly avg
             </span>
             <span style={{ fontSize: 9, color: INK3 }}>({bench})</span>
+            {momentumBadge && <span style={{ fontSize: 9, color: INK3 }}>· {momentumBadge.label} vs last month</span>}
           </div>
         )}
       </div>
@@ -1753,12 +1777,13 @@ function JuneMonthly() {
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to Jun 22, 2026
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
           {[
             { label: "Sessions", value: "7,924" },
             { label: "Users reached", value: "1,693" },
             { label: "Prompters", value: "732" },
             { label: "Prompts sent", value: "3,721" },
+            { label: "Penetration", value: "47.0%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -1781,9 +1806,9 @@ function JuneMonthly() {
             <span>{JUNE.users} users</span><span>3,600 total</span>
           </div>
         </div>
-        <MCard label="Users reached" value={String(JUNE.users)} desc="Total for the period" accent bench={BENCH.monthly.users} />
+        <MCard label="Users reached" value={String(JUNE.users)} desc="Total for the period" accent bench={BENCH.monthly.users} momentum={MAY.users} />
         <MCard label="New users" value={String(JUNE.first_time)} desc="First-time visitors" />
-        <MCard label="Sessions" value={JUNE.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} />
+        <MCard label="Sessions" value={JUNE.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={MAY.sessions} />
         <MCard label="% Onboarding completed" value={`${JUNE.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
@@ -1862,7 +1887,7 @@ function JuneMonthly() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard label="Queries (pill views)" value={String(JUNE.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
         <MCard label="Most used pill — Similar Projects" value="82" desc="interactions" small bench={BENCH.monthly.pillTop} />
-        <MCard label={<>Least used pill —<br/>Institutional Docs</>} value="26" desc="interactions" small bench={BENCH.monthly.pillBot} />
+        <MCard label={<>Least used pill —<br/>Data</>} value="27" desc="interactions" small bench={BENCH.monthly.pillBot} />
       </div>
       <EngagementCard
         highlighted={JUNE.highlighted}
@@ -1880,8 +1905,8 @@ function JuneMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant (Open Search)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard label="Sessions (Open Search)" value={String(JUNE.openSearchVisits)} desc="Visits to the Knowledge Assistant" bench={BENCH.monthly.sessions} />
-        <MCard label="Prompters (≥1 prompt)" value={String(JUNE.prompters)} desc={`${Math.round(JUNE.prompters/JUNE.users*100)}% of users reached`} accent bench={BENCH.monthly.prompters} />
-        <MCard label="Prompts sent" value={JUNE.prompts != null ? String(JUNE.prompts) : null} desc="Median: 1 per prompter" accent bench={JUNE.prompts ? BENCH.monthly.prompts : null} />
+        <MCard label="Prompters (≥1 prompt)" value={String(JUNE.prompters)} desc={`${Math.round(JUNE.prompters/JUNE.users*100)}% of users reached`} accent bench={BENCH.monthly.prompters} momentum={MAY.prompters} />
+        <MCard label="Prompts sent" value={JUNE.prompts != null ? String(JUNE.prompts) : null} desc="Median: 1 per prompter" accent bench={JUNE.prompts ? BENCH.monthly.prompts : null} momentum={JUNE.prompts ? MAY.prompts : null} />
         <MCard label="Source panel clicks" value={String(JUNE.sourceClicks)} desc="Clicks on source panel" />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
@@ -1932,7 +1957,7 @@ function JuneMonthly() {
           Signal — Geographic shift
         </div>
         <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0" }}>
-          Brazil surged to 66 users in June (up from 20 in May), and Costa Rica jumped to 21 — both well above their historical baseline. This may reflect a specific country-office event or training; worth confirming with country teams before the next report.
+          Brazil surged to 70 users in June (up from 20 in May), and Costa Rica jumped to 21 — both well above their historical baseline. This may reflect a specific country-office event or training; worth confirming with country teams before the next report.
         </p>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — LWA slowdown
