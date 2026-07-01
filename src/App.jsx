@@ -775,40 +775,36 @@ const APRIL = {
   topCountryCode: "AR",
   totalCountries: 34,
   countries: [
-    { name: "United States (HQ)", code: "US", users: 818,  pct: 58 },
-    { name: "Argentina",          code: "AR", users: 88,   pct: 6  },
-    { name: "Brazil",             code: "BR", users: 78,   pct: 6  },
-    { name: "Colombia",           code: "CO", users: 64,   pct: 5  },
-    { name: "Uruguay",            code: "UY", users: 38,   pct: 3  },
+    { name: "United States (HQ)", code: "US", users: 341, pct: 58 },
+    { name: "Brazil",             code: "BR", users: 37,  pct: 6  },
+    { name: "Argentina",          code: "AR", users: 28,  pct: 5  },
+    { name: "Colombia",           code: "CO", users: 24,  pct: 4  },
+    { name: "Panama",             code: "PA", users: 19,  pct: 3  },
     { name: "Peru",               code: "PE", users: 18,  pct: 3  },
-    { name: "Panama",             code: "PA", users: 36,   pct: 3  },
-    { name: "Spain",              code: "ES", users: 24,   pct: 2  },
-    { name: "Paraguay",           code: "PY", users: 23,   pct: 2  },
-    { name: "El Salvador",        code: "SV", users: 20,   pct: 1  },
-    { name: "Mexico",             code: "MX", users: 20,   pct: 1  },
-    { name: "Ecuador",            code: "EC", users: 17,   pct: 1  },
-    { name: "Dominican Republic", code: "DO", users: 15,   pct: 1  },
-    { name: "Bolivia",            code: "BO", users: 13,   pct: 1  },
-    { name: "Chile",              code: "CL", users: 13,   pct: 1  },
-    { name: "Honduras",           code: "HN", users: 12,   pct: 1  },
-    { name: "Jamaica",            code: "JM", users: 12,   pct: 1  },
+    { name: "Uruguay",            code: "UY", users: 18,  pct: 3  },
+    { name: "Paraguay",           code: "PY", users: 15,  pct: 3  },
+    { name: "El Salvador",        code: "SV", users: 11,  pct: 2  },
+    { name: "Cayman Islands",     code: "KY", users: 10,  pct: 2  },
+    { name: "Ecuador",            code: "EC", users: 8,   pct: 1  },
+    { name: "Honduras",           code: "HN", users: 8,   pct: 1  },
+    { name: "Chile",              code: "CL", users: 7,   pct: 1  },
+    { name: "Guatemala",          code: "GT", users: 7,   pct: 1  },
+    { name: "Mexico",             code: "MX", users: 7,   pct: 1  },
+    { name: "Trinidad & Tobago",  code: "TT", users: 7,   pct: 1  },
+    { name: "Barbados",           code: "BB", users: 6,   pct: 1  },
+    { name: "Bolivia",            code: "BO", users: 6,   pct: 1  },
+    { name: "Spain",              code: "ES", users: 6,   pct: 1  },
     { name: "Costa Rica",         code: "CR", users: 5,   pct: 1  },
-    { name: "Trinidad & Tobago",  code: "TT", users: 11,   pct: 1  },
-    { name: "Cayman Islands",     code: "KY", users: 10,   pct: 1  },
-    { name: "Barbados",           code: "BB", users: 9,    pct: 1  },
-    { name: "Guatemala",          code: "GT", users: 9,    pct: 1  },
+    { name: "Jamaica",            code: "JM", users: 5,   pct: 1  },
     { name: "Belize",             code: "BZ", users: 4,   pct: 1  },
-    { name: "Suriname",           code: "SR", users: 5,    pct: 0  },
-    { name: "Bahamas",            code: "BS", users: 4,    pct: 0  },
-    { name: "Canada",             code: "CA", users: 4,    pct: 0  },
-    { name: "Guyana",             code: "GY", users: 4,    pct: 0  },
-    { name: "Nicaragua",          code: "NI", users: 4,    pct: 0  },
-    { name: "United Kingdom",     code: "GB", users: 2,    pct: 0  },
-    { name: "Belgium",            code: "BE", users: 1,    pct: 0  },
-    { name: "Germany",            code: "DE", users: 1,    pct: 0  },
-    { name: "Haiti",              code: "HT", users: 1,    pct: 0  },
-    { name: "Portugal",           code: "PT", users: 1,    pct: 0  },
-    { name: "Venezuela",          code: "VE", users: 1,    pct: 0  },
+    { name: "Bahamas",            code: "BS", users: 3,   pct: 1  },
+    { name: "Canada",             code: "CA", users: 3,   pct: 1  },
+    { name: "Dominican Republic", code: "DO", users: 3,   pct: 1  },
+    { name: "Nicaragua",          code: "NI", users: 3,   pct: 1  },
+    { name: "Suriname",           code: "SR", users: 3,   pct: 1  },
+    { name: "Guyana",             code: "GY", users: 1,   pct: 0  },
+    { name: "Haiti",              code: "HT", users: 1,   pct: 0  },
+    { name: "Switzerland",        code: "CH", users: 1,   pct: 0  },
   ],
   promptGalleryClicks: 42,
   recentSearchClicks: 21,
@@ -1159,13 +1155,13 @@ function Monthly() {
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Prompt engagement
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0" }}>
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
           Most prompters sent a single prompt in April (median: 1). A smaller group is developing recurring use. Watch the share of repeat prompters as the key stickiness indicator in coming months.
         </p>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — LWA quality
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0 }}>
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
           100% of lessons were reviewed before completion in April — up from 3% in March. Average time to save dropped to 23m 40s, suggesting users are getting more efficient with the tool while maintaining quality.
         </p>
       </div>
@@ -1180,7 +1176,7 @@ const MAY = {
   sessions: 1052,
   users: 363,
   first_time: 268,
-  prompters: 145,
+  prompters: 160,
   prompts: 625,
   avgTime: "20.2s",
   dropoff: 87,
@@ -1288,6 +1284,13 @@ function MayMonthly() {
             </span>
             <span style={{ fontSize: 9, color: INK3 }}>({bench})</span>
             {momentumBadge && <span style={{ fontSize: 9, color: INK3 }}>· {momentumBadge.label} vs last month</span>}
+          </div>
+        )}
+        {!badge && momentumBadge && (
+          <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
+            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: momentumBadge.label.startsWith("↑") ? "#edfaf4" : "#fef0ee", color: momentumBadge.label.startsWith("↑") ? GREEN : RED }}>
+              {momentumBadge.label} vs last month
+            </span>
           </div>
         )}
       </div>
@@ -1445,23 +1448,34 @@ function MayMonthly() {
           </div>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px 16px" }}>
-          {regional.map((c, i) => (
-            <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
-              <span style={{ fontSize: 13, flexShrink: 0 }}>{flag(c.code)}</span>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
-                  <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
-                  <span style={{ fontSize: 9, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
-                </div>
-                <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
-                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 15 ? "#1464A0" : c.users >= 8 ? BLUE : "#7ab3e0", borderRadius: 99 }} />
+          {regional.map((c, i) => {
+            const aprUsers = { CO: 24 }[c.code];
+            const diff = aprUsers != null ? c.users - aprUsers : null;
+            return (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
+                <span style={{ fontSize: 13, flexShrink: 0 }}>{flag(c.code)}</span>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2, alignItems: "center" }}>
+                    <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
+                    <span style={{ display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}>
+                      {diff != null && (
+                        <span style={{ fontSize: 8, fontWeight: 600, padding: "1px 5px", borderRadius: 99, background: diff >= 0 ? "#edfaf4" : "#fef0ee", color: diff >= 0 ? GREEN : RED }}>
+                          {diff >= 0 ? "+" : ""}{diff}
+                        </span>
+                      )}
+                      <span style={{ fontSize: 9, color: INK3, marginLeft: 4 }}>{c.users}</span>
+                    </span>
+                  </div>
+                  <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
+                    <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 15 ? "#1464A0" : c.users >= 8 ? BLUE : "#7ab3e0", borderRadius: 99 }} />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
         <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
-          Country data reflects session location by IP. Users who accessed the platform from multiple countries within the period may appear in more than one country.
+          Country data reflects session location by IP. Users who accessed the platform from multiple countries within the period may appear in more than one country. Green badge shows change vs April for Colombia — country roadshow held in May.
         </div>
       </div>
 
@@ -1490,10 +1504,10 @@ function MayMonthly() {
       {/* ── KNOWLEDGE ASSISTANT ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant (Open Search)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard label="Sessions (Open Search)" value={String(MAY.openSearchVisits)} desc="Visits to the Knowledge Assistant" bench={BENCH.monthly.sessions} />
-        <MCard label="Prompters (≥1 prompt)" value={String(MAY.prompters)} desc={`${Math.round(MAY.prompters/MAY.users*100)}% of users reached`} accent bench={BENCH.monthly.prompters} momentum={APRIL.prompters} />
-        <MCard label="Prompts sent" value={MAY.prompts != null ? String(MAY.prompts) : null} desc="Median: 1 per prompter" accent bench={MAY.prompts ? BENCH.monthly.prompts : null} />
-        <MCard label="Source panel clicks" value={String(MAY.sourceClicks)} desc="Clicks on source panel" />
+        <MCard label="Sessions (Open Search)" value={String(MAY.openSearchVisits)} desc="Visits to the Knowledge Assistant" momentum={APRIL.openSearchVisits} />
+        <MCard label="Prompters (≥1 prompt)" value={String(MAY.prompters)} desc={`${Math.round(MAY.prompters/MAY.users*100)}% of users reached`} accent momentum={APRIL.prompters} />
+        <MCard label="Prompts sent" value={MAY.prompts != null ? String(MAY.prompts) : null} desc="Median: 1 per prompter" accent momentum={MAY.prompts ? APRIL.prompts : null} />
+        <MCard label="Source panel clicks" value={String(MAY.sourceClicks)} desc="Clicks on source panel" momentum={APRIL.sourceClicks} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
           <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
@@ -1502,9 +1516,9 @@ function MayMonthly() {
           </div>
           <div style={{ fontSize: 9, color: INK3, marginTop: 8 }}>AI responses rated by users</div>
         </div>
-        <MCard label="Prompt Gallery clicks" value={String(MAY.promptGalleryClicks)} />
-        <MCard label="Recent Search clicks" value={String(MAY.recentSearchClicks)} />
-        <MCard label="New Search clicks" value={String(MAY.newSearchClicks)} />
+        <MCard label="Prompt Gallery clicks" value={String(MAY.promptGalleryClicks)} momentum={APRIL.promptGalleryClicks} />
+        <MCard label="Recent Search clicks" value={String(MAY.recentSearchClicks)} momentum={APRIL.recentSearchClicks} />
+        <MCard label="New Search clicks" value={String(MAY.newSearchClicks)} momentum={APRIL.newSearchClicks} />
       </div>
 
       {/* ── DIVIDER ── */}
@@ -1564,14 +1578,20 @@ function MayMonthly() {
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Pill engagement
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0" }}>
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
           Similar Projects returned as the most accessed pill in May with 40 interactions, after Lessons Learned briefly led in an earlier period. Literature appeared as the least used pill for the first time — a broader distribution of content categories signals growing platform exploration.
         </p>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — LWA efficiency
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0 }}>
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
           Average time to save a lesson dropped sharply to 4m 55s in May (from 23m 40s in April), while completions rose to 17. Users are getting faster with the tool.
+        </p>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginTop: 16, marginBottom: 8 }}>
+          Signal — Country roadshow effect
+        </div>
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+          Colombia held a country roadshow in May, and its user count rose to 35 (+11 vs April's 24) — the clearest country-level lift of the month. This pattern will be worth tracking as other countries hold their own roadshows in subsequent months.
         </p>
       </div>
 
@@ -1580,32 +1600,32 @@ function MayMonthly() {
 }
 
 // ── JUNE 2026 DATA ────────────────────────────────────────
-// Preliminary — through Jun 22, 2026
+// Final — June 2026
 const JUNE = {
-  sessions: 856,
-  users: 328,
-  first_time: 250,
+  sessions: 1019,
+  users: 379,
+  first_time: 309,
   prompters: 133,
   prompts: 522,
-  avgTime: "20.85s",
+  avgTime: "20.37s",
   dropoff: 86,
-  returningUsers: 102,
-  highlighted: 547,
-  highlightedOpenSearch: 318,
-  copied: 238,
-  copiedOpenSearch: 143,
-  sourceClicks: 47,
-  pillPageviews: 286,
-  pillTop: "Similar Projects (82)",
+  returningUsers: 141,
+  highlighted: 570,
+  highlightedOpenSearch: 406,
+  copied: 243,
+  copiedOpenSearch: 203,
+  sourceClicks: 50,
+  pillPageviews: 304,
+  pillTop: "Similar Projects (85)",
   pillBot: "Data (27)",
-  openSearchVisits: 252,
-  tourCompletion: 49,
+  openSearchVisits: 342,
+  tourCompletion: 48,
   thumbsUp: 0,
   thumbsDown: 1,
-  promptGalleryClicks: 27,
+  promptGalleryClicks: 30,
   recentSearchClicks: 13,
-  newSearchClicks: 106,
-  totalCountries: 28,
+  newSearchClicks: 1,
+  totalCountries: 29,
   lwa: {
     visits: 22,
     uniqueUsers: 14,
@@ -1622,33 +1642,34 @@ const JUNE = {
     pctReviewed: 0,
   },
   countries: [
-    { name: "United States (HQ)", code: "US", users: 146, pct: 44 },
-    { name: "Brazil",             code: "BR", users: 70,  pct: 21 },
-    { name: "Costa Rica",         code: "CR", users: 21,  pct: 6  },
-    { name: "Colombia",           code: "CO", users: 15,  pct: 5  },
-    { name: "Argentina",          code: "AR", users: 11,  pct: 3  },
-    { name: "Uruguay",            code: "UY", users: 11,  pct: 3  },
-    { name: "Panama",             code: "PA", users: 9,   pct: 3  },
+    { name: "United States (HQ)", code: "US", users: 174, pct: 46 },
+    { name: "Brazil",             code: "BR", users: 74,  pct: 20 },
+    { name: "Costa Rica",         code: "CR", users: 23,  pct: 6  },
+    { name: "Colombia",           code: "CO", users: 17,  pct: 4  },
+    { name: "Uruguay",            code: "UY", users: 16,  pct: 4  },
+    { name: "Argentina",          code: "AR", users: 15,  pct: 4  },
+    { name: "Panama",             code: "PA", users: 10,  pct: 3  },
     { name: "Barbados",           code: "BB", users: 7,   pct: 2  },
     { name: "Dominican Republic", code: "DO", users: 6,   pct: 2  },
-    { name: "Ecuador",            code: "EC", users: 4,   pct: 1  },
+    { name: "Ecuador",            code: "EC", users: 5,   pct: 1  },
+    { name: "Spain",              code: "ES", users: 4,   pct: 1  },
     { name: "Honduras",           code: "HN", users: 4,   pct: 1  },
     { name: "Mexico",             code: "MX", users: 4,   pct: 1  },
     { name: "Bolivia",            code: "BO", users: 3,   pct: 1  },
+    { name: "Paraguay",           code: "PY", users: 3,   pct: 1  },
     { name: "Peru",               code: "PE", users: 3,   pct: 1  },
-    { name: "Spain",              code: "ES", users: 3,   pct: 1  },
+    { name: "Trinidad & Tobago",  code: "TT", users: 3,   pct: 1  },
     { name: "Bahamas",            code: "BS", users: 2,   pct: 1  },
     { name: "Belize",             code: "BZ", users: 2,   pct: 1  },
     { name: "Cayman Islands",     code: "KY", users: 2,   pct: 1  },
+    { name: "Chile",              code: "CL", users: 2,   pct: 1  },
+    { name: "El Salvador",        code: "SV", users: 2,   pct: 1  },
     { name: "France",             code: "FR", users: 2,   pct: 1  },
     { name: "Guatemala",          code: "GT", users: 2,   pct: 1  },
     { name: "Jamaica",            code: "JM", users: 2,   pct: 1  },
-    { name: "Paraguay",           code: "PY", users: 2,   pct: 1  },
-    { name: "Trinidad & Tobago",  code: "TT", users: 2,   pct: 1  },
     { name: "United Kingdom",     code: "GB", users: 2,   pct: 1  },
-    { name: "Chile",              code: "CL", users: 1,   pct: 0  },
-    { name: "El Salvador",        code: "SV", users: 1,   pct: 0  },
     { name: "Haiti",              code: "HT", users: 1,   pct: 0  },
+    { name: "Saint Martin",       code: "MF", users: 1,   pct: 0  },
     { name: "Suriname",           code: "SR", users: 1,   pct: 0  },
   ],
 };
@@ -1656,6 +1677,8 @@ const JUNE = {
 // ── JUNE MONTHLY VIEW ─────────────────────────────────────
 function JuneMonthly() {
   const MONTH = "June 2026";
+  const SIGNAL_STYLE = { fontSize: 12, color: "#3d4460", lineHeight: 1.6, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" };
+  const SIGNAL_STYLE_MB = { fontSize: 12, color: "#3d4460", lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" };
 
   const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
 
@@ -1694,6 +1717,13 @@ function JuneMonthly() {
             {momentumBadge && <span style={{ fontSize: 9, color: INK3 }}>· {momentumBadge.label} vs last month</span>}
           </div>
         )}
+        {!badge && momentumBadge && (
+          <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
+            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: momentumBadge.label.startsWith("↑") ? "#edfaf4" : "#fef0ee", color: momentumBadge.label.startsWith("↑") ? GREEN : RED }}>
+              {momentumBadge.label} vs last month
+            </span>
+          </div>
+        )}
       </div>
     );
   };
@@ -1709,7 +1739,7 @@ function JuneMonthly() {
       <div style={{ marginBottom: 20, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
         <div>
           <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
-          <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH} — through Jun 22</div>
+          <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
           <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory</div>
         </div>
         <button
@@ -1763,27 +1793,18 @@ function JuneMonthly() {
         >↓ Export CSV</button>
       </div>
 
-      {/* Metrics in progress banner */}
-      <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 8, padding: "10px 16px", display: "flex", alignItems: "center", gap: 10 }}>
-        <span style={{ fontSize: 14 }}>⚠️</span>
-        <div>
-          <div style={{ fontSize: 11, fontWeight: 600, color: "#92400e" }}>Metrics in progress</div>
-          <div style={{ fontSize: 10, color: "#b45309", marginTop: 2 }}>June data is preliminary — through Jun 22, 2026. Final numbers will be updated at month close.</div>
-        </div>
-      </div>
-
       {/* Cumulative totals */}
       <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
-          Cumulative totals — Sep 1, 2025 to Jun 22, 2026
+          Cumulative totals — Sep 1, 2025 to Jun 30, 2026
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
           {[
-            { label: "Sessions", value: "7,924" },
-            { label: "Users reached", value: "1,693" },
-            { label: "Prompters", value: "732" },
+            { label: "Sessions", value: "8,064" },
+            { label: "Users reached", value: "1,734" },
+            { label: "Prompters", value: "746" },
             { label: "Prompts sent", value: "3,721" },
-            { label: "Penetration", value: "47.0%" },
+            { label: "Penetration", value: "48.2%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -1859,23 +1880,34 @@ function JuneMonthly() {
           </div>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px 16px" }}>
-          {regional.map((c, i) => (
-            <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
-              <span style={{ fontSize: 13, flexShrink: 0 }}>{flag(c.code)}</span>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
-                  <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
-                  <span style={{ fontSize: 9, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
-                </div>
-                <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
-                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 30 ? "#1464A0" : c.users >= 10 ? BLUE : "#7ab3e0", borderRadius: 99 }} />
+          {regional.map((c, i) => {
+            const mayUsers = { BR: 20, CR: 9, PA: 12, CO: 35 }[c.code];
+            const diff = mayUsers != null ? c.users - mayUsers : null;
+            return (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
+                <span style={{ fontSize: 13, flexShrink: 0 }}>{flag(c.code)}</span>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2, alignItems: "center" }}>
+                    <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
+                    <span style={{ display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}>
+                      {diff != null && (
+                        <span style={{ fontSize: 8, fontWeight: 600, padding: "1px 5px", borderRadius: 99, background: diff >= 0 ? "#edfaf4" : "#fef0ee", color: diff >= 0 ? GREEN : RED }}>
+                          {diff >= 0 ? "+" : ""}{diff}
+                        </span>
+                      )}
+                      <span style={{ fontSize: 9, color: INK3, marginLeft: 4 }}>{c.users}</span>
+                    </span>
+                  </div>
+                  <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
+                    <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 30 ? "#1464A0" : c.users >= 10 ? BLUE : "#7ab3e0", borderRadius: 99 }} />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
         <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
-          Country data reflects session location by IP. Users who accessed the platform from multiple countries within the period may appear in more than one country.
+          Country data reflects session location by IP. Users who accessed the platform from multiple countries within the period may appear in more than one country. Green/red badges show change vs May for Brazil, Costa Rica, and Panama (June roadshows) and Colombia (May roadshow, now normalizing).
         </div>
       </div>
 
@@ -1904,10 +1936,10 @@ function JuneMonthly() {
       {/* ── KNOWLEDGE ASSISTANT ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant (Open Search)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard label="Sessions (Open Search)" value={String(JUNE.openSearchVisits)} desc="Visits to the Knowledge Assistant" bench={BENCH.monthly.sessions} />
-        <MCard label="Prompters (≥1 prompt)" value={String(JUNE.prompters)} desc={`${Math.round(JUNE.prompters/JUNE.users*100)}% of users reached`} accent bench={BENCH.monthly.prompters} momentum={MAY.prompters} />
-        <MCard label="Prompts sent" value={JUNE.prompts != null ? String(JUNE.prompts) : null} desc="Median: 1 per prompter" accent bench={JUNE.prompts ? BENCH.monthly.prompts : null} momentum={JUNE.prompts ? MAY.prompts : null} />
-        <MCard label="Source panel clicks" value={String(JUNE.sourceClicks)} desc="Clicks on source panel" />
+        <MCard label="Sessions (Open Search)" value={String(JUNE.openSearchVisits)} desc="Visits to the Knowledge Assistant" momentum={MAY.openSearchVisits} />
+        <MCard label="Prompters (≥1 prompt)" value={String(JUNE.prompters)} desc={`${Math.round(JUNE.prompters/JUNE.users*100)}% of users reached`} accent momentum={MAY.prompters} />
+        <MCard label="Prompts sent" value={JUNE.prompts != null ? String(JUNE.prompts) : null} desc="Median: 1 per prompter" accent momentum={JUNE.prompts ? MAY.prompts : null} />
+        <MCard label="Source panel clicks" value={String(JUNE.sourceClicks)} desc="Clicks on source panel" momentum={MAY.sourceClicks} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
           <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
@@ -1916,9 +1948,9 @@ function JuneMonthly() {
           </div>
           <div style={{ fontSize: 9, color: INK3, marginTop: 8 }}>AI responses rated by users</div>
         </div>
-        <MCard label="Prompt Gallery clicks" value={String(JUNE.promptGalleryClicks)} />
-        <MCard label="Recent Search clicks" value={String(JUNE.recentSearchClicks)} />
-        <MCard label="New Search clicks" value={String(JUNE.newSearchClicks)} desc="⚠ unusual spike — verify before reporting" />
+        <MCard label="Prompt Gallery clicks" value={String(JUNE.promptGalleryClicks)} momentum={MAY.promptGalleryClicks} />
+        <MCard label="Recent Search clicks" value={String(JUNE.recentSearchClicks)} momentum={MAY.recentSearchClicks} />
+        <MCard label="New Search clicks" value={String(JUNE.newSearchClicks)} momentum={MAY.newSearchClicks} />
       </div>
 
       {/* ── DIVIDER ── */}
@@ -1956,19 +1988,19 @@ function JuneMonthly() {
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Geographic shift
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0" }}>
-          Brazil surged to 70 users in June (up from 20 in May), and Costa Rica jumped to 21 — both well above their historical baseline. This may reflect a specific country-office event or training; worth confirming with country teams before the next report.
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+          Brazil, Costa Rica, and Panama held country roadshows in June. Brazil surged to 74 users (+54 vs May) and Costa Rica jumped to 23 (+14) — a clear roadshow effect. Panama, however, dipped slightly (10, −2 vs May), suggesting attendance didn't translate to platform usage the same way. Colombia's earlier roadshow in May explains its high baseline (35 users) and the apparent normalization to 16 this month.
         </p>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — LWA slowdown
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0" }}>
-          LWA activity dropped sharply in June (22 visits, 0 completions) compared to April and May. This is a preliminary, partial-month figure — worth monitoring at month close to confirm whether this is a real decline or a reporting-window artifact.
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+          LWA activity dropped sharply in June — 22 visits, 0 completions, and 0 lessons created, compared to 98 visits and 17 completions in May. This is a confirmed final figure. The drop likely reflects the summer period and the absence of a structured country session driving LWA usage, as was the case in April and May.
         </p>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — CSAT shift: relevance → technical
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0 }}>
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
           CSAT dropped 18.2pp from May (76.5%) to June (58.3%), but the <em>nature</em> of the complaints changed. May's negative feedback pointed to search relevance and discoverability ("didn't find what I needed," "cannot search") — a product/UX issue. June's negative feedback names concrete technical failures: crashes, an API connection issue, an authorization failure, and a specific 400 error on TC RG-T4150. This reframes part of the CSAT drop as a technical incident rather than a product gap, and should be tracked separately from general satisfaction trends.
         </p>
       </div>
