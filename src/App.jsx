@@ -747,6 +747,98 @@ function EngagementCard({ highlighted, highlightedOpenSearch, copied, copiedOpen
   );
 }
 
+// ── LAUNCH TIMELINE ───────────────────────────────────────
+function LaunchTimeline() {
+  const milestones = [
+    {
+      date: "Sep 2025",
+      tag: "Release MVP",
+      color: "#2c6cb5",
+      stats: ["205 unique users", "653 sessions", "401 highlights"],
+      note: "Closed beta — organic discovery, no bank-wide communication.",
+      impact: [
+        { label: "Established organic baseline: ~502 sessions · ~192 users/month", dir: "neutral" },
+        { label: "Retention avg 32% — small but loyal early user base", dir: "up" },
+      ],
+    },
+    {
+      date: "Mar 31, 2026",
+      tag: "Bank-wide Go-live",
+      color: "#0C447C",
+      stats: ["360 users in week 1", "757 sessions in 7 days", "655 highlights in 2 weeks"],
+      note: "Full launch to 3,600 IDB staff & consultants. Highest single-week adoption to date.",
+      impact: [
+        { label: "Sessions ×3.3 in April (1,632 vs 502 avg)", dir: "up" },
+        { label: "Users ×3 (588 vs 192 avg)", dir: "up" },
+        { label: "Retention fell to 10.9% — influx of one-time explorers", dir: "down" },
+        { label: "Tour completion dipped 58% → 55%", dir: "down" },
+      ],
+    },
+    {
+      date: "May–Jun 2026",
+      tag: "Country Roadshows 🇨🇴🇧🇷🇨🇷🇵🇦",
+      color: "#1464A0",
+      stats: ["1,052 sessions in May", "↑110% vs prior avg", "CSAT 82.4% · 4.2/5 ★"],
+      note: "Colombia (May 26–27), Brazil (Jun 1), Costa Rica (Jun 8), Panama (Jun 10). Country-level activation drove measurable spikes in user counts.",
+      impact: [
+        { label: "Colombia +11 users in May (24→35)", dir: "up" },
+        { label: "Brazil +54 (20→74) · Costa Rica +14 (9→23) in June", dir: "up" },
+        { label: "Prompts peaked at 625 in May", dir: "up" },
+        { label: "CSAT fell 76.5% → 58.3% in June — technical incident (API/400 errors)", dir: "down" },
+        { label: "LWA dropped to 22 visits in June after session-driven May peak", dir: "down" },
+      ],
+    },
+  ];
+
+  return (
+    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "20px 24px" }}>
+      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 20 }}>
+        🗓 Launch Timeline — Key milestones
+      </div>
+      <div style={{ position: "relative" }}>
+        {/* Vertical line */}
+        <div style={{ position: "absolute", left: 68, top: 0, bottom: 0, width: 2, background: BDR }} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+          {milestones.map((m, i) => (
+            <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+              {/* Date label */}
+              <div style={{ width: 60, flexShrink: 0, textAlign: "right" }}>
+                <span style={{ fontSize: 9, fontWeight: 600, color: INK3, lineHeight: 1.3 }}>{m.date}</span>
+              </div>
+              {/* Dot */}
+              <div style={{ flexShrink: 0, width: 16, height: 16, borderRadius: "50%", background: m.color, border: `3px solid ${SURF}`, boxShadow: `0 0 0 2px ${m.color}`, marginTop: 1, zIndex: 1 }} />
+              {/* Content */}
+              <div style={{ flex: 1, paddingBottom: 4 }}>
+                <div style={{ fontSize: 11, fontWeight: 600, color: INK, marginBottom: 6 }}>{m.tag}</div>
+                <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 8 }}>
+                  {m.stats.map((s, j) => (
+                    <span key={j} style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{s}</span>
+                  ))}
+                </div>
+                <p style={{ fontSize: 10, color: INK3, lineHeight: 1.5, margin: "0 0 8px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>{m.note}</p>
+                {m.impact && (
+                  <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                    {m.impact.map((imp, k) => (
+                      <div key={k} style={{ display: "flex", alignItems: "flex-start", gap: 6 }}>
+                        <span style={{ fontSize: 9, flexShrink: 0, marginTop: 1 }}>
+                          {imp.dir === "up" ? "📈" : imp.dir === "down" ? "📉" : "▪️"}
+                        </span>
+                        <span style={{ fontSize: 9, color: imp.dir === "up" ? GREEN : imp.dir === "down" ? RED : INK3, lineHeight: 1.4, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+                          {imp.label}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── MONTHLY REPORT ────────────────────────────────────────
 // April 2026 data (partial — through Apr 21)
 const APRIL = {
@@ -1386,6 +1478,8 @@ function MayMonthly() {
         </div>
       </div>
 
+      <LaunchTimeline />
+
       {/* ── GENERAL USABILITY ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
@@ -1813,6 +1907,8 @@ function JuneMonthly() {
           ))}
         </div>
       </div>
+
+      <LaunchTimeline />
 
       {/* ── GENERAL USABILITY ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability</div>
