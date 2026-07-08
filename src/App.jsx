@@ -775,6 +775,20 @@ function LaunchTimeline() {
       ],
     },
     {
+      date: "Mar 30 – May 6, 2026",
+      tag: "New Learner Campaign (LWA)",
+      color: "#3d8f6e",
+      stats: ["154 LWA visits in April", "56 lessons started", "100% reviewed before completing"],
+      note: "Campaign promoting the Lessons Writing Assistant. Launched Mar 30, with activity peaks Apr 8–9, closed May 6.",
+      impact: [
+        { label: "LWA visits ×2.9 in April (154 vs 54 in March)", dir: "up" },
+        { label: "Execution-phase lessons jumped 8 → 40", dir: "up" },
+        { label: "Quality peak: 100% of lessons reviewed before completion", dir: "up" },
+        { label: "Post-campaign decline: 98 visits in May → 22 in June, 0 completions", dir: "down" },
+        { label: "Pattern suggests LWA usage is campaign-driven, not yet self-sustaining", dir: "down" },
+      ],
+    },
+    {
       date: "May–Jun 2026",
       tag: "Country Roadshows 🇨🇴🇧🇷🇨🇷🇵🇦",
       color: "#1464A0",
@@ -785,7 +799,6 @@ function LaunchTimeline() {
         { label: "Brazil +54 (20→74) · Costa Rica +14 (9→23) in June", dir: "up" },
         { label: "Prompts peaked at 625 in May", dir: "up" },
         { label: "CSAT fell 76.5% → 58.3% in June — technical incident (API/400 errors)", dir: "down" },
-        { label: "LWA dropped to 22 visits in June after session-driven May peak", dir: "down" },
       ],
     },
   ];
