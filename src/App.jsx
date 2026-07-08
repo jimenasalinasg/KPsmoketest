@@ -2141,7 +2141,7 @@ export default function App() {
           <div style={{ fontSize: 14, fontWeight: 500, color: INK }}>Post Go-live Key Metrics</div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          {tabBtn("June 2026", "june", "preliminary")}
+          {tabBtn("June 2026", "june", "June 2026")}
           {tabBtn("May 2026", "may", "May 2026")}
           {tabBtn("Apr 2026", "monthly", "Apr 2026")}
           {tabBtn("Week 1+2", "week12", "Mar 31–Apr 17")}
