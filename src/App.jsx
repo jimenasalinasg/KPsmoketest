@@ -1924,7 +1924,7 @@ function JuneMonthly() {
           </div>
         </div>
         <MCard label="Users reached" value={String(JUNE.users)} desc="Total for the period" accent bench={BENCH.monthly.users} momentum={MAY.users} />
-        <MCard label="New users" value={String(JUNE.first_time)} desc="First-time visitors" />
+        <MCard label="New users" value={String(JUNE.first_time)} desc={`First-time visitors · other ${JUNE.users - JUNE.first_time} are returning from prior months`} />
         <MCard label="Sessions" value={JUNE.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={MAY.sessions} />
         <MCard label="% Onboarding completed" value={`${JUNE.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
@@ -2047,6 +2047,8 @@ function JuneMonthly() {
         <MCard label="Prompt Gallery clicks" value={String(JUNE.promptGalleryClicks)} momentum={MAY.promptGalleryClicks} />
         <MCard label="Recent Search clicks" value={String(JUNE.recentSearchClicks)} momentum={MAY.recentSearchClicks} />
         <MCard label="New Search clicks" value={String(JUNE.newSearchClicks)} momentum={MAY.newSearchClicks} />
+        <MCard label="Word doc downloads" value="5" />
+        <MCard label="Excel downloads" value="2" />
       </div>
 
       {/* ── DIVIDER ── */}
