@@ -1913,26 +1913,27 @@ function JuneMonthly() {
       {/* ── GENERAL USABILITY ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
+        <MCard label="Users reached" value={String(JUNE.users)} desc="Unique people who used KP at least once in June" accent bench={BENCH.monthly.users} momentum={MAY.users} />
+        <MCard label="New users" value={String(JUNE.first_time)} desc={`First-time visitors · other ${JUNE.users - JUNE.first_time} are returning from prior months`} />
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{JUNE.returningUsers}</div>
+          <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Came back for 2+ sessions within June — a signal of habit, not just curiosity</div>
+          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D }}>{Math.round(JUNE.returningUsers/JUNE.users*100)}% of users reached</span>
+        </div>
         <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
           <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(JUNE.users/3600*100*10)/10}%</div>
           <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
             <div style={{ width: `${Math.round(JUNE.users/3600*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
           </div>
-          <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between" }}>
+          <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
             <span>{JUNE.users} users</span><span>3,600 total</span>
           </div>
+          <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
         </div>
-        <MCard label="Users reached" value={String(JUNE.users)} desc="Total for the period" accent bench={BENCH.monthly.users} momentum={MAY.users} />
-        <MCard label="New users" value={String(JUNE.first_time)} desc={`First-time visitors · other ${JUNE.users - JUNE.first_time} are returning from prior months`} />
         <MCard label="Sessions" value={JUNE.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={MAY.sessions} />
         <MCard label="% Onboarding completed" value={`${JUNE.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{JUNE.returningUsers}</div>
-          <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Users with more than one session within the month</div>
-          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D }}>{Math.round(JUNE.returningUsers/JUNE.users*100)}% of users reached</span>
-        </div>
       </div>
 
       {/* CSAT block */}
