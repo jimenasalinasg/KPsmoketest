@@ -689,8 +689,7 @@ function EngagementCard({ highlighted, highlightedOpenSearch, copied, copiedOpen
 
   return (
     <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
-      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9 }}>Content Engagement</div>
-      <div style={{ fontSize: 30, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 14 }}>{total}</div>
+      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 14 }}>Breakdown — Highlights & Copies · Open Search vs Contextual</div>
 
       {/* Highlights bar */}
       <div style={{ marginBottom: 12 }}>
@@ -2212,22 +2211,61 @@ function JuneMonthly() {
 // ── APP ───────────────────────────────────────────────────
 export default function App() {
   const [view, setView] = useState("june");
+  const [monthOpen, setMonthOpen] = useState(false);
+  const [launchOpen, setLaunchOpen] = useState(false);
 
-  const tabBtn = (label, v, sublabel) => (
-    <button onClick={() => setView(v)} style={{
+  const MONTHS = [
+    { id: "june",    label: "June 2026" },
+    { id: "may",     label: "May 2026" },
+    { id: "monthly", label: "April 2026" },
+  ];
+  const LAUNCH_VIEWS = [
+    { id: "week12", label: "Week 1+2", sub: "Mar 31–Apr 17" },
+    { id: "week1",  label: "Week 1 Pulse", sub: "Mar 31–Apr 10" },
+    { id: "smoke",  label: "Smoke Test", sub: "0–48h" },
+  ];
+
+  const isMonth = MONTHS.some(m => m.id === view);
+  const currentMonth = MONTHS.find(m => m.id === view);
+  const currentLaunch = LAUNCH_VIEWS.find(l => l.id === view);
+
+  const ddBtn = (active, onClick, children) => (
+    <button onClick={onClick} style={{
       fontFamily: "inherit", fontSize: 11, fontWeight: 500,
-      padding: "6px 14px", border: `1px solid ${view === v ? BLUE : BDR}`,
+      padding: "8px 14px", border: `1px solid ${active ? BLUE : BDR}`,
       borderRadius: 6, cursor: "pointer", letterSpacing: "0.04em", textTransform: "uppercase",
-      background: view === v ? BLUE : SURF, color: view === v ? "#fff" : INK3,
-      display: "flex", flexDirection: "column", alignItems: "center", gap: 1,
+      background: active ? BLUE : SURF, color: active ? "#fff" : INK3,
+      display: "flex", alignItems: "center", gap: 6,
     }}>
-      {label}
-      {sublabel && <span style={{ fontSize: 8, opacity: 0.8, letterSpacing: "0.06em" }}>{sublabel}</span>}
+      {children}
     </button>
   );
 
+  const ddMenu = (items, onPick, closeFn) => (
+    <div style={{
+      position: "absolute", top: "calc(100% + 4px)", right: 0, zIndex: 50,
+      background: SURF, border: `1px solid ${BDR}`, borderRadius: 8,
+      boxShadow: "0 8px 24px rgba(10,35,66,0.12)", minWidth: 180, overflow: "hidden",
+    }}>
+      {items.map((item) => (
+        <button key={item.id}
+          onClick={() => { onPick(item.id); closeFn(); }}
+          style={{
+            fontFamily: "inherit", display: "block", width: "100%", textAlign: "left",
+            padding: "10px 14px", border: "none", cursor: "pointer",
+            background: view === item.id ? BLUE_L : SURF,
+            color: view === item.id ? BLUE_D : INK2, fontSize: 11, fontWeight: 500,
+          }}>
+          {item.label}
+          {item.sub && <span style={{ display: "block", fontSize: 8, color: INK3, marginTop: 2 }}>{item.sub}</span>}
+        </button>
+      ))}
+    </div>
+  );
+
   return (
-    <div style={{ fontFamily: "'DM Mono', monospace", background: BG, minHeight: "100vh", color: INK, fontSize: 13 }}>
+    <div style={{ fontFamily: "'DM Mono', monospace", background: BG, minHeight: "100vh", color: INK, fontSize: 13 }}
+      onClick={() => { if (monthOpen) setMonthOpen(false); if (launchOpen) setLaunchOpen(false); }}>
 
       {/* Topbar */}
       <div style={{
@@ -2242,13 +2280,21 @@ export default function App() {
           </div>
           <div style={{ fontSize: 14, fontWeight: 500, color: INK }}>Post Go-live Key Metrics</div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          {tabBtn("June 2026", "june", "June 2026")}
-          {tabBtn("May 2026", "may", "May 2026")}
-          {tabBtn("Apr 2026", "monthly", "Apr 2026")}
-          {tabBtn("Week 1+2", "week12", "Mar 31–Apr 17")}
-          {tabBtn("Week 1 Pulse", "week1", "Mar 31–Apr 10")}
-          {tabBtn("Smoke Test", "smoke", "0–48h")}
+        <div style={{ display: "flex", alignItems: "center", gap: 6 }} onClick={(e) => e.stopPropagation()}>
+          {/* Month selector */}
+          <div style={{ position: "relative" }}>
+            {ddBtn(isMonth, () => { setMonthOpen(!monthOpen); setLaunchOpen(false); }, (
+              <>Month: {isMonth ? currentMonth.label : MONTHS[0].label} <span style={{ fontSize: 8 }}>▾</span></>
+            ))}
+            {monthOpen && ddMenu(MONTHS, setView, () => setMonthOpen(false))}
+          </div>
+          {/* Launch views selector */}
+          <div style={{ position: "relative" }}>
+            {ddBtn(!isMonth, () => { setLaunchOpen(!launchOpen); setMonthOpen(false); }, (
+              <>{!isMonth && currentLaunch ? currentLaunch.label : "Launch views"} <span style={{ fontSize: 8 }}>▾</span></>
+            ))}
+            {launchOpen && ddMenu(LAUNCH_VIEWS, setView, () => setLaunchOpen(false))}
+          </div>
         </div>
       </div>
 
