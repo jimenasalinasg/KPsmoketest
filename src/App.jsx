@@ -754,37 +754,32 @@ function LaunchTimeline() {
       date: "Sep 2025",
       tag: "Release MVP",
       color: "#2c6cb5",
-      stats: ["205 unique users", "653 sessions", "401 highlights"],
-      note: "Closed beta — organic discovery, no bank-wide communication.",
-      impact: [
-        { label: "Established organic baseline: ~502 sessions · ~192 users/month", dir: "neutral" },
-        { label: "Retention avg 32% — small but loyal early user base", dir: "up" },
-      ],
+      stats: ["~192 users/month (organic baseline)", "~502 sessions/month (organic baseline)", "~538 content engagement events/month"],
+      note: "Closed release — organic discovery, no bank-wide communication. The Sep–Mar organic period sets the baseline all post-launch metrics are compared against.",
     },
     {
       date: "Mar 31, 2026",
       tag: "Bank-wide Go-live",
       color: "#0C447C",
-      stats: ["360 users in week 1", "757 sessions in 7 days", "655 highlights in 2 weeks"],
-      note: "Full launch to 3,600 IDB staff & consultants. Highest single-week adoption to date.",
+      stats: ["360 users in week 1", "757 sessions in week 1", "491 content engagement events in week 1"],
+      note: "Highest single-week adoption to date.",
       impact: [
         { label: "Sessions ×3.3 in April (1,632 vs 502 avg)", dir: "up" },
         { label: "Users ×3 (588 vs 192 avg)", dir: "up" },
-        { label: "Retention fell to 10.9% — influx of one-time explorers", dir: "down" },
-        { label: "Tour completion dipped 58% → 55%", dir: "down" },
+        { label: "Retention — the share of users who come back within 2 weeks — averaged ~32% during the organic period. After go-live it fell to 10.9%: an influx of one-time explorers diluted the loyal base", dir: "down" },
       ],
     },
     {
       date: "Mar 30 – May 6, 2026",
       tag: "New Learner Campaign (LWA)",
       color: "#3d8f6e",
-      stats: ["154 LWA visits in April", "56 lessons started", "100% reviewed before completing"],
-      note: "Campaign promoting the Lessons Writing Assistant. Launched Mar 30, with activity peaks Apr 8–9, closed May 6.",
+      stats: ["60 LWA users in April", "56 lessons started", "100% reviewed before completing"],
+      note: "Launched Mar 30, activity peaks Apr 8–9, closed May 6.",
       impact: [
-        { label: "LWA visits ×2.9 in April (154 vs 54 in March)", dir: "up" },
+        { label: "LWA users ×2.6 in April (60 vs 23 in March)", dir: "up" },
         { label: "Execution-phase lessons jumped 8 → 40", dir: "up" },
         { label: "Quality peak: 100% of lessons reviewed before completion", dir: "up" },
-        { label: "Post-campaign decline: 98 visits in May → 22 in June, 0 completions", dir: "down" },
+        { label: "Post-campaign decline: 37 users in May → 14 in June, 0 completions", dir: "down" },
         { label: "Pattern suggests LWA usage is campaign-driven, not yet self-sustaining", dir: "down" },
       ],
     },
@@ -792,12 +787,13 @@ function LaunchTimeline() {
       date: "May–Jun 2026",
       tag: "Country Roadshows 🇨🇴🇧🇷🇨🇷🇵🇦",
       color: "#1464A0",
-      stats: ["1,052 sessions in May", "↑110% vs prior avg", "CSAT 82.4% · 4.2/5 ★"],
-      note: "Colombia (May 26–27), Brazil (Jun 1), Costa Rica (Jun 8), Panama (Jun 10). Country-level activation drove measurable spikes in user counts.",
+      stats: ["379 users in June", "1,052 sessions in May · 1,019 in June", "813 content engagement events in June (highlights + copies)"],
+      note: "Country-level activation sessions. User change measured in the weeks following each event:",
       impact: [
-        { label: "Colombia +11 users in May (24→35)", dir: "up" },
-        { label: "Brazil +54 (20→74) · Costa Rica +14 (9→23) in June", dir: "up" },
-        { label: "Prompts peaked at 625 in May", dir: "up" },
+        { label: "Colombia (May 26–27): +11 users in the following weeks (24→35)", dir: "up" },
+        { label: "Brazil (Jun 1): +54 users (20→74)", dir: "up" },
+        { label: "Costa Rica (Jun 8): +14 users (9→23)", dir: "up" },
+        { label: "Panama (Jun 10): −2 users (12→10) — attendance didn't convert to usage", dir: "down" },
         { label: "CSAT fell 76.5% → 58.3% in June — technical incident (API/400 errors)", dir: "down" },
       ],
     },
@@ -1066,11 +1062,11 @@ function Monthly() {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
           {[
-            { label: "Sessions", value: "5,999" },
             { label: "Users reached", value: "1,357" },
             { label: "Prompters", value: "587" },
             { label: "Prompts sent", value: "2,555" },
-            { label: "Penetration", value: "37.7%" },
+            { label: "Avg prompts · Apr", value: "1.9" },
+            { label: "Penetration of 3,600", value: "37.7%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -1079,29 +1075,31 @@ function Monthly() {
           ))}
         </div>
       </div>
-      <Section emoji="📊" title="General Usability">
+      <Section emoji="📊" title="General Usability (April)">
         <Grid>
-          {/* Penetration — custom card with bar */}
-          <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
-            <div style={{ fontSize: 28, fontWeight: 500, letterSpacing: "-0.03em", lineHeight: 1, color: BLUE_D, marginBottom: 10 }}>12.5%</div>
-            <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
-              <div style={{ width: "12.5%", height: "100%", background: BLUE_D, borderRadius: 99 }} />
-            </div>
-            <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between" }}>
-              <span>{APRIL.users} users</span><span>3,600 total</span>
-            </div>
-          </div>
-          <MCard label="Users reached" value={String(APRIL.users)} desc="Total for the period" accent bench={BENCH.monthly.users} />
-          <MCard label="New users" value={String(APRIL.newUsers)} desc="First-time visitors" />
-          <MCard label="Sessions" value={APRIL.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} />
-          <MCard label="% Onboarding completed" value={`${APRIL.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
+          <MCard label="Users reached" value={String(APRIL.users)} desc="Unique people who used KP at least once in April" accent bench={BENCH.monthly.users} />
+          <MCard label="Prompters (≥1 prompt)" value={String(APRIL.prompters)} desc={`${Math.round(APRIL.prompters/APRIL.users*100)}% of users reached`} accent bench={BENCH.monthly.prompters} />
+          <MCard label="New users" value={String(APRIL.newUsers)} desc={`First-time visitors · other ${APRIL.users - APRIL.newUsers} are returning from the organic period`} />
           <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
             <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{APRIL.returningUsers}</div>
-            <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Users with more than one session within the month</div>
+            <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Came back for 2+ sessions within April — a signal of habit, not just curiosity</div>
             <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D }}>{Math.round(APRIL.returningUsers/APRIL.users*100)}% of users reached</span>
           </div>
+          {/* Penetration — custom card with bar */}
+          <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
+            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
+            <div style={{ fontSize: 28, fontWeight: 500, letterSpacing: "-0.03em", lineHeight: 1, color: BLUE_D, marginBottom: 10 }}>16.3%</div>
+            <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
+              <div style={{ width: "16.3%", height: "100%", background: BLUE_D, borderRadius: 99 }} />
+            </div>
+            <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+              <span>{APRIL.users} users</span><span>3,600 total</span>
+            </div>
+            <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
+          </div>
+          <MCard label="% Onboarding completed" value={`${APRIL.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
+          <MCard label="Sessions" value={APRIL.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} />
           <MCard label="CSAT — Customer Satisfaction Score" value="75%" desc="out of 5 responses" />
         </Grid>
 
@@ -1159,7 +1157,7 @@ function Monthly() {
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "24px 0" }} />
 
-      <Section emoji="🔍" title="Contextual Search">
+      <Section emoji="🔍" title="Contextual Search (April)">
         <Grid cols="repeat(auto-fit, minmax(200px, 1fr))">
           <MCard label="Queries (pill views)" value={String(APRIL.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
           <MCard label="Most used pill — Similar projects" value="56" desc="interactions" small bench={BENCH.monthly.pillTop} />
@@ -1170,9 +1168,8 @@ function Monthly() {
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "24px 0" }} />
 
-      <Section emoji="🤖" title="Knowledge Assistant (Open Search)">
+      <Section emoji="🤖" title="Knowledge Assistant — Open Search (April)">
         <Grid>
-          <MCard label="Sessions (Open Search)" value={String(APRIL.openSearchVisits)} desc="Visits to the Knowledge Assistant" bench={BENCH.monthly.sessions} />
           <MCard label="Prompters (≥1 prompt)" value={String(APRIL.prompters)} desc={`${Math.round(APRIL.prompters/APRIL.users*100)}% of users reached`} accent bench={BENCH.monthly.prompters} />
           <MCard label="Prompts sent" value={String(APRIL.prompts)} desc="Median: 1 per prompter" accent bench={BENCH.monthly.prompts} />
           <MCard label="Source panel clicks" value={String(APRIL.sourceClicks)} desc="Clicks on source panel" />
@@ -1192,23 +1189,53 @@ function Monthly() {
           <MCard label="Recent Search clicks" value={String(APRIL.recentSearchClicks)} />
           <MCard label="New Search clicks" value={String(APRIL.newSearchClicks)} />
         </Grid>
-        <div style={{ marginTop: 10 }}>
-          <EngagementCard
-            highlighted={APRIL.highlighted}
-            highlightedOpenSearch={APRIL.highlightedOpenSearch}
-            copied={APRIL.copied}
-            copiedOpenSearch={APRIL.copiedOpenSearch}
-            benchHighlights={BENCH.monthly.highlights}
-            benchCopies={BENCH.monthly.copies}
-          />
+      </Section>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "24px 0" }} />
+
+      {/* ── CONTENT ENGAGEMENT ── */}
+      <Section emoji="📄" title="Content Engagement (April)">
+        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "18px 20px", marginBottom: 10 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
+            <div>
+              <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Total content engagement</div>
+              <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>799</div>
+              <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.5 }}>
+                Highlights (579) + Copies (167) + Source panel clicks (53) · Downloads tracking began in June
+              </div>
+            </div>
+            <div style={{ minWidth: 220, flex: 1, maxWidth: 340 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 546 (68%)</span>
+                <span style={{ fontSize: 9, color: INK3 }}>Contextual · 253 (32%)</span>
+              </div>
+              <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 8 }}>
+                <div style={{ width: "68%", background: BLUE_D }} />
+                <div style={{ width: "32%", background: "#9ec4e8" }} />
+              </div>
+              <div style={{ fontSize: 8, color: INK3, lineHeight: 1.5 }}>
+                <strong>Open Search (546):</strong> 393 highlights · 101 copies · 52 source clicks<br/>
+                <strong>Contextual (253):</strong> 186 highlights · 66 copies · 1 source click
+              </div>
+            </div>
+          </div>
         </div>
+        <EngagementCard
+          highlighted={APRIL.highlighted}
+          highlightedOpenSearch={APRIL.highlightedOpenSearch}
+          copied={APRIL.copied}
+          copiedOpenSearch={APRIL.copiedOpenSearch}
+          benchHighlights={BENCH.monthly.highlights}
+          benchCopies={BENCH.monthly.copies}
+        />
       </Section>
 
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "24px 0" }} />
 
       {/* ── LWA ── */}
-      <Section emoji="📝" title="Lessons Writing Assistant (LWA)">
+      <Section emoji="📝" title="Lessons Writing Assistant — LWA (April)">
 
         {/* Context block */}
         <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "12px 16px", marginBottom: 14 }}>
@@ -1477,11 +1504,11 @@ function MayMonthly() {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
           {[
-            { label: "Sessions", value: "7,202" },
             { label: "Users reached", value: "1,574" },
             { label: "Prompters", value: "673" },
             { label: "Prompts sent", value: "3,199" },
-            { label: "Penetration", value: "43.7%" },
+            { label: "Avg prompts · May", value: "4.7" },
+            { label: "Penetration of 3,600", value: "43.7%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -1494,28 +1521,30 @@ function MayMonthly() {
       <LaunchTimeline />
 
       {/* ── GENERAL USABILITY ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (May)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
+        <MCard label="Users reached" value={String(MAY.users)} desc="Unique people who used KP at least once in May" accent bench={BENCH.monthly.users} momentum={APRIL.users} />
+        <MCard label="Prompters (≥1 prompt)" value={String(MAY.prompters)} desc={`${Math.round(MAY.prompters/MAY.users*100)}% of users reached`} accent momentum={APRIL.prompters} />
+        <MCard label="New users" value={String(MAY.first_time)} desc={`First-time visitors · other ${MAY.users - MAY.first_time} are returning from prior months`} />
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{MAY.returningUsers}</div>
+          <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Came back for 2+ sessions within May — a signal of habit, not just curiosity</div>
+          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D }}>{Math.round(MAY.returningUsers/MAY.users*100)}% of users reached</span>
+        </div>
         <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
           <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(MAY.users/3600*100*10)/10}%</div>
           <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
             <div style={{ width: `${Math.round(MAY.users/3600*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
           </div>
-          <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between" }}>
+          <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
             <span>{MAY.users} users</span><span>3,600 total</span>
           </div>
+          <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
         </div>
-        <MCard label="Users reached" value={String(MAY.users)} desc="Total for the period" accent bench={BENCH.monthly.users} momentum={APRIL.users} />
-        <MCard label="New users" value={String(MAY.first_time)} desc="First-time visitors" />
-        <MCard label="Sessions" value={MAY.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={APRIL.sessions} />
         <MCard label="% Onboarding completed" value={`${MAY.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{MAY.returningUsers}</div>
-          <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Users with more than one session within the month</div>
-          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D }}>{Math.round(MAY.returningUsers/MAY.users*100)}% of users reached</span>
-        </div>
+        <MCard label="Sessions" value={MAY.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={APRIL.sessions} />
       </div>
 
       {/* CSAT block */}
@@ -1590,28 +1619,19 @@ function MayMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── CONTEXTUAL SEARCH ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (May)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard label="Queries (pill views)" value={String(MAY.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
         <MCard label="Most used pill — Similar Projects" value="40" desc="interactions" small bench={BENCH.monthly.pillTop} />
         <MCard label={<>Least used pill —<br/>Literature</>} value="10" desc="interactions" small bench={BENCH.monthly.pillBot} />
       </div>
-      <EngagementCard
-        highlighted={MAY.highlighted}
-        highlightedOpenSearch={MAY.highlightedOpenSearch}
-        copied={MAY.copied}
-        copiedOpenSearch={MAY.copiedOpenSearch}
-        benchHighlights={BENCH.monthly.highlights}
-        benchCopies={BENCH.monthly.copies}
-      />
 
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── KNOWLEDGE ASSISTANT ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant (Open Search)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (May)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard label="Sessions (Open Search)" value={String(MAY.openSearchVisits)} desc="Visits to the Knowledge Assistant" momentum={APRIL.openSearchVisits} />
         <MCard label="Prompters (≥1 prompt)" value={String(MAY.prompters)} desc={`${Math.round(MAY.prompters/MAY.users*100)}% of users reached`} accent momentum={APRIL.prompters} />
         <MCard label="Prompts sent" value={MAY.prompts != null ? String(MAY.prompts) : null} desc="Median: 1 per prompter" accent momentum={MAY.prompts ? APRIL.prompts : null} />
         <MCard label="Source panel clicks" value={String(MAY.sourceClicks)} desc="Clicks on source panel" momentum={APRIL.sourceClicks} />
@@ -1631,8 +1651,47 @@ function MayMonthly() {
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
+      {/* ── CONTENT ENGAGEMENT ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (May)</div>
+      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "18px 20px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
+          <div>
+            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Total content engagement</div>
+            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>705</div>
+            <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.5 }}>
+              Highlights (463) + Copies (191) + Source panel clicks (51) · Downloads tracking began in June
+            </div>
+          </div>
+          <div style={{ minWidth: 220, flex: 1, maxWidth: 340 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 366 (52%)</span>
+              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 339 (48%)</span>
+            </div>
+            <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 8 }}>
+              <div style={{ width: "52%", background: BLUE_D }} />
+              <div style={{ width: "48%", background: "#9ec4e8" }} />
+            </div>
+            <div style={{ fontSize: 8, color: INK3, lineHeight: 1.5 }}>
+              <strong>Open Search (366):</strong> 217 highlights · 99 copies · 50 source clicks<br/>
+              <strong>Contextual (339):</strong> 246 highlights · 92 copies · 1 source click
+            </div>
+          </div>
+        </div>
+      </div>
+      <EngagementCard
+        highlighted={MAY.highlighted}
+        highlightedOpenSearch={MAY.highlightedOpenSearch}
+        copied={MAY.copied}
+        copiedOpenSearch={MAY.copiedOpenSearch}
+        benchHighlights={BENCH.monthly.highlights}
+        benchCopies={BENCH.monthly.copies}
+      />
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
       {/* ── LWA ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant (LWA)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (May)</div>
 
       {/* Context block */}
       <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "12px 16px" }}>
@@ -1907,11 +1966,11 @@ function JuneMonthly() {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
           {[
-            { label: "Sessions", value: "8,064" },
             { label: "Users reached", value: "1,734" },
             { label: "Prompters", value: "746" },
             { label: "Prompts sent", value: "3,721" },
-            { label: "Penetration", value: "48.2%" },
+            { label: "Avg prompts · Jun", value: "3.3" },
+            { label: "Penetration of 3,600", value: "48.2%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -1924,9 +1983,10 @@ function JuneMonthly() {
       <LaunchTimeline />
 
       {/* ── GENERAL USABILITY ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (June)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard label="Users reached" value={String(JUNE.users)} desc="Unique people who used KP at least once in June" accent bench={BENCH.monthly.users} momentum={MAY.users} />
+        <MCard label="Prompters (≥1 prompt)" value={String(JUNE.prompters)} desc={`${Math.round(JUNE.prompters/JUNE.users*100)}% of users reached`} accent momentum={MAY.prompters} />
         <MCard label="New users" value={String(JUNE.first_time)} desc={`First-time visitors · other ${JUNE.users - JUNE.first_time} are returning from prior months`} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
@@ -1945,8 +2005,8 @@ function JuneMonthly() {
           </div>
           <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
         </div>
-        <MCard label="Sessions" value={JUNE.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={MAY.sessions} />
         <MCard label="% Onboarding completed" value={`${JUNE.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
+        <MCard label="Sessions" value={JUNE.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={MAY.sessions} />
       </div>
 
       {/* CSAT block */}
@@ -2025,28 +2085,19 @@ function JuneMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── CONTEXTUAL SEARCH ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (June)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard label="Queries (pill views)" value={String(JUNE.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
         <MCard label="Most used pill — Similar Projects" value="82" desc="interactions" small bench={BENCH.monthly.pillTop} />
         <MCard label={<>Least used pill —<br/>Data</>} value="27" desc="interactions" small bench={BENCH.monthly.pillBot} />
       </div>
-      <EngagementCard
-        highlighted={JUNE.highlighted}
-        highlightedOpenSearch={JUNE.highlightedOpenSearch}
-        copied={JUNE.copied}
-        copiedOpenSearch={JUNE.copiedOpenSearch}
-        benchHighlights={BENCH.monthly.highlights}
-        benchCopies={BENCH.monthly.copies}
-      />
 
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── KNOWLEDGE ASSISTANT ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant (Open Search)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (June)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard label="Sessions (Open Search)" value={String(JUNE.openSearchVisits)} desc="Visits to the Knowledge Assistant" momentum={MAY.openSearchVisits} />
         <MCard label="Prompters (≥1 prompt)" value={String(JUNE.prompters)} desc={`${Math.round(JUNE.prompters/JUNE.users*100)}% of users reached`} accent momentum={MAY.prompters} />
         <MCard label="Prompts sent" value={JUNE.prompts != null ? String(JUNE.prompts) : null} desc="Median: 1 per prompter" accent momentum={JUNE.prompts ? MAY.prompts : null} />
         <MCard label="Source panel clicks" value={String(JUNE.sourceClicks)} desc="Clicks on source panel" momentum={MAY.sourceClicks} />
@@ -2061,15 +2112,52 @@ function JuneMonthly() {
         <MCard label="Prompt Gallery clicks" value={String(JUNE.promptGalleryClicks)} momentum={MAY.promptGalleryClicks} />
         <MCard label="Recent Search clicks" value={String(JUNE.recentSearchClicks)} momentum={MAY.recentSearchClicks} />
         <MCard label="New Search clicks" value={String(JUNE.newSearchClicks)} momentum={MAY.newSearchClicks} />
-        <MCard label="Word doc downloads" value="5" />
-        <MCard label="Excel downloads" value="2" />
       </div>
 
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
+      {/* ── CONTENT ENGAGEMENT ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (June)</div>
+      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "18px 20px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
+          <div>
+            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Total content engagement</div>
+            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>871</div>
+            <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.5 }}>
+              Highlights (570) + Copies (243) + Source panel clicks (51) + Downloads (7: 5 Word · 2 Excel)
+            </div>
+          </div>
+          <div style={{ minWidth: 220, flex: 1, maxWidth: 340 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 666 (76%)</span>
+              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 205 (24%)</span>
+            </div>
+            <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 8 }}>
+              <div style={{ width: "76%", background: BLUE_D }} />
+              <div style={{ width: "24%", background: "#9ec4e8" }} />
+            </div>
+            <div style={{ fontSize: 8, color: INK3, lineHeight: 1.5 }}>
+              <strong>Open Search (666):</strong> 406 highlights · 203 copies · 50 source clicks · 7 downloads<br/>
+              <strong>Contextual (205):</strong> 164 highlights · 40 copies · 1 source click
+            </div>
+          </div>
+        </div>
+      </div>
+      <EngagementCard
+        highlighted={JUNE.highlighted}
+        highlightedOpenSearch={JUNE.highlightedOpenSearch}
+        copied={JUNE.copied}
+        copiedOpenSearch={JUNE.copiedOpenSearch}
+        benchHighlights={BENCH.monthly.highlights}
+        benchCopies={BENCH.monthly.copies}
+      />
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
       {/* ── LWA ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant (LWA)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (June)</div>
 
       <div style={{ fontSize: 9, color: INK3, fontStyle: "italic" }}>Adoption</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
