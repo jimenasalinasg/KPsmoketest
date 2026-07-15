@@ -1379,6 +1379,7 @@ const MAY = {
 // ── MAY MONTHLY VIEW ──────────────────────────────────────
 function MayMonthly() {
   const MONTH = "May 2026";
+  const [showAllCountries, setShowAllCountries] = useState(false);
 
   const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
 
@@ -1414,13 +1415,13 @@ function MayMonthly() {
               {badge.label} vs monthly avg
             </span>
             <span style={{ fontSize: 9, color: INK3 }}>({bench})</span>
-            {momentumBadge && <span style={{ fontSize: 9, color: INK3 }}>· {momentumBadge.label} vs last month</span>}
+            {momentumBadge && <span style={{ fontSize: 9, color: INK3 }}>· {momentumBadge.label} vs last month ({momentum})</span>}
           </div>
         )}
         {!badge && momentumBadge && (
           <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
             <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: momentumBadge.label.startsWith("↑") ? "#edfaf4" : "#fef0ee", color: momentumBadge.label.startsWith("↑") ? GREEN : RED }}>
-              {momentumBadge.label} vs last month
+              {momentumBadge.label} vs last month ({momentum})
             </span>
           </div>
         )}
@@ -1583,7 +1584,7 @@ function MayMonthly() {
           </div>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px 16px" }}>
-          {regional.map((c, i) => {
+          {(showAllCountries ? regional : regional.slice(0, 12)).map((c, i) => {
             const aprUsers = { CO: 24 }[c.code];
             const diff = aprUsers != null ? c.users - aprUsers : null;
             return (
@@ -1609,6 +1610,11 @@ function MayMonthly() {
             );
           })}
         </div>
+        {regional.length > 12 && (
+          <button onClick={() => setShowAllCountries(!showAllCountries)} style={{ fontFamily: "inherit", fontSize: 9, fontWeight: 500, marginTop: 8, padding: "5px 12px", border: `1px solid ${BDR}`, borderRadius: 99, cursor: "pointer", background: SURF, color: BLUE_D }}>
+            {showAllCountries ? "▴ Show less" : `▾ Show all ${regional.length} countries`}
+          </button>
+        )}
         <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
           Country data reflects session location by IP. Users who accessed the platform from multiple countries within the period may appear in more than one country. Green badge shows change vs April for Colombia — country roadshow held in May.
         </div>
@@ -1772,7 +1778,7 @@ const JUNE = {
   users: 379,
   first_time: 309,
   prompters: 160,
-  prompts: 522,
+  prompts: 1028,
   avgTime: "20.37s",
   dropoff: 86,
   returningUsers: 141,
@@ -1843,6 +1849,7 @@ const JUNE = {
 // ── JUNE MONTHLY VIEW ─────────────────────────────────────
 function JuneMonthly() {
   const MONTH = "June 2026";
+  const [showAllCountries, setShowAllCountries] = useState(false);
   const SIGNAL_STYLE = { fontSize: 12, color: "#3d4460", lineHeight: 1.6, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" };
   const SIGNAL_STYLE_MB = { fontSize: 12, color: "#3d4460", lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" };
 
@@ -1880,13 +1887,13 @@ function JuneMonthly() {
               {badge.label} vs monthly avg
             </span>
             <span style={{ fontSize: 9, color: INK3 }}>({bench})</span>
-            {momentumBadge && <span style={{ fontSize: 9, color: INK3 }}>· {momentumBadge.label} vs last month</span>}
+            {momentumBadge && <span style={{ fontSize: 9, color: INK3 }}>· {momentumBadge.label} vs last month ({momentum})</span>}
           </div>
         )}
         {!badge && momentumBadge && (
           <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
             <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: momentumBadge.label.startsWith("↑") ? "#edfaf4" : "#fef0ee", color: momentumBadge.label.startsWith("↑") ? GREEN : RED }}>
-              {momentumBadge.label} vs last month
+              {momentumBadge.label} vs last month ({momentum})
             </span>
           </div>
         )}
@@ -1969,7 +1976,7 @@ function JuneMonthly() {
             { label: "Users reached", value: "1,734" },
             { label: "Prompters", value: "746" },
             { label: "Prompts sent", value: "3,721" },
-            { label: "Avg prompts · Jun", value: "3.3" },
+            { label: "Avg prompts · Jun", value: "6.4" },
             { label: "Penetration of 3,600", value: "48.2%" },
           ].map((m, i) => (
             <div key={i}>
@@ -2050,7 +2057,7 @@ function JuneMonthly() {
           </div>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px 16px" }}>
-          {regional.map((c, i) => {
+          {(showAllCountries ? regional : regional.slice(0, 12)).map((c, i) => {
             const mayUsers = { BR: 20, CR: 9, PA: 12, CO: 35 }[c.code];
             const diff = mayUsers != null ? c.users - mayUsers : null;
             return (
@@ -2076,6 +2083,11 @@ function JuneMonthly() {
             );
           })}
         </div>
+        {regional.length > 12 && (
+          <button onClick={() => setShowAllCountries(!showAllCountries)} style={{ fontFamily: "inherit", fontSize: 9, fontWeight: 500, marginTop: 8, padding: "5px 12px", border: `1px solid ${BDR}`, borderRadius: 99, cursor: "pointer", background: SURF, color: BLUE_D }}>
+            {showAllCountries ? "▴ Show less" : `▾ Show all ${regional.length} countries`}
+          </button>
+        )}
         <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
           Country data reflects session location by IP. Users who accessed the platform from multiple countries within the period may appear in more than one country. Green/red badges show change vs May for Brazil, Costa Rica, and Panama (June roadshows) and Colombia (May roadshow, now normalizing).
         </div>
