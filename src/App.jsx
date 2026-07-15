@@ -786,7 +786,7 @@ function LaunchTimeline() {
       date: "May–Jun 2026",
       tag: "Country Roadshows 🇨🇴🇧🇷🇨🇷🇵🇦",
       color: "#1464A0",
-      stats: ["379 users in June", "1,052 sessions in May · 1,019 in June", "813 content engagement events in June (highlights + copies)"],
+      stats: ["379 users in June", "1,052 sessions in May · 1,019 in June", "871 content engagement events in June", "1,025 prompts in June (↑64% vs May)"],
       note: "Country-level activation sessions. User change measured in the weeks following each event:",
       impact: [
         { label: "Colombia (May 26–27): +11 users in the following weeks (24→35)", dir: "up" },
@@ -1063,7 +1063,7 @@ function Monthly() {
           {[
             { label: "Users reached", value: "1,357" },
             { label: "Prompters", value: "587" },
-            { label: "Prompts sent", value: "2,555" },
+            { label: "Prompts sent", value: "2,279" },
             { label: "Avg prompts · Apr", value: "1.9" },
             { label: "Penetration of 3,600", value: "37.7%" },
           ].map((m, i) => (
@@ -1506,7 +1506,7 @@ function MayMonthly() {
           {[
             { label: "Users reached", value: "1,574" },
             { label: "Prompters", value: "673" },
-            { label: "Prompts sent", value: "3,199" },
+            { label: "Prompts sent", value: "2,904" },
             { label: "Avg prompts · May", value: "4.7" },
             { label: "Penetration of 3,600", value: "43.7%" },
           ].map((m, i) => (
@@ -1778,7 +1778,7 @@ const JUNE = {
   users: 379,
   first_time: 309,
   prompters: 160,
-  prompts: 1028,
+  prompts: 1025,
   avgTime: "20.37s",
   dropoff: 86,
   returningUsers: 141,
@@ -1975,7 +1975,7 @@ function JuneMonthly() {
           {[
             { label: "Users reached", value: "1,734" },
             { label: "Prompters", value: "746" },
-            { label: "Prompts sent", value: "3,721" },
+            { label: "Prompts sent", value: "3,929" },
             { label: "Avg prompts · Jun", value: "6.4" },
             { label: "Penetration of 3,600", value: "48.2%" },
           ].map((m, i) => (
