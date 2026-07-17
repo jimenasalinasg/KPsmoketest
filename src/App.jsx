@@ -2229,13 +2229,344 @@ function JuneMonthly() {
   );
 }
 
+// ── JULY 2026 DATA ────────────────────────────────────────
+// Preliminary — through Jul 17, 2026
+const JULY = {
+  sessions: 410,
+  users: 172,
+  first_time: null, // pending
+  prompters: 76,
+  prompts: null, // pending
+  avgTime: "22.86s",
+  dropoff: 85,
+  returningUsers: null, // pending
+  highlighted: 322,
+  highlightedOpenSearch: 285,
+  copied: 121,
+  copiedOpenSearch: 99,
+  sourceClicks: 21,
+  sourceClicksBC: 0,
+  pillPageviews: 81,
+  pillTop: "Lessons Learned (21)",
+  pillBot: "Literature (6)",
+  openSearchVisits: 157,
+  tourCompletion: 48,
+  thumbsUp: 2,
+  thumbsDown: 1,
+  promptGalleryClicks: 6,
+  recentSearchClicks: 18,
+  newSearchClicks: 0,
+  wordDownloads: 5,
+  excelDownloads: 2,
+  lwa: {
+    visits: 14,
+    uniqueUsers: 4,
+    usersCreated: 1,
+    lessonsStartedTotal: 8,
+    lessonsStartedExecution: 2,
+    lessonsStartedPCR: 6,
+    edited: 0,
+    completed: 2,
+    avgTime: "14m 24s",
+    copiesButton: 0,
+    copiesCursor: 1,
+    copiesCombined: 1,
+    pctReviewed: 0,
+  },
+};
+
+// ── JULY MONTHLY VIEW ─────────────────────────────────────
+function JulyMonthly() {
+  const MONTH = "July 2026 — through Jul 17";
+
+  const MCard = ({ label, value, desc, accent, small, bench, momentum }) => {
+    let badge = null;
+    if (value && value !== "—" && bench != null) {
+      const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
+      if (!isNaN(numVal) && bench > 0) {
+        const ratio = numVal / bench;
+        const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
+        const higher = ratio >= 1;
+        badge = { label: higher ? `↑ ${pctDiff}%` : `↓ ${pctDiff}%`, isGood: higher };
+      }
+    }
+    let momentumBadge = null;
+    if (value && value !== "—" && momentum != null) {
+      const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
+      if (!isNaN(numVal) && momentum > 0) {
+        const ratio = numVal / momentum;
+        const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
+        const higher = ratio >= 1;
+        momentumBadge = { label: higher ? `↑${pctDiff}%` : `↓${pctDiff}%` };
+      }
+    }
+    return (
+      <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8 }}>{label}</div>
+        <div style={{ fontSize: small ? 16 : 28, fontWeight: 500, letterSpacing: small ? "-0.01em" : "-0.03em", lineHeight: 1.2, color: value && value !== "—" ? (accent ? BLUE_D : INK) : BDR }}>{value || "—"}</div>
+        {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6, marginBottom: (badge || momentumBadge) ? 6 : 0 }}>{desc}</div>}
+        {badge && (
+          <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4, flexWrap: "wrap" }}>
+            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: badge.isGood ? "#edfaf4" : "#fef0ee", color: badge.isGood ? GREEN : RED }}>
+              {badge.label} vs monthly avg
+            </span>
+            <span style={{ fontSize: 9, color: INK3 }}>({bench})</span>
+            {momentumBadge && <span style={{ fontSize: 9, color: INK3 }}>· {momentumBadge.label} vs last month ({momentum})</span>}
+          </div>
+        )}
+        {!badge && momentumBadge && (
+          <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
+            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: momentumBadge.label.startsWith("↑") ? "#edfaf4" : "#fef0ee", color: momentumBadge.label.startsWith("↑") ? GREEN : RED }}>
+              {momentumBadge.label} vs last month ({momentum})
+            </span>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  return (
+    <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
+
+      {/* Header */}
+      <div style={{ marginBottom: 20, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+        <div>
+          <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
+          <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
+          <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory</div>
+        </div>
+        <button
+          onClick={() => {
+            const rows = [
+              ["Metric", "Value"],
+              ["Month", MONTH],
+              ["Sessions", JULY.sessions],
+              ["Users reached", JULY.users],
+              ["Prompters", JULY.prompters],
+              ["Prompts sent", JULY.prompts ?? "pending"],
+              ["Highlights total", JULY.highlighted],
+              ["Highlights Open Search", JULY.highlightedOpenSearch],
+              ["Copies total", JULY.copied],
+              ["Copies Open Search", JULY.copiedOpenSearch],
+              ["Source panel clicks (OS)", JULY.sourceClicks],
+              ["Word downloads", JULY.wordDownloads],
+              ["Excel downloads", JULY.excelDownloads],
+              ["Pill pageviews", JULY.pillPageviews],
+              ["Most used pill", JULY.pillTop],
+              ["Least used pill", JULY.pillBot],
+              ["Open Search visits", JULY.openSearchVisits],
+              ["Tour completion %", JULY.tourCompletion + "%"],
+              ["Thumbs up", JULY.thumbsUp],
+              ["Thumbs down", JULY.thumbsDown],
+              ["Prompt Gallery clicks", JULY.promptGalleryClicks],
+              ["Recent Search clicks", JULY.recentSearchClicks],
+              ["New Search clicks", JULY.newSearchClicks],
+              ["LWA visits", JULY.lwa.visits],
+              ["LWA unique users", JULY.lwa.uniqueUsers],
+              ["LWA users who created lessons", JULY.lwa.usersCreated],
+              ["LWA lessons started total", JULY.lwa.lessonsStartedTotal],
+              ["LWA lessons started Execution", JULY.lwa.lessonsStartedExecution],
+              ["LWA lessons started PCR", JULY.lwa.lessonsStartedPCR],
+              ["LWA lessons completed", JULY.lwa.completed],
+              ["LWA avg time to save", JULY.lwa.avgTime],
+              ["LWA copies combined", JULY.lwa.copiesCombined],
+              ["LWA % reviewed before completing", JULY.lwa.pctReviewed + "%"],
+            ];
+            const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
+            const blob = new Blob([csv], { type: "text/csv" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url; a.download = `KP_Monthly_July_2026.csv`; a.click();
+            URL.revokeObjectURL(url);
+          }}
+          style={{ fontFamily: "inherit", fontSize: 10, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: 6, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
+        >↓ Export CSV</button>
+      </div>
+
+      {/* Metrics in progress banner */}
+      <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 8, padding: "10px 16px", display: "flex", alignItems: "center", gap: 10 }}>
+        <span style={{ fontSize: 14 }}>⚠️</span>
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 600, color: "#92400e" }}>Metrics in progress</div>
+          <div style={{ fontSize: 10, color: "#b45309", marginTop: 2 }}>July data is preliminary — through Jul 17, 2026. First-time visitors, returning users, prompts, CSAT, latency and country data will be added as they become available.</div>
+        </div>
+      </div>
+
+      {/* Cumulative totals (through June — July pending) */}
+      <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
+          Cumulative totals — Sep 1, 2025 to Jun 30, 2026 · July update pending
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
+          {[
+            { label: "Users reached", value: "1,734" },
+            { label: "Prompters", value: "746" },
+            { label: "Prompts sent", value: "3,929" },
+            { label: "Avg prompts · Jun", value: "6.4" },
+            { label: "Penetration of 3,600", value: "48.2%" },
+          ].map((m, i) => (
+            <div key={i}>
+              <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: 9, color: "#a8c4e0", textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <LaunchTimeline />
+
+      {/* ── GENERAL USABILITY ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (July)</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
+        <MCard label="Users reached" value={String(JULY.users)} desc="Unique people who used KP at least once in July (partial)" accent bench={BENCH.monthly.users} momentum={JUNE.users} />
+        <MCard label="Prompters (≥1 prompt)" value={String(JULY.prompters)} desc={`${Math.round(JULY.prompters/JULY.users*100)}% of users reached`} accent momentum={JUNE.prompters} />
+        <MCard label="New users" value={null} desc="Pending" />
+        <MCard label="Returning users" value={null} desc="Pending" />
+        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(JULY.users/3600*100*10)/10}%</div>
+          <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
+            <div style={{ width: `${Math.round(JULY.users/3600*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
+          </div>
+          <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+            <span>{JULY.users} users</span><span>3,600 total</span>
+          </div>
+          <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
+        </div>
+        <MCard label="% Onboarding completed" value={`${JULY.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
+        <MCard label="Sessions" value={String(JULY.sessions)} desc="Total for the period (partial)" bench={BENCH.monthly.sessions} momentum={JUNE.sessions} />
+      </div>
+
+      {/* Geo placeholder */}
+      <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, fontStyle: "italic" }}>
+        🌎 Geographic Reach — country data pending for July.
+      </div>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      {/* ── CONTEXTUAL SEARCH ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (July)</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
+        <MCard label="Queries (pill views)" value={String(JULY.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
+        <MCard label="Most used pill — Lessons Learned" value="21" desc="interactions · leading for the first time since launch 🆕" small bench={BENCH.monthly.pillTop} />
+        <MCard label={<>Least used pill —<br/>Literature</>} value="6" desc="interactions" small bench={BENCH.monthly.pillBot} />
+      </div>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      {/* ── KNOWLEDGE ASSISTANT ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (July)</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
+        <MCard label="Prompters (≥1 prompt)" value={String(JULY.prompters)} desc={`${Math.round(JULY.prompters/JULY.users*100)}% of users reached`} accent momentum={JUNE.prompters} />
+        <MCard label="Prompts sent" value={null} desc="Pending" accent />
+        <MCard label="Latency" value={null} desc="Pending" small />
+        <MCard label="Source panel clicks" value={String(JULY.sourceClicks)} desc="Clicks on source panel" momentum={JUNE.sourceClicks} />
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
+          <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
+            <div style={{ fontSize: 28, fontWeight: 500, color: GREEN, letterSpacing: "-0.03em", lineHeight: 1 }}>👍 {JULY.thumbsUp}</div>
+            <div style={{ fontSize: 28, fontWeight: 500, color: RED, letterSpacing: "-0.03em", lineHeight: 1 }}>👎 {JULY.thumbsDown}</div>
+          </div>
+          <div style={{ fontSize: 9, color: INK3, marginTop: 8 }}>AI responses rated by users</div>
+        </div>
+        <MCard label="Prompt Gallery clicks" value={String(JULY.promptGalleryClicks)} momentum={JUNE.promptGalleryClicks} />
+        <MCard label="Recent Search clicks" value={String(JULY.recentSearchClicks)} momentum={JUNE.recentSearchClicks} />
+        <MCard label="New Search clicks" value={String(JULY.newSearchClicks)} momentum={JUNE.newSearchClicks} />
+      </div>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      {/* ── CONTENT ENGAGEMENT ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (July)</div>
+      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "18px 20px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
+          <div>
+            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Total content engagement</div>
+            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>471</div>
+            <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.5 }}>
+              Highlights (322) + Copies (121) + Source panel clicks (21) + Downloads (7: 5 Word · 2 Excel)
+            </div>
+          </div>
+          <div style={{ minWidth: 220, flex: 1, maxWidth: 340 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 412 (87%)</span>
+              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 59 (13%)</span>
+            </div>
+            <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 8 }}>
+              <div style={{ width: "87%", background: BLUE_D }} />
+              <div style={{ width: "13%", background: "#9ec4e8" }} />
+            </div>
+            <div style={{ fontSize: 8, color: INK3, lineHeight: 1.5 }}>
+              <strong>Open Search (412):</strong> 285 highlights · 99 copies · 21 source clicks · 7 downloads<br/>
+              <strong>Contextual (59):</strong> 37 highlights · 22 copies · 0 source clicks
+            </div>
+          </div>
+        </div>
+      </div>
+      <EngagementCard
+        highlighted={JULY.highlighted}
+        highlightedOpenSearch={JULY.highlightedOpenSearch}
+        copied={JULY.copied}
+        copiedOpenSearch={JULY.copiedOpenSearch}
+        benchHighlights={BENCH.monthly.highlights}
+        benchCopies={BENCH.monthly.copies}
+      />
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      {/* ── LWA ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (July)</div>
+
+      <div style={{ fontSize: 9, color: INK3, fontStyle: "italic" }}>Adoption</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
+        <MCard label="LWA users" value={String(JULY.lwa.uniqueUsers)} accent momentum={JUNE.lwa.uniqueUsers} />
+        <MCard label="LWA visits" value={String(JULY.lwa.visits)} accent momentum={JUNE.lwa.visits} />
+      </div>
+
+      <div style={{ fontSize: 9, color: INK3, fontStyle: "italic" }}>Usage & Completion</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
+        <MCard label="Users who created lessons" value={String(JULY.lwa.usersCreated)} />
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Lessons started</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{JULY.lwa.lessonsStartedTotal}</div>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{JULY.lwa.lessonsStartedExecution} Execution</span>
+            <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BG, color: INK3, fontWeight: 500 }}>{JULY.lwa.lessonsStartedPCR} PCR</span>
+          </div>
+        </div>
+        <MCard label="Lessons completed" value={String(JULY.lwa.completed)} desc="Clicked 'Complete lesson'" accent />
+        <MCard label="Avg. time to save" value={JULY.lwa.avgTime} small desc="From first click to final save" />
+      </div>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      {/* Signal */}
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", borderLeft: `3px solid ${BLUE}` }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+          Signal — Mid-month read (preliminary)
+        </div>
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+          Halfway through July, activity is tracking at roughly half of June's pace (410 sessions · 172 users) — consistent with a normal month plus summer slowdown, with no roadshow driving spikes. Notably, Lessons Learned leads the contextual pills for the first time in a full reporting period, and Open Search dominates content engagement (87%) — its highest share to date. Recent Search clicks (18) already exceed June's full-month total (13), an early sign of returning-user behavior.
+        </p>
+      </div>
+
+    </div>
+  );
+}
+
 // ── APP ───────────────────────────────────────────────────
 export default function App() {
-  const [view, setView] = useState("june");
+  const [view, setView] = useState("july");
   const [monthOpen, setMonthOpen] = useState(false);
   const [launchOpen, setLaunchOpen] = useState(false);
 
   const MONTHS = [
+    { id: "july",    label: "July 2026 · preliminary" },
     { id: "june",    label: "June 2026" },
     { id: "may",     label: "May 2026" },
     { id: "monthly", label: "April 2026" },
@@ -2319,7 +2650,7 @@ export default function App() {
         </div>
       </div>
 
-      {view === "smoke" ? <SmokeTest /> : view === "week1" ? <Week1 data={WEEK1} /> : view === "week12" ? <Week1 data={WEEK12} /> : view === "may" ? <MayMonthly /> : view === "june" ? <JuneMonthly /> : <Monthly />}
+      {view === "smoke" ? <SmokeTest /> : view === "week1" ? <Week1 data={WEEK1} /> : view === "week12" ? <Week1 data={WEEK12} /> : view === "may" ? <MayMonthly /> : view === "june" ? <JuneMonthly /> : view === "july" ? <JulyMonthly /> : <Monthly />}
 
       <div style={{ textAlign: "center", padding: 18, fontSize: 9, color: INK3, letterSpacing: "0.06em", borderTop: `1px solid ${BDR}` }}>
         IDB Knowledge Platform · Post Go-live Key Metrics · Go-live {GO_LIVE_DATE}
