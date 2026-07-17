@@ -747,7 +747,8 @@ function EngagementCard({ highlighted, highlightedOpenSearch, copied, copiedOpen
 }
 
 // ── LAUNCH TIMELINE ───────────────────────────────────────
-function LaunchTimeline() {
+function LaunchTimeline({ defaultOpen = true }) {
+  const [open, setOpen] = useState(defaultOpen);
   const milestones = [
     {
       date: "Sep 2025",
@@ -799,10 +800,17 @@ function LaunchTimeline() {
   ];
 
   return (
-    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "20px 24px" }}>
-      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 20 }}>
-        🗓 Launch Timeline — Key milestones
-      </div>
+    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: open ? "20px 24px" : "14px 24px" }}>
+      <button
+        onClick={() => setOpen(!open)}
+        style={{ fontFamily: "inherit", display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", background: "none", border: "none", cursor: "pointer", padding: 0, marginBottom: open ? 20 : 0 }}
+      >
+        <span style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3 }}>
+          🗓 Launch Timeline — {milestones.length} key milestones
+        </span>
+        <span style={{ fontSize: 10, color: BLUE_D, fontWeight: 500 }}>{open ? "▴ Hide" : "▾ Show"}</span>
+      </button>
+      {open && (
       <div style={{ position: "relative" }}>
         {/* Vertical line */}
         <div style={{ position: "absolute", left: 68, top: 0, bottom: 0, width: 2, background: BDR }} />
@@ -843,6 +851,7 @@ function LaunchTimeline() {
           ))}
         </div>
       </div>
+      )}
     </div>
   );
 }
