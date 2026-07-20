@@ -2510,6 +2510,26 @@ function JulyMonthly() {
         <MCard label="Sessions" value={String(JULY.sessions)} desc="Total for the period (partial)" bench={BENCH.monthly.sessions} momentum={JUNE.sessions} />
       </div>
 
+      {/* CSAT block */}
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
+        <div style={{ marginBottom: 14 }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6 }}>CSAT — Customer Satisfaction Score (preliminary)</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>100%</div>
+          <div style={{ fontSize: 10, color: INK3, marginTop: 4, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+            <span>3 responses · avg 4.67 / 5 ★ · July 2026 (through Jul 20)</span>
+            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: "#edfaf4", color: GREEN }}>↑ 41.7pp vs June</span>
+          </div>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ padding: "8px 12px", background: "#edfaf4", border: "1px solid #a7f3d0", borderRadius: 7, fontSize: 10, color: "#065f46" }}>
+            👍 <strong>All responses positive:</strong> "Encontré rápidamente lo que buscaba" · "La plataforma fue útil para mi trabajo" · "The platform was useful for my work"
+          </div>
+          <div style={{ padding: "8px 12px", background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 7, fontSize: 10, color: "#92400e" }}>
+            ⚠ <strong>Small sample:</strong> only 3 responses so far — strong recovery from June's technical incident (58.3%), but not yet representative. Expect the figure to settle as more responses arrive.
+          </div>
+        </div>
+      </div>
+
       {/* Geo */}
       {(() => {
         const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
