@@ -2241,32 +2241,62 @@ function JuneMonthly() {
 // ── JULY 2026 DATA ────────────────────────────────────────
 // Preliminary — through Jul 17, 2026
 const JULY = {
-  sessions: 410,
-  users: 172,
+  sessions: 444,
+  users: 175,
   first_time: null, // pending
-  prompters: 76,
+  prompters: 78,
   prompts: null, // pending
-  avgTime: "22.86s",
+  avgTime: "22.25s",
   dropoff: 85,
   returningUsers: null, // pending
-  highlighted: 322,
-  highlightedOpenSearch: 285,
+  highlighted: 328,
+  highlightedOpenSearch: 291,
   copied: 121,
   copiedOpenSearch: 99,
   sourceClicks: 21,
   sourceClicksBC: 0,
-  pillPageviews: 81,
+  pillPageviews: 82,
   pillTop: "Lessons Learned (21)",
   pillBot: "Literature (6)",
-  openSearchVisits: 157,
+  openSearchVisits: 161,
   tourCompletion: 48,
   thumbsUp: 2,
   thumbsDown: 1,
   promptGalleryClicks: 6,
-  recentSearchClicks: 18,
+  recentSearchClicks: 19,
   newSearchClicks: 0,
   wordDownloads: 5,
   excelDownloads: 2,
+  totalCountries: 27,
+  countries: [
+    { name: "United States (HQ)", code: "US", users: 90, pct: 51 },
+    { name: "Brazil",             code: "BR", users: 10, pct: 6  },
+    { name: "Colombia",           code: "CO", users: 10, pct: 6  },
+    { name: "Uruguay",            code: "UY", users: 8,  pct: 5  },
+    { name: "Argentina",          code: "AR", users: 6,  pct: 3  },
+    { name: "Mexico",             code: "MX", users: 6,  pct: 3  },
+    { name: "Bolivia",            code: "BO", users: 5,  pct: 3  },
+    { name: "Costa Rica",         code: "CR", users: 5,  pct: 3  },
+    { name: "El Salvador",        code: "SV", users: 4,  pct: 2  },
+    { name: "Panama",             code: "PA", users: 4,  pct: 2  },
+    { name: "Barbados",           code: "BB", users: 3,  pct: 2  },
+    { name: "Dominican Republic", code: "DO", users: 3,  pct: 2  },
+    { name: "Ecuador",            code: "EC", users: 3,  pct: 2  },
+    { name: "Guyana",             code: "GY", users: 3,  pct: 2  },
+    { name: "Suriname",           code: "SR", users: 3,  pct: 2  },
+    { name: "Cayman Islands",     code: "KY", users: 2,  pct: 1  },
+    { name: "Chile",              code: "CL", users: 2,  pct: 1  },
+    { name: "France",             code: "FR", users: 2,  pct: 1  },
+    { name: "Haiti",              code: "HT", users: 2,  pct: 1  },
+    { name: "Paraguay",           code: "PY", users: 2,  pct: 1  },
+    { name: "Peru",               code: "PE", users: 2,  pct: 1  },
+    { name: "Trinidad & Tobago",  code: "TT", users: 2,  pct: 1  },
+    { name: "Bahamas",            code: "BS", users: 1,  pct: 1  },
+    { name: "Guatemala",          code: "GT", users: 1,  pct: 1  },
+    { name: "Italy",              code: "IT", users: 1,  pct: 1  },
+    { name: "Jamaica",            code: "JM", users: 1,  pct: 1  },
+    { name: "Spain",              code: "ES", users: 1,  pct: 1  },
+  ],
   lwa: {
     visits: 14,
     uniqueUsers: 4,
@@ -2282,11 +2312,46 @@ const JULY = {
     copiesCombined: 1,
     pctReviewed: 0,
   },
+  totalCountries: 27,
+  countries: [
+    { name: "United States (HQ)", code: "US", users: 90, pct: 51 },
+    { name: "Brazil",             code: "BR", users: 10, pct: 6  },
+    { name: "Colombia",           code: "CO", users: 10, pct: 6  },
+    { name: "Uruguay",            code: "UY", users: 8,  pct: 5  },
+    { name: "Argentina",          code: "AR", users: 6,  pct: 3  },
+    { name: "Mexico",             code: "MX", users: 6,  pct: 3  },
+    { name: "Bolivia",            code: "BO", users: 5,  pct: 3  },
+    { name: "Costa Rica",         code: "CR", users: 5,  pct: 3  },
+    { name: "El Salvador",        code: "SV", users: 4,  pct: 2  },
+    { name: "Panama",             code: "PA", users: 4,  pct: 2  },
+    { name: "Barbados",           code: "BB", users: 3,  pct: 2  },
+    { name: "Dominican Republic", code: "DO", users: 3,  pct: 2  },
+    { name: "Ecuador",            code: "EC", users: 3,  pct: 2  },
+    { name: "Guyana",             code: "GY", users: 3,  pct: 2  },
+    { name: "Suriname",           code: "SR", users: 3,  pct: 2  },
+    { name: "Cayman Islands",     code: "KY", users: 2,  pct: 1  },
+    { name: "Chile",              code: "CL", users: 2,  pct: 1  },
+    { name: "France",             code: "FR", users: 2,  pct: 1  },
+    { name: "Haiti",              code: "HT", users: 2,  pct: 1  },
+    { name: "Paraguay",           code: "PY", users: 2,  pct: 1  },
+    { name: "Peru",               code: "PE", users: 2,  pct: 1  },
+    { name: "Trinidad & Tobago",  code: "TT", users: 2,  pct: 1  },
+    { name: "Bahamas",            code: "BS", users: 1,  pct: 1  },
+    { name: "Guatemala",          code: "GT", users: 1,  pct: 1  },
+    { name: "Italy",              code: "IT", users: 1,  pct: 1  },
+    { name: "Jamaica",            code: "JM", users: 1,  pct: 1  },
+    { name: "Spain",              code: "ES", users: 1,  pct: 1  },
+  ],
 };
 
 // ── JULY MONTHLY VIEW ─────────────────────────────────────
 function JulyMonthly() {
-  const MONTH = "July 2026 — through Jul 17";
+  const MONTH = "July 2026 — through Jul 20";
+  const [showAllCountries, setShowAllCountries] = useState(false);
+  const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
+  const regional = JULY.countries.filter(c => c.code !== "US");
+  const usData = JULY.countries.find(c => c.code === "US");
+  const maxUsers = regional[0].users;
 
   const MCard = ({ label, value, desc, accent, small, bench, momentum }) => {
     let badge = null;
@@ -2397,22 +2462,21 @@ function JulyMonthly() {
         <span style={{ fontSize: 14 }}>⚠️</span>
         <div>
           <div style={{ fontSize: 11, fontWeight: 600, color: "#92400e" }}>Metrics in progress</div>
-          <div style={{ fontSize: 10, color: "#b45309", marginTop: 2 }}>July data is preliminary — through Jul 17, 2026. First-time visitors, returning users, prompts, CSAT, latency and country data will be added as they become available.</div>
+          <div style={{ fontSize: 10, color: "#b45309", marginTop: 2 }}>July data is preliminary — through Jul 20, 2026. First-time visitors, returning users, prompts, CSAT, latency and country data will be added as they become available.</div>
         </div>
       </div>
 
       {/* Cumulative totals (through June — July pending) */}
       <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
-          Cumulative totals — Sep 1, 2025 to Jun 30, 2026 · July update pending
+          Cumulative totals — Sep 1, 2025 to Jul 20, 2026 · preliminary
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {[
-            { label: "Users reached", value: "1,734" },
-            { label: "Prompters", value: "746" },
-            { label: "Prompts sent", value: "3,929" },
-            { label: "Avg prompts · Jun", value: "6.4" },
-            { label: "Penetration of 3,600", value: "48.2%" },
+            { label: "Users reached", value: "1,790" },
+            { label: "Prompters", value: "779" },
+            { label: "Prompts sent", value: "pending" },
+            { label: "Penetration of 3,600", value: "49.7%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -2446,10 +2510,56 @@ function JulyMonthly() {
         <MCard label="Sessions" value={String(JULY.sessions)} desc="Total for the period (partial)" bench={BENCH.monthly.sessions} momentum={JUNE.sessions} />
       </div>
 
-      {/* Geo placeholder */}
-      <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, fontStyle: "italic" }}>
-        🌎 Geographic Reach — country data pending for July.
+      {/* Geo */}
+      {(() => {
+        const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
+        const regional = JULY.countries.filter(c => c.code !== "US");
+        const usData = JULY.countries.find(c => c.code === "US");
+        const maxUsers = regional[0].users;
+        return (
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
+          🌎 Geographic Reach — {JULY.users.toLocaleString()} users · {JULY.totalCountries} countries (partial)
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
+          <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
+          <div style={{ flex: 1 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
+              <span style={{ fontSize: 11, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
+              <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usData.pct}%</span>
+            </div>
+            <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
+              <div style={{ width: `${usData.pct}%`, height: "100%", background: "#1464A0", borderRadius: 99 }} />
+            </div>
+          </div>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px 16px" }}>
+          {(showAllCountries ? regional : regional.slice(0, 12)).map((c, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
+              <span style={{ fontSize: 13, flexShrink: 0 }}>{flag(c.code)}</span>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
+                  <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
+                  <span style={{ fontSize: 9, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
+                </div>
+                <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
+                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 8 ? "#1464A0" : c.users >= 4 ? BLUE : "#7ab3e0", borderRadius: 99 }} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        {regional.length > 12 && (
+          <button onClick={() => setShowAllCountries(!showAllCountries)} style={{ fontFamily: "inherit", fontSize: 9, fontWeight: 500, marginTop: 8, padding: "5px 12px", border: `1px solid ${BDR}`, borderRadius: 99, cursor: "pointer", background: SURF, color: BLUE_D }}>
+            {showAllCountries ? "▴ Show less" : `▾ Show all ${regional.length} countries`}
+          </button>
+        )}
+        <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
+          Country data reflects session location by IP. Users who accessed the platform from multiple countries within the period may appear in more than one country. Preliminary — through Jul 20.
+        </div>
       </div>
+        );
+      })()}
 
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
@@ -2494,22 +2604,22 @@ function JulyMonthly() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
           <div>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Total content engagement</div>
-            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>471</div>
+            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>477</div>
             <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.5 }}>
-              Highlights (322) + Copies (121) + Source panel clicks (21) + Downloads (7: 5 Word · 2 Excel)
+              Highlights (328) + Copies (121) + Source panel clicks (21) + Downloads (7: 5 Word · 2 Excel)
             </div>
           </div>
           <div style={{ minWidth: 220, flex: 1, maxWidth: 340 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 412 (87%)</span>
-              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 59 (13%)</span>
+              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 418 (88%)</span>
+              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 59 (12%)</span>
             </div>
             <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 8 }}>
-              <div style={{ width: "87%", background: BLUE_D }} />
-              <div style={{ width: "13%", background: "#9ec4e8" }} />
+              <div style={{ width: "88%", background: BLUE_D }} />
+              <div style={{ width: "12%", background: "#9ec4e8" }} />
             </div>
             <div style={{ fontSize: 8, color: INK3, lineHeight: 1.5 }}>
-              <strong>Open Search (412):</strong> 285 highlights · 99 copies · 21 source clicks · 7 downloads<br/>
+              <strong>Open Search (418):</strong> 291 highlights · 99 copies · 21 source clicks · 7 downloads<br/>
               <strong>Contextual (59):</strong> 37 highlights · 22 copies · 0 source clicks
             </div>
           </div>
