@@ -797,6 +797,18 @@ function LaunchTimeline({ defaultOpen = true }) {
         { label: "CSAT fell 76.5% → 58.3% in June — technical incident (API/400 errors)", dir: "down" },
       ],
     },
+    {
+      date: "Jul 17, 2026",
+      tag: "Awareness Session (online)",
+      color: "#7c5cbf",
+      stats: ["40 users connected live", "Online activation session"],
+      note: "First virtual awareness session — 40 people connected on Friday, July 17.",
+      impact: [
+        { label: "CSAT recovered to 100% in July (3 responses, avg 4.67/5)", dir: "up" },
+        { label: "Latency improved to 26s median (↓30% vs June)", dir: "up" },
+        { label: "Approaching a 5,000-prompt cumulative milestone (4,241 through Jul 20)", dir: "up" },
+      ],
+    },
   ];
 
   return (
