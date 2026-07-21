@@ -2243,12 +2243,12 @@ function JuneMonthly() {
 const JULY = {
   sessions: 444,
   users: 175,
-  first_time: null, // pending
+  first_time: 106,
   prompters: 78,
   prompts: null, // pending
   avgTime: "22.25s",
   dropoff: 85,
-  returningUsers: null, // pending
+  returningUsers: 62,
   highlighted: 328,
   highlightedOpenSearch: 291,
   copied: 121,
@@ -2462,7 +2462,7 @@ function JulyMonthly() {
         <span style={{ fontSize: 14 }}>⚠️</span>
         <div>
           <div style={{ fontSize: 11, fontWeight: 600, color: "#92400e" }}>Metrics in progress</div>
-          <div style={{ fontSize: 10, color: "#b45309", marginTop: 2 }}>July data is preliminary — through Jul 20, 2026. First-time visitors, returning users, prompts, CSAT, latency and country data will be added as they become available.</div>
+          <div style={{ fontSize: 10, color: "#b45309", marginTop: 2 }}>July data is preliminary — through Jul 20, 2026. Prompts, latency and full country data will be added as they become available.</div>
         </div>
       </div>
 
@@ -2493,8 +2493,13 @@ function JulyMonthly() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard label="Users reached" value={String(JULY.users)} desc="Unique people who used KP at least once in July (partial)" accent bench={BENCH.monthly.users} momentum={JUNE.users} />
         <MCard label="Prompters (≥1 prompt)" value={String(JULY.prompters)} desc={`${Math.round(JULY.prompters/JULY.users*100)}% of users reached`} accent momentum={JUNE.prompters} />
-        <MCard label="New users" value={null} desc="Pending" />
-        <MCard label="Returning users" value={null} desc="Pending" />
+        <MCard label="New users" value={String(JULY.first_time)} desc={`First-time visitors · other ${JULY.users - JULY.first_time} are returning from prior months`} />
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{JULY.returningUsers}</div>
+          <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Came back for 2+ sessions within July — a signal of habit, not just curiosity</div>
+          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D }}>{Math.round(JULY.returningUsers/JULY.users*100)}% of users reached</span>
+        </div>
         <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
           <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(JULY.users/3600*100*10)/10}%</div>
