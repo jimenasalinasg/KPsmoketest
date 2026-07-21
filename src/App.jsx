@@ -2245,7 +2245,7 @@ const JULY = {
   users: 175,
   first_time: 106,
   prompters: 78,
-  prompts: null, // pending
+  prompts: 312,
   avgTime: "22.25s",
   dropoff: 85,
   returningUsers: 62,
@@ -2462,7 +2462,7 @@ function JulyMonthly() {
         <span style={{ fontSize: 14 }}>⚠️</span>
         <div>
           <div style={{ fontSize: 11, fontWeight: 600, color: "#92400e" }}>Metrics in progress</div>
-          <div style={{ fontSize: 10, color: "#b45309", marginTop: 2 }}>July data is preliminary — through Jul 20, 2026. Prompts, latency and full country data will be added as they become available.</div>
+          <div style={{ fontSize: 10, color: "#b45309", marginTop: 2 }}>July data is preliminary — through Jul 20, 2026. Full country data will be finalized at month close.</div>
         </div>
       </div>
 
@@ -2471,11 +2471,12 @@ function JulyMonthly() {
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to Jul 20, 2026 · preliminary
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
           {[
             { label: "Users reached", value: "1,790" },
             { label: "Prompters", value: "779" },
-            { label: "Prompts sent", value: "pending" },
+            { label: "Prompts sent", value: "4,241" },
+            { label: "Avg prompts · Jul", value: "4.0" },
             { label: "Penetration of 3,600", value: "49.7%" },
           ].map((m, i) => (
             <div key={i}>
@@ -2604,8 +2605,13 @@ function JulyMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (July)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard label="Prompters (≥1 prompt)" value={String(JULY.prompters)} desc={`${Math.round(JULY.prompters/JULY.users*100)}% of users reached`} accent momentum={JUNE.prompters} />
-        <MCard label="Prompts sent" value={null} desc="Pending" accent />
-        <MCard label="Latency" value={null} desc="Pending" small />
+        <MCard label="Prompts sent" value={String(JULY.prompts)} desc="Median: 1 per prompter" accent momentum={JUNE.prompts} />
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Latency (median)</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>26s</div>
+          <div style={{ fontSize: 9, color: INK3, lineHeight: 1.4, marginBottom: 6 }}>Median response time in Open Search</div>
+          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: "#edfaf4", color: GREEN }}>↓30% vs June (37s)</span>
+        </div>
         <MCard label="Source panel clicks" value={String(JULY.sourceClicks)} desc="Clicks on source panel" momentum={JUNE.sourceClicks} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
