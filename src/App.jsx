@@ -2263,8 +2263,8 @@ const JULY = {
   returningUsers: 91,
   highlighted: 452,
   highlightedOpenSearch: 411,
-  copied: 452,
-  copiedOpenSearch: 411,
+  copied: 157,
+  copiedOpenSearch: 135,
   sourceClicks: 30,
   sourceClicksBC: 0,
   pillPageviews: 137,
@@ -2610,23 +2610,23 @@ function JulyMonthly() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
           <div>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Total content engagement</div>
-            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>943</div>
+            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>648</div>
             <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.5 }}>
-              Highlights (452) + Copies (452) + Source panel clicks (30) + Downloads (9: 6 Word · 3 Excel)
+              Highlights (452) + Copies (157) + Source panel clicks (30) + Downloads (9: 6 Word · 3 Excel)
             </div>
           </div>
           <div style={{ minWidth: 220, flex: 1, maxWidth: 340 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 861 (91%)</span>
-              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 82 (9%)</span>
+              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 585 (90%)</span>
+              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 63 (10%)</span>
             </div>
             <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 8 }}>
-              <div style={{ width: "91%", background: BLUE_D }} />
-              <div style={{ width: "9%", background: "#9ec4e8" }} />
+              <div style={{ width: "90%", background: BLUE_D }} />
+              <div style={{ width: "10%", background: "#9ec4e8" }} />
             </div>
             <div style={{ fontSize: 8, color: INK3, lineHeight: 1.5 }}>
-              <strong>Open Search (861):</strong> 411 highlights · 411 copies · 30 source clicks · 9 downloads<br/>
-              <strong>Contextual (82):</strong> 41 highlights · 41 copies · 0 source clicks
+              <strong>Open Search (585):</strong> 411 highlights · 135 copies · 30 source clicks · 9 downloads<br/>
+              <strong>Contextual (63):</strong> 41 highlights · 22 copies · 0 source clicks
             </div>
           </div>
         </div>
@@ -2688,7 +2688,7 @@ function JulyMonthly() {
           Signal — Two channels, not a migration
         </div>
         <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
-          Open Search has been the dominant channel since release — that is not new. Contextual search has consolidated alongside it, peaking at 304 pill pageviews in June. July's 91% Open Search share reflects the smaller summer volume compressing deliberate contextual exploration more than conversational queries — a composition effect, not a behavioral shift. The two channels grow together when there is activity; they don't compete.
+          Open Search has been the dominant channel since release — that is not new. Contextual search has consolidated alongside it, peaking at 304 pill pageviews in June. July's 90% Open Search share reflects the smaller summer volume compressing deliberate contextual exploration more than conversational queries — a composition effect, not a behavioral shift. The two channels grow together when there is activity; they don't compete.
         </p>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Technical trust restored
