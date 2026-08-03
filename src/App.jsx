@@ -806,7 +806,7 @@ function LaunchTimeline({ defaultOpen = true }) {
       impact: [
         { label: "CSAT recovered to 100% in July (3 responses, avg 4.67/5)", dir: "up" },
         { label: "Latency improved to 26s median (↓30% vs June)", dir: "up" },
-        { label: "Approaching a 5,000-prompt cumulative milestone (4,241 through Jul 20)", dir: "up" },
+        { label: "Approaching a 5,000-prompt cumulative milestone (4,241 by end of July)", dir: "up" },
       ],
     },
   ];
@@ -2310,12 +2310,12 @@ const JULY = {
     { name: "Spain",              code: "ES", users: 1,  pct: 1  },
   ],
   lwa: {
-    visits: 14,
-    uniqueUsers: 4,
+    visits: 25,
+    uniqueUsers: 6,
     usersCreated: 1,
-    lessonsStartedTotal: 8,
-    lessonsStartedExecution: 2,
-    lessonsStartedPCR: 6,
+    lessonsStartedTotal: 15,
+    lessonsStartedExecution: 8,
+    lessonsStartedPCR: 7,
     edited: 0,
     completed: 2,
     avgTime: "14m 24s",
@@ -2358,7 +2358,7 @@ const JULY = {
 
 // ── JULY MONTHLY VIEW ─────────────────────────────────────
 function JulyMonthly() {
-  const MONTH = "July 2026 — through Jul 20";
+  const MONTH = "July 2026";
   const [showAllCountries, setShowAllCountries] = useState(false);
   const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
   const regional = JULY.countries.filter(c => c.code !== "US");
@@ -2469,27 +2469,18 @@ function JulyMonthly() {
         >↓ Export CSV</button>
       </div>
 
-      {/* Metrics in progress banner */}
-      <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 8, padding: "10px 16px", display: "flex", alignItems: "center", gap: 10 }}>
-        <span style={{ fontSize: 14 }}>⚠️</span>
-        <div>
-          <div style={{ fontSize: 11, fontWeight: 600, color: "#92400e" }}>Metrics in progress</div>
-          <div style={{ fontSize: 10, color: "#b45309", marginTop: 2 }}>July data is preliminary — through Jul 20, 2026. Full country data will be finalized at month close.</div>
-        </div>
-      </div>
-
       {/* Cumulative totals (through June — July pending) */}
       <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
-          Cumulative totals — Sep 1, 2025 to Jul 20, 2026 · preliminary
+          Cumulative totals — Sep 1, 2025 to Jul 31, 2026
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
           {[
-            { label: "Users reached", value: "1,790" },
-            { label: "Prompters", value: "779" },
+            { label: "Users reached", value: "1,818" },
+            { label: "Prompters", value: "796" },
             { label: "Prompts sent", value: "4,241" },
             { label: "Avg prompts · Jul", value: "4.0" },
-            { label: "Penetration of 3,600", value: "49.7%" },
+            { label: "Penetration of 3,600", value: "50.5%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -2504,7 +2495,7 @@ function JulyMonthly() {
       {/* ── GENERAL USABILITY ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (July)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard label="Users reached" value={String(JULY.users)} desc="Unique people who used KP at least once in July (partial)" accent bench={BENCH.monthly.users} momentum={JUNE.users} />
+        <MCard label="Users reached" value={String(JULY.users)} desc="Unique people who used KP at least once in July" accent bench={BENCH.monthly.users} momentum={JUNE.users} />
         <MCard label="Prompters (≥1 prompt)" value={String(JULY.prompters)} desc={`${Math.round(JULY.prompters/JULY.users*100)}% of users reached`} accent momentum={JUNE.prompters} />
         <MCard label="New users" value={String(JULY.first_time)} desc={`First-time visitors · other ${JULY.users - JULY.first_time} are returning from prior months`} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
@@ -2525,16 +2516,16 @@ function JulyMonthly() {
           <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
         </div>
         <MCard label="% Onboarding completed" value={`${JULY.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
-        <MCard label="Sessions" value={String(JULY.sessions)} desc="Total for the period (partial)" bench={BENCH.monthly.sessions} momentum={JUNE.sessions} />
+        <MCard label="Sessions" value={String(JULY.sessions)} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={JUNE.sessions} />
       </div>
 
       {/* CSAT block */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
         <div style={{ marginBottom: 14 }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6 }}>CSAT — Customer Satisfaction Score (preliminary)</div>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6 }}>CSAT — Customer Satisfaction Score</div>
           <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>100%</div>
           <div style={{ fontSize: 10, color: INK3, marginTop: 4, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-            <span>3 responses · avg 4.67 / 5 ★ · July 2026 (through Jul 20)</span>
+            <span>3 responses · avg 4.67 / 5 ★ · July 2026</span>
             <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: "#edfaf4", color: GREEN }}>↑ 41.7pp vs June</span>
           </div>
         </div>
@@ -2557,7 +2548,7 @@ function JulyMonthly() {
         return (
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
-          🌎 Geographic Reach — {JULY.users.toLocaleString()} users · {JULY.totalCountries} countries (partial)
+          🌎 Geographic Reach — {JULY.users.toLocaleString()} users · {JULY.totalCountries} countries
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
           <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
@@ -2593,7 +2584,7 @@ function JulyMonthly() {
           </button>
         )}
         <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
-          Country data reflects session location by IP. Users who accessed the platform from multiple countries within the period may appear in more than one country. Preliminary — through Jul 20.
+          Country data reflects session location by IP. Users who accessed the platform from multiple countries within the period may appear in more than one country.
         </div>
       </div>
         );
@@ -2710,10 +2701,22 @@ function JulyMonthly() {
       {/* Signal */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", borderLeft: `3px solid ${BLUE}` }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
-          Signal — Mid-month read (preliminary)
+          Signal — Adoption holds without a physical event
+        </div>
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+          July's only activation was a single online awareness session (40 attendees, Jul 17) — no country roadshow. Yet 175 users and 35% within-month return held steady, and cumulative penetration reached 49.7%. Evidence that a lightweight, low-cost online format can sustain engagement is the most strategically useful finding of the month: it points to a more scalable activation model than country-by-country roadshows.
+        </p>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+          Signal — Behavior is shifting toward the assistant
+        </div>
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+          Open Search reached 88% of content engagement — its highest share to date — while Lessons Learned overtook Similar Projects as the top contextual pill for the first time in a full month. Read together, these signal a maturing use pattern: users are moving from browsing curated pills toward conversational, intent-driven queries, and from project discovery toward applied knowledge. The product's center of gravity is moving to the assistant.
+        </p>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+          Signal — Technical trust restored
         </div>
         <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-          Halfway through July, activity is tracking at roughly half of June's pace (410 sessions · 172 users) — consistent with a normal month plus summer slowdown, with no roadshow driving spikes. Notably, Lessons Learned leads the contextual pills for the first time in a full reporting period, and Open Search dominates content engagement (87%) — its highest share to date. Recent Search clicks (18) already exceed June's full-month total (13), an early sign of returning-user behavior.
+          Latency dropped to a 26s median (↓30% vs June, its third consecutive improvement) and CSAT recovered to 100% with no technical complaints, reversing June's API-incident dip. The sample is small (3 responses), so the exact figure will move — but the direction, paired with the latency trend, indicates the reliability issues that shaped June's feedback have been addressed.
         </p>
       </div>
 
