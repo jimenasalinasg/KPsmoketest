@@ -61,7 +61,7 @@ const WEEK1 = {
   pillTop: "Similar projects (45)",
   pillBot: "Institutional documents (14)",
   tourCompletion: 55,
-  thumbsUp: 2,
+  thumbsUp: 3,
   thumbsDown: 1,
   countries: [
     { name: "United States (HQ)", code: "US", users: 340, pct: 58 },
@@ -119,7 +119,7 @@ const WEEK12 = {
   pillTop: "Similar projects (51)",
   pillBot: "Institutional documents (15)",
   tourCompletion: 54,
-  thumbsUp: 2,
+  thumbsUp: 3,
   thumbsDown: 1,
   sourcePanelClicks: 26,
   window: "Mar 31 – Apr 17, 2026",
@@ -1337,7 +1337,7 @@ const MAY = {
   highlighted: 463,
   highlightedOpenSearch: 217,
   copied: 191,
-  copiedOpenSearch: 99,
+  copiedOpenSearch: 411,
   sourceClicks: 50,
   pillPageviews: 130,
   pillTop: "Similar Projects (40)",
@@ -1812,7 +1812,7 @@ const JUNE = {
   pillTop: "Similar Projects (85)",
   pillBot: "Data (27)",
   openSearchVisits: 342,
-  tourCompletion: 48,
+  tourCompletion: 44,
   thumbsUp: 0,
   thumbsDown: 1,
   promptGalleryClicks: 30,
@@ -2253,61 +2253,63 @@ function JuneMonthly() {
 // ── JULY 2026 DATA ────────────────────────────────────────
 // Preliminary — through Jul 17, 2026
 const JULY = {
-  sessions: 444,
-  users: 175,
-  first_time: 106,
-  prompters: 78,
+  sessions: 717,
+  users: 251,
+  first_time: 156,
+  prompters: 109,
   prompts: 415,
-  avgTime: "22.25s",
+  avgTime: "20.43s",
   dropoff: 85,
-  returningUsers: 62,
-  highlighted: 328,
-  highlightedOpenSearch: 291,
-  copied: 121,
-  copiedOpenSearch: 99,
-  sourceClicks: 21,
+  returningUsers: 91,
+  highlighted: 452,
+  highlightedOpenSearch: 411,
+  copied: 452,
+  copiedOpenSearch: 411,
+  sourceClicks: 30,
   sourceClicksBC: 0,
-  pillPageviews: 82,
-  pillTop: "Lessons Learned (21)",
-  pillBot: "Literature (6)",
-  openSearchVisits: 161,
-  tourCompletion: 48,
-  thumbsUp: 2,
+  pillPageviews: 137,
+  pillTop: "Lessons Learned (37)",
+  pillBot: "Institutional Documents (10)",
+  openSearchVisits: 258,
+  tourCompletion: 44,
+  thumbsUp: 3,
   thumbsDown: 1,
-  promptGalleryClicks: 6,
-  recentSearchClicks: 19,
+  promptGalleryClicks: 11,
+  recentSearchClicks: 26,
   newSearchClicks: 0,
-  wordDownloads: 5,
-  excelDownloads: 2,
-  totalCountries: 27,
+  wordDownloads: 6,
+  excelDownloads: 3,
+  totalCountries: 29,
   countries: [
-    { name: "United States (HQ)", code: "US", users: 90, pct: 51 },
-    { name: "Brazil",             code: "BR", users: 10, pct: 6  },
-    { name: "Colombia",           code: "CO", users: 10, pct: 6  },
-    { name: "Uruguay",            code: "UY", users: 8,  pct: 5  },
-    { name: "Argentina",          code: "AR", users: 6,  pct: 3  },
-    { name: "Mexico",             code: "MX", users: 6,  pct: 3  },
-    { name: "Bolivia",            code: "BO", users: 5,  pct: 3  },
-    { name: "Costa Rica",         code: "CR", users: 5,  pct: 3  },
-    { name: "El Salvador",        code: "SV", users: 4,  pct: 2  },
-    { name: "Panama",             code: "PA", users: 4,  pct: 2  },
-    { name: "Barbados",           code: "BB", users: 3,  pct: 2  },
-    { name: "Dominican Republic", code: "DO", users: 3,  pct: 2  },
-    { name: "Ecuador",            code: "EC", users: 3,  pct: 2  },
-    { name: "Guyana",             code: "GY", users: 3,  pct: 2  },
-    { name: "Suriname",           code: "SR", users: 3,  pct: 2  },
-    { name: "Cayman Islands",     code: "KY", users: 2,  pct: 1  },
+    { name: "United States (HQ)", code: "US", users: 124, pct: 49 },
+    { name: "Colombia",           code: "CO", users: 19, pct: 8  },
+    { name: "Brazil",             code: "BR", users: 14, pct: 6  },
+    { name: "Uruguay",            code: "UY", users: 11, pct: 4  },
+    { name: "Argentina",          code: "AR", users: 10, pct: 4  },
+    { name: "Mexico",             code: "MX", users: 9,  pct: 4  },
+    { name: "Panama",             code: "PA", users: 8,  pct: 3  },
+    { name: "Barbados",           code: "BB", users: 7,  pct: 3  },
+    { name: "Bolivia",            code: "BO", users: 6,  pct: 2  },
+    { name: "Costa Rica",         code: "CR", users: 6,  pct: 2  },
+    { name: "El Salvador",        code: "SV", users: 6,  pct: 2  },
+    { name: "Ecuador",            code: "EC", users: 5,  pct: 2  },
+    { name: "Dominican Republic", code: "DO", users: 4,  pct: 2  },
+    { name: "Peru",               code: "PE", users: 4,  pct: 2  },
+    { name: "Suriname",           code: "SR", users: 4,  pct: 2  },
+    { name: "Cayman Islands",     code: "KY", users: 3,  pct: 1  },
+    { name: "Guyana",             code: "GY", users: 3,  pct: 1  },
+    { name: "Paraguay",           code: "PY", users: 3,  pct: 1  },
+    { name: "Trinidad & Tobago",  code: "TT", users: 3,  pct: 1  },
     { name: "Chile",              code: "CL", users: 2,  pct: 1  },
     { name: "France",             code: "FR", users: 2,  pct: 1  },
     { name: "Haiti",              code: "HT", users: 2,  pct: 1  },
-    { name: "Paraguay",           code: "PY", users: 2,  pct: 1  },
-    { name: "Peru",               code: "PE", users: 2,  pct: 1  },
-    { name: "Trinidad & Tobago",  code: "TT", users: 2,  pct: 1  },
-    { name: "Bahamas",            code: "BS", users: 1,  pct: 1  },
-    { name: "Guatemala",          code: "GT", users: 1,  pct: 1  },
-    { name: "Italy",              code: "IT", users: 1,  pct: 1  },
-    { name: "Jamaica",            code: "JM", users: 1,  pct: 1  },
-    { name: "Spain",              code: "ES", users: 1,  pct: 1  },
+    { name: "Spain",              code: "ES", users: 2,  pct: 1  },
+    { name: "Bahamas",            code: "BS", users: 1,  pct: 0  },
+    { name: "Belize",             code: "BZ", users: 1,  pct: 0  },
+    { name: "Guatemala",          code: "GT", users: 1,  pct: 0  },
+    { name: "Honduras",           code: "HN", users: 1,  pct: 0  },
+    { name: "Italy",              code: "IT", users: 1,  pct: 0  },
+    { name: "Jamaica",            code: "JM", users: 1,  pct: 0  },
   ],
   lwa: {
     visits: 25,
@@ -2324,36 +2326,6 @@ const JULY = {
     copiesCombined: 1,
     pctReviewed: 0,
   },
-  totalCountries: 27,
-  countries: [
-    { name: "United States (HQ)", code: "US", users: 90, pct: 51 },
-    { name: "Brazil",             code: "BR", users: 10, pct: 6  },
-    { name: "Colombia",           code: "CO", users: 10, pct: 6  },
-    { name: "Uruguay",            code: "UY", users: 8,  pct: 5  },
-    { name: "Argentina",          code: "AR", users: 6,  pct: 3  },
-    { name: "Mexico",             code: "MX", users: 6,  pct: 3  },
-    { name: "Bolivia",            code: "BO", users: 5,  pct: 3  },
-    { name: "Costa Rica",         code: "CR", users: 5,  pct: 3  },
-    { name: "El Salvador",        code: "SV", users: 4,  pct: 2  },
-    { name: "Panama",             code: "PA", users: 4,  pct: 2  },
-    { name: "Barbados",           code: "BB", users: 3,  pct: 2  },
-    { name: "Dominican Republic", code: "DO", users: 3,  pct: 2  },
-    { name: "Ecuador",            code: "EC", users: 3,  pct: 2  },
-    { name: "Guyana",             code: "GY", users: 3,  pct: 2  },
-    { name: "Suriname",           code: "SR", users: 3,  pct: 2  },
-    { name: "Cayman Islands",     code: "KY", users: 2,  pct: 1  },
-    { name: "Chile",              code: "CL", users: 2,  pct: 1  },
-    { name: "France",             code: "FR", users: 2,  pct: 1  },
-    { name: "Haiti",              code: "HT", users: 2,  pct: 1  },
-    { name: "Paraguay",           code: "PY", users: 2,  pct: 1  },
-    { name: "Peru",               code: "PE", users: 2,  pct: 1  },
-    { name: "Trinidad & Tobago",  code: "TT", users: 2,  pct: 1  },
-    { name: "Bahamas",            code: "BS", users: 1,  pct: 1  },
-    { name: "Guatemala",          code: "GT", users: 1,  pct: 1  },
-    { name: "Italy",              code: "IT", users: 1,  pct: 1  },
-    { name: "Jamaica",            code: "JM", users: 1,  pct: 1  },
-    { name: "Spain",              code: "ES", users: 1,  pct: 1  },
-  ],
 };
 
 // ── JULY MONTHLY VIEW ─────────────────────────────────────
@@ -2479,7 +2451,7 @@ function JulyMonthly() {
             { label: "Users reached", value: "1,818" },
             { label: "Prompters", value: "796" },
             { label: "Prompts sent", value: "4,344" },
-            { label: "Avg prompts · Jul", value: "5.3" },
+            { label: "Avg prompts · Jul", value: "3.8" },
             { label: "Penetration of 3,600", value: "50.5%" },
           ].map((m, i) => (
             <div key={i}>
@@ -2584,7 +2556,7 @@ function JulyMonthly() {
           </button>
         )}
         <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
-          Country data reflects session location by IP. Users who accessed the platform from multiple countries within the period may appear in more than one country.
+          Country data reflects session location by IP. Users who accessed the platform from multiple countries within the period may appear in more than one country. New this month: Italy 🇮🇹, Belize 🇧🇿 and Honduras 🇭🇳.
         </div>
       </div>
         );
@@ -2597,8 +2569,8 @@ function JulyMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (July)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard label="Queries (pill views)" value={String(JULY.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
-        <MCard label="Most used pill — Lessons Learned" value="21" desc="interactions · leading for the first time since launch 🆕" small bench={BENCH.monthly.pillTop} />
-        <MCard label={<>Least used pill —<br/>Literature</>} value="6" desc="interactions" small bench={BENCH.monthly.pillBot} />
+        <MCard label="Most used pill — Lessons Learned" value="37" desc="interactions · leading for the first time in a full month 🆕" small bench={BENCH.monthly.pillTop} />
+        <MCard label={<>Least used pill —<br/>Institutional Docs</>} value="10" desc="interactions" small bench={BENCH.monthly.pillBot} />
       </div>
 
       {/* ── DIVIDER ── */}
@@ -2638,23 +2610,23 @@ function JulyMonthly() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
           <div>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Total content engagement</div>
-            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>477</div>
+            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>943</div>
             <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.5 }}>
-              Highlights (328) + Copies (121) + Source panel clicks (21) + Downloads (7: 5 Word · 2 Excel)
+              Highlights (452) + Copies (452) + Source panel clicks (30) + Downloads (9: 6 Word · 3 Excel)
             </div>
           </div>
           <div style={{ minWidth: 220, flex: 1, maxWidth: 340 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 418 (88%)</span>
-              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 59 (12%)</span>
+              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 861 (91%)</span>
+              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 82 (9%)</span>
             </div>
             <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 8 }}>
-              <div style={{ width: "88%", background: BLUE_D }} />
-              <div style={{ width: "12%", background: "#9ec4e8" }} />
+              <div style={{ width: "91%", background: BLUE_D }} />
+              <div style={{ width: "9%", background: "#9ec4e8" }} />
             </div>
             <div style={{ fontSize: 8, color: INK3, lineHeight: 1.5 }}>
-              <strong>Open Search (418):</strong> 291 highlights · 99 copies · 21 source clicks · 7 downloads<br/>
-              <strong>Contextual (59):</strong> 37 highlights · 22 copies · 0 source clicks
+              <strong>Open Search (861):</strong> 411 highlights · 411 copies · 30 source clicks · 9 downloads<br/>
+              <strong>Contextual (82):</strong> 41 highlights · 41 copies · 0 source clicks
             </div>
           </div>
         </div>
@@ -2704,19 +2676,19 @@ function JulyMonthly() {
           Signal — Adoption holds without a physical event
         </div>
         <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
-          July's only activation was a single online awareness session (40 attendees, Jul 17) — no country roadshow. Yet 175 users and 35% within-month return held steady, and cumulative penetration reached 49.7%. Evidence that a lightweight, low-cost online format can sustain engagement is the most strategically useful finding of the month: it points to a more scalable activation model than country-by-country roadshows.
+          July's only activation was a single online awareness session (40 attendees, Jul 17) — no country roadshow. Yet 251 users and 36% within-month return held steady, and cumulative penetration crossed 50%. Evidence that a lightweight, low-cost online format can sustain engagement is the most strategically useful finding of the month: it points to a more scalable activation model than country-by-country roadshows.
         </p>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Volume dipped, loyal base held
         </div>
         <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
-          July saw fewer users than prior months (175 vs 379 in June), explained by the northern-hemisphere summer and the absence of a physical roadshow. What matters is where the drop landed: acquisition slowed, but recurrence held — 62 users returned for 2+ sessions (35% of those reached), in line with prior months, and cumulative penetration still crossed 50%. The loyal base did not erode; the real test is whether volume recovers on its own as staff return in August, or needs another activation to lift.
+          July saw fewer users than prior months (251 vs 379 in June), explained by the northern-hemisphere summer and the absence of a physical roadshow. What matters is where the drop landed: acquisition slowed, but recurrence held — 91 users returned for 2+ sessions (36% of those reached), in line with prior months, and cumulative penetration still crossed 50%. The loyal base did not erode; the real test is whether volume recovers on its own as staff return in August, or needs another activation to lift.
         </p>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Two channels, not a migration
         </div>
         <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
-          Open Search has been the dominant channel since release — that is not new. Contextual search has consolidated alongside it, peaking at 304 pill pageviews in June. July's 88% Open Search share reflects the smaller summer volume compressing deliberate contextual exploration more than conversational queries — a composition effect, not a behavioral shift. The two channels grow together when there is activity; they don't compete.
+          Open Search has been the dominant channel since release — that is not new. Contextual search has consolidated alongside it, peaking at 304 pill pageviews in June. July's 91% Open Search share reflects the smaller summer volume compressing deliberate contextual exploration more than conversational queries — a composition effect, not a behavioral shift. The two channels grow together when there is activity; they don't compete.
         </p>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Technical trust restored
