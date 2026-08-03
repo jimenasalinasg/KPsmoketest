@@ -2707,10 +2707,16 @@ function JulyMonthly() {
           July's only activation was a single online awareness session (40 attendees, Jul 17) — no country roadshow. Yet 175 users and 35% within-month return held steady, and cumulative penetration reached 49.7%. Evidence that a lightweight, low-cost online format can sustain engagement is the most strategically useful finding of the month: it points to a more scalable activation model than country-by-country roadshows.
         </p>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
-          Signal — Behavior is shifting toward the assistant
+          Signal — Volume dipped, loyal base held
         </div>
         <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
-          Open Search reached 88% of content engagement — its highest share to date — while Lessons Learned overtook Similar Projects as the top contextual pill for the first time in a full month. Read together, these signal a maturing use pattern: users are moving from browsing curated pills toward conversational, intent-driven queries, and from project discovery toward applied knowledge. The product's center of gravity is moving to the assistant.
+          July saw fewer users than prior months (175 vs 379 in June), explained by the northern-hemisphere summer and the absence of a physical roadshow. What matters is where the drop landed: acquisition slowed, but recurrence held — 62 users returned for 2+ sessions (35% of those reached), in line with prior months, and cumulative penetration still crossed 50%. The loyal base did not erode; the real test is whether volume recovers on its own as staff return in August, or needs another activation to lift.
+        </p>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+          Signal — Two channels, not a migration
+        </div>
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+          Open Search has been the dominant channel since release — that is not new. Contextual search has consolidated alongside it, peaking at 304 pill pageviews in June. July's 88% Open Search share reflects the smaller summer volume compressing deliberate contextual exploration more than conversational queries — a composition effect, not a behavioral shift. The two channels grow together when there is activity; they don't compete.
         </p>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Technical trust restored
