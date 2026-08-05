@@ -2573,68 +2573,6 @@ function JulyMonthly() {
         <MCard label={<>Least used pill —<br/>Institutional Docs</>} value="10" desc="interactions" small bench={BENCH.monthly.pillBot} />
       </div>
 
-      {/* ── BUNCHING SEASON CONTEXT ── */}
-      <div style={{ background: SURF, border: `1px solid ${BLUE_M}`, borderLeft: `3px solid ${BLUE_D}`, borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-          <span style={{ fontSize: 9, fontWeight: 600, padding: "3px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D, textTransform: "uppercase", letterSpacing: "0.08em" }}>
-            Seasonal context
-          </span>
-          <span style={{ fontSize: 13, fontWeight: 500, color: INK, letterSpacing: "-0.01em" }}>
-            Bunching season — July &amp; August
-          </span>
-        </div>
-
-        <div style={{ fontSize: 11, color: INK2, lineHeight: 1.6, marginBottom: 14 }}>
-          July and August concentrate project preparation across the Bank. Teams are drafting and shaping operations, which is exactly the moment lessons from past projects become operationally useful — not background reading, but an input to a document being written now. That is the most plausible driver of this month's shift.
-        </div>
-
-        {/* Pill leadership series */}
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>
-          Leading pill, month by month
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8, marginBottom: 14 }}>
-          {[
-            { m: "Apr", pill: "Similar Projects", n: 56, views: 255 },
-            { m: "May", pill: "Similar Projects", n: 40, views: 130 },
-            { m: "Jun", pill: "Similar Projects", n: 85, views: 304 },
-            { m: "Jul", pill: "Lessons Learned", n: 37, views: 137, shift: true },
-          ].map((s, i) => (
-            <div key={i} style={{
-              background: s.shift ? BLUE_L : BG,
-              border: `1px solid ${s.shift ? BLUE_M : BDR}`,
-              borderRadius: 8, padding: "10px 12px",
-            }}>
-              <div style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em", color: s.shift ? BLUE_D : INK3, marginBottom: 4 }}>
-                {s.m} 2026{s.shift ? " 🆕" : ""}
-              </div>
-              <div style={{ fontSize: 11, fontWeight: 500, color: s.shift ? BLUE_D : INK, lineHeight: 1.3 }}>{s.pill}</div>
-              <div style={{ fontSize: 9, color: s.shift ? BLUE : INK3, marginTop: 4 }}>
-                {s.n} interactions · {Math.round(s.n / s.views * 100)}% of pill views
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-          <div style={{ background: BG, border: `1px solid ${BDR}`, borderRadius: 8, padding: "12px 14px" }}>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: INK3, marginBottom: 6 }}>What changed</div>
-            <div style={{ fontSize: 10, color: INK2, lineHeight: 1.55 }}>
-              Composition, not volume. Total pill views fell (304 → 137) alongside the drop in monthly users, so fewer people used contextual search — but among those who did, Lessons Learned displaced Similar Projects for the first time since go-live.
-            </div>
-          </div>
-          <div style={{ background: BG, border: `1px solid ${BDR}`, borderRadius: 8, padding: "12px 14px" }}>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: INK3, marginBottom: 6 }}>How to test it</div>
-            <div style={{ fontSize: 10, color: INK2, lineHeight: 1.55 }}>
-              August is the second bunching month: if Lessons Learned holds the lead, the seasonal reading is confirmed. If it falls back behind Similar Projects in September, demand for lessons is cyclical and should be planned around the preparation calendar rather than treated as a permanent behaviour shift.
-            </div>
-          </div>
-        </div>
-
-        <div style={{ fontSize: 10, color: INK2, lineHeight: 1.55, marginTop: 12, paddingTop: 10, borderTop: `1px solid ${BDR}` }}>
-          <strong style={{ color: INK }}>Implication for LWA.</strong> Consumption of lessons peaks exactly when the Bank is preparing operations. The production side — who writes lessons, and when — follows the closing calendar instead. Worth checking whether the corpus available in July&nbsp;–&nbsp;August is deep enough to answer the demand it receives in those months.
-        </div>
-      </div>
-
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
@@ -2751,6 +2689,12 @@ function JulyMonthly() {
         </div>
         <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
           Open Search has been the dominant channel since release — that is not new. Contextual search has consolidated alongside it, peaking at 304 pill pageviews in June. July's 90% Open Search share reflects the smaller summer volume compressing deliberate contextual exploration more than conversational queries — a composition effect, not a behavioral shift. The two channels grow together when there is activity; they don't compete.
+        </p>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+          Signal — Lessons Learned leads a pill for the first time
+        </div>
+        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+          Lessons Learned (37 interactions) displaced Similar Projects as the most accessed pill, ending a run that held every month since go-live (56 in April, 40 in May, 85 in June). July and August are bunching season — project preparation concentrates across the Bank — and that is when past lessons stop being background reading and become an input to a document being drafted now. The shift is in composition, not demand: total pill views fell from 304 to 137 alongside the drop in users, so fewer people used contextual search, but those who did went looking for lessons. August is the second preparation month and the natural confirmation; if Lessons falls back behind Similar Projects in September, demand for lessons is cyclical and should be planned against the preparation calendar rather than read as a permanent behavioural change. Worth noting the asymmetry it exposes: consumption of lessons peaks when operations are being prepared, while production follows the closing calendar.
         </p>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Technical trust restored
