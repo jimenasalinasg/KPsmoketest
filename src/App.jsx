@@ -2705,8 +2705,8 @@ function JulyMonthly() {
 // ── AUGUST 2026 DATA ──────────────────────────────────────
 // Preliminary — through Aug 12, 2026 · pulled live via FullStory MCP
 const AUGUST = {
-  sessions: 110,
-  users: 70,
+  sessions: 209,
+  users: 78,
   prompters: 36,          // live via MCP (metric 3GVbGeJsPBCb)
   prompts: null,          // manual — pass at close
   returningUsers: null,   // pending
@@ -2852,7 +2852,7 @@ function AugustMonthly() {
       {/* Geo */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
-          🌎 Geographic Reach — {AUGUST.users} users · {AUGUST.totalCountries} countries (through Aug 12)
+          🌎 Geographic Reach — {AUGUST.totalCountries} countries (through Aug 12)
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
           <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
@@ -2972,7 +2972,7 @@ function AugustMonthly() {
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Summer pace, as expected</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            70 users · 110 sessions in the first third of the month — tracking near July's rhythm. The real test is the back-to-work rebound after mid-August.
+            78 users · 209 sessions in the first third of the month — tracking near July's rhythm. The real test is the back-to-work rebound after mid-August.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
