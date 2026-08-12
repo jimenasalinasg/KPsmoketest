@@ -2815,7 +2815,7 @@ function AugustMonthly() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {[
             { label: "Users reached", value: "1,842" },
-            { label: "Prompters", value: "—" },
+            { label: "Prompters", value: "813" },
             { label: "Prompts sent", value: "—" },
             { label: "Penetration of 3,600", value: "51.2%" },
           ].map((m, i) => (
