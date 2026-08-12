@@ -2723,6 +2723,8 @@ const AUGUST = {
   highlightedOpenSearch: 85, // live via MCP (RQ6IjtoMbeD5)
   copied: 63,             // live via MCP (yowGb1tOMe3X)
   copiedOpenSearch: 35,   // live via MCP (JOTETVLPeJKh)
+  wordDownloads: 0,       // live via MCP (3EkjBy6jYByB)
+  excelDownloads: 0,      // live via MCP (FIw2VjBWkJ6J)
   latency: null,          // manual
   csat: null,             // manual
   totalCountries: 20,
@@ -2937,7 +2939,8 @@ function AugustMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (August · partial)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard label="Queries (pill views)" value={String(AUGUST.pillPageviews)} desc="Total visits across all contextual search pills · live via MCP" accent momentum={JULY.pillPageviews} />
-        <MCard label="Most / least used pill" value="—" desc="Manual — pills are heatmaps, not computable metrics" small />
+        <MCard label="Most used pill — Similar Projects" value="7" desc="interactions · tied with Lessons Learned (7) · live via MCP" small />
+        <MCard label={<>Least used pill —<br/>Institutional Docs</>} value="4" desc="interactions · live via MCP" small />
       </div>
 
       {/* ── DIVIDER ── */}
@@ -2974,7 +2977,7 @@ function AugustMonthly() {
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Total content engagement</div>
             <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>208</div>
             <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.5 }}>
-              Highlights (136) + Copies (63) + Source panel clicks (9) · downloads pending (manual)
+              Highlights (136) + Copies (63) + Source panel clicks (9) + Downloads (0) · live via MCP
             </div>
           </div>
           <div style={{ minWidth: 220, flex: 1, maxWidth: 340 }}>
@@ -2994,6 +2997,14 @@ function AugustMonthly() {
         </div>
         <div style={{ fontSize: 8, color: BLUE, marginTop: 10, fontStyle: "italic" }}>Live via MCP — most balanced OS/Contextual split since May (62/38 vs July's 90/10).</div>
       </div>
+      <EngagementCard
+        highlighted={AUGUST.highlighted}
+        highlightedOpenSearch={AUGUST.highlightedOpenSearch}
+        copied={AUGUST.copied}
+        copiedOpenSearch={AUGUST.copiedOpenSearch}
+        benchHighlights={BENCH.monthly.highlights}
+        benchCopies={BENCH.monthly.copies}
+      />
 
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
