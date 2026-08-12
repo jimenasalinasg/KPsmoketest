@@ -2691,12 +2691,6 @@ function JulyMonthly() {
           Open Search has been the dominant channel since release — that is not new. Contextual search has consolidated alongside it, peaking at 304 pill pageviews in June. July's 90% Open Search share reflects the smaller summer volume compressing deliberate contextual exploration more than conversational queries — a composition effect, not a behavioral shift. The two channels grow together when there is activity; they don't compete.
         </p>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
-          Signal — Lessons Learned leads a pill for the first time
-        </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
-          Lessons Learned (37 interactions) displaced Similar Projects as the most accessed pill, ending a run that held every month since go-live (56 in April, 40 in May, 85 in June). July and August are bunching season — project preparation concentrates across the Bank — and that is when past lessons stop being background reading and become an input to a document being drafted now. The shift is in composition, not demand: total pill views fell from 304 to 137 alongside the drop in users, so fewer people used contextual search, but those who did went looking for lessons. August is the second preparation month and the natural confirmation; if Lessons falls back behind Similar Projects in September, demand for lessons is cyclical and should be planned against the preparation calendar rather than read as a permanent behavioural change. Worth noting the asymmetry it exposes: consumption of lessons peaks when operations are being prepared, while production follows the closing calendar.
-        </p>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Technical trust restored
         </div>
         <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
@@ -2708,74 +2702,122 @@ function JulyMonthly() {
   );
 }
 
-// ── BID BENCHMARK DATA — July 2026 ────────────────────────
-// KP: FullStory · all others: Datadog RUM (1–31 Jul 2026, bots excluded)
-const BENCH_MAU = [
-  { name: "Fiduciary Interface", mau: 500 },
-  { name: "Client Connectivity (IDB staff)", mau: 380 },
-  { name: "Knowledge Platform", mau: 371, kp: true, sub: "median Apr–Jul · 251 in July alone" },
-  { name: "Convergence — My Tasks", mau: 270 },
-  { name: "Impact Management", mau: 163 },
-  { name: "Convergence — Control", mau: 100 },
-  { name: "Aurora", mau: 87 },
-  { name: "Digital Solution Portal", mau: 10, weak: true, sub: "internal pilot" },
-];
+// ── AUGUST 2026 DATA ──────────────────────────────────────
+// Preliminary — through Aug 12, 2026 · pulled live via FullStory MCP
+const AUGUST = {
+  sessions: 110,
+  users: 70,
+  prompters: 36,          // live via MCP (metric 3GVbGeJsPBCb)
+  prompts: null,          // manual — pass at close
+  returningUsers: null,   // pending
+  first_time: null,       // pending
+  tourCompletion: 48,     // live via MCP (iN3brKBr4rlY)
+  pillPageviews: 84,      // live via MCP (2EYT9yOW6odB)
+  sourceClicks: 9,        // live via MCP (Ge6P9qbIeu3b)
+  thumbsUp: 0,            // live via MCP (AtpRWyuThJUq)
+  thumbsDown: 0,          // live via MCP (x6Z3q26RMOra)
+  promptGalleryClicks: 1, // live via MCP (lkwqkKIJQ25E)
+  recentSearchClicks: 2,  // live via MCP (nfcBnYjQSAfT)
+  newSearchClicks: 0,     // live via MCP (tU5aopeDHc1k)
+  highlighted: 136,       // live via MCP (cMgaz9YMCSJh)
+  highlightedOpenSearch: 85, // live via MCP (RQ6IjtoMbeD5)
+  copied: 63,             // live via MCP (yowGb1tOMe3X)
+  copiedOpenSearch: 35,   // live via MCP (JOTETVLPeJKh)
+  latency: null,          // manual
+  csat: null,             // manual
+  totalCountries: 20,
+  countries: [
+    { name: "United States (HQ)", code: "US", users: 33, pct: 47 },
+    { name: "Colombia",           code: "CO", users: 5,  pct: 7  },
+    { name: "Argentina",          code: "AR", users: 4,  pct: 6  },
+    { name: "Brazil",             code: "BR", users: 4,  pct: 6  },
+    { name: "Uruguay",            code: "UY", users: 4,  pct: 6  },
+    { name: "Spain",              code: "ES", users: 3,  pct: 4  },
+    { name: "Barbados",           code: "BB", users: 2,  pct: 3  },
+    { name: "Mexico",             code: "MX", users: 2,  pct: 3  },
+    { name: "Panama",             code: "PA", users: 2,  pct: 3  },
+    { name: "Trinidad & Tobago",  code: "TT", users: 2,  pct: 3  },
+    { name: "Bolivia",            code: "BO", users: 1,  pct: 1  },
+    { name: "Chile",              code: "CL", users: 1,  pct: 1  },
+    { name: "Costa Rica",         code: "CR", users: 1,  pct: 1  },
+    { name: "Ecuador",            code: "EC", users: 1,  pct: 1  },
+    { name: "Germany",            code: "DE", users: 1,  pct: 1  },
+    { name: "Guatemala",          code: "GT", users: 1,  pct: 1  },
+    { name: "Honduras",           code: "HN", users: 1,  pct: 1  },
+    { name: "Paraguay",           code: "PY", users: 1,  pct: 1  },
+    { name: "Peru",               code: "PE", users: 1,  pct: 1  },
+    { name: "Suriname",           code: "SR", users: 1,  pct: 1  },
+  ],
+};
 
-const BENCH_FREQ = [
-  { name: "Knowledge Platform", spu: 2.9, detail: "717 sessions · 251 users", kp: true },
-  { name: "Client Connectivity (staff)", spu: 5.3, detail: "~1,997 sessions · ~380 users" },
-  { name: "Client Connectivity (external)", spu: 9.6, detail: "13,418 sessions · ~1,400 users" },
-  { name: "Digital Solution Portal", spu: 12.4, detail: "124 sessions · ~10 users", weak: true },
-  { name: "Impact Management", spu: 23.5, detail: "3,836 sessions · 163 users" },
-];
+// ── AUGUST MONTHLY VIEW ───────────────────────────────────
+function AugustMonthly() {
+  const MONTH = "August 2026 — through Aug 12";
+  const [showAllCountries, setShowAllCountries] = useState(false);
 
-const KP_SERIES = [
-  { m: "Apr", users: 588, pct: 16.3 },
-  { m: "May", users: 363, pct: 10.1 },
-  { m: "Jun", users: 379, pct: 10.5 },
-  { m: "Jul", users: 251, pct: 7.0 },
-];
+  const MCard = ({ label, value, desc, accent, small, bench, momentum }) => {
+    let momentumBadge = null;
+    if (value && value !== "—" && momentum != null) {
+      const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
+      if (!isNaN(numVal) && momentum > 0) {
+        const ratio = numVal / momentum;
+        const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
+        momentumBadge = { label: ratio >= 1 ? `↑${pctDiff}%` : `↓${pctDiff}%` };
+      }
+    }
+    return (
+      <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8 }}>{label}</div>
+        <div style={{ fontSize: small ? 16 : 28, fontWeight: 500, letterSpacing: small ? "-0.01em" : "-0.03em", lineHeight: 1.2, color: value && value !== "—" ? (accent ? BLUE_D : INK) : BDR }}>{value || "—"}</div>
+        {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6 }}>{desc}</div>}
+        {momentumBadge && (
+          <div style={{ marginTop: 4 }}>
+            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: momentumBadge.label.startsWith("↑") ? "#edfaf4" : "#fef0ee", color: momentumBadge.label.startsWith("↑") ? GREEN : RED }}>
+              {momentumBadge.label} vs July ({momentum})
+            </span>
+          </div>
+        )}
+      </div>
+    );
+  };
 
-// ── BENCHMARK VIEW ────────────────────────────────────────
-function Benchmark() {
-  const MAX_MAU = 500;
-  const MAX_SPU = 25;
-  const zone = (v) => (v < 6 ? "Occasional lookup" : v < 15 ? "Recurring use" : "Daily work tool");
-  const zoneColor = (v) => (v < 6 ? BLUE : v < 15 ? "#7c5cd6" : GREEN);
-
-  const Section = ({ kicker, title, lead, children }) => (
-    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
-      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6 }}>{kicker}</div>
-      <div style={{ fontSize: 15, fontWeight: 500, color: INK, letterSpacing: "-0.01em", marginBottom: lead ? 6 : 16 }}>{title}</div>
-      {lead && <div style={{ fontSize: 11, color: INK2, lineHeight: 1.55, marginBottom: 16 }}>{lead}</div>}
-      {children}
-    </div>
-  );
+  const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
+  const regional = AUGUST.countries.filter(c => c.code !== "US");
+  const usData = AUGUST.countries.find(c => c.code === "US");
+  const maxUsers = regional[0].users;
 
   return (
     <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
 
       {/* Header */}
-      <div style={{ marginBottom: 8 }}>
-        <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Context</div>
-        <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>IDB Product Benchmark — July 2026</div>
-        <div style={{ fontSize: 11, color: INK3 }}>Where KP sits among other IDB digital products · Sources: FullStory (KP) + Datadog RUM (rest)</div>
+      <div style={{ marginBottom: 8, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+        <div>
+          <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
+          <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
+          <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (live via MCP)</div>
+        </div>
       </div>
 
-      {/* Headline reading */}
-      <div style={{ background: "#0A2342", borderRadius: 10, padding: "18px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 10 }}>
-          The one-line read
+      {/* MCP banner */}
+      <div style={{ background: "#f0f4ff", border: "1px solid #c7d7fe", borderRadius: 8, padding: "10px 16px", display: "flex", alignItems: "center", gap: 10 }}>
+        <span style={{ fontSize: 14 }}>🔌</span>
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 600, color: "#3730a3" }}>Live pull — through Aug 12, 2026</div>
+          <div style={{ fontSize: 10, color: "#4f46e5", marginTop: 2 }}>Users, sessions and country data pulled directly from FullStory via MCP (segment: sin dev copy). Prompt/highlight/copy/LWA metrics pending — they depend on custom event names not yet mapped. Figures may run ~5% below the official dashboard until filter 833220869 is replicated.</div>
         </div>
-        <div style={{ fontSize: 15, color: "#fff", lineHeight: 1.5, fontWeight: 500, marginBottom: 10 }}>
-          KP's reach is mid-pack among IDB internal tools. Its frequency is the lowest — because it competes for a different moment: the occasional question, not the daily task.
+      </div>
+
+      {/* Cumulative totals — pulled live via MCP */}
+      <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
+          Cumulative totals — Sep 1, 2025 to Aug 12, 2026 · live via MCP
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginTop: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {[
-            { label: "KP MAU · July", value: "251" },
-            { label: "KP MAU · median Apr–Jul", value: "371" },
-            { label: "Sessions per user · July", value: "2.9" },
-            { label: "Returned 2+ times", value: "36%" },
+            { label: "Users reached", value: "1,842" },
+            { label: "Prompters", value: "—" },
+            { label: "Prompts sent", value: "—" },
+            { label: "Penetration of 3,600", value: "51.2%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -2785,150 +2827,355 @@ function Benchmark() {
         </div>
       </div>
 
-      {/* 1 — REACH */}
-      <Section
-        kicker="1 · Reach"
-        title="Monthly active users across IDB digital products"
-        lead="No internal IDB tool clears 400 monthly users on staff. Read against that ceiling, KP is not a small product — it is inside the normal band for bank-wide internal software."
-      >
-        {/* Copilot off-scale note */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", background: BLUE_L, border: `1px dashed ${BLUE_M}`, borderRadius: 8, marginBottom: 16 }}>
-          <div style={{ fontSize: 16, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.02em" }}>~2,900</div>
-          <div style={{ fontSize: 10, color: BLUE_D, lineHeight: 1.45 }}>
-            <strong>Microsoft Copilot</strong> — off scale, excluded from the chart below. A general-purpose assistant embedded in Office; not a comparable knowledge product, but it sets the ceiling of what "everyone uses it" looks like at the IDB.
+      {/* ── GENERAL USABILITY ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (August · partial)</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
+        <MCard label="Users reached" value={String(AUGUST.users)} desc="Unique people who used KP so far in August" accent momentum={JULY.users} />
+        <MCard label="Sessions" value={String(AUGUST.sessions)} desc="Total for the period so far" momentum={JULY.sessions} />
+        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(AUGUST.users/3600*100*10)/10}%</div>
+          <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
+            <div style={{ width: `${Math.round(AUGUST.users/3600*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
+          </div>
+          <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+            <span>{AUGUST.users} users</span><span>3,600 total</span>
+          </div>
+          <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants (partial month)</div>
+        </div>
+        <MCard label="Prompters (≥1 prompt)" value={String(AUGUST.prompters)} desc={`${Math.round(AUGUST.prompters/AUGUST.users*100)}% of users reached · live via MCP`} accent momentum={JULY.prompters} />
+        <MCard label="% Onboarding completed" value={`${AUGUST.tourCompletion}%`} desc="Users who finished the tour · live via MCP" momentum={JULY.tourCompletion} />
+        <MCard label="New users" value={null} desc="Pending" />
+        <MCard label="Returning users" value={null} desc="Pending" />
+      </div>
+
+      {/* Geo */}
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
+          🌎 Geographic Reach — {AUGUST.users} users · {AUGUST.totalCountries} countries (through Aug 12)
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
+          <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
+          <div style={{ flex: 1 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
+              <span style={{ fontSize: 11, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
+              <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usData.pct}%</span>
+            </div>
+            <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
+              <div style={{ width: `${usData.pct}%`, height: "100%", background: "#1464A0", borderRadius: 99 }} />
+            </div>
           </div>
         </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px 16px" }}>
+          {(showAllCountries ? regional : regional.slice(0, 12)).map((c, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
+              <span style={{ fontSize: 13, flexShrink: 0 }}>{flag(c.code)}</span>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
+                  <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
+                  <span style={{ fontSize: 9, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
+                </div>
+                <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
+                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 4 ? "#1464A0" : c.users >= 2 ? BLUE : "#7ab3e0", borderRadius: 99 }} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        {regional.length > 12 && (
+          <button onClick={() => setShowAllCountries(!showAllCountries)} style={{ fontFamily: "inherit", fontSize: 9, fontWeight: 500, marginTop: 8, padding: "5px 12px", border: `1px solid ${BDR}`, borderRadius: 99, cursor: "pointer", background: SURF, color: BLUE_D }}>
+            {showAllCountries ? "▴ Show less" : `▾ Show all ${regional.length} countries`}
+          </button>
+        )}
+        <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
+          Live from FullStory via MCP. Country data reflects session location by IP; multi-country users may appear more than once. New face this month: Germany 🇩🇪.
+        </div>
+      </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
-          {BENCH_MAU.map((p, i) => (
-            <div key={i} style={{ display: "grid", gridTemplateColumns: "215px 1fr 54px", alignItems: "center", gap: 10 }}>
-              <div style={{ fontSize: 10, color: p.kp ? BLUE_D : INK2, fontWeight: p.kp ? 500 : 400, lineHeight: 1.3 }}>
-                {p.name}
-                {p.sub && <span style={{ display: "block", fontSize: 8, color: INK3, marginTop: 2 }}>{p.sub}</span>}
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      {/* ── CONTEXTUAL SEARCH ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (August · partial)</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
+        <MCard label="Queries (pill views)" value={String(AUGUST.pillPageviews)} desc="Total visits across all contextual search pills · live via MCP" accent momentum={JULY.pillPageviews} />
+        <MCard label="Most / least used pill" value="—" desc="Manual — pills are heatmaps, not computable metrics" small />
+      </div>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      {/* ── KNOWLEDGE ASSISTANT ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (August · partial)</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
+        <MCard label="Prompters (≥1 prompt)" value={String(AUGUST.prompters)} desc={`${Math.round(AUGUST.prompters/AUGUST.users*100)}% of users reached`} accent momentum={JULY.prompters} />
+        <MCard label="Prompts sent" value={null} desc="Manual — pass at close" accent />
+        <MCard label="Latency" value={null} desc="Manual — pass at close" small />
+        <MCard label="Source panel clicks" value={String(AUGUST.sourceClicks)} desc="Clicks on source panel · live via MCP" momentum={JULY.sourceClicks} />
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
+          <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
+            <div style={{ fontSize: 28, fontWeight: 500, color: GREEN, letterSpacing: "-0.03em", lineHeight: 1 }}>👍 {AUGUST.thumbsUp}</div>
+            <div style={{ fontSize: 28, fontWeight: 500, color: RED, letterSpacing: "-0.03em", lineHeight: 1 }}>👎 {AUGUST.thumbsDown}</div>
+          </div>
+          <div style={{ fontSize: 9, color: INK3, marginTop: 8 }}>AI responses rated · live via MCP</div>
+        </div>
+        <MCard label="Prompt Gallery clicks" value={String(AUGUST.promptGalleryClicks)} momentum={JULY.promptGalleryClicks} />
+        <MCard label="Recent Search clicks" value={String(AUGUST.recentSearchClicks)} momentum={JULY.recentSearchClicks} />
+        <MCard label="New Search clicks" value={String(AUGUST.newSearchClicks)} momentum={JULY.newSearchClicks} />
+      </div>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      {/* ── CONTENT ENGAGEMENT ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (August · partial)</div>
+      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "18px 20px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
+          <div>
+            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Total content engagement</div>
+            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>208</div>
+            <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.5 }}>
+              Highlights (136) + Copies (63) + Source panel clicks (9) · downloads pending (manual)
+            </div>
+          </div>
+          <div style={{ minWidth: 220, flex: 1, maxWidth: 340 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 129 (62%)</span>
+              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 79 (38%)</span>
+            </div>
+            <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 8 }}>
+              <div style={{ width: "62%", background: BLUE_D }} />
+              <div style={{ width: "38%", background: "#9ec4e8" }} />
+            </div>
+            <div style={{ fontSize: 8, color: INK3, lineHeight: 1.5 }}>
+              <strong>Open Search (129):</strong> 85 highlights · 35 copies · 9 source clicks<br/>
+              <strong>Contextual (79):</strong> 51 highlights · 28 copies · 0 source clicks
+            </div>
+          </div>
+        </div>
+        <div style={{ fontSize: 8, color: BLUE, marginTop: 10, fontStyle: "italic" }}>Live via MCP — most balanced OS/Contextual split since May (62/38 vs July's 90/10).</div>
+      </div>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      {/* Signals — executive */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — early read (12 days in)</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${GREEN}` }}>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration crossed 51%</div>
+          <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+            1,842 cumulative users — +24 net-new in 12 days. Adoption keeps compounding past the halfway mark of the bank with no active campaign.
+          </p>
+        </div>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Summer pace, as expected</div>
+          <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+            70 users · 110 sessions in the first third of the month — tracking near July's rhythm. The real test is the back-to-work rebound after mid-August.
+          </p>
+        </div>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach still widening</div>
+          <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+            20 countries already, with Germany appearing for the first time — geographic spread holds even in a quiet month, not just HQ traffic.
+          </p>
+        </div>
+      </div>
+
+      {/* Pending sections note */}
+      <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
+        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views, source clicks, feedback, gallery/recent/new search — all pulled directly from FullStory metrics by ID. <strong style={{ color: INK2 }}>Still manual/pending:</strong> prompts sent, latency, CSAT (passed by hand), plus new/returning users, most-used pill, content engagement and LWA. These fill in the same way once their metric IDs are computed or values passed. Full month (through Aug 31) replaces this partial pull.
+      </div>
+
+    </div>
+  );
+}
+
+// ── PRODUCT BENCHMARK ─────────────────────────────────────
+function Benchmark() {
+  const reachProducts = [
+    { name: "Fiduciary Interface",        users: 500, kp: false },
+    { name: "Client Connectivity (IDB staff)", users: 380, kp: false },
+    { name: "Knowledge Platform",         users: 371, kp: true, sub: "median Apr–Jul · 251 in July alone" },
+    { name: "Convergence — My Tasks",     users: 270, kp: false },
+    { name: "Impact Management",          users: 163, kp: false },
+    { name: "Convergence — Control",      users: 100, kp: false },
+    { name: "Aurora",                     users: 87,  kp: false },
+    { name: "Digital Solution Portal",    users: 10,  kp: false, sub: "internal pilot" },
+  ];
+  const maxReach = 500;
+
+  const kpSeries = [
+    { month: "Apr 2026", value: 588, pct: "16.3% of 3,600" },
+    { month: "May 2026", value: 363, pct: "10.1% of 3,600" },
+    { month: "Jun 2026", value: 379, pct: "10.5% of 3,600" },
+    { month: "Jul 2026", value: 251, pct: "7% of 3,600" },
+    { month: "Median",   value: 371, pct: "10.3% of 3,600", highlight: true },
+  ];
+
+  const intensity = [
+    { name: "Knowledge Platform",        val: 2.9,  sub: "717 sessions · 251 users", kp: true, color: BLUE },
+    { name: "Client Connectivity (staff)", val: 5.3, sub: "~1,997 sessions · ~380 users", color: BLUE },
+    { name: "Client Connectivity (external)", val: 9.6, sub: "13,418 sessions · ~1,400 users", color: "#9b7cc7" },
+    { name: "Digital Solution Portal",   val: 12.4, sub: "124 sessions · ~10 users", color: "#cbd5e1" },
+    { name: "Impact Management",         val: 23.5, sub: "3,836 sessions · 163 users", color: GREEN },
+  ];
+  const maxIntensity = 23.5;
+
+  return (
+    <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 20 }}>
+
+      {/* Header */}
+      <div>
+        <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Context</div>
+        <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>IDB Product Benchmark — July 2026</div>
+        <div style={{ fontSize: 11, color: INK3 }}>Where KP sits among other IDB digital products · Sources: FullStory (KP) + Datadog RUM (rest)</div>
+      </div>
+
+      {/* One-line read */}
+      <div style={{ background: "#0A2342", borderRadius: 10, padding: "20px 24px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 10 }}>The one-line read</div>
+        <div style={{ fontSize: 15, fontWeight: 500, color: "#fff", lineHeight: 1.5, marginBottom: 18 }}>
+          KP's reach is mid-pack among IDB internal tools. Its frequency is the lowest — because it competes for a different moment: the occasional question, not the daily task.
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+          {[
+            { v: "251", l: "KP MAU · July" },
+            { v: "371", l: "KP MAU · median Apr–Jul" },
+            { v: "2.9", l: "Sessions per user · July" },
+            { v: "36%", l: "Returned 2+ times" },
+          ].map((m, i) => (
+            <div key={i}>
+              <div style={{ fontSize: 26, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.v}</div>
+              <div style={{ fontSize: 8, color: "#a8c4e0", textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.l}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 1 · REACH */}
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "20px 24px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>1 · Reach</div>
+        <div style={{ fontSize: 16, fontWeight: 500, color: INK, marginBottom: 8 }}>Monthly active users across IDB digital products</div>
+        <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: "0 0 14px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+          No internal IDB tool clears 400 monthly users on staff. Read against that ceiling, KP is not a small product — it is inside the normal band for bank-wide internal software.
+        </p>
+
+        {/* Copilot callout */}
+        <div style={{ background: BLUE_L, borderRadius: 8, padding: "10px 14px", marginBottom: 16, display: "flex", gap: 12, alignItems: "baseline" }}>
+          <span style={{ fontSize: 16, fontWeight: 500, color: BLUE_D, flexShrink: 0 }}>~2,900</span>
+          <span style={{ fontSize: 10, color: BLUE_D, lineHeight: 1.5 }}><strong>Microsoft Copilot</strong> — off scale, excluded from the chart below. A general-purpose assistant embedded in Office; not a comparable knowledge product, but it sets the ceiling of what "everyone uses it" looks like at the IDB.</span>
+        </div>
+
+        {/* Reach bars */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {reachProducts.map((p, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{ width: 200, flexShrink: 0 }}>
+                <div style={{ fontSize: 11, color: p.kp ? BLUE_D : INK2, fontWeight: p.kp ? 600 : 400 }}>{p.name}</div>
+                {p.sub && <div style={{ fontSize: 8, color: INK3 }}>{p.sub}</div>}
               </div>
-              <div style={{ background: BG, borderRadius: 4, height: 18, position: "relative", overflow: "hidden" }}>
-                <div style={{
-                  width: `${Math.max((p.mau / MAX_MAU) * 100, 1.2)}%`, height: "100%",
-                  background: p.kp ? BLUE_D : p.weak ? "#d8ddeb" : BLUE_M, borderRadius: 4,
-                }} />
+              <div style={{ flex: 1, background: BG, borderRadius: 4, height: 16, overflow: "hidden" }}>
+                <div style={{ width: `${(p.users/maxReach)*100}%`, height: "100%", background: p.kp ? "#1464A0" : "#c7ddf0", borderRadius: 4 }} />
               </div>
-              <div style={{ fontSize: 11, fontWeight: 500, color: p.kp ? BLUE_D : INK2, textAlign: "right" }}>{p.mau.toLocaleString()}</div>
+              <div style={{ width: 40, textAlign: "right", fontSize: 11, color: p.kp ? BLUE_D : INK2, fontWeight: p.kp ? 600 : 400 }}>{p.users}</div>
             </div>
           ))}
         </div>
 
-        {/* KP series strip */}
-        <div style={{ marginTop: 18, paddingTop: 14, borderTop: `1px solid ${BDR}` }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 10 }}>
-            Which KP number to use — post go-live series
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 10 }}>
-            {KP_SERIES.map((s, i) => (
-              <div key={i} style={{ background: BG, border: `1px solid ${BDR}`, borderRadius: 8, padding: "10px 12px" }}>
-                <div style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em", color: INK3, marginBottom: 4 }}>{s.m} 2026</div>
-                <div style={{ fontSize: 15, fontWeight: 500, color: INK, letterSpacing: "-0.02em" }}>{s.users}</div>
-                <div style={{ fontSize: 9, color: INK3, marginTop: 2 }}>{s.pct}% of 3,600</div>
-              </div>
-            ))}
-            <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 12px" }}>
-              <div style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em", color: BLUE_D, marginBottom: 4 }}>Median</div>
-              <div style={{ fontSize: 15, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.02em" }}>371</div>
-              <div style={{ fontSize: 9, color: BLUE, marginTop: 2 }}>10.3% of 3,600</div>
+        {/* KP series */}
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, margin: "20px 0 10px 0" }}>Which KP number to use — post go-live series</div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 8 }}>
+          {kpSeries.map((k, i) => (
+            <div key={i} style={{ background: k.highlight ? BLUE_L : SURF, border: `1px solid ${k.highlight ? BLUE_M : BDR}`, borderRadius: 8, padding: "10px 12px" }}>
+              <div style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em", color: INK3, marginBottom: 4 }}>{k.month}</div>
+              <div style={{ fontSize: 20, fontWeight: 500, color: k.highlight ? BLUE_D : INK, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{k.value}</div>
+              <div style={{ fontSize: 8, color: k.highlight ? BLUE_D : INK3 }}>{k.pct}</div>
             </div>
-          </div>
-          <div style={{ fontSize: 10, color: INK2, lineHeight: 1.5, marginTop: 10 }}>
-            April is the launch spike; May–June are the stable plateau; July is the outlier. The median neutralises the spike without dropping July. Every reasonable window — median Apr–Jun 379, mean Apr–Jul 395, mean Apr–Jun 443 — lands between 10% and 11% penetration, which is why <strong>371 / 10.3%</strong> is the defensible headline rather than any single month.
-          </div>
+          ))}
         </div>
-      </Section>
+        <p style={{ fontSize: 10, color: INK3, lineHeight: 1.5, margin: "12px 0 0 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+          April is the launch spike; May–June are the stable plateau; July is the outlier. The median neutralises the spike without dropping July. Every reasonable window — median Apr–Jun 379, mean Apr–Jul 395, mean Apr–Jun 443 — lands between 10% and 11% penetration, which is why 371 / 10.3% is the defensible headline rather than any single month.
+        </p>
+      </div>
 
-      {/* 2 — INTENSITY */}
-      <Section
-        kicker="2 · Intensity"
-        title="Sessions per user — how often people come back within the month"
-        lead="Only five products report both sessions and users, so this comparison is narrower than the reach chart. Fiduciary Interface, Convergence, Copilot and Aurora are excluded: users available, sessions not."
-      >
-        <div style={{ position: "relative", paddingBottom: 4 }}>
-          {/* zone header */}
-          <div style={{ display: "grid", gridTemplateColumns: "215px 1fr 54px", gap: 10, marginBottom: 8 }}>
-            <div />
-            <div style={{ display: "flex", fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em" }}>
-              <div style={{ width: `${(6 / MAX_SPU) * 100}%`, color: BLUE }}>Occasional lookup</div>
-              <div style={{ width: `${(9 / MAX_SPU) * 100}%`, color: "#7c5cd6" }}>Recurring</div>
-              <div style={{ width: `${(10 / MAX_SPU) * 100}%`, color: GREEN }}>Daily work tool</div>
-            </div>
-            <div />
-          </div>
+      {/* 2 · INTENSITY */}
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "20px 24px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>2 · Intensity</div>
+        <div style={{ fontSize: 16, fontWeight: 500, color: INK, marginBottom: 8 }}>Sessions per user — how often people come back within the month</div>
+        <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: "0 0 14px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+          Only five products report both sessions and users, so this comparison is narrower than the reach chart. Fiduciary Interface, Convergence, Copilot and Aurora are excluded: users available, sessions not.
+        </p>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
-            {BENCH_FREQ.map((p, i) => (
-              <div key={i} style={{ display: "grid", gridTemplateColumns: "215px 1fr 54px", alignItems: "center", gap: 10 }}>
-                <div style={{ fontSize: 10, color: p.kp ? BLUE_D : INK2, fontWeight: p.kp ? 500 : 400, lineHeight: 1.3 }}>
-                  {p.name}
-                  <span style={{ display: "block", fontSize: 8, color: INK3, marginTop: 2 }}>{p.detail}</span>
-                </div>
-                <div style={{ background: BG, borderRadius: 4, height: 18, position: "relative", overflow: "hidden" }}>
-                  {/* zone dividers */}
-                  <div style={{ position: "absolute", left: `${(6 / MAX_SPU) * 100}%`, top: 0, bottom: 0, width: 1, background: BDR }} />
-                  <div style={{ position: "absolute", left: `${(15 / MAX_SPU) * 100}%`, top: 0, bottom: 0, width: 1, background: BDR }} />
-                  <div style={{
-                    width: `${(p.spu / MAX_SPU) * 100}%`, height: "100%",
-                    background: p.weak ? "#d8ddeb" : zoneColor(p.spu), borderRadius: 4, opacity: p.kp ? 1 : 0.75,
-                  }} />
-                </div>
-                <div style={{ fontSize: 11, fontWeight: 500, color: p.kp ? BLUE_D : INK2, textAlign: "right" }}>{p.spu}</div>
+        {/* Intensity legend */}
+        <div style={{ display: "flex", gap: 20, marginBottom: 10, fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+          <span style={{ color: BLUE }}>Occasional lookup</span>
+          <span style={{ color: "#9b7cc7" }}>Recurring</span>
+          <span style={{ color: GREEN }}>Daily work tool</span>
+        </div>
+
+        {/* Intensity bars */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {intensity.map((p, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{ width: 200, flexShrink: 0 }}>
+                <div style={{ fontSize: 11, color: p.kp ? BLUE_D : INK2, fontWeight: p.kp ? 600 : 400 }}>{p.name}</div>
+                <div style={{ fontSize: 8, color: INK3 }}>{p.sub}</div>
               </div>
-            ))}
-          </div>
+              <div style={{ flex: 1, background: BG, borderRadius: 4, height: 16, overflow: "hidden" }}>
+                <div style={{ width: `${(p.val/maxIntensity)*100}%`, height: "100%", background: p.color, borderRadius: 4 }} />
+              </div>
+              <div style={{ width: 40, textAlign: "right", fontSize: 11, color: p.kp ? BLUE_D : INK2, fontWeight: p.kp ? 600 : 400 }}>{p.val}</div>
+            </div>
+          ))}
         </div>
+        <p style={{ fontSize: 10, color: INK3, lineHeight: 1.5, margin: "14px 0 0 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+          <strong>Frequency measures product type, not product quality.</strong> Impact Management is used daily because the work happens inside it — it is mandatory and transactional. KP is an optional lookup tool, so comparing raw frequency structurally favours mandatory software. Digital Solution Portal (10 users) is shown for completeness only: one person entering twenty times moves that average on its own.
+        </p>
+      </div>
 
-        <div style={{ fontSize: 10, color: INK2, lineHeight: 1.5, marginTop: 14, paddingTop: 12, borderTop: `1px solid ${BDR}` }}>
-          <strong style={{ color: INK }}>Frequency measures product type, not product quality.</strong> Impact Management is used daily because the work happens inside it — it is mandatory and transactional. KP is an optional lookup tool, so comparing raw frequency structurally favours mandatory software. Digital Solution Portal (10 users) is shown for completeness only: one person entering twenty times moves that average on its own.
-        </div>
-      </Section>
+      {/* 3 · RETURN */}
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "20px 24px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>3 · Return</div>
+        <div style={{ fontSize: 16, fontWeight: 500, color: INK, marginBottom: 8 }}>Behind the 2.9 average there are two very different populations</div>
+        <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: "0 0 14px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+          The monthly average blends people who never came back with people who use KP regularly. Split apart, the number stops being a verdict and becomes a lever.
+        </p>
 
-      {/* 3 — RETURN */}
-      <Section
-        kicker="3 · Return"
-        title="Behind the 2.9 average there are two very different populations"
-        lead="The monthly average blends people who never came back with people who use KP regularly. Split apart, the number stops being a verdict and becomes a lever."
-      >
-        <div style={{ display: "flex", height: 44, borderRadius: 8, overflow: "hidden", border: `1px solid ${BDR}` }}>
-          <div style={{ width: `${(160 / 251) * 100}%`, background: "#e8ecf6", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 500, color: INK2 }}>
-            ~160 · one single visit
+        {/* Split bar */}
+        <div style={{ display: "flex", gap: 4, marginBottom: 8 }}>
+          <div style={{ flex: "0 0 64%", background: BG, borderRadius: 6, padding: "14px 16px", textAlign: "center" }}>
+            <span style={{ fontSize: 12, color: INK2 }}>~160 · one single visit</span>
           </div>
-          <div style={{ width: `${(91 / 251) * 100}%`, background: BLUE_D, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 500, color: "#fff" }}>
-            91 · came back
+          <div style={{ flex: "0 0 34%", background: "#1464A0", borderRadius: 6, padding: "14px 16px", textAlign: "center" }}>
+            <span style={{ fontSize: 12, color: "#fff", fontWeight: 600 }}>91 · came back</span>
           </div>
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 9, color: INK3, marginTop: 6 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 9, color: INK3, marginBottom: 16 }}>
           <span>64% did not return within July</span>
           <span>36% recorded 2+ sessions</span>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 16 }}>
-          <div style={{ background: BG, border: `1px solid ${BDR}`, borderRadius: 8, padding: "12px 14px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+          <div style={{ border: `1px solid ${BDR}`, borderRadius: 8, padding: "14px 16px" }}>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: INK3, marginBottom: 6 }}>The real asset</div>
-            <div style={{ fontSize: 10, color: INK2, lineHeight: 1.5 }}>
-              91 people already treat KP as a recurring tool. That base — not the headline average — is what the roadmap should be protecting and growing.
-            </div>
+            <p style={{ fontSize: 10, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>91 people already treat KP as a recurring tool. That base — not the headline average — is what the roadmap should be protecting and growing.</p>
           </div>
-          <div style={{ background: BG, border: `1px solid ${BDR}`, borderRadius: 8, padding: "12px 14px" }}>
+          <div style={{ border: `1px solid ${BDR}`, borderRadius: 8, padding: "14px 16px" }}>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: INK3, marginBottom: 6 }}>The lever</div>
-            <div style={{ fontSize: 10, color: INK2, lineHeight: 1.5 }}>
-              The goal is not to reach 23.5. It is the second visit: converting one-time users requires no new acquisition — they are already inside.
-            </div>
+            <p style={{ fontSize: 10, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>The goal is not to reach 23.5. It is the second visit: converting one-time users requires no new acquisition — they are already inside.</p>
           </div>
         </div>
-      </Section>
+      </div>
 
-      {/* Method note */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "14px 18px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Method &amp; caveats</div>
-        <ul style={{ margin: 0, paddingLeft: 16, fontSize: 10, color: INK2, lineHeight: 1.65 }}>
-          <li>KP figures from FullStory; all other products from Datadog RUM, 1–31 July 2026, bots excluded (<code>-@device.type:Bot</code>).</li>
+      {/* METHOD */}
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "20px 24px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 10 }}>Method & caveats</div>
+        <ul style={{ margin: 0, paddingLeft: 16, fontSize: 10, color: INK2, lineHeight: 1.7, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+          <li>KP figures from FullStory; all other products from Datadog RUM, 1–31 July 2026, bots excluded (–@device.type:Bot).</li>
           <li>Session criteria differ between FullStory and Datadog RUM — the frequency comparison is indicative, not exact.</li>
-          <li>Internal vs external split by <code>@iadb.org</code> domain; email casing is inconsistent across IDB apps, so filters were run in both cases. Approximate in Convergence.</li>
+          <li>Internal vs external split by @iadb.org domain; email casing is inconsistent across IDB apps, so filters were run in both cases. Approximate in Convergence.</li>
           <li>MAU for comparables read off Datadog charts; treat as ±5%. Operations Portal and Cartera Inteligente have no July data / no instrumentation.</li>
           <li>Penetration denominator: 3,600 eligible IDB staff.</li>
         </ul>
@@ -2940,11 +3187,12 @@ function Benchmark() {
 
 // ── APP ───────────────────────────────────────────────────
 export default function App() {
-  const [view, setView] = useState("july");
+  const [view, setView] = useState("august");
   const [monthOpen, setMonthOpen] = useState(false);
   const [launchOpen, setLaunchOpen] = useState(false);
 
   const MONTHS = [
+    { id: "august",  label: "August 2026 · partial (live MCP)" },
     { id: "july",    label: "July 2026" },
     { id: "june",    label: "June 2026" },
     { id: "may",     label: "May 2026" },
@@ -2957,7 +3205,6 @@ export default function App() {
   ];
 
   const isMonth = MONTHS.some(m => m.id === view);
-  const isBench = view === "bench";
   const currentMonth = MONTHS.find(m => m.id === view);
   const currentLaunch = LAUNCH_VIEWS.find(l => l.id === view);
 
@@ -3015,26 +3262,24 @@ export default function App() {
         <div style={{ display: "flex", alignItems: "center", gap: 6 }} onClick={(e) => e.stopPropagation()}>
           {/* Month selector */}
           <div style={{ position: "relative" }}>
-            {ddBtn(isMonth && !isBench, () => { setMonthOpen(!monthOpen); setLaunchOpen(false); }, (
+            {ddBtn(isMonth, () => { setMonthOpen(!monthOpen); setLaunchOpen(false); }, (
               <>Month: {isMonth ? currentMonth.label : MONTHS[0].label} <span style={{ fontSize: 8 }}>▾</span></>
             ))}
             {monthOpen && ddMenu(MONTHS, setView, () => setMonthOpen(false))}
           </div>
           {/* Launch views selector */}
           <div style={{ position: "relative" }}>
-            {ddBtn(!isMonth && !isBench, () => { setLaunchOpen(!launchOpen); setMonthOpen(false); }, (
+            {ddBtn(!isMonth && view !== "benchmark", () => { setLaunchOpen(!launchOpen); setMonthOpen(false); }, (
               <>{!isMonth && currentLaunch ? currentLaunch.label : "Launch views"} <span style={{ fontSize: 8 }}>▾</span></>
             ))}
             {launchOpen && ddMenu(LAUNCH_VIEWS, setView, () => setLaunchOpen(false))}
           </div>
-          {/* Benchmark view */}
-          {ddBtn(isBench, () => { setView("bench"); setMonthOpen(false); setLaunchOpen(false); }, (
-            <>Benchmark</>
-          ))}
+          {/* Benchmark */}
+          {ddBtn(view === "benchmark", () => { setView("benchmark"); setMonthOpen(false); setLaunchOpen(false); }, "Benchmark")}
         </div>
       </div>
 
-      {view === "smoke" ? <SmokeTest /> : view === "week1" ? <Week1 data={WEEK1} /> : view === "week12" ? <Week1 data={WEEK12} /> : view === "may" ? <MayMonthly /> : view === "june" ? <JuneMonthly /> : view === "july" ? <JulyMonthly /> : view === "bench" ? <Benchmark /> : <Monthly />}
+      {view === "smoke" ? <SmokeTest /> : view === "week1" ? <Week1 data={WEEK1} /> : view === "week12" ? <Week1 data={WEEK12} /> : view === "may" ? <MayMonthly /> : view === "june" ? <JuneMonthly /> : view === "july" ? <JulyMonthly /> : view === "august" ? <AugustMonthly /> : view === "benchmark" ? <Benchmark /> : <Monthly />}
 
       <div style={{ textAlign: "center", padding: 18, fontSize: 9, color: INK3, letterSpacing: "0.06em", borderTop: `1px solid ${BDR}` }}>
         IDB Knowledge Platform · Post Go-live Key Metrics · Go-live {GO_LIVE_DATE}
