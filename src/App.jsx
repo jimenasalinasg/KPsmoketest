@@ -2725,6 +2725,12 @@ const AUGUST = {
   copiedOpenSearch: 35,   // live via MCP (JOTETVLPeJKh)
   wordDownloads: 0,       // live via MCP (3EkjBy6jYByB)
   excelDownloads: 0,      // live via MCP (FIw2VjBWkJ6J)
+  lwa: {
+    lessonsGenerated: 6,   // live via MCP (ffbLsADU0Swu)
+    share: 0,              // live via MCP (IHPlQ1WT1zEz)
+    copyLesson: 0,         // live via MCP (b46xecCQyFod)
+    highlightAndCopy: 0,   // live via MCP (azWUDLxYgaWY)
+  },
   latency: null,          // manual
   csat: null,             // manual
   totalCountries: 20,
@@ -2843,7 +2849,7 @@ function AugustMonthly() {
         <span style={{ fontSize: 14 }}>🔌</span>
         <div>
           <div style={{ fontSize: 11, fontWeight: 600, color: "#3730a3" }}>Live pull — through Aug 12, 2026</div>
-          <div style={{ fontSize: 10, color: "#4f46e5", marginTop: 2 }}>Users, sessions and country data pulled directly from FullStory via MCP (segment: sin dev copy). Prompt/highlight/copy/LWA metrics pending — they depend on custom event names not yet mapped. Figures may run ~5% below the official dashboard until filter 833220869 is replicated.</div>
+          <div style={{ fontSize: 10, color: "#4f46e5", marginTop: 2 }}>Metrics pulled directly from FullStory dashboard widgets by ID via MCP — matched exactly against July (prompters 109 = 109). Still manual: prompts sent, latency, CSAT, and new/returning users.</div>
         </div>
       </div>
 
@@ -3009,6 +3015,18 @@ function AugustMonthly() {
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
+      {/* ── LWA (simplified) ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (August · partial)</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
+        <MCard label="Lessons generated" value={String(AUGUST.lwa.lessonsGenerated)} desc="Live via MCP" accent />
+        <MCard label="Shares" value={String(AUGUST.lwa.share)} desc="Lessons shared · live via MCP" />
+        <MCard label="Copy lesson" value={String(AUGUST.lwa.copyLesson)} desc="Lessons copied · live via MCP" />
+        <MCard label="Highlight & copy" value={AUGUST.lwa.highlightAndCopy.toLocaleString()} desc="Text highlighted and copied in LWA · live via MCP" />
+      </div>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
       {/* Signals — executive */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — early read (12 days in)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
@@ -3034,7 +3052,7 @@ function AugustMonthly() {
 
       {/* Pending sections note */}
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views, source clicks, feedback, gallery/recent/new search — all pulled directly from FullStory metrics by ID. <strong style={{ color: INK2 }}>Still manual/pending:</strong> prompts sent, latency, CSAT (passed by hand), plus new/returning users, most-used pill, content engagement and LWA. These fill in the same way once their metric IDs are computed or values passed. Full month (through Aug 31) replaces this partial pull.
+        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + all 5 pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA — all pulled directly from FullStory dashboard widgets by ID. <strong style={{ color: INK2 }}>Still manual:</strong> prompts sent, latency, CSAT, and new/returning users. Full month (through Aug 31) replaces this partial pull.
       </div>
 
     </div>
