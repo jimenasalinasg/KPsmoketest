@@ -2796,6 +2796,44 @@ function AugustMonthly() {
           <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
           <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (live via MCP)</div>
         </div>
+        <button
+          onClick={() => {
+            const rows = [
+              ["Metric", "Value"],
+              ["Month", MONTH],
+              ["Users reached", AUGUST.users],
+              ["Sessions", AUGUST.sessions],
+              ["Prompters", AUGUST.prompters],
+              ["Prompts sent", AUGUST.prompts ?? "pending"],
+              ["New users", AUGUST.first_time ?? "pending"],
+              ["Returning users", AUGUST.returningUsers ?? "pending"],
+              ["Tour completion %", AUGUST.tourCompletion != null ? AUGUST.tourCompletion + "%" : "pending"],
+              ["Pill pageviews", AUGUST.pillPageviews],
+              ["Highlights total", AUGUST.highlighted],
+              ["Highlights Open Search", AUGUST.highlightedOpenSearch],
+              ["Copies total", AUGUST.copied],
+              ["Copies Open Search", AUGUST.copiedOpenSearch],
+              ["Source panel clicks (OS)", AUGUST.sourceClicks],
+              ["Thumbs up", AUGUST.thumbsUp],
+              ["Thumbs down", AUGUST.thumbsDown],
+              ["Prompt Gallery clicks", AUGUST.promptGalleryClicks],
+              ["Recent Search clicks", AUGUST.recentSearchClicks],
+              ["New Search clicks", AUGUST.newSearchClicks],
+              ["Latency (median)", AUGUST.latency ?? "pending"],
+              ["CSAT", AUGUST.csat ?? "pending"],
+              ["Cumulative users (Sep 1-Aug 12)", "1,842"],
+              ["Cumulative prompters (Sep 1-Aug 12)", "813"],
+              ["Cumulative penetration", "51.2%"],
+            ];
+            const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
+            const blob = new Blob([csv], { type: "text/csv" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url; a.download = `KP_Monthly_August_2026_partial.csv`; a.click();
+            URL.revokeObjectURL(url);
+          }}
+          style={{ fontFamily: "inherit", fontSize: 10, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: 6, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
+        >↓ Export CSV</button>
       </div>
 
       {/* MCP banner */}
