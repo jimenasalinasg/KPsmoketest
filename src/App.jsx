@@ -3144,11 +3144,11 @@ function Benchmark() {
         </p>
 
         {/* Split bar */}
-        <div style={{ display: "flex", gap: 4, marginBottom: 8 }}>
-          <div style={{ flex: "0 0 64%", background: BG, borderRadius: 6, padding: "14px 16px", textAlign: "center" }}>
+        <div style={{ display: "flex", gap: 4, marginBottom: 8, flexWrap: "wrap" }}>
+          <div style={{ flex: "1 1 200px", background: BG, borderRadius: 6, padding: "14px 16px", textAlign: "center", boxSizing: "border-box" }}>
             <span style={{ fontSize: 12, color: INK2 }}>~160 · one single visit</span>
           </div>
-          <div style={{ flex: "0 0 34%", background: "#1464A0", borderRadius: 6, padding: "14px 16px", textAlign: "center" }}>
+          <div style={{ flex: "1 1 120px", background: "#1464A0", borderRadius: 6, padding: "14px 16px", textAlign: "center", boxSizing: "border-box" }}>
             <span style={{ fontSize: 12, color: "#fff", fontWeight: 600 }}>91 · came back</span>
           </div>
         </div>
