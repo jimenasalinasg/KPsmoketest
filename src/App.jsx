@@ -2705,28 +2705,28 @@ function JulyMonthly() {
 // ── AUGUST 2026 DATA ──────────────────────────────────────
 // Preliminary — through Aug 12, 2026 · pulled live via FullStory MCP
 const AUGUST = {
-  sessions: 209,
-  users: 78,
-  prompters: 36,          // live via MCP (metric 3GVbGeJsPBCb)
+  sessions: 282,
+  users: 99,
+  prompters: 43,          // live via MCP (metric 3GVbGeJsPBCb)
   prompts: null,          // manual — pass at close
   returningUsers: null,   // pending
   first_time: null,       // pending
-  tourCompletion: 48,     // live via MCP (iN3brKBr4rlY)
-  pillPageviews: 84,      // live via MCP (2EYT9yOW6odB)
+  tourCompletion: 50,     // live via MCP (iN3brKBr4rlY)
+  pillPageviews: 96,      // live via MCP (2EYT9yOW6odB)
   sourceClicks: 9,        // live via MCP (Ge6P9qbIeu3b)
   thumbsUp: 0,            // live via MCP (AtpRWyuThJUq)
   thumbsDown: 0,          // live via MCP (x6Z3q26RMOra)
   promptGalleryClicks: 1, // live via MCP (lkwqkKIJQ25E)
   recentSearchClicks: 2,  // live via MCP (nfcBnYjQSAfT)
   newSearchClicks: 0,     // live via MCP (tU5aopeDHc1k)
-  highlighted: 136,       // live via MCP (cMgaz9YMCSJh)
-  highlightedOpenSearch: 85, // live via MCP (RQ6IjtoMbeD5)
-  copied: 63,             // live via MCP (yowGb1tOMe3X)
-  copiedOpenSearch: 35,   // live via MCP (JOTETVLPeJKh)
+  highlighted: 148,       // live via MCP (cMgaz9YMCSJh)
+  highlightedOpenSearch: 94, // live via MCP (RQ6IjtoMbeD5)
+  copied: 69,             // live via MCP (yowGb1tOMe3X)
+  copiedOpenSearch: 40,   // live via MCP (JOTETVLPeJKh)
   wordDownloads: 0,       // live via MCP (3EkjBy6jYByB)
   excelDownloads: 0,      // live via MCP (FIw2VjBWkJ6J)
   lwa: {
-    lessonsGenerated: 6,   // live via MCP (ffbLsADU0Swu)
+    lessonsGenerated: 7,   // live via MCP (ffbLsADU0Swu)
     share: 0,              // live via MCP (IHPlQ1WT1zEz)
     copyLesson: 0,         // live via MCP (b46xecCQyFod)
     highlightAndCopy: 0,   // live via MCP (azWUDLxYgaWY)
@@ -2760,7 +2760,7 @@ const AUGUST = {
 
 // ── AUGUST MONTHLY VIEW ───────────────────────────────────
 function AugustMonthly() {
-  const MONTH = "August 2026 — through Aug 12";
+  const MONTH = "August 2026 — through Aug 14";
   const [showAllCountries, setShowAllCountries] = useState(false);
 
   const MCard = ({ label, value, desc, accent, small, bench, momentum }) => {
@@ -2848,7 +2848,7 @@ function AugustMonthly() {
       <div style={{ background: "#f0f4ff", border: "1px solid #c7d7fe", borderRadius: 8, padding: "10px 16px", display: "flex", alignItems: "center", gap: 10 }}>
         <span style={{ fontSize: 14 }}>🔌</span>
         <div>
-          <div style={{ fontSize: 11, fontWeight: 600, color: "#3730a3" }}>Live pull — through Aug 12, 2026</div>
+          <div style={{ fontSize: 11, fontWeight: 600, color: "#3730a3" }}>Live pull — through Aug 14, 2026</div>
           <div style={{ fontSize: 10, color: "#4f46e5", marginTop: 2 }}>Metrics pulled directly from FullStory dashboard widgets by ID via MCP — matched exactly against July (prompters 109 = 109). Still manual: prompts sent, latency, CSAT, and new/returning users.</div>
         </div>
       </div>
@@ -2856,12 +2856,12 @@ function AugustMonthly() {
       {/* Cumulative totals — pulled live via MCP */}
       <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
-          Cumulative totals — Sep 1, 2025 to Aug 12, 2026 · live via MCP
+          Cumulative totals — Sep 1, 2025 to Aug 14, 2026 · live via MCP
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {[
             { label: "Users reached", value: "1,842" },
-            { label: "Prompters", value: "813" },
+            { label: "Prompters", value: "815" },
             { label: "Prompts sent", value: "—" },
             { label: "Penetration of 3,600", value: "51.2%" },
           ].map((m, i) => (
@@ -2945,8 +2945,8 @@ function AugustMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (August · partial)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard label="Queries (pill views)" value={String(AUGUST.pillPageviews)} desc="Total visits across all contextual search pills · live via MCP" accent momentum={JULY.pillPageviews} />
-        <MCard label="Most used pill — Similar Projects" value="7" desc="interactions · tied with Lessons Learned (7) · live via MCP" small />
-        <MCard label={<>Least used pill —<br/>Institutional Docs</>} value="4" desc="interactions · live via MCP" small />
+        <MCard label="Most used pill — Lessons Learned" value="35" desc="interactions · leads again (Similar Projects 19) · live via MCP" small />
+        <MCard label={<>Least used pill —<br/>Data</>} value="7" desc="interactions · live via MCP" small />
       </div>
 
       {/* ── DIVIDER ── */}
@@ -2981,27 +2981,27 @@ function AugustMonthly() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
           <div>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Total content engagement</div>
-            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>208</div>
+            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>226</div>
             <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.5 }}>
-              Highlights (136) + Copies (63) + Source panel clicks (9) + Downloads (0) · live via MCP
+              Highlights (148) + Copies (69) + Source panel clicks (9) + Downloads (0) · live via MCP
             </div>
           </div>
           <div style={{ minWidth: 220, flex: 1, maxWidth: 340 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 129 (62%)</span>
-              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 79 (38%)</span>
+              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 143 (63%)</span>
+              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 83 (37%)</span>
             </div>
             <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 8 }}>
-              <div style={{ width: "62%", background: BLUE_D }} />
-              <div style={{ width: "38%", background: "#9ec4e8" }} />
+              <div style={{ width: "63%", background: BLUE_D }} />
+              <div style={{ width: "37%", background: "#9ec4e8" }} />
             </div>
             <div style={{ fontSize: 8, color: INK3, lineHeight: 1.5 }}>
-              <strong>Open Search (129):</strong> 85 highlights · 35 copies · 9 source clicks<br/>
-              <strong>Contextual (79):</strong> 51 highlights · 28 copies · 0 source clicks
+              <strong>Open Search (143):</strong> 94 highlights · 40 copies · 9 source clicks<br/>
+              <strong>Contextual (83):</strong> 54 highlights · 29 copies · 0 source clicks
             </div>
           </div>
         </div>
-        <div style={{ fontSize: 8, color: BLUE, marginTop: 10, fontStyle: "italic" }}>Live via MCP — most balanced OS/Contextual split since May (62/38 vs July's 90/10).</div>
+        <div style={{ fontSize: 8, color: BLUE, marginTop: 10, fontStyle: "italic" }}>Live via MCP — OS/Contextual split 63/37, still far more balanced than July's 90/10.</div>
       </div>
       <EngagementCard
         highlighted={AUGUST.highlighted}
@@ -3039,7 +3039,7 @@ function AugustMonthly() {
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Summer pace, as expected</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            78 users · 209 sessions in the first third of the month — tracking near July's rhythm. The real test is the back-to-work rebound after mid-August.
+            99 users · 282 sessions in the first half of the month — running at ~45% of July's monthly pace despite being at day 14 of 31. The real test is the back-to-work rebound after mid-August.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
