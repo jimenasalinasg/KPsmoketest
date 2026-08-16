@@ -2860,10 +2860,10 @@ function AugustMonthly() {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {[
-            { label: "Users reached", value: "1,842" },
+            { label: "Users reached", value: "1,849" },
             { label: "Prompters", value: "815" },
-            { label: "Prompts sent", value: "—" },
-            { label: "Penetration of 3,600", value: "51.2%" },
+            { label: "Sessions", value: "9,063" },
+            { label: "Penetration of 3,600", value: "51.4%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -3033,7 +3033,7 @@ function AugustMonthly() {
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${GREEN}` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration crossed 51%</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            1,842 cumulative users — +24 net-new in 12 days. Adoption keeps compounding past the halfway mark of the bank with no active campaign.
+            1,849 cumulative users — +31 net-new in the first half of August. Adoption keeps compounding past the halfway mark of the bank with no active campaign.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
