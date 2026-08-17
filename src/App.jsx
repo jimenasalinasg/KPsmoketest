@@ -2844,15 +2844,6 @@ function AugustMonthly() {
         >↓ Export CSV</button>
       </div>
 
-      {/* MCP banner */}
-      <div style={{ background: "#f0f4ff", border: "1px solid #c7d7fe", borderRadius: 8, padding: "10px 16px", display: "flex", alignItems: "center", gap: 10 }}>
-        <span style={{ fontSize: 14 }}>🔌</span>
-        <div>
-          <div style={{ fontSize: 11, fontWeight: 600, color: "#3730a3" }}>Live pull — through Aug 14, 2026</div>
-          <div style={{ fontSize: 10, color: "#4f46e5", marginTop: 2 }}>Metrics pulled directly from FullStory dashboard widgets by ID via MCP — matched exactly against July (prompters 109 = 109). Still manual: prompts sent, latency, CSAT, and new/returning users.</div>
-        </div>
-      </div>
-
       {/* Cumulative totals — pulled live via MCP */}
       <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
