@@ -2705,26 +2705,26 @@ function JulyMonthly() {
 }
 
 // ── AUGUST 2026 DATA ──────────────────────────────────────
-// Preliminary — through Aug 12, 2026 · pulled live via FullStory MCP
+// Preliminary — through Aug 18, 2026 · pulled live via FullStory MCP
 const AUGUST = {
-  sessions: 282,
-  users: 99,
-  prompters: 43,          // live via MCP (metric 3GVbGeJsPBCb)
+  sessions: 532,
+  users: 119,
+  prompters: 46,          // live via MCP (metric 3GVbGeJsPBCb)
   prompts: null,          // manual — pass at close
   returningUsers: null,   // pending
   first_time: null,       // pending
-  tourCompletion: 50,     // live via MCP (iN3brKBr4rlY)
-  pillPageviews: 96,      // live via MCP (2EYT9yOW6odB)
+  tourCompletion: 46,     // live via MCP (iN3brKBr4rlY)
+  pillPageviews: 108,     // live via MCP (2EYT9yOW6odB)
   sourceClicks: 9,        // live via MCP (Ge6P9qbIeu3b)
   thumbsUp: 0,            // live via MCP (AtpRWyuThJUq)
   thumbsDown: 0,          // live via MCP (x6Z3q26RMOra)
-  promptGalleryClicks: 1, // live via MCP (lkwqkKIJQ25E)
+  promptGalleryClicks: 2, // live via MCP (lkwqkKIJQ25E)
   recentSearchClicks: 2,  // live via MCP (nfcBnYjQSAfT)
   newSearchClicks: 0,     // live via MCP (tU5aopeDHc1k)
-  highlighted: 148,       // live via MCP (cMgaz9YMCSJh)
-  highlightedOpenSearch: 94, // live via MCP (RQ6IjtoMbeD5)
-  copied: 69,             // live via MCP (yowGb1tOMe3X)
-  copiedOpenSearch: 40,   // live via MCP (JOTETVLPeJKh)
+  highlighted: 167,       // live via MCP (cMgaz9YMCSJh)
+  highlightedOpenSearch: 102, // live via MCP (RQ6IjtoMbeD5)
+  copied: 78,             // live via MCP (yowGb1tOMe3X)
+  copiedOpenSearch: 43,   // live via MCP (JOTETVLPeJKh)
   wordDownloads: 0,       // live via MCP (3EkjBy6jYByB)
   excelDownloads: 0,      // live via MCP (FIw2VjBWkJ6J)
   lwa: {
@@ -2735,34 +2735,39 @@ const AUGUST = {
   },
   latency: null,          // manual
   csat: null,             // manual
-  totalCountries: 20,
+  totalCountries: 25,
   countries: [
-    { name: "United States (HQ)", code: "US", users: 33, pct: 47 },
-    { name: "Colombia",           code: "CO", users: 5,  pct: 7  },
-    { name: "Argentina",          code: "AR", users: 4,  pct: 6  },
-    { name: "Brazil",             code: "BR", users: 4,  pct: 6  },
-    { name: "Uruguay",            code: "UY", users: 4,  pct: 6  },
-    { name: "Spain",              code: "ES", users: 3,  pct: 4  },
-    { name: "Barbados",           code: "BB", users: 2,  pct: 3  },
-    { name: "Mexico",             code: "MX", users: 2,  pct: 3  },
-    { name: "Panama",             code: "PA", users: 2,  pct: 3  },
-    { name: "Trinidad & Tobago",  code: "TT", users: 2,  pct: 3  },
-    { name: "Bolivia",            code: "BO", users: 1,  pct: 1  },
-    { name: "Chile",              code: "CL", users: 1,  pct: 1  },
+    { name: "United States (HQ)", code: "US", users: 86, pct: 49 },
+    { name: "Netherlands",        code: "NL", users: 19, pct: 11 }, // REVISAR: atípico para BID, posible VPN/tráfico no humano
+    { name: "Colombia",           code: "CO", users: 13, pct: 7  },
+    { name: "Brazil",             code: "BR", users: 9,  pct: 5  },
+    { name: "Uruguay",            code: "UY", users: 8,  pct: 5  },
+    { name: "Spain",              code: "ES", users: 7,  pct: 4  },
+    { name: "Argentina",          code: "AR", users: 5,  pct: 3  },
+    { name: "Panama",             code: "PA", users: 5,  pct: 3  },
+    { name: "Peru",               code: "PE", users: 5,  pct: 3  },
+    { name: "Mexico",             code: "MX", users: 4,  pct: 2  },
+    { name: "Trinidad & Tobago",  code: "TT", users: 3,  pct: 2  },
+    { name: "Barbados",           code: "BB", users: 2,  pct: 1  },
+    { name: "Bolivia",            code: "BO", users: 2,  pct: 1  },
+    { name: "Chile",              code: "CL", users: 2,  pct: 1  },
+    { name: "Honduras",           code: "HN", users: 2,  pct: 1  },
+    { name: "Cayman Islands",     code: "KY", users: 1,  pct: 1  },
     { name: "Costa Rica",         code: "CR", users: 1,  pct: 1  },
     { name: "Ecuador",            code: "EC", users: 1,  pct: 1  },
+    { name: "El Salvador",        code: "SV", users: 1,  pct: 1  },
     { name: "Germany",            code: "DE", users: 1,  pct: 1  },
     { name: "Guatemala",          code: "GT", users: 1,  pct: 1  },
-    { name: "Honduras",           code: "HN", users: 1,  pct: 1  },
+    { name: "Jamaica",            code: "JM", users: 1,  pct: 1  },
     { name: "Paraguay",           code: "PY", users: 1,  pct: 1  },
-    { name: "Peru",               code: "PE", users: 1,  pct: 1  },
     { name: "Suriname",           code: "SR", users: 1,  pct: 1  },
+    { name: "Sweden",             code: "SE", users: 1,  pct: 1  },
   ],
 };
 
 // ── AUGUST MONTHLY VIEW ───────────────────────────────────
 function AugustMonthly() {
-  const MONTH = "August 2026 — through Aug 14";
+  const MONTH = "August 2026 — through Aug 18";
   const [showAllCountries, setShowAllCountries] = useState(false);
 
   const MCard = ({ label, value, desc, accent, small, bench, momentum }) => {
@@ -2891,7 +2896,7 @@ function AugustMonthly() {
       {/* Geo */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
-          🌎 Geographic Reach — {AUGUST.totalCountries} countries (through Aug 12)
+          🌎 Geographic Reach — {AUGUST.totalCountries} countries (through Aug 18)
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
           <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
