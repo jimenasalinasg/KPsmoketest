@@ -2705,26 +2705,26 @@ function JulyMonthly() {
 }
 
 // ── AUGUST 2026 DATA ──────────────────────────────────────
-// Preliminary — through Aug 18, 2026 · pulled live via FullStory MCP
+// Preliminary — through Aug 19, 2026 · pulled live via FullStory MCP
 const AUGUST = {
-  sessions: 532,
-  users: 119,
-  prompters: 46,          // live via MCP (metric 3GVbGeJsPBCb)
+  sessions: 560,
+  users: 126,
+  prompters: 49,          // live via MCP (metric 3GVbGeJsPBCb)
   prompts: null,          // manual — pass at close
   returningUsers: null,   // pending
   first_time: null,       // pending
   tourCompletion: 46,     // live via MCP (iN3brKBr4rlY)
-  pillPageviews: 108,     // live via MCP (2EYT9yOW6odB)
+  pillPageviews: 109,     // live via MCP (2EYT9yOW6odB)
   sourceClicks: 9,        // live via MCP (Ge6P9qbIeu3b)
   thumbsUp: 0,            // live via MCP (AtpRWyuThJUq)
   thumbsDown: 0,          // live via MCP (x6Z3q26RMOra)
   promptGalleryClicks: 2, // live via MCP (lkwqkKIJQ25E)
   recentSearchClicks: 2,  // live via MCP (nfcBnYjQSAfT)
   newSearchClicks: 0,     // live via MCP (tU5aopeDHc1k)
-  highlighted: 167,       // live via MCP (cMgaz9YMCSJh)
-  highlightedOpenSearch: 102, // live via MCP (RQ6IjtoMbeD5)
-  copied: 78,             // live via MCP (yowGb1tOMe3X)
-  copiedOpenSearch: 43,   // live via MCP (JOTETVLPeJKh)
+  highlighted: 174,       // live via MCP (cMgaz9YMCSJh)
+  highlightedOpenSearch: 108, // live via MCP (RQ6IjtoMbeD5)
+  copied: 79,             // live via MCP (yowGb1tOMe3X)
+  copiedOpenSearch: 44,   // live via MCP (JOTETVLPeJKh)
   wordDownloads: 0,       // live via MCP (3EkjBy6jYByB)
   excelDownloads: 0,      // live via MCP (FIw2VjBWkJ6J)
   lwa: {
@@ -2737,24 +2737,24 @@ const AUGUST = {
   csat: null,             // manual
   totalCountries: 25,
   countries: [
-    { name: "United States (HQ)", code: "US", users: 86, pct: 49 },
-    { name: "Netherlands",        code: "NL", users: 19, pct: 11 }, // REVISAR: atípico para BID, posible VPN/tráfico no humano
+    { name: "United States (HQ)", code: "US", users: 91, pct: 49 },
+    { name: "Netherlands",        code: "NL", users: 20, pct: 11 }, // REVISAR: atípico para BID, posible VPN/tráfico no humano
     { name: "Colombia",           code: "CO", users: 13, pct: 7  },
     { name: "Brazil",             code: "BR", users: 9,  pct: 5  },
-    { name: "Uruguay",            code: "UY", users: 8,  pct: 5  },
-    { name: "Spain",              code: "ES", users: 7,  pct: 4  },
+    { name: "Spain",              code: "ES", users: 8,  pct: 4  },
+    { name: "Uruguay",            code: "UY", users: 8,  pct: 4  },
     { name: "Argentina",          code: "AR", users: 5,  pct: 3  },
     { name: "Panama",             code: "PA", users: 5,  pct: 3  },
     { name: "Peru",               code: "PE", users: 5,  pct: 3  },
     { name: "Mexico",             code: "MX", users: 4,  pct: 2  },
+    { name: "Chile",              code: "CL", users: 3,  pct: 2  },
     { name: "Trinidad & Tobago",  code: "TT", users: 3,  pct: 2  },
     { name: "Barbados",           code: "BB", users: 2,  pct: 1  },
     { name: "Bolivia",            code: "BO", users: 2,  pct: 1  },
-    { name: "Chile",              code: "CL", users: 2,  pct: 1  },
+    { name: "Costa Rica",         code: "CR", users: 2,  pct: 1  },
+    { name: "Ecuador",            code: "EC", users: 2,  pct: 1  },
     { name: "Honduras",           code: "HN", users: 2,  pct: 1  },
     { name: "Cayman Islands",     code: "KY", users: 1,  pct: 1  },
-    { name: "Costa Rica",         code: "CR", users: 1,  pct: 1  },
-    { name: "Ecuador",            code: "EC", users: 1,  pct: 1  },
     { name: "El Salvador",        code: "SV", users: 1,  pct: 1  },
     { name: "Germany",            code: "DE", users: 1,  pct: 1  },
     { name: "Guatemala",          code: "GT", users: 1,  pct: 1  },
@@ -2767,7 +2767,7 @@ const AUGUST = {
 
 // ── AUGUST MONTHLY VIEW ───────────────────────────────────
 function AugustMonthly() {
-  const MONTH = "August 2026 — through Aug 18";
+  const MONTH = "August 2026 — through Aug 19";
   const [showAllCountries, setShowAllCountries] = useState(false);
 
   const MCard = ({ label, value, desc, accent, small, bench, momentum }) => {
@@ -2836,9 +2836,9 @@ function AugustMonthly() {
               ["New Search clicks", AUGUST.newSearchClicks],
               ["Latency (median)", AUGUST.latency ?? "pending"],
               ["CSAT", AUGUST.csat ?? "pending"],
-              ["Cumulative users (Sep 1-Aug 18)", "1,860"],
-              ["Cumulative prompters (Sep 1-Aug 18)", "817"],
-              ["Cumulative penetration", "51.7%"],
+              ["Cumulative users (Sep 1-Aug 19)", "1,863"],
+              ["Cumulative prompters (Sep 1-Aug 19)", "819"],
+              ["Cumulative penetration", "51.8%"],
             ];
             const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
             const blob = new Blob([csv], { type: "text/csv" });
@@ -2854,14 +2854,14 @@ function AugustMonthly() {
       {/* Cumulative totals — pulled live via MCP */}
       <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
-          Cumulative totals — Sep 1, 2025 to Aug 18, 2026 · live via MCP
+          Cumulative totals — Sep 1, 2025 to Aug 19, 2026 · live via MCP
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {[
-            { label: "Users reached", value: "1,860" },
-            { label: "Prompters", value: "817" },
-            { label: "Sessions", value: "15,116" },
-            { label: "Penetration of 3,600", value: "51.7%" },
+            { label: "Users reached", value: "1,863" },
+            { label: "Prompters", value: "819" },
+            { label: "Sessions", value: "15,142" },
+            { label: "Penetration of 3,600", value: "51.8%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -2896,7 +2896,7 @@ function AugustMonthly() {
       {/* Geo */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
-          🌎 Geographic Reach — {AUGUST.totalCountries} countries (through Aug 18)
+          🌎 Geographic Reach — {AUGUST.totalCountries} countries (through Aug 19)
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
           <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
@@ -2943,7 +2943,7 @@ function AugustMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (August · partial)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard label="Queries (pill views)" value={String(AUGUST.pillPageviews)} desc="Total visits across all contextual search pills · live via MCP" accent momentum={JULY.pillPageviews} />
-        <MCard label="Most used pill — Lessons Learned" value="35" desc="interactions · leads again (Similar Projects 19) · live via MCP" small />
+        <MCard label="Most used pill — Lessons Learned" value="44" desc="interactions · leads again (Similar Projects 19) · live via MCP" small />
         <MCard label={<>Least used pill —<br/>Data</>} value="7" desc="interactions · live via MCP" small />
       </div>
 
@@ -2979,23 +2979,23 @@ function AugustMonthly() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
           <div>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Total content engagement</div>
-            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>254</div>
+            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>262</div>
             <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.5 }}>
-              Highlights (167) + Copies (78) + Source panel clicks (9) + Downloads (0) · live via MCP
+              Highlights (174) + Copies (79) + Source panel clicks (9) + Downloads (0) · live via MCP
             </div>
           </div>
           <div style={{ minWidth: 220, flex: 1, maxWidth: 340 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 154 (61%)</span>
-              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 100 (39%)</span>
+              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 161 (61%)</span>
+              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 101 (39%)</span>
             </div>
             <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 8 }}>
               <div style={{ width: "61%", background: BLUE_D }} />
               <div style={{ width: "39%", background: "#9ec4e8" }} />
             </div>
             <div style={{ fontSize: 8, color: INK3, lineHeight: 1.5 }}>
-              <strong>Open Search (154):</strong> 102 highlights · 43 copies · 9 source clicks<br/>
-              <strong>Contextual (100):</strong> 65 highlights · 35 copies · 0 source clicks
+              <strong>Open Search (161):</strong> 108 highlights · 44 copies · 9 source clicks<br/>
+              <strong>Contextual (101):</strong> 66 highlights · 35 copies · 0 source clicks
             </div>
           </div>
         </div>
@@ -3026,24 +3026,24 @@ function AugustMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* Signals — executive */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — early read (18 days in)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — early read (19 days in)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${GREEN}` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration crossed 51%</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            1,860 cumulative users — +42 net-new since July's close (1,818). Adoption keeps compounding past the halfway mark of the bank with no active campaign.
+            1,863 cumulative users — +45 net-new since July's close (1,818). Adoption keeps compounding past the halfway mark of the bank with no active campaign.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Summer pace, as expected</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            119 users · 532 sessions through day 18 of 31 — running at ~43% of July's session total despite the month already being ~58% elapsed. Still no sign of the back-to-work rebound.
+            126 users · 560 sessions through day 19 of 31 — running at ~46% of July's session total despite the month already being ~61% elapsed. Still no sign of the back-to-work rebound.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach still widening</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            25 countries already (up from 20 through Aug 12), with Cayman Islands, El Salvador, Jamaica and Sweden appearing for the first time. Netherlands also debuts, jumping straight to #2 by users (19, 11%) — flagged as likely VPN/non-human traffic, not organic reach, pending confirmation.
+            25 countries already (up from 20 through Aug 12), with Cayman Islands, El Salvador, Jamaica and Sweden appearing for the first time. Netherlands also debuts, jumping straight to #2 by users (20, 11%) — flagged as likely VPN/non-human traffic, not organic reach, pending confirmation.
           </p>
         </div>
       </div>
