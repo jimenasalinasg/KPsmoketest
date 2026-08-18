@@ -2734,7 +2734,7 @@ const AUGUST = {
     highlightAndCopy: 0,   // live via MCP (azWUDLxYgaWY)
   },
   latency: null,          // manual
-  csat: null,             // manual
+  csat: "33.3%",          // manual — 3 respuestas (3,5,1) · top-2 box 1/3 · avg 3.00
   totalCountries: 25,
   countries: [
     { name: "United States (HQ)", code: "US", users: 86, pct: 49 },
@@ -2968,6 +2968,32 @@ function AugustMonthly() {
         <MCard label="Prompt Gallery clicks" value={String(AUGUST.promptGalleryClicks)} momentum={JULY.promptGalleryClicks} />
         <MCard label="Recent Search clicks" value={String(AUGUST.recentSearchClicks)} momentum={JULY.recentSearchClicks} />
         <MCard label="New Search clicks" value={String(AUGUST.newSearchClicks)} momentum={JULY.newSearchClicks} />
+      </div>
+
+      {/* CSAT block */}
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
+        <div style={{ marginBottom: 14 }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6 }}>CSAT — Customer Satisfaction Score</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>{AUGUST.csat}</div>
+          <div style={{ fontSize: 10, color: INK3, marginTop: 4, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+            <span>3 responses · avg 3.00 / 5 ★ · August 2026 (through Aug 18)</span>
+            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: "#fef0ee", color: RED }}>↓ 66.7pp vs July</span>
+          </div>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ padding: "8px 12px", background: "#edfaf4", border: "1px solid #a7f3d0", borderRadius: 7, fontSize: 10, color: "#065f46" }}>
+            👍 <strong>1 positive (5★):</strong> "I quickly found what I was looking for" · "The content was clear" · "The experience was simple and smooth"
+          </div>
+          <div style={{ padding: "8px 12px", background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 7, fontSize: 10, color: "#92400e" }}>
+            😐 <strong>1 neutral (3★):</strong> "The platform could be more useful to my work" — genuine product signal on perceived usefulness.
+          </div>
+          <div style={{ padding: "8px 12px", background: "#fef0ee", border: "1px solid #fecaca", borderRadius: 7, fontSize: 10, color: "#991b1b" }}>
+            👎 <strong>1 negative (1★):</strong> "The platform is empty, only showing access to a program" — reads as a technical or access-permissions fault, not a satisfaction judgement.
+          </div>
+          <div style={{ padding: "8px 12px", background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 7, fontSize: 10, color: "#92400e" }}>
+            ⚠ <strong>Do not read this as a satisfaction collapse.</strong> With n=3, one response moves the score 33pp — the figure is not representative. Applying June's precedent, the 1★ "empty platform" report should be logged as a separate technical ticket rather than counted as a UX signal; excluding it, the remaining two responses split 1 positive / 1 neutral. Partial month — recompute at close.
+          </div>
+        </div>
       </div>
 
       {/* ── DIVIDER ── */}
