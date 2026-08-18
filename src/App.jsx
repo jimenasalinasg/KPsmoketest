@@ -2836,9 +2836,9 @@ function AugustMonthly() {
               ["New Search clicks", AUGUST.newSearchClicks],
               ["Latency (median)", AUGUST.latency ?? "pending"],
               ["CSAT", AUGUST.csat ?? "pending"],
-              ["Cumulative users (Sep 1-Aug 12)", "1,842"],
-              ["Cumulative prompters (Sep 1-Aug 12)", "813"],
-              ["Cumulative penetration", "51.2%"],
+              ["Cumulative users (Sep 1-Aug 18)", "1,860"],
+              ["Cumulative prompters (Sep 1-Aug 18)", "817"],
+              ["Cumulative penetration", "51.7%"],
             ];
             const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
             const blob = new Blob([csv], { type: "text/csv" });
@@ -2979,27 +2979,27 @@ function AugustMonthly() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
           <div>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Total content engagement</div>
-            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>226</div>
+            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>254</div>
             <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.5 }}>
-              Highlights (148) + Copies (69) + Source panel clicks (9) + Downloads (0) · live via MCP
+              Highlights (167) + Copies (78) + Source panel clicks (9) + Downloads (0) · live via MCP
             </div>
           </div>
           <div style={{ minWidth: 220, flex: 1, maxWidth: 340 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 143 (63%)</span>
-              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 83 (37%)</span>
+              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 154 (61%)</span>
+              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 100 (39%)</span>
             </div>
             <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 8 }}>
-              <div style={{ width: "63%", background: BLUE_D }} />
-              <div style={{ width: "37%", background: "#9ec4e8" }} />
+              <div style={{ width: "61%", background: BLUE_D }} />
+              <div style={{ width: "39%", background: "#9ec4e8" }} />
             </div>
             <div style={{ fontSize: 8, color: INK3, lineHeight: 1.5 }}>
-              <strong>Open Search (143):</strong> 94 highlights · 40 copies · 9 source clicks<br/>
-              <strong>Contextual (83):</strong> 54 highlights · 29 copies · 0 source clicks
+              <strong>Open Search (154):</strong> 102 highlights · 43 copies · 9 source clicks<br/>
+              <strong>Contextual (100):</strong> 65 highlights · 35 copies · 0 source clicks
             </div>
           </div>
         </div>
-        <div style={{ fontSize: 8, color: BLUE, marginTop: 10, fontStyle: "italic" }}>Live via MCP — OS/Contextual split 63/37, still far more balanced than July's 90/10.</div>
+        <div style={{ fontSize: 8, color: BLUE, marginTop: 10, fontStyle: "italic" }}>Live via MCP — OS/Contextual split 61/39, still far more balanced than July's 90/10.</div>
       </div>
       <EngagementCard
         highlighted={AUGUST.highlighted}
