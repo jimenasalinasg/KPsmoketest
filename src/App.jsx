@@ -2854,14 +2854,14 @@ function AugustMonthly() {
       {/* Cumulative totals — pulled live via MCP */}
       <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
-          Cumulative totals — Sep 1, 2025 to Aug 14, 2026 · live via MCP
+          Cumulative totals — Sep 1, 2025 to Aug 18, 2026 · live via MCP
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {[
-            { label: "Users reached", value: "1,849" },
-            { label: "Prompters", value: "815" },
-            { label: "Sessions", value: "9,063" },
-            { label: "Penetration of 3,600", value: "51.4%" },
+            { label: "Users reached", value: "1,860" },
+            { label: "Prompters", value: "817" },
+            { label: "Sessions", value: "15,116" },
+            { label: "Penetration of 3,600", value: "51.7%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -3026,24 +3026,24 @@ function AugustMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* Signals — executive */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — early read (12 days in)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — early read (18 days in)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${GREEN}` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration crossed 51%</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            1,849 cumulative users — +31 net-new in the first half of August. Adoption keeps compounding past the halfway mark of the bank with no active campaign.
+            1,860 cumulative users — +42 net-new since July's close (1,818). Adoption keeps compounding past the halfway mark of the bank with no active campaign.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Summer pace, as expected</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            99 users · 282 sessions in the first half of the month — running at ~45% of July's monthly pace despite being at day 14 of 31. The real test is the back-to-work rebound after mid-August.
+            119 users · 532 sessions through day 18 of 31 — running at ~43% of July's session total despite the month already being ~58% elapsed. Still no sign of the back-to-work rebound.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach still widening</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            20 countries already, with Germany appearing for the first time — geographic spread holds even in a quiet month, not just HQ traffic.
+            25 countries already (up from 20 through Aug 12), with Cayman Islands, El Salvador, Jamaica and Sweden appearing for the first time. Netherlands also debuts, jumping straight to #2 by users (19, 11%) — flagged as likely VPN/non-human traffic, not organic reach, pending confirmation.
           </p>
         </div>
       </div>
