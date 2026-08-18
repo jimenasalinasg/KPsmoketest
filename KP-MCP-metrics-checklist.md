@@ -105,6 +105,10 @@ Computado contra julio 2026 → **40**. Pero `pillBot` en `App.jsx` dice
 "Institutional Documents (10)". No coinciden, así que **no** se puede asumir que
 ese ID sea la pill de Institutional Documents.
 
+Dato que refuerza la duda: **no existe métrico de pageviews para la pill
+Institutional Documents** — solo uno de usuarios (`vsM08vl8PUdv`). Así que
+`RdCIdS4OrJhB` casi seguro NO es esa pill.
+
 Hasta confirmarlo: no usar para `pillTop` ni `pillBot`; `pillBot` sigue manual.
 
 ### Baseline de validación — julio 2026 (rango 2026-07-01 → 2026-07-31)
@@ -126,6 +130,16 @@ Recomputar estos valores debe devolver exactamente:
 
 Si algún valor no coincide, la definición del métrico cambió en FullStory:
 **parar y avisar**, no escribir el dato.
+
+### Gotchas de definición (confirmados)
+
+- **`a30wnMzqgtJk` se llama "First time visitors" en la UI de FullStory pero NO
+  son usuarios nuevos.** Su definición real es "count of unique users / any
+  activity" = MAU total. Usarlo para `users`, **nunca** para `first_time`.
+- **Las pills individuales cuentan SESIONES; `pillPageviews` cuenta EVENTOS.**
+  No suman entre sí — no intentar reconciliarlos.
+- **`BhsN9vxRPN7V` (sessions) no filtra tráfico interno ni bots.** Criterio a
+  confirmar; puede inflar el número.
 
 ### Nota sobre users/sessions
 Una versión previa de este checklist decía que `users` y `sessions` no se podían
