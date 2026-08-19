@@ -2707,12 +2707,12 @@ function JulyMonthly() {
 // ── AUGUST 2026 DATA ──────────────────────────────────────
 // Preliminary — through Aug 19, 2026 · pulled live via FullStory MCP
 const AUGUST = {
-  sessions: 560,
-  users: 126,
+  sessions: 571,
+  users: 127,
   prompters: 49,          // live via MCP (metric 3GVbGeJsPBCb)
   prompts: null,          // manual — pass at close
-  returningUsers: null,   // pending
-  first_time: null,       // pending
+  returningUsers: 47,     // manual
+  first_time: 99,         // manual
   tourCompletion: 46,     // live via MCP (iN3brKBr4rlY)
   pillPageviews: 109,     // live via MCP (2EYT9yOW6odB)
   sourceClicks: 9,        // live via MCP (Ge6P9qbIeu3b)
@@ -2721,14 +2721,14 @@ const AUGUST = {
   promptGalleryClicks: 2, // live via MCP (lkwqkKIJQ25E)
   recentSearchClicks: 2,  // live via MCP (nfcBnYjQSAfT)
   newSearchClicks: 0,     // live via MCP (tU5aopeDHc1k)
-  highlighted: 174,       // live via MCP (cMgaz9YMCSJh)
+  highlighted: 190,       // live via MCP (cMgaz9YMCSJh)
   highlightedOpenSearch: 108, // live via MCP (RQ6IjtoMbeD5)
-  copied: 79,             // live via MCP (yowGb1tOMe3X)
+  copied: 94,             // live via MCP (yowGb1tOMe3X)
   copiedOpenSearch: 44,   // live via MCP (JOTETVLPeJKh)
   wordDownloads: 0,       // live via MCP (3EkjBy6jYByB)
   excelDownloads: 0,      // live via MCP (FIw2VjBWkJ6J)
   lwa: {
-    lessonsGenerated: 7,   // live via MCP (ffbLsADU0Swu)
+    lessonsGenerated: 8,   // live via MCP (ffbLsADU0Swu)
     share: 0,              // live via MCP (IHPlQ1WT1zEz)
     copyLesson: 0,         // live via MCP (b46xecCQyFod)
     highlightAndCopy: 0,   // live via MCP (azWUDLxYgaWY)
@@ -2737,31 +2737,31 @@ const AUGUST = {
   csat: "33.3%",          // manual — 3 respuestas (3,5,1) · top-2 box 1/3 · avg 3.00
   totalCountries: 25,
   countries: [
-    { name: "United States (HQ)", code: "US", users: 91, pct: 49 },
-    { name: "Netherlands",        code: "NL", users: 20, pct: 11 }, // REVISAR: atípico para BID, posible VPN/tráfico no humano
-    { name: "Colombia",           code: "CO", users: 13, pct: 7  },
-    { name: "Brazil",             code: "BR", users: 9,  pct: 5  },
-    { name: "Spain",              code: "ES", users: 8,  pct: 4  },
-    { name: "Uruguay",            code: "UY", users: 8,  pct: 4  },
-    { name: "Argentina",          code: "AR", users: 5,  pct: 3  },
-    { name: "Panama",             code: "PA", users: 5,  pct: 3  },
-    { name: "Peru",               code: "PE", users: 5,  pct: 3  },
-    { name: "Mexico",             code: "MX", users: 4,  pct: 2  },
-    { name: "Chile",              code: "CL", users: 3,  pct: 2  },
-    { name: "Trinidad & Tobago",  code: "TT", users: 3,  pct: 2  },
-    { name: "Barbados",           code: "BB", users: 2,  pct: 1  },
-    { name: "Bolivia",            code: "BO", users: 2,  pct: 1  },
-    { name: "Costa Rica",         code: "CR", users: 2,  pct: 1  },
-    { name: "Ecuador",            code: "EC", users: 2,  pct: 1  },
-    { name: "Honduras",           code: "HN", users: 2,  pct: 1  },
-    { name: "Cayman Islands",     code: "KY", users: 1,  pct: 1  },
-    { name: "El Salvador",        code: "SV", users: 1,  pct: 1  },
-    { name: "Germany",            code: "DE", users: 1,  pct: 1  },
-    { name: "Guatemala",          code: "GT", users: 1,  pct: 1  },
-    { name: "Jamaica",            code: "JM", users: 1,  pct: 1  },
-    { name: "Paraguay",           code: "PY", users: 1,  pct: 1  },
-    { name: "Suriname",           code: "SR", users: 1,  pct: 1  },
-    { name: "Sweden",             code: "SE", users: 1,  pct: 1  },
+    { name: "United States (HQ)",     code: "US", users: 91,  pct: 48 },
+    { name: "Netherlands",            code: "NL", users: 21,  pct: 11 }, // REVISAR: atípico para BID, posible VPN/tráfico no humano
+    { name: "Colombia",               code: "CO", users: 13,  pct: 7 },
+    { name: "Brazil",                 code: "BR", users: 9,   pct: 5 },
+    { name: "Spain",                  code: "ES", users: 8,   pct: 4 },
+    { name: "Uruguay",                code: "UY", users: 8,   pct: 4 },
+    { name: "Argentina",              code: "AR", users: 5,   pct: 3 },
+    { name: "Panama",                 code: "PA", users: 5,   pct: 3 },
+    { name: "Peru",                   code: "PE", users: 5,   pct: 3 },
+    { name: "Mexico",                 code: "MX", users: 4,   pct: 2 },
+    { name: "Bolivia",                code: "BO", users: 3,   pct: 2 },
+    { name: "Chile",                  code: "CL", users: 3,   pct: 2 },
+    { name: "Trinidad & Tobago",      code: "TT", users: 3,   pct: 2 },
+    { name: "Barbados",               code: "BB", users: 2,   pct: 1 },
+    { name: "Costa Rica",             code: "CR", users: 2,   pct: 1 },
+    { name: "Ecuador",                code: "EC", users: 2,   pct: 1 },
+    { name: "Honduras",               code: "HN", users: 2,   pct: 1 },
+    { name: "Cayman Islands",         code: "KY", users: 1,   pct: 1 },
+    { name: "El Salvador",            code: "SV", users: 1,   pct: 1 },
+    { name: "Germany",                code: "DE", users: 1,   pct: 1 },
+    { name: "Guatemala",              code: "GT", users: 1,   pct: 1 },
+    { name: "Jamaica",                code: "JM", users: 1,   pct: 1 },
+    { name: "Paraguay",               code: "PY", users: 1,   pct: 1 },
+    { name: "Suriname",               code: "SR", users: 1,   pct: 1 },
+    { name: "Sweden",                 code: "SE", users: 1,   pct: 1 },
   ],
 };
 
@@ -2860,7 +2860,7 @@ function AugustMonthly() {
           {[
             { label: "Users reached", value: "1,863" },
             { label: "Prompters", value: "819" },
-            { label: "Sessions", value: "15,142" },
+            { label: "Sessions", value: "15,153" },
             { label: "Penetration of 3,600", value: "51.8%" },
           ].map((m, i) => (
             <div key={i}>
@@ -2889,8 +2889,8 @@ function AugustMonthly() {
         </div>
         <MCard label="Prompters (≥1 prompt)" value={String(AUGUST.prompters)} desc={`${Math.round(AUGUST.prompters/AUGUST.users*100)}% of users reached · live via MCP`} accent momentum={JULY.prompters} />
         <MCard label="% Onboarding completed" value={`${AUGUST.tourCompletion}%`} desc="Users who finished the tour · live via MCP" momentum={JULY.tourCompletion} />
-        <MCard label="New users" value={null} desc="Pending" />
-        <MCard label="Returning users" value={null} desc="Pending" />
+        <MCard label="New users" value={String(AUGUST.first_time)} desc="First-time visitors · manual" />
+        <MCard label="Returning users" value={String(AUGUST.returningUsers)} desc={`${Math.round(AUGUST.returningUsers/AUGUST.users*100)}% of users reached · manual`} />
       </div>
 
       {/* Geo */}
@@ -3005,27 +3005,27 @@ function AugustMonthly() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
           <div>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Total content engagement</div>
-            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>262</div>
+            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>293</div>
             <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.5 }}>
-              Highlights (174) + Copies (79) + Source panel clicks (9) + Downloads (0) · live via MCP
+              Highlights (190) + Copies (94) + Source panel clicks (9) + Downloads (0) · live via MCP
             </div>
           </div>
           <div style={{ minWidth: 220, flex: 1, maxWidth: 340 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 161 (61%)</span>
-              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 101 (39%)</span>
+              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 161 (55%)</span>
+              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 132 (45%)</span>
             </div>
             <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 8 }}>
-              <div style={{ width: "61%", background: BLUE_D }} />
-              <div style={{ width: "39%", background: "#9ec4e8" }} />
+              <div style={{ width: "55%", background: BLUE_D }} />
+              <div style={{ width: "45%", background: "#9ec4e8" }} />
             </div>
             <div style={{ fontSize: 8, color: INK3, lineHeight: 1.5 }}>
               <strong>Open Search (161):</strong> 108 highlights · 44 copies · 9 source clicks<br/>
-              <strong>Contextual (101):</strong> 66 highlights · 35 copies · 0 source clicks
+              <strong>Contextual (132):</strong> 82 highlights · 50 copies · 0 source clicks
             </div>
           </div>
         </div>
-        <div style={{ fontSize: 8, color: BLUE, marginTop: 10, fontStyle: "italic" }}>Live via MCP — OS/Contextual split 61/39, still far more balanced than July's 90/10.</div>
+        <div style={{ fontSize: 8, color: BLUE, marginTop: 10, fontStyle: "italic" }}>Live via MCP — OS/Contextual split 55/45, still far more balanced than July's 90/10.</div>
       </div>
       <EngagementCard
         highlighted={AUGUST.highlighted}
