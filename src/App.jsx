@@ -2711,8 +2711,8 @@ const AUGUST = {
   users: 127,
   prompters: 49,          // live via MCP (metric 3GVbGeJsPBCb)
   prompts: null,          // manual — pass at close
-  returningUsers: 47,     // manual
-  first_time: 99,         // manual
+  returningUsers: null,   // pending — carga previa (47) no reconciliaba: 99+47=146 > 127 usuarios totales, sin métrico FullStory para validar
+  first_time: null,       // pending — carga previa (99) no reconciliaba: ver nota en returningUsers
   tourCompletion: 46,     // live via MCP (iN3brKBr4rlY)
   pillPageviews: 109,     // live via MCP (2EYT9yOW6odB)
   sourceClicks: 9,        // live via MCP (Ge6P9qbIeu3b)
@@ -2889,8 +2889,8 @@ function AugustMonthly() {
         </div>
         <MCard label="Prompters (≥1 prompt)" value={String(AUGUST.prompters)} desc={`${Math.round(AUGUST.prompters/AUGUST.users*100)}% of users reached · live via MCP`} accent momentum={JULY.prompters} />
         <MCard label="% Onboarding completed" value={`${AUGUST.tourCompletion}%`} desc="Users who finished the tour · live via MCP" momentum={JULY.tourCompletion} />
-        <MCard label="New users" value={String(AUGUST.first_time)} desc="First-time visitors · manual" />
-        <MCard label="Returning users" value={String(AUGUST.returningUsers)} desc={`${Math.round(AUGUST.returningUsers/AUGUST.users*100)}% of users reached · manual`} />
+        <MCard label="New users" value={AUGUST.first_time} desc="First-time visitors · manual, pending re-check" />
+        <MCard label="Returning users" value={AUGUST.returningUsers} desc="Manual, pending re-check" />
       </div>
 
       {/* Geo */}
