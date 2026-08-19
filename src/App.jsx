@@ -3063,20 +3063,26 @@ function AugustMonthly() {
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Summer pace, as expected</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            126 users · 560 sessions through day 19 of 31 — running at ~46% of July's session total despite the month already being ~61% elapsed. Still no sign of the back-to-work rebound.
+            127 users · 571 sessions through day 19 of 31 — running at ~47% of July's session total with ~61% of the month elapsed. Still no sign of the back-to-work rebound.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach still widening</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            25 countries already (up from 20 through Aug 12), with Cayman Islands, El Salvador, Jamaica and Sweden appearing for the first time. Netherlands also debuts, jumping straight to #2 by users (20, 11%) — flagged as likely VPN/non-human traffic, not organic reach, pending confirmation.
+            25 countries already (up from 20 through Aug 12), with Cayman Islands, El Salvador, Jamaica and Sweden appearing for the first time. Netherlands also debuts, jumping straight to #2 by users (21, 11%) — flagged as likely VPN/non-human traffic, not organic reach, pending confirmation.
+          </p>
+        </div>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${AMBER}` }}>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Acquisition holds, repeat usage thins</div>
+          <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+            99 new users and 47 returning through day 19. With ~61% of the month elapsed, new users are at 63% of July's full-month total — roughly on pace — while returning users sit at 52%. The summer dip is concentrated in repeat usage, not in reaching new people.
           </p>
         </div>
       </div>
 
       {/* Pending sections note */}
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + all 5 pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA — all pulled directly from FullStory dashboard widgets by ID. <strong style={{ color: INK2 }}>Still manual:</strong> prompts sent, latency, CSAT, and new/returning users. Full month (through Aug 31) replaces this partial pull.
+        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + all 5 pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA — all pulled directly from FullStory dashboard widgets by ID. <strong style={{ color: INK2 }}>Loaded manually:</strong> new users (99), returning users (47) and CSAT (33.3%, n=3). <strong style={{ color: INK2 }}>Still pending:</strong> prompts sent and latency — no FullStory metric covers them. Full month (through Aug 31) replaces this partial pull.
       </div>
 
     </div>
