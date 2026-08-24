@@ -1,5 +1,9 @@
 # KP Dashboard — FullStory MCP metrics checklist
 
+> Este documento es el **cómo**: qué metric_id usar para cada campo y de dónde sale.
+> Para el **por qué** — qué preguntas queremos responder, north star, embudos y qué
+> falta construir — ver [`analytics-measurement-plan.md`](analytics-measurement-plan.md).
+
 Referencia de metric IDs para el cierre mensual del dashboard
 "IDB Knowledge Platform — Post Go-live Key Metrics" (`src/App.jsx`).
 
