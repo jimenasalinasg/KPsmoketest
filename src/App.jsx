@@ -2633,6 +2633,46 @@ const AUGUST = {
   ],
 };
 
+// ── FUNNEL CHART ──────────────────────────────────────────
+// Barras decrecientes: cada paso muestra cuenta, % del paso 1, y caida vs el
+// paso anterior. Pensado para leerse en pantalla angosta.
+function FunnelChart({ steps, compare, compareLabel, note }) {
+  const top = steps[0].n || 1;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+      {steps.map((st, i) => {
+        const pct = st.n / top * 100;
+        const drop = i > 0 ? (st.n / steps[i - 1].n * 100) : null;
+        const cmp = compare ? compare[i] / compare[0] * 100 : null;
+        const delta = cmp != null && i > 0 ? pct - cmp : null;
+        return (
+          <div key={i}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 8, marginBottom: 4 }}>
+              <span style={{ fontSize: 11, color: INK2, fontWeight: i === 0 || i === steps.length - 1 ? 600 : 400 }}>{st.label}</span>
+              <span style={{ fontSize: 11, color: INK, fontWeight: 500, whiteSpace: "nowrap" }}>
+                {st.n} <span style={{ color: INK3, fontWeight: 400 }}>· {Math.round(pct)}%</span>
+              </span>
+            </div>
+            <div style={{ background: BG, borderRadius: 4, height: 18, overflow: "hidden", position: "relative" }}>
+              <div style={{ width: `${Math.max(pct, 0.8)}%`, height: "100%", background: i === steps.length - 1 ? BLUE_D : BLUE, borderRadius: 4, transition: "width .3s" }} />
+            </div>
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 3, fontSize: 9, color: INK3 }}>
+              {drop != null && <span>{Math.round(drop)}% of previous step</span>}
+              {st.time && <span>· {st.time} median</span>}
+              {delta != null && (
+                <span style={{ color: delta < 0 ? RED : GREEN, fontWeight: 600 }}>
+                  · {delta > 0 ? "+" : ""}{delta.toFixed(1)} pp vs {compareLabel}
+                </span>
+              )}
+            </div>
+          </div>
+        );
+      })}
+      {note && <div style={{ fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5, marginTop: 2 }}>{note}</div>}
+    </div>
+  );
+}
+
 // ── METRIC CARD (compartido) ──────────────────────────────
 // Un solo lugar para las tarjetas de métrica de los 5 meses.
 // Hay tres diseños reales, no cinco: "april" (valor en flex con elipsis y
@@ -2985,39 +3025,53 @@ function AugustMonthly() {
       {/* ── CONTENT ENGAGEMENT ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (August · partial)</div>
       <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "18px 20px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
-          <div>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}><span>Total content engagement</span><MetricInfo m={META.contentEngagement} /></div>
-            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>407</div>
-            <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.5 }}>
-              Highlights (270) + Copies (117) + Source panel clicks (19) + Downloads (1 Word) · live via MCP
-            </div>
-          </div>
-          <div style={{ minWidth: 220, flex: 1, maxWidth: 340 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 242 (59%)</span>
-              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 165 (41%)</span>
-            </div>
-            <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 8 }}>
-              <div style={{ width: "59%", background: BLUE_D }} />
-              <div style={{ width: "41%", background: "#9ec4e8" }} />
-            </div>
-            <div style={{ fontSize: 8, color: INK3, lineHeight: 1.5 }}>
-              <strong>Open Search (242):</strong> 160 highlights · 62 copies · 19 source clicks · 1 download<br/>
-              <strong>Contextual (165):</strong> 110 highlights · 55 copies · 0 source clicks
-            </div>
-          </div>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}>
+          <span>Total content engagement</span><MetricInfo m={META.contentEngagement} />
         </div>
-        <div style={{ fontSize: 8, color: BLUE, marginTop: 10, fontStyle: "italic" }}>Live via MCP — OS/Contextual split 59/41, still far more balanced than July's 90/10.</div>
+        <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1 }}>407</div>
+        <div style={{ fontSize: 10, color: BLUE, lineHeight: 1.5, marginTop: 6, marginBottom: 16 }}>
+          Times someone took content away — highlighted it, copied it, opened a source, or downloaded it.
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4, fontSize: 9, fontWeight: 600 }}>
+          <span style={{ color: BLUE_D }}>Open Search · 242 (59%)</span>
+          <span style={{ color: INK3 }}>Contextual · 165 (41%)</span>
+        </div>
+        <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 16 }}>
+          <div style={{ width: "59%", background: BLUE_D }} />
+          <div style={{ width: "41%", background: "#9ec4e8" }} />
+        </div>
+
+        <div style={{ overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 10, minWidth: 260 }}>
+            <thead>
+              <tr style={{ color: BLUE, textTransform: "uppercase", letterSpacing: "0.06em", fontSize: 8 }}>
+                <th style={{ textAlign: "left", padding: "0 0 6px 0", fontWeight: 500 }}></th>
+                <th style={{ textAlign: "right", padding: "0 0 6px 8px", fontWeight: 500 }}>Open Search</th>
+                <th style={{ textAlign: "right", padding: "0 0 6px 8px", fontWeight: 500 }}>Contextual</th>
+                <th style={{ textAlign: "right", padding: "0 0 6px 8px", fontWeight: 500 }}>Total</th>
+              </tr>
+            </thead>
+            <tbody style={{ color: INK2 }}>
+              {[["Highlights", 160, 110, 270], ["Copies", 62, 55, 117], ["Source clicks", 19, 0, 19], ["Downloads", 1, 0, 1]].map((r, i) => (
+                <tr key={i} style={{ borderTop: `1px solid ${BLUE_M}` }}>
+                  <td style={{ padding: "6px 0", whiteSpace: "nowrap" }}>{r[0]}</td>
+                  <td style={{ padding: "6px 0 6px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{r[1]}</td>
+                  <td style={{ padding: "6px 0 6px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{r[2]}</td>
+                  <td style={{ padding: "6px 0 6px 8px", textAlign: "right", fontWeight: 600, color: BLUE_D, fontVariantNumeric: "tabular-nums" }}>{r[3]}</td>
+                </tr>
+              ))}
+              <tr style={{ borderTop: `2px solid ${BLUE_M}`, fontWeight: 600, color: BLUE_D }}>
+                <td style={{ padding: "7px 0" }}>Total</td>
+                <td style={{ padding: "7px 0 7px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>242</td>
+                <td style={{ padding: "7px 0 7px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>165</td>
+                <td style={{ padding: "7px 0 7px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>407</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style={{ fontSize: 9, color: BLUE, marginTop: 10, fontStyle: "italic" }}>Live via MCP — OS/Contextual split 59/41, still far more balanced than July's 90/10.</div>
       </div>
-      <EngagementCard
-        highlighted={AUGUST.highlighted}
-        highlightedOpenSearch={AUGUST.highlightedOpenSearch}
-        copied={AUGUST.copied}
-        copiedOpenSearch={AUGUST.copiedOpenSearch}
-        benchHighlights={BENCH.monthly.highlights}
-        benchCopies={BENCH.monthly.copies}
-      />
 
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
@@ -3034,6 +3088,45 @@ function AugustMonthly() {
       </div>
       <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.5 }}>
         ℹ <strong>Baseline, not disuse.</strong> Share, Highlight &amp; copy, View lesson and Shared-catalogue view track recently released features; their metrics were defined on Aug 12, 2026. A zero here means tracking has just started, not that the feature is being ignored — there is no prior period to compare against. Copy lesson is the exception: it predates them (9 events since Sep 2025) and has registered none since July.
+      </div>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      {/* ── EMBUDOS ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔻 Conversion funnels (live via MCP)</div>
+
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Knowledge extraction</div>
+        <div style={{ fontSize: 11, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>
+          Of every 100 people who open KP, how many leave with something. Unique users, same session, segment Sin DEV.
+        </div>
+        <FunnelChart
+          steps={[
+            { label: "Opens KP", n: 224 },
+            { label: "Runs a search", n: 86, time: "22s" },
+            { label: "Highlights content", n: 32, time: "2m 33s" },
+            { label: "Copies it", n: 18, time: "1.5s" },
+          ]}
+          compare={[248, 109, 47, 30]}
+          compareLabel="July"
+          note="July converted 12.1% end to end; August is at 8.0%. The drop is spread across all three steps, not concentrated in one. Highlight → copy takes a median of 1.5 seconds, which means they are effectively the same gesture."
+        />
+      </div>
+
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", borderLeft: `3px solid ${RED}` }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Lessons Writing Assistant · full year</div>
+        <div style={{ fontSize: 11, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>
+          Sep 1, 2025 → Aug 24, 2026. Unique users, across sessions (writing a lesson is not a one-sitting task), segment Sin DEV.
+        </div>
+        <FunnelChart
+          steps={[
+            { label: "Starts a lesson", n: 101 },
+            { label: "Generates a draft", n: 2 },
+            { label: "Completes it", n: 0 },
+          ]}
+          note="In twelve months, 101 people outside the product team started a lesson, 2 reached a draft and none finished. The single completion on record belongs to a team member. Verified by reversing the step order in case the real flow ran the other way — the result held."
+        />
       </div>
 
       {/* ── DIVIDER ── */}
