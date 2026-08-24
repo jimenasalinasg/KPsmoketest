@@ -670,81 +670,6 @@ function Week1({ data = WEEK1 }) {
     </div>
   );
 }
-function EngagementCard({ highlighted, highlightedOpenSearch, copied, copiedOpenSearch, benchHighlights, benchCopies }) {
-  const total = highlighted + copied;
-  const hlContextual = highlighted - highlightedOpenSearch;
-  const cpContextual = copied - copiedOpenSearch;
-
-  const BadgeComp = ({ val, bench, label }) => {
-    if (!val || !bench) return null;
-    const ratio = val / bench;
-    const pct = Math.round(Math.abs(ratio - 1) * 100);
-    const up = ratio >= 1;
-    return (
-      <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: up ? "#edfaf4" : "#fef0ee", color: up ? GREEN : RED }}>
-        {up ? "↑" : "↓"} {pct}% vs avg
-      </span>
-    );
-  };
-
-  return (
-    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
-      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 14 }}>Breakdown — Highlights & Copies · Open Search vs Contextual</div>
-
-      {/* Highlights bar */}
-      <div style={{ marginBottom: 12 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4, alignItems: "center" }}>
-          <span style={{ fontSize: 10, color: INK2, fontWeight: 500 }}>Highlights</span>
-          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <BadgeComp val={highlighted} bench={benchHighlights} />
-            <span style={{ fontSize: 10, color: INK3 }}>{highlighted} total</span>
-          </div>
-        </div>
-        <div style={{ background: BG, borderRadius: 99, height: 8, overflow: "hidden", marginBottom: 3 }}>
-          <div style={{ width: "100%", height: "100%", background: "#c2d9f7", borderRadius: 99, position: "relative" }}>
-            <div style={{ width: `${(highlightedOpenSearch / highlighted) * 100}%`, height: "100%", background: BLUE, borderRadius: 99 }} />
-          </div>
-        </div>
-        <div style={{ display: "flex", gap: 12, fontSize: 9, color: INK3 }}>
-          <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-            <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: BLUE }} />
-            Open Search: {highlightedOpenSearch}
-          </span>
-          <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-            <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: "#c2d9f7" }} />
-            Contextual Search: {hlContextual}
-          </span>
-        </div>
-      </div>
-
-      {/* Copies bar */}
-      <div>
-        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4, alignItems: "center" }}>
-          <span style={{ fontSize: 10, color: INK2, fontWeight: 500 }}>Copies</span>
-          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <BadgeComp val={copied} bench={benchCopies} />
-            <span style={{ fontSize: 10, color: INK3 }}>{copied} total</span>
-          </div>
-        </div>
-        <div style={{ background: BG, borderRadius: 99, height: 8, overflow: "hidden", marginBottom: 3 }}>
-          <div style={{ width: "100%", height: "100%", background: "#fde68a", borderRadius: 99, position: "relative" }}>
-            <div style={{ width: `${(copiedOpenSearch / copied) * 100}%`, height: "100%", background: "#d97706", borderRadius: 99 }} />
-          </div>
-        </div>
-        <div style={{ display: "flex", gap: 12, fontSize: 9, color: INK3 }}>
-          <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-            <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: "#d97706" }} />
-            Open Search: {copiedOpenSearch}
-          </span>
-          <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-            <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: "#fde68a" }} />
-            Contextual Search: {cpContextual}
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // ── LAUNCH TIMELINE ───────────────────────────────────────
 function LaunchTimeline({ defaultOpen = true }) {
@@ -1178,39 +1103,13 @@ function Monthly() {
 
       {/* ── CONTENT ENGAGEMENT ── */}
       <Section emoji="📄" title="Content Engagement (April)">
-        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "18px 20px", marginBottom: 10 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
-            <div>
-              <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Total content engagement</div>
-              <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>799</div>
-              <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.5 }}>
-                Highlights (579) + Copies (167) + Source panel clicks (53) · Downloads tracking began in June
-              </div>
-            </div>
-            <div style={{ minWidth: 220, flex: 1, maxWidth: 340 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-                <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 546 (68%)</span>
-                <span style={{ fontSize: 9, color: INK3 }}>Contextual · 253 (32%)</span>
-              </div>
-              <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 8 }}>
-                <div style={{ width: "68%", background: BLUE_D }} />
-                <div style={{ width: "32%", background: "#9ec4e8" }} />
-              </div>
-              <div style={{ fontSize: 8, color: INK3, lineHeight: 1.5 }}>
-                <strong>Open Search (546):</strong> 393 highlights · 101 copies · 52 source clicks<br/>
-                <strong>Contextual (253):</strong> 186 highlights · 66 copies · 1 source click
-              </div>
-            </div>
-          </div>
-        </div>
-        <EngagementCard
-          highlighted={APRIL.highlighted}
-          highlightedOpenSearch={APRIL.highlightedOpenSearch}
-          copied={APRIL.copied}
-          copiedOpenSearch={APRIL.copiedOpenSearch}
-          benchHighlights={BENCH.monthly.highlights}
-          benchCopies={BENCH.monthly.copies}
-        />
+      <ContentEngagementCard
+        total={799}
+        openSearch={546}
+        contextual={253}
+        rows={[["Highlights", 393, 186], ["Copies", 101, 66], ["Source clicks", 52, 1]]}
+        note={"Downloads tracking began in June."}
+      />
       </Section>
 
       {/* ── DIVIDER ── */}
@@ -1598,38 +1497,12 @@ function MayMonthly() {
 
       {/* ── CONTENT ENGAGEMENT ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (May)</div>
-      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "18px 20px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
-          <div>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Total content engagement</div>
-            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>705</div>
-            <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.5 }}>
-              Highlights (463) + Copies (191) + Source panel clicks (51) · Downloads tracking began in June
-            </div>
-          </div>
-          <div style={{ minWidth: 220, flex: 1, maxWidth: 340 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 366 (52%)</span>
-              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 339 (48%)</span>
-            </div>
-            <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 8 }}>
-              <div style={{ width: "52%", background: BLUE_D }} />
-              <div style={{ width: "48%", background: "#9ec4e8" }} />
-            </div>
-            <div style={{ fontSize: 8, color: INK3, lineHeight: 1.5 }}>
-              <strong>Open Search (366):</strong> 217 highlights · 99 copies · 50 source clicks<br/>
-              <strong>Contextual (339):</strong> 246 highlights · 92 copies · 1 source click
-            </div>
-          </div>
-        </div>
-      </div>
-      <EngagementCard
-        highlighted={MAY.highlighted}
-        highlightedOpenSearch={MAY.highlightedOpenSearch}
-        copied={MAY.copied}
-        copiedOpenSearch={MAY.copiedOpenSearch}
-        benchHighlights={BENCH.monthly.highlights}
-        benchCopies={BENCH.monthly.copies}
+      <ContentEngagementCard
+        total={705}
+        openSearch={366}
+        contextual={339}
+        rows={[["Highlights", 217, 246], ["Copies", 99, 92], ["Source clicks", 50, 1]]}
+        note={"Downloads tracking began in June."}
       />
 
       {/* ── DIVIDER ── */}
@@ -2034,38 +1907,12 @@ function JuneMonthly() {
 
       {/* ── CONTENT ENGAGEMENT ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (June)</div>
-      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "18px 20px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
-          <div>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Total content engagement</div>
-            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>871</div>
-            <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.5 }}>
-              Highlights (570) + Copies (243) + Source panel clicks (51) + Downloads (7: 5 Word · 2 Excel)
-            </div>
-          </div>
-          <div style={{ minWidth: 220, flex: 1, maxWidth: 340 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 666 (76%)</span>
-              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 205 (24%)</span>
-            </div>
-            <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 8 }}>
-              <div style={{ width: "76%", background: BLUE_D }} />
-              <div style={{ width: "24%", background: "#9ec4e8" }} />
-            </div>
-            <div style={{ fontSize: 8, color: INK3, lineHeight: 1.5 }}>
-              <strong>Open Search (666):</strong> 406 highlights · 203 copies · 50 source clicks · 7 downloads<br/>
-              <strong>Contextual (205):</strong> 164 highlights · 40 copies · 1 source click
-            </div>
-          </div>
-        </div>
-      </div>
-      <EngagementCard
-        highlighted={JUNE.highlighted}
-        highlightedOpenSearch={JUNE.highlightedOpenSearch}
-        copied={JUNE.copied}
-        copiedOpenSearch={JUNE.copiedOpenSearch}
-        benchHighlights={BENCH.monthly.highlights}
-        benchCopies={BENCH.monthly.copies}
+      <ContentEngagementCard
+        total={871}
+        openSearch={666}
+        contextual={205}
+        rows={[["Highlights", 406, 164], ["Copies", 203, 40], ["Source clicks", 50, 1], ["Downloads", 7, 0]]}
+        note={"Downloads: 5 Word · 2 Excel."}
       />
 
       {/* ── DIVIDER ── */}
@@ -2438,38 +2285,12 @@ function JulyMonthly() {
 
       {/* ── CONTENT ENGAGEMENT ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (July)</div>
-      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "18px 20px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
-          <div>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Total content engagement</div>
-            <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>648</div>
-            <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.5 }}>
-              Highlights (452) + Copies (157) + Source panel clicks (30) + Downloads (9: 6 Word · 3 Excel)
-            </div>
-          </div>
-          <div style={{ minWidth: 220, flex: 1, maxWidth: 340 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-              <span style={{ fontSize: 9, fontWeight: 600, color: BLUE_D }}>Open Search · 585 (90%)</span>
-              <span style={{ fontSize: 9, color: INK3 }}>Contextual · 63 (10%)</span>
-            </div>
-            <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 8 }}>
-              <div style={{ width: "90%", background: BLUE_D }} />
-              <div style={{ width: "10%", background: "#9ec4e8" }} />
-            </div>
-            <div style={{ fontSize: 8, color: INK3, lineHeight: 1.5 }}>
-              <strong>Open Search (585):</strong> 411 highlights · 135 copies · 30 source clicks · 9 downloads<br/>
-              <strong>Contextual (63):</strong> 41 highlights · 22 copies · 0 source clicks
-            </div>
-          </div>
-        </div>
-      </div>
-      <EngagementCard
-        highlighted={JULY.highlighted}
-        highlightedOpenSearch={JULY.highlightedOpenSearch}
-        copied={JULY.copied}
-        copiedOpenSearch={JULY.copiedOpenSearch}
-        benchHighlights={BENCH.monthly.highlights}
-        benchCopies={BENCH.monthly.copies}
+      <ContentEngagementCard
+        total={648}
+        openSearch={585}
+        contextual={63}
+        rows={[["Highlights", 411, 41], ["Copies", 135, 22], ["Source clicks", 30, 0], ["Downloads", 9, 0]]}
+        note={"Downloads: 6 Word · 3 Excel."}
       />
 
       {/* ── DIVIDER ── */}
@@ -2632,6 +2453,65 @@ const AUGUST = {
     { name: "Sweden",                 code: "SE", users: 1,   pct: 0 },
   ],
 };
+
+// ── CONTENT ENGAGEMENT (compartido) ───────────────────────
+// Una sola tabla componente x superficie. Reemplaza el patron anterior, que
+// mostraba los mismos numeros dos veces: una linea de formula arriba y un
+// EngagementCard con barras justo debajo.
+function ContentEngagementCard({ total, openSearch, contextual, rows, note, split }) {
+  const pctOS = Math.round(openSearch / total * 100);
+  return (
+    <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "18px 20px" }}>
+      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}>
+        <span>Total content engagement</span><MetricInfo m={META.contentEngagement} />
+      </div>
+      <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1 }}>{total.toLocaleString()}</div>
+      <div style={{ fontSize: 10, color: BLUE, lineHeight: 1.5, marginTop: 6, marginBottom: 16 }}>
+        Times someone took content away — highlighted it, copied it, opened a source, or downloaded it.
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4, fontSize: 9, fontWeight: 600, gap: 8 }}>
+        <span style={{ color: BLUE_D }}>Open Search · {openSearch.toLocaleString()} ({pctOS}%)</span>
+        <span style={{ color: INK3 }}>Contextual · {contextual.toLocaleString()} ({100 - pctOS}%)</span>
+      </div>
+      <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 16 }}>
+        <div style={{ width: `${pctOS}%`, background: BLUE_D }} />
+        <div style={{ width: `${100 - pctOS}%`, background: "#9ec4e8" }} />
+      </div>
+
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 10, minWidth: 260 }}>
+          <thead>
+            <tr style={{ color: BLUE, textTransform: "uppercase", letterSpacing: "0.06em", fontSize: 8 }}>
+              <th style={{ textAlign: "left", padding: "0 0 6px 0", fontWeight: 500 }}></th>
+              <th style={{ textAlign: "right", padding: "0 0 6px 8px", fontWeight: 500 }}>Open Search</th>
+              <th style={{ textAlign: "right", padding: "0 0 6px 8px", fontWeight: 500 }}>Contextual</th>
+              <th style={{ textAlign: "right", padding: "0 0 6px 8px", fontWeight: 500 }}>Total</th>
+            </tr>
+          </thead>
+          <tbody style={{ color: INK2 }}>
+            {rows.map((r, i) => (
+              <tr key={i} style={{ borderTop: `1px solid ${BLUE_M}` }}>
+                <td style={{ padding: "6px 0", whiteSpace: "nowrap" }}>{r[0]}</td>
+                <td style={{ padding: "6px 0 6px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{r[1]}</td>
+                <td style={{ padding: "6px 0 6px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{r[2]}</td>
+                <td style={{ padding: "6px 0 6px 8px", textAlign: "right", fontWeight: 600, color: BLUE_D, fontVariantNumeric: "tabular-nums" }}>{r[1] + r[2]}</td>
+              </tr>
+            ))}
+            <tr style={{ borderTop: `2px solid ${BLUE_M}`, fontWeight: 600, color: BLUE_D }}>
+              <td style={{ padding: "7px 0" }}>Total</td>
+              <td style={{ padding: "7px 0 7px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{openSearch.toLocaleString()}</td>
+              <td style={{ padding: "7px 0 7px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{contextual.toLocaleString()}</td>
+              <td style={{ padding: "7px 0 7px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{total.toLocaleString()}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      {note && <div style={{ fontSize: 9, color: BLUE, marginTop: 10, fontStyle: "italic" }}>{note}</div>}
+      {split && <div style={{ fontSize: 9, color: BLUE, marginTop: 4, fontStyle: "italic" }}>{split}</div>}
+    </div>
+  );
+}
 
 // ── FUNNEL CHART ──────────────────────────────────────────
 // Barras decrecientes: cada paso muestra cuenta, % del paso 1, y caida vs el
@@ -3024,54 +2904,14 @@ function AugustMonthly() {
 
       {/* ── CONTENT ENGAGEMENT ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (August · partial)</div>
-      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "18px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}>
-          <span>Total content engagement</span><MetricInfo m={META.contentEngagement} />
-        </div>
-        <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1 }}>407</div>
-        <div style={{ fontSize: 10, color: BLUE, lineHeight: 1.5, marginTop: 6, marginBottom: 16 }}>
-          Times someone took content away — highlighted it, copied it, opened a source, or downloaded it.
-        </div>
-
-        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4, fontSize: 9, fontWeight: 600 }}>
-          <span style={{ color: BLUE_D }}>Open Search · 242 (59%)</span>
-          <span style={{ color: INK3 }}>Contextual · 165 (41%)</span>
-        </div>
-        <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 16 }}>
-          <div style={{ width: "59%", background: BLUE_D }} />
-          <div style={{ width: "41%", background: "#9ec4e8" }} />
-        </div>
-
-        <div style={{ overflowX: "auto" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 10, minWidth: 260 }}>
-            <thead>
-              <tr style={{ color: BLUE, textTransform: "uppercase", letterSpacing: "0.06em", fontSize: 8 }}>
-                <th style={{ textAlign: "left", padding: "0 0 6px 0", fontWeight: 500 }}></th>
-                <th style={{ textAlign: "right", padding: "0 0 6px 8px", fontWeight: 500 }}>Open Search</th>
-                <th style={{ textAlign: "right", padding: "0 0 6px 8px", fontWeight: 500 }}>Contextual</th>
-                <th style={{ textAlign: "right", padding: "0 0 6px 8px", fontWeight: 500 }}>Total</th>
-              </tr>
-            </thead>
-            <tbody style={{ color: INK2 }}>
-              {[["Highlights", 160, 110, 270], ["Copies", 62, 55, 117], ["Source clicks", 19, 0, 19], ["Downloads", 1, 0, 1]].map((r, i) => (
-                <tr key={i} style={{ borderTop: `1px solid ${BLUE_M}` }}>
-                  <td style={{ padding: "6px 0", whiteSpace: "nowrap" }}>{r[0]}</td>
-                  <td style={{ padding: "6px 0 6px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{r[1]}</td>
-                  <td style={{ padding: "6px 0 6px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>{r[2]}</td>
-                  <td style={{ padding: "6px 0 6px 8px", textAlign: "right", fontWeight: 600, color: BLUE_D, fontVariantNumeric: "tabular-nums" }}>{r[3]}</td>
-                </tr>
-              ))}
-              <tr style={{ borderTop: `2px solid ${BLUE_M}`, fontWeight: 600, color: BLUE_D }}>
-                <td style={{ padding: "7px 0" }}>Total</td>
-                <td style={{ padding: "7px 0 7px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>242</td>
-                <td style={{ padding: "7px 0 7px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>165</td>
-                <td style={{ padding: "7px 0 7px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>407</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div style={{ fontSize: 9, color: BLUE, marginTop: 10, fontStyle: "italic" }}>Live via MCP — OS/Contextual split 59/41, still far more balanced than July's 90/10.</div>
-      </div>
+      <ContentEngagementCard
+        total={407}
+        openSearch={242}
+        contextual={165}
+        rows={[["Highlights", 160, 110], ["Copies", 62, 55], ["Source clicks", 19, 0], ["Downloads", 1, 0]]}
+        note={"Downloads: 1 Word."}
+        split={"OS/Contextual split 59/41 — still far more balanced than July's 90/10."}
+      />
 
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
@@ -3122,10 +2962,9 @@ function AugustMonthly() {
         <FunnelChart
           steps={[
             { label: "Starts a lesson", n: 101 },
-            { label: "Generates a draft", n: 2 },
-            { label: "Completes it", n: 0 },
+            { label: "Completes it", n: 15, time: "36m 34s" },
           ]}
-          note="In twelve months, 101 people outside the product team started a lesson, 2 reached a draft and none finished. The single completion on record belongs to a team member. Verified by reversing the step order in case the real flow ran the other way — the result held."
+          note="In twelve months, 101 people outside the product team started a lesson and 15 finished one — a median of 37 minutes apart. None of those completions happened in July or August: the activity is from earlier months. An earlier version of this funnel forced a draft-generation step in between and reported zero completions; only 2 users ever pass through that button, which strangled the funnel rather than measuring it."
         />
       </div>
 
