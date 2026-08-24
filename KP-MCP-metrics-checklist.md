@@ -49,10 +49,15 @@ Devuelven `{single:{value}}`. Se computan con el rango del mes cerrado
 
 | Campo                  | metric_id      |
 |------------------------|----------------|
-| `lwa.lessonsGenerated` | `ffbLsADU0Swu` |
 | `lwa.share`            | `IHPlQ1WT1zEz` |
 | `lwa.copyLesson`       | `b46xecCQyFod` |
 | `lwa.highlightAndCopy` | `azWUDLxYgaWY` |
+
+> **`lwa.lessonsGenerated` NO va acá — es manual.** Ver §2.
+>
+> La fuente de esta sección es el dashboard **"NEW - Lessons Writing Assistant"**
+> de FullStory, que el MCP no puede leer. Los tres IDs de arriba se eligieron por
+> nombre y están **pendientes de confirmar** contra ese dashboard.
 
 ### Países
 
@@ -87,6 +92,10 @@ Nunca inventar. Si no hay valor, dejar `null` y listarlo como pendiente en el PR
 - `csat` — % y promedio de estrellas, con n de respuestas
 - `dropoff`, `sourceClicksBC`, `openSearchVisits` — meses con schema viejo
 - `pillBot` — pill menos usada (ver §4)
+- `lwa.lessonsGenerated` — **se saca a mano de la consola**, no de FullStory.
+  El métrico `ffbLsADU0Swu` NO sirve para este campo: se llama "Lessons Generated
+  - Clicks" y cuenta clicks en `Question-Set-Create-Draft-Button`, no lecciones
+  producidas. Si se computa ese ID, se pisa el dato bueno con un conteo de clicks.
 
 ---
 

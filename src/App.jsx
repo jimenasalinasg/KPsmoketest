@@ -2728,7 +2728,7 @@ const AUGUST = {
   wordDownloads: 1,       // live via MCP (3EkjBy6jYByB)
   excelDownloads: 0,      // live via MCP (FIw2VjBWkJ6J)
   lwa: {
-    lessonsGenerated: 10,   // live via MCP (ffbLsADU0Swu)
+    lessonsGenerated: 10,   // MANUAL — se saca de consola, NO de FullStory. Valor a confirmar; el 10 actual vino por error de ffbLsADU0Swu (clicks, no lecciones)
     share: 0,              // live via MCP (IHPlQ1WT1zEz)
     copyLesson: 0,         // live via MCP (b46xecCQyFod)
     highlightAndCopy: 0,   // live via MCP (azWUDLxYgaWY)
@@ -3047,7 +3047,7 @@ function AugustMonthly() {
       {/* ── LWA (simplified) ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (August · partial)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard label="Lessons generated" value={String(AUGUST.lwa.lessonsGenerated)} desc="Live via MCP" accent />
+        <MCard label="Lessons generated" value={String(AUGUST.lwa.lessonsGenerated)} desc="Manual — from console · figure pending confirmation" accent />
         <MCard label="Shares" value={String(AUGUST.lwa.share)} desc="Lessons shared · live via MCP" />
         <MCard label="Copy lesson" value={String(AUGUST.lwa.copyLesson)} desc="Lessons copied · live via MCP" />
         <MCard label="Highlight & copy" value={AUGUST.lwa.highlightAndCopy.toLocaleString()} desc="Text highlighted and copied in LWA · live via MCP" />
