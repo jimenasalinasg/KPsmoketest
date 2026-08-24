@@ -2728,23 +2728,10 @@ const AUGUST = {
   wordDownloads: 1,       // live via MCP (3EkjBy6jYByB)
   excelDownloads: 0,      // live via MCP (FIw2VjBWkJ6J)
   lwa: {
-    uniqueUsers: 4,             // live via MCP (Q0y8TIL6hRdf) — usuarios únicos que clickearon crear borrador
-    generateClicks: 10,         // live via MCP (ffbLsADU0Swu) — CLICKS en Question-Set-Create-Draft-Button, no lecciones
-    generateSessions: 8,        // live via MCP (Mq2SbKJde75T)
-    lessonsStartedTotal: 7,     // live via MCP (jDQuiB0c5EYi)
-    lessonsStartedExecution: 1, // live via MCP (5WBegPsxt1MB)
-    lessonsStartedPCR: 6,       // live via MCP (5lwq1D3qJLkl)
-    edited: 14,                 // live via MCP (1Ycz3dnUUHFS)
-    completed: 0,               // live via MCP (znQU12fxaRzp)
-    viewLesson: 0,              // live via MCP (o7uGz8LnXgZY)
-    share: 0,                   // live via MCP (IHPlQ1WT1zEz) — definición modificada 12-ago
-    copiesButton: 0,            // live via MCP (b46xecCQyFod) — métrico creado 12-ago
-    copiesCursor: 0,            // live via MCP (azWUDLxYgaWY) — definición modificada 12-ago
-    copiesCombined: 0,
-    visits: null,               // sin métrico
-    usersCreated: null,         // sin métrico
-    avgTime: null,              // sin métrico
-    pctReviewed: null,          // sin métrico
+    lessonsGenerated: 10,   // live via MCP (ffbLsADU0Swu)
+    share: 0,              // live via MCP (IHPlQ1WT1zEz)
+    copyLesson: 0,         // live via MCP (b46xecCQyFod)
+    highlightAndCopy: 0,   // live via MCP (azWUDLxYgaWY)
   },
   latency: null,          // manual
   csat: "33.3%",          // manual — 3 respuestas (3,5,1) · top-2 box 1/3 · avg 3.00
@@ -2854,15 +2841,6 @@ function AugustMonthly() {
               ["New Search clicks", AUGUST.newSearchClicks],
               ["Latency (median)", AUGUST.latency ?? "pending"],
               ["CSAT", AUGUST.csat ?? "pending"],
-              ["LWA users", AUGUST.lwa.uniqueUsers],
-              ["LWA create-draft clicks", AUGUST.lwa.generateClicks],
-              ["LWA lessons started total", AUGUST.lwa.lessonsStartedTotal],
-              ["LWA lessons started Execution", AUGUST.lwa.lessonsStartedExecution],
-              ["LWA lessons started PCR", AUGUST.lwa.lessonsStartedPCR],
-              ["LWA lessons completed", AUGUST.lwa.completed],
-              ["LWA edit clicks", AUGUST.lwa.edited],
-              ["LWA shares", AUGUST.lwa.share],
-              ["LWA copies combined", AUGUST.lwa.copiesCombined],
               ["Cumulative users (Sep 1-Aug 24)", "1,910"],
               ["Cumulative prompters (Sep 1-Aug 24)", "841"],
               ["Cumulative penetration", "53.1%"],
@@ -3066,40 +3044,13 @@ function AugustMonthly() {
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
-      {/* ── LWA ── */}
+      {/* ── LWA (simplified) ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (August · partial)</div>
-      <div style={{ fontSize: 9, color: INK3, fontStyle: "italic" }}>Adoption</div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
-        <MCard label="LWA users" value={String(AUGUST.lwa.uniqueUsers)} desc="Unique users who started a draft · live via MCP" accent momentum={JULY.lwa.uniqueUsers} />
-        <MCard label="Create-draft clicks" value={String(AUGUST.lwa.generateClicks)} desc={`Button clicks, not finished lessons · ${AUGUST.lwa.generateSessions} sessions · live via MCP`} />
-        <MCard label="LWA visits" value={null} desc="No FullStory metric" small />
-      </div>
-
-      <div style={{ fontSize: 9, color: INK3, fontStyle: "italic" }}>Usage & Completion</div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Lessons started</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{AUGUST.lwa.lessonsStartedTotal}</div>
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{AUGUST.lwa.lessonsStartedExecution} Execution</span>
-            <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BG, color: INK3, fontWeight: 500 }}>{AUGUST.lwa.lessonsStartedPCR} PCR</span>
-          </div>
-        </div>
-        <MCard label="Lessons completed" value={String(AUGUST.lwa.completed)} desc="Clicked 'Complete lesson' · live via MCP" accent momentum={JULY.lwa.completed} />
-        <MCard label="Edit clicks" value={String(AUGUST.lwa.edited)} desc="Live via MCP" momentum={JULY.lwa.edited} />
-        <MCard label="Avg. time to save" value={null} desc="No FullStory metric" small />
-      </div>
-
-      <div style={{ fontSize: 9, color: INK3, fontStyle: "italic" }}>Sharing & Reuse</div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
-        <MCard label="Shares" value={String(AUGUST.lwa.share)} desc="Live via MCP" />
-        <MCard label="View lesson" value={String(AUGUST.lwa.viewLesson)} desc="Live via MCP" />
-        <MCard label="Copies (button)" value={String(AUGUST.lwa.copiesButton)} desc="Live via MCP" />
-        <MCard label="Copies (highlight)" value={String(AUGUST.lwa.copiesCursor)} desc="Live via MCP" />
-      </div>
-
-      <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 8, padding: "10px 14px", fontSize: 10, color: "#92400e", lineHeight: 1.5 }}>
-        ⚠ <strong>Read this section with care.</strong> "Create-draft clicks" counts clicks on the create-draft button — it is not a count of lessons produced. In August, 4 users generated 10 such clicks, started 7 lessons and completed <strong>none</strong>. Separately, the Share, Copy and Highlight-copy metrics were created or redefined in FullStory on Aug 12, mid-month, so their zeros may reflect an instrumentation gap in the first half of August rather than genuine absence of use.
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
+        <MCard label="Lessons generated" value={String(AUGUST.lwa.lessonsGenerated)} desc="Live via MCP" accent />
+        <MCard label="Shares" value={String(AUGUST.lwa.share)} desc="Lessons shared · live via MCP" />
+        <MCard label="Copy lesson" value={String(AUGUST.lwa.copyLesson)} desc="Lessons copied · live via MCP" />
+        <MCard label="Highlight & copy" value={AUGUST.lwa.highlightAndCopy.toLocaleString()} desc="Text highlighted and copied in LWA · live via MCP" />
       </div>
 
       {/* ── DIVIDER ── */}
