@@ -953,45 +953,7 @@ function Monthly() {
   const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
 
   // ── reusable card ──
-  const MCard = ({ label, value, desc, accent, small, flagCode, bench }) => {
-    let badge = null;
-    if (value && value !== "—" && bench != null) {
-      const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
-      if (!isNaN(numVal) && bench > 0) {
-        const ratio = numVal / bench;
-        const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
-        const higher = ratio >= 1;
-        badge = { label: higher ? `↑ ${pctDiff}%` : `↓ ${pctDiff}%`, isGood: higher };
-      }
-    }
-    return (
-    <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8 }}>{label}</div>
-      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6, overflow: "hidden" }}>
-        {flagCode && <span style={{ fontSize: 20, lineHeight: 1, flexShrink: 0 }}>{flag(flagCode)}</span>}
-        <div style={{
-          fontSize: flagCode ? 14 : small ? 16 : 28,
-          fontWeight: 500,
-          letterSpacing: flagCode || small ? "-0.01em" : "-0.03em",
-          lineHeight: 1.2,
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          whiteSpace: "nowrap",
-          color: value && value !== "—" ? (accent ? BLUE_D : INK) : BDR
-        }}>{value || "—"}</div>
-      </div>
-      {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginBottom: badge ? 6 : 0 }}>{desc}</div>}
-      {badge && (
-        <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
-          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: badge.isGood ? "#edfaf4" : "#fef0ee", color: badge.isGood ? GREEN : RED }}>
-            {badge.label} vs monthly avg
-          </span>
-          <span style={{ fontSize: 9, color: INK3 }}>({bench})</span>
-        </div>
-      )}
-    </div>
-  );
-  };
+  const MCard = (p) => <MonthMetricCard {...p} variant="april" />;
 
   // ── section wrapper ──
   const Section = ({ title, emoji, children }) => (
@@ -1404,51 +1366,7 @@ function MayMonthly() {
 
   const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
 
-  const MCard = ({ label, value, desc, accent, small, bench, momentum }) => {
-    let badge = null;
-    if (value && value !== "—" && bench != null) {
-      const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
-      if (!isNaN(numVal) && bench > 0) {
-        const ratio = numVal / bench;
-        const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
-        const higher = ratio >= 1;
-        badge = { label: higher ? `↑ ${pctDiff}%` : `↓ ${pctDiff}%`, isGood: higher };
-      }
-    }
-    let momentumBadge = null;
-    if (value && value !== "—" && momentum != null) {
-      const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
-      if (!isNaN(numVal) && momentum > 0) {
-        const ratio = numVal / momentum;
-        const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
-        const higher = ratio >= 1;
-        momentumBadge = { label: higher ? `↑${pctDiff}%` : `↓${pctDiff}%` };
-      }
-    }
-    return (
-      <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8 }}>{label}</div>
-        <div style={{ fontSize: small ? 16 : 28, fontWeight: 500, letterSpacing: small ? "-0.01em" : "-0.03em", lineHeight: 1.2, color: value && value !== "—" ? (accent ? BLUE_D : INK) : BDR }}>{value || "—"}</div>
-        {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6, marginBottom: (badge || momentumBadge) ? 6 : 0 }}>{desc}</div>}
-        {badge && (
-          <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4, flexWrap: "wrap" }}>
-            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: badge.isGood ? "#edfaf4" : "#fef0ee", color: badge.isGood ? GREEN : RED }}>
-              {badge.label} vs monthly avg
-            </span>
-            <span style={{ fontSize: 9, color: INK3 }}>({bench})</span>
-            {momentumBadge && <span style={{ fontSize: 9, color: INK3 }}>· {momentumBadge.label} vs last month ({momentum})</span>}
-          </div>
-        )}
-        {!badge && momentumBadge && (
-          <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
-            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: momentumBadge.label.startsWith("↑") ? "#edfaf4" : "#fef0ee", color: momentumBadge.label.startsWith("↑") ? GREEN : RED }}>
-              {momentumBadge.label} vs last month ({momentum})
-            </span>
-          </div>
-        )}
-      </div>
-    );
-  };
+  const MCard = MonthMetricCard;
 
   const regional = MAY.countries.filter(c => c.code !== "US");
   const usData = MAY.countries.find(c => c.code === "US");
@@ -1876,51 +1794,7 @@ function JuneMonthly() {
 
   const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
 
-  const MCard = ({ label, value, desc, accent, small, bench, momentum }) => {
-    let badge = null;
-    if (value && value !== "—" && bench != null) {
-      const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
-      if (!isNaN(numVal) && bench > 0) {
-        const ratio = numVal / bench;
-        const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
-        const higher = ratio >= 1;
-        badge = { label: higher ? `↑ ${pctDiff}%` : `↓ ${pctDiff}%`, isGood: higher };
-      }
-    }
-    let momentumBadge = null;
-    if (value && value !== "—" && momentum != null) {
-      const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
-      if (!isNaN(numVal) && momentum > 0) {
-        const ratio = numVal / momentum;
-        const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
-        const higher = ratio >= 1;
-        momentumBadge = { label: higher ? `↑${pctDiff}%` : `↓${pctDiff}%` };
-      }
-    }
-    return (
-      <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8 }}>{label}</div>
-        <div style={{ fontSize: small ? 16 : 28, fontWeight: 500, letterSpacing: small ? "-0.01em" : "-0.03em", lineHeight: 1.2, color: value && value !== "—" ? (accent ? BLUE_D : INK) : BDR }}>{value || "—"}</div>
-        {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6, marginBottom: (badge || momentumBadge) ? 6 : 0 }}>{desc}</div>}
-        {badge && (
-          <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4, flexWrap: "wrap" }}>
-            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: badge.isGood ? "#edfaf4" : "#fef0ee", color: badge.isGood ? GREEN : RED }}>
-              {badge.label} vs monthly avg
-            </span>
-            <span style={{ fontSize: 9, color: INK3 }}>({bench})</span>
-            {momentumBadge && <span style={{ fontSize: 9, color: INK3 }}>· {momentumBadge.label} vs last month ({momentum})</span>}
-          </div>
-        )}
-        {!badge && momentumBadge && (
-          <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
-            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: momentumBadge.label.startsWith("↑") ? "#edfaf4" : "#fef0ee", color: momentumBadge.label.startsWith("↑") ? GREEN : RED }}>
-              {momentumBadge.label} vs last month ({momentum})
-            </span>
-          </div>
-        )}
-      </div>
-    );
-  };
+  const MCard = MonthMetricCard;
 
   const regional = JUNE.countries.filter(c => c.code !== "US");
   const usData = JUNE.countries.find(c => c.code === "US");
@@ -2339,51 +2213,7 @@ function JulyMonthly() {
   const usData = JULY.countries.find(c => c.code === "US");
   const maxUsers = regional[0].users;
 
-  const MCard = ({ label, value, desc, accent, small, bench, momentum }) => {
-    let badge = null;
-    if (value && value !== "—" && bench != null) {
-      const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
-      if (!isNaN(numVal) && bench > 0) {
-        const ratio = numVal / bench;
-        const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
-        const higher = ratio >= 1;
-        badge = { label: higher ? `↑ ${pctDiff}%` : `↓ ${pctDiff}%`, isGood: higher };
-      }
-    }
-    let momentumBadge = null;
-    if (value && value !== "—" && momentum != null) {
-      const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
-      if (!isNaN(numVal) && momentum > 0) {
-        const ratio = numVal / momentum;
-        const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
-        const higher = ratio >= 1;
-        momentumBadge = { label: higher ? `↑${pctDiff}%` : `↓${pctDiff}%` };
-      }
-    }
-    return (
-      <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8 }}>{label}</div>
-        <div style={{ fontSize: small ? 16 : 28, fontWeight: 500, letterSpacing: small ? "-0.01em" : "-0.03em", lineHeight: 1.2, color: value && value !== "—" ? (accent ? BLUE_D : INK) : BDR }}>{value || "—"}</div>
-        {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6, marginBottom: (badge || momentumBadge) ? 6 : 0 }}>{desc}</div>}
-        {badge && (
-          <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4, flexWrap: "wrap" }}>
-            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: badge.isGood ? "#edfaf4" : "#fef0ee", color: badge.isGood ? GREEN : RED }}>
-              {badge.label} vs monthly avg
-            </span>
-            <span style={{ fontSize: 9, color: INK3 }}>({bench})</span>
-            {momentumBadge && <span style={{ fontSize: 9, color: INK3 }}>· {momentumBadge.label} vs last month ({momentum})</span>}
-          </div>
-        )}
-        {!badge && momentumBadge && (
-          <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
-            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: momentumBadge.label.startsWith("↑") ? "#edfaf4" : "#fef0ee", color: momentumBadge.label.startsWith("↑") ? GREEN : RED }}>
-              {momentumBadge.label} vs last month ({momentum})
-            </span>
-          </div>
-        )}
-      </div>
-    );
-  };
+  const MCard = MonthMetricCard;
 
   return (
     <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
@@ -2803,6 +2633,111 @@ const AUGUST = {
   ],
 };
 
+// ── METRIC CARD (compartido) ──────────────────────────────
+// Un solo lugar para las tarjetas de métrica de los 5 meses.
+// Hay tres diseños reales, no cinco: "april" (valor en flex con elipsis y
+// soporte de bandera), "classic" (mayo/junio/julio: badge de benchmark +
+// momentum) y "august" (sin benchmark, con tooltip de definición).
+// Las tres se preservan tal cual estaban; render verificado byte a byte.
+function MonthMetricCard({ label, value, desc, accent, small, bench, momentum, meta, flagCode, variant = "classic", momentumLabel = "last month" }) {
+  let badge = null;
+  if (value && value !== "—" && bench != null) {
+    const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
+    if (!isNaN(numVal) && bench > 0) {
+      const ratio = numVal / bench;
+      const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
+      const higher = ratio >= 1;
+      badge = { label: higher ? `↑ ${pctDiff}%` : `↓ ${pctDiff}%`, isGood: higher };
+    }
+  }
+  let momentumBadge = null;
+  if (value && value !== "—" && momentum != null) {
+    const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
+    if (!isNaN(numVal) && momentum > 0) {
+      const ratio = numVal / momentum;
+      const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
+      const higher = ratio >= 1;
+      momentumBadge = { label: higher ? `↑${pctDiff}%` : `↓${pctDiff}%` };
+    }
+  }
+
+  if (variant === "april") {
+    const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
+    return (
+    <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px" }}>
+      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8 }}>{label}</div>
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6, overflow: "hidden" }}>
+        {flagCode && <span style={{ fontSize: 20, lineHeight: 1, flexShrink: 0 }}>{flag(flagCode)}</span>}
+        <div style={{
+          fontSize: flagCode ? 14 : small ? 16 : 28,
+          fontWeight: 500,
+          letterSpacing: flagCode || small ? "-0.01em" : "-0.03em",
+          lineHeight: 1.2,
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
+          color: value && value !== "—" ? (accent ? BLUE_D : INK) : BDR
+        }}>{value || "—"}</div>
+      </div>
+      {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginBottom: badge ? 6 : 0 }}>{desc}</div>}
+      {badge && (
+        <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
+          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: badge.isGood ? "#edfaf4" : "#fef0ee", color: badge.isGood ? GREEN : RED }}>
+            {badge.label} vs monthly avg
+          </span>
+          <span style={{ fontSize: 9, color: INK3 }}>({bench})</span>
+        </div>
+      )}
+    </div>
+    );
+  }
+
+  if (variant === "august") {
+    const m = meta ? META[meta] : null;
+    return (
+      <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px", position: "relative" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}>
+          <span>{label}</span>
+          {m && <MetricInfo m={m} />}
+        </div>
+        <div style={{ fontSize: small ? 16 : 28, fontWeight: 500, letterSpacing: small ? "-0.01em" : "-0.03em", lineHeight: 1.2, color: value && value !== "—" ? (accent ? BLUE_D : INK) : BDR }}>{value || "—"}</div>
+        {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6 }}>{desc}</div>}
+        {momentumBadge && (
+          <div style={{ marginTop: 4 }}>
+            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: momentumBadge.label.startsWith("↑") ? "#edfaf4" : "#fef0ee", color: momentumBadge.label.startsWith("↑") ? GREEN : RED }}>
+              {momentumBadge.label} vs {momentumLabel} ({momentum})
+            </span>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px" }}>
+      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8 }}>{label}</div>
+      <div style={{ fontSize: small ? 16 : 28, fontWeight: 500, letterSpacing: small ? "-0.01em" : "-0.03em", lineHeight: 1.2, color: value && value !== "—" ? (accent ? BLUE_D : INK) : BDR }}>{value || "—"}</div>
+      {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6, marginBottom: (badge || momentumBadge) ? 6 : 0 }}>{desc}</div>}
+      {badge && (
+        <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4, flexWrap: "wrap" }}>
+          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: badge.isGood ? "#edfaf4" : "#fef0ee", color: badge.isGood ? GREEN : RED }}>
+            {badge.label} vs monthly avg
+          </span>
+          <span style={{ fontSize: 9, color: INK3 }}>({bench})</span>
+          {momentumBadge && <span style={{ fontSize: 9, color: INK3 }}>· {momentumBadge.label} vs {momentumLabel} ({momentum})</span>}
+        </div>
+      )}
+      {!badge && momentumBadge && (
+        <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
+          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: momentumBadge.label.startsWith("↑") ? "#edfaf4" : "#fef0ee", color: momentumBadge.label.startsWith("↑") ? GREEN : RED }}>
+            {momentumBadge.label} vs {momentumLabel} ({momentum})
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── METRIC INFO TOOLTIP ───────────────────────────────────
 function MetricInfo({ m }) {
   const [open, setOpen] = useState(false);
@@ -2842,35 +2777,7 @@ function AugustMonthly() {
   const MONTH = "August 2026 — through Aug 24";
   const [showAllCountries, setShowAllCountries] = useState(false);
 
-  const MCard = ({ label, value, desc, accent, small, bench, momentum, meta }) => {
-    let momentumBadge = null;
-    if (value && value !== "—" && momentum != null) {
-      const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
-      if (!isNaN(numVal) && momentum > 0) {
-        const ratio = numVal / momentum;
-        const pctDiff = Math.round(Math.abs(ratio - 1) * 100);
-        momentumBadge = { label: ratio >= 1 ? `↑${pctDiff}%` : `↓${pctDiff}%` };
-      }
-    }
-    const m = meta ? META[meta] : null;
-    return (
-      <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px", position: "relative" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}>
-          <span>{label}</span>
-          {m && <MetricInfo m={m} />}
-        </div>
-        <div style={{ fontSize: small ? 16 : 28, fontWeight: 500, letterSpacing: small ? "-0.01em" : "-0.03em", lineHeight: 1.2, color: value && value !== "—" ? (accent ? BLUE_D : INK) : BDR }}>{value || "—"}</div>
-        {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6 }}>{desc}</div>}
-        {momentumBadge && (
-          <div style={{ marginTop: 4 }}>
-            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: momentumBadge.label.startsWith("↑") ? "#edfaf4" : "#fef0ee", color: momentumBadge.label.startsWith("↑") ? GREEN : RED }}>
-              {momentumBadge.label} vs July ({momentum})
-            </span>
-          </div>
-        )}
-      </div>
-    );
-  };
+  const MCard = (p) => <MonthMetricCard {...p} variant="august" momentumLabel="July" />;
 
   const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
   const regional = AUGUST.countries.filter(c => c.code !== "US");
