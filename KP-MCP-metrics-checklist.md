@@ -47,17 +47,30 @@ Devuelven `{single:{value}}`. Se computan con el rango del mes cerrado
 
 ### LWA (Lessons Writing Assistant)
 
-| Campo                  | metric_id      |
-|------------------------|----------------|
-| `lwa.share`            | `IHPlQ1WT1zEz` |
-| `lwa.copyLesson`       | `b46xecCQyFod` |
-| `lwa.highlightAndCopy` | `azWUDLxYgaWY` |
+Fuente: dashboard **"NEW - Lessons Writing Assistant"**, armado por
+`gabrielare@iadb.org` el 12-ago-2026. IDs **confirmados**.
+
+| Campo                     | metric_id      | Nota |
+|---------------------------|----------------|------|
+| `lwa.share`               | `IHPlQ1WT1zEz` | feature nueva — baseline |
+| `lwa.copyLesson`          | `b46xecCQyFod` | preexistente — ver abajo |
+| `lwa.highlightAndCopy`    | `azWUDLxYgaWY` | feature nueva — baseline |
+| `lwa.viewLesson`          | `o7uGz8LnXgZY` | feature nueva — baseline |
+| `lwa.sharedCatalogueView` | `gEJ1qqiZ2Df9` | feature nueva — baseline |
 
 > **`lwa.lessonsGenerated` NO va acá — es manual.** Ver §2.
->
-> La fuente de esta sección es el dashboard **"NEW - Lessons Writing Assistant"**
-> de FullStory, que el MCP no puede leer. Los tres IDs de arriba se eligieron por
-> nombre y están **pendientes de confirmar** contra ese dashboard.
+
+**Los ceros son baseline, no desuso.** Cuatro de estos cinco corresponden a
+features recién lanzadas: sus métricos se definieron el 12-ago-2026 y no
+registran eventos previos porque la feature no existía. No confundir con un
+problema de instrumentación ni reportarlo como caída de uso.
+
+`copyLesson` es la excepción: registró 9 eventos entre sep-2025 y jun-2026,
+y **ninguno desde julio**. Esa caída sí es real y vale seguirla.
+
+> Pendiente menor de reconciliar: julio tiene `copiesCursor: 1` cargado a mano,
+> pero `azWUDLxYgaWY` devuelve 0 para julio. Probablemente el valor manual salió
+> de otra fuente (consola). No afecta los cierres.
 
 ### Países
 
