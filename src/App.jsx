@@ -2728,10 +2728,13 @@ const AUGUST = {
   wordDownloads: 1,       // live via MCP (3EkjBy6jYByB)
   excelDownloads: 0,      // live via MCP (FIw2VjBWkJ6J)
   lwa: {
+    // Fuente: dashboard "NEW - Lessons Writing Assistant" (gabrielare@iadb.org, 12-ago-2026)
     lessonsGenerated: 10,   // MANUAL — se saca de consola, NO de FullStory. Valor a confirmar; el 10 actual vino por error de ffbLsADU0Swu (clicks, no lecciones)
-    share: 0,              // live via MCP (IHPlQ1WT1zEz)
-    copyLesson: 0,         // live via MCP (b46xecCQyFod)
-    highlightAndCopy: 0,   // live via MCP (azWUDLxYgaWY)
+    share: 0,               // live via MCP (IHPlQ1WT1zEz) — feature nueva, baseline
+    copyLesson: 0,          // live via MCP (b46xecCQyFod) — 9 eventos desde sep-2025, ninguno desde julio
+    highlightAndCopy: 0,    // live via MCP (azWUDLxYgaWY) — feature nueva, baseline
+    viewLesson: 0,          // live via MCP (o7uGz8LnXgZY) — feature nueva, baseline
+    sharedCatalogueView: 0, // live via MCP (gEJ1qqiZ2Df9) — feature nueva, baseline
   },
   latency: null,          // manual
   csat: "33.3%",          // manual — 3 respuestas (3,5,1) · top-2 box 1/3 · avg 3.00
@@ -3051,6 +3054,11 @@ function AugustMonthly() {
         <MCard label="Shares" value={String(AUGUST.lwa.share)} desc="Lessons shared · live via MCP" />
         <MCard label="Copy lesson" value={String(AUGUST.lwa.copyLesson)} desc="Lessons copied · live via MCP" />
         <MCard label="Highlight & copy" value={AUGUST.lwa.highlightAndCopy.toLocaleString()} desc="Text highlighted and copied in LWA · live via MCP" />
+        <MCard label="View lesson" value={String(AUGUST.lwa.viewLesson)} desc="Lessons opened from the catalogue · live via MCP" />
+        <MCard label="Shared-catalogue view" value={String(AUGUST.lwa.sharedCatalogueView)} desc="Views from the shared catalogue · live via MCP" />
+      </div>
+      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.5 }}>
+        ℹ <strong>Baseline, not disuse.</strong> Share, Highlight &amp; copy, View lesson and Shared-catalogue view track recently released features; their metrics were defined on Aug 12, 2026. A zero here means tracking has just started, not that the feature is being ignored — there is no prior period to compare against. Copy lesson is the exception: it predates them (9 events since Sep 2025) and has registered none since July.
       </div>
 
       {/* ── DIVIDER ── */}
