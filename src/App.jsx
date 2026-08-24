@@ -2704,6 +2704,36 @@ function JulyMonthly() {
   );
 }
 
+// ── METRIC METADATA (August) ──────────────────────────────
+// Fuente única de verdad para los tooltips. Si cambia un metric_id o su
+// definición en FullStory, se actualiza ACÁ y el dashboard sigue solo.
+// Espejo de KP-MCP-metrics-checklist.md.
+const META = {
+  users:            { id: "a30wnMzqgtJk", src: "mcp",     def: "Unique users with any activity in the period (MAU). Its FullStory name is \"First time visitors\", but it is NOT a count of new users." },
+  sessions:         { id: "BhsN9vxRPN7V", src: "mcp",     def: "Total sessions in the period. Does not filter internal traffic or bots — criterion still to be confirmed." },
+  prompters:        { id: "3GVbGeJsPBCb", src: "mcp",     def: "Unique users who sent at least one prompt." },
+  tourCompletion:   { id: "iN3brKBr4rlY", src: "mcp",     def: "Share of users who finished the onboarding tour. Returned with decimals and rounded to the nearest integer." },
+  pillPageviews:    { id: "2EYT9yOW6odB", src: "mcp",     def: "Total pageviews across all contextual search pills. Counts EVENTS — does not add up with the per-pill metrics, which count sessions." },
+  sourceClicks:     { id: "Ge6P9qbIeu3b", src: "mcp",     def: "Clicks on the source panel in Open Search." },
+  contentEngagement:{ id: null,           src: "mcp",     def: "Derived, not a single metric: highlights + copies + source-panel clicks + downloads. Open Search vs Contextual splits each component by its Open-Search counterpart. Source IDs: cMgaz9YMCSJh / RQ6IjtoMbeD5 (highlights), yowGb1tOMe3X / JOTETVLPeJKh (copies), Ge6P9qbIeu3b (source clicks), 3EkjBy6jYByB + FIw2VjBWkJ6J (downloads)." },
+  promptGallery:    { id: "lkwqkKIJQ25E", src: "mcp",     def: "Clicks on the Prompt Gallery." },
+  recentSearch:     { id: "nfcBnYjQSAfT", src: "mcp",     def: "Clicks on Recent Search." },
+  newSearch:        { id: "tU5aopeDHc1k", src: "mcp",     def: "Clicks on New Search." },
+  countries:        { id: "417063426",    src: "mcp",     def: "Unique users grouped by country. Percentages are computed over the metric's own total, excluding the \"Unknown\" row." },
+  prompts:          { id: null,           src: "pending", def: "Prompts sent. No FullStory metric covers this — must be loaded manually at close." },
+  latency:          { id: null,           src: "pending", def: "Median response latency. No FullStory metric covers this." },
+  firstTime:        { id: null,           src: "pending", def: "New users. Supplied manually; the figures given for August (99 new / 47 returning) were withdrawn because they did not reconcile with the 174 unique users in the period." },
+  returningUsers:   { id: null,           src: "pending", def: "Returning users. Same situation as new users — withdrawn pending a source that reconciles." },
+  csat:             { id: null,           src: "manual",  def: "Satisfied responses (rating ≥ 4) ÷ total responses, top-2 box on a 1–5 scale. August: 1 of 3 = 33.3%. Sample as of Aug 18." },
+  lessonsGenerated: { id: null,           src: "console", def: "Lessons produced, taken by hand from the admin console. NOT the FullStory metric ffbLsADU0Swu, which counts clicks on the create-draft button rather than finished lessons." },
+  lwaShare:         { id: "IHPlQ1WT1zEz", src: "mcp",     def: "Clicks on the share button. Recently released feature — a zero is a baseline, not disuse." },
+  lwaCopy:          { id: "b46xecCQyFod", src: "mcp",     def: "Clicks to copy a generated lesson. Predates the other LWA metrics: 9 events between Sep 2025 and Jun 2026, none since July." },
+  lwaHighlight:     { id: "azWUDLxYgaWY", src: "mcp",     def: "Text highlighted and copied inside a lesson. Recently released feature — a zero is a baseline, not disuse." },
+  lwaView:          { id: "o7uGz8LnXgZY", src: "mcp",     def: "Lessons opened from the catalogue. Recently released feature — a zero is a baseline, not disuse." },
+  lwaSharedView:    { id: "gEJ1qqiZ2Df9", src: "mcp",     def: "Views from the shared catalogue. Recently released feature — a zero is a baseline, not disuse." },
+};
+const SRC_LABEL = { mcp: "FullStory · live", console: "Admin console · manual", manual: "Manual", pending: "Pending — no metric" };
+
 // ── AUGUST 2026 DATA ──────────────────────────────────────
 // Preliminary — through Aug 24, 2026 · pulled live via FullStory MCP
 const AUGUST = {
@@ -2773,12 +2803,46 @@ const AUGUST = {
   ],
 };
 
+// ── METRIC INFO TOOLTIP ───────────────────────────────────
+function MetricInfo({ m }) {
+  const [open, setOpen] = useState(false);
+  const dot = m.src === "mcp" ? GREEN : m.src === "pending" ? INK3 : AMBER;
+  return (
+    <span style={{ position: "relative", display: "inline-flex" }}>
+      <button
+        type="button"
+        aria-label={`How this metric is calculated: ${m.def}`}
+        onClick={() => setOpen(o => !o)}
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+        onFocus={() => setOpen(true)}
+        onBlur={() => setOpen(false)}
+        style={{ width: 12, height: 12, borderRadius: 99, border: `1px solid ${BDR}`, background: SURF, color: INK3, fontSize: 8, lineHeight: 1, padding: 0, cursor: "help", fontFamily: "inherit", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
+      >i</button>
+      {open && (
+        <span role="tooltip" style={{ position: "absolute", bottom: "calc(100% + 6px)", left: "50%", transform: "translateX(-50%)", zIndex: 50, width: 240, background: INK, color: "#fff", borderRadius: 8, padding: "10px 12px", boxShadow: "0 4px 16px rgba(0,0,0,.22)", textTransform: "none", letterSpacing: 0, fontWeight: 400 }}>
+          <span style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 6 }}>
+            <span style={{ width: 6, height: 6, borderRadius: 99, background: dot, flexShrink: 0 }} />
+            <span style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em", color: "#a8c4e0" }}>{SRC_LABEL[m.src]}</span>
+          </span>
+          <span style={{ display: "block", fontSize: 10, lineHeight: 1.5, color: "#e8edf5" }}>{m.def}</span>
+          {m.id && (
+            <span style={{ display: "block", marginTop: 7, paddingTop: 6, borderTop: "1px solid rgba(255,255,255,.15)", fontSize: 9, color: "#8fa9c4" }}>
+              metric_id <code style={{ color: "#c8d8ea" }}>{m.id}</code>
+            </span>
+          )}
+        </span>
+      )}
+    </span>
+  );
+}
+
 // ── AUGUST MONTHLY VIEW ───────────────────────────────────
 function AugustMonthly() {
   const MONTH = "August 2026 — through Aug 24";
   const [showAllCountries, setShowAllCountries] = useState(false);
 
-  const MCard = ({ label, value, desc, accent, small, bench, momentum }) => {
+  const MCard = ({ label, value, desc, accent, small, bench, momentum, meta }) => {
     let momentumBadge = null;
     if (value && value !== "—" && momentum != null) {
       const numVal = parseFloat(String(value).replace(/[^0-9.]/g, ""));
@@ -2788,9 +2852,13 @@ function AugustMonthly() {
         momentumBadge = { label: ratio >= 1 ? `↑${pctDiff}%` : `↓${pctDiff}%` };
       }
     }
+    const m = meta ? META[meta] : null;
     return (
-      <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8 }}>{label}</div>
+      <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px", position: "relative" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}>
+          <span>{label}</span>
+          {m && <MetricInfo m={m} />}
+        </div>
         <div style={{ fontSize: small ? 16 : 28, fontWeight: 500, letterSpacing: small ? "-0.01em" : "-0.03em", lineHeight: 1.2, color: value && value !== "—" ? (accent ? BLUE_D : INK) : BDR }}>{value || "—"}</div>
         {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6 }}>{desc}</div>}
         {momentumBadge && (
@@ -2882,8 +2950,8 @@ function AugustMonthly() {
       {/* ── GENERAL USABILITY ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (August · partial)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard label="Users reached" value={String(AUGUST.users)} desc="Unique people who used KP so far in August" accent momentum={JULY.users} />
-        <MCard label="Sessions" value={String(AUGUST.sessions)} desc="Total for the period so far" momentum={JULY.sessions} />
+        <MCard meta="users" label="Users reached" value={String(AUGUST.users)} desc="Unique people who used KP so far in August" accent momentum={JULY.users} />
+        <MCard meta="sessions" label="Sessions" value={String(AUGUST.sessions)} desc="Total for the period so far" momentum={JULY.sessions} />
         <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
           <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(AUGUST.users/3600*100*10)/10}%</div>
@@ -2895,16 +2963,16 @@ function AugustMonthly() {
           </div>
           <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants (partial month)</div>
         </div>
-        <MCard label="Prompters (≥1 prompt)" value={String(AUGUST.prompters)} desc={`${Math.round(AUGUST.prompters/AUGUST.users*100)}% of users reached · live via MCP`} accent momentum={JULY.prompters} />
-        <MCard label="% Onboarding completed" value={`${AUGUST.tourCompletion}%`} desc="Users who finished the tour · live via MCP" momentum={JULY.tourCompletion} />
-        <MCard label="New users" value={AUGUST.first_time} desc="First-time visitors · manual, pending re-check" />
-        <MCard label="Returning users" value={AUGUST.returningUsers} desc="Manual, pending re-check" />
+        <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(AUGUST.prompters)} desc={`${Math.round(AUGUST.prompters/AUGUST.users*100)}% of users reached · live via MCP`} accent momentum={JULY.prompters} />
+        <MCard meta="tourCompletion" label="% Onboarding completed" value={`${AUGUST.tourCompletion}%`} desc="Users who finished the tour · live via MCP" momentum={JULY.tourCompletion} />
+        <MCard meta="firstTime" label="New users" value={AUGUST.first_time} desc="First-time visitors · manual, pending re-check" />
+        <MCard meta="returningUsers" label="Returning users" value={AUGUST.returningUsers} desc="Manual, pending re-check" />
       </div>
 
       {/* Geo */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
-          🌎 Geographic Reach — {AUGUST.totalCountries} countries (through Aug 24)
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}><span>🌎 Geographic Reach — {AUGUST.totalCountries} countries (through Aug 24)</span><MetricInfo m={META.countries} /></span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
           <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
@@ -2950,7 +3018,7 @@ function AugustMonthly() {
       {/* ── CONTEXTUAL SEARCH ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (August · partial)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
-        <MCard label="Queries (pill views)" value={String(AUGUST.pillPageviews)} desc="Total visits across all contextual search pills · live via MCP" accent momentum={JULY.pillPageviews} />
+        <MCard meta="pillPageviews" label="Queries (pill views)" value={String(AUGUST.pillPageviews)} desc="Total visits across all contextual search pills · live via MCP" accent momentum={JULY.pillPageviews} />
         <MCard label="Most used pill — Lessons Learned" value="44" desc="interactions · leads again (Similar Projects 19) · live via MCP" small />
         <MCard label={<>Least used pill —<br/>Data</>} value="7" desc="interactions · live via MCP" small />
       </div>
@@ -2961,10 +3029,10 @@ function AugustMonthly() {
       {/* ── KNOWLEDGE ASSISTANT ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (August · partial)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard label="Prompters (≥1 prompt)" value={String(AUGUST.prompters)} desc={`${Math.round(AUGUST.prompters/AUGUST.users*100)}% of users reached`} accent momentum={JULY.prompters} />
-        <MCard label="Prompts sent" value={null} desc="Manual — pass at close" accent />
-        <MCard label="Latency" value={null} desc="Manual — pass at close" small />
-        <MCard label="Source panel clicks" value={String(AUGUST.sourceClicks)} desc="Clicks on source panel · live via MCP" momentum={JULY.sourceClicks} />
+        <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(AUGUST.prompters)} desc={`${Math.round(AUGUST.prompters/AUGUST.users*100)}% of users reached`} accent momentum={JULY.prompters} />
+        <MCard meta="prompts" label="Prompts sent" value={null} desc="Manual — pass at close" accent />
+        <MCard meta="latency" label="Latency" value={null} desc="Manual — pass at close" small />
+        <MCard meta="sourceClicks" label="Source panel clicks" value={String(AUGUST.sourceClicks)} desc="Clicks on source panel · live via MCP" momentum={JULY.sourceClicks} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
           <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
@@ -2973,15 +3041,15 @@ function AugustMonthly() {
           </div>
           <div style={{ fontSize: 9, color: INK3, marginTop: 8 }}>AI responses rated · live via MCP</div>
         </div>
-        <MCard label="Prompt Gallery clicks" value={String(AUGUST.promptGalleryClicks)} momentum={JULY.promptGalleryClicks} />
-        <MCard label="Recent Search clicks" value={String(AUGUST.recentSearchClicks)} momentum={JULY.recentSearchClicks} />
-        <MCard label="New Search clicks" value={String(AUGUST.newSearchClicks)} momentum={JULY.newSearchClicks} />
+        <MCard meta="promptGallery" label="Prompt Gallery clicks" value={String(AUGUST.promptGalleryClicks)} momentum={JULY.promptGalleryClicks} />
+        <MCard meta="recentSearch" label="Recent Search clicks" value={String(AUGUST.recentSearchClicks)} momentum={JULY.recentSearchClicks} />
+        <MCard meta="newSearch" label="New Search clicks" value={String(AUGUST.newSearchClicks)} momentum={JULY.newSearchClicks} />
       </div>
 
       {/* CSAT block */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
         <div style={{ marginBottom: 14 }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6 }}>CSAT — Customer Satisfaction Score</div>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6, display: "flex", alignItems: "center", gap: 5 }}><span>CSAT — Customer Satisfaction Score</span><MetricInfo m={META.csat} /></div>
           <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>{AUGUST.csat}</div>
           <div style={{ fontSize: 10, color: INK3, marginTop: 4, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
             <span>3 responses · avg 3.00 / 5 ★ · August 2026 (sample as of Aug 18 — not refreshed with the Aug 24 pull)</span>
@@ -3012,7 +3080,7 @@ function AugustMonthly() {
       <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "18px 20px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
           <div>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Total content engagement</div>
+            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}><span>Total content engagement</span><MetricInfo m={META.contentEngagement} /></div>
             <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>407</div>
             <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.5 }}>
               Highlights (270) + Copies (117) + Source panel clicks (19) + Downloads (1 Word) · live via MCP
@@ -3050,12 +3118,12 @@ function AugustMonthly() {
       {/* ── LWA (simplified) ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (August · partial)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard label="Lessons generated" value={String(AUGUST.lwa.lessonsGenerated)} desc="Manual — from console · figure pending confirmation" accent />
-        <MCard label="Shares" value={String(AUGUST.lwa.share)} desc="Lessons shared · live via MCP" />
-        <MCard label="Copy lesson" value={String(AUGUST.lwa.copyLesson)} desc="Lessons copied · live via MCP" />
-        <MCard label="Highlight & copy" value={AUGUST.lwa.highlightAndCopy.toLocaleString()} desc="Text highlighted and copied in LWA · live via MCP" />
-        <MCard label="View lesson" value={String(AUGUST.lwa.viewLesson)} desc="Lessons opened from the catalogue · live via MCP" />
-        <MCard label="Shared-catalogue view" value={String(AUGUST.lwa.sharedCatalogueView)} desc="Views from the shared catalogue · live via MCP" />
+        <MCard meta="lessonsGenerated" label="Lessons generated" value={String(AUGUST.lwa.lessonsGenerated)} desc="Manual — from console · figure pending confirmation" accent />
+        <MCard meta="lwaShare" label="Shares" value={String(AUGUST.lwa.share)} desc="Lessons shared · live via MCP" />
+        <MCard meta="lwaCopy" label="Copy lesson" value={String(AUGUST.lwa.copyLesson)} desc="Lessons copied · live via MCP" />
+        <MCard meta="lwaHighlight" label="Highlight & copy" value={AUGUST.lwa.highlightAndCopy.toLocaleString()} desc="Text highlighted and copied in LWA · live via MCP" />
+        <MCard meta="lwaView" label="View lesson" value={String(AUGUST.lwa.viewLesson)} desc="Lessons opened from the catalogue · live via MCP" />
+        <MCard meta="lwaSharedView" label="Shared-catalogue view" value={String(AUGUST.lwa.sharedCatalogueView)} desc="Views from the shared catalogue · live via MCP" />
       </div>
       <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.5 }}>
         ℹ <strong>Baseline, not disuse.</strong> Share, Highlight &amp; copy, View lesson and Shared-catalogue view track recently released features; their metrics were defined on Aug 12, 2026. A zero here means tracking has just started, not that the feature is being ignored — there is no prior period to compare against. Copy lesson is the exception: it predates them (9 events since Sep 2025) and has registered none since July.
