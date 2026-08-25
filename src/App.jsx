@@ -2600,6 +2600,48 @@ function PillBreakdown({ rows, note }) {
   );
 }
 
+// ── PILL x MES ───────────────────────────────────
+// Aperturas por pill y por mes (usuarios unicos, Sin DEV). El sombreado de
+// cada celda es relativo al maximo de toda la matriz, para que se lea de un
+// vistazo donde esta el volumen sin tener que comparar numero por numero.
+function PillMonthlyTable({ months, rows, note }) {
+  const max = Math.max(...rows.flatMap(r => r.values));
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11, minWidth: 280 }}>
+          <thead>
+            <tr style={{ color: INK3, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+              <th style={{ textAlign: "left", padding: "0 0 6px", fontWeight: 500 }}>Pill</th>
+              {months.map((m, i) => (
+                <th key={i} style={{ textAlign: "right", padding: "0 0 6px 8px", fontWeight: 500 }}>{m}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r, i) => (
+              <tr key={i} style={{ borderTop: `1px solid ${BDR}` }}>
+                <td style={{ padding: "7px 0", color: INK, fontWeight: 500 }}>{r.pill}</td>
+                {r.values.map((v, j) => (
+                  <td key={j} style={{ padding: "4px 0 4px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
+                    <div style={{
+                      background: v === 0 ? "transparent" : BLUE_L,
+                      opacity: v === 0 ? 1 : 0.35 + (v / max) * 0.65,
+                      borderRadius: 4, padding: "3px 5px",
+                      color: v === 0 ? BDR : INK, fontWeight: v === 0 ? 400 : 500,
+                    }}>{v}</div>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {note && <div style={{ fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>{note}</div>}
+    </div>
+  );
+}
+
 // ── METRIC CARD (compartido) ──────────────────────────────
 // Un solo lugar para las tarjetas de métrica de los 5 meses.
 // Hay tres diseños reales, no cinco: "april" (valor en flex con elipsis y
@@ -3041,7 +3083,32 @@ function AugustMonthly() {
           note="Rows are not mutually exclusive: one person can open several pills. Highlight and copy are counted anywhere in the session after the pill opens, so they are attributed to the pill by sequence, not by location on the page — read them as directional."
         />
         <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.6, marginTop: 14 }}>
-          <strong>The differentiator is not the click, it is what happens after.</strong> Getting from a pill to a highlight is remarkably flat across all five — between 25% and 31% — and the two least-used pills, Data and Institutional Documents, actually lead on it. The separation appears at the last step: of those who highlight, 39% copy in Lessons Learned and 37% in Similar Projects, against 22% in Institutional Documents, 20% in Literature and 14% in Data. Lessons Learned and Similar Projects are both the most opened and the best at converting; Data is the weakest on both counts.
+          <strong>The differentiator is not the click, it is what happens after.</strong> Getting from a pill to a highlight is remarkably flat across all five — between 25% and 31% — and the two least-used pills, Data and Institutional Documents, actually lead on it. The separation appears at the last step: of those who highlight, 39% copy in Lessons Learned and 37% in Similar Projects, against 22% in Institutional Documents, 20% in Literature and 14% in Data. Lessons Learned and Similar Projects are both the most opened and the best at converting. Data looks like the weakest on both counts, but see the month-by-month table below before reading it that way.
+        </div>
+      </div>
+
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Pill opens by month</div>
+        <div style={{ fontSize: 11, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>
+          Unique users who opened each pill, month by month. Only the opening step breaks down this far: the best month for the whole contextual surface has 10 copies in total, so a copy rate per pill per month would be noise, not measurement.
+        </div>
+        <PillMonthlyTable
+          months={["Apr", "May", "Jun", "Jul", "Aug*"]}
+          rows={[
+            { pill: "Similar Projects",        values: [42, 12, 38, 12, 18] },
+            { pill: "Lessons Learned",         values: [37, 14, 34, 21, 14] },
+            { pill: "Literature",              values: [22, 9,  27, 10, 11] },
+            { pill: "Institutional Documents", values: [14, 10, 19, 9,  10] },
+            { pill: "Data",                    values: [0,  3,  19, 12, 11] },
+          ]}
+          note="* August covers days 1–24 only. Segment Sin DEV. Monthly figures do not sum to the pooled totals above: someone who opens a pill in two different months counts once in the pooled figure and twice here."
+        />
+        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.6, marginTop: 14 }}>
+          <strong>Data is not the weakest pill — it is the newest.</strong> It had zero users in April and three in May before jumping to 19 in June. Its pooled numbers are penalised by a month in which it effectively did not exist, so the 4.4% copy rate above understates it; judge it from June onward, where it sits level with Institutional Documents.
+          <br /><br />
+          <strong>Nobody comes back to Data.</strong> Its five monthly figures add up to 45 and its pooled total is also 45 — meaning not one person opened it in two different months. Similar Projects has 13 such repeat month-appearances and Lessons Learned 9. Data gets opened once and not returned to, which is a different problem from not being found.
+          <br /><br />
+          <strong>The pills move together, not against each other.</strong> Every one of the five peaks in June and bottoms out in May, and the ranking barely changes. That points at overall platform traffic driving contextual usage, not at any pill winning attention from the others.
         </div>
       </div>
 

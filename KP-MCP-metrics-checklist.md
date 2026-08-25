@@ -131,6 +131,19 @@ en la definición: para cerrar un mes nuevo hay que **reconstruir** el embudo co
 | Contextual (pills) · ago 2026 | `564963308` | 2026-08-01 → 2026-08-24 |
 | Contextual (pills) · jul 2026 | `1476024114` | 2026-07-01 → 2026-07-31 |
 | LWA inicio → completado | `104484265` | 2025-09-01 → 2026-08-24 |
+| Contextual (pills) · abr 2026 | `1661380124` | 2026-04-01 → 2026-04-30 |
+| Contextual (pills) · may 2026 | `362258649` | 2026-05-01 → 2026-05-31 |
+| Contextual (pills) · jun 2026 | `989040134` | 2026-06-01 → 2026-06-30 |
+
+Embudo contextual mes a mes (Sin DEV), para saber si un corte aguanta:
+
+| Mes | Entra KP | Abre pill | Highlight | Copia |
+|---|---:|---:|---:|---:|
+| abr | 588 | 62 | 7 | 4 |
+| may | 360 | 28 | 11 | 6 |
+| jun | 378 | 69 | 18 | 10 |
+| jul | 248 | 37 | 5 | 2 |
+| ago (1-24) | 224 | 32 | 8 | 2 |
 
 ### Desglose por pill (abr–ago 2026)
 
@@ -154,6 +167,34 @@ No sirve para este corte.
 **Por qué el rango es abr–ago y no un mes:** en agosto hay 32 aperturas de pill
 en total; partidas en cinco no dan nada legible. El primer paso (1.251 usuarios)
 es común a los cinco, así que las filas sí son comparables entre sí.
+
+### Aperturas por pill y por mes
+
+Métricos `single_number`, usuarios únicos, segmento `sjHJR3590z6j`. Se recomputan
+con `compute_metric(metric_id, start_date, end_date)` — **no hace falta
+reconstruirlos** para un mes nuevo, a diferencia de los embudos.
+
+| Pill | id de página | metric_id |
+|---|---|---|
+| Similar Projects | 67 | `1945200689` |
+| Lessons Learned | 68 | `751235530` |
+| Literature | 69 | `2120083561` |
+| Institutional Documents | 70 | `1828644569` |
+| Data | 257 | `1294509165` |
+
+**Solo el primer paso se desagrega por mes.** El mejor mes de toda la superficie
+contextual (junio) tiene 10 copias en total; partidas en cinco pills darían 2 por
+celda. La tasa de conversión por pill se queda agrupada abr–ago.
+
+**Chequeo de consistencia:** la suma de los cinco meses de cada pill tiene que
+quedar por encima del total agrupado del embudo y cerca de él — quien abre una
+pill en dos meses cuenta una vez agrupado y dos veces en la suma mensual.
+SP 122 vs 109, LL 120 vs 111, Lit 79 vs 76, ID 62 vs 58, Data 45 vs 45. Si
+alguna suma mensual diera *menos* que el agrupado, hay un error de rango.
+
+**Ojo con Data (257):** cero usuarios en abril, 3 en mayo, 19 en junio. Es la
+pill más nueva, no la más floja. Cualquier comparación agrupada que arranque en
+abril la castiga por un mes en el que no existía.
 
 **Limitación conocida:** `highlight` y `copy` son *any*, no están acotados a la
 pill. El orden garantiza que ocurren después de abrirla en la misma sesión, pero
