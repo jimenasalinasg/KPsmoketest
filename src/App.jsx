@@ -984,9 +984,9 @@ function Monthly() {
       </div>
       <Section emoji="📊" title="General Usability (April)">
         <Grid>
-          <MCard label="Users reached" value={String(APRIL.users)} desc="Unique people who used KP at least once in April" accent bench={BENCH.monthly.users} />
-          <MCard label="Prompters (≥1 prompt)" value={String(APRIL.prompters)} desc={`${Math.round(APRIL.prompters/APRIL.users*100)}% of users reached`} accent bench={BENCH.monthly.prompters} />
-          <MCard label="New users" value={String(APRIL.newUsers)} desc={`First-time visitors · other ${APRIL.users - APRIL.newUsers} are returning from the organic period`} />
+          <MCard meta="users" label="Users reached" value={String(APRIL.users)} desc="Unique people who used KP at least once in April" accent bench={BENCH.monthly.users} />
+          <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(APRIL.prompters)} desc={`${Math.round(APRIL.prompters/APRIL.users*100)}% of users reached`} accent bench={BENCH.monthly.prompters} />
+          <MCard meta="firstTime" label="New users" value={String(APRIL.newUsers)} desc={`First-time visitors · other ${APRIL.users - APRIL.newUsers} are returning from the organic period`} />
           <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
             <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{APRIL.returningUsers}</div>
@@ -1005,9 +1005,9 @@ function Monthly() {
             </div>
             <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
           </div>
-          <MCard label="% Onboarding completed" value={`${APRIL.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
-          <MCard label="Sessions" value={APRIL.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} />
-          <MCard label="CSAT — Customer Satisfaction Score" value="75%" desc="out of 5 responses" />
+          <MCard meta="tourCompletion" label="% Onboarding completed" value={`${APRIL.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
+          <MCard meta="sessions" label="Sessions" value={APRIL.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} />
+          <MCard meta="csat" label="CSAT — Customer Satisfaction Score" value="75%" desc="out of 5 responses" />
         </Grid>
 
       </Section>
@@ -1066,7 +1066,7 @@ function Monthly() {
 
       <Section emoji="🔍" title="Contextual Search (April)">
         <Grid cols="repeat(auto-fit, minmax(200px, 1fr))">
-          <MCard label="Queries (pill views)" value={String(APRIL.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
+          <MCard meta="pillPageviews" label="Queries (pill views)" value={String(APRIL.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
           <MCard label="Most used pill — Similar projects" value="56" desc="interactions" small bench={BENCH.monthly.pillTop} />
           <MCard label={<>Least used pill —<br/>Institutional docs</>} value="20" desc="interactions" small bench={BENCH.monthly.pillBot} />
         </Grid>
@@ -1077,9 +1077,9 @@ function Monthly() {
 
       <Section emoji="🤖" title="Knowledge Assistant — Open Search (April)">
         <Grid>
-          <MCard label="Prompters (≥1 prompt)" value={String(APRIL.prompters)} desc={`${Math.round(APRIL.prompters/APRIL.users*100)}% of users reached`} accent bench={BENCH.monthly.prompters} />
-          <MCard label="Prompts sent" value={String(APRIL.prompts)} desc="Median: 1 per prompter" accent bench={BENCH.monthly.prompts} />
-          <MCard label="Source panel clicks" value={String(APRIL.sourceClicks)} desc="Clicks on source panel" />
+          <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(APRIL.prompters)} desc={`${Math.round(APRIL.prompters/APRIL.users*100)}% of users reached`} accent bench={BENCH.monthly.prompters} />
+          <MCard meta="prompts" label="Prompts sent" value={String(APRIL.prompts)} desc="Median: 1 per prompter" accent bench={BENCH.monthly.prompts} />
+          <MCard meta="sourceClicks" label="Source panel clicks" value={String(APRIL.sourceClicks)} desc="Clicks on source panel" />
           <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
             <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
@@ -1092,9 +1092,9 @@ function Monthly() {
             </div>
             <div style={{ fontSize: 9, color: INK3, marginTop: 8 }}>AI responses rated by users</div>
           </div>
-          <MCard label="Prompt Gallery clicks" value={String(APRIL.promptGalleryClicks)} />
-          <MCard label="Recent Search clicks" value={String(APRIL.recentSearchClicks)} />
-          <MCard label="New Search clicks" value={String(APRIL.newSearchClicks)} />
+          <MCard meta="promptGallery" label="Prompt Gallery clicks" value={String(APRIL.promptGalleryClicks)} />
+          <MCard meta="recentSearch" label="Recent Search clicks" value={String(APRIL.recentSearchClicks)} />
+          <MCard meta="newSearch" label="New Search clicks" value={String(APRIL.newSearchClicks)} />
         </Grid>
       </Section>
 
@@ -1366,9 +1366,9 @@ function MayMonthly() {
       {/* ── GENERAL USABILITY ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (May)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard label="Users reached" value={String(MAY.users)} desc="Unique people who used KP at least once in May" accent bench={BENCH.monthly.users} momentum={APRIL.users} />
-        <MCard label="Prompters (≥1 prompt)" value={String(MAY.prompters)} desc={`${Math.round(MAY.prompters/MAY.users*100)}% of users reached`} accent momentum={APRIL.prompters} />
-        <MCard label="New users" value={String(MAY.first_time)} desc={`First-time visitors · other ${MAY.users - MAY.first_time} are returning from prior months`} />
+        <MCard meta="users" label="Users reached" value={String(MAY.users)} desc="Unique people who used KP at least once in May" accent bench={BENCH.monthly.users} momentum={APRIL.users} />
+        <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(MAY.prompters)} desc={`${Math.round(MAY.prompters/MAY.users*100)}% of users reached`} accent momentum={APRIL.prompters} />
+        <MCard meta="firstTime" label="New users" value={String(MAY.first_time)} desc={`First-time visitors · other ${MAY.users - MAY.first_time} are returning from prior months`} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
           <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{MAY.returningUsers}</div>
@@ -1386,8 +1386,8 @@ function MayMonthly() {
           </div>
           <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
         </div>
-        <MCard label="% Onboarding completed" value={`${MAY.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
-        <MCard label="Sessions" value={MAY.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={APRIL.sessions} />
+        <MCard meta="tourCompletion" label="% Onboarding completed" value={`${MAY.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
+        <MCard meta="sessions" label="Sessions" value={MAY.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={APRIL.sessions} />
       </div>
 
       {/* CSAT block */}
@@ -1469,7 +1469,7 @@ function MayMonthly() {
       {/* ── CONTEXTUAL SEARCH ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (May)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
-        <MCard label="Queries (pill views)" value={String(MAY.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
+        <MCard meta="pillPageviews" label="Queries (pill views)" value={String(MAY.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
         <MCard label="Most used pill — Similar Projects" value="40" desc="interactions" small bench={BENCH.monthly.pillTop} />
         <MCard label={<>Least used pill —<br/>Literature</>} value="10" desc="interactions" small bench={BENCH.monthly.pillBot} />
       </div>
@@ -1480,10 +1480,10 @@ function MayMonthly() {
       {/* ── KNOWLEDGE ASSISTANT ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (May)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard label="Prompters (≥1 prompt)" value={String(MAY.prompters)} desc={`${Math.round(MAY.prompters/MAY.users*100)}% of users reached`} accent momentum={APRIL.prompters} />
-        <MCard label="Prompts sent" value={MAY.prompts != null ? String(MAY.prompts) : null} desc="Median: 1 per prompter" accent momentum={MAY.prompts ? APRIL.prompts : null} />
-        <MCard label="Latency" value="1m 02s" desc="Avg response time in Open Search" small />
-        <MCard label="Source panel clicks" value={String(MAY.sourceClicks)} desc="Clicks on source panel" momentum={APRIL.sourceClicks} />
+        <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(MAY.prompters)} desc={`${Math.round(MAY.prompters/MAY.users*100)}% of users reached`} accent momentum={APRIL.prompters} />
+        <MCard meta="prompts" label="Prompts sent" value={MAY.prompts != null ? String(MAY.prompts) : null} desc="Median: 1 per prompter" accent momentum={MAY.prompts ? APRIL.prompts : null} />
+        <MCard meta="latency" label="Latency" value="1m 02s" desc="Avg response time in Open Search" small />
+        <MCard meta="sourceClicks" label="Source panel clicks" value={String(MAY.sourceClicks)} desc="Clicks on source panel" momentum={APRIL.sourceClicks} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
           <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
@@ -1492,9 +1492,9 @@ function MayMonthly() {
           </div>
           <div style={{ fontSize: 9, color: INK3, marginTop: 8 }}>AI responses rated by users</div>
         </div>
-        <MCard label="Prompt Gallery clicks" value={String(MAY.promptGalleryClicks)} momentum={APRIL.promptGalleryClicks} />
-        <MCard label="Recent Search clicks" value={String(MAY.recentSearchClicks)} momentum={APRIL.recentSearchClicks} />
-        <MCard label="New Search clicks" value={String(MAY.newSearchClicks)} momentum={APRIL.newSearchClicks} />
+        <MCard meta="promptGallery" label="Prompt Gallery clicks" value={String(MAY.promptGalleryClicks)} momentum={APRIL.promptGalleryClicks} />
+        <MCard meta="recentSearch" label="Recent Search clicks" value={String(MAY.recentSearchClicks)} momentum={APRIL.recentSearchClicks} />
+        <MCard meta="newSearch" label="New Search clicks" value={String(MAY.newSearchClicks)} momentum={APRIL.newSearchClicks} />
       </div>
 
       {/* ── DIVIDER ── */}
@@ -1770,9 +1770,9 @@ function JuneMonthly() {
       {/* ── GENERAL USABILITY ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (June)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard label="Users reached" value={String(JUNE.users)} desc="Unique people who used KP at least once in June" accent bench={BENCH.monthly.users} momentum={MAY.users} />
-        <MCard label="Prompters (≥1 prompt)" value={String(JUNE.prompters)} desc={`${Math.round(JUNE.prompters/JUNE.users*100)}% of users reached`} accent momentum={MAY.prompters} />
-        <MCard label="New users" value={String(JUNE.first_time)} desc={`First-time visitors · other ${JUNE.users - JUNE.first_time} are returning from prior months`} />
+        <MCard meta="users" label="Users reached" value={String(JUNE.users)} desc="Unique people who used KP at least once in June" accent bench={BENCH.monthly.users} momentum={MAY.users} />
+        <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(JUNE.prompters)} desc={`${Math.round(JUNE.prompters/JUNE.users*100)}% of users reached`} accent momentum={MAY.prompters} />
+        <MCard meta="firstTime" label="New users" value={String(JUNE.first_time)} desc={`First-time visitors · other ${JUNE.users - JUNE.first_time} are returning from prior months`} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
           <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{JUNE.returningUsers}</div>
@@ -1790,8 +1790,8 @@ function JuneMonthly() {
           </div>
           <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
         </div>
-        <MCard label="% Onboarding completed" value={`${JUNE.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
-        <MCard label="Sessions" value={JUNE.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={MAY.sessions} />
+        <MCard meta="tourCompletion" label="% Onboarding completed" value={`${JUNE.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
+        <MCard meta="sessions" label="Sessions" value={JUNE.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={MAY.sessions} />
       </div>
 
       {/* CSAT block */}
@@ -1877,7 +1877,7 @@ function JuneMonthly() {
       {/* ── CONTEXTUAL SEARCH ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (June)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
-        <MCard label="Queries (pill views)" value={String(JUNE.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
+        <MCard meta="pillPageviews" label="Queries (pill views)" value={String(JUNE.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
         <MCard label="Most used pill — Similar Projects" value="82" desc="interactions" small bench={BENCH.monthly.pillTop} />
         <MCard label={<>Least used pill —<br/>Data</>} value="27" desc="interactions" small bench={BENCH.monthly.pillBot} />
       </div>
@@ -1888,8 +1888,8 @@ function JuneMonthly() {
       {/* ── KNOWLEDGE ASSISTANT ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (June)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard label="Prompters (≥1 prompt)" value={String(JUNE.prompters)} desc={`${Math.round(JUNE.prompters/JUNE.users*100)}% of users reached`} accent momentum={MAY.prompters} />
-        <MCard label="Prompts sent" value={JUNE.prompts != null ? String(JUNE.prompts) : null} desc="Median: 1 per prompter" accent momentum={JUNE.prompts ? MAY.prompts : null} />
+        <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(JUNE.prompters)} desc={`${Math.round(JUNE.prompters/JUNE.users*100)}% of users reached`} accent momentum={MAY.prompters} />
+        <MCard meta="prompts" label="Prompts sent" value={JUNE.prompts != null ? String(JUNE.prompts) : null} desc="Median: 1 per prompter" accent momentum={JUNE.prompts ? MAY.prompts : null} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Latency</div>
           <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>37s</div>
@@ -1898,7 +1898,7 @@ function JuneMonthly() {
             ↓40% vs last month (1m 02s)
           </span>
         </div>
-        <MCard label="Source panel clicks" value={String(JUNE.sourceClicks)} desc="Clicks on source panel" momentum={MAY.sourceClicks} />
+        <MCard meta="sourceClicks" label="Source panel clicks" value={String(JUNE.sourceClicks)} desc="Clicks on source panel" momentum={MAY.sourceClicks} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
           <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
@@ -1907,9 +1907,9 @@ function JuneMonthly() {
           </div>
           <div style={{ fontSize: 9, color: INK3, marginTop: 8 }}>AI responses rated by users</div>
         </div>
-        <MCard label="Prompt Gallery clicks" value={String(JUNE.promptGalleryClicks)} momentum={MAY.promptGalleryClicks} />
-        <MCard label="Recent Search clicks" value={String(JUNE.recentSearchClicks)} momentum={MAY.recentSearchClicks} />
-        <MCard label="New Search clicks" value={String(JUNE.newSearchClicks)} momentum={MAY.newSearchClicks} />
+        <MCard meta="promptGallery" label="Prompt Gallery clicks" value={String(JUNE.promptGalleryClicks)} momentum={MAY.promptGalleryClicks} />
+        <MCard meta="recentSearch" label="Recent Search clicks" value={String(JUNE.recentSearchClicks)} momentum={MAY.recentSearchClicks} />
+        <MCard meta="newSearch" label="New Search clicks" value={String(JUNE.newSearchClicks)} momentum={MAY.newSearchClicks} />
       </div>
 
       {/* ── DIVIDER ── */}
@@ -2161,9 +2161,9 @@ function JulyMonthly() {
       {/* ── GENERAL USABILITY ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (July)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard label="Users reached" value={String(JULY.users)} desc="Unique people who used KP at least once in July" accent bench={BENCH.monthly.users} momentum={JUNE.users} />
-        <MCard label="Prompters (≥1 prompt)" value={String(JULY.prompters)} desc={`${Math.round(JULY.prompters/JULY.users*100)}% of users reached`} accent momentum={JUNE.prompters} />
-        <MCard label="New users" value={String(JULY.first_time)} desc={`First-time visitors · other ${JULY.users - JULY.first_time} are returning from prior months`} />
+        <MCard meta="users" label="Users reached" value={String(JULY.users)} desc="Unique people who used KP at least once in July" accent bench={BENCH.monthly.users} momentum={JUNE.users} />
+        <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(JULY.prompters)} desc={`${Math.round(JULY.prompters/JULY.users*100)}% of users reached`} accent momentum={JUNE.prompters} />
+        <MCard meta="firstTime" label="New users" value={String(JULY.first_time)} desc={`First-time visitors · other ${JULY.users - JULY.first_time} are returning from prior months`} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
           <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{JULY.returningUsers}</div>
@@ -2181,8 +2181,8 @@ function JulyMonthly() {
           </div>
           <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
         </div>
-        <MCard label="% Onboarding completed" value={`${JULY.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
-        <MCard label="Sessions" value={String(JULY.sessions)} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={JUNE.sessions} />
+        <MCard meta="tourCompletion" label="% Onboarding completed" value={`${JULY.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
+        <MCard meta="sessions" label="Sessions" value={String(JULY.sessions)} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={JUNE.sessions} />
       </div>
 
       {/* CSAT block */}
@@ -2262,7 +2262,7 @@ function JulyMonthly() {
       {/* ── CONTEXTUAL SEARCH ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (July)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
-        <MCard label="Queries (pill views)" value={String(JULY.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
+        <MCard meta="pillPageviews" label="Queries (pill views)" value={String(JULY.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
         <MCard label="Most used pill — Lessons Learned" value="37" desc="interactions · leading for the first time in a full month 🆕" small bench={BENCH.monthly.pillTop} />
         <MCard label={<>Least used pill —<br/>Institutional Docs</>} value="10" desc="interactions" small bench={BENCH.monthly.pillBot} />
       </div>
@@ -2273,15 +2273,15 @@ function JulyMonthly() {
       {/* ── KNOWLEDGE ASSISTANT ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (July)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard label="Prompters (≥1 prompt)" value={String(JULY.prompters)} desc={`${Math.round(JULY.prompters/JULY.users*100)}% of users reached`} accent momentum={JUNE.prompters} />
-        <MCard label="Prompts sent" value={String(JULY.prompts)} desc="Median: 1 per prompter" accent momentum={JUNE.prompts} />
+        <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(JULY.prompters)} desc={`${Math.round(JULY.prompters/JULY.users*100)}% of users reached`} accent momentum={JUNE.prompters} />
+        <MCard meta="prompts" label="Prompts sent" value={String(JULY.prompts)} desc="Median: 1 per prompter" accent momentum={JUNE.prompts} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Latency (median)</div>
           <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>27s</div>
           <div style={{ fontSize: 9, color: INK3, lineHeight: 1.4, marginBottom: 6 }}>Median response time in Open Search</div>
           <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: "#edfaf4", color: GREEN }}>↓27% vs June (37s)</span>
         </div>
-        <MCard label="Source panel clicks" value={String(JULY.sourceClicks)} desc="Clicks on source panel" momentum={JUNE.sourceClicks} />
+        <MCard meta="sourceClicks" label="Source panel clicks" value={String(JULY.sourceClicks)} desc="Clicks on source panel" momentum={JUNE.sourceClicks} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
           <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
@@ -2290,9 +2290,9 @@ function JulyMonthly() {
           </div>
           <div style={{ fontSize: 9, color: INK3, marginTop: 8 }}>AI responses rated by users</div>
         </div>
-        <MCard label="Prompt Gallery clicks" value={String(JULY.promptGalleryClicks)} momentum={JUNE.promptGalleryClicks} />
-        <MCard label="Recent Search clicks" value={String(JULY.recentSearchClicks)} momentum={JUNE.recentSearchClicks} />
-        <MCard label="New Search clicks" value={String(JULY.newSearchClicks)} momentum={JUNE.newSearchClicks} />
+        <MCard meta="promptGallery" label="Prompt Gallery clicks" value={String(JULY.promptGalleryClicks)} momentum={JUNE.promptGalleryClicks} />
+        <MCard meta="recentSearch" label="Recent Search clicks" value={String(JULY.recentSearchClicks)} momentum={JUNE.recentSearchClicks} />
+        <MCard meta="newSearch" label="New Search clicks" value={String(JULY.newSearchClicks)} momentum={JUNE.newSearchClicks} />
       </div>
 
       {/* ── DIVIDER ── */}
@@ -2393,9 +2393,9 @@ const META = {
   countries:        { id: "417063426",    src: "mcp",     def: "Unique users grouped by country. Percentages are computed over the metric's own total, excluding the \"Unknown\" row." },
   prompts:          { id: null,           src: "pending", def: "Prompts sent. No FullStory metric covers this — must be loaded manually at close." },
   latency:          { id: null,           src: "pending", def: "Median response latency. No FullStory metric covers this." },
-  firstTime:        { id: null,           src: "pending", def: "New users. Supplied manually; the figures given for August (99 new / 47 returning) were withdrawn because they did not reconcile with the 174 unique users in the period." },
+  firstTime:        { id: null,           src: "pending", def: "New users. Supplied manually — no FullStory metric covers it. August's figures (99 new / 47 returning) were withdrawn: they did not reconcile against the unique users in the period." },
   returningUsers:   { id: null,           src: "pending", def: "Returning users. Same situation as new users — withdrawn pending a source that reconciles." },
-  csat:             { id: null,           src: "manual",  def: "Satisfied responses (rating ≥ 4) ÷ total responses, top-2 box on a 1–5 scale. August: 1 of 3 = 33.3%. Sample as of Aug 18." },
+  csat:             { id: null,           src: "manual",  def: "Satisfied responses (rating ≥ 4) ÷ total responses, top-2 box on a 1–5 scale. Collected manually. Read the sample size on the card before the percentage — on a handful of responses each one moves it by tens of points." },
   lessonsGenerated: { id: null,           src: "console", def: "Lessons produced, taken by hand from the admin console. NOT the FullStory metric ffbLsADU0Swu, which counts clicks on the create-draft button rather than finished lessons." },
   lwaShare:         { id: "IHPlQ1WT1zEz", src: "mcp",     def: "Clicks on the share button. Recently released feature — a zero is a baseline, not disuse." },
   lwaCopy:          { id: "b46xecCQyFod", src: "mcp",     def: "Clicks to copy a generated lesson. Predates the other LWA metrics: 9 events between Sep 2025 and Jun 2026, none since July." },
@@ -2989,7 +2989,10 @@ function MonthMetricCard({ label, value, desc, accent, small, bench, momentum, m
     const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
     return (
     <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8 }}>{label}</div>
+      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}>
+        <span>{label}</span>
+        {meta && META[meta] && <MetricInfo m={META[meta]} />}
+      </div>
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6, overflow: "hidden" }}>
         {flagCode && <span style={{ fontSize: 20, lineHeight: 1, flexShrink: 0 }}>{flag(flagCode)}</span>}
         <div style={{
@@ -3039,7 +3042,10 @@ function MonthMetricCard({ label, value, desc, accent, small, bench, momentum, m
 
   return (
     <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8 }}>{label}</div>
+      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}>
+        <span>{label}</span>
+        {meta && META[meta] && <MetricInfo m={META[meta]} />}
+      </div>
       <div style={{ fontSize: small ? 16 : 28, fontWeight: 500, letterSpacing: small ? "-0.01em" : "-0.03em", lineHeight: 1.2, color: value && value !== "—" ? (accent ? BLUE_D : INK) : BDR }}>{value || "—"}</div>
       {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6, marginBottom: (badge || momentumBadge) ? 6 : 0 }}>{desc}</div>}
       {badge && (
