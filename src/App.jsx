@@ -2553,6 +2553,53 @@ function FunnelChart({ steps, compare, compareLabel, note }) {
   );
 }
 
+// ── PILL BREAKDOWN ───────────────────────────────
+// Desglose del embudo contextual por pill. Una fila por pill, ordenadas por
+// aperturas. La barra representa la conversion apertura -> copia, que es la
+// unica columna comparable entre pills (las aperturas dependen del trafico).
+function PillBreakdown({ rows, note }) {
+  const max = Math.max(...rows.map(r => r.copy / r.opens));
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11, minWidth: 290 }}>
+          <thead>
+            <tr style={{ color: INK3, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+              <th style={{ textAlign: "left", padding: "0 0 6px", fontWeight: 500 }}>Pill</th>
+              <th style={{ textAlign: "right", padding: "0 0 6px 10px", fontWeight: 500 }}>Opens</th>
+              <th style={{ textAlign: "right", padding: "0 0 6px 10px", fontWeight: 500 }}>Highlight</th>
+              <th style={{ textAlign: "right", padding: "0 0 6px 10px", fontWeight: 500 }}>Copy</th>
+              <th style={{ textAlign: "right", padding: "0 0 6px 8px", fontWeight: 500 }}>Copy rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r, i) => {
+              const rate = r.copy / r.opens * 100;
+              return (
+                <tr key={i} style={{ borderTop: `1px solid ${BDR}` }}>
+                  <td style={{ padding: "7px 0", color: INK, fontWeight: 500 }}>{r.pill}</td>
+                  <td style={{ padding: "7px 0 7px 10px", textAlign: "right", color: INK2, fontVariantNumeric: "tabular-nums" }}>{r.opens}</td>
+                  <td style={{ padding: "7px 0 7px 10px", textAlign: "right", color: INK2, fontVariantNumeric: "tabular-nums" }}>{r.highlight}</td>
+                  <td style={{ padding: "7px 0 7px 10px", textAlign: "right", color: INK2, fontVariantNumeric: "tabular-nums" }}>{r.copy}</td>
+                  <td style={{ padding: "7px 0 7px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
+                    {/* La barra va de fondo dentro de la celda: comunica la
+                        proporcion sin costar ancho, que en movil no sobra. */}
+                    <div style={{
+                      background: `linear-gradient(to right, ${BLUE_M} ${rate / (max * 100) * 100}%, ${BG} ${rate / (max * 100) * 100}%)`,
+                      borderRadius: 4, padding: "3px 6px", color: INK, fontWeight: 500, textAlign: "right",
+                    }}>{rate.toFixed(1)}%</div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      {note && <div style={{ fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>{note}</div>}
+    </div>
+  );
+}
+
 // ── METRIC CARD (compartido) ──────────────────────────────
 // Un solo lugar para las tarjetas de métrica de los 5 meses.
 // Hay tres diseños reales, no cinco: "april" (valor en flex con elipsis y
@@ -2975,6 +3022,26 @@ function AugustMonthly() {
       <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "14px 18px" }}>
         <div style={{ fontSize: 10, color: BLUE_D, lineHeight: 1.6 }}>
           <strong>Reading the two together.</strong> Both surfaces start from the same 224 people. Open Search pulls 38% of them into a query; the pills pull 14%. But the real gap opens after that: of those who search, 21% end up copying something, against 6% of those who open a pill. The pills are not just less used — they convert worse per visit.
+        </div>
+      </div>
+
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Which pill converts · Apr 1 – Aug 24, 2026</div>
+        <div style={{ fontSize: 11, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>
+          The same contextual funnel, one pill at a time. Measured over the full five months rather than August alone: August has 32 pill openings in total, and splitting those five ways yields nothing readable. All five share the same entry point (1,251 users), so the columns are comparable across rows.
+        </div>
+        <PillBreakdown
+          rows={[
+            { pill: "Lessons Learned",        opens: 111, highlight: 28, copy: 11 },
+            { pill: "Similar Projects",       opens: 109, highlight: 27, copy: 10 },
+            { pill: "Literature",             opens: 76,  highlight: 20, copy: 4 },
+            { pill: "Institutional Documents", opens: 58,  highlight: 18, copy: 4 },
+            { pill: "Data",                   opens: 45,  highlight: 14, copy: 2 },
+          ]}
+          note="Rows are not mutually exclusive: one person can open several pills. Highlight and copy are counted anywhere in the session after the pill opens, so they are attributed to the pill by sequence, not by location on the page — read them as directional."
+        />
+        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.6, marginTop: 14 }}>
+          <strong>The differentiator is not the click, it is what happens after.</strong> Getting from a pill to a highlight is remarkably flat across all five — between 25% and 31% — and the two least-used pills, Data and Institutional Documents, actually lead on it. The separation appears at the last step: of those who highlight, 39% copy in Lessons Learned and 37% in Similar Projects, against 22% in Institutional Documents, 20% in Literature and 14% in Data. Lessons Learned and Similar Projects are both the most opened and the best at converting; Data is the weakest on both counts.
         </div>
       </div>
 

@@ -116,6 +116,49 @@ Nunca inventar. Si no hay valor, dejar `null` y listarlo como pendiente en el PR
 
 ---
 
+## 2bis. Embudos guardados (FullStory)
+
+Todos con segmento **Sin DEV (copy)** `sjHJR3590z6j`, agregación *unique users*,
+pasos en orden y en la misma sesión (salvo LWA, que es cross-session).
+Se recomputan con `compute_funnel(funnel_id, segment_id)`. El rango está guardado
+en la definición: para cerrar un mes nuevo hay que **reconstruir** el embudo con
+`build_funnel` y fechas nuevas, no basta con recomputar.
+
+| Embudo | ID | Rango guardado |
+|---|---|---|
+| Open Search · ago 2026 | `2112175315` | 2026-08-01 → 2026-08-24 |
+| Open Search · jul 2026 | `813457909` | 2026-07-01 → 2026-07-31 |
+| Contextual (pills) · ago 2026 | `564963308` | 2026-08-01 → 2026-08-24 |
+| Contextual (pills) · jul 2026 | `1476024114` | 2026-07-01 → 2026-07-31 |
+| LWA inicio → completado | `104484265` | 2025-09-01 → 2026-08-24 |
+
+### Desglose por pill (abr–ago 2026)
+
+Un embudo por pill, mismo primer paso (`visitedUrl` host `knowledgeplatform.iadb.org`),
+luego `visitedPage` con **un solo** id de página, luego `highlight any` → `copy any`.
+
+| Pill | id de página | funnel_id |
+|---|---|---|
+| Similar Projects | 67 | `2002915779` |
+| Lessons Learned | 68 | `624894343` |
+| Literature | 69 | `461508687` |
+| Institutional Documents | 70 | `457977866` |
+| Data | 257 | `490149637` |
+
+**Por qué cinco embudos y no un `dimension`:** las pills son *page definitions*
+de FullStory, no rutas. `compute_funnel` con `dimension: {property: "url_path"}`
+agrupa por proyecto individual (`/knowledge/UR-L1225`, `/knowledge/BO-L1250`…),
+no por pill, y además infla el paso 1 multiplicándolo por el número de grupos.
+No sirve para este corte.
+
+**Por qué el rango es abr–ago y no un mes:** en agosto hay 32 aperturas de pill
+en total; partidas en cinco no dan nada legible. El primer paso (1.251 usuarios)
+es común a los cinco, así que las filas sí son comparables entre sí.
+
+**Limitación conocida:** `highlight` y `copy` son *any*, no están acotados a la
+pill. El orden garantiza que ocurren después de abrirla en la misma sesión, pero
+la atribución es por secuencia, no por ubicación en la página. Direccional.
+
 ## 3. Reglas de cálculo
 
 - **Content engagement total** = highlights + copies + source clicks + downloads.
