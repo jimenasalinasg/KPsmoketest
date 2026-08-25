@@ -71,8 +71,19 @@ sin fallar ni avisar. Si te salteás este paso, el dashboard va a mostrar los
 embudos del mes pasado con cara de actuales. Los ids guardados están en el
 §2bis del checklist.
 
-Reconstruir con `build_funnel`, `segment_id: sjHJR3590z6j`, fechas del mes que
-cerrás, y computar cada uno con `compute_funnel(funnel_id, segment_id)`:
+**La forma segura de reconstruir es `update_funnel`, no `build_funnel`.**
+`update_funnel(funnel_id, start_date, end_date)` sobre el embudo del mes anterior
+devuelve un **id nuevo** con los pasos copiados exactamente y el rango cambiado.
+El original queda intacto. Así no se pasa por el intérprete de lenguaje natural,
+que es donde aparecen los `withElementId: {}` vacíos y los ids de página perdidos.
+
+Usar `build_funnel` desde cero solo si el embudo no existe todavía.
+
+Ojo: `update_funnel` **no** copia el segmento a `funnelSettings`. Da igual —
+el segmento se pasa siempre en `compute_funnel(funnel_id, segment_id)`, nunca se
+confía en el guardado.
+
+Los cuatro embudos, computados con `compute_funnel(funnel_id, segment_id)`:
 
 1. **Open Search** — `visitedUrl` host `knowledgeplatform.iadb.org` → click en
    `Open-Search-Input-Search` → `highlight any` → `copy any`.

@@ -135,6 +135,16 @@ en la definición: para cerrar un mes nuevo hay que **reconstruir** el embudo co
 | Contextual (pills) · abr 2026 | `1661380124` | 2026-04-01 → 2026-04-30 |
 | Contextual (pills) · may 2026 | `362258649` | 2026-05-01 → 2026-05-31 |
 | Contextual (pills) · jun 2026 | `989040134` | 2026-06-01 → 2026-06-30 |
+| Open Search · abr 2026 | `1046945776` | 2026-04-01 → 2026-04-30 |
+| Open Search · may 2026 | `1679441265` | 2026-05-01 → 2026-05-31 |
+| Open Search · jun 2026 | `1912929132` | 2026-06-01 → 2026-06-30 |
+
+Los tres de Open Search se clonaron del de agosto con
+`update_funnel(2112175315, start_date, end_date)`: copia los pasos exactos
+—incluido `withElementId: ["A3vpsKJZw0X8"]`— y solo cambia el rango. **Es la
+forma segura de reconstruir**, porque no vuelve a pasar por el intérprete de
+lenguaje natural. `update_funnel` no arrastra el segmento a `funnelSettings`;
+no importa, el segmento va siempre en `compute_funnel`.
 
 Embudo contextual mes a mes (Sin DEV), para saber si un corte aguanta:
 

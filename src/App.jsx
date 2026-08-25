@@ -1161,6 +1161,11 @@ function Monthly() {
       </Section>
 
       {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      <FunnelSection f={FUNNELS.april} />
+
+      {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "24px 0" }} />
 
       {/* Signal */}
@@ -1557,6 +1562,11 @@ function MayMonthly() {
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
+      <FunnelSection f={FUNNELS.may} />
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
       {/* Signal */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", borderLeft: `3px solid ${BLUE}` }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
@@ -1945,6 +1955,11 @@ function JuneMonthly() {
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
+      <FunnelSection f={FUNNELS.june} />
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
       {/* Signal */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", borderLeft: `3px solid ${BLUE}` }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
@@ -2323,6 +2338,11 @@ function JulyMonthly() {
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
+      <FunnelSection f={FUNNELS.july} />
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
       {/* Signal */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", borderLeft: `3px solid ${BLUE}` }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
@@ -2531,6 +2551,130 @@ function ContentEngagementCard({ total, openSearch, contextual, rows, note, spli
 // Las pills son distintas: salen de metricos single_number que SI se recomputan
 // pasando el rango, sin reconstruir nada.
 const FUNNELS = {
+  april: {
+    openSearch: {
+      title: "Open Search",
+      intro: "Someone asks a question in the search box, then takes content away. Unique users, same session, segment Sin DEV.",
+      steps: [
+        { label: "Opens KP", n: 588 },
+        { label: "Runs a search", n: 226, time: "33s" },
+        { label: "Highlights content", n: 69, time: "3m 20s" },
+        { label: "Copies it", n: 39, time: "2.2s" },
+      ],
+      note: "6.6% end to end. The first full month after go-live, and the widest top of funnel of the whole series: 588 people entered KP, more than twice August's figure. 38% of them ran a search.",
+    },
+    contextual: {
+      title: "Contextual search · pills",
+      intro: "Someone opens a pill — Similar Projects, Lessons Learned, Literature, Institutional Documents or Data — then takes content away. Same entry point as above, so the two are directly comparable.",
+      steps: [
+        { label: "Opens KP", n: 588 },
+        { label: "Opens a pill", n: 62, time: "44s" },
+        { label: "Highlights content", n: 7, time: "8m 44s" },
+        { label: "Copies it", n: 4, time: "1.8s" },
+      ],
+      note: "0.7% end to end — ten times worse than Open Search from the same entry point. The median of 8m 44s between opening a pill and highlighting anything is the slowest of the series: people opened the pills and then took a long time to find something worth marking.",
+    },
+    synthesis: [{
+      lead: "Reading the two together.",
+      body: "April sets the pattern that holds all year. Of the same 588 people, Open Search pulls 38% into a query and the pills pull 10.5%. End to end the gap is ten to one, 6.6% against 0.7%. Nothing that happened in the four months since changed the shape of this — only its size.",
+    }],
+  },
+  may: {
+    openSearch: {
+      title: "Open Search",
+      intro: "Someone asks a question in the search box, then takes content away. Unique users, same session, segment Sin DEV.",
+      steps: [
+        { label: "Opens KP", n: 360 },
+        { label: "Runs a search", n: 132, time: "30s" },
+        { label: "Highlights content", n: 59, time: "4m 49s" },
+        { label: "Copies it", n: 36, time: "1.7s" },
+      ],
+      compare: [588, 226, 69, 39],
+      compareLabel: "April",
+      note: "10.0% end to end, up from 6.6% in April. Worth reading carefully: entries dropped from 588 to 360 while copies barely moved, 39 to 36. The rate improved mostly because the casual traffic left, not because more people extracted.",
+    },
+    contextual: {
+      title: "Contextual search · pills",
+      intro: "Someone opens a pill — Similar Projects, Lessons Learned, Literature, Institutional Documents or Data — then takes content away. Same entry point as above, so the two are directly comparable.",
+      steps: [
+        { label: "Opens KP", n: 360 },
+        { label: "Opens a pill", n: 28, time: "1m 16s" },
+        { label: "Highlights content", n: 11, time: "7m 24s" },
+        { label: "Copies it", n: 6, time: "2.8s" },
+      ],
+      compare: [588, 62, 7, 4],
+      compareLabel: "April",
+      note: "1.7% end to end, up from 0.7%. Pill openings fell by more than half (62 → 28) but highlights rose (7 → 11) and copies rose (4 → 6). The smaller group that did open a pill in May was markedly more deliberate.",
+    },
+    synthesis: [{
+      lead: "Reading the two together.",
+      body: "The month where both surfaces improved their rate while losing volume. Open Search: 37% activation, 10.0% end to end. Pills: 7.8% activation, 1.7% end to end. May is the low point in traffic for the entire series and, at the same time, its most efficient month per visitor on the contextual side.",
+    }],
+  },
+  june: {
+    openSearch: {
+      title: "Open Search",
+      intro: "Someone asks a question in the search box, then takes content away. Unique users, same session, segment Sin DEV.",
+      steps: [
+        { label: "Opens KP", n: 378 },
+        { label: "Runs a search", n: 160, time: "34s" },
+        { label: "Highlights content", n: 61, time: "2m 53s" },
+        { label: "Copies it", n: 37, time: "1.5s" },
+      ],
+      compare: [360, 132, 59, 36],
+      compareLabel: "May",
+      note: "9.8% end to end, holding May's level on slightly more traffic. Activation is the best of the series at 42% — of every 100 people who entered KP in June, 42 ran a search.",
+    },
+    contextual: {
+      title: "Contextual search · pills",
+      intro: "Someone opens a pill — Similar Projects, Lessons Learned, Literature, Institutional Documents or Data — then takes content away. Same entry point as above, so the two are directly comparable.",
+      steps: [
+        { label: "Opens KP", n: 378 },
+        { label: "Opens a pill", n: 69, time: "1m 7s" },
+        { label: "Highlights content", n: 18, time: "3m 24s" },
+        { label: "Copies it", n: 10, time: "2.3s" },
+      ],
+      compare: [360, 28, 11, 6],
+      compareLabel: "May",
+      note: "2.6% end to end — the best contextual month by a distance, and the only one in double digits for copies (10). Pill openings peaked at 69 and the time from opening to highlighting halved against May.",
+    },
+    synthesis: [{
+      lead: "Reading the two together.",
+      body: "June is the strongest month of the series for the pills, and the ratio between surfaces narrows to under four to one, from ten to one in April. Both surfaces peak together: 42% activation on Open Search and 18% on the pills, out of the same 378 people. It is the clearest evidence that the two channels rise with overall activity rather than competing for it.",
+    }],
+  },
+  july: {
+    openSearch: {
+      title: "Open Search",
+      intro: "Someone asks a question in the search box, then takes content away. Unique users, same session, segment Sin DEV.",
+      steps: [
+        { label: "Opens KP", n: 248 },
+        { label: "Runs a search", n: 109, time: "26s" },
+        { label: "Highlights content", n: 47, time: "2m 28s" },
+        { label: "Copies it", n: 30, time: "2.4s" },
+      ],
+      compare: [378, 160, 61, 37],
+      compareLabel: "June",
+      note: "12.1% end to end — the highest of the series. But entries fell to 248, the summer low, and copies fell too, from 37 to 30. The rate is a peak; the absolute number of people taking something away is not.",
+    },
+    contextual: {
+      title: "Contextual search · pills",
+      intro: "Someone opens a pill — Similar Projects, Lessons Learned, Literature, Institutional Documents or Data — then takes content away. Same entry point as above, so the two are directly comparable.",
+      steps: [
+        { label: "Opens KP", n: 248 },
+        { label: "Opens a pill", n: 37, time: "56s" },
+        { label: "Highlights content", n: 5, time: "2m 30s" },
+        { label: "Copies it", n: 2, time: "47.6s" },
+      ],
+      compare: [378, 69, 18, 10],
+      compareLabel: "June",
+      note: "0.8% end to end, back to April's level after June's peak. Highlights collapsed from 18 to 5. The 47.6s median between highlighting and copying is an outlier against every other month, which sits between 1.5s and 3.1s — on numbers this small it is a curiosity, not a signal.",
+    },
+    synthesis: [{
+      lead: "Reading the two together.",
+      body: "July shows why an end-to-end rate must never be read on its own. Open Search hits its best conversion of the year, 12.1%, in the month with the fewest entries. The people who did show up in the northern summer were the committed ones; the rate rose because the casual visitors were absent, not because the product converted better.",
+    }],
+  },
   august: {
     openSearch: {
       title: "Open Search",
@@ -2558,10 +2702,16 @@ const FUNNELS = {
       compareLabel: "July",
       note: "0.9% end to end. Open Search converts nine times better from the same entry point — and the gap was fifteen times in July. Note also that the pills' own copy button registered zero users: the few who do copy select the text by hand instead.",
     },
-    synthesis: [{
-      lead: "Reading the two together.",
-      body: "Both surfaces start from the same 224 people. Open Search pulls 38% of them into a query; the pills pull 14%. But the real gap opens after that: of those who search, 21% end up copying something, against 6% of those who open a pill. The pills are not just less used — they convert worse per visit.",
-    }],
+    synthesis: [
+      {
+        lead: "Reading the two together.",
+        body: "Both surfaces start from the same 224 people. Open Search pulls 38% of them into a query; the pills pull 14%. But the real gap opens after that: of those who search, 21% end up copying something, against 6% of those who open a pill. The pills are not just less used — they convert worse per visit.",
+      },
+      {
+        lead: "Reading the five months together.",
+        body: "The extraction base is far stickier than the traffic. Between April and July — the four complete months — entries to KP fell 58%, from 588 people to 248, while Open Search copies fell only 23%, from 39 to 30. That is why the end-to-end rate climbed from 6.6% to 12.1% across those months: the denominator shrank faster than the numerator. A rising conversion rate here has mostly meant fewer casual visitors, not better conversion. Watch the absolute count of people who copy something; it has sat between 30 and 39 every full month since go-live, regardless of how much traffic arrived.",
+      },
+    ],
     pills: {
       title: "Which pill converts · Apr 1 – Aug 24, 2026",
       intro: "The same contextual funnel, one pill at a time. Measured over the full five months rather than August alone: August has 32 pill openings in total, and splitting those five ways yields nothing readable. All five share the same entry point (1,251 users), so the columns are comparable across rows.",
@@ -2782,19 +2932,27 @@ function FunnelSection({ f }) {
 
       <Takeaways items={f.synthesis} style={{ borderRadius: 10, padding: "14px 18px" }} />
 
-      <Card block={f.pills}>
-        <PillBreakdown rows={f.pills.rows} note={f.pills.note} />
-        <Takeaways items={f.pills.takeaways} style={{ marginTop: 14 }} />
-      </Card>
+      {/* Los tres bloques que siguen son analisis cross-mes, no del mes: van
+          solo en la vista mas reciente. Ausentes en los meses anteriores. */}
+      {f.pills && (
+        <Card block={f.pills}>
+          <PillBreakdown rows={f.pills.rows} note={f.pills.note} />
+          <Takeaways items={f.pills.takeaways} style={{ marginTop: 14 }} />
+        </Card>
+      )}
 
-      <Card block={f.pillMonthly}>
-        <PillMonthlyTable months={f.pillMonthly.months} rows={f.pillMonthly.rows} note={f.pillMonthly.note} />
-        <Takeaways items={f.pillMonthly.takeaways} style={{ marginTop: 14 }} />
-      </Card>
+      {f.pillMonthly && (
+        <Card block={f.pillMonthly}>
+          <PillMonthlyTable months={f.pillMonthly.months} rows={f.pillMonthly.rows} note={f.pillMonthly.note} />
+          <Takeaways items={f.pillMonthly.takeaways} style={{ marginTop: 14 }} />
+        </Card>
+      )}
 
-      <Card block={f.lwa} accent={RED}>
-        <FunnelChart steps={f.lwa.steps} note={f.lwa.note} />
-      </Card>
+      {f.lwa && (
+        <Card block={f.lwa} accent={RED}>
+          <FunnelChart steps={f.lwa.steps} note={f.lwa.note} />
+        </Card>
+      )}
     </>
   );
 }
