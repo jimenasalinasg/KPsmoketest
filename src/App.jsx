@@ -2937,9 +2937,9 @@ function AugustMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔻 Conversion funnels (live via MCP)</div>
 
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Knowledge extraction</div>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Open Search</div>
         <div style={{ fontSize: 11, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>
-          Of every 100 people who open KP, how many leave with something. Unique users, same session, segment Sin DEV.
+          Someone asks a question in the search box, then takes content away. Unique users, same session, segment Sin DEV.
         </div>
         <FunnelChart
           steps={[
@@ -2950,8 +2950,32 @@ function AugustMonthly() {
           ]}
           compare={[248, 109, 47, 30]}
           compareLabel="July"
-          note="July converted 12.1% end to end; August is at 8.0%. The drop is spread across all three steps, not concentrated in one. Highlight → copy takes a median of 1.5 seconds, which means they are effectively the same gesture."
+          note="8.0% end to end, against 12.1% in July. The drop is spread across all three steps."
         />
+      </div>
+
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Contextual search · pills</div>
+        <div style={{ fontSize: 11, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>
+          Someone opens a pill — Similar Projects, Lessons Learned, Literature, Institutional Documents or Data — then takes content away. Same entry point as above, so the two are directly comparable.
+        </div>
+        <FunnelChart
+          steps={[
+            { label: "Opens KP", n: 224 },
+            { label: "Opens a pill", n: 32, time: "52s" },
+            { label: "Highlights content", n: 8, time: "5m 50s" },
+            { label: "Copies it", n: 2, time: "3.1s" },
+          ]}
+          compare={[248, 37, 5, 2]}
+          compareLabel="July"
+          note="0.9% end to end. Open Search converts nine times better from the same entry point — and the gap was fifteen times in July. Note also that the pills' own copy button registered zero users: the few who do copy select the text by hand instead."
+        />
+      </div>
+
+      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "14px 18px" }}>
+        <div style={{ fontSize: 10, color: BLUE_D, lineHeight: 1.6 }}>
+          <strong>Reading the two together.</strong> Both surfaces start from the same 224 people. Open Search pulls 38% of them into a query; the pills pull 14%. But the real gap opens after that: of those who search, 21% end up copying something, against 6% of those who open a pill. The pills are not just less used — they convert worse per visit.
+        </div>
       </div>
 
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", borderLeft: `3px solid ${RED}` }}>
