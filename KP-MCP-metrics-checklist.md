@@ -120,7 +120,8 @@ Nunca inventar. Si no hay valor, dejar `null` y listarlo como pendiente en el PR
 
 Todos con segmento **Sin DEV (copy)** `sjHJR3590z6j`, agregación *unique users*,
 pasos en orden y en la misma sesión (salvo LWA, que es cross-session).
-Se recomputan con `compute_funnel(funnel_id, segment_id)`. El rango está guardado
+Los datos que consume el dashboard viven en el objeto `FUNNELS` de `src/App.jsx`,
+no en el JSX. Se recomputan con `compute_funnel(funnel_id, segment_id)`. El rango está guardado
 en la definición: para cerrar un mes nuevo hay que **reconstruir** el embudo con
 `build_funnel` y fechas nuevas, no basta con recomputar.
 
