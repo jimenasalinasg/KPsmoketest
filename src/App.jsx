@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, Fragment } from "react";
 
 
 
@@ -2516,6 +2516,107 @@ function ContentEngagementCard({ total, openSearch, contextual, rows, note, spli
 // ── FUNNEL CHART ──────────────────────────────────────────
 // Barras decrecientes: cada paso muestra cuenta, % del paso 1, y caida vs el
 // paso anterior. Pensado para leerse en pantalla angosta.
+// ── DATOS DE EMBUDO ───────────────────────────────
+// Fuente unica de los embudos de cada mes. Antes vivian hardcodeados dentro de
+// AugustMonthly, que es como se ponen viejos sin que nada falle: el cierre
+// mensual reescribe el objeto del mes y los embudos se quedaban en el mes
+// anterior mostrando cara de actuales.
+//
+// OJO al cerrar un mes: un embudo de FullStory tiene el rango CONGELADO en su
+// definicion. compute_funnel no alcanza — hay que reconstruirlo con build_funnel
+// y fechas nuevas. Los ids de los embudos guardados estan en
+// KP-MCP-metrics-checklist.md §2bis, y el procedimiento en
+// .claude/skills/kp-monthly-close/SKILL.md paso 4.
+//
+// Las pills son distintas: salen de metricos single_number que SI se recomputan
+// pasando el rango, sin reconstruir nada.
+const FUNNELS = {
+  august: {
+    openSearch: {
+      title: "Open Search",
+      intro: "Someone asks a question in the search box, then takes content away. Unique users, same session, segment Sin DEV.",
+      steps: [
+        { label: "Opens KP", n: 224 },
+        { label: "Runs a search", n: 86, time: "22s" },
+        { label: "Highlights content", n: 32, time: "2m 33s" },
+        { label: "Copies it", n: 18, time: "1.5s" },
+      ],
+      compare: [248, 109, 47, 30],
+      compareLabel: "July",
+      note: "8.0% end to end, against 12.1% in July. The drop is spread across all three steps.",
+    },
+    contextual: {
+      title: "Contextual search · pills",
+      intro: "Someone opens a pill — Similar Projects, Lessons Learned, Literature, Institutional Documents or Data — then takes content away. Same entry point as above, so the two are directly comparable.",
+      steps: [
+        { label: "Opens KP", n: 224 },
+        { label: "Opens a pill", n: 32, time: "52s" },
+        { label: "Highlights content", n: 8, time: "5m 50s" },
+        { label: "Copies it", n: 2, time: "3.1s" },
+      ],
+      compare: [248, 37, 5, 2],
+      compareLabel: "July",
+      note: "0.9% end to end. Open Search converts nine times better from the same entry point — and the gap was fifteen times in July. Note also that the pills' own copy button registered zero users: the few who do copy select the text by hand instead.",
+    },
+    synthesis: [{
+      lead: "Reading the two together.",
+      body: "Both surfaces start from the same 224 people. Open Search pulls 38% of them into a query; the pills pull 14%. But the real gap opens after that: of those who search, 21% end up copying something, against 6% of those who open a pill. The pills are not just less used — they convert worse per visit.",
+    }],
+    pills: {
+      title: "Which pill converts · Apr 1 – Aug 24, 2026",
+      intro: "The same contextual funnel, one pill at a time. Measured over the full five months rather than August alone: August has 32 pill openings in total, and splitting those five ways yields nothing readable. All five share the same entry point (1,251 users), so the columns are comparable across rows.",
+      rows: [
+        { pill: "Lessons Learned",         opens: 111, highlight: 28, copy: 11 },
+        { pill: "Similar Projects",        opens: 109, highlight: 27, copy: 10 },
+        { pill: "Literature",              opens: 76,  highlight: 20, copy: 4 },
+        { pill: "Institutional Documents", opens: 58,  highlight: 18, copy: 4 },
+        { pill: "Data",                    opens: 45,  highlight: 14, copy: 2 },
+      ],
+      note: "Rows are not mutually exclusive: one person can open several pills. Highlight and copy are counted anywhere in the session after the pill opens, so they are attributed to the pill by sequence, not by location on the page — read them as directional.",
+      takeaways: [{
+        lead: "The differentiator is not the click, it is what happens after.",
+        body: "Getting from a pill to a highlight is remarkably flat across all five — between 25% and 31% — and the two least-used pills, Data and Institutional Documents, actually lead on it. The separation appears at the last step: of those who highlight, 39% copy in Lessons Learned and 37% in Similar Projects, against 22% in Institutional Documents, 20% in Literature and 14% in Data. Lessons Learned and Similar Projects are both the most opened and the best at converting. Data looks like the weakest on both counts, but see the month-by-month table below before reading it that way.",
+      }],
+    },
+    pillMonthly: {
+      title: "Pill opens by month",
+      intro: "Unique users who opened each pill, month by month. Only the opening step breaks down this far: the best month for the whole contextual surface has 10 copies in total, so a copy rate per pill per month would be noise, not measurement.",
+      months: ["Apr", "May", "Jun", "Jul", "Aug*"],
+      rows: [
+        { pill: "Similar Projects",        values: [42, 12, 38, 12, 18] },
+        { pill: "Lessons Learned",         values: [37, 14, 34, 21, 14] },
+        { pill: "Literature",              values: [22, 9,  27, 10, 11] },
+        { pill: "Institutional Documents", values: [14, 10, 19, 9,  10] },
+        { pill: "Data",                    values: [0,  3,  19, 12, 11] },
+      ],
+      note: "* August covers days 1–24 only. Segment Sin DEV. Monthly figures do not sum to the pooled totals above: someone who opens a pill in two different months counts once in the pooled figure and twice here.",
+      takeaways: [
+        {
+          lead: "Data is not the weakest pill — it is the newest.",
+          body: "It had zero users in April and three in May before jumping to 19 in June. Its pooled numbers are penalised by a month in which it effectively did not exist, so the 4.4% copy rate above understates it; judge it from June onward, where it sits level with Institutional Documents.",
+        },
+        {
+          lead: "Nobody comes back to Data.",
+          body: "Its five monthly figures add up to 45 and its pooled total is also 45 — meaning not one person opened it in two different months. Similar Projects has 13 such repeat month-appearances and Lessons Learned 9. Data gets opened once and not returned to, which is a different problem from not being found.",
+        },
+        {
+          lead: "The pills move together, not against each other.",
+          body: "Every one of the five peaks in June and bottoms out in May, and the ranking barely changes. That points at overall platform traffic driving contextual usage, not at any pill winning attention from the others.",
+        },
+      ],
+    },
+    lwa: {
+      title: "Lessons Writing Assistant · full year",
+      intro: "Sep 1, 2025 → Aug 24, 2026. Unique users, across sessions (writing a lesson is not a one-sitting task), segment Sin DEV.",
+      steps: [
+        { label: "Starts a lesson", n: 101 },
+        { label: "Completes it", n: 15, time: "36m 34s" },
+      ],
+      note: "In twelve months, 101 people outside the product team started a lesson and 15 finished one — a median of 37 minutes apart. None of those completions happened in July or August: the activity is from earlier months. An earlier version of this funnel forced a draft-generation step in between and reported zero completions; only 2 users ever pass through that button, which strangled the funnel rather than measuring it.",
+    },
+  },
+};
+
 function FunnelChart({ steps, compare, compareLabel, note }) {
   const top = steps[0].n || 1;
   return (
@@ -2639,6 +2740,62 @@ function PillMonthlyTable({ months, rows, note }) {
       </div>
       {note && <div style={{ fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>{note}</div>}
     </div>
+  );
+}
+
+// ── SECCION DE EMBUDOS ───────────────────────────
+// Render completo de la seccion a partir de un objeto de FUNNELS. Los bloques
+// de conclusiones se modelan como {lead, body} para que los datos sigan siendo
+// datos planos y no JSX: asi el cierre mensual reescribe strings, no markup.
+function Takeaways({ items, style }) {
+  return (
+    <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.6, ...style }}>
+      {items.map((t, i) => (
+        <Fragment key={i}>
+          {i > 0 && <><br /><br /></>}
+          <strong>{t.lead}</strong> {t.body}
+        </Fragment>
+      ))}
+    </div>
+  );
+}
+
+function FunnelSection({ f }) {
+  const Card = ({ block, children, accent }) => (
+    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", ...(accent ? { borderLeft: `3px solid ${accent}` } : {}) }}>
+      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>{block.title}</div>
+      <div style={{ fontSize: 11, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>{block.intro}</div>
+      {children}
+    </div>
+  );
+  return (
+    <>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔻 Conversion funnels (live via MCP)</div>
+
+      <Card block={f.openSearch}>
+        <FunnelChart steps={f.openSearch.steps} compare={f.openSearch.compare} compareLabel={f.openSearch.compareLabel} note={f.openSearch.note} />
+      </Card>
+
+      <Card block={f.contextual}>
+        <FunnelChart steps={f.contextual.steps} compare={f.contextual.compare} compareLabel={f.contextual.compareLabel} note={f.contextual.note} />
+      </Card>
+
+      <Takeaways items={f.synthesis} style={{ borderRadius: 10, padding: "14px 18px" }} />
+
+      <Card block={f.pills}>
+        <PillBreakdown rows={f.pills.rows} note={f.pills.note} />
+        <Takeaways items={f.pills.takeaways} style={{ marginTop: 14 }} />
+      </Card>
+
+      <Card block={f.pillMonthly}>
+        <PillMonthlyTable months={f.pillMonthly.months} rows={f.pillMonthly.rows} note={f.pillMonthly.note} />
+        <Takeaways items={f.pillMonthly.takeaways} style={{ marginTop: 14 }} />
+      </Card>
+
+      <Card block={f.lwa} accent={RED}>
+        <FunnelChart steps={f.lwa.steps} note={f.lwa.note} />
+      </Card>
+    </>
   );
 }
 
@@ -3023,108 +3180,7 @@ function AugustMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── EMBUDOS ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔻 Conversion funnels (live via MCP)</div>
-
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Open Search</div>
-        <div style={{ fontSize: 11, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>
-          Someone asks a question in the search box, then takes content away. Unique users, same session, segment Sin DEV.
-        </div>
-        <FunnelChart
-          steps={[
-            { label: "Opens KP", n: 224 },
-            { label: "Runs a search", n: 86, time: "22s" },
-            { label: "Highlights content", n: 32, time: "2m 33s" },
-            { label: "Copies it", n: 18, time: "1.5s" },
-          ]}
-          compare={[248, 109, 47, 30]}
-          compareLabel="July"
-          note="8.0% end to end, against 12.1% in July. The drop is spread across all three steps."
-        />
-      </div>
-
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Contextual search · pills</div>
-        <div style={{ fontSize: 11, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>
-          Someone opens a pill — Similar Projects, Lessons Learned, Literature, Institutional Documents or Data — then takes content away. Same entry point as above, so the two are directly comparable.
-        </div>
-        <FunnelChart
-          steps={[
-            { label: "Opens KP", n: 224 },
-            { label: "Opens a pill", n: 32, time: "52s" },
-            { label: "Highlights content", n: 8, time: "5m 50s" },
-            { label: "Copies it", n: 2, time: "3.1s" },
-          ]}
-          compare={[248, 37, 5, 2]}
-          compareLabel="July"
-          note="0.9% end to end. Open Search converts nine times better from the same entry point — and the gap was fifteen times in July. Note also that the pills' own copy button registered zero users: the few who do copy select the text by hand instead."
-        />
-      </div>
-
-      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "14px 18px" }}>
-        <div style={{ fontSize: 10, color: BLUE_D, lineHeight: 1.6 }}>
-          <strong>Reading the two together.</strong> Both surfaces start from the same 224 people. Open Search pulls 38% of them into a query; the pills pull 14%. But the real gap opens after that: of those who search, 21% end up copying something, against 6% of those who open a pill. The pills are not just less used — they convert worse per visit.
-        </div>
-      </div>
-
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Which pill converts · Apr 1 – Aug 24, 2026</div>
-        <div style={{ fontSize: 11, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>
-          The same contextual funnel, one pill at a time. Measured over the full five months rather than August alone: August has 32 pill openings in total, and splitting those five ways yields nothing readable. All five share the same entry point (1,251 users), so the columns are comparable across rows.
-        </div>
-        <PillBreakdown
-          rows={[
-            { pill: "Lessons Learned",        opens: 111, highlight: 28, copy: 11 },
-            { pill: "Similar Projects",       opens: 109, highlight: 27, copy: 10 },
-            { pill: "Literature",             opens: 76,  highlight: 20, copy: 4 },
-            { pill: "Institutional Documents", opens: 58,  highlight: 18, copy: 4 },
-            { pill: "Data",                   opens: 45,  highlight: 14, copy: 2 },
-          ]}
-          note="Rows are not mutually exclusive: one person can open several pills. Highlight and copy are counted anywhere in the session after the pill opens, so they are attributed to the pill by sequence, not by location on the page — read them as directional."
-        />
-        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.6, marginTop: 14 }}>
-          <strong>The differentiator is not the click, it is what happens after.</strong> Getting from a pill to a highlight is remarkably flat across all five — between 25% and 31% — and the two least-used pills, Data and Institutional Documents, actually lead on it. The separation appears at the last step: of those who highlight, 39% copy in Lessons Learned and 37% in Similar Projects, against 22% in Institutional Documents, 20% in Literature and 14% in Data. Lessons Learned and Similar Projects are both the most opened and the best at converting. Data looks like the weakest on both counts, but see the month-by-month table below before reading it that way.
-        </div>
-      </div>
-
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Pill opens by month</div>
-        <div style={{ fontSize: 11, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>
-          Unique users who opened each pill, month by month. Only the opening step breaks down this far: the best month for the whole contextual surface has 10 copies in total, so a copy rate per pill per month would be noise, not measurement.
-        </div>
-        <PillMonthlyTable
-          months={["Apr", "May", "Jun", "Jul", "Aug*"]}
-          rows={[
-            { pill: "Similar Projects",        values: [42, 12, 38, 12, 18] },
-            { pill: "Lessons Learned",         values: [37, 14, 34, 21, 14] },
-            { pill: "Literature",              values: [22, 9,  27, 10, 11] },
-            { pill: "Institutional Documents", values: [14, 10, 19, 9,  10] },
-            { pill: "Data",                    values: [0,  3,  19, 12, 11] },
-          ]}
-          note="* August covers days 1–24 only. Segment Sin DEV. Monthly figures do not sum to the pooled totals above: someone who opens a pill in two different months counts once in the pooled figure and twice here."
-        />
-        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.6, marginTop: 14 }}>
-          <strong>Data is not the weakest pill — it is the newest.</strong> It had zero users in April and three in May before jumping to 19 in June. Its pooled numbers are penalised by a month in which it effectively did not exist, so the 4.4% copy rate above understates it; judge it from June onward, where it sits level with Institutional Documents.
-          <br /><br />
-          <strong>Nobody comes back to Data.</strong> Its five monthly figures add up to 45 and its pooled total is also 45 — meaning not one person opened it in two different months. Similar Projects has 13 such repeat month-appearances and Lessons Learned 9. Data gets opened once and not returned to, which is a different problem from not being found.
-          <br /><br />
-          <strong>The pills move together, not against each other.</strong> Every one of the five peaks in June and bottoms out in May, and the ranking barely changes. That points at overall platform traffic driving contextual usage, not at any pill winning attention from the others.
-        </div>
-      </div>
-
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", borderLeft: `3px solid ${RED}` }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Lessons Writing Assistant · full year</div>
-        <div style={{ fontSize: 11, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>
-          Sep 1, 2025 → Aug 24, 2026. Unique users, across sessions (writing a lesson is not a one-sitting task), segment Sin DEV.
-        </div>
-        <FunnelChart
-          steps={[
-            { label: "Starts a lesson", n: 101 },
-            { label: "Completes it", n: 15, time: "36m 34s" },
-          ]}
-          note="In twelve months, 101 people outside the product team started a lesson and 15 finished one — a median of 37 minutes apart. None of those completions happened in July or August: the activity is from earlier months. An earlier version of this funnel forced a draft-generation step in between and reported zero completions; only 2 users ever pass through that button, which strangled the funnel rather than measuring it."
-        />
-      </div>
+      <FunnelSection f={FUNNELS.august} />
 
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />

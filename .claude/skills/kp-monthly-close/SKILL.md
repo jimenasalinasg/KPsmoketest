@@ -63,11 +63,61 @@ números nuevos y los deltas recalculados contra el mes previo.
 Cambiar el comentario de encabezado a:
 `// Final — full month, segmento Sin DEV (vía Fullstory MCP, cerrado <YYYY-MM-DD>)`
 
-### 5. Validar
+### 5. Reconstruir los embudos
+
+**Esto no se recomputa, se reconstruye.** Un embudo de FullStory tiene el rango
+**congelado en su definición**: `compute_funnel` devuelve siempre el rango viejo,
+sin fallar ni avisar. Si te salteás este paso, el dashboard va a mostrar los
+embudos del mes pasado con cara de actuales. Los ids guardados están en el
+§2bis del checklist.
+
+Reconstruir con `build_funnel`, `segment_id: sjHJR3590z6j`, fechas del mes que
+cerrás, y computar cada uno con `compute_funnel(funnel_id, segment_id)`:
+
+1. **Open Search** — `visitedUrl` host `knowledgeplatform.iadb.org` → click en
+   `Open-Search-Input-Search` → `highlight any` → `copy any`.
+2. **Contextual (pills)** — mismo paso 1 → `visitedPage` en `[67, 68, 69, 70, 257]`
+   → `highlight any` → `copy any`.
+3. **Los mismos dos para el mes anterior**, que van en `compare` para los deltas.
+4. **LWA** — extender el rango hasta el último día del mes cerrado. Es
+   cross-session: `in_same_session: false`.
+
+Verificar en el `funnel_definition` que devuelve `build_funnel` que los ids de
+página y de elemento quedaron explícitos. Si aparece `withElementId: {}` vacío,
+el embudo está midiendo "cualquier click" y el número no sirve.
+
+**Las pills son distintas: esas sí se recomputan.** Los cinco métricos
+`single_number` del checklist se computan con `compute_metric(metric_id,
+start_date, end_date)` sin reconstruir nada. Agregar una columna al mes nuevo en
+`pillMonthly.months` y en cada fila de `pillMonthly.rows`.
+
+Los embudos agrupados por pill (`pills.rows`) se reconstruyen extendiendo el
+rango hasta el mes cerrado, y hay que actualizar el conteo de entrada que
+aparece en `pills.intro`.
+
+**Chequeo obligatorio:** la suma de las columnas mensuales de cada pill tiene que
+quedar **por encima** del total agrupado y cerca de él. Si diera menos, hay un
+error de rango: parar y reportarlo.
+
+### Dónde se escribe
+
+Todo va al objeto `FUNNELS` de `src/App.jsx`, nunca al JSX. Agregar la clave del
+mes nuevo copiando la estructura de la anterior, y en la función `<Mes>Monthly`
+poner `<FunnelSection f={FUNNELS.<mes>} />`.
+
+Los textos (`intro`, `note`, `synthesis`, `takeaways`) son strings planos y se
+reescriben con los números nuevos. `takeaways` es una lista de `{lead, body}`:
+`lead` va en negrita, `body` sigue en la misma línea. No meter JSX en los datos.
+
+**Si un embudo no se puede reconstruir**, no copiar los números del mes anterior:
+sacar `<FunnelSection>` de la vista del mes nuevo y listarlo como pendiente en el
+PR. Una sección ausente es honesta; una con datos viejos, no.
+
+### 6. Validar
 `npm install && npm run build`. Debe compilar sin errores.
 **Si falla el build, no commitear** — abrir el PR con el error.
 
-### 6. Commit, PR y merge
+### 7. Commit, PR y merge
 Rama `cierre-<mes>-<anio>`, commit, push, PR.
 
 El cuerpo del PR debe incluir:
@@ -75,11 +125,12 @@ El cuerpo del PR debe incluir:
 - Penetración (`users/3600*100`, 1 decimal)
 - Países marcados `// REVISAR`
 - **Lista explícita de campos manuales pendientes**
+- Embudos reconstruidos, con los `funnel_id` nuevos, o los que no se pudieron
 - Nota de que el build pasó
 
 Mergear a `main` (dispara el deploy a GitHub Pages).
 
-### 7. Reportar
+### 8. Reportar
 Resumen en español: mes cerrado, movimientos relevantes vs el mes anterior,
 países anómalos, campos manuales pendientes.
 
@@ -89,3 +140,7 @@ países anómalos, campos manuales pendientes.
 - Sumar meses para obtener acumulados (duplica recurrentes).
 - Confiar en un metric_id nuevo sin validarlo contra un mes conocido.
 - Mergear con el build roto.
+- Recomputar un embudo esperando que cambie de rango. Hay que reconstruirlo.
+- Copiar los embudos del mes anterior sin reconstruirlos, o dejarlos como están:
+  no fallan, mienten.
+- Escribir números de embudo en el JSX. Van en `FUNNELS`.
