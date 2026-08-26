@@ -124,6 +124,55 @@ reescriben con los números nuevos. `takeaways` es una lista de `{lead, body}`:
 sacar `<FunnelSection>` de la vista del mes nuevo y listarlo como pendiente en el
 PR. Una sección ausente es honesta; una con datos viejos, no.
 
+### 5bis. Barrido cualitativo de sesiones
+
+Responde lo que ningún métrico contesta: **para qué usan la plataforma, qué se
+llevan y qué se los impide.** Va al final de la vista del mes, en el objeto
+`QUALITATIVE` de `src/App.jsx` — mismo criterio que `FUNNELS`: datos afuera del JSX.
+
+**Muestreo estratificado, nunca aleatorio.** A este volumen (≈220 usuarios/mes)
+una muestra al azar da mayoría de rebotes de 30 segundos. Sacar ~8 sesiones de
+los embudos que ya se reconstruyeron, con `get_funnel_sessions`:
+
+| Estrato | Cómo | Para qué |
+|---|---|---|
+| Completaron hasta copiar | `completed_step: 3` sobre el embudo de Open Search | qué extraen y para qué |
+| Buscaron y se cayeron | `completed_step: 2, did_not_complete: true` | dónde se pierde la conversión |
+| Abrieron el panel de fuentes | `completed_step: 2` sobre el embudo de fuentes | verificación vs extracción |
+| Abrieron pill y no extrajeron | `completed_step: 2, did_not_complete: true` sobre el contextual | por qué la superficie contextual no convierte |
+
+Después `get_session_events(session_id)` para leer el transcript de cada una.
+**No hay video**: lo que se lee son navegaciones, clicks, texto tipeado,
+`dead-click`, `mouse-thrash`, errores de consola y los tiempos entre acciones.
+Para estos fines alcanza y sobra — es buscable y comparable entre meses.
+
+**Excluir al equipo de producto.** El segmento Sin DEV no filtra al PM. Si en la
+muestra aparece `jimenasa@iadb.org` u otra cuenta del equipo, descartarla y sacar
+otra: con n=8 una sesión propia contamina el resultado.
+
+**Esquema de codificación fijo** — es lo que hace que diciembre sea comparable
+con agosto. Cada tema se clasifica en una sola de estas etiquetas:
+
+`New use case` · `Coverage gap` · `Friction` · `Bug` · `Opportunity`
+
+y cada uno lleva: `title` (la observación, no la categoría), `body` (qué se vio,
+2–3 oraciones, en pasado y concreto), `quote` opcional (verbatim, en el idioma
+original), `soWhat` (qué decisión de producto habilita) y `sessions` (los links).
+
+**Anonimizar siempre.** En el dashboard no va nombre, ni mail, ni ciudad. Las
+sesiones se etiquetan `S-01`, `S-02`… más el país y, si aporta, el idioma. El
+link a FullStory sí va: pide login, así que la identidad solo la ve quien ya
+tiene acceso. **El dashboard es público en GitHub Pages** — antes de pegar un
+verbatim, chequear que no nombre una operación concreta ni a una persona;
+si la nombra, parafrasear.
+
+**Nunca convertir esto en porcentajes.** Con 8 sesiones son patrones para
+verificar, no medición. Conteos crudos («tres de ocho») y ejemplos, o nada.
+La regla de no inventar números aplica igual: cada afirmación tiene que quedar
+atada a sesiones concretas, y si no hay sesión que la respalde, no se escribe.
+
+Renderiza `<QualitativeSection q={QUALITATIVE.<mes>} />` al final de la vista.
+
 ### 6. Validar
 `npm install && npm run build`. Debe compilar sin errores.
 **Si falla el build, no commitear** — abrir el PR con el error.
@@ -155,3 +204,6 @@ países anómalos, campos manuales pendientes.
 - Copiar los embudos del mes anterior sin reconstruirlos, o dejarlos como están:
   no fallan, mienten.
 - Escribir números de embudo en el JSX. Van en `FUNNELS`.
+- Muestrear sesiones al azar para el barrido cualitativo. Va estratificado.
+- Publicar nombre, mail o ciudad en la sección cualitativa. El dashboard es público.
+- Sacar porcentajes de una muestra de 8 sesiones.

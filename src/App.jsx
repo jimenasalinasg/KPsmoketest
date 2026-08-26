@@ -2982,6 +2982,70 @@ function PillMonthlyTable({ months, rows, note }) {
 // Render completo de la seccion a partir de un objeto de FUNNELS. Los bloques
 // de conclusiones se modelan como {lead, body} para que los datos sigan siendo
 // datos planos y no JSX: asi el cierre mensual reescribe strings, no markup.
+// ── QUALITATIVE · BARRIDO DE SESIONES ─────────────────────
+// Muestreo estratificado sobre los embudos del mes (no aleatorio: a este
+// volumen una muestra al azar da mayoria de rebotes). Protocolo y esquema de
+// codificacion en .claude/skills/kp-monthly-close/SKILL.md.
+// ANONIMIZADO: sin nombre, sin mail, sin ciudad. Los links van a FullStory,
+// que pide login — la identidad solo la ve quien ya tiene acceso.
+const QUALITATIVE = {
+  august: {
+    kicker: "Qualitative — session sweep",
+    title: "What people actually do here · Aug 1–24, 2026",
+    intro: "Eight sessions read end to end, sampled across the funnels above: some who searched and copied, some who searched and left, some who opened a pill and stopped. Read for what people came to do, what they took away, and what got in the way.",
+    themes: [
+      {
+        tag: "New use case",
+        tone: "green",
+        title: "They are drafting documents, not searching",
+        body: "One user pasted their own draft of a Technical Cooperation document into the search box and asked KP to write sections of it — first the complementarity paragraph, then the strategic alignment section, pasting institutional policy codes in one at a time to anchor it. Six turns, a language switch mid-way, and two copies out. Another asked for a synthesis of the whole publications catalogue.",
+        quote: "«Genera el párrafo de complementariedad para el TC…» → «Now write the strategic alignment section for this tc» → «make it in english»",
+        soWhat: "The funnel counts this as a search. It is not search — it is co-drafting operational documents. If the pattern holds, there is a second product inside KP that is neither measured nor designed for, and for that cohort copying is the success metric, not a middle step.",
+        sessions: [{ id: "S-02", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2087297882966389573:6903920404006871149:1787589165062", place: "US" }, { id: "S-01", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7565401595892116325:8957290326761001086:1787593501626", place: "US · PT" }],
+      },
+      {
+        tag: "Coverage gap",
+        tone: "amber",
+        title: "They ask for internal documents by code, and come up empty",
+        body: "A first-time user asked the same institutional code three different ways in ninety seconds, then gave up and copied their own question rather than an answer. Others went looking for a country office reference and for the latest thematic framework document the same way.",
+        quote: "«What is the AM-130?» → «there is not a policy for IDB with the number AM-130?» → «how about a policy AM130?»",
+        soWhat: "People expect KP to resolve institutional identifiers. That is a corpus decision, not an interface one: either those documents get indexed, or the answer should say plainly that they are out of scope instead of leaving the user to rephrase three times.",
+        sessions: [{ id: "S-04", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8776490989051868405:8723719147691481278:1787229869553", place: "Trinidad & Tobago" }, { id: "S-05", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6636408624766522658:741274092150010840:1787587515051", place: "US" }, { id: "S-02", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2087297882966389573:6903920404006871149:1787589165062", place: "US" }],
+      },
+      {
+        tag: "Friction",
+        tone: "amber",
+        title: "The tour fires on top of work in progress",
+        body: "One user typed a query, hit search, and only then did the guided tour appear — a dead click on the overlay, then nine consecutive Next presses to clear it. Another finished the tour, returned home, and restarted it by accident. A third had to hit Skip tour in the middle of composing a question.",
+        soWhat: "It reframes tour completion at 44%: some of those completions are people dismissing a modal that covered their screen. Changing the trigger so it never interrupts an in-flight query is cheap and removes friction from the first minute.",
+        sessions: [{ id: "S-05", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6636408624766522658:741274092150010840:1787587515051", place: "US" }, { id: "S-06", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/5524894797722372646:3737740748395617114:1787608366913", place: "US" }, { id: "S-04", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8776490989051868405:8723719147691481278:1787229869553", place: "Trinidad & Tobago" }],
+      },
+      {
+        tag: "Bug",
+        tone: "red",
+        title: "The source panel button does not answer the first click",
+        body: "Four dead clicks in a row on the sources overview control. The user then highlighted the text — the is-this-a-button-or-just-words gesture — and only on the sixth attempt did the panel open.",
+        soWhat: "This is the same control behind the source-panel line added to the funnels above. August's 9 of 86 may be measuring how hard the button is to hit as much as how much people want sources. Worth fixing before reading that series as a behavioural signal.",
+        sessions: [{ id: "S-01", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7565401595892116325:8957290326761001086:1787593501626", place: "US · PT" }],
+      },
+      {
+        tag: "Opportunity",
+        tone: "blue",
+        title: "They re-run their own query by hand, through the clipboard",
+        body: "One user highlighted their own question on screen, copied it, pasted it into the follow-up box and changed the ending — narrowing the same search by region. They repeated that cycle four times, and downloaded a response along the way.",
+        soWhat: "There is no way to edit and re-run a query. Iterative refinement is already happening, done by hand with copy and paste. An edit-and-ask-again affordance is among the cheapest changes with a direct return in the funnel.",
+        sessions: [{ id: "S-03", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/1324103570649541372:6138236451682504889:1787250249769", place: "US" }],
+      },
+    ],
+    alsoNoted: [
+      "Genuinely multilingual, and people switch mid-session: Portuguese, Spanish and English all appeared in eight sessions, and one user queried in Spanish then asked for the answer in English. Input language does not predict output language.",
+      "The pills behave like navigation, not like a destination. Three sessions opened a pill from a project card and ended there or moved on — one left the tab parked for sixteen minutes. That fits the 1-of-32 in the contextual funnel: it is a link inside the project, not a surface where extraction happens.",
+      "Two sessions opened with silent authentication errors in the console (token refresh timing out). No visible failure, but one of them was followed by mouse thrashing — worth checking whether it delays the first answer.",
+    ],
+    note: "Method: 8 sessions, segment Sin DEV, sampled across funnel strata (completed / dropped after search / opened a pill and stopped). Directional, not representative — at this sample size these are patterns worth checking, never percentages. Anonymised: no names, no emails, no cities. Session links open in FullStory and require an account.",
+  },
+};
+
 function Takeaways({ items, style }) {
   return (
     <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.6, ...style }}>
@@ -3041,6 +3105,58 @@ function FunnelSection({ f }) {
     </>
   );
 }
+
+
+function QualitativeSection({ q }) {
+  const TONE = { green: GREEN, amber: AMBER, red: RED, blue: BLUE_D };
+  return (
+    <>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔎 {q.kicker}</div>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>{q.title}</div>
+        <div style={{ fontSize: 11, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>{q.intro}</div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          {q.themes.map((t, i) => (
+            <div key={i} style={{ borderTop: i > 0 ? `1px solid ${BDR}` : "none", paddingTop: i > 0 ? 14 : 0 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 6 }}>
+                <span style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 600, color: "#fff", background: TONE[t.tone], borderRadius: 4, padding: "3px 7px", whiteSpace: "nowrap" }}>{t.tag}</span>
+                <span style={{ fontSize: 12, fontWeight: 600, color: INK, lineHeight: 1.35 }}>{t.title}</span>
+              </div>
+              <p style={{ fontSize: 11, color: INK2, lineHeight: 1.6, margin: "0 0 8px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>{t.body}</p>
+              {t.quote && (
+                <div style={{ fontSize: 10, color: INK2, fontStyle: "italic", lineHeight: 1.6, borderLeft: `2px solid ${BDR}`, paddingLeft: 10, margin: "0 0 8px 0", overflowWrap: "anywhere" }}>{t.quote}</div>
+              )}
+              <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 6, padding: "8px 11px", fontSize: 10, color: BLUE_D, lineHeight: 1.6, marginBottom: 8 }}>
+                <strong>So what.</strong> {t.soWhat}
+              </div>
+              <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                {t.sessions.map((sn, j) => (
+                  <a key={j} href={sn.url} target="_blank" rel="noopener noreferrer"
+                     style={{ fontSize: 9, color: INK3, textDecoration: "none", border: `1px solid ${BDR}`, borderRadius: 20, padding: "3px 9px", whiteSpace: "nowrap" }}>
+                    ▸ watch {sn.id} · {sn.place}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {q.alsoNoted && (
+          <div style={{ marginTop: 16, borderTop: `1px solid ${BDR}`, paddingTop: 14 }}>
+            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Also noted</div>
+            <ul style={{ margin: 0, paddingLeft: 16, fontSize: 10, color: INK2, lineHeight: 1.7, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+              {q.alsoNoted.map((a, i) => <li key={i} style={{ marginBottom: 4 }}>{a}</li>)}
+            </ul>
+          </div>
+        )}
+
+        {q.note && <div style={{ fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5, marginTop: 14 }}>{q.note}</div>}
+      </div>
+    </>
+  );
+}
+
 
 // ── METRIC CARD (compartido) ──────────────────────────────
 // Un solo lugar para las tarjetas de métrica de los 5 meses.
@@ -3461,6 +3577,8 @@ function AugustMonthly() {
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
         <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + all 5 pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA — all pulled directly from FullStory dashboard widgets by ID. <strong style={{ color: INK2 }}>Loaded manually:</strong> CSAT (33.3%, n=3, sample as of Aug 18). <strong style={{ color: INK2 }}>Pending:</strong> prompts sent and latency — no FullStory metric covers them; and new/returning users, whose manually supplied figures (99 and 47) were withdrawn because they did not reconcile with the 174 unique users in the period and there is no metric to validate them against. Full month (through Aug 31) replaces this partial pull.
       </div>
+
+      <QualitativeSection q={QUALITATIVE.august} />
 
     </div>
   );
