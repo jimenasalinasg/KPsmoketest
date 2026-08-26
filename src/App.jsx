@@ -2002,7 +2002,7 @@ const JULY = {
   copied: 183,
   copiedOpenSearch: 135,
   sourceClicks: 30,
-  sourceClicksBC: 0,
+  sourceClicksBC: 0, // LD4uHOPIDS8l — verificado: 0 usuarios en julio 2026
   pillPageviews: 134,
   pillTop: "Lessons Learned (46)",
   pillBot: "Institutional Documents (10)",
@@ -2561,6 +2561,13 @@ const FUNNELS = {
         { label: "Highlights content", n: 69, time: "3m 20s" },
         { label: "Copies it", n: 39, time: "2.2s" },
       ],
+      derived: {
+        label: "Opens the source panel",
+        n: 21,
+        from: 1,
+        time: "3m 3s",
+        note: "Verification, not extraction: 21 of the 226 who searched opened the source panel. It is a separate exit from the same step, not a stage on the way to copying.",
+      },
       note: "6.6% end to end. The first full month after go-live, and the widest top of funnel of the whole series: 588 people entered KP, more than twice August's figure. 38% of them ran a search.",
     },
     contextual: {
@@ -2572,6 +2579,12 @@ const FUNNELS = {
         { label: "Highlights content", n: 7, time: "8m 44s" },
         { label: "Copies it", n: 4, time: "1.8s" },
       ],
+      derived: {
+        label: "Opens a source",
+        n: 0,
+        from: 1,
+        note: "Nobody who opened a pill in April went on to click a source link.",
+      },
       note: "0.7% end to end — ten times worse than Open Search from the same entry point. The median of 8m 44s between opening a pill and highlighting anything is the slowest of the series: people opened the pills and then took a long time to find something worth marking.",
     },
     synthesis: [{
@@ -2591,6 +2604,13 @@ const FUNNELS = {
       ],
       compare: [588, 226, 69, 39],
       compareLabel: "April",
+      derived: {
+        label: "Opens the source panel",
+        n: 13,
+        from: 1,
+        time: "7m 34s",
+        note: "13 of the 132 who searched. The share holds near 10% even as entries fall by two fifths.",
+      },
       note: "10.0% end to end, up from 6.6% in April. Worth reading carefully: entries dropped from 588 to 360 while copies barely moved, 39 to 36. The rate improved mostly because the casual traffic left, not because more people extracted.",
     },
     contextual: {
@@ -2604,6 +2624,13 @@ const FUNNELS = {
       ],
       compare: [588, 62, 7, 4],
       compareLabel: "April",
+      derived: {
+        label: "Opens a source",
+        n: 1,
+        from: 1,
+        time: "2m 41s",
+        note: "One user out of the 28 who opened a pill.",
+      },
       note: "1.7% end to end, up from 0.7%. Pill openings fell by more than half (62 → 28) but highlights rose (7 → 11) and copies rose (4 → 6). The smaller group that did open a pill in May was markedly more deliberate.",
     },
     synthesis: [{
@@ -2623,6 +2650,13 @@ const FUNNELS = {
       ],
       compare: [360, 132, 59, 36],
       compareLabel: "May",
+      derived: {
+        label: "Opens the source panel",
+        n: 12,
+        from: 1,
+        time: "4m 13s",
+        note: "12 of the 160 who searched — 7.5%, the lowest share of the series, in the month with the most searchers.",
+      },
       note: "9.8% end to end, holding May's level on slightly more traffic. Activation is the best of the series at 42% — of every 100 people who entered KP in June, 42 ran a search.",
     },
     contextual: {
@@ -2636,6 +2670,13 @@ const FUNNELS = {
       ],
       compare: [360, 28, 11, 6],
       compareLabel: "May",
+      derived: {
+        label: "Opens a source",
+        n: 1,
+        from: 1,
+        time: "2m 26s",
+        note: "One user out of the 69 who opened a pill — the widest pill month of the series, and still a single source click.",
+      },
       note: "2.6% end to end — the best contextual month by a distance, and the only one in double digits for copies (10). Pill openings peaked at 69 and the time from opening to highlighting halved against May.",
     },
     synthesis: [{
@@ -2655,6 +2696,13 @@ const FUNNELS = {
       ],
       compare: [378, 160, 61, 37],
       compareLabel: "June",
+      derived: {
+        label: "Opens the source panel",
+        n: 11,
+        from: 1,
+        time: "3m 59s",
+        note: "11 of the 109 who searched, 10.1%. Steady as a share while entries hit the summer low.",
+      },
       note: "12.1% end to end — the highest of the series. But entries fell to 248, the summer low, and copies fell too, from 37 to 30. The rate is a peak; the absolute number of people taking something away is not.",
     },
     contextual: {
@@ -2668,6 +2716,12 @@ const FUNNELS = {
       ],
       compare: [378, 69, 18, 10],
       compareLabel: "June",
+      derived: {
+        label: "Opens a source",
+        n: 0,
+        from: 1,
+        note: "Nobody who opened a pill in July went on to click a source link.",
+      },
       note: "0.8% end to end, back to April's level after June's peak. Highlights collapsed from 18 to 5. The 47.6s median between highlighting and copying is an outlier against every other month, which sits between 1.5s and 3.1s — on numbers this small it is a curiosity, not a signal.",
     },
     synthesis: [{
@@ -2687,6 +2741,13 @@ const FUNNELS = {
       ],
       compare: [248, 109, 47, 30],
       compareLabel: "July",
+      derived: {
+        label: "Opens the source panel",
+        n: 9,
+        from: 1,
+        time: "3m 4s",
+        note: "9 of the 86 who searched, 10.5%. Across the five months this share stays between 7.5% and 10.5% — considerably steadier than the copy rate above it.",
+      },
       note: "8.0% end to end, against 12.1% in July. The drop is spread across all three steps.",
     },
     contextual: {
@@ -2700,6 +2761,13 @@ const FUNNELS = {
       ],
       compare: [248, 37, 5, 2],
       compareLabel: "July",
+      derived: {
+        label: "Opens a source",
+        n: 1,
+        from: 1,
+        time: "9m 32s",
+        note: "One user out of the 32 who opened a pill. Three users in five months, all of them through the Lessons Learned card: the Literature and Institutional Documents source links registered zero users over the whole period.",
+      },
       note: "0.9% end to end. Open Search converts nine times better from the same entry point — and the gap was fifteen times in July. Note also that the pills' own copy button registered zero users: the few who do copy select the text by hand instead.",
     },
     synthesis: [
@@ -2767,7 +2835,7 @@ const FUNNELS = {
   },
 };
 
-function FunnelChart({ steps, compare, compareLabel, note }) {
+function FunnelChart({ steps, compare, compareLabel, note, derived }) {
   const top = steps[0].n || 1;
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -2799,6 +2867,23 @@ function FunnelChart({ steps, compare, compareLabel, note }) {
           </div>
         );
       })}
+      {/* Linea de derivacion: una salida alternativa del paso `derived.from`,
+          no un paso mas del embudo. Ver KP-MCP-metrics-checklist.md §4. */}
+      {derived && (
+        <div style={{ marginTop: 2, paddingLeft: 12, borderLeft: `2px solid ${BDR}` }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 8 }}>
+            <span style={{ fontSize: 10, color: INK2 }}>↳ {derived.label}</span>
+            <span style={{ fontSize: 10, color: INK, fontWeight: 500, whiteSpace: "nowrap" }}>
+              {derived.n} <span style={{ color: INK3, fontWeight: 400 }}>· {Math.round(derived.n / steps[derived.from].n * 100)}% of “{steps[derived.from].label}”</span>
+            </span>
+          </div>
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 3, fontSize: 9, color: INK3 }}>
+            <span>alternative exit — not on the path to copying</span>
+            {derived.time && <span>· {derived.time} median</span>}
+          </div>
+          {derived.note && <div style={{ fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5, marginTop: 3 }}>{derived.note}</div>}
+        </div>
+      )}
       {note && <div style={{ fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5, marginTop: 2 }}>{note}</div>}
     </div>
   );
@@ -2923,11 +3008,11 @@ function FunnelSection({ f }) {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔻 Conversion funnels (live via MCP)</div>
 
       <Card block={f.openSearch}>
-        <FunnelChart steps={f.openSearch.steps} compare={f.openSearch.compare} compareLabel={f.openSearch.compareLabel} note={f.openSearch.note} />
+        <FunnelChart steps={f.openSearch.steps} compare={f.openSearch.compare} compareLabel={f.openSearch.compareLabel} note={f.openSearch.note} derived={f.openSearch.derived} />
       </Card>
 
       <Card block={f.contextual}>
-        <FunnelChart steps={f.contextual.steps} compare={f.contextual.compare} compareLabel={f.contextual.compareLabel} note={f.contextual.note} />
+        <FunnelChart steps={f.contextual.steps} compare={f.contextual.compare} compareLabel={f.contextual.compareLabel} note={f.contextual.note} derived={f.contextual.derived} />
       </Card>
 
       <Takeaways items={f.synthesis} style={{ borderRadius: 10, padding: "14px 18px" }} />
