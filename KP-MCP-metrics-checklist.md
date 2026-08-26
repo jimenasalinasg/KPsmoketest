@@ -25,6 +25,7 @@ Devuelven `{single:{value}}`. Se computan con el rango del mes cerrado
 | `tourCompletion`        | `iN3brKBr4rlY` | viene con decimales → `Math.round()` |
 | `pillPageviews`         | `2EYT9yOW6odB` | total de las pills (pageviews) |
 | `sourceClicks`          | `Ge6P9qbIeu3b` | clicks en source panel (Open Search) |
+| `sourceClicksBC`        | `LD4uHOPIDS8l` | clicks en source panel (contextual). **Unique users**, no eventos — no comparar 1:1 con `sourceClicks` |
 | `thumbsUp`              | `AtpRWyuThJUq` | |
 | `thumbsDown`            | `x6Z3q26RMOra` | |
 | `promptGalleryClicks`   | `lkwqkKIJQ25E` | |
@@ -107,7 +108,7 @@ Nunca inventar. Si no hay valor, dejar `null` y listarlo como pendiente en el PR
 - `returningUsers` — usuarios recurrentes
 - `latency` / `avgTime` — latencia mediana
 - `csat` — % y promedio de estrellas, con n de respuestas
-- `dropoff`, `sourceClicksBC`, `openSearchVisits` — meses con schema viejo
+- `dropoff`, `openSearchVisits` — meses con schema viejo
 - `pillBot` — pill menos usada (ver §4)
 - `lwa.lessonsGenerated` — **se saca a mano de la consola**, no de FullStory.
   El métrico `ffbLsADU0Swu` NO sirve para este campo: se llama "Lessons Generated
@@ -138,6 +139,16 @@ en la definición: para cerrar un mes nuevo hay que **reconstruir** el embudo co
 | Open Search · abr 2026 | `1046945776` | 2026-04-01 → 2026-04-30 |
 | Open Search · may 2026 | `1679441265` | 2026-05-01 → 2026-05-31 |
 | Open Search · jun 2026 | `1912929132` | 2026-06-01 → 2026-06-30 |
+| OS → panel de fuentes · abr 2026 | `1884525824` | 2026-04-01 → 2026-04-30 |
+| OS → panel de fuentes · may 2026 | `820021151` | 2026-05-01 → 2026-05-31 |
+| OS → panel de fuentes · jun 2026 | `1188737148` | 2026-06-01 → 2026-06-30 |
+| OS → panel de fuentes · jul 2026 | `124232475` | 2026-07-01 → 2026-07-31 |
+| OS → panel de fuentes · ago 2026 | `514074685` | 2026-08-01 → 2026-08-24 |
+| Contextual → panel de fuentes · abr 2026 | `680145669` | 2026-04-01 → 2026-04-30 |
+| Contextual → panel de fuentes · may 2026 | `588957978` | 2026-05-01 → 2026-05-31 |
+| Contextual → panel de fuentes · jun 2026 | `118780297` | 2026-06-01 → 2026-06-30 |
+| Contextual → panel de fuentes · jul 2026 | `1150323350` | 2026-07-01 → 2026-07-31 |
+| Contextual → panel de fuentes · ago 2026 | `1672506552` | 2026-08-01 → 2026-08-24 |
 
 Los tres de Open Search se clonaron del de agosto con
 `update_funnel(2112175315, start_date, end_date)`: copia los pasos exactos
@@ -262,34 +273,87 @@ Si algún valor no coincide, la definición del métrico cambió en FullStory:
 - **`BhsN9vxRPN7V` (sessions) no filtra tráfico interno ni bots.** Criterio a
   confirmar; puede inflar el número.
 
-### Panel de fuentes en los embudos — decidido, pendiente de datos
+### Panel de fuentes en los embudos — hecho (ago 2026)
 
-Pedido: agregar el click al panel de fuentes a los embudos de Open Search y
-contextual.
+Dos embudos de **tres** pasos por mes, renderizados como una **línea de derivación**
+debajo de cada embudo existente, sin tocar los pasos actuales. Los datos viven en
+`FUNNELS.<mes>.<openSearch|contextual>.derived`, con la forma
+`{ label, n, from, time, note }`; `from` es el índice del paso del que deriva.
 
-**Va como derivación, no como paso intermedio.** La forma intuitiva —
-`entra KP → busca → click a fuente → highlight → copia` — está mal y repetiría
-el error del embudo de LWA, donde forzar el paso de borrador (que solo pasan 2
-usuarios) reportó cero lecciones completadas cuando en realidad había 15. Un
-paso que poca gente atraviesa no mide el embudo: lo estrangula.
+Va como derivación y no como paso intermedio porque el click a fuente **no está en
+el camino a copiar**: es un destino alternativo. Quien abre la fuente se va del KP al
+documento. Forzarlo como paso repetiría el error del embudo de LWA, donde un paso que
+solo atraviesan 2 usuarios reportó cero lecciones completadas habiendo 15.
 
-El click a fuente **no está en el camino a copiar**. Es un destino alternativo:
-quien abre la fuente se va del KP al documento. Extracción y verificación son
-dos salidas distintas del mismo paso.
+| Mes | OS: busca → fuente | Contextual: pill → fuente |
+|---|---:|---:|
+| abr | 21 / 226 (9%) | 0 / 62 |
+| may | 13 / 132 (10%) | 1 / 28 |
+| jun | 12 / 160 (8%) | 1 / 69 |
+| jul | 11 / 109 (10%) | 0 / 37 |
+| ago (1-24) | 9 / 86 (10%) | 1 / 32 |
 
-Forma correcta: dos embudos nuevos de **tres** pasos,
+Los pasos 1 y 2 de los diez embudos coinciden **exacto** con los embudos ya validados
+del dashboard (588/226, 360/132, 378/160, 248/109, 224/86 y 588/62, 360/28, 378/69,
+248/37, 224/32). Es la verificación de que el clonado no corrompió nada.
 
-- `entra KP → corre una búsqueda → click al panel de fuentes`
-- `entra KP → abre una pill → click al panel de fuentes`
+#### Limitación dura del MCP: un paso de click = un solo elemento
 
-renderizados como una línea debajo de cada embudo existente («de los N que
-buscaron, X abrieron una fuente»), sin tocar los pasos actuales. Los datos van
-en `FUNNELS.<mes>`, como todo lo demás.
+`compute_funnel` **falla** (`failed to compute funnel`) si un paso de click referencia
+más de un elemento. El intérprete de lenguaje natural escribe esos pasos de dos formas
+y las dos son inservibles:
 
-**IDs.** Open Search es `Ge6P9qbIeu3b`, confirmado y en uso. El de contextual
-**no existe en este repo**: hay un campo `sourceClicksBC: 0` que aparece solo en
-el objeto de julio, no se renderiza en ninguna vista, y no tiene métrico detrás.
-Es un cero sin fuente. Al conseguir el ID real: o se llena, o se borra el campo.
+- `click.css.value: ["[data-fs-element=\"A\"], [data-fs-element=\"B\"]"]`
+- `click.withElementId.value: ["idA,idB,idC"]` — los tres ids unidos en **un** string
+
+Solo computa `click.withElementId.value: ["<un id>"]`. No hay forma de expresar la
+unión de varios elementos en un embudo por este MCP.
+
+Consecuencias, y cómo se resolvió cada una:
+
+- **Open Search**: el paso usa `Open-Search-Button-Response-SourcesOverview`
+  (`g1977jmWRJk0`), que es literalmente el click que **abre** el panel. Los otros dos
+  elementos de `Ge6P9qbIeu3b` (`Open-Search-Fonts-Item-Source`, `...-Item-Document`)
+  son clicks *dentro* del panel, o sea una acción posterior. El embudo mide apertura
+  del panel, y por eso su número **no** tiene que coincidir con `sourceClicks`, que
+  además cuenta eventos y no usuarios.
+- **Contextual**: se computaron los tres elementos de `LD4uHOPIDS8l` por separado
+  sobre abr–ago. `POD-Card-Literature-Button-SourceLink` (`hUhFMRkuJ9Ov`) → **0**
+  usuarios; `POD-Card-InstitutionalDocuments-Button-SourceLink` (`SZtrmukH8HV9`) →
+  **0**. Solo `POD-Card-LessonsLearned-Button-SourceLink` (`Xd0D5Mqm3TU8`) registra
+  usuarios (3 en cinco meses). Por lo tanto el embudo de un solo elemento **es** la
+  unión exacta en este período, y el número es correcto, no una aproximación.
+
+  > **Revalidar esto antes de reusarlo.** En cuanto Literature o Institutional
+  > Documents registren un click, el embudo de un elemento deja de ser la unión y
+  > empieza a subestimar. Recomputar los tres por separado en cada cierre.
+
+#### El intérprete de lenguaje natural corrompe pasos — verificar siempre
+
+Refinando por lenguaje natural, en la misma sesión, pidiendo cambiar **solo** el
+paso 3, el intérprete devolvió:
+
+- el paso 2 colapsado de `["67","68","69","70","257"]` a `["67"]` (una sola pill)
+- el paso 2 colapsado a `visitedPage: {any:{}}` (cualquier página)
+- `click: {any:{}}` y `withElementId: {}` vacío al construir desde cero
+
+Ninguna de las tres falla ni avisa: devuelven un embudo válido que mide otra cosa.
+**Después de cada `update_funnel` con `refinement`, leer el `funnel_definition` que
+vuelve y confirmar los ids paso por paso**, antes de computar. Los clones que solo
+cambian `start_date`/`end_date` no pasan por el intérprete y son seguros.
+
+Nota operativa: `update_funnel` con `refinement` tarda >60s y **cae por timeout con
+frecuencia**. Conviene espaciar las llamadas y reintentar; los clones por fecha son
+rápidos y se pueden hacer en paralelo.
+
+#### `sourceClicksBC`
+
+Resuelto: el métrico real es **`LD4uHOPIDS8l`**. Julio 2026 → **0**, así que el `0`
+que estaba cargado era correcto, pero por casualidad. El campo queda en `JULY` con el
+id anotado. Sigue sin renderizarse en ninguna vista.
+
+Valores por mes (unique users, org, sin segmento): abr 1 · may 1 · jun 1 · jul 0 ·
+ago 1 · acumulado sep-2025→ago-2026 **5**.
 
 ### Nota sobre users/sessions
 Una versión previa de este checklist decía que `users` y `sessions` no se podían
