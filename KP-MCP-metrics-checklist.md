@@ -262,6 +262,35 @@ Si algún valor no coincide, la definición del métrico cambió en FullStory:
 - **`BhsN9vxRPN7V` (sessions) no filtra tráfico interno ni bots.** Criterio a
   confirmar; puede inflar el número.
 
+### Panel de fuentes en los embudos — decidido, pendiente de datos
+
+Pedido: agregar el click al panel de fuentes a los embudos de Open Search y
+contextual.
+
+**Va como derivación, no como paso intermedio.** La forma intuitiva —
+`entra KP → busca → click a fuente → highlight → copia` — está mal y repetiría
+el error del embudo de LWA, donde forzar el paso de borrador (que solo pasan 2
+usuarios) reportó cero lecciones completadas cuando en realidad había 15. Un
+paso que poca gente atraviesa no mide el embudo: lo estrangula.
+
+El click a fuente **no está en el camino a copiar**. Es un destino alternativo:
+quien abre la fuente se va del KP al documento. Extracción y verificación son
+dos salidas distintas del mismo paso.
+
+Forma correcta: dos embudos nuevos de **tres** pasos,
+
+- `entra KP → corre una búsqueda → click al panel de fuentes`
+- `entra KP → abre una pill → click al panel de fuentes`
+
+renderizados como una línea debajo de cada embudo existente («de los N que
+buscaron, X abrieron una fuente»), sin tocar los pasos actuales. Los datos van
+en `FUNNELS.<mes>`, como todo lo demás.
+
+**IDs.** Open Search es `Ge6P9qbIeu3b`, confirmado y en uso. El de contextual
+**no existe en este repo**: hay un campo `sourceClicksBC: 0` que aparece solo en
+el objeto de julio, no se renderiza en ninguna vista, y no tiene métrico detrás.
+Es un cero sin fuente. Al conseguir el ID real: o se llena, o se borra el campo.
+
 ### Nota sobre users/sessions
 Una versión previa de este checklist decía que `users` y `sessions` no se podían
 computar de forma confiable vía MCP. Se verificó contra julio 2026: ambos
