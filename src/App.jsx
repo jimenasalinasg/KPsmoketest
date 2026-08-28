@@ -2406,28 +2406,29 @@ const META = {
 const SRC_LABEL = { mcp: "FullStory · live", console: "Admin console · manual", manual: "Manual", pending: "Pending — no metric" };
 
 // ── AUGUST 2026 DATA ──────────────────────────────────────
-// Preliminary — through Aug 24, 2026 · pulled live via FullStory MCP
+// Preliminary — through Aug 28, 2026 · pulled live via FullStory MCP
 const AUGUST = {
-  sessions: 955,
-  users: 226,
-  prompters: 86,          // live via MCP (metric 3GVbGeJsPBCb)
+  sessions: 1211,
+  users: 279,
+  prompters: 112,         // live via MCP (metric 3GVbGeJsPBCb)
   prompts: null,          // manual — pass at close
-  returningUsers: null,   // pending — carga previa (47) no reconciliaba: 99+47=146 > 127 usuarios totales, sin métrico FullStory para validar
-  first_time: null,       // pending — carga previa (99) no reconciliaba: ver nota en returningUsers
-  tourCompletion: 50,     // live via MCP (iN3brKBr4rlY)
-  pillPageviews: 173,     // live via MCP (2EYT9yOW6odB)
-  sourceClicks: 19,        // live via MCP (Ge6P9qbIeu3b)
+  returningUsers: null,   // pending — la carga manual previa no reconciliaba con el conteo de usuarios unicos del periodo, y no hay metrico FullStory para validarla
+  first_time: null,       // pending — ver nota en returningUsers
+  tourCompletion: 51,     // live via MCP (iN3brKBr4rlY) — 51.28 redondeado
+  pillPageviews: 183,     // live via MCP (2EYT9yOW6odB)
+  sourceClicks: 21,       // live via MCP (Ge6P9qbIeu3b)
+  sourceClicksBC: 1,      // live via MCP (LD4uHOPIDS8l) — unique users, no eventos
   thumbsUp: 0,            // live via MCP (AtpRWyuThJUq)
   thumbsDown: 0,          // live via MCP (x6Z3q26RMOra)
-  promptGalleryClicks: 11, // live via MCP (lkwqkKIJQ25E)
-  recentSearchClicks: 2,  // live via MCP (nfcBnYjQSAfT)
+  promptGalleryClicks: 12, // live via MCP (lkwqkKIJQ25E)
+  recentSearchClicks: 4,  // live via MCP (nfcBnYjQSAfT)
   newSearchClicks: 0,     // live via MCP (tU5aopeDHc1k)
-  highlighted: 270,       // live via MCP (cMgaz9YMCSJh)
-  highlightedOpenSearch: 160, // live via MCP (RQ6IjtoMbeD5)
-  copied: 117,             // live via MCP (yowGb1tOMe3X)
-  copiedOpenSearch: 62,   // live via MCP (JOTETVLPeJKh)
-  wordDownloads: 1,       // live via MCP (3EkjBy6jYByB)
-  excelDownloads: 0,      // live via MCP (FIw2VjBWkJ6J)
+  highlighted: 340,       // live via MCP (cMgaz9YMCSJh)
+  highlightedOpenSearch: 206, // live via MCP (RQ6IjtoMbeD5)
+  copied: 142,            // live via MCP (yowGb1tOMe3X)
+  copiedOpenSearch: 71,   // live via MCP (JOTETVLPeJKh)
+  wordDownloads: 3,       // live via MCP (3EkjBy6jYByB)
+  excelDownloads: 3,      // live via MCP (FIw2VjBWkJ6J)
   lwa: {
     // Fuente: dashboard "NEW - Lessons Writing Assistant" (gabrielare@iadb.org, 12-ago-2026)
     lessonsGenerated: 10,   // MANUAL — se saca de consola, NO de FullStory. Valor a confirmar; el 10 actual vino por error de ffbLsADU0Swu (clicks, no lecciones)
@@ -2439,38 +2440,40 @@ const AUGUST = {
   },
   latency: null,          // manual
   csat: "33.3%",          // manual — 3 respuestas (3,5,1) · top-2 box 1/3 · avg 3.00
-  totalCountries: 30,
+  totalCountries: 32,
   countries: [
-    { name: "United States (HQ)",     code: "US", users: 159, pct: 50 },
-    { name: "Netherlands",            code: "NL", users: 25,  pct: 8 }, // REVISAR: atípico para BID, posible VPN/tráfico no humano
-    { name: "Colombia",               code: "CO", users: 22,  pct: 7 },
-    { name: "Brazil",                 code: "BR", users: 16,  pct: 5 },
-    { name: "Argentina",              code: "AR", users: 11,  pct: 3 },
-    { name: "Panama",                 code: "PA", users: 10,  pct: 3 },
-    { name: "Uruguay",                code: "UY", users: 9,   pct: 3 },
-    { name: "Peru",                   code: "PE", users: 8,   pct: 3 },
-    { name: "Spain",                  code: "ES", users: 8,   pct: 3 },
-    { name: "Bolivia",                code: "BO", users: 7,   pct: 2 },
-    { name: "Costa Rica",             code: "CR", users: 5,   pct: 2 },
-    { name: "Ecuador",                code: "EC", users: 5,   pct: 2 },
-    { name: "Mexico",                 code: "MX", users: 5,   pct: 2 },
-    { name: "Trinidad & Tobago",      code: "TT", users: 5,   pct: 2 },
-    { name: "Suriname",               code: "SR", users: 4,   pct: 1 },
-    { name: "Cayman Islands",         code: "KY", users: 3,   pct: 1 },
-    { name: "Chile",                  code: "CL", users: 3,   pct: 1 },
-    { name: "El Salvador",            code: "SV", users: 3,   pct: 1 },
-    { name: "Guatemala",              code: "GT", users: 3,   pct: 1 },
-    { name: "Barbados",               code: "BB", users: 2,   pct: 1 },
-    { name: "Honduras",               code: "HN", users: 2,   pct: 1 },
-    { name: "Jamaica",                code: "JM", users: 2,   pct: 1 },
-    { name: "Nicaragua",              code: "NI", users: 2,   pct: 1 },
-    { name: "Austria",                code: "AT", users: 1,   pct: 0 },
-    { name: "Germany",                code: "DE", users: 1,   pct: 0 },
-    { name: "Guyana",                 code: "GY", users: 1,   pct: 0 },
-    { name: "Ireland",                code: "IE", users: 1,   pct: 0 },
-    { name: "Korea, Rep.",            code: "KR", users: 1,   pct: 0 },
-    { name: "Paraguay",               code: "PY", users: 1,   pct: 0 },
-    { name: "Sweden",                 code: "SE", users: 1,   pct: 0 },
+    { name: "United States (HQ)",      code: "US", users: 193, pct: 51 },
+    { name: "Netherlands",             code: "NL", users: 29,  pct: 8 }, // REVISAR: atípico para BID, posible VPN/tráfico no humano
+    { name: "Colombia",                code: "CO", users: 25,  pct: 7 },
+    { name: "Brazil",                  code: "BR", users: 17,  pct: 4 },
+    { name: "Argentina",               code: "AR", users: 16,  pct: 4 },
+    { name: "Uruguay",                 code: "UY", users: 12,  pct: 3 },
+    { name: "Peru",                    code: "PE", users: 11,  pct: 3 },
+    { name: "Panama",                  code: "PA", users: 10,  pct: 3 },
+    { name: "Costa Rica",              code: "CR", users: 9,   pct: 2 },
+    { name: "Spain",                   code: "ES", users: 9,   pct: 2 },
+    { name: "Bolivia",                 code: "BO", users: 8,   pct: 2 },
+    { name: "Mexico",                  code: "MX", users: 8,   pct: 2 },
+    { name: "Ecuador",                 code: "EC", users: 6,   pct: 2 },
+    { name: "Suriname",                code: "SR", users: 6,   pct: 2 },
+    { name: "Cayman Islands",          code: "KY", users: 5,   pct: 1 },
+    { name: "Trinidad & Tobago",       code: "TT", users: 5,   pct: 1 },
+    { name: "Chile",                   code: "CL", users: 3,   pct: 1 },
+    { name: "El Salvador",             code: "SV", users: 3,   pct: 1 },
+    { name: "Guatemala",               code: "GT", users: 3,   pct: 1 },
+    { name: "Barbados",                code: "BB", users: 2,   pct: 1 },
+    { name: "Belize",                  code: "BZ", users: 2,   pct: 1 },
+    { name: "Honduras",                code: "HN", users: 2,   pct: 1 },
+    { name: "Jamaica",                 code: "JM", users: 2,   pct: 1 },
+    { name: "Nicaragua",               code: "NI", users: 2,   pct: 1 },
+    { name: "Austria",                 code: "AT", users: 1,   pct: 0 },
+    { name: "Dominican Republic",      code: "DO", users: 1,   pct: 0 },
+    { name: "Germany",                 code: "DE", users: 1,   pct: 0 },
+    { name: "Guyana",                  code: "GY", users: 1,   pct: 0 },
+    { name: "Ireland",                 code: "IE", users: 1,   pct: 0 },
+    { name: "Korea, Rep.",             code: "KR", users: 1,   pct: 0 },
+    { name: "Paraguay",                code: "PY", users: 1,   pct: 0 },
+    { name: "Sweden",                  code: "SE", users: 1,   pct: 0 },
   ],
 };
 
@@ -2734,30 +2737,30 @@ const FUNNELS = {
       title: "Open Search",
       intro: "Someone asks a question in the search box, then takes content away. Unique users, same session, segment Sin DEV.",
       steps: [
-        { label: "Opens KP", n: 224 },
-        { label: "Runs a search", n: 86, time: "22s" },
-        { label: "Highlights content", n: 32, time: "2m 33s" },
-        { label: "Copies it", n: 18, time: "1.5s" },
+        { label: "Opens KP", n: 273 },
+        { label: "Runs a search", n: 111, time: "23s" },
+        { label: "Highlights content", n: 42, time: "2m 10s" },
+        { label: "Copies it", n: 23, time: "1.5s" },
       ],
       compare: [248, 109, 47, 30],
       compareLabel: "July",
       derived: {
         label: "Opens the source panel",
-        n: 9,
+        n: 11,
         from: 1,
         time: "3m 4s",
-        note: "9 of the 86 who searched, 10.5%. Across the five months this share stays between 7.5% and 10.5% — considerably steadier than the copy rate above it.",
+        note: "11 of the 111 who searched, 9.9%. Across the five months this share stays between 7.5% and 10.5% — considerably steadier than the copy rate above it.",
       },
-      note: "8.0% end to end, against 12.1% in July. The drop is spread across all three steps.",
+      note: "8.4% end to end, against 12.1% in July. Every step is now above July in absolute terms — 273 entries against 248, 111 searches against 109, 23 copies against 30 — but the last step still lags, which is what keeps the rate below July's.",
     },
     contextual: {
       title: "Contextual search · pills",
       intro: "Someone opens a pill — Similar Projects, Lessons Learned, Literature, Institutional Documents or Data — then takes content away. Same entry point as above, so the two are directly comparable.",
       steps: [
-        { label: "Opens KP", n: 224 },
-        { label: "Opens a pill", n: 32, time: "52s" },
-        { label: "Highlights content", n: 8, time: "5m 50s" },
-        { label: "Copies it", n: 2, time: "3.1s" },
+        { label: "Opens KP", n: 273 },
+        { label: "Opens a pill", n: 37, time: "51s" },
+        { label: "Highlights content", n: 9, time: "5m 26s" },
+        { label: "Copies it", n: 3, time: "1.0s" },
       ],
       compare: [248, 37, 5, 2],
       compareLabel: "July",
@@ -2768,12 +2771,12 @@ const FUNNELS = {
         time: "9m 32s",
         note: "One user out of the 32 who opened a pill. Three users in five months, all of them through the Lessons Learned card: the Literature and Institutional Documents source links registered zero users over the whole period.",
       },
-      note: "0.9% end to end. Open Search converts nine times better from the same entry point — and the gap was fifteen times in July. Note also that the pills' own copy button registered zero users: the few who do copy select the text by hand instead.",
+      note: "1.1% end to end. Open Search converts eight times better from the same entry point — the gap was fifteen times in July. Note also that the pills' own copy button registered zero users: the few who do copy select the text by hand instead.",
     },
     synthesis: [
       {
         lead: "Reading the two together.",
-        body: "Both surfaces start from the same 224 people. Open Search pulls 38% of them into a query; the pills pull 14%. But the real gap opens after that: of those who search, 21% end up copying something, against 6% of those who open a pill. The pills are not just less used — they convert worse per visit.",
+        body: "Both surfaces start from the same 273 people. Open Search pulls 41% of them into a query; the pills pull 14%. But the real gap opens after that: of those who search, 21% end up copying something, against 8% of those who open a pill. The pills are not just less used — they convert worse per visit.",
       },
       {
         lead: "Reading the five months together.",
@@ -2781,19 +2784,19 @@ const FUNNELS = {
       },
     ],
     pills: {
-      title: "Which pill converts · Apr 1 – Aug 24, 2026",
-      intro: "The same contextual funnel, one pill at a time. Measured over the full five months rather than August alone: August has 32 pill openings in total, and splitting those five ways yields nothing readable. All five share the same entry point (1,251 users), so the columns are comparable across rows.",
+      title: "Which pill converts · Apr 1 – Aug 28, 2026",
+      intro: "The same contextual funnel, one pill at a time. Measured over the full five months rather than August alone: August has 37 pill openings in total, and splitting those five ways yields nothing readable. All five share the same entry point (1,281 users), so the columns are comparable across rows.",
       rows: [
-        { pill: "Lessons Learned",         opens: 111, highlight: 28, copy: 11 },
-        { pill: "Similar Projects",        opens: 109, highlight: 27, copy: 10 },
-        { pill: "Literature",              opens: 76,  highlight: 20, copy: 4 },
-        { pill: "Institutional Documents", opens: 58,  highlight: 18, copy: 4 },
-        { pill: "Data",                    opens: 45,  highlight: 14, copy: 2 },
+        { pill: "Lessons Learned",         opens: 112, highlight: 29, copy: 12 },
+        { pill: "Similar Projects",        opens: 110, highlight: 27, copy: 10 },
+        { pill: "Literature",              opens: 77,  highlight: 20, copy: 4 },
+        { pill: "Institutional Documents", opens: 59,  highlight: 18, copy: 4 },
+        { pill: "Data",                    opens: 48,  highlight: 14, copy: 2 },
       ],
       note: "Rows are not mutually exclusive: one person can open several pills. Highlight and copy are counted anywhere in the session after the pill opens, so they are attributed to the pill by sequence, not by location on the page — read them as directional.",
       takeaways: [{
         lead: "The differentiator is not the click, it is what happens after.",
-        body: "Getting from a pill to a highlight is remarkably flat across all five — between 25% and 31% — and the two least-used pills, Data and Institutional Documents, actually lead on it. The separation appears at the last step: of those who highlight, 39% copy in Lessons Learned and 37% in Similar Projects, against 22% in Institutional Documents, 20% in Literature and 14% in Data. Lessons Learned and Similar Projects are both the most opened and the best at converting. Data looks like the weakest on both counts, but see the month-by-month table below before reading it that way.",
+        body: "Getting from a pill to a highlight is remarkably flat across all five — between 25% and 31% — and the two least-used pills, Data and Institutional Documents, actually lead on it. The separation appears at the last step: of those who highlight, 41% copy in Lessons Learned and 37% in Similar Projects, against 22% in Institutional Documents, 20% in Literature and 14% in Data. Lessons Learned and Similar Projects are both the most opened and the best at converting. Data looks like the weakest on both counts, but see the month-by-month table below before reading it that way.",
       }],
     },
     pillMonthly: {
@@ -2801,21 +2804,21 @@ const FUNNELS = {
       intro: "Unique users who opened each pill, month by month. Only the opening step breaks down this far: the best month for the whole contextual surface has 10 copies in total, so a copy rate per pill per month would be noise, not measurement.",
       months: ["Apr", "May", "Jun", "Jul", "Aug*"],
       rows: [
-        { pill: "Similar Projects",        values: [42, 12, 38, 12, 18] },
-        { pill: "Lessons Learned",         values: [37, 14, 34, 21, 14] },
-        { pill: "Literature",              values: [22, 9,  27, 10, 11] },
-        { pill: "Institutional Documents", values: [14, 10, 19, 9,  10] },
-        { pill: "Data",                    values: [0,  3,  19, 12, 11] },
+        { pill: "Similar Projects",        values: [42, 12, 38, 12, 19] },
+        { pill: "Lessons Learned",         values: [37, 14, 34, 21, 15] },
+        { pill: "Literature",              values: [22, 9,  27, 10, 12] },
+        { pill: "Institutional Documents", values: [14, 10, 19, 9,  11] },
+        { pill: "Data",                    values: [0,  3,  19, 12, 14] },
       ],
-      note: "* August covers days 1–24 only. Segment Sin DEV. Monthly figures do not sum to the pooled totals above: someone who opens a pill in two different months counts once in the pooled figure and twice here.",
+      note: "* August covers days 1–28 only. Segment Sin DEV. Monthly figures do not sum to the pooled totals above: someone who opens a pill in two different months counts once in the pooled figure and twice here.",
       takeaways: [
         {
           lead: "Data is not the weakest pill — it is the newest.",
-          body: "It had zero users in April and three in May before jumping to 19 in June. Its pooled numbers are penalised by a month in which it effectively did not exist, so the 4.4% copy rate above understates it; judge it from June onward, where it sits level with Institutional Documents.",
+          body: "It had zero users in April and three in May before jumping to 19 in June. Its pooled numbers are penalised by a month in which it effectively did not exist, so the 4.2% copy rate above understates it; judge it from June onward, where it sits level with Institutional Documents.",
         },
         {
           lead: "Nobody comes back to Data.",
-          body: "Its five monthly figures add up to 45 and its pooled total is also 45 — meaning not one person opened it in two different months. Similar Projects has 13 such repeat month-appearances and Lessons Learned 9. Data gets opened once and not returned to, which is a different problem from not being found.",
+          body: "Its five monthly figures add up to 48 and its pooled total is also 48 — meaning not one person opened it in two different months. Similar Projects has 13 such repeat month-appearances and Lessons Learned 9. Data gets opened once and not returned to, which is a different problem from not being found.",
         },
         {
           lead: "The pills move together, not against each other.",
@@ -2825,12 +2828,12 @@ const FUNNELS = {
     },
     lwa: {
       title: "Lessons Writing Assistant · full year",
-      intro: "Sep 1, 2025 → Aug 24, 2026. Unique users, across sessions (writing a lesson is not a one-sitting task), segment Sin DEV.",
+      intro: "Sep 1, 2025 → Aug 28, 2026. Unique users, across sessions (writing a lesson is not a one-sitting task), segment Sin DEV.",
       steps: [
-        { label: "Starts a lesson", n: 101 },
+        { label: "Starts a lesson", n: 102 },
         { label: "Completes it", n: 15, time: "36m 34s" },
       ],
-      note: "In twelve months, 101 people outside the product team started a lesson and 15 finished one — a median of 37 minutes apart. None of those completions happened in July or August: the activity is from earlier months. An earlier version of this funnel forced a draft-generation step in between and reported zero completions; only 2 users ever pass through that button, which strangled the funnel rather than measuring it.",
+      note: "In twelve months, 102 people outside the product team started a lesson and 15 finished one — a median of 37 minutes apart. None of those completions happened in July or August: the activity is from earlier months. An earlier version of this funnel forced a draft-generation step in between and reported zero completions; only 2 users ever pass through that button, which strangled the funnel rather than measuring it.",
     },
   },
 };
@@ -2991,8 +2994,8 @@ function PillMonthlyTable({ months, rows, note }) {
 const QUALITATIVE = {
   august: {
     kicker: "Qualitative — session sweep",
-    title: "What people actually do here · Aug 1–24, 2026",
-    intro: "Eight sessions read end to end, sampled across the funnels above: some who searched and copied, some who searched and left, some who opened a pill and stopped. Read for what people came to do, what they took away, and what got in the way.",
+    title: "What people actually do here · Aug 1–28, 2026",
+    intro: "Ten sessions read end to end, sampled across the funnels above: some who searched and copied, some who searched and left, some who opened a pill and stopped. Read for what people came to do, what they took away, and what got in the way.",
     themes: [
       {
         tag: "New use case",
@@ -3007,18 +3010,18 @@ const QUALITATIVE = {
         tag: "Coverage gap",
         tone: "amber",
         title: "They ask for internal documents by code, and come up empty",
-        body: "A first-time user asked the same institutional code three different ways in ninety seconds, then gave up and copied their own question rather than an answer. Others went looking for a country office reference and for the latest thematic framework document the same way.",
+        body: "A first-time user asked the same institutional code three different ways in ninety seconds, then gave up and copied their own question rather than an answer. Others went looking for a country office reference and for the latest thematic framework document the same way. One more had to spell an acronym out for the assistant: after asking what datasets were available for “ddp”, they followed up with “i'm refering to development data partnership”.",
         quote: "«What is the AM-130?» → «there is not a policy for IDB with the number AM-130?» → «how about a policy AM130?»",
         soWhat: "People expect KP to resolve institutional identifiers. That is a corpus decision, not an interface one: either those documents get indexed, or the answer should say plainly that they are out of scope instead of leaving the user to rephrase three times.",
-        sessions: [{ id: "S-04", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8776490989051868405:8723719147691481278:1787229869553", place: "Trinidad & Tobago" }, { id: "S-05", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6636408624766522658:741274092150010840:1787587515051", place: "US" }, { id: "S-02", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2087297882966389573:6903920404006871149:1787589165062", place: "US" }],
+        sessions: [{ id: "S-04", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8776490989051868405:8723719147691481278:1787229869553", place: "Trinidad & Tobago" }, { id: "S-05", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6636408624766522658:741274092150010840:1787587515051", place: "US" }, { id: "S-02", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2087297882966389573:6903920404006871149:1787589165062", place: "US" }, { id: "S-10", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8192601472824594449:7614234428696124370:1787670466294", place: "US" }],
       },
       {
         tag: "Friction",
         tone: "amber",
         title: "The tour fires on top of work in progress",
-        body: "One user typed a query, hit search, and only then did the guided tour appear — a dead click on the overlay, then nine consecutive Next presses to clear it. Another finished the tour, returned home, and restarted it by accident. A third had to hit Skip tour in the middle of composing a question.",
+        body: "One user typed a query, hit search, and only then did the guided tour appear — a dead click on the overlay, then nine consecutive Next presses to clear it. Another finished the tour, returned home, and restarted it by accident. A third had to hit Skip tour in the middle of composing a question. A fourth, in the final week, was interrupted twice in the same session — once before typing and once fifty seconds after, mid-query, taking eight more Next presses to clear.",
         soWhat: "It reframes tour completion at 44%: some of those completions are people dismissing a modal that covered their screen. Changing the trigger so it never interrupts an in-flight query is cheap and removes friction from the first minute.",
-        sessions: [{ id: "S-05", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6636408624766522658:741274092150010840:1787587515051", place: "US" }, { id: "S-06", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/5524894797722372646:3737740748395617114:1787608366913", place: "US" }, { id: "S-04", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8776490989051868405:8723719147691481278:1787229869553", place: "Trinidad & Tobago" }],
+        sessions: [{ id: "S-05", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6636408624766522658:741274092150010840:1787587515051", place: "US" }, { id: "S-06", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/5524894797722372646:3737740748395617114:1787608366913", place: "US" }, { id: "S-04", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8776490989051868405:8723719147691481278:1787229869553", place: "Trinidad & Tobago" }, { id: "S-10", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8192601472824594449:7614234428696124370:1787670466294", place: "US" }],
       },
       {
         tag: "Bug",
@@ -3031,18 +3034,26 @@ const QUALITATIVE = {
       {
         tag: "Opportunity",
         tone: "blue",
+        title: "When the panel does open, people verify page by page",
+        body: "One user opened the sources panel and stayed in it for over four minutes, moving back and forth between page 22 and page 23 of the same project completion report — each one twice, with long pauses in between. It is the deepest single use of any surface in the sample.",
+        soWhat: "Sources are not a decorative citation strip: at least some people read them at page level to check the answer against the document. Read together with the dead-click finding above, that argues for fixing the way in rather than reconsidering the feature — the users who do get in use it hard.",
+        sessions: [{ id: "S-09", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7270254094798170140:617292026168710387:1787765990166", place: "US" }],
+      },
+      {
+        tag: "Opportunity",
+        tone: "blue",
         title: "They re-run their own query by hand, through the clipboard",
-        body: "One user highlighted their own question on screen, copied it, pasted it into the follow-up box and changed the ending — narrowing the same search by region. They repeated that cycle four times, and downloaded a response along the way.",
+        body: "One user highlighted their own question on screen, copied it, pasted it into the follow-up box and changed the ending — narrowing the same search by region. They repeated that cycle four times, and downloaded a response along the way. Two more did the same in the final week: one swapped “publications” for “PCRs” to re-scope an identical question, the other re-ran a dataset query and exported the answer to XLSX.",
         soWhat: "There is no way to edit and re-run a query. Iterative refinement is already happening, done by hand with copy and paste. An edit-and-ask-again affordance is among the cheapest changes with a direct return in the funnel.",
-        sessions: [{ id: "S-03", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/1324103570649541372:6138236451682504889:1787250249769", place: "US" }],
+        sessions: [{ id: "S-03", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/1324103570649541372:6138236451682504889:1787250249769", place: "US" }, { id: "S-09", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7270254094798170140:617292026168710387:1787765990166", place: "US" }, { id: "S-10", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8192601472824594449:7614234428696124370:1787670466294", place: "US" }],
       },
     ],
     alsoNoted: [
-      "Genuinely multilingual, and people switch mid-session: Portuguese, Spanish and English all appeared in eight sessions, and one user queried in Spanish then asked for the answer in English. Input language does not predict output language.",
+      "Genuinely multilingual, and people switch mid-session: Portuguese, Spanish and English all appeared in ten sessions, and one user queried in Spanish then asked for the answer in English. Input language does not predict output language.",
       "The pills behave like navigation, not like a destination. Three sessions opened a pill from a project card and ended there or moved on — one left the tab parked for sixteen minutes. That fits the 1-of-32 in the contextual funnel: it is a link inside the project, not a surface where extraction happens.",
       "Two sessions opened with silent authentication errors in the console (token refresh timing out). No visible failure, but one of them was followed by mouse thrashing — worth checking whether it delays the first answer.",
     ],
-    note: "Method: 8 sessions, segment Sin DEV, sampled across funnel strata (completed / dropped after search / opened a pill and stopped). Directional, not representative — at this sample size these are patterns worth checking, never percentages. Anonymised: no names, no emails, no cities. Session links open in FullStory and require an account.",
+    note: "Method: 10 sessions, segment Sin DEV, sampled across funnel strata (completed / dropped after search / opened a pill and stopped); eight from Aug 1–24 and two added from the Aug 25–28 window, which surfaced no new failure mode — the two new sessions reinforced the coverage, friction and clipboard findings and added the page-level source reading. Directional, not representative — at this sample size these are patterns worth checking, never percentages. Anonymised: no names, no emails, no cities. Session links open in FullStory and require an account.",
   },
 };
 
@@ -3305,7 +3316,7 @@ function MetricInfo({ m }) {
 
 // ── AUGUST MONTHLY VIEW ───────────────────────────────────
 function AugustMonthly() {
-  const MONTH = "August 2026 — through Aug 24";
+  const MONTH = "August 2026 — through Aug 28";
   const [showAllCountries, setShowAllCountries] = useState(false);
 
   const MCard = (p) => <MonthMetricCard {...p} variant="august" momentumLabel="July" />;
@@ -3350,9 +3361,9 @@ function AugustMonthly() {
               ["New Search clicks", AUGUST.newSearchClicks],
               ["Latency (median)", AUGUST.latency ?? "pending"],
               ["CSAT", AUGUST.csat ?? "pending"],
-              ["Cumulative users (Sep 1-Aug 24)", "1,910"],
-              ["Cumulative prompters (Sep 1-Aug 24)", "841"],
-              ["Cumulative penetration", "53.1%"],
+              ["Cumulative users (Sep 1-Aug 28)", "1,938"],
+              ["Cumulative prompters (Sep 1-Aug 28)", "856"],
+              ["Cumulative penetration", "53.8%"],
             ];
             const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
             const blob = new Blob([csv], { type: "text/csv" });
@@ -3368,14 +3379,14 @@ function AugustMonthly() {
       {/* Cumulative totals — pulled live via MCP */}
       <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
-          Cumulative totals — Sep 1, 2025 to Aug 24, 2026 · live via MCP
+          Cumulative totals — Sep 1, 2025 to Aug 28, 2026 · live via MCP
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {[
-            { label: "Users reached", value: "1,910" },
-            { label: "Prompters", value: "841" },
-            { label: "Sessions", value: "15,537" },
-            { label: "Penetration of 3,600", value: "53.1%" },
+            { label: "Users reached", value: "1,938" },
+            { label: "Prompters", value: "856" },
+            { label: "Sessions", value: "15,793" },
+            { label: "Penetration of 3,600", value: "53.8%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -3410,7 +3421,7 @@ function AugustMonthly() {
       {/* Geo */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}><span>🌎 Geographic Reach — {AUGUST.totalCountries} countries (through Aug 24)</span><MetricInfo m={META.countries} /></span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}><span>🌎 Geographic Reach — {AUGUST.totalCountries} countries (through Aug 28)</span><MetricInfo m={META.countries} /></span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
           <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
@@ -3490,7 +3501,7 @@ function AugustMonthly() {
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6, display: "flex", alignItems: "center", gap: 5 }}><span>CSAT — Customer Satisfaction Score</span><MetricInfo m={META.csat} /></div>
           <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>{AUGUST.csat}</div>
           <div style={{ fontSize: 10, color: INK3, marginTop: 4, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-            <span>3 responses · avg 3.00 / 5 ★ · August 2026 (sample as of Aug 18 — not refreshed with the Aug 24 pull)</span>
+            <span>3 responses · avg 3.00 / 5 ★ · August 2026 (sample as of Aug 18 — not refreshed with the Aug 28 pull)</span>
             <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: "#fef0ee", color: RED }}>↓ 66.7pp vs July</span>
           </div>
         </div>
@@ -3516,12 +3527,12 @@ function AugustMonthly() {
       {/* ── CONTENT ENGAGEMENT ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (August · partial)</div>
       <ContentEngagementCard
-        total={407}
-        openSearch={242}
-        contextual={165}
-        rows={[["Highlights", 160, 110], ["Copies", 62, 55], ["Source clicks", 19, 0], ["Downloads", 1, 0]]}
-        note={"Downloads: 1 Word."}
-        split={"OS/Contextual split 59/41 — still far more balanced than July's 90/10."}
+        total={510}
+        openSearch={304}
+        contextual={206}
+        rows={[["Highlights", 206, 134], ["Copies", 71, 71], ["Source clicks", 21, 1], ["Downloads", 6, 0]]}
+        note={"Downloads: 3 Word · 3 Excel."}
+        split={"OS/Contextual split 60/40 — still far more balanced than July's 90/10."}
       />
 
       {/* ── DIVIDER ── */}
@@ -3551,31 +3562,31 @@ function AugustMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* Signals — executive */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — early read (24 days in)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — early read (28 days in)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${GREEN}` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration crossed 53%</div>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration at 53.8%</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            1,910 cumulative users — +92 net-new since July's close (1,818), and 53.1% of the bank reached. Adoption keeps compounding past the halfway mark with no active campaign.
+            1,938 cumulative users — +120 net-new since July's close (1,818), and 53.8% of the bank reached. Adoption keeps compounding past the halfway mark with no active campaign.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Ahead of July, with a week to go</div>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>August has already passed July</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            226 users · 955 sessions through day 24 of 31. With ~77% of the month elapsed, users are already at 90% of July's full-month total and sessions at 78% — August is now running ahead of July's pace, not behind it. The trajectory across the month is unambiguous: 47% of July's sessions on day 19, 66% on day 21, 78% on day 24.
+            279 users · 1,211 sessions through day 28 of 31. August has overtaken July's full month on users (250) with three days still to run, and sits 15 sessions short of matching it (1,226). What read as a summer trough in July has reversed: 47% of July's sessions on day 19, 78% on day 24, 99% on day 28.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach widens, Netherlands dilutes</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            30 countries, up from 25 in three days — Nicaragua, Austria, Ireland, Korea and Guyana appear for the first time. Netherlands stays #2 (25 users) but its share keeps eroding, 11% → 9% → 8%, as real traffic outgrows it. That steady dilution is the signature of a fixed automated source, not of a user base. Still flagged, pending confirmation.
+            32 countries, up from 30 — Belize and the Dominican Republic reappear. Netherlands stays #2 and grew to 29 users, but its share has now stopped eroding: 11% → 9% → 8% → 8%. The dilution pattern is still consistent with a fixed automated source rather than a user base, and it stays flagged, pending confirmation.
           </p>
         </div>
       </div>
 
       {/* Pending sections note */}
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + all 5 pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA — all pulled directly from FullStory dashboard widgets by ID. <strong style={{ color: INK2 }}>Loaded manually:</strong> CSAT (33.3%, n=3, sample as of Aug 18). <strong style={{ color: INK2 }}>Pending:</strong> prompts sent and latency — no FullStory metric covers them; and new/returning users, whose manually supplied figures (99 and 47) were withdrawn because they did not reconcile with the 174 unique users in the period and there is no metric to validate them against. Full month (through Aug 31) replaces this partial pull.
+        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + all 5 pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA — all pulled directly from FullStory dashboard widgets by ID. <strong style={{ color: INK2 }}>Loaded manually:</strong> CSAT (33.3%, n=3, sample as of Aug 18, not refreshed). <strong style={{ color: INK2 }}>Pending:</strong> prompts sent and latency — no FullStory metric covers them; and new/returning users, whose manually supplied figures were withdrawn because they did not reconcile with the unique-user count for the period and there is no metric to validate them against. Full month (through Aug 31) replaces this partial pull.
       </div>
 
       <QualitativeSection q={QUALITATIVE.august} />
