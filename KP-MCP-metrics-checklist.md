@@ -128,11 +128,11 @@ en la definición: para cerrar un mes nuevo hay que **reconstruir** el embudo co
 
 | Embudo | ID | Rango guardado |
 |---|---|---|
-| Open Search · ago 2026 | `2112175315` | 2026-08-01 → 2026-08-24 |
+| Open Search · ago 2026 | `1864788303` | 2026-08-01 → 2026-08-28 |
 | Open Search · jul 2026 | `813457909` | 2026-07-01 → 2026-07-31 |
-| Contextual (pills) · ago 2026 | `564963308` | 2026-08-01 → 2026-08-24 |
+| Contextual (pills) · ago 2026 | `1953187048` | 2026-08-01 → 2026-08-28 |
 | Contextual (pills) · jul 2026 | `1476024114` | 2026-07-01 → 2026-07-31 |
-| LWA inicio → completado | `104484265` | 2025-09-01 → 2026-08-24 |
+| LWA inicio → completado | `412097965` | 2025-09-01 → 2026-08-28 |
 | Contextual (pills) · abr 2026 | `1661380124` | 2026-04-01 → 2026-04-30 |
 | Contextual (pills) · may 2026 | `362258649` | 2026-05-01 → 2026-05-31 |
 | Contextual (pills) · jun 2026 | `989040134` | 2026-06-01 → 2026-06-30 |
@@ -143,12 +143,12 @@ en la definición: para cerrar un mes nuevo hay que **reconstruir** el embudo co
 | OS → panel de fuentes · may 2026 | `820021151` | 2026-05-01 → 2026-05-31 |
 | OS → panel de fuentes · jun 2026 | `1188737148` | 2026-06-01 → 2026-06-30 |
 | OS → panel de fuentes · jul 2026 | `124232475` | 2026-07-01 → 2026-07-31 |
-| OS → panel de fuentes · ago 2026 | `514074685` | 2026-08-01 → 2026-08-24 |
+| OS → panel de fuentes · ago 2026 | `1942600641` | 2026-08-01 → 2026-08-28 |
 | Contextual → panel de fuentes · abr 2026 | `680145669` | 2026-04-01 → 2026-04-30 |
 | Contextual → panel de fuentes · may 2026 | `588957978` | 2026-05-01 → 2026-05-31 |
 | Contextual → panel de fuentes · jun 2026 | `118780297` | 2026-06-01 → 2026-06-30 |
 | Contextual → panel de fuentes · jul 2026 | `1150323350` | 2026-07-01 → 2026-07-31 |
-| Contextual → panel de fuentes · ago 2026 | `1672506552` | 2026-08-01 → 2026-08-24 |
+| Contextual → panel de fuentes · ago 2026 | `1331223100` | 2026-08-01 → 2026-08-28 |
 
 Los tres de Open Search se clonaron del de agosto con
 `update_funnel(2112175315, start_date, end_date)`: copia los pasos exactos
@@ -165,7 +165,7 @@ Embudo contextual mes a mes (Sin DEV), para saber si un corte aguanta:
 | may | 360 | 28 | 11 | 6 |
 | jun | 378 | 69 | 18 | 10 |
 | jul | 248 | 37 | 5 | 2 |
-| ago (1-24) | 224 | 32 | 8 | 2 |
+| ago (1-28) | 273 | 37 | 9 | 3 |
 
 ### Desglose por pill (abr–ago 2026)
 
@@ -174,11 +174,11 @@ luego `visitedPage` con **un solo** id de página, luego `highlight any` → `co
 
 | Pill | id de página | funnel_id |
 |---|---|---|
-| Similar Projects | 67 | `2002915779` |
-| Lessons Learned | 68 | `624894343` |
-| Literature | 69 | `461508687` |
-| Institutional Documents | 70 | `457977866` |
-| Data | 257 | `490149637` |
+| Similar Projects | 67 | `275636809` |
+| Lessons Learned | 68 | `39156859` |
+| Literature | 69 | `1091319363` |
+| Institutional Documents | 70 | `129020650` |
+| Data | 257 | `856060289` |
 
 **Por qué cinco embudos y no un `dimension`:** las pills son *page definitions*
 de FullStory, no rutas. `compute_funnel` con `dimension: {property: "url_path"}`
@@ -186,8 +186,8 @@ agrupa por proyecto individual (`/knowledge/UR-L1225`, `/knowledge/BO-L1250`…)
 no por pill, y además infla el paso 1 multiplicándolo por el número de grupos.
 No sirve para este corte.
 
-**Por qué el rango es abr–ago y no un mes:** en agosto hay 32 aperturas de pill
-en total; partidas en cinco no dan nada legible. El primer paso (1.251 usuarios)
+**Por qué el rango es abr–ago y no un mes:** en agosto hay 37 aperturas de pill
+en total; partidas en cinco no dan nada legible. El primer paso (1.281 usuarios)
 es común a los cinco, así que las filas sí son comparables entre sí.
 
 ### Aperturas por pill y por mes
@@ -211,11 +211,12 @@ celda. La tasa de conversión por pill se queda agrupada abr–ago.
 **Chequeo de consistencia:** la suma de los cinco meses de cada pill tiene que
 quedar por encima del total agrupado del embudo y cerca de él — quien abre una
 pill en dos meses cuenta una vez agrupado y dos veces en la suma mensual.
-SP 122 vs 109, LL 120 vs 111, Lit 79 vs 76, ID 62 vs 58, Data 45 vs 45. Si
-alguna suma mensual diera *menos* que el agrupado, hay un error de rango.
+Al corte del 28-ago: SP 123 vs 110, LL 121 vs 112, Lit 80 vs 77, ID 63 vs 59,
+Data 48 vs 48. Si alguna suma mensual diera *menos* que el agrupado, hay un
+error de rango.
 
-**Ojo con Data (257):** cero usuarios en abril, 3 en mayo, 19 en junio. Es la
-pill más nueva, no la más floja. Cualquier comparación agrupada que arranque en
+**Ojo con Data (257):** cero usuarios en abril, 3 en mayo, 19 en junio, 14 en
+agosto (1-28). Es la pill más nueva, no la más floja. Cualquier comparación agrupada que arranque en
 abril la castiga por un mes en el que no existía.
 
 **Limitación conocida:** `highlight` y `copy` son *any*, no están acotados a la
@@ -291,7 +292,7 @@ solo atraviesan 2 usuarios reportó cero lecciones completadas habiendo 15.
 | may | 13 / 132 (10%) | 1 / 28 |
 | jun | 12 / 160 (8%) | 1 / 69 |
 | jul | 11 / 109 (10%) | 0 / 37 |
-| ago (1-24) | 9 / 86 (10%) | 1 / 32 |
+| ago (1-28) | 11 / 111 (10%) | 1 / 37 |
 
 Los pasos 1 y 2 de los diez embudos coinciden **exacto** con los embudos ya validados
 del dashboard (588/226, 360/132, 378/160, 248/109, 224/86 y 588/62, 360/28, 378/69,
@@ -327,6 +328,8 @@ Consecuencias, y cómo se resolvió cada una:
   > **Revalidar esto antes de reusarlo.** En cuanto Literature o Institutional
   > Documents registren un click, el embudo de un elemento deja de ser la unión y
   > empieza a subestimar. Recomputar los tres por separado en cada cierre.
+  > Revalidado el 28-ago-2026 sobre abr 1 – ago 28: Literature y Institutional
+  > Documents siguen en **0**, así que la unión sigue siendo exacta.
 
 #### El intérprete de lenguaje natural corrompe pasos — verificar siempre
 
@@ -353,7 +356,8 @@ que estaba cargado era correcto, pero por casualidad. El campo queda en `JULY` c
 id anotado. Sigue sin renderizarse en ninguna vista.
 
 Valores por mes (unique users, org, sin segmento): abr 1 · may 1 · jun 1 · jul 0 ·
-ago 1 · acumulado sep-2025→ago-2026 **5**.
+ago 1 · acumulado sep-2025→ago-2026 **5**. Desde el corte del 28-ago el campo
+también existe en `AUGUST` (`sourceClicksBC: 1`).
 
 ### Nota sobre users/sessions
 Una versión previa de este checklist decía que `users` y `sessions` no se podían
