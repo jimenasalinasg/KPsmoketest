@@ -26,6 +26,7 @@ Devuelven `{single:{value}}`. Se computan con el rango del mes cerrado
 | `pillPageviews`         | `2EYT9yOW6odB` | total de las pills (pageviews) |
 | `sourceClicks`          | `Ge6P9qbIeu3b` | clicks en source panel (Open Search) |
 | `sourceClicksBC`        | `LD4uHOPIDS8l` | clicks en source panel (contextual). **Unique users**, no eventos — no comparar 1:1 con `sourceClicks` |
+| `avgTime`               | `vpWvDQswlPB4` | tiempo activo promedio por sesión. Devuelve **milisegundos** → dividir por 1000. **No es latencia** — ver §4 |
 | `thumbsUp`              | `AtpRWyuThJUq` | |
 | `thumbsDown`            | `x6Z3q26RMOra` | |
 | `promptGalleryClicks`   | `lkwqkKIJQ25E` | |
@@ -106,7 +107,9 @@ Nunca inventar. Si no hay valor, dejar `null` y listarlo como pendiente en el PR
 - `prompts` — prompts enviados
 - `first_time` — usuarios nuevos
 - `returningUsers` — usuarios recurrentes
-- `latency` / `avgTime` — latencia mediana
+- `latency` — latencia de respuesta. No existe métrico. **Ojo:** `avgTime` sí tiene métrico
+  (`vpWvDQswlPB4`) pero mide otra cosa — tiempo activo por sesión, no velocidad de respuesta.
+  Estaban agrupados en una sola línea de este checklist y era un error
 - `csat` — % y promedio de estrellas, con n de respuestas
 - `dropoff`, `openSearchVisits` — meses con schema viejo
 - `pillBot` — pill menos usada (ver §4)
@@ -128,11 +131,11 @@ en la definición: para cerrar un mes nuevo hay que **reconstruir** el embudo co
 
 | Embudo | ID | Rango guardado |
 |---|---|---|
-| Open Search · ago 2026 | `1864788303` | 2026-08-01 → 2026-08-28 |
+| Open Search · ago 2026 | `380466231` | 2026-08-01 → 2026-08-31 |
 | Open Search · jul 2026 | `813457909` | 2026-07-01 → 2026-07-31 |
-| Contextual (pills) · ago 2026 | `1953187048` | 2026-08-01 → 2026-08-28 |
+| Contextual (pills) · ago 2026 | `1692594896` | 2026-08-01 → 2026-08-31 |
 | Contextual (pills) · jul 2026 | `1476024114` | 2026-07-01 → 2026-07-31 |
-| LWA inicio → completado | `412097965` | 2025-09-01 → 2026-08-28 |
+| LWA inicio → completado | `2037187131` | 2025-09-01 → 2026-08-31 |
 | Contextual (pills) · abr 2026 | `1661380124` | 2026-04-01 → 2026-04-30 |
 | Contextual (pills) · may 2026 | `362258649` | 2026-05-01 → 2026-05-31 |
 | Contextual (pills) · jun 2026 | `989040134` | 2026-06-01 → 2026-06-30 |
@@ -143,12 +146,12 @@ en la definición: para cerrar un mes nuevo hay que **reconstruir** el embudo co
 | OS → panel de fuentes · may 2026 | `820021151` | 2026-05-01 → 2026-05-31 |
 | OS → panel de fuentes · jun 2026 | `1188737148` | 2026-06-01 → 2026-06-30 |
 | OS → panel de fuentes · jul 2026 | `124232475` | 2026-07-01 → 2026-07-31 |
-| OS → panel de fuentes · ago 2026 | `1942600641` | 2026-08-01 → 2026-08-28 |
+| OS → panel de fuentes · ago 2026 | `1923821785` | 2026-08-01 → 2026-08-31 |
 | Contextual → panel de fuentes · abr 2026 | `680145669` | 2026-04-01 → 2026-04-30 |
 | Contextual → panel de fuentes · may 2026 | `588957978` | 2026-05-01 → 2026-05-31 |
 | Contextual → panel de fuentes · jun 2026 | `118780297` | 2026-06-01 → 2026-06-30 |
 | Contextual → panel de fuentes · jul 2026 | `1150323350` | 2026-07-01 → 2026-07-31 |
-| Contextual → panel de fuentes · ago 2026 | `1331223100` | 2026-08-01 → 2026-08-28 |
+| Contextual → panel de fuentes · ago 2026 | `716477612` | 2026-08-01 → 2026-08-31 |
 
 Los tres de Open Search se clonaron del de agosto con
 `update_funnel(2112175315, start_date, end_date)`: copia los pasos exactos
@@ -165,7 +168,7 @@ Embudo contextual mes a mes (Sin DEV), para saber si un corte aguanta:
 | may | 360 | 28 | 11 | 6 |
 | jun | 378 | 69 | 18 | 10 |
 | jul | 248 | 37 | 5 | 2 |
-| ago (1-28) | 273 | 37 | 9 | 3 |
+| ago | 275 | 37 | 9 | 3 |
 
 ### Desglose por pill (abr–ago 2026)
 
@@ -174,11 +177,11 @@ luego `visitedPage` con **un solo** id de página, luego `highlight any` → `co
 
 | Pill | id de página | funnel_id |
 |---|---|---|
-| Similar Projects | 67 | `275636809` |
-| Lessons Learned | 68 | `39156859` |
-| Literature | 69 | `1091319363` |
-| Institutional Documents | 70 | `129020650` |
-| Data | 257 | `856060289` |
+| Similar Projects | 67 | `1062050449` |
+| Lessons Learned | 68 | `819699251` |
+| Literature | 69 | `575216123` |
+| Institutional Documents | 70 | `643955550` |
+| Data | 257 | `1243443095` |
 
 **Por qué cinco embudos y no un `dimension`:** las pills son *page definitions*
 de FullStory, no rutas. `compute_funnel` con `dimension: {property: "url_path"}`
@@ -187,7 +190,7 @@ no por pill, y además infla el paso 1 multiplicándolo por el número de grupos
 No sirve para este corte.
 
 **Por qué el rango es abr–ago y no un mes:** en agosto hay 37 aperturas de pill
-en total; partidas en cinco no dan nada legible. El primer paso (1.281 usuarios)
+en total; partidas en cinco no dan nada legible. El primer paso (1.283 usuarios)
 es común a los cinco, así que las filas sí son comparables entre sí.
 
 ### Aperturas por pill y por mes
@@ -211,12 +214,12 @@ celda. La tasa de conversión por pill se queda agrupada abr–ago.
 **Chequeo de consistencia:** la suma de los cinco meses de cada pill tiene que
 quedar por encima del total agrupado del embudo y cerca de él — quien abre una
 pill en dos meses cuenta una vez agrupado y dos veces en la suma mensual.
-Al corte del 28-ago: SP 123 vs 110, LL 121 vs 112, Lit 80 vs 77, ID 63 vs 59,
+Al cierre de agosto: SP 123 vs 110, LL 121 vs 112, Lit 80 vs 77, ID 63 vs 59,
 Data 48 vs 48. Si alguna suma mensual diera *menos* que el agrupado, hay un
 error de rango.
 
 **Ojo con Data (257):** cero usuarios en abril, 3 en mayo, 19 en junio, 14 en
-agosto (1-28). Es la pill más nueva, no la más floja. Cualquier comparación agrupada que arranque en
+agosto. Es la pill más nueva, no la más floja. Cualquier comparación agrupada que arranque en
 abril la castiga por un mes en el que no existía.
 
 **Limitación conocida:** `highlight` y `copy` son *any*, no están acotados a la
@@ -243,6 +246,25 @@ Institutional Documents** — solo uno de usuarios (`vsM08vl8PUdv`). Así que
 `RdCIdS4OrJhB` casi seguro NO es esa pill.
 
 Hasta confirmarlo: no usar para `pillTop` ni `pillBot`; `pillBot` sigue manual.
+
+### Candidatos evaluados y **rechazados** (auditoría del 31-ago-2026)
+
+Barrido completo de los métricos existentes buscando fuente para los campos que
+estaban en `null`. Tres de cuatro no sirven. **No volver a intentarlos.**
+
+| Campo | Candidato | Por qué se rechazó |
+|---|---|---|
+| `prompts` | `1fbmp2OI4wee` "Prompts por usuario" | Devuelve **108** para julio contra los **415** cargados. Cuenta clicks en `Open-Search-Button-textarea-Search`, un solo botón de envío — la app tiene otras vías (Enter, prompt items). Además devuelve una **tabla agrupada por email**, no un escalar. Sigue manual |
+| `first_time` | `S1jFS95lirbO` "Usuarios nuevos" | Su definición es `count of unique users / any activity`. Computado contra julio devuelve **250**, exactamente igual a `users`. Es MAU con otro nombre — la misma trampa que `a30wnMzqgtJk`. Sigue manual |
+| `dropoff` | `AtJncWUJj6rl` y `Olm71xPRX3cU` | Ninguno reconcilia: para julio dan **87.3%** y **48.7%** contra el **85** cargado. Dos definiciones distintas y ninguna es la buena |
+| `returningUsers`, `latency`, `csat` | — | No existe ningún métrico en la org. Siguen manuales |
+
+**El único que sí sirvió:** `vpWvDQswlPB4` para `avgTime`. Reproduce julio
+**exacto** (20425.6 ms = 20.43s contra el `"20.43s"` cargado). Mayo queda cerca
+(20.05 vs 20.2) pero **junio no coincide** (18.93 vs el 20.37 cargado). Como el
+mes de baseline da exacto se adopta el métrico, pero la diferencia de junio queda
+abierta: puede ser que el valor guardado de junio esté mal. Revisar si aparece
+una tercera discrepancia.
 
 ### Baseline de validación — julio 2026 (rango 2026-07-01 → 2026-07-31)
 
@@ -292,7 +314,7 @@ solo atraviesan 2 usuarios reportó cero lecciones completadas habiendo 15.
 | may | 13 / 132 (10%) | 1 / 28 |
 | jun | 12 / 160 (8%) | 1 / 69 |
 | jul | 11 / 109 (10%) | 0 / 37 |
-| ago (1-28) | 11 / 111 (10%) | 1 / 37 |
+| ago | 11 / 112 (10%) | 1 / 37 |
 
 Los pasos 1 y 2 de los diez embudos coinciden **exacto** con los embudos ya validados
 del dashboard (588/226, 360/132, 378/160, 248/109, 224/86 y 588/62, 360/28, 378/69,
