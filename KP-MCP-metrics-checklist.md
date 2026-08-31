@@ -66,13 +66,45 @@ Fuente: dashboard **"NEW - Lessons Writing Assistant"**, armado por
 
 > **`lwa.lessonsGenerated` NO va acá — es manual.** Ver §2.
 
-**Los ceros son baseline, no desuso.** Cuatro de estos cinco corresponden a
-features recién lanzadas: sus métricos se definieron el 12-ago-2026 y no
-registran eventos previos porque la feature no existía. No confundir con un
-problema de instrumentación ni reportarlo como caída de uso.
+**Los ceros NO son baseline de features nuevas.** Esta explicación estaba en el
+checklist y es incorrecta — se verificó el 31-ago-2026 y quedó desmentida:
 
-`copyLesson` es la excepción: registró 9 eventos entre sep-2025 y jun-2026,
-y **ninguno desde julio**. Esa caída sí es real y vale seguirla.
+- `share` (`IHPlQ1WT1zEz`) y `viewLesson` (`o7uGz8LnXgZY`) se crearon el
+  **27-jul**, no el 12-ago, y dan **0 en los doce meses completos**
+  (sep-2025 → ago-2026), no solo desde agosto.
+- La causa es estructural: **nadie entró nunca al catálogo de lecciones.** El
+  elemento `Global-Sidebar-Button-Lessons` (`MQWDSNOU1gng`), que es la puerta de
+  entrada, registra **0 clicks en doce meses**. Sin visitas al catálogo, sus
+  botones (`Lessons-Catalogue-Button-View`, `-Share`, `-Shared-Button-View`) no
+  pueden disparar. Los métricos están bien; la superficie no se usa.
+- No es que LWA esté sin instrumentar. La pantalla posterior a generar la
+  lección sí registra actividad: `copyLesson` 9, editar lección o respuesta
+  (`YES3aAqW3cUF`) 22, editar respuesta (`NfsgWv155nqe`) 17, banner de
+  actualizar respuestas (`TJQA2CbKJurU`) 3.
+
+**Lectura de producto:** LWA es hoy una herramienta *write-once*. La gente
+genera una lección y no vuelve a ella: no la revisa desde el catálogo y no la
+comparte. Antes de invertir en el catálogo o en compartir, vale confirmar si
+esas pantallas son siquiera alcanzables desde la navegación principal.
+
+`copyLesson` registró 9 eventos entre sep-2025 y jun-2026 y **ninguno desde
+julio**. Esa caída sí es real y vale seguirla.
+
+### El embudo de LWA no filtra por host
+
+`104484265` y sus clones no ponen restricción de entorno en los pasos de click.
+De las 24 sesiones que registran el click de completar, **9 (37,5%) ocurren en
+`localhost:4200` o en `polite-dune-05d66c70f.6.azurestaticapps.net`** (staging),
+no en producción. El segmento Sin DEV **no** las excluye.
+
+Agregar un primer paso de `visitedUrl` host = `knowledgeplatform.iadb.org` **no
+lo arregla**: el embudo es cross-session, así que quien alguna vez entró a
+producción sigue calificando aunque después haya trabajado en local. El
+resultado con ese paso agregado es idéntico, 102 → 15.
+
+Conclusión: **102 y 15 son cotas superiores, no uso de producción.** Reportarlos
+siempre con esa salvedad hasta que exista una forma de acotar el click de
+completar al host de producción.
 
 > Pendiente menor de reconciliar: julio tiene `copiesCursor: 1` cargado a mano,
 > pero `azWUDLxYgaWY` devuelve 0 para julio. Probablemente el valor manual salió

@@ -2837,7 +2837,7 @@ const FUNNELS = {
         { label: "Starts a lesson", n: 102 },
         { label: "Completes it", n: 15, time: "36m 34s" },
       ],
-      note: "In twelve months, 102 people outside the product team started a lesson and 15 finished one — a median of 37 minutes apart. None of those completions happened in July or August: the activity is from earlier months. An earlier version of this funnel forced a draft-generation step in between and reported zero completions; only 2 users ever pass through that button, which strangled the funnel rather than measuring it.",
+      note: "In twelve months, 102 people started a lesson and 15 finished one — a median of 37 minutes apart, and none of those completions in July or August. Read both figures as upper bounds: the funnel puts no constraint on which environment the clicks happen in, and 9 of the 24 sessions that register a completion are on localhost or a staging URL rather than production. The Sin DEV segment does not filter those out. Downstream of this the picture is starker — the lesson catalogue has never been opened at all: its sidebar entry registers zero clicks across the whole twelve months, which is why viewing, sharing and shared-catalogue all sit at zero below. LWA is currently write-once. An earlier version of this funnel forced a draft-generation step in between and reported zero completions; only 2 users ever pass through that button, which strangled the funnel rather than measuring it.",
     },
   },
 };
