@@ -2831,15 +2831,15 @@ const FUNNELS = {
       ],
     },
     lwaShare: {
-      title: "Sharing a lesson · full year",
-      intro: "Sep 1, 2025 → Aug 31, 2026. Every step of the share dialog, counted as events, segment Sin DEV. Read this before reading the zero on the Share metric.",
+      title: "Sharing a lesson · full year · ALL traffic, not Sin DEV",
+      intro: "Sep 1, 2025 → Aug 31, 2026, counted as events. Unlike every other figure on this page, this block is NOT filtered to Sin DEV — and that is the point: under Sin DEV every step below is zero. Not one user outside the excluded accounts has ever opened the lessons catalogue or the share dialog. What the bars show is what the remaining traffic did, which is the product and development accounts the segment removes.",
       steps: [
         { label: "Opens the share dialog", n: 148 },
         { label: "Searches for a recipient", n: 61 },
         { label: "Picks a recipient", n: 28 },
         { label: "Confirms the share", n: 0 },
       ],
-      note: "Not one completed share in twelve months. Twenty-eight times someone chose a person to send a lesson to and the confirm click never registered, against only 8 explicit cancels. Every other control in the dialog is instrumented and firing, so this is far more likely a broken or unreachable confirm button than a feature nobody wants — and it explains the zero on both Share and Shared catalogue view below, since without a completed share no shared lesson ever exists to open. Worth reproducing by hand before anything else in LWA.",
+      note: "Two separate readings, and they must not be mixed. For the population this dashboard measures, the zero on Share is reach: the catalogue is never opened, so the feature is never even attempted — that is a distribution problem, not a bug. Within the excluded traffic, though, something still looks wrong: not one completed share in twelve months, with 28 recipient selections and only 8 explicit cancels, while every other control in the dialog is instrumented and firing. Worth ruling out a broken or unreachable confirm button by hand, but it is not evidence about users.",
     },
     lwa: {
       title: "Lessons Writing Assistant · full year",

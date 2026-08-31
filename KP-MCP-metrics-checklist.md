@@ -75,29 +75,51 @@ segundo. Las dos estaban mal. Verificado el 31-ago-2026:
 - **El catálogo de lecciones sí se usa, y bastante:** abrir el diálogo de
   compartir 148 eventos, editar 37, borrar 35, sobre sep-2025 → ago-2026.
 
-### El flujo de compartir muere en el último click
+### El catálogo y el compartir, con y sin segmento
 
-| Paso | Elemento | Eventos (12 meses) |
-|---|---|---:|
-| Abre el diálogo | `Lessons-Catalogue-Button-Share` (`Bz85xmDxjQg3`) | **148** |
-| Busca destinatario | `Share-Dialog-Input-Search-Users` (`LGq1WidWKtc1`) | **61** |
-| Elige destinatario | `Share-Dialog-Option-User` (`rXQu465rWEnH`) | **28** |
-| Cancela | `Share-Dialog-Button-Cancel` (`OmevdrJx0Vwh`) | 8 |
-| **Confirma** | `Share-Dialog-Button-Share` (`XOTexx0kvoot`) | **0** |
+| Paso | Elemento | Toda la org | **Sin DEV** |
+|---|---|---:|---:|
+| Abre el diálogo | `Lessons-Catalogue-Button-Share` (`Bz85xmDxjQg3`) | 148 | **0** |
+| Editar | `Lessons-Catalogue-Button-Edit` (`ucHG1MVge21G`) | 37 | **0** |
+| Borrar | `Lessons-Catalogue-Button-Delete` (`yFDFrciS4gWp`) | 35 | **0** |
+| Busca destinatario | `Share-Dialog-Input-Search-Users` (`LGq1WidWKtc1`) | 61 | **0** |
+| Elige destinatario | `Share-Dialog-Option-User` (`rXQu465rWEnH`) | 28 | **0** |
+| Cancela | `Share-Dialog-Button-Cancel` (`OmevdrJx0Vwh`) | 8 | — |
+| **Confirma** | `Share-Dialog-Button-Share` (`XOTexx0kvoot`) | **0** | **0** |
 
-Ni un solo compartir completado en doce meses. Veintiocho veces alguien eligió a
-quién mandarle una lección y el click de confirmar nunca se registró, contra
-apenas 8 cancelaciones explícitas. Todos los demás controles del diálogo están
-instrumentados y disparan, así que esto se parece mucho más a **un botón roto o
-inalcanzable** que a una feature que nadie quiere.
+**Bajo Sin DEV el catálogo entero está en cero absoluto.** Los 148, 61 y 28
+vienen íntegramente de cuentas que el segmento excluye. Para la población que
+mide el dashboard, `share`, `viewLesson` y `sharedCatalogueView` están en cero
+por **alcance**: nadie abre el catálogo, así que la feature ni se intenta. Es un
+problema de distribución, no un bug.
 
-Eso explica dos de los ceros: `share` directamente, y `sharedCatalogueView`
-por consecuencia — sin compartir completado nunca existe una lección compartida
-para abrir. **Vale reproducirlo a mano antes que cualquier otra cosa en LWA.**
+Dentro del tráfico excluido igual hay algo raro: **ni un compartir completado en
+doce meses**, con 28 selecciones de destinatario y apenas 8 cancelaciones, y con
+todos los demás controles del diálogo disparando. Vale descartar a mano un botón
+de confirmar roto o inalcanzable — pero **eso no es evidencia sobre usuarios**.
 
 `viewLesson` queda **sin explicación**: sus dos elementos
 (`Lessons-Catalogue-Button-View`, `Lesson-Title-Catalog-Clicked`) están en 0
 mientras sus hermanos del mismo catálogo disparan. Pendiente de mirar en sesión.
+
+### Regla: `compute_metric` NO acepta segmento
+
+`compute_metric` no tiene parámetro de segmento. El segmento tiene que estar
+**dentro de la definición guardada** del métrico.
+
+- Los métricos preexistentes del §1 **sí lo llevan**. Verificado:
+  `Open-Search-Button-Response-SourcesOverview` en agosto da **25 en toda la org
+  y 21 en Sin DEV**, y `Ge6P9qbIeu3b` devuelve 21. Los números del dashboard
+  están bien.
+- Un métrico creado al vuelo con `build_metric` **sin** `segment_id` devuelve
+  datos de **toda la org**, incluido el equipo de producto y los entornos de
+  desarrollo. En el `funnel_definition` se ve la diferencia: con segmento
+  aparece `segment: {segmentId: "sjHJR3590z6j", ...}` dentro de `singleNumber`;
+  sin él, esa clave no está.
+
+**Siempre pasar `segment_id: "sjHJR3590z6j"` a `build_metric`**, y confirmar en
+la definición devuelta que la clave `segment` esté. Una investigación entera de
+LWA se hizo sin segmento y dio conclusiones que se cayeron al aplicarlo.
 
 ### Regla: un cero no prueba desuso hasta que un hermano dispare
 
