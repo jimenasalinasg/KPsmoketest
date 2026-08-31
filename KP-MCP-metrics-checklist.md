@@ -66,29 +66,52 @@ Fuente: dashboard **"NEW - Lessons Writing Assistant"**, armado por
 
 > **`lwa.lessonsGenerated` NO va acá — es manual.** Ver §2.
 
-**Los ceros NO son baseline de features nuevas.** Esta explicación estaba en el
-checklist y es incorrecta — se verificó el 31-ago-2026 y quedó desmentida:
+**Los ceros NO son baseline de features nuevas, y tampoco son desuso.** El
+checklist decía lo primero y una versión anterior de esta sección dijo lo
+segundo. Las dos estaban mal. Verificado el 31-ago-2026:
 
 - `share` (`IHPlQ1WT1zEz`) y `viewLesson` (`o7uGz8LnXgZY`) se crearon el
-  **27-jul**, no el 12-ago, y dan **0 en los doce meses completos**
-  (sep-2025 → ago-2026), no solo desde agosto.
-- La causa es estructural: **nadie entró nunca al catálogo de lecciones.** El
-  elemento `Global-Sidebar-Button-Lessons` (`MQWDSNOU1gng`), que es la puerta de
-  entrada, registra **0 clicks en doce meses**. Sin visitas al catálogo, sus
-  botones (`Lessons-Catalogue-Button-View`, `-Share`, `-Shared-Button-View`) no
-  pueden disparar. Los métricos están bien; la superficie no se usa.
-- No es que LWA esté sin instrumentar. La pantalla posterior a generar la
-  lección sí registra actividad: `copyLesson` 9, editar lección o respuesta
-  (`YES3aAqW3cUF`) 22, editar respuesta (`NfsgWv155nqe`) 17, banner de
-  actualizar respuestas (`TJQA2CbKJurU`) 3.
+  **27-jul**, no el 12-ago, y dan **0 en los doce meses completos**.
+- **El catálogo de lecciones sí se usa, y bastante:** abrir el diálogo de
+  compartir 148 eventos, editar 37, borrar 35, sobre sep-2025 → ago-2026.
 
-**Lectura de producto:** LWA es hoy una herramienta *write-once*. La gente
-genera una lección y no vuelve a ella: no la revisa desde el catálogo y no la
-comparte. Antes de invertir en el catálogo o en compartir, vale confirmar si
-esas pantallas son siquiera alcanzables desde la navegación principal.
+### El flujo de compartir muere en el último click
 
-`copyLesson` registró 9 eventos entre sep-2025 y jun-2026 y **ninguno desde
-julio**. Esa caída sí es real y vale seguirla.
+| Paso | Elemento | Eventos (12 meses) |
+|---|---|---:|
+| Abre el diálogo | `Lessons-Catalogue-Button-Share` (`Bz85xmDxjQg3`) | **148** |
+| Busca destinatario | `Share-Dialog-Input-Search-Users` (`LGq1WidWKtc1`) | **61** |
+| Elige destinatario | `Share-Dialog-Option-User` (`rXQu465rWEnH`) | **28** |
+| Cancela | `Share-Dialog-Button-Cancel` (`OmevdrJx0Vwh`) | 8 |
+| **Confirma** | `Share-Dialog-Button-Share` (`XOTexx0kvoot`) | **0** |
+
+Ni un solo compartir completado en doce meses. Veintiocho veces alguien eligió a
+quién mandarle una lección y el click de confirmar nunca se registró, contra
+apenas 8 cancelaciones explícitas. Todos los demás controles del diálogo están
+instrumentados y disparan, así que esto se parece mucho más a **un botón roto o
+inalcanzable** que a una feature que nadie quiere.
+
+Eso explica dos de los ceros: `share` directamente, y `sharedCatalogueView`
+por consecuencia — sin compartir completado nunca existe una lección compartida
+para abrir. **Vale reproducirlo a mano antes que cualquier otra cosa en LWA.**
+
+`viewLesson` queda **sin explicación**: sus dos elementos
+(`Lessons-Catalogue-Button-View`, `Lesson-Title-Catalog-Clicked`) están en 0
+mientras sus hermanos del mismo catálogo disparan. Pendiente de mirar en sesión.
+
+### Regla: un cero no prueba desuso hasta que un hermano dispare
+
+Una versión previa de esta sección concluyó «nadie entró nunca al catálogo»
+porque `Global-Sidebar-Button-Lessons` daba 0. Era una inferencia inválida: **los
+cuatro** elementos `Global-Sidebar-*` (Home, Assistant, Recent-Searches, Lessons)
+dan 0 en doce meses. Esa familia entera es instrumentación muerta — de un layout
+viejo o nunca liberado. La navegación real usa `Layout-*`, que sí dispara:
+`Layout-Button-Transversal-Lesson` 124, `Layout-Button-Contract-Sidebar` 92,
+`Layout-Link-Home` 14.
+
+**Antes de reportar un cero como falta de uso, computar un elemento hermano de la
+misma familia.** Si el hermano también da 0, es instrumentación muerta y no dice
+nada sobre comportamiento. Si dispara, recién ahí el cero significa algo.
 
 ### El embudo de LWA no filtra por host
 
@@ -102,13 +125,10 @@ lo arregla**: el embudo es cross-session, así que quien alguna vez entró a
 producción sigue calificando aunque después haya trabajado en local. El
 resultado con ese paso agregado es idéntico, 102 → 15.
 
-Conclusión: **102 y 15 son cotas superiores, no uso de producción.** Reportarlos
-siempre con esa salvedad hasta que exista una forma de acotar el click de
-completar al host de producción.
+Conclusión: **102 y 15 son cotas superiores, no uso de producción.**
 
-> Pendiente menor de reconciliar: julio tiene `copiesCursor: 1` cargado a mano,
-> pero `azWUDLxYgaWY` devuelve 0 para julio. Probablemente el valor manual salió
-> de otra fuente (consola). No afecta los cierres.
+`copyLesson` registró 9 eventos entre sep-2025 y jun-2026 y **ninguno desde
+julio**. Esa caída sí es real y vale seguirla.
 
 ### Países
 

@@ -2830,6 +2830,17 @@ const FUNNELS = {
         },
       ],
     },
+    lwaShare: {
+      title: "Sharing a lesson · full year",
+      intro: "Sep 1, 2025 → Aug 31, 2026. Every step of the share dialog, counted as events, segment Sin DEV. Read this before reading the zero on the Share metric.",
+      steps: [
+        { label: "Opens the share dialog", n: 148 },
+        { label: "Searches for a recipient", n: 61 },
+        { label: "Picks a recipient", n: 28 },
+        { label: "Confirms the share", n: 0 },
+      ],
+      note: "Not one completed share in twelve months. Twenty-eight times someone chose a person to send a lesson to and the confirm click never registered, against only 8 explicit cancels. Every other control in the dialog is instrumented and firing, so this is far more likely a broken or unreachable confirm button than a feature nobody wants — and it explains the zero on both Share and Shared catalogue view below, since without a completed share no shared lesson ever exists to open. Worth reproducing by hand before anything else in LWA.",
+    },
     lwa: {
       title: "Lessons Writing Assistant · full year",
       intro: "Sep 1, 2025 → Aug 31, 2026. Unique users, across sessions (writing a lesson is not a one-sitting task), segment Sin DEV.",
@@ -2837,7 +2848,7 @@ const FUNNELS = {
         { label: "Starts a lesson", n: 102 },
         { label: "Completes it", n: 15, time: "36m 34s" },
       ],
-      note: "In twelve months, 102 people started a lesson and 15 finished one — a median of 37 minutes apart, and none of those completions in July or August. Read both figures as upper bounds: the funnel puts no constraint on which environment the clicks happen in, and 9 of the 24 sessions that register a completion are on localhost or a staging URL rather than production. The Sin DEV segment does not filter those out. Downstream of this the picture is starker — the lesson catalogue has never been opened at all: its sidebar entry registers zero clicks across the whole twelve months, which is why viewing, sharing and shared-catalogue all sit at zero below. LWA is currently write-once. An earlier version of this funnel forced a draft-generation step in between and reported zero completions; only 2 users ever pass through that button, which strangled the funnel rather than measuring it.",
+      note: "In twelve months, 102 people started a lesson and 15 finished one — a median of 37 minutes apart, and none of those completions in July or August. Read both figures as upper bounds: the funnel puts no constraint on which environment the clicks happen in, and 9 of the 24 sessions that register a completion are on localhost or a staging URL rather than production. The Sin DEV segment does not filter those out. An earlier version of this funnel forced a draft-generation step in between and reported zero completions; only 2 users ever pass through that button, which strangled the funnel rather than measuring it.",
     },
   },
 };
@@ -3109,6 +3120,12 @@ function FunnelSection({ f }) {
         <Card block={f.pillMonthly}>
           <PillMonthlyTable months={f.pillMonthly.months} rows={f.pillMonthly.rows} note={f.pillMonthly.note} />
           <Takeaways items={f.pillMonthly.takeaways} style={{ marginTop: 14 }} />
+        </Card>
+      )}
+
+      {f.lwaShare && (
+        <Card block={f.lwaShare} accent={RED}>
+          <FunnelChart steps={f.lwaShare.steps} note={f.lwaShare.note} />
         </Card>
       )}
 
