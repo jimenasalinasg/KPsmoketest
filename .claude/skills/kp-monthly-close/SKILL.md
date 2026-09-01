@@ -67,6 +67,14 @@ get_sessions(segment_id, limit=1)   ->  matching_users  =  first_time
 `returningUsers` = `users` − `first_time`. Son los que **ya conocían KP antes
 del mes**.
 
+**El segmento es `sjHJR3590z6j`, que se llama «Sin DEV (copy)»** — con el
+«(copy)». Es el único con ese nombre en la org, verificado el 1-sep-2026, y es el
+que usan tanto los métricos guardados como `compute_funnel`. La receta de arriba
+replica sus dos condiciones a mano (los 28 mails excluidos y la visita al `/home`
+de producción) porque `build_segment` no puede anidar un segmento existente. Si
+algún día aparece un segundo «Sin DEV», confirmar cuál está dentro de la
+definición de los métricos antes de usarlo.
+
 **Verificar la definición que vuelve.** El intérprete a veces corre el rango de
 `firstSeen` un día: en junio-2026 devolvió `endTime` 2026-07-01 en vez de
 2026-06-30. Confirmar que `userProperties.firstSeen.range` coincide con el mes
