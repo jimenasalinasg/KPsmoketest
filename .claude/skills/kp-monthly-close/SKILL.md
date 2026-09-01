@@ -75,20 +75,37 @@ de producción) porque `build_segment` no puede anidar un segmento existente. Si
 algún día aparece un segundo «Sin DEV», confirmar cuál está dentro de la
 definición de los métricos antes de usarlo.
 
-**Verificar la definición que vuelve.** El intérprete a veces corre el rango de
-`firstSeen` un día: en junio-2026 devolvió `endTime` 2026-07-01 en vez de
-2026-06-30. Confirmar que `userProperties.firstSeen.range` coincide con el mes
-antes de leer el número. La frase con «in the range starting X and ending Y
-inclusive» sale bien; la versión corta «between X and Y» falla a veces.
+**Verificar la definición que vuelve, siempre.** El intérprete corre el rango de
+`firstSeen` un día, y **de forma inconsistente**: pidiendo «ending 2026-07-30»
+devolvió 07-31, pero pidiendo «ending 2026-06-29» devolvió 06-29. No hay regla
+que valga — hay que **leer `userProperties.firstSeen.range` en la respuesta y
+confirmar que termina el último día del mes**, y rehacerlo si no. Con la frase
+«in the range starting X and ending Y inclusive» y la fecha exacta que se quiere
+sale bien casi siempre; la versión corta «between X and Y» falla más.
 
 **No intentar excluir los mails del equipo.** `get_sessions` devuelve
 `unspecified error` si el segmento lleva `excludeUserProperties`. Se verifica al
 revés: construir el mismo segmento *incluyendo* solo los 28 mails y confirmar
 que da **0**. Comprobado para abr–ago 2026; el equipo no tiene altas nuevas.
 
-**Chequeo obligatorio:** `first_time + returningUsers` tiene que dar **exacto**
-`users`. Si no da, el segmento no está sobre la misma población: revisar que
-tenga la condición de `/home` y que el rango sea el del mes.
+**`returningUsers` va por resta, y es a propósito.** Se puede medir directo —
+`firstSeen` **antes** del mes + actividad **en** el mes — pero esa medición
+**arrastra al equipo de producto**: son usuarios viejos, así que caen dentro, y
+no se pueden sacar porque `get_sessions` falla con `excludeUserProperties`. La
+resta, en cambio, hereda la exclusión de `users`, que sí es Sin DEV.
+
+Contrastado para los cinco meses de 2026 (medido vs resta): abr 186 vs 177,
+may 181 vs 188, jun 174 vs 177, jul 164 vs 164, ago 161 vs 162. Julio da
+idéntico y el resto queda entre −7 y +9. **Abril se pasa de `users`** (411+186 =
+597 > 588), que es la firma de la contaminación: la muestra devolvió
+`tatianaher@iadb.org`, de la lista de exclusión.
+
+Sirve como control de cordura una vez al año, no como fuente. Si algún mes la
+diferencia se va de ±10, mirarlo.
+
+**Ojo:** el chequeo de que `first_time + returningUsers` dé `users` es
+**tautológico** mientras se use la resta. No prueba nada. Lo que sí hay que
+verificar es `first_time`, que es el único de los dos que se mide.
 
 #### Por qué esto importa
 
