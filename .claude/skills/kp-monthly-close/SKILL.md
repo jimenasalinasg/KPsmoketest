@@ -298,6 +298,33 @@ atada a sesiones concretas, y si no hay sesión que la respalde, no se escribe.
 
 Renderiza `<QualitativeSection q={QUALITATIVE.<mes>} />` al final de la vista.
 
+**Una captura, la sesión más representativa.** Sirve para que quien lee entienda
+en dos segundos cómo se ve el producto en uso; el texto solo no lo transmite.
+
+`session_open(session_id)` → elegir el instante que muestra el producto haciendo
+su trabajo (no una pantalla vacía, no un modal) → `session_screenshot(client_id,
+page_id, timestamp)`. Devuelve la imagen inline **y una URL firmada que caduca a
+las 168h**: la imagen hay que bajarla y commitearla en `src/assets/`, nunca
+linkear la URL. Se importa arriba de `src/App.jsx` y el dato va en la clave
+`shot` de `QUALITATIVE.<mes>`, como todo lo demás.
+
+**Antes de commitear la imagen, revisarla pixel por pixel.** El dashboard es
+público y una captura filtra mucho más que un verbatim:
+
+- **FullStory NO enmascara la foto de perfil del bubble del chat.** El avatar de
+  la barra superior sí sale enmascarado, el del mensaje no. Comprobado en agosto
+  2026: era una foto de cara reconocible. **Siempre hay que taparla a mano** (un
+  disco gris neutro) antes de que la imagen entre al repo.
+- Recortar y ampliar las zonas dudosas para mirarlas de verdad —barra superior,
+  sidebar, encabezados— en vez de confiar en la vista completa.
+- Nada de nombre, mail ni ciudad. Códigos de operación del banco: pasan, son
+  documentos publicados, pero decirlo en el pie.
+- El pie de la captura declara **qué se retocó**. Una imagen editada sin avisar
+  es peor que no ponerla.
+
+Se muestra con `maxWidth: 620` y enlace a tamaño completo: en móvil queda
+miniatura y se lee por el pie, que es el compromiso correcto.
+
 ### 6. Validar
 
 `npm install && npm run build`. Debe compilar sin errores.
