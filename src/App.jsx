@@ -1,4 +1,5 @@
 import { useState, Fragment } from "react";
+import shotAug from "./assets/session-s09-aug2026.png";
 
 
 
@@ -3007,6 +3008,15 @@ const QUALITATIVE = {
     kicker: "Qualitative — session sweep",
     title: "What people actually do here · sampled Aug 1–28",
     intro: "Ten sessions read end to end, drawn from the first 28 days of the closed month and sampled across the funnels above: some who searched and copied, some who searched and left, some who opened a pill and stopped. Read for what people came to do, what they took away, and what got in the way.",
+    shot: {
+      src: shotAug,
+      alt: "The Knowledge Platform mid-session: a question about lessons learned on gender inclusion, the generated answer with numbered citations, and the Sources Overview panel open on the right listing the exact pages cited.",
+      session: "S-09",
+      place: "US",
+      url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7270254094798170140:617292026168710387:1787765990166",
+      caption: "One frame from S-09, the deepest session in the sample. The question is thematic rather than a keyword lookup; the answer comes back structured, with numbered citations; and the Sources Overview panel is open on the right, listing the specific pages behind each claim. This user stayed in that panel for over four minutes, moving between pages 22 and 23 of the same completion report. It is the clearest picture of what the product is when it works.",
+      redaction: "The user's profile photo has been replaced with a blank disc. Nothing else is altered. No name, email or city appears in the frame; the document codes are published IDB operation numbers.",
+    },
     themes: [
       {
         tag: "New use case",
@@ -3168,6 +3178,31 @@ function FunnelSection({ f }) {
 }
 
 
+function SessionShot({ shot }) {
+  return (
+    <figure style={{ margin: "0 0 18px 0", borderTop: `1px solid ${BDR}`, borderBottom: `1px solid ${BDR}`, padding: "14px 0" }}>
+      <a href={shot.src} target="_blank" rel="noopener noreferrer" style={{ display: "block", maxWidth: 620, marginBottom: 8 }}>
+        <img src={shot.src} alt={shot.alt}
+             style={{ width: "100%", height: "auto", display: "block", border: `1px solid ${BDR}`, borderRadius: 8, background: SURF }} />
+      </a>
+      <figcaption style={{ maxWidth: 620, fontSize: 10, color: INK2, lineHeight: 1.6, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        {shot.caption}
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center", marginTop: 8 }}>
+          <a href={shot.url} target="_blank" rel="noopener noreferrer"
+             style={{ fontSize: 9, color: INK3, textDecoration: "none", border: `1px solid ${BDR}`, borderRadius: 20, padding: "3px 9px", whiteSpace: "nowrap" }}>
+            ▸ watch {shot.session} · {shot.place}
+          </a>
+          <a href={shot.src} target="_blank" rel="noopener noreferrer"
+             style={{ fontSize: 9, color: INK3, textDecoration: "none", border: `1px solid ${BDR}`, borderRadius: 20, padding: "3px 9px", whiteSpace: "nowrap" }}>
+            ⤢ full size
+          </a>
+        </div>
+        <div style={{ fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5, marginTop: 8 }}>{shot.redaction}</div>
+      </figcaption>
+    </figure>
+  );
+}
+
 function QualitativeSection({ q }) {
   const TONE = { green: GREEN, amber: AMBER, red: RED, blue: BLUE_D };
   return (
@@ -3176,6 +3211,8 @@ function QualitativeSection({ q }) {
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>{q.title}</div>
         <div style={{ fontSize: 11, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>{q.intro}</div>
+
+        {q.shot && <SessionShot shot={q.shot} />}
 
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
           {q.themes.map((t, i) => (
