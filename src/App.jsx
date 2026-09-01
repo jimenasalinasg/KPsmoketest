@@ -803,7 +803,7 @@ const APRIL = {
   avgTime: "16.31s",
   dropoff: 92,
   retention: 10.9,
-  returningUsers: 228,
+  returningUsers:   { id: null,           src: "derived", def: "Users reached minus new users, both on the Sin DEV population. People who already knew KP before this month. NOT the same as users with 2+ sessions in the month — that is a different measure and is not what this shows." },
   highlighted: 579,
   highlightedOpenSearch: 393,
   copied: 167,
@@ -1991,12 +1991,12 @@ function JuneMonthly() {
 const JULY = {
   sessions: 1226,
   users: 250,
-  first_time: 156,
+  first_time: 86,        // Sin DEV — segmento firstSeen en rango + visito /home de produccion. El 156 anterior era org-wide, sin segmento: otra poblacion
   prompters: 109,
   prompts: 415,
   avgTime: "20.43s",
   dropoff: 85,
-  returningUsers: 91,
+  returningUsers: 164,    // Sin DEV — users (250) menos nuevos (86). Recurrentes de meses anteriores
   highlighted: 489,
   highlightedOpenSearch: 411,
   copied: 183,
@@ -2167,7 +2167,7 @@ function JulyMonthly() {
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
           <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{JULY.returningUsers}</div>
-          <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Came back for 2+ sessions within July — a signal of habit, not just curiosity</div>
+          <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Already knew KP before July — first seen in an earlier month</div>
           <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D }}>{Math.round(JULY.returningUsers/JULY.users*100)}% of users reached</span>
         </div>
         <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
@@ -2393,7 +2393,7 @@ const META = {
   countries:        { id: "417063426",    src: "mcp",     def: "Unique users grouped by country. Percentages are computed over the metric's own total, excluding the \"Unknown\" row." },
   prompts:          { id: null,           src: "pending", def: "Prompts sent. No FullStory metric covers this — must be loaded manually at close." },
   latency:          { id: null,           src: "pending", def: "Median response latency. No FullStory metric covers this." },
-  firstTime:        { id: null,           src: "pending", def: "New users. Supplied manually — no FullStory metric covers it. August's figures (99 new / 47 returning) were withdrawn: they did not reconcile against the unique users in the period." },
+  firstTime:        { id: null,           src: "segment", def: "Users whose FullStory First Seen date falls inside the month AND who visited the production /home — the same two conditions as the Sin DEV segment. Built as a segment, not a metric: compute_metric cannot express First Seen. Recipe and IDs in the checklist §4." },
   returningUsers:   { id: null,           src: "pending", def: "Returning users. Same situation as new users — withdrawn pending a source that reconciles." },
   csat:             { id: null,           src: "manual",  def: "Satisfied responses (rating ≥ 4) ÷ total responses, top-2 box on a 1–5 scale. Collected manually. Read the sample size on the card before the percentage — on a handful of responses each one moves it by tens of points." },
   lessonsGenerated: { id: null,           src: "console", def: "Lessons produced, taken by hand from the admin console. NOT the FullStory metric ffbLsADU0Swu, which counts clicks on the create-draft button rather than finished lessons." },
@@ -2412,8 +2412,8 @@ const AUGUST = {
   users: 287,
   prompters: 117,         // live via MCP (metric 3GVbGeJsPBCb)
   prompts: null,          // manual — NO hay metrico. 1fbmp2OI4wee ("Prompts por usuario") NO sirve: da 108 para julio contra los 415 cargados, y devuelve una tabla por email
-  returningUsers: null,   // pending — no existe metrico FullStory
-  first_time: null,       // pending — S1jFS95lirbO ("Usuarios nuevos") NO sirve: es "unique users / any activity", devuelve 250 para julio = identico a MAU
+  returningUsers: 162,    // Sin DEV — users (287) menos nuevos (125). Recurrentes de meses anteriores
+  first_time: 125,        // Sin DEV — segmento firstSeen en rango + visito /home de produccion. Ver §4 del checklist para la receta
   tourCompletion: 51,     // live via MCP (iN3brKBr4rlY) — 50.93 redondeado
   pillPageviews: 183,     // live via MCP (2EYT9yOW6odB)
   sourceClicks: 21,       // live via MCP (Ge6P9qbIeu3b)
@@ -3418,8 +3418,8 @@ function AugustMonthly() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="users" label="Users reached" value={String(AUGUST.users)} desc="Unique people who used KP in August" accent momentum={JULY.users} />
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(AUGUST.prompters)} desc={`${Math.round(AUGUST.prompters/AUGUST.users*100)}% of users reached · live via MCP`} accent momentum={JULY.prompters} />
-        <MCard meta="firstTime" label="New users" value={AUGUST.first_time} desc="First-time visitors · manual, pending re-check" />
-        <MCard meta="returningUsers" label="Returning users" value={AUGUST.returningUsers} desc="Manual, pending re-check" />
+        <MCard meta="firstTime" label="New users" value={String(AUGUST.first_time)} desc={`First-time visitors · other ${AUGUST.users - AUGUST.first_time} are returning from prior months`} momentum={JULY.first_time} />
+        <MCard meta="returningUsers" label="Returning users" value={String(AUGUST.returningUsers)} desc={`${Math.round(AUGUST.returningUsers/AUGUST.users*100)}% of users reached · already knew KP before August`} momentum={JULY.returningUsers} />
         <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
           <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(AUGUST.users/3600*100*10)/10}%</div>
@@ -3603,7 +3603,7 @@ function AugustMonthly() {
 
       {/* Pending sections note */}
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + all 5 pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA — all pulled directly from FullStory dashboard widgets by ID. <strong style={{ color: INK2 }}>Loaded manually:</strong> CSAT (33.3%, n=3, sample as of Aug 18, not refreshed). <strong style={{ color: INK2 }}>Pending, and each one checked against a candidate metric that failed:</strong> prompts sent — the closest metric returns 108 for July against the 415 on record, so it counts one submit button and not prompts; new users — the metric named "Usuarios nuevos" is defined as any-activity unique users and returns exactly the MAU figure; returning users and answer latency — no metric exists at all. None were filled with estimates. Figures cover the closed month, Aug 1–31, pulled on Sep 1.
+        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + all 5 pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA — all pulled directly from FullStory dashboard widgets by ID. <strong style={{ color: INK2 }}>Loaded manually:</strong> CSAT (33.3%, n=3, sample as of Aug 18, not refreshed). <strong style={{ color: INK2 }}>New and returning users</strong> are now computed on the Sin DEV population — first seen inside the month, built as a segment because metrics cannot express First Seen. The figures previously carried for July were org-wide and have been restated. <strong style={{ color: INK2 }}>Still pending:</strong> prompts sent — the closest metric returns 108 for July against the 415 on record, so it counts one submit button and not prompts; and answer latency — no metric exists at all. Neither was filled with estimates. Figures cover the closed month, Aug 1–31, pulled on Sep 1.
       </div>
 
       <QualitativeSection q={QUALITATIVE.august} />
