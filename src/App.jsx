@@ -3417,7 +3417,9 @@ function AugustMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (August)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="users" label="Users reached" value={String(AUGUST.users)} desc="Unique people who used KP in August" accent momentum={JULY.users} />
-        <MCard meta="sessions" label="Sessions" value={String(AUGUST.sessions)} desc="Total for the month" momentum={JULY.sessions} />
+        <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(AUGUST.prompters)} desc={`${Math.round(AUGUST.prompters/AUGUST.users*100)}% of users reached · live via MCP`} accent momentum={JULY.prompters} />
+        <MCard meta="firstTime" label="New users" value={AUGUST.first_time} desc="First-time visitors · manual, pending re-check" />
+        <MCard meta="returningUsers" label="Returning users" value={AUGUST.returningUsers} desc="Manual, pending re-check" />
         <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
           <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(AUGUST.users/3600*100*10)/10}%</div>
@@ -3429,10 +3431,8 @@ function AugustMonthly() {
           </div>
           <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants</div>
         </div>
-        <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(AUGUST.prompters)} desc={`${Math.round(AUGUST.prompters/AUGUST.users*100)}% of users reached · live via MCP`} accent momentum={JULY.prompters} />
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${AUGUST.tourCompletion}%`} desc="Users who finished the tour · live via MCP" momentum={JULY.tourCompletion} />
-        <MCard meta="firstTime" label="New users" value={AUGUST.first_time} desc="First-time visitors · manual, pending re-check" />
-        <MCard meta="returningUsers" label="Returning users" value={AUGUST.returningUsers} desc="Manual, pending re-check" />
+        <MCard meta="sessions" label="Sessions" value={String(AUGUST.sessions)} desc="Total for the month" momentum={JULY.sessions} />
       </div>
 
       {/* Geo */}
