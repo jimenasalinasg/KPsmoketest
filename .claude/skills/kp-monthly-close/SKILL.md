@@ -17,8 +17,9 @@ fuente de verdad, no repetir IDs de memoria.
 lista como pendiente en el PR. Un campo vacío es un resultado correcto; un
 campo inventado corrompe el dashboard y no se nota hasta que alguien lo presenta.
 
-Esto aplica especialmente a `prompts`, `first_time`, `returningUsers`,
-`latency`/`avgTime` y `csat`, que **no tienen métrico FullStory**.
+Esto aplica especialmente a `prompts`, `latency` y `csat`, que **no tienen
+métrico FullStory**. `first_time` y `returningUsers` **sí se computan** desde
+sep-2026 — ver §3bis.
 
 ## Contexto de ejecución
 
@@ -46,6 +47,76 @@ Llamadas en paralelo, ~6 por bloque.
 
 Después los acumulados: query única `2025-09-01` → último día del mes cerrado.
 Nunca sumar meses.
+
+### 3bis. Nuevos y recurrentes
+
+**No son métricos: son un segmento.** `compute_metric` no puede expresar «first
+seen», así que hay que armarlo con `build_segment` y leer el conteo con
+`get_sessions`.
+
+```
+build_segment(
+  query = "users whose first seen date is in the range starting <inicio> and "
+          "ending <fin> inclusive, who visited url entire URL is "
+          "https://knowledgeplatform.iadb.org/home",
+  start_date = <inicio>, end_date = <fin>)
+
+get_sessions(segment_id, limit=1)   ->  matching_users  =  first_time
+```
+
+`returningUsers` = `users` − `first_time`. Son los que **ya conocían KP antes
+del mes**.
+
+**El segmento es `sjHJR3590z6j`, que se llama «Sin DEV (copy)»** — con el
+«(copy)». Es el único con ese nombre en la org, verificado el 1-sep-2026, y es el
+que usan tanto los métricos guardados como `compute_funnel`. La receta de arriba
+replica sus dos condiciones a mano (los 28 mails excluidos y la visita al `/home`
+de producción) porque `build_segment` no puede anidar un segmento existente. Si
+algún día aparece un segundo «Sin DEV», confirmar cuál está dentro de la
+definición de los métricos antes de usarlo.
+
+**Verificar la definición que vuelve.** El intérprete a veces corre el rango de
+`firstSeen` un día: en junio-2026 devolvió `endTime` 2026-07-01 en vez de
+2026-06-30. Confirmar que `userProperties.firstSeen.range` coincide con el mes
+antes de leer el número. La frase con «in the range starting X and ending Y
+inclusive» sale bien; la versión corta «between X and Y» falla a veces.
+
+**No intentar excluir los mails del equipo.** `get_sessions` devuelve
+`unspecified error` si el segmento lleva `excludeUserProperties`. Se verifica al
+revés: construir el mismo segmento *incluyendo* solo los 28 mails y confirmar
+que da **0**. Comprobado para abr–ago 2026; el equipo no tiene altas nuevas.
+
+**Chequeo obligatorio:** `first_time + returningUsers` tiene que dar **exacto**
+`users`. Si no da, el segmento no está sobre la misma población: revisar que
+tenga la condición de `/home` y que el rango sea el del mes.
+
+#### Por qué esto importa
+
+Hasta ago-2026 estos campos se cargaban **org-wide**, sin segmento y sin la
+condición de `/home`, mientras `users` sí era Sin DEV. Medían otra población y
+por eso la resta nunca cerraba, hasta que se retiraron. Los valores viejos eran
+reproducibles org-wide: julio daba 156 y agosto 215.
+
+**Mirar siempre el denominador.** Si el panel de FullStory dice «X Users of
+395», ese 395 es org-wide. El de Sin DEV en agosto es 287. Si el total no
+coincide, el número no es del segmento.
+
+#### No confundir con «2+ sesiones en el mes»
+
+`returningUsers` es **quien ya conocía KP antes del mes**, no quien volvió varias
+veces dentro del mes. Las dos definiciones convivieron en el mismo panel hasta
+sep-2026. Para referencia, agosto tiene 158 usuarios con 2+ visitas a `/home`,
+parecido de tamaño a los 162 recurrentes pero midiendo otra cosa.
+
+#### Serie cargada (Sin DEV)
+
+| Mes | users | nuevos | recurrentes |
+|---|---:|---:|---:|
+| abr 2026 | 588 | 411 | 177 |
+| may 2026 | 363 | 175 | 188 |
+| jun 2026 | 379 | 202 | 177 |
+| jul 2026 | 250 | 86 | 164 |
+| ago 2026 | 287 | 125 | 162 |
 
 ### 4. Escribir en src/App.jsx
 Buscar el `const <MES>` correspondiente.
@@ -174,8 +245,24 @@ atada a sesiones concretas, y si no hay sesión que la respalde, no se escribe.
 Renderiza `<QualitativeSection q={QUALITATIVE.<mes>} />` al final de la vista.
 
 ### 6. Validar
+
 `npm install && npm run build`. Debe compilar sin errores.
 **Si falla el build, no commitear** — abrir el PR con el error.
+
+**El build no alcanza.** Un valor mal puesto en un objeto de mes es JS válido y
+compila igual; en sep-2026 una definición de `META` cayó dentro de `APRIL` y
+dejó la vista de abril en pantalla en blanco con el build en verde.
+
+Después de construir, **recorrer las cinco vistas mensuales en Playwright** y
+verificar en cada una:
+
+- que el `textContent` del body supere unos miles de caracteres — si queda en
+  decenas, la vista crasheó;
+- que no haya `pageerror`;
+- que no aparezca `[object Object]` renderizado;
+- que `first_time + returningUsers` dé `users`.
+
+Probar solo el mes nuevo no alcanza: el bug de abril pasó por eso.
 
 ### 7. Commit, PR y merge
 Rama `cierre-<mes>-<anio>`, commit, push, PR.
@@ -207,3 +294,6 @@ países anómalos, campos manuales pendientes.
 - Muestrear sesiones al azar para el barrido cualitativo. Va estratificado.
 - Publicar nombre, mail o ciudad en la sección cualitativa. El dashboard es público.
 - Sacar porcentajes de una muestra de 8 sesiones.
+- Cargar `first_time` desde el panel de FullStory sin el segmento. Va org-wide y
+  no cierra contra `users`.
+- Dar por buena una vista solo porque el build paso. Hay que abrirla.
