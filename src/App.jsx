@@ -3068,6 +3068,39 @@ const QUALITATIVE = {
   },
 };
 
+// ── COHORTES DE RETENCION ─────────────────────────────────
+// Cada cohorte son los usuarios vistos por primera vez en ese mes (mismo
+// segmento que first_time). Las columnas son cuantos de esos siguen activos
+// N meses despues. Receta en el skill, §3bis.
+const COHORTS = {
+  august: {
+    title: "Retention by cohort · Apr–Aug 2026",
+    intro: "Each row is the group of people who used KP for the first time in that month. The columns count how many of that same group came back one, two, three and four months later. Segment Sin DEV; coming back means a visit to the KP home in that later month.",
+    cols: ["M+1", "M+2", "M+3", "M+4"],
+    rows: [
+      { cohort: "April",  size: 411, values: [62, 36, 31, 31] },
+      { cohort: "May",    size: 175, values: [23, 15, 17, null] },
+      { cohort: "June",   size: 202, values: [27, 23, null, null] },
+      { cohort: "July",   size: 86,  values: [8, null, null, null] },
+    ],
+    note: "August's own cohort has no month after it yet, so it has no row. Percentages are of each cohort's own size, which is why a smaller absolute number can be a higher rate.",
+    takeaways: [
+      {
+        lead: "The first month is where they are lost, and it is getting worse.",
+        body: "Of every hundred people who arrive, roughly ninety never come back the following month — and the trend is downward: 15% of April's cohort returned in May, 13% of May's in June, 13% of June's in July, and only 9% of July's in August. Whatever is happening in the first visit is converting fewer people to a second one now than it did at launch.",
+      },
+      {
+        lead: "But the curve flattens, and that floor is the real asset.",
+        body: "April's cohort drops from 15% to 9% to 7.5% and then stops: the same 31 people are still there in both July and August. May's even ticks up, from 15 in July to 17 in August. So the loss is front-loaded — whoever survives the first two months tends to stay. About one in thirteen of every intake becomes permanent.",
+      },
+      {
+        lead: "What this says about where to push.",
+        body: "Reach is not the constraint: 1,943 people, 54% of the bank, have already used KP at least once. The constraint is the second visit. Moving first-month retention from 9% to 15% would add more monthly users than another two hundred first-timers would, because the first-timers mostly leave and the retained ones compound.",
+      },
+    ],
+  },
+};
+
 function Takeaways({ items, style }) {
   return (
     <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.6, ...style }}>
@@ -3180,6 +3213,62 @@ function QualitativeSection({ q }) {
         )}
 
         {q.note && <div style={{ fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5, marginTop: 14 }}>{q.note}</div>}
+      </div>
+    </>
+  );
+}
+
+
+
+function CohortTable({ cols, rows, note }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11, minWidth: 300 }}>
+          <thead>
+            <tr style={{ color: INK3, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+              <th style={{ textAlign: "left", padding: "0 0 6px", fontWeight: 500 }}>Cohort</th>
+              <th style={{ textAlign: "right", padding: "0 0 6px 8px", fontWeight: 500 }}>Size</th>
+              {cols.map((c, i) => (
+                <th key={i} style={{ textAlign: "right", padding: "0 0 6px 8px", fontWeight: 500 }}>{c}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r, i) => (
+              <tr key={i} style={{ borderTop: `1px solid ${BDR}` }}>
+                <td style={{ padding: "7px 0", color: INK, fontWeight: 500 }}>{r.cohort}</td>
+                <td style={{ padding: "7px 0 7px 8px", textAlign: "right", color: INK3, fontVariantNumeric: "tabular-nums" }}>{r.size}</td>
+                {r.values.map((v, j) => {
+                  if (v == null) return <td key={j} style={{ padding: "4px 0 4px 8px", textAlign: "right", color: BDR }}>·</td>;
+                  const pct = v / r.size * 100;
+                  return (
+                    <td key={j} style={{ padding: "4px 0 4px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
+                      <div style={{ background: `rgba(74, 144, 226, ${(0.06 + Math.min(pct / 16, 1) * 0.22).toFixed(3)})`, borderRadius: 4, padding: "3px 5px", color: INK }}>
+                        {v} <span style={{ color: INK3, fontWeight: 400 }}>· {pct.toFixed(1)}%</span>
+                      </div>
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {note && <div style={{ fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>{note}</div>}
+    </div>
+  );
+}
+
+function CohortSection({ c }) {
+  return (
+    <>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔁 Retention by cohort</div>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>{c.title}</div>
+        <div style={{ fontSize: 11, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>{c.intro}</div>
+        <CohortTable cols={c.cols} rows={c.rows} note={c.note} />
+        <Takeaways items={c.takeaways} style={{ marginTop: 14 }} />
       </div>
     </>
   );
@@ -3605,6 +3694,8 @@ function AugustMonthly() {
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
         <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + all 5 pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA — all pulled directly from FullStory dashboard widgets by ID. <strong style={{ color: INK2 }}>Loaded manually:</strong> CSAT (33.3%, n=3, sample as of Aug 18, not refreshed). <strong style={{ color: INK2 }}>New and returning users</strong> are now computed on the Sin DEV population — first seen inside the month, built as a segment because metrics cannot express First Seen. The figures previously carried for July were org-wide and have been restated. <strong style={{ color: INK2 }}>Still pending:</strong> prompts sent — the closest metric returns 108 for July against the 415 on record, so it counts one submit button and not prompts; and answer latency — no metric exists at all. Neither was filled with estimates. Figures cover the closed month, Aug 1–31, pulled on Sep 1.
       </div>
+
+      <CohortSection c={COHORTS.august} />
 
       <QualitativeSection q={QUALITATIVE.august} />
 

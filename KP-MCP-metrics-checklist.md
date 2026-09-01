@@ -135,6 +135,41 @@ revés: construir el segmento *incluyendo* solo los 28 mails y verificar que da
 2026-07-01 con la frase corta «between X and Y». Usar «in the range starting X
 and ending Y inclusive» y confirmar la definición antes de leer el número.
 
+### Cohortes de retención — receta (1-sep-2026)
+
+Misma maquinaria que `first_time`, un paso más. La **cohorte** de un mes son sus
+usuarios nuevos (el segmento de arriba). La **retención a M+k** es cuántos de
+esa misma cohorte volvieron k meses después.
+
+```
+build_segment(
+  query = "users whose first seen date is in the range starting <ini_cohorte> "
+          "and ending <fin_cohorte> inclusive who visited url entire URL is "
+          "https://knowledgeplatform.iadb.org/home",
+  start_date = <ini_mes_k>, end_date = <fin_mes_k>)   # <- el rango es el mes POSTERIOR
+get_sessions(segment_id, limit=1)   -> matching_users = retenidos en M+k
+```
+
+La condición de `firstSeen` fija la cohorte; el `start_date`/`end_date` de la
+consulta fija en qué mes se mira la actividad. Con `start_date` = el propio mes
+de la cohorte se recupera su tamaño, que es el control: **si no da el
+`first_time` publicado, la definición se corrompió y hay que rehacerla.**
+
+| Cohorte | tamaño | M+1 | M+2 | M+3 | M+4 |
+|---|---:|---:|---:|---:|---:|
+| abr 2026 | 411 | 62 | 36 | 31 | 31 |
+| may 2026 | 175 | 23 | 15 | 17 | — |
+| jun 2026 | 202 | 27 | 23 | — | — |
+| jul 2026 | 86 | 8 | — | — | — |
+
+Va al objeto `COHORTS` de `src/App.jsx`, nunca al JSX. Cada cierre agrega **una
+fila** (la cohorte del mes que se cierra, sin columnas todavía) y **una celda
+nueva** a cada fila anterior. El mes que se cierra no tiene M+1 todavía: esa
+celda va `null`, que se renderiza como `·`, no como cero.
+
+**No promediar las columnas entre cohortes.** Tienen tamaños muy distintos
+(411 contra 86) y el promedio simple no significa nada. Cada fila se lee sola.
+
 #### Por qué los valores viejos no cerraban
 
 Los `first_time` que estaban cargados se computaban **org-wide**: sin el segmento
