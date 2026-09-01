@@ -227,6 +227,28 @@ reescriben con los números nuevos. `takeaways` es una lista de `{lead, body}`:
 sacar `<FunnelSection>` de la vista del mes nuevo y listarlo como pendiente en el
 PR. Una sección ausente es honesta; una con datos viejos, no.
 
+### 5ter. Cohortes de retención
+
+La tabla de `COHORTS` en `src/App.jsx` se **extiende**, no se recalcula entera.
+Receta y tabla vigente en el checklist, sección «Cohortes de retención».
+
+Dos escrituras por cierre:
+
+1. Una **celda nueva** en cada cohorte anterior: la retención de esa cohorte en
+   el mes que se acaba de cerrar. Son tantas llamadas como filas haya.
+2. Una **fila nueva** para la cohorte del mes cerrado, con `size` = su
+   `first_time` y todas las columnas en `null`. Todavía no tiene M+1.
+
+Agregar `"M+<k>"` a `cols` cuando la cohorte más vieja alcance una columna nueva.
+
+**Control obligatorio:** recomputar el tamaño de una cohorte vieja (mismo
+segmento, rango = su propio mes) y ver que da el `first_time` publicado. Si no
+da, la definición se corrompió al pasar por el intérprete: parar y rehacerla,
+no cargar el número.
+
+Las celdas sin dato van `null`, nunca `0`: son cosas distintas y un cero dice
+que nadie volvió.
+
 ### 5bis. Barrido cualitativo de sesiones
 
 Responde lo que ningún métrico contesta: **para qué usan la plataforma, qué se
