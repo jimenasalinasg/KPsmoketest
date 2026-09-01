@@ -803,7 +803,8 @@ const APRIL = {
   avgTime: "16.31s",
   dropoff: 92,
   retention: 10.9,
-  returningUsers:   { id: null,           src: "derived", def: "Users reached minus new users, both on the Sin DEV population. People who already knew KP before this month. NOT the same as users with 2+ sessions in the month — that is a different measure and is not what this shows." },
+  first_time: 411,        // Sin DEV — firstSeen en rango + visito /home de produccion
+  returningUsers: 177,    // Sin DEV — users (588) menos nuevos (411)
   highlighted: 579,
   highlightedOpenSearch: 393,
   copied: 167,
@@ -814,7 +815,6 @@ const APRIL = {
   pillBot: "Institutional documents (20)",
   openSearchVisits: 663,
   tourCompletion: 55,
-  newUsers: 531,
   thumbsUp: 1,
   thumbsDown: 3,
   topCountry: "Argentina",
@@ -911,7 +911,7 @@ function Monthly() {
               ["Month", MONTH],
               ["Sessions", APRIL.sessions],
               ["Users reached", APRIL.users],
-              ["New users", APRIL.newUsers],
+              ["New users", APRIL.first_time],
               ["Prompters", APRIL.prompters],
               ["Prompts sent", APRIL.prompts],
               ["Highlights total", APRIL.highlighted],
@@ -986,11 +986,11 @@ function Monthly() {
         <Grid>
           <MCard meta="users" label="Users reached" value={String(APRIL.users)} desc="Unique people who used KP at least once in April" accent bench={BENCH.monthly.users} />
           <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(APRIL.prompters)} desc={`${Math.round(APRIL.prompters/APRIL.users*100)}% of users reached`} accent bench={BENCH.monthly.prompters} />
-          <MCard meta="firstTime" label="New users" value={String(APRIL.newUsers)} desc={`First-time visitors · other ${APRIL.users - APRIL.newUsers} are returning from the organic period`} />
+          <MCard meta="firstTime" label="New users" value={String(APRIL.first_time)} desc={`First-time visitors · other ${APRIL.users - APRIL.first_time} are returning from the organic period`} />
           <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
             <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{APRIL.returningUsers}</div>
-            <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Came back for 2+ sessions within April — a signal of habit, not just curiosity</div>
+            <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Already knew KP before April — first seen in an earlier month</div>
             <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D }}>{Math.round(APRIL.returningUsers/APRIL.users*100)}% of users reached</span>
           </div>
           {/* Penetration — custom card with bar */}
@@ -1193,13 +1193,13 @@ function Monthly() {
 const MAY = {
   sessions: 1052,
   users: 363,
-  first_time: 268,
+  first_time: 175,        // Sin DEV — firstSeen en rango + visito /home de produccion
   prompters: 133,
   prompts: 625,
   avgTime: "20.2s",
   dropoff: 87,
   retention: 16,
-  returningUsers: 131,
+  returningUsers: 188,    // Sin DEV — users (363) menos nuevos (175)
   highlighted: 463,
   highlightedOpenSearch: 217,
   copied: 191,
@@ -1372,7 +1372,7 @@ function MayMonthly() {
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
           <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{MAY.returningUsers}</div>
-          <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Came back for 2+ sessions within May — a signal of habit, not just curiosity</div>
+          <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Already knew KP before May — first seen in an earlier month</div>
           <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D }}>{Math.round(MAY.returningUsers/MAY.users*100)}% of users reached</span>
         </div>
         <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
@@ -1598,12 +1598,12 @@ function MayMonthly() {
 const JUNE = {
   sessions: 1019,
   users: 379,
-  first_time: 309,
+  first_time: 202,        // Sin DEV — firstSeen en rango + visito /home de produccion
   prompters: 160,
   prompts: 1025,
   avgTime: "20.37s",
   dropoff: 86,
-  returningUsers: 141,
+  returningUsers: 177,    // Sin DEV — users (379) menos nuevos (202)
   highlighted: 570,
   highlightedOpenSearch: 406,
   copied: 243,
@@ -1776,7 +1776,7 @@ function JuneMonthly() {
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
           <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{JUNE.returningUsers}</div>
-          <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Came back for 2+ sessions within June — a signal of habit, not just curiosity</div>
+          <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Already knew KP before June — first seen in an earlier month</div>
           <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D }}>{Math.round(JUNE.returningUsers/JUNE.users*100)}% of users reached</span>
         </div>
         <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
@@ -2394,7 +2394,7 @@ const META = {
   prompts:          { id: null,           src: "pending", def: "Prompts sent. No FullStory metric covers this — must be loaded manually at close." },
   latency:          { id: null,           src: "pending", def: "Median response latency. No FullStory metric covers this." },
   firstTime:        { id: null,           src: "segment", def: "Users whose FullStory First Seen date falls inside the month AND who visited the production /home — the same two conditions as the Sin DEV segment. Built as a segment, not a metric: compute_metric cannot express First Seen. Recipe and IDs in the checklist §4." },
-  returningUsers:   { id: null,           src: "pending", def: "Returning users. Same situation as new users — withdrawn pending a source that reconciles." },
+  returningUsers:   { id: null,           src: "derived", def: "Users reached minus new users, both on the Sin DEV population. People who already knew KP before this month. NOT the same as users with 2+ sessions in the month — that is a different measure and is not what this shows." },
   csat:             { id: null,           src: "manual",  def: "Satisfied responses (rating ≥ 4) ÷ total responses, top-2 box on a 1–5 scale. Collected manually. Read the sample size on the card before the percentage — on a handful of responses each one moves it by tens of points." },
   lessonsGenerated: { id: null,           src: "console", def: "Lessons produced, taken by hand from the admin console. NOT the FullStory metric ffbLsADU0Swu, which counts clicks on the create-draft button rather than finished lessons." },
   lwaShare:         { id: "IHPlQ1WT1zEz", src: "mcp",     def: "Clicks on the share button. Recently released feature — a zero is a baseline, not disuse." },

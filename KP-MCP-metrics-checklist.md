@@ -125,8 +125,15 @@ revés: construir el segmento *incluyendo* solo los 28 mails y verificar que da
 
 | Mes | Nuevos (Sin DEV) | Recurrentes | users |
 |---|---:|---:|---:|
+| abr 2026 | 411 | 177 | 588 |
+| may 2026 | 175 | 188 | 363 |
+| jun 2026 | 202 | 177 | 379 |
 | jul 2026 | 86 | 164 | 250 |
 | ago 2026 | 125 | 162 | 287 |
+
+**Ojo con el rango en junio:** el intérprete devolvió `firstSeen` hasta el
+2026-07-01 con la frase corta «between X and Y». Usar «in the range starting X
+and ending Y inclusive» y confirmar la definición antes de leer el número.
 
 #### Por qué los valores viejos no cerraban
 
