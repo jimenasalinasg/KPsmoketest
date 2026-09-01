@@ -2392,7 +2392,6 @@ const META = {
   newSearch:        { id: "tU5aopeDHc1k", src: "mcp",     def: "Clicks on New Search." },
   countries:        { id: "417063426",    src: "mcp",     def: "Unique users grouped by country. Percentages are computed over the metric's own total, excluding the \"Unknown\" row." },
   prompts:          { id: null,           src: "pending", def: "Prompts sent. No FullStory metric covers this — must be loaded manually at close." },
-  avgTime:          { id: "vpWvDQswlPB4", src: "mcp",     def: "Average active time per session across all pages, returned in milliseconds. This is engagement, NOT answer latency — do not read it as response speed. Reproduces July exactly (20.43s); June differs from the stored value, see the checklist." },
   latency:          { id: null,           src: "pending", def: "Median response latency. No FullStory metric covers this." },
   firstTime:        { id: null,           src: "pending", def: "New users. Supplied manually — no FullStory metric covers it. August's figures (99 new / 47 returning) were withdrawn: they did not reconcile against the unique users in the period." },
   returningUsers:   { id: null,           src: "pending", def: "Returning users. Same situation as new users — withdrawn pending a source that reconciles." },
@@ -2416,7 +2415,6 @@ const AUGUST = {
   returningUsers: null,   // pending — no existe metrico FullStory
   first_time: null,       // pending — S1jFS95lirbO ("Usuarios nuevos") NO sirve: es "unique users / any activity", devuelve 250 para julio = identico a MAU
   tourCompletion: 51,     // live via MCP (iN3brKBr4rlY) — 50.93 redondeado
-  avgTime: "15.04s",      // live via MCP (vpWvDQswlPB4) — tiempo activo promedio por sesion, en ms /1000. NO es latencia
   pillPageviews: 183,     // live via MCP (2EYT9yOW6odB)
   sourceClicks: 21,       // live via MCP (Ge6P9qbIeu3b)
   sourceClicksBC: 1,      // live via MCP (LD4uHOPIDS8l) — unique users, no eventos
@@ -3380,7 +3378,6 @@ function AugustMonthly() {
               ["New Search clicks", AUGUST.newSearchClicks],
               ["Latency (median)", AUGUST.latency ?? "pending"],
               ["CSAT", AUGUST.csat ?? "pending"],
-              ["Avg active time / session", AUGUST.avgTime],
               ["Cumulative users (Sep 1-Aug 31)", "1,943"],
               ["Cumulative prompters (Sep 1-Aug 31)", "859"],
               ["Cumulative penetration", "54.0%"],
@@ -3421,7 +3418,6 @@ function AugustMonthly() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="users" label="Users reached" value={String(AUGUST.users)} desc="Unique people who used KP in August" accent momentum={JULY.users} />
         <MCard meta="sessions" label="Sessions" value={String(AUGUST.sessions)} desc="Total for the month" momentum={JULY.sessions} />
-        <MCard meta="avgTime" label="Avg active time / session" value={AUGUST.avgTime} desc="Active time per session · live via MCP" momentum={parseFloat(JULY.avgTime)} small />
         <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
           <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(AUGUST.users/3600*100*10)/10}%</div>
@@ -3594,7 +3590,7 @@ function AugustMonthly() {
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>August closes above July on both counts</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            287 users · 1,260 sessions, against July's 250 and 1,226 — up 15% and 3%. What read as a summer trough in July has reversed, and August is the strongest month for users since May. Read it together with active time per session, which fell from 20.4s to 15.0s: more people came, and each visit was shorter.
+            287 users · 1,260 sessions, against July's 250 and 1,226 — up 15% and 3%. What read as a summer trough in July has reversed, and August is the strongest month for users since May. But the growth did not reach the far end of the funnel: copies fell to 24, the lowest of the series. More people came, and fewer took something away.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>

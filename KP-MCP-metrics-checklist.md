@@ -26,7 +26,6 @@ Devuelven `{single:{value}}`. Se computan con el rango del mes cerrado
 | `pillPageviews`         | `2EYT9yOW6odB` | total de las pills (pageviews) |
 | `sourceClicks`          | `Ge6P9qbIeu3b` | clicks en source panel (Open Search) |
 | `sourceClicksBC`        | `LD4uHOPIDS8l` | clicks en source panel (contextual). **Unique users**, no eventos — no comparar 1:1 con `sourceClicks` |
-| `avgTime`               | `vpWvDQswlPB4` | tiempo activo promedio por sesión. Devuelve **milisegundos** → dividir por 1000. **No es latencia** — ver §4 |
 | `thumbsUp`              | `AtpRWyuThJUq` | |
 | `thumbsDown`            | `x6Z3q26RMOra` | |
 | `promptGalleryClicks`   | `lkwqkKIJQ25E` | |
@@ -181,9 +180,13 @@ Nunca inventar. Si no hay valor, dejar `null` y listarlo como pendiente en el PR
 - `prompts` — prompts enviados
 - `first_time` — usuarios nuevos
 - `returningUsers` — usuarios recurrentes
-- `latency` — latencia de respuesta. No existe métrico. **Ojo:** `avgTime` sí tiene métrico
-  (`vpWvDQswlPB4`) pero mide otra cosa — tiempo activo por sesión, no velocidad de respuesta.
-  Estaban agrupados en una sola línea de este checklist y era un error
+- `latency` — latencia de respuesta. No existe métrico.
+  **Ojo, no confundir con `avgTime`:** ese sí tiene métrico (`vpWvDQswlPB4`, tiempo
+  activo por sesión) pero mide engagement, no velocidad de respuesta. Estaban
+  agrupados en una sola línea de este checklist y era un error.
+  **`avgTime` no se muestra en el dashboard** — nunca formó parte de él y se
+  decidió dejarlo afuera. El métrico queda documentado por si alguna vez se quiere,
+  pero no se carga en el cierre
 - `csat` — % y promedio de estrellas, con n de respuestas
 - `dropoff`, `openSearchVisits` — meses con schema viejo
 - `pillBot` — pill menos usada (ver §4)
@@ -371,14 +374,14 @@ Mes cerrado el 1-sep-2026. Sirve como segundo punto de control:
 | sessions | 1260 | | highlightedOpenSearch | 210 |
 | prompters | 117 | | copied | 154 |
 | tourCompletion | 50.93 → 51 | | copiedOpenSearch | 73 |
-| avgTime | 15035.4 ms → 15.04s | | wordDownloads | 3 |
-| pillPageviews | 183 | | excelDownloads | 3 |
-| sourceClicks | 21 | | totalCountries | 32 |
-| sourceClicksBC | 1 | | Similar Projects | 19 |
-| thumbsUp / thumbsDown | 1 / 0 | | Lessons Learned / Data | 15 / 14 |
-| promptGalleryClicks | 12 | | Literature / Inst. Docs | 12 / 11 |
-| recentSearchClicks | 4 | | acumulado users | 1943 |
-| newSearchClicks | 0 | | acumulado sessions | 15842 |
+| wordDownloads | 3 | | excelDownloads | 3 |
+| pillPageviews | 183 | | totalCountries | 32 |
+| sourceClicks | 21 | | Similar Projects | 19 |
+| sourceClicksBC | 1 | | Lessons Learned / Data | 15 / 14 |
+| thumbsUp / thumbsDown | 1 / 0 | | Literature / Inst. Docs | 12 / 11 |
+| promptGalleryClicks | 12 | | acumulado users | 1943 |
+| recentSearchClicks | 4 | | acumulado sessions | 15842 |
+| newSearchClicks | 0 | | | |
 
 ### Gotchas de definición (confirmados)
 
