@@ -1,5 +1,4 @@
 import { useState, Fragment } from "react";
-import shotAug from "./assets/session-s09-aug2026.png";
 
 
 
@@ -3008,8 +3007,10 @@ const QUALITATIVE = {
     kicker: "Qualitative — session sweep",
     title: "What people actually do here · sampled Aug 1–28",
     intro: "Ten sessions read end to end, drawn from the first 28 days of the closed month and sampled across the funnels above: some who searched and copied, some who searched and left, some who opened a pill and stopped. Read for what people came to do, what they took away, and what got in the way.",
-    shot: {
-      src: shotAug,
+    // shot: pendiente — la captura anterior era de una stakeholder que se
+    // reconoceria en su propia sesion. Ver el skill, 5bis: elegir sesion
+    // verificando identidad antes de capturar.
+    shotPending: {
       alt: "The Knowledge Platform mid-session: a question about lessons learned on gender inclusion, the generated answer with numbered citations, and the Sources Overview panel open on the right listing the exact pages cited.",
       session: "S-09",
       place: "US",
@@ -3211,8 +3212,6 @@ function QualitativeSection({ q }) {
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>{q.title}</div>
         <div style={{ fontSize: 11, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>{q.intro}</div>
-
-        {q.shot && <SessionShot shot={q.shot} />}
 
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
           {q.themes.map((t, i) => (
