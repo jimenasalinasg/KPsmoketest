@@ -96,9 +96,24 @@ resta, en cambio, hereda la exclusión de `users`, que sí es Sin DEV.
 
 Contrastado para los cinco meses de 2026 (medido vs resta): abr 186 vs 177,
 may 181 vs 188, jun 174 vs 177, jul 164 vs 164, ago 161 vs 162. Julio da
-idéntico y el resto queda entre −7 y +9. **Abril se pasa de `users`** (411+186 =
-597 > 588), que es la firma de la contaminación: la muestra devolvió
-`tatianaher@iadb.org`, de la lista de exclusión.
+idéntico y el resto queda entre −7 y +9.
+
+**Abril desarma la diferencia en sus dos causas**, y las dos aplican a todos los
+meses:
+
+- **+13, el equipo de producto.** Trece cuentas de la lista de exclusión
+  estuvieron activas en abril con `firstSeen` anterior, así que la medición
+  directa las cuenta. Verificado.
+- **−4, la condición de `/home`.** El segmento exige visita a `/home` **dentro
+  del mes**, pero `users` solo exige haberla hecho **alguna vez desde
+  2025-09-01**. Quien estuvo activo en el mes por otra página, con su visita a
+  `/home` en un mes anterior, entra en `users` y no en la medición.
+
+186 − 13 = 173, contra los 177 de la resta: los 4 que faltan son ese segundo
+efecto. Neto +9, que es lo que hacía que 411 + 186 diera 597 contra 588.
+
+La resta no tiene ninguno de los dos problemas: hereda la población de `users`
+tal cual.
 
 Sirve como control de cordura una vez al año, no como fuente. Si algún mes la
 diferencia se va de ±10, mirarlo.
