@@ -2751,7 +2751,7 @@ const FUNNELS = {
         n: 11,
         from: 1,
         time: "3m 4s",
-        note: "11 of the 116 who searched, 9.5%. Across the five months this share stays between 7.5% and 10.5% — considerably steadier than the copy rate above it.",
+        note: "11 of the 116 who searched, 9.5%. Across the five complete months this share stays between 7.5% and 10.1% — remarkably steady, and now clearly steadier than the copy rate above it, which just broke its own floor.",
       },
       note: "8.5% end to end, against 12.1% in July. The top of the funnel finished well above July — 281 entries against 248, 116 searches against 109 — but copies landed at 24 against 30, and that last step is what keeps the rate below July's. The month grew at the entrance and shrank at the exit.",
     },
@@ -2771,7 +2771,7 @@ const FUNNELS = {
         n: 1,
         from: 1,
         time: "9m 32s",
-        note: "One user out of the 32 who opened a pill. Three users in five months, all of them through the Lessons Learned card: the Literature and Institutional Documents source links registered zero users over the whole period.",
+        note: "One user out of the 37 who opened a pill. Three users in five months, all of them through the Lessons Learned card: the Literature and Institutional Documents source links registered zero users over the whole period.",
       },
       note: "1.1% end to end. Open Search converts eight times better from the same entry point — the gap was fifteen times in July. Note also that the pills' own copy button registered zero users: the few who do copy select the text by hand instead.",
     },
@@ -2782,7 +2782,7 @@ const FUNNELS = {
       },
       {
         lead: "Reading the five months together.",
-        body: "The extraction base is far stickier than the traffic. Between April and July — the four complete months — entries to KP fell 58%, from 588 people to 248, while Open Search copies fell only 23%, from 39 to 30. That is why the end-to-end rate climbed from 6.6% to 12.1% across those months: the denominator shrank faster than the numerator. A rising conversion rate here has mostly meant fewer casual visitors, not better conversion. Watch the absolute count of people who copy something; it has sat between 30 and 39 every full month since go-live, regardless of how much traffic arrived.",
+        body: "For four months the story was that the extraction base was stickier than the traffic: entries fell from 588 in April to 248 in July while copies barely moved, 39 to 30, which is why the end-to-end rate climbed from 6.6% to 12.1% — the denominator was shrinking faster than the numerator. August breaks that. Entries recovered to 281, up 13% on July, and copies fell to 24 — the first month below the floor of 30 that had held since go-live, and the lowest of the series. For the first time the numerator shrank while the denominator grew, which is why the rate dropped back to 8.5%. Read against the four months before it, this is the first sign that more traffic is not bringing more extraction with it, and it is the number to watch in September.",
       },
     ],
     pills: {
@@ -3007,8 +3007,8 @@ function PillMonthlyTable({ months, rows, note }) {
 const QUALITATIVE = {
   august: {
     kicker: "Qualitative — session sweep",
-    title: "What people actually do here · Aug 1–28, 2026",
-    intro: "Ten sessions read end to end, sampled across the funnels above: some who searched and copied, some who searched and left, some who opened a pill and stopped. Read for what people came to do, what they took away, and what got in the way.",
+    title: "What people actually do here · sampled Aug 1–28",
+    intro: "Ten sessions read end to end, drawn from the first 28 days of the closed month and sampled across the funnels above: some who searched and copied, some who searched and left, some who opened a pill and stopped. Read for what people came to do, what they took away, and what got in the way.",
     themes: [
       {
         tag: "New use case",
