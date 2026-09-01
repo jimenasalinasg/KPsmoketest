@@ -205,9 +205,9 @@ en la definición: para cerrar un mes nuevo hay que **reconstruir** el embudo co
 
 | Embudo | ID | Rango guardado |
 |---|---|---|
-| Open Search · ago 2026 | `380466231` | 2026-08-01 → 2026-08-31 |
+| Open Search · ago 2026 **(cierre)** | `380466231` | 2026-08-01 → 2026-08-31 |
 | Open Search · jul 2026 | `813457909` | 2026-07-01 → 2026-07-31 |
-| Contextual (pills) · ago 2026 | `1692594896` | 2026-08-01 → 2026-08-31 |
+| Contextual (pills) · ago 2026 **(cierre)** | `1692594896` | 2026-08-01 → 2026-08-31 |
 | Contextual (pills) · jul 2026 | `1476024114` | 2026-07-01 → 2026-07-31 |
 | LWA inicio → completado | `2037187131` | 2025-09-01 → 2026-08-31 |
 | Contextual (pills) · abr 2026 | `1661380124` | 2026-04-01 → 2026-04-30 |
@@ -242,7 +242,7 @@ Embudo contextual mes a mes (Sin DEV), para saber si un corte aguanta:
 | may | 360 | 28 | 11 | 6 |
 | jun | 378 | 69 | 18 | 10 |
 | jul | 248 | 37 | 5 | 2 |
-| ago | 275 | 37 | 9 | 3 |
+| ago (cierre) | 281 | 37 | 9 | 3 |
 
 ### Desglose por pill (abr–ago 2026)
 
@@ -265,7 +265,8 @@ No sirve para este corte.
 
 **Por qué el rango es abr–ago y no un mes:** en agosto hay 37 aperturas de pill
 en total; partidas en cinco no dan nada legible. El primer paso (1.283 usuarios)
-es común a los cinco, así que las filas sí son comparables entre sí.
+es común a los cinco, así que las filas sí son comparables entre sí. Al cierre
+de agosto la entrada es de **1.287** usuarios.
 
 ### Aperturas por pill y por mes
 
@@ -360,6 +361,25 @@ Recomputar estos valores debe devolver exactamente:
 Si algún valor no coincide, la definición del métrico cambió en FullStory:
 **parar y avisar**, no escribir el dato.
 
+### Baseline de validación — agosto 2026 (rango 2026-08-01 → 2026-08-31)
+
+Mes cerrado el 1-sep-2026. Sirve como segundo punto de control:
+
+| Campo | Valor | | Campo | Valor |
+|---|---|---|---|---|
+| users | 287 | | highlighted | 366 |
+| sessions | 1260 | | highlightedOpenSearch | 210 |
+| prompters | 117 | | copied | 154 |
+| tourCompletion | 50.93 → 51 | | copiedOpenSearch | 73 |
+| avgTime | 15035.4 ms → 15.04s | | wordDownloads | 3 |
+| pillPageviews | 183 | | excelDownloads | 3 |
+| sourceClicks | 21 | | totalCountries | 32 |
+| sourceClicksBC | 1 | | Similar Projects | 19 |
+| thumbsUp / thumbsDown | 1 / 0 | | Lessons Learned / Data | 15 / 14 |
+| promptGalleryClicks | 12 | | Literature / Inst. Docs | 12 / 11 |
+| recentSearchClicks | 4 | | acumulado users | 1943 |
+| newSearchClicks | 0 | | acumulado sessions | 15842 |
+
 ### Gotchas de definición (confirmados)
 
 - **`a30wnMzqgtJk` se llama "First time visitors" en la UI de FullStory pero NO
@@ -388,7 +408,7 @@ solo atraviesan 2 usuarios reportó cero lecciones completadas habiendo 15.
 | may | 13 / 132 (10%) | 1 / 28 |
 | jun | 12 / 160 (8%) | 1 / 69 |
 | jul | 11 / 109 (10%) | 0 / 37 |
-| ago | 11 / 112 (10%) | 1 / 37 |
+| ago (cierre) | 11 / 116 (9%) | 1 / 37 |
 
 Los pasos 1 y 2 de los diez embudos coinciden **exacto** con los embudos ya validados
 del dashboard (588/226, 360/132, 378/160, 248/109, 224/86 y 588/62, 360/28, 378/69,

@@ -2407,30 +2407,28 @@ const META = {
 const SRC_LABEL = { mcp: "FullStory · live", console: "Admin console · manual", manual: "Manual", pending: "Pending — no metric" };
 
 // ── AUGUST 2026 DATA ──────────────────────────────────────
-// Preliminary — through Aug 31, 2026 · pulled live via FullStory MCP
-// El dia 31 todavia estaba corriendo al momento del pull: el cierre definitivo
-// del mes lo hace el Routine del 1-sep.
+// Final — full month, segmento Sin DEV (vía Fullstory MCP, cerrado 2026-09-01)
 const AUGUST = {
-  sessions: 1230,
-  users: 281,
-  prompters: 113,         // live via MCP (metric 3GVbGeJsPBCb)
+  sessions: 1260,
+  users: 287,
+  prompters: 117,         // live via MCP (metric 3GVbGeJsPBCb)
   prompts: null,          // manual — NO hay metrico. 1fbmp2OI4wee ("Prompts por usuario") NO sirve: da 108 para julio contra los 415 cargados, y devuelve una tabla por email
   returningUsers: null,   // pending — no existe metrico FullStory
   first_time: null,       // pending — S1jFS95lirbO ("Usuarios nuevos") NO sirve: es "unique users / any activity", devuelve 250 para julio = identico a MAU
-  tourCompletion: 51,     // live via MCP (iN3brKBr4rlY) — 50.96 redondeado
-  avgTime: "14.97s",      // live via MCP (vpWvDQswlPB4) — tiempo activo promedio por sesion, en ms /1000. NO es latencia
+  tourCompletion: 51,     // live via MCP (iN3brKBr4rlY) — 50.93 redondeado
+  avgTime: "15.04s",      // live via MCP (vpWvDQswlPB4) — tiempo activo promedio por sesion, en ms /1000. NO es latencia
   pillPageviews: 183,     // live via MCP (2EYT9yOW6odB)
   sourceClicks: 21,       // live via MCP (Ge6P9qbIeu3b)
   sourceClicksBC: 1,      // live via MCP (LD4uHOPIDS8l) — unique users, no eventos
-  thumbsUp: 0,            // live via MCP (AtpRWyuThJUq)
+  thumbsUp: 1,            // live via MCP (AtpRWyuThJUq)
   thumbsDown: 0,          // live via MCP (x6Z3q26RMOra)
   promptGalleryClicks: 12, // live via MCP (lkwqkKIJQ25E)
   recentSearchClicks: 4,  // live via MCP (nfcBnYjQSAfT)
   newSearchClicks: 0,     // live via MCP (tU5aopeDHc1k)
-  highlighted: 345,       // live via MCP (cMgaz9YMCSJh)
-  highlightedOpenSearch: 206, // live via MCP (RQ6IjtoMbeD5)
-  copied: 146,            // live via MCP (yowGb1tOMe3X)
-  copiedOpenSearch: 71,   // live via MCP (JOTETVLPeJKh)
+  highlighted: 366,       // live via MCP (cMgaz9YMCSJh)
+  highlightedOpenSearch: 210, // live via MCP (RQ6IjtoMbeD5)
+  copied: 154,            // live via MCP (yowGb1tOMe3X)
+  copiedOpenSearch: 73,   // live via MCP (JOTETVLPeJKh)
   wordDownloads: 3,       // live via MCP (3EkjBy6jYByB)
   excelDownloads: 3,      // live via MCP (FIw2VjBWkJ6J)
   lwa: {
@@ -2446,11 +2444,11 @@ const AUGUST = {
   csat: "33.3%",          // manual — 3 respuestas (3,5,1) · top-2 box 1/3 · avg 3.00
   totalCountries: 32,
   countries: [
-    { name: "United States (HQ)",      code: "US", users: 194, pct: 50 },
-    { name: "Netherlands",             code: "NL", users: 31,  pct: 8 }, // REVISAR: atípico para BID, posible VPN/tráfico no humano
+    { name: "United States (HQ)",      code: "US", users: 199, pct: 50 },
+    { name: "Netherlands",             code: "NL", users: 32,  pct: 8 }, // REVISAR: atípico para BID, posible VPN/tráfico no humano
     { name: "Colombia",                code: "CO", users: 25,  pct: 6 },
+    { name: "Argentina",               code: "AR", users: 17,  pct: 4 },
     { name: "Brazil",                  code: "BR", users: 17,  pct: 4 },
-    { name: "Argentina",               code: "AR", users: 16,  pct: 4 },
     { name: "Uruguay",                 code: "UY", users: 12,  pct: 3 },
     { name: "Peru",                    code: "PE", users: 11,  pct: 3 },
     { name: "Mexico",                  code: "MX", users: 10,  pct: 3 },
@@ -2462,7 +2460,7 @@ const AUGUST = {
     { name: "Suriname",                code: "SR", users: 6,   pct: 2 },
     { name: "Cayman Islands",          code: "KY", users: 5,   pct: 1 },
     { name: "Trinidad & Tobago",       code: "TT", users: 5,   pct: 1 },
-    { name: "Chile",                   code: "CL", users: 3,   pct: 1 },
+    { name: "Chile",                   code: "CL", users: 4,   pct: 1 },
     { name: "El Salvador",             code: "SV", users: 3,   pct: 1 },
     { name: "Guatemala",               code: "GT", users: 3,   pct: 1 },
     { name: "Barbados",                code: "BB", users: 2,   pct: 1 },
@@ -2470,13 +2468,13 @@ const AUGUST = {
     { name: "Honduras",                code: "HN", users: 2,   pct: 1 },
     { name: "Jamaica",                 code: "JM", users: 2,   pct: 1 },
     { name: "Nicaragua",               code: "NI", users: 2,   pct: 1 },
+    { name: "Paraguay",                code: "PY", users: 2,   pct: 1 },
     { name: "Austria",                 code: "AT", users: 1,   pct: 0 },
     { name: "Dominican Republic",      code: "DO", users: 1,   pct: 0 },
     { name: "Germany",                 code: "DE", users: 1,   pct: 0 },
     { name: "Guyana",                  code: "GY", users: 1,   pct: 0 },
     { name: "Ireland",                 code: "IE", users: 1,   pct: 0 },
     { name: "Korea, Rep.",             code: "KR", users: 1,   pct: 0 },
-    { name: "Paraguay",                code: "PY", users: 1,   pct: 0 },
     { name: "Sweden",                  code: "SE", users: 1,   pct: 0 },
   ],
 };
@@ -2741,10 +2739,10 @@ const FUNNELS = {
       title: "Open Search",
       intro: "Someone asks a question in the search box, then takes content away. Unique users, same session, segment Sin DEV.",
       steps: [
-        { label: "Opens KP", n: 275 },
-        { label: "Runs a search", n: 112, time: "23s" },
-        { label: "Highlights content", n: 42, time: "2m 10s" },
-        { label: "Copies it", n: 23, time: "1.5s" },
+        { label: "Opens KP", n: 281 },
+        { label: "Runs a search", n: 116, time: "23s" },
+        { label: "Highlights content", n: 43, time: "2m 12s" },
+        { label: "Copies it", n: 24, time: "1.6s" },
       ],
       compare: [248, 109, 47, 30],
       compareLabel: "July",
@@ -2753,15 +2751,15 @@ const FUNNELS = {
         n: 11,
         from: 1,
         time: "3m 4s",
-        note: "11 of the 112 who searched, 9.8%. Across the five months this share stays between 7.5% and 10.5% — considerably steadier than the copy rate above it.",
+        note: "11 of the 116 who searched, 9.5%. Across the five months this share stays between 7.5% and 10.5% — considerably steadier than the copy rate above it.",
       },
-      note: "8.4% end to end, against 12.1% in July. The top of the funnel finished above July — 275 entries against 248, 112 searches against 109 — but copies landed at 23 against 30, and that last step is what keeps the rate below July's.",
+      note: "8.5% end to end, against 12.1% in July. The top of the funnel finished well above July — 281 entries against 248, 116 searches against 109 — but copies landed at 24 against 30, and that last step is what keeps the rate below July's. The month grew at the entrance and shrank at the exit.",
     },
     contextual: {
       title: "Contextual search · pills",
       intro: "Someone opens a pill — Similar Projects, Lessons Learned, Literature, Institutional Documents or Data — then takes content away. Same entry point as above, so the two are directly comparable.",
       steps: [
-        { label: "Opens KP", n: 275 },
+        { label: "Opens KP", n: 281 },
         { label: "Opens a pill", n: 37, time: "51s" },
         { label: "Highlights content", n: 9, time: "5m 26s" },
         { label: "Copies it", n: 3, time: "1.0s" },
@@ -2780,7 +2778,7 @@ const FUNNELS = {
     synthesis: [
       {
         lead: "Reading the two together.",
-        body: "Both surfaces start from the same 275 people. Open Search pulls 41% of them into a query; the pills pull 13%. But the real gap opens after that: of those who search, 21% end up copying something, against 8% of those who open a pill. The pills are not just less used — they convert worse per visit.",
+        body: "Both surfaces start from the same 281 people. Open Search pulls 41% of them into a query; the pills pull 13%. But the real gap opens after that: of those who search, 21% end up copying something, against 8% of those who open a pill. The pills are not just less used — they convert worse per visit.",
       },
       {
         lead: "Reading the five months together.",
@@ -2789,7 +2787,7 @@ const FUNNELS = {
     ],
     pills: {
       title: "Which pill converts · Apr 1 – Aug 31, 2026",
-      intro: "The same contextual funnel, one pill at a time. Measured over the full five months rather than August alone: August has 37 pill openings in total, and splitting those five ways yields nothing readable. All five share the same entry point (1,283 users), so the columns are comparable across rows.",
+      intro: "The same contextual funnel, one pill at a time. Measured over the full five months rather than August alone: August has 37 pill openings in total, and splitting those five ways yields nothing readable. All five share the same entry point (1,287 users), so the columns are comparable across rows.",
       rows: [
         { pill: "Lessons Learned",         opens: 112, highlight: 29, copy: 12 },
         { pill: "Similar Projects",        opens: 110, highlight: 27, copy: 10 },
@@ -2814,7 +2812,7 @@ const FUNNELS = {
         { pill: "Institutional Documents", values: [14, 10, 19, 9,  11] },
         { pill: "Data",                    values: [0,  3,  19, 12, 14] },
       ],
-      note: "* August covers Aug 1–31, pulled while day 31 was still running. Segment Sin DEV. Monthly figures do not sum to the pooled totals above: someone who opens a pill in two different months counts once in the pooled figure and twice here.",
+      note: "* August is the closed full month. Segment Sin DEV. Monthly figures do not sum to the pooled totals above: someone who opens a pill in two different months counts once in the pooled figure and twice here.",
       takeaways: [
         {
           lead: "Data is not the weakest pill — it is the newest.",
@@ -3337,7 +3335,7 @@ function MetricInfo({ m }) {
 
 // ── AUGUST MONTHLY VIEW ───────────────────────────────────
 function AugustMonthly() {
-  const MONTH = "August 2026 — through Aug 31";
+  const MONTH = "August 2026";
   const [showAllCountries, setShowAllCountries] = useState(false);
 
   const MCard = (p) => <MonthMetricCard {...p} variant="august" momentumLabel="July" />;
@@ -3383,15 +3381,15 @@ function AugustMonthly() {
               ["Latency (median)", AUGUST.latency ?? "pending"],
               ["CSAT", AUGUST.csat ?? "pending"],
               ["Avg active time / session", AUGUST.avgTime],
-              ["Cumulative users (Sep 1-Aug 31)", "1,940"],
-              ["Cumulative prompters (Sep 1-Aug 31)", "857"],
-              ["Cumulative penetration", "53.9%"],
+              ["Cumulative users (Sep 1-Aug 31)", "1,943"],
+              ["Cumulative prompters (Sep 1-Aug 31)", "859"],
+              ["Cumulative penetration", "54.0%"],
             ];
             const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
             const blob = new Blob([csv], { type: "text/csv" });
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
-            a.href = url; a.download = `KP_Monthly_August_2026_partial.csv`; a.click();
+            a.href = url; a.download = `KP_Monthly_August_2026_final.csv`; a.click();
             URL.revokeObjectURL(url);
           }}
           style={{ fontFamily: "inherit", fontSize: 10, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: 6, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
@@ -3405,10 +3403,10 @@ function AugustMonthly() {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {[
-            { label: "Users reached", value: "1,940" },
-            { label: "Prompters", value: "857" },
-            { label: "Sessions", value: "15,812" },
-            { label: "Penetration of 3,600", value: "53.9%" },
+            { label: "Users reached", value: "1,943" },
+            { label: "Prompters", value: "859" },
+            { label: "Sessions", value: "15,842" },
+            { label: "Penetration of 3,600", value: "54.0%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -3419,10 +3417,10 @@ function AugustMonthly() {
       </div>
 
       {/* ── GENERAL USABILITY ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (August · partial)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (August)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard meta="users" label="Users reached" value={String(AUGUST.users)} desc="Unique people who used KP so far in August" accent momentum={JULY.users} />
-        <MCard meta="sessions" label="Sessions" value={String(AUGUST.sessions)} desc="Total for the period so far" momentum={JULY.sessions} />
+        <MCard meta="users" label="Users reached" value={String(AUGUST.users)} desc="Unique people who used KP in August" accent momentum={JULY.users} />
+        <MCard meta="sessions" label="Sessions" value={String(AUGUST.sessions)} desc="Total for the month" momentum={JULY.sessions} />
         <MCard meta="avgTime" label="Avg active time / session" value={AUGUST.avgTime} desc="Active time per session · live via MCP" momentum={parseFloat(JULY.avgTime)} small />
         <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
@@ -3433,7 +3431,7 @@ function AugustMonthly() {
           <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
             <span>{AUGUST.users} users</span><span>3,600 total</span>
           </div>
-          <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants (partial month)</div>
+          <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants</div>
         </div>
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(AUGUST.prompters)} desc={`${Math.round(AUGUST.prompters/AUGUST.users*100)}% of users reached · live via MCP`} accent momentum={JULY.prompters} />
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${AUGUST.tourCompletion}%`} desc="Users who finished the tour · live via MCP" momentum={JULY.tourCompletion} />
@@ -3444,7 +3442,7 @@ function AugustMonthly() {
       {/* Geo */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}><span>🌎 Geographic Reach — {AUGUST.totalCountries} countries (through Aug 31)</span><MetricInfo m={META.countries} /></span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}><span>🌎 Geographic Reach — {AUGUST.totalCountries} countries</span><MetricInfo m={META.countries} /></span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
           <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
@@ -3488,7 +3486,7 @@ function AugustMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── CONTEXTUAL SEARCH ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (August · partial)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (August)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard meta="pillPageviews" label="Queries (pill views)" value={String(AUGUST.pillPageviews)} desc="Total visits across all contextual search pills · live via MCP" accent momentum={JULY.pillPageviews} />
         <MCard label="Most used pill — Lessons Learned" value="44" desc="interactions · leads again (Similar Projects 19) · live via MCP" small />
@@ -3499,7 +3497,7 @@ function AugustMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── KNOWLEDGE ASSISTANT ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (August · partial)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (August)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(AUGUST.prompters)} desc={`${Math.round(AUGUST.prompters/AUGUST.users*100)}% of users reached`} accent momentum={JULY.prompters} />
         <MCard meta="prompts" label="Prompts sent" value={null} desc="Manual — pass at close" accent />
@@ -3524,7 +3522,7 @@ function AugustMonthly() {
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6, display: "flex", alignItems: "center", gap: 5 }}><span>CSAT — Customer Satisfaction Score</span><MetricInfo m={META.csat} /></div>
           <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>{AUGUST.csat}</div>
           <div style={{ fontSize: 10, color: INK3, marginTop: 4, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-            <span>3 responses · avg 3.00 / 5 ★ · August 2026 (sample as of Aug 18 — not refreshed with the Aug 31 pull)</span>
+            <span>3 responses · avg 3.00 / 5 ★ · August 2026 (sample as of Aug 18 — not refreshed at close)</span>
             <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: "#fef0ee", color: RED }}>↓ 66.7pp vs July</span>
           </div>
         </div>
@@ -3548,21 +3546,21 @@ function AugustMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── CONTENT ENGAGEMENT ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (August · partial)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (August)</div>
       <ContentEngagementCard
-        total={519}
-        openSearch={304}
-        contextual={215}
-        rows={[["Highlights", 206, 139], ["Copies", 71, 75], ["Source clicks", 21, 1], ["Downloads", 6, 0]]}
+        total={548}
+        openSearch={310}
+        contextual={238}
+        rows={[["Highlights", 210, 156], ["Copies", 73, 81], ["Source clicks", 21, 1], ["Downloads", 6, 0]]}
         note={"Downloads: 3 Word · 3 Excel."}
-        split={"OS/Contextual split 59/41 — still far more balanced than July's 90/10."}
+        split={"OS/Contextual split 57/43 — the most balanced month of the series, against July's 90/10."}
       />
 
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── LWA (simplified) ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (August · partial)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (August)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="lessonsGenerated" label="Lessons generated" value={String(AUGUST.lwa.lessonsGenerated)} desc="Manual — from console · figure pending confirmation" accent />
         <MCard meta="lwaShare" label="Shares" value={String(AUGUST.lwa.share)} desc="Lessons shared · live via MCP" />
@@ -3585,31 +3583,31 @@ function AugustMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* Signals — executive */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — full month (through Aug 31)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — August, closed</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${GREEN}` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration at 53.9%</div>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration reaches 54%</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            1,940 cumulative users — +122 net-new over the month (July closed at 1,818), and 53.9% of the bank reached. Adoption keeps compounding past the halfway mark with no active campaign.
+            1,943 cumulative users — +125 net-new over the month, against July's close of 1,818, and 54.0% of the bank reached. Adoption keeps compounding past the halfway mark with no active campaign behind it.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>August closes above July on both counts</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            281 users · 1,230 sessions, against July's 250 and 1,226. Users are up 12% and sessions edge ahead, so what read as a summer trough in July has reversed. Read the two together with the engagement figure below: more people came, and each session was shorter.
+            287 users · 1,260 sessions, against July's 250 and 1,226 — up 15% and 3%. What read as a summer trough in July has reversed, and August is the strongest month for users since May. Read it together with active time per session, which fell from 20.4s to 15.0s: more people came, and each visit was shorter.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach widens, Netherlands dilutes</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            32 countries. Netherlands stays #2 and kept growing, to 31 users, while its share held at 8% — the erosion of earlier months (11% → 9% → 8%) has stopped. A count that keeps rising at a fixed share is still consistent with an automated source rather than a user base, and it stays flagged, pending confirmation. Mexico climbed to 10 users, level with Panama.
+            32 countries at close. Netherlands finishes #2 with 32 users and its share held at 8% — the erosion of earlier months (11% → 9% → 8%) has stopped. A count that keeps rising at a fixed share is still consistent with an automated source rather than a user base, and it stays flagged, pending confirmation. Argentina climbed to 17, level with Brazil, and Mexico to 10, level with Panama.
           </p>
         </div>
       </div>
 
       {/* Pending sections note */}
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + all 5 pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA — all pulled directly from FullStory dashboard widgets by ID. <strong style={{ color: INK2 }}>Loaded manually:</strong> CSAT (33.3%, n=3, sample as of Aug 18, not refreshed). <strong style={{ color: INK2 }}>Pending, and each one checked against a candidate metric that failed:</strong> prompts sent — the closest metric returns 108 for July against the 415 on record, so it counts one submit button and not prompts; new users — the metric named "Usuarios nuevos" is defined as any-activity unique users and returns exactly the MAU figure; returning users and answer latency — no metric exists at all. None were filled with estimates. Figures cover Aug 1–31, pulled while day 31 was still running; the definitive close replaces this pull.
+        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + all 5 pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA — all pulled directly from FullStory dashboard widgets by ID. <strong style={{ color: INK2 }}>Loaded manually:</strong> CSAT (33.3%, n=3, sample as of Aug 18, not refreshed). <strong style={{ color: INK2 }}>Pending, and each one checked against a candidate metric that failed:</strong> prompts sent — the closest metric returns 108 for July against the 415 on record, so it counts one submit button and not prompts; new users — the metric named "Usuarios nuevos" is defined as any-activity unique users and returns exactly the MAU figure; returning users and answer latency — no metric exists at all. None were filled with estimates. Figures cover the closed month, Aug 1–31, pulled on Sep 1.
       </div>
 
       <QualitativeSection q={QUALITATIVE.august} />
@@ -3818,7 +3816,7 @@ export default function App() {
   const [launchOpen, setLaunchOpen] = useState(false);
 
   const MONTHS = [
-    { id: "august",  label: "August 2026 · partial (live MCP)" },
+    { id: "august",  label: "August 2026 · final (live MCP)" },
     { id: "july",    label: "July 2026" },
     { id: "june",    label: "June 2026" },
     { id: "may",     label: "May 2026" },
