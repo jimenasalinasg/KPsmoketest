@@ -101,6 +101,51 @@ de confirmar roto o inalcanzable — pero **eso no es evidencia sobre usuarios**
 (`Lessons-Catalogue-Button-View`, `Lesson-Title-Catalog-Clicked`) están en 0
 mientras sus hermanos del mismo catálogo disparan. Pendiente de mirar en sesión.
 
+### `first_time` y `returningUsers` — receta (resuelto 1-sep-2026)
+
+`compute_metric` **no puede** expresar «first seen»: hay que armarlo como
+**segmento** y leer `matching_users` con `get_sessions(segment_id, limit=1)`.
+
+**La receta**, replicando las dos condiciones reales de Sin DEV:
+
+```
+build_segment(
+  query = "users whose first seen date is between <inicio> and <fin> "
+          "who visited url entire URL is https://knowledgeplatform.iadb.org/home",
+  start_date = <inicio>, end_date = <fin>)
+get_sessions(segment_id, limit=1)   -> matching_users = nuevos del mes
+```
+
+`returningUsers` = `users` − `first_time`. Son los que ya conocían KP.
+
+**No hace falta excluir los mails del equipo.** `get_sessions` **falla** con
+`unspecified error` si el segmento lleva `excludeUserProperties`. Se resuelve al
+revés: construir el segmento *incluyendo* solo los 28 mails y verificar que da
+**0**. Comprobado para julio y agosto 2026 — el equipo no tiene altas nuevas.
+
+| Mes | Nuevos (Sin DEV) | Recurrentes | users |
+|---|---:|---:|---:|
+| jul 2026 | 86 | 164 | 250 |
+| ago 2026 | 125 | 162 | 287 |
+
+#### Por qué los valores viejos no cerraban
+
+Los `first_time` que estaban cargados se computaban **org-wide**: sin el segmento
+y sin la condición de `/home`. Reproducido exacto: julio org-wide da **156**, que
+es justo lo que estaba publicado, y agosto org-wide da **215**. Medían otra
+población que `users`, que sí es Sin DEV, y por eso la resta nunca daba.
+
+**Al computarlos, mirar siempre el denominador.** Si el panel de FullStory dice
+«X Users of 395», ese 395 es org-wide; el nuestro es 287. Si no coincide, el
+número no es Sin DEV.
+
+#### Y no confundir con «2+ sesiones en el mes»
+
+Son cosas distintas y convivían en el mismo panel. `returningUsers` es **quien ya
+conocía KP antes del mes**, no quien volvió varias veces dentro del mes. Para
+referencia, agosto tiene 158 usuarios con 2+ visitas a `/home` — parecido de
+tamaño a los 162 recurrentes, pero mide otra cosa. No mezclarlos.
+
 ### Regla: `compute_metric` NO acepta segmento
 
 `compute_metric` no tiene parámetro de segmento. El segmento tiene que estar
@@ -178,8 +223,7 @@ Usa los mismos IDs: `a30wnMzqgtJk` (users), `3GVbGeJsPBCb` (prompters), `BhsN9vx
 Nunca inventar. Si no hay valor, dejar `null` y listarlo como pendiente en el PR.
 
 - `prompts` — prompts enviados
-- `first_time` — usuarios nuevos
-- `returningUsers` — usuarios recurrentes
+- ~~`first_time`~~ y ~~`returningUsers`~~ — **resueltos el 1-sep-2026, ver §4**
 - `latency` — latencia de respuesta. No existe métrico.
   **Ojo, no confundir con `avgTime`:** ese sí tiene métrico (`vpWvDQswlPB4`, tiempo
   activo por sesión) pero mide engagement, no velocidad de respuesta. Estaban
