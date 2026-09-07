@@ -2412,7 +2412,7 @@ const AUGUST = {
   sessions: 1260,
   users: 287,
   prompters: 117,         // live via MCP (metric 3GVbGeJsPBCb)
-  prompts: null,          // manual — NO hay metrico. 1fbmp2OI4wee ("Prompts por usuario") NO sirve: da 108 para julio contra los 415 cargados, y devuelve una tabla por email
+  prompts: 634,           // manual — admin console (no FullStory metric). 1fbmp2OI4wee ("Prompts por usuario") NO sirve: da 108 para julio contra los 415 cargados, y devuelve una tabla por email
   returningUsers: 162,    // Sin DEV — users (287) menos nuevos (125). Recurrentes de meses anteriores
   first_time: 125,        // Sin DEV — segmento firstSeen en rango + visito /home de produccion. Ver §4 del checklist para la receta
   tourCompletion: 51,     // live via MCP (iN3brKBr4rlY) — 50.93 redondeado
@@ -2440,7 +2440,7 @@ const AUGUST = {
     sharedCatalogueView: 0, // live via MCP (gEJ1qqiZ2Df9) — feature nueva, baseline
   },
   latency: null,          // manual
-  csat: "33.3%",          // manual — 3 respuestas (3,5,1) · top-2 box 1/3 · avg 3.00
+  csat: "40%",            // manual — 5 respuestas (3,5,1,1,4) · top-2 box 2/5 · avg 2.80 (full month, closed 2026-09-07)
   totalCountries: 32,
   countries: [
     { name: "United States (HQ)",      code: "US", users: 199, pct: 50 },
@@ -3622,7 +3622,7 @@ function AugustMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (August)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(AUGUST.prompters)} desc={`${Math.round(AUGUST.prompters/AUGUST.users*100)}% of users reached`} accent momentum={JULY.prompters} />
-        <MCard meta="prompts" label="Prompts sent" value={null} desc="Manual — pass at close" accent />
+        <MCard meta="prompts" label="Prompts sent" value={String(AUGUST.prompts)} desc="Median: 1 per prompter · manual, admin console" accent momentum={JULY.prompts} />
         <MCard meta="latency" label="Latency" value={null} desc="Manual — pass at close" small />
         <MCard meta="sourceClicks" label="Source panel clicks" value={String(AUGUST.sourceClicks)} desc="Clicks on source panel · live via MCP" momentum={JULY.sourceClicks} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
@@ -3644,22 +3644,22 @@ function AugustMonthly() {
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6, display: "flex", alignItems: "center", gap: 5 }}><span>CSAT — Customer Satisfaction Score</span><MetricInfo m={META.csat} /></div>
           <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>{AUGUST.csat}</div>
           <div style={{ fontSize: 10, color: INK3, marginTop: 4, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-            <span>3 responses · avg 3.00 / 5 ★ · August 2026 (sample as of Aug 18 — not refreshed at close)</span>
-            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: "#fef0ee", color: RED }}>↓ 66.7pp vs July</span>
+            <span>5 responses · avg 2.80 / 5 ★ · August 2026 (full month, closed 2026-09-07)</span>
+            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: "#fef0ee", color: RED }}>↓ 60.0pp vs July</span>
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           <div style={{ padding: "8px 12px", background: "#edfaf4", border: "1px solid #a7f3d0", borderRadius: 7, fontSize: 10, color: "#065f46" }}>
-            👍 <strong>1 positive (5★):</strong> "I quickly found what I was looking for" · "The content was clear" · "The experience was simple and smooth"
+            👍 <strong>2 positive (5★, 4★):</strong> "I quickly found what I was looking for" · "The content was clear" · "The experience was simple and smooth" · "The platform was useful for my work"
           </div>
           <div style={{ padding: "8px 12px", background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 7, fontSize: 10, color: "#92400e" }}>
             😐 <strong>1 neutral (3★):</strong> "The platform could be more useful to my work" — genuine product signal on perceived usefulness.
           </div>
           <div style={{ padding: "8px 12px", background: "#fef0ee", border: "1px solid #fecaca", borderRadius: 7, fontSize: 10, color: "#991b1b" }}>
-            👎 <strong>1 negative (1★):</strong> "The platform is empty, only showing access to a program" — reads as a technical or access-permissions fault, not a satisfaction judgement.
+            👎 <strong>2 negative (1★, 1★):</strong> "The platform is empty, only showing access to a program" — reads as a technical or access-permissions fault, not a satisfaction judgement. · "plataforma confusa, abri e não aparecia nada e ao mover o mouse a página começou a recarregar... muito estranha essa UX" — describes a rendering/reload bug, also technical rather than a satisfaction judgement.
           </div>
           <div style={{ padding: "8px 12px", background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 7, fontSize: 10, color: "#92400e" }}>
-            ⚠ <strong>Do not read this as a satisfaction collapse.</strong> With n=3, one response moves the score 33pp — the figure is not representative. Applying June's precedent, the 1★ "empty platform" report should be logged as a separate technical ticket rather than counted as a UX signal; excluding it, the remaining two responses split 1 positive / 1 neutral. Partial month — recompute at close.
+            ⚠ <strong>Read with caution: n=5.</strong> Full-month sample. Both negative reports describe technical/rendering issues (empty page on open, mouse-triggered reload) rather than dissatisfaction with content or usefulness — consistent with June's precedent of tracking technical complaints separately from satisfaction signal. Excluding both as technical tickets, the remaining three responses split 2 positive / 1 neutral.
           </div>
         </div>
       </div>
@@ -3729,7 +3729,7 @@ function AugustMonthly() {
 
       {/* Pending sections note */}
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + all 5 pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA — all pulled directly from FullStory dashboard widgets by ID. <strong style={{ color: INK2 }}>Loaded manually:</strong> CSAT (33.3%, n=3, sample as of Aug 18, not refreshed). <strong style={{ color: INK2 }}>New and returning users</strong> are now computed on the Sin DEV population — first seen inside the month, built as a segment because metrics cannot express First Seen. The figures previously carried for July were org-wide and have been restated. <strong style={{ color: INK2 }}>Still pending:</strong> prompts sent — the closest metric returns 108 for July against the 415 on record, so it counts one submit button and not prompts; and answer latency — no metric exists at all. Neither was filled with estimates. Figures cover the closed month, Aug 1–31, pulled on Sep 1.
+        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + all 5 pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA — all pulled directly from FullStory dashboard widgets by ID. <strong style={{ color: INK2 }}>Loaded manually:</strong> CSAT (40%, n=5, full month, closed Sep 7) and prompts sent (634, from the admin console — no FullStory metric covers this; the closest candidate returns 108 for July against the 415 on record, so it counts one submit button and not prompts). <strong style={{ color: INK2 }}>New and returning users</strong> are now computed on the Sin DEV population — first seen inside the month, built as a segment because metrics cannot express First Seen. The figures previously carried for July were org-wide and have been restated. <strong style={{ color: INK2 }}>Still pending:</strong> answer latency — no metric exists at all, and was not filled with an estimate. Figures cover the closed month, Aug 1–31, pulled on Sep 1.
       </div>
 
       <CohortSection c={COHORTS.august} />
