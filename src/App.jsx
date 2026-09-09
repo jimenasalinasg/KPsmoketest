@@ -17,6 +17,55 @@ const BLUE_L = "#eaf2fc";
 const BLUE_M = "#c2d9f7";
 const BLUE_D = "#2c6cb5";
 
+// ── ACCESS GATE ────────────────────────────────────────────
+// Client-side only: keeps the dashboard from showing up to casual/
+// indexed traffic. NOT real access control — the password and all
+// data still ship in the JS bundle to any browser that loads the page.
+// See conversation notes if a real (server-enforced) gate is needed later.
+const DASH_PASSWORD = "Knowledge2026";
+const AUTH_KEY = "kp_dashboard_authed";
+
+function PasswordGate({ children }) {
+  const [authed, setAuthed] = useState(() => {
+    try { return localStorage.getItem(AUTH_KEY) === "1"; } catch { return false; }
+  });
+  const [value, setValue] = useState("");
+  const [error, setError] = useState(false);
+
+  if (authed) return children;
+
+  const submit = (e) => {
+    e.preventDefault();
+    if (value === DASH_PASSWORD) {
+      try { localStorage.setItem(AUTH_KEY, "1"); } catch {}
+      setAuthed(true);
+    } else {
+      setError(true);
+    }
+  };
+
+  return (
+    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: BG, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+      <form onSubmit={submit} style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 12, padding: "32px 28px", width: 300, boxShadow: "0 8px 24px rgba(10,35,66,0.08)" }}>
+        <div style={{ fontSize: 13, fontWeight: 600, color: INK, marginBottom: 4 }}>IDB Knowledge Platform</div>
+        <div style={{ fontSize: 11, color: INK3, marginBottom: 18 }}>Post Go-live Key Metrics — restricted</div>
+        <input
+          type="password"
+          autoFocus
+          value={value}
+          onChange={(e) => { setValue(e.target.value); setError(false); }}
+          placeholder="Password"
+          style={{ width: "100%", boxSizing: "border-box", fontFamily: "inherit", fontSize: 13, padding: "9px 12px", border: `1px solid ${error ? RED : BDR}`, borderRadius: 7, outline: "none", marginBottom: 10 }}
+        />
+        {error && <div style={{ fontSize: 11, color: RED, marginBottom: 10 }}>Contraseña incorrecta.</div>}
+        <button type="submit" style={{ width: "100%", fontFamily: "inherit", fontSize: 12, fontWeight: 600, padding: "10px 12px", border: "none", borderRadius: 7, cursor: "pointer", background: BLUE, color: "#fff" }}>
+          Entrar
+        </button>
+      </form>
+    </div>
+  );
+}
+
 // ── CONFIG — update these when you have data ─────────────
 const GO_LIVE_DATE = "March 31, 2026";
 const SMOKE_WINDOW = "Mar 31 – Apr 1, 2026";
@@ -3934,7 +3983,7 @@ function Benchmark() {
 }
 
 // ── APP ───────────────────────────────────────────────────
-export default function App() {
+function App() {
   const [view, setView] = useState("august");
   const [monthOpen, setMonthOpen] = useState(false);
   const [launchOpen, setLaunchOpen] = useState(false);
@@ -4033,5 +4082,13 @@ export default function App() {
         IDB Knowledge Platform · Post Go-live Key Metrics · Go-live {GO_LIVE_DATE}
       </div>
     </div>
+  );
+}
+
+export default function Gated() {
+  return (
+    <PasswordGate>
+      <App />
+    </PasswordGate>
   );
 }
