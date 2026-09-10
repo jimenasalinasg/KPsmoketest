@@ -1,5 +1,6 @@
 import { useState, Fragment } from "react";
 import shotAug from "./assets/session-s01-aug2026.png";
+import shotSep from "./assets/session-s01-sep2026.png";
 
 
 
@@ -3053,6 +3054,79 @@ function PillMonthlyTable({ months, rows, note }) {
 // ANONIMIZADO: sin nombre, sin mail, sin ciudad. Los links van a FullStory,
 // que pide login — la identidad solo la ve quien ya tiene acceso.
 const QUALITATIVE = {
+  september: {
+    kicker: "Qualitative — session sweep",
+    title: "What people actually do here · sampled Sep 1–10",
+    intro: "Five sessions read end to end, sampled across the funnel strata for the first ten days: some who searched and copied, some who searched and left, some who opened a pill and stopped. This is the partial-month read; the full close replaces it. Read for what people came to do, what they took away, and what got in the way.",
+    shot: {
+      src: shotSep,
+      alt: "The Knowledge Platform mid-session: a long research protocol pasted as the prompt, instructing the assistant to answer only from IDB Group documents and cite each with title, operation number, country and date; the answer comes back as a table, and the Sources Overview panel is open on the right listing more than a dozen loan proposals and completion reports from across the region.",
+      session: "S-01",
+      place: "US",
+      url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6876446644364478952:5154621503159138924:1788376325917",
+      caption: "One frame from S-01, the deepest session of the ten days. What sits in the prompt box is not a question — it is a research protocol, pasted in: cite every document with title, operation number, country and date; separate what a document asserts from what it evidences; flag findings that rest only on a Loan Proposal. The answer comes back as a table, and the sources panel lists more than a dozen operations across the region. This is what the product looks like when someone uses it as an evidence engine rather than a search box.",
+      redaction: "The user's profile photo has been replaced with a blank disc. Nothing else is altered. No name, email or city appears in the frame; the document codes are published IDB operation numbers.",
+    },
+    themes: [
+      {
+        tag: "New use case",
+        tone: "green",
+        title: "They are running systematic evidence reviews, not searches",
+        body: "One user pasted the same long research protocol as a preamble and then pasted eleven different topics under it, one at a time — executing agency capacity, market response, cost estimation, contract execution, consulting services, integrity, country systems, accelerators, external shocks, small islands. Every query was composed somewhere else and pasted in; after each answer they copied an extract out. Over three hours, across two sittings.",
+        quote: "«Answer only from IDB Group documents and cite each one with title, operation number, country, and date… Distinguish what a document asserts from what it evidences, and say when a finding rests only on a Loan Proposal.»",
+        soWhat: "This is a literature review being run through a chat box. The protocol lives in the user's own document, not in the product, and every one of the eleven runs is a manual round trip. Saved prompts, or a way to run one protocol across a list of topics, would collapse that. It also puts the pending prompts-sent metric in perspective: a single user can account for a dozen in an afternoon.",
+        sessions: [{ id: "S-01", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6876446644364478952:5154621503159138924:1788376325917", place: "US" }],
+      },
+      {
+        tag: "Bug",
+        tone: "red",
+        title: "The contextual pills failed to load, with a technical-difficulties banner",
+        body: "One user clicked Similar projects from a project card. The console logged an error loading pills and the app showed a technical-difficulties alert, which they dismissed. They went back to the home page and used Open Search instead, then tried Lessons learned on a second project and left without extracting anything. Four minutes, nothing taken away. This was one of the two pill sessions read end to end; the other loaded normally.",
+        soWhat: "The contextual surface has converted badly for five months and the reading so far has been that it is a coverage problem. This is direct evidence that at least part of it is a load failure. Before the pills are opened to all users and all bank projects, someone should measure the pill error rate — expanding a surface that errors multiplies the errors rather than the value.",
+        sessions: [{ id: "S-03", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/9143185190976305052:2226269787813896416:1788453965577", place: "US" }, { id: "S-04", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6390604598236346002:8279628477281202381:1788967392967", place: "Uruguay" }],
+      },
+      {
+        tag: "Coverage gap",
+        tone: "amber",
+        title: "Asked for twenty more reports, told there were none",
+        body: "The same user asked for twenty Project Completion Reports beyond the ones already listed. The answer opened with a flat “0 of the 20 are new.” They highlighted that sentence and copied it — copied the complaint, not the answer — then re-scoped the same question twice, once restricted to completion reports and once rewritten in Spanish, and got no further.",
+        quote: "«0 of the 20 are new.»",
+        soWhat: "A user reaching for breadth hits a ceiling and cannot tell whether it is the corpus or the retrieval. That distinction is the AI team's to make, not the interface's, but the interface is where it surfaces — and right now it surfaces as a dead end with no next step offered.",
+        sessions: [{ id: "S-01", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6876446644364478952:5154621503159138924:1788376325917", place: "US" }],
+      },
+      {
+        tag: "Friction",
+        tone: "amber",
+        title: "The guided tour still fires on top of work in progress",
+        body: "Third month running. One user was interrupted mid-session and had to click through the overlay to reach Skip tour. Two more skipped it within seconds of arriving, one of them after pressing Next twice first. Nobody in the sample finished it on purpose.",
+        soWhat: "Tour completion at 43% keeps counting dismissals as completions. The fix — never interrupt an in-flight query — has been cheap and available since the August sweep and is still not done.",
+        sessions: [{ id: "S-01", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6876446644364478952:5154621503159138924:1788376325917", place: "US" }, { id: "S-04", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6390604598236346002:8279628477281202381:1788967392967", place: "Uruguay" }, { id: "S-02", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/1101650464059151204:613502868302385563:1788962855045", place: "Chile · mobile" }],
+      },
+      {
+        tag: "Friction",
+        tone: "amber",
+        title: "Switching language sends you back to the start",
+        body: "One user opened a Similar projects pill on a project, clicked Load more to see the rest of the list, then changed the interface language from the header — and landed back on the home page, with the project she had been reading gone.",
+        soWhat: "In a bank where people work across three languages and switch mid-session, the language control should preserve the page. Losing context is a strong reason not to switch, which quietly pushes people to work in a language that is not their first.",
+        sessions: [{ id: "S-04", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6390604598236346002:8279628477281202381:1788967392967", place: "Uruguay" }],
+      },
+      {
+        tag: "Opportunity",
+        tone: "blue",
+        title: "The clipboard is still doing the product's job",
+        body: "One user pasted a fragment into the follow-up box to re-scope an earlier question by topic; another pasted all eleven of their queries in from outside. Same pattern the August and July sweeps found: people edit and re-run by hand, through copy and paste, because there is no other way.",
+        soWhat: "Three consecutive months with the same finding. An edit-and-ask-again affordance remains the cheapest change on the list with a direct return in the funnel, and it has not moved.",
+        sessions: [{ id: "S-05", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2752461804141476301:2598460293861813366:1788810689969", place: "Dominican Republic" }, { id: "S-01", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6876446644364478952:5154621503159138924:1788376325917", place: "US" }],
+      },
+    ],
+    alsoNoted: [
+      "Mobile exists, and it does not work. One user arrived on an Android phone, skipped the tour, hid the disclaimer, typed a question in Spanish — and the session ended without it ever being sent. Eighty-seven seconds, two authentication errors in the console on load. It is the only mobile session in the sample and it produced nothing.",
+      "The feedback modal is being dismissed, not answered. The deepest session in the sample closed it twice. That is one concrete, observable reason CSAT sits at three responses a month: the survey is arriving as an interruption during work and being swatted away.",
+      "Pills do convert when they load. One user opened Lessons learned on a project, read for eight minutes, then came back and copied twice from the project header. Whatever is wrong with the contextual surface, the reading behaviour on the other side of it is real.",
+      "The reference items read as text, not as buttons. Repeated dead clicks on the summarized reference blocks, then a second click that worked — the same is-this-clickable pattern the August sweep found on the source-panel button, on a different control.",
+    ],
+    note: "Method: 5 sessions, sampled across funnel strata rebuilt for Sep 1–10 (completed through copy / dropped after searching / opened a pill and stopped), each read end to end as a transcript. The product team's own accounts were excluded from the sample, and every session was checked by identity before being used. Directional, not representative — at this sample size these are patterns worth checking, never percentages. Anonymised: no names, no emails, no cities. Session links open in FullStory and require an account. This is a 10-day partial read; the full close re-runs it over the whole month.",
+  },
   august: {
     kicker: "Qualitative — session sweep",
     title: "What people actually do here · sampled Aug 1–28",
@@ -4094,9 +4168,11 @@ function SeptemberMonthly() {
         </div>
       </div>
 
+      <QualitativeSection q={QUALITATIVE.september} />
+
       {/* Pending sections note */}
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + 4 confirmed pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA (except lessons generated) — all pulled directly from FullStory dashboard widgets by ID for Sep 1–10. <strong style={{ color: INK2 }}>New and returning users</strong> are computed on the Sin DEV population via the firstSeen segment recipe (checklist §4), same method as August's close. <strong style={{ color: INK2 }}>Still manual/pending:</strong> prompts sent, latency, CSAT (no survey responses yet this month), and LWA lessons generated (pulled from console at close). <strong style={{ color: INK2 }}>Not built yet:</strong> funnels, retention cohorts, and the qualitative session sweep — those land with the full close. This is a 10-day partial pull; the full month (through Sep 30) replaces it.
+        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + 4 confirmed pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA (except lessons generated) — all pulled directly from FullStory dashboard widgets by ID for Sep 1–10. <strong style={{ color: INK2 }}>New and returning users</strong> are computed on the Sin DEV population via the firstSeen segment recipe (checklist §4), same method as August's close. <strong style={{ color: INK2 }}>Still manual/pending:</strong> prompts sent, latency, CSAT (no survey responses yet this month), and LWA lessons generated (pulled from console at close). <strong style={{ color: INK2 }}>Not built yet:</strong> funnels and retention cohorts — those land with the full close. The qualitative sweep below is live for Sep 1–10 and is re-run over the whole month at close. This is a 10-day partial pull; the full month (through Sep 30) replaces it.
       </div>
 
     </div>

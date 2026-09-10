@@ -295,6 +295,8 @@ en la definición: para cerrar un mes nuevo hay que **reconstruir** el embudo co
 | Embudo | ID | Rango guardado |
 |---|---|---|
 | Open Search · ago 2026 **(cierre)** | `380466231` | 2026-08-01 → 2026-08-31 |
+| Open Search · sep 2026 (1–10, muestreo cuali) | `1524889128` | 2026-09-01 → 2026-09-10 |
+| Contextual (pills) · sep 2026 (1–10, muestreo cuali) | `1970924463` | 2026-09-01 → 2026-09-10 |
 | Open Search · jul 2026 | `813457909` | 2026-07-01 → 2026-07-31 |
 | Contextual (pills) · ago 2026 **(cierre)** | `1692594896` | 2026-08-01 → 2026-08-31 |
 | Contextual (pills) · jul 2026 | `1476024114` | 2026-07-01 → 2026-07-31 |
