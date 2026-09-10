@@ -3789,6 +3789,320 @@ function AugustMonthly() {
   );
 }
 
+// ── SEPTEMBER 2026 DATA ───────────────────────────────────
+// Preliminary — through Sep 10, 2026 (10 days in) · segmento Sin DEV (vía FullStory MCP)
+const SEPTEMBER = {
+  sessions: 607,
+  users: 170,
+  prompters: 69,           // live via MCP (metric 3GVbGeJsPBCb)
+  prompts: null,           // manual — NO hay metrico, pasa a mano al cierre
+  returningUsers: 98,      // Sin DEV — users (170) menos nuevos (72)
+  first_time: 72,          // Sin DEV — segmento firstSeen en rango + visito /home de produccion
+  tourCompletion: 43,      // live via MCP (iN3brKBr4rlY) — 43.18 redondeado
+  pillPageviews: 44,       // live via MCP (2EYT9yOW6odB)
+  sourceClicks: 6,         // live via MCP (Ge6P9qbIeu3b)
+  sourceClicksBC: 0,       // live via MCP (LD4uHOPIDS8l) — unique users, no eventos
+  thumbsUp: 0,             // live via MCP (AtpRWyuThJUq)
+  thumbsDown: 1,           // live via MCP (x6Z3q26RMOra)
+  promptGalleryClicks: 21, // live via MCP (lkwqkKIJQ25E)
+  recentSearchClicks: 0,   // live via MCP (nfcBnYjQSAfT)
+  newSearchClicks: 0,      // live via MCP (tU5aopeDHc1k)
+  highlighted: 124,        // live via MCP (cMgaz9YMCSJh)
+  highlightedOpenSearch: 78, // live via MCP (RQ6IjtoMbeD5)
+  copied: 58,              // live via MCP (yowGb1tOMe3X)
+  copiedOpenSearch: 31,    // live via MCP (JOTETVLPeJKh)
+  wordDownloads: 2,        // live via MCP (3EkjBy6jYByB)
+  excelDownloads: 0,       // live via MCP (FIw2VjBWkJ6J)
+  lwa: {
+    lessonsGenerated: null, // manual — se saca de consola, no traido todavia
+    share: 0,               // live via MCP (IHPlQ1WT1zEz)
+    copyLesson: 0,          // live via MCP (b46xecCQyFod)
+    highlightAndCopy: 0,    // live via MCP (azWUDLxYgaWY)
+    viewLesson: 0,          // live via MCP (o7uGz8LnXgZY)
+    sharedCatalogueView: 0, // live via MCP (gEJ1qqiZ2Df9)
+  },
+  latency: null,           // manual
+  csat: null,              // manual — todavia sin respuestas cargadas este mes
+  totalCountries: 29,
+  countries: [
+    { name: "United States (HQ)",      code: "US", users: 116, pct: 50 },
+    { name: "Colombia",                code: "CO", users: 18,  pct: 8 },
+    { name: "Uruguay",                 code: "UY", users: 11,  pct: 5 },
+    { name: "Peru",                    code: "PE", users: 10,  pct: 4 },
+    { name: "Netherlands",             code: "NL", users: 9,   pct: 4 }, // REVISAR: atipico para BID, posible VPN/trafico no humano
+    { name: "Spain",                   code: "ES", users: 7,   pct: 3 },
+    { name: "Argentina",               code: "AR", users: 6,   pct: 3 },
+    { name: "Mexico",                  code: "MX", users: 6,   pct: 3 },
+    { name: "Bahamas",                 code: "BS", users: 5,   pct: 2 },
+    { name: "Barbados",                code: "BB", users: 5,   pct: 2 },
+    { name: "Brazil",                  code: "BR", users: 5,   pct: 2 },
+    { name: "Chile",                   code: "CL", users: 5,   pct: 2 },
+    { name: "Costa Rica",              code: "CR", users: 5,   pct: 2 },
+    { name: "Panama",                  code: "PA", users: 5,   pct: 2 },
+    { name: "Cayman Islands",          code: "KY", users: 4,   pct: 2 },
+    { name: "Dominican Republic",      code: "DO", users: 3,   pct: 1 },
+    { name: "Nicaragua",               code: "NI", users: 3,   pct: 1 },
+    { name: "Paraguay",                code: "PY", users: 3,   pct: 1 },
+    { name: "Bolivia",                 code: "BO", users: 2,   pct: 1 },
+    { name: "Ecuador",                 code: "EC", users: 2,   pct: 1 },
+    { name: "Guatemala",               code: "GT", users: 2,   pct: 1 },
+    { name: "Canada",                  code: "CA", users: 1,   pct: 0 },
+    { name: "France",                  code: "FR", users: 1,   pct: 0 },
+    { name: "Guyana",                  code: "GY", users: 1,   pct: 0 },
+    { name: "Puerto Rico",             code: "PR", users: 1,   pct: 0 },
+    { name: "Saint Martin",            code: "MF", users: 1,   pct: 0 },
+    { name: "Suriname",                code: "SR", users: 1,   pct: 0 },
+    { name: "Sweden",                  code: "SE", users: 1,   pct: 0 },
+    { name: "Venezuela",               code: "VE", users: 1,   pct: 0 },
+  ],
+};
+
+// ── SEPTEMBER MONTHLY VIEW ─────────────────────────────────
+function SeptemberMonthly() {
+  const MONTH = "September 2026 — through Sep 10 (10 days in)";
+  const [showAllCountries, setShowAllCountries] = useState(false);
+
+  const MCard = (p) => <MonthMetricCard {...p} variant="august" momentumLabel="August" />;
+
+  const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
+  const regional = SEPTEMBER.countries.filter(c => c.code !== "US");
+  const usData = SEPTEMBER.countries.find(c => c.code === "US");
+  const maxUsers = regional[0].users;
+
+  return (
+    <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
+
+      {/* Header */}
+      <div style={{ marginBottom: 8, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+        <div>
+          <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report — Preliminary</div>
+          <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
+          <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (live via MCP) · Full month replaces this at close</div>
+        </div>
+        <button
+          onClick={() => {
+            const rows = [
+              ["Metric", "Value"],
+              ["Month", MONTH],
+              ["Users reached", SEPTEMBER.users],
+              ["Sessions", SEPTEMBER.sessions],
+              ["Prompters", SEPTEMBER.prompters],
+              ["Prompts sent", SEPTEMBER.prompts ?? "pending"],
+              ["New users", SEPTEMBER.first_time ?? "pending"],
+              ["Returning users", SEPTEMBER.returningUsers ?? "pending"],
+              ["Tour completion %", SEPTEMBER.tourCompletion != null ? SEPTEMBER.tourCompletion + "%" : "pending"],
+              ["Pill pageviews", SEPTEMBER.pillPageviews],
+              ["Highlights total", SEPTEMBER.highlighted],
+              ["Highlights Open Search", SEPTEMBER.highlightedOpenSearch],
+              ["Copies total", SEPTEMBER.copied],
+              ["Copies Open Search", SEPTEMBER.copiedOpenSearch],
+              ["Source panel clicks (OS)", SEPTEMBER.sourceClicks],
+              ["Thumbs up", SEPTEMBER.thumbsUp],
+              ["Thumbs down", SEPTEMBER.thumbsDown],
+              ["Prompt Gallery clicks", SEPTEMBER.promptGalleryClicks],
+              ["Recent Search clicks", SEPTEMBER.recentSearchClicks],
+              ["New Search clicks", SEPTEMBER.newSearchClicks],
+              ["Latency (median)", SEPTEMBER.latency ?? "pending"],
+              ["CSAT", SEPTEMBER.csat ?? "pending"],
+              ["Cumulative users (Sep 1 2025–Sep 10 2026)", "2,015"],
+              ["Cumulative prompters (Sep 1 2025–Sep 10 2026)", "898"],
+              ["Cumulative sessions (Sep 1 2025–Sep 10 2026)", "16,448"],
+              ["Cumulative penetration", "56.0%"],
+            ];
+            const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
+            const blob = new Blob([csv], { type: "text/csv" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url; a.download = `KP_Monthly_September_2026_partial.csv`; a.click();
+            URL.revokeObjectURL(url);
+          }}
+          style={{ fontFamily: "inherit", fontSize: 10, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: 6, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
+        >↓ Export CSV</button>
+      </div>
+
+      {/* Cumulative totals — pulled live via MCP */}
+      <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
+          Cumulative totals — Sep 1, 2025 to Sep 10, 2026 · live via MCP
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+          {[
+            { label: "Users reached", value: "2,015" },
+            { label: "Prompters", value: "898" },
+            { label: "Sessions", value: "16,448" },
+            { label: "Penetration of 3,600", value: "56.0%" },
+          ].map((m, i) => (
+            <div key={i}>
+              <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: 9, color: "#a8c4e0", textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── GENERAL USABILITY ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (September · partial)</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
+        <MCard meta="users" label="Users reached" value={String(SEPTEMBER.users)} desc="Unique people who used KP so far in September" accent momentum={AUGUST.users} />
+        <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(SEPTEMBER.prompters)} desc={`${Math.round(SEPTEMBER.prompters/SEPTEMBER.users*100)}% of users reached · live via MCP`} accent momentum={AUGUST.prompters} />
+        <MCard meta="firstTime" label="New users" value={String(SEPTEMBER.first_time)} desc={`First-time visitors · other ${SEPTEMBER.users - SEPTEMBER.first_time} are returning from prior months`} momentum={AUGUST.first_time} />
+        <MCard meta="returningUsers" label="Returning users" value={String(SEPTEMBER.returningUsers)} desc={`${Math.round(SEPTEMBER.returningUsers/SEPTEMBER.users*100)}% of users reached · already knew KP before September`} momentum={AUGUST.returningUsers} />
+        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(SEPTEMBER.users/3600*100*10)/10}%</div>
+          <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
+            <div style={{ width: `${Math.round(SEPTEMBER.users/3600*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
+          </div>
+          <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+            <span>{SEPTEMBER.users} users</span><span>3,600 total</span>
+          </div>
+          <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants (partial month)</div>
+        </div>
+        <MCard meta="tourCompletion" label="% Onboarding completed" value={`${SEPTEMBER.tourCompletion}%`} desc="Users who finished the tour · live via MCP" momentum={AUGUST.tourCompletion} />
+        <MCard meta="sessions" label="Sessions" value={String(SEPTEMBER.sessions)} desc="Total for the period so far" momentum={AUGUST.sessions} />
+      </div>
+
+      {/* Geo */}
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}><span>🌎 Geographic Reach — {SEPTEMBER.totalCountries} countries (through Sep 10)</span><MetricInfo m={META.countries} /></span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
+          <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
+          <div style={{ flex: 1 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
+              <span style={{ fontSize: 11, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
+              <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usData.pct}%</span>
+            </div>
+            <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
+              <div style={{ width: `${usData.pct}%`, height: "100%", background: "#1464A0", borderRadius: 99 }} />
+            </div>
+          </div>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px 16px" }}>
+          {(showAllCountries ? regional : regional.slice(0, 12)).map((c, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
+              <span style={{ fontSize: 13, flexShrink: 0 }}>{flag(c.code)}</span>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
+                  <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
+                  <span style={{ fontSize: 9, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
+                </div>
+                <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
+                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 4 ? "#1464A0" : c.users >= 2 ? BLUE : "#7ab3e0", borderRadius: 99 }} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        {regional.length > 12 && (
+          <button onClick={() => setShowAllCountries(!showAllCountries)} style={{ fontFamily: "inherit", fontSize: 9, fontWeight: 500, marginTop: 8, padding: "5px 12px", border: `1px solid ${BDR}`, borderRadius: 99, cursor: "pointer", background: SURF, color: BLUE_D }}>
+            {showAllCountries ? "▴ Show less" : `▾ Show all ${regional.length} countries`}
+          </button>
+        )}
+        <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
+          Live from FullStory via MCP. Country data reflects session location by IP; multi-country users may appear more than once. Not in August's list yet: Bahamas, Canada, France, Puerto Rico, Saint Martin, Venezuela (1–5 users each) — first 10 days, may just be early sampling.
+        </div>
+      </div>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      {/* ── CONTEXTUAL SEARCH ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (September · partial)</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
+        <MCard meta="pillPageviews" label="Queries (pill views)" value={String(SEPTEMBER.pillPageviews)} desc="Total visits across all contextual search pills · live via MCP" accent momentum={AUGUST.pillPageviews} />
+        <MCard label="Most used pill — Lessons Learned" value="11" desc="interactions so far · Similar Projects and Data tied at 10 · live via MCP" small />
+        <MCard label={<>Least used pill —<br/>Literature</>} value="3" desc="interactions so far · live via MCP" small />
+      </div>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      {/* ── KNOWLEDGE ASSISTANT ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (September · partial)</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
+        <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(SEPTEMBER.prompters)} desc={`${Math.round(SEPTEMBER.prompters/SEPTEMBER.users*100)}% of users reached`} accent momentum={AUGUST.prompters} />
+        <MCard meta="prompts" label="Prompts sent" value={null} desc="Manual — pass at close" accent />
+        <MCard meta="latency" label="Latency" value={null} desc="Manual — pass at close" small />
+        <MCard meta="csat" label="CSAT" value={null} desc="Manual — no survey responses yet this month" small />
+        <MCard meta="sourceClicks" label="Source panel clicks" value={String(SEPTEMBER.sourceClicks)} desc="Clicks on source panel · live via MCP" momentum={AUGUST.sourceClicks} />
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
+          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
+          <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
+            <div style={{ fontSize: 28, fontWeight: 500, color: GREEN, letterSpacing: "-0.03em", lineHeight: 1 }}>👍 {SEPTEMBER.thumbsUp}</div>
+            <div style={{ fontSize: 28, fontWeight: 500, color: RED, letterSpacing: "-0.03em", lineHeight: 1 }}>👎 {SEPTEMBER.thumbsDown}</div>
+          </div>
+          <div style={{ fontSize: 9, color: INK3, marginTop: 8 }}>AI responses rated · live via MCP</div>
+        </div>
+        <MCard meta="promptGallery" label="Prompt Gallery clicks" value={String(SEPTEMBER.promptGalleryClicks)} momentum={AUGUST.promptGalleryClicks} />
+        <MCard meta="recentSearch" label="Recent Search clicks" value={String(SEPTEMBER.recentSearchClicks)} momentum={AUGUST.recentSearchClicks} />
+        <MCard meta="newSearch" label="New Search clicks" value={String(SEPTEMBER.newSearchClicks)} momentum={AUGUST.newSearchClicks} />
+      </div>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      {/* ── CONTENT ENGAGEMENT ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (September · partial)</div>
+      <ContentEngagementCard
+        total={190}
+        openSearch={117}
+        contextual={73}
+        rows={[["Highlights", 78, 46], ["Copies", 31, 27], ["Source clicks", 6, 0], ["Downloads", 2, 0]]}
+        note={"Downloads: 2 Word · 0 Excel."}
+        split={"OS/Contextual split 62/38 in the first 10 days — in line with August's 57/43 close."}
+      />
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      {/* ── LWA (simplified) ── */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (September · partial)</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
+        <MCard meta="lessonsGenerated" label="Lessons generated" value={null} desc="Manual — from console, pass at close" accent />
+        <MCard meta="lwaShare" label="Shares" value={String(SEPTEMBER.lwa.share)} desc="Lessons shared · live via MCP" />
+        <MCard meta="lwaCopy" label="Copy lesson" value={String(SEPTEMBER.lwa.copyLesson)} desc="Lessons copied · live via MCP" />
+        <MCard meta="lwaHighlight" label="Highlight & copy" value={SEPTEMBER.lwa.highlightAndCopy.toLocaleString()} desc="Text highlighted and copied in LWA · live via MCP" />
+        <MCard meta="lwaView" label="View lesson" value={String(SEPTEMBER.lwa.viewLesson)} desc="Lessons opened from the catalogue · live via MCP" />
+        <MCard meta="lwaSharedView" label="Shared-catalogue view" value={String(SEPTEMBER.lwa.sharedCatalogueView)} desc="Views from the shared catalogue · live via MCP" />
+      </div>
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      {/* Signals — executive */}
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — early read (10 days in)</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${GREEN}` }}>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration crosses 56%</div>
+          <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+            2,015 cumulative users — +72 net-new in the first 10 days, against August's close of 1,943 (54.0%). Adoption keeps compounding past the halfway mark of the bank with no active campaign.
+          </p>
+        </div>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Fast start vs August's pace</div>
+          <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+            170 users · 607 sessions in 10 days — a daily pace of ~17 users/day, well above August's full-month average of ~9.3 users/day (287 over 31 days). Too early to call the month, but the first third is running hot.
+          </p>
+        </div>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Netherlands drops out of the top spots</div>
+          <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+            29 countries already in 10 days. Netherlands sits at #5 with 9 users (4%), well below August's #2 finish at 8% — still flagged pending confirmation, but its relative weight keeps shrinking as more countries with plausible human traffic (Colombia, Uruguay, Peru) lead the regional pack.
+          </p>
+        </div>
+      </div>
+
+      {/* Pending sections note */}
+      <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
+        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + 4 confirmed pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA (except lessons generated) — all pulled directly from FullStory dashboard widgets by ID for Sep 1–10. <strong style={{ color: INK2 }}>New and returning users</strong> are computed on the Sin DEV population via the firstSeen segment recipe (checklist §4), same method as August's close. <strong style={{ color: INK2 }}>Still manual/pending:</strong> prompts sent, latency, CSAT (no survey responses yet this month), and LWA lessons generated (pulled from console at close). <strong style={{ color: INK2 }}>Not built yet:</strong> funnels, retention cohorts, and the qualitative session sweep — those land with the full close. This is a 10-day partial pull; the full month (through Sep 30) replaces it.
+      </div>
+
+    </div>
+  );
+}
+
 // ── PRODUCT BENCHMARK ─────────────────────────────────────
 function Benchmark() {
   const reachProducts = [
@@ -3984,12 +4298,13 @@ function Benchmark() {
 
 // ── APP ───────────────────────────────────────────────────
 function App() {
-  const [view, setView] = useState("august");
+  const [view, setView] = useState("september");
   const [monthOpen, setMonthOpen] = useState(false);
   const [launchOpen, setLaunchOpen] = useState(false);
 
   const MONTHS = [
-    { id: "august",  label: "August 2026 · final (live MCP)" },
+    { id: "september", label: "September 2026 · through Sep 10 (live MCP)" },
+    { id: "august",  label: "August 2026 · final" },
     { id: "july",    label: "July 2026" },
     { id: "june",    label: "June 2026" },
     { id: "may",     label: "May 2026" },
@@ -4076,7 +4391,7 @@ function App() {
         </div>
       </div>
 
-      {view === "smoke" ? <SmokeTest /> : view === "week1" ? <Week1 data={WEEK1} /> : view === "week12" ? <Week1 data={WEEK12} /> : view === "may" ? <MayMonthly /> : view === "june" ? <JuneMonthly /> : view === "july" ? <JulyMonthly /> : view === "august" ? <AugustMonthly /> : view === "benchmark" ? <Benchmark /> : <Monthly />}
+      {view === "smoke" ? <SmokeTest /> : view === "week1" ? <Week1 data={WEEK1} /> : view === "week12" ? <Week1 data={WEEK12} /> : view === "may" ? <MayMonthly /> : view === "june" ? <JuneMonthly /> : view === "july" ? <JulyMonthly /> : view === "august" ? <AugustMonthly /> : view === "september" ? <SeptemberMonthly /> : view === "benchmark" ? <Benchmark /> : <Monthly />}
 
       <div style={{ textAlign: "center", padding: 18, fontSize: 9, color: INK3, letterSpacing: "0.06em", borderTop: `1px solid ${BDR}` }}>
         IDB Knowledge Platform · Post Go-live Key Metrics · Go-live {GO_LIVE_DATE}
