@@ -271,6 +271,20 @@ Después `get_session_events(session_id)` para leer el transcript de cada una.
 `dead-click`, `mouse-thrash`, errores de consola y los tiempos entre acciones.
 Para estos fines alcanza y sobra — es buscable y comparable entre meses.
 
+**El barrido también corre a mitad de mes.** No hace falta esperar al cierre: se
+clonan los embudos con `update_funnel` al rango parcial (ej. 1–10) y se muestrea
+igual. La vista preliminar lo lleva con la nota de que es parcial, y el cierre lo
+vuelve a correr sobre el mes entero. Los `funnel_id` parciales van al checklist
+marcados como tales, para no confundirlos con los del cierre.
+
+**Verificar identidad ANTES de leer y de capturar.** `get_funnel_sessions`
+devuelve el mail en cada sesión: usarlo. Descartar al equipo de producto y a
+cualquiera cuya sesión no corresponda publicar. En agosto se publicó la captura
+de una stakeholder senior y hubo que retirarla del sitio; el mail estaba
+disponible desde el principio y no se miró. La comprobación de fugas en
+Playwright (que ningún `@iadb.org` ni apellido de la muestra aparezca en el DOM)
+es obligatoria antes de commitear.
+
 **Excluir al equipo de producto.** El segmento Sin DEV no filtra al PM. Si en la
 muestra aparece `jimenasa@iadb.org` u otra cuenta del equipo, descartarla y sacar
 otra: con n=8 una sesión propia contamina el resultado.
