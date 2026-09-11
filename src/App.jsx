@@ -4304,7 +4304,7 @@ function App() {
 
   const MONTHS = [
     { id: "september", label: "September 2026 · through Sep 10 (live MCP)" },
-    { id: "august",  label: "August 2026 · final" },
+    { id: "august",  label: "August 2026" },
     { id: "july",    label: "July 2026" },
     { id: "june",    label: "June 2026" },
     { id: "may",     label: "May 2026" },
