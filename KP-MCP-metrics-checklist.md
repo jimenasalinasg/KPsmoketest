@@ -118,6 +118,10 @@ get_sessions(segment_id, limit=1)   -> matching_users = nuevos del mes
 
 `returningUsers` = `users` − `first_time`. Son los que ya conocían KP.
 
+**Segmentos parciales ya construidos** (no rehacerlos, verificar el rango antes
+de reusar): sep 1–15 de 2026 → `14woK7fxWFB8`, `firstSeen` confirmado
+`2026-09-01` → `2026-09-15T23:59:59Z`, **79** usuarios.
+
 **No hace falta excluir los mails del equipo.** `get_sessions` **falla** con
 `unspecified error` si el segmento lleva `excludeUserProperties`. Se resuelve al
 revés: construir el segmento *incluyendo* solo los 28 mails y verificar que da
@@ -257,6 +261,31 @@ Query **única** con `start_date = 2025-09-01`, `end_date` = último día del me
 Usa los mismos IDs: `a30wnMzqgtJk` (users), `3GVbGeJsPBCb` (prompters), `BhsN9vxRPN7V` (sessions).
 
 > **NUNCA** sumar los valores mensuales: duplica usuarios recurrentes.
+
+#### El acumulado es una ventana móvil de 12 meses, no «desde go-live»
+
+Verificado el **15-sep-2026**. Recomputando el mismo rango del cierre de agosto
+(`2025-09-01` → `2026-08-31`) hoy devuelve **1.911 usuarios y 15.563 sesiones**,
+contra los **1.943 / 15.842** que se publicaron el 1-sep. Nada cambió en la
+definición: FullStory retiene ~12 meses y los primeros días de sep-2025 ya se
+cayeron de la ventana. El mes de sep-2025 aislado da hoy 145 usuarios / 829
+sesiones y va a seguir bajando.
+
+Consecuencias operativas:
+
+- Los mensuales **no** se ven afectados: jul (250/1226/109/489) y ago (287/1260)
+  reproducen exacto. El baseline sigue sirviendo.
+- El acumulado **sí**: va a bajar solo, mes a mes. No leerlo como caída de uso ni
+  recalcular el histórico contra él.
+- El neto del mes se saca por diferencia contra el acumulado **recomputado hoy**,
+  no contra el publicado. Al 15-sep: 1.990 − 1.911 = 79, que es exactamente el
+  `first_time` medido. Cierra.
+- A partir de sep-2026 el rótulo honesto es «últimos 12 meses», no «desde
+  go-live».
+
+**El parcial del 10-sep tenía los acumulados sumados a mano** (1.943 + 72 = 2.015
+usuarios, 15.842 + 607 = 16.449 ≈ 16.448 sesiones), justo lo que esta sección
+prohíbe. Corregido en el corte del 15-sep con query única.
 
 ---
 
