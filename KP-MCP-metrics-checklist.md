@@ -118,6 +118,10 @@ get_sessions(segment_id, limit=1)   -> matching_users = nuevos del mes
 
 `returningUsers` = `users` − `first_time`. Son los que ya conocían KP.
 
+**Segmentos parciales ya construidos** (no rehacerlos, verificar el rango antes
+de reusar): sep 1–15 de 2026 → `14woK7fxWFB8`, `firstSeen` confirmado
+`2026-09-01` → `2026-09-15T23:59:59Z`, **79** usuarios.
+
 **No hace falta excluir los mails del equipo.** `get_sessions` **falla** con
 `unspecified error` si el segmento lleva `excludeUserProperties`. Se resuelve al
 revés: construir el segmento *incluyendo* solo los 28 mails y verificar que da
@@ -258,11 +262,15 @@ Usa los mismos IDs: `a30wnMzqgtJk` (users), `3GVbGeJsPBCb` (prompters), `BhsN9vx
 
 > **NUNCA** sumar los valores mensuales: duplica usuarios recurrentes.
 
-#### ⚠️ FullStory retiene 1 año: la query única de arriba ya no es segura (hallado 16-sep-2026)
+#### ⚠️ FullStory retiene ~12 meses: la query única de arriba ya no es segura
 
-`compute_metric` **no falla** cuando el rango pedido empieza hace más de 365 días — devuelve
-un número igual, pero calculado sobre una ventana recortada en silencio. Confirmado el
-16-sep-2026, hoy − 365 días ≈ 16-sep-2025:
+Encontrado dos veces en paralelo, por dos sesiones distintas, el mismo día: primero el
+15-sep-2026 (recomputando el cierre de agosto y viéndolo bajar), después el 16-sep-2026
+(aislando el corte exacto). Las dos coinciden en el diagnóstico. Quedan las dos evidencias:
+
+`compute_metric` **no falla** cuando el rango pedido empieza hace más de ~365 días — devuelve
+un número igual, pero calculado sobre una ventana recortada en silencio, sin avisar.
+Aislado el 16-sep-2026 (hoy − 365 días ≈ 16-sep-2025):
 
 ```
 compute_metric(a30wnMzqgtJk, 2025-09-01 → 2025-09-15)   → 0          (fuera de ventana)
@@ -270,42 +278,53 @@ compute_metric(a30wnMzqgtJk, 2025-09-16 → 2026-08-31)   → 1.895
 compute_metric(a30wnMzqgtJk, 2025-09-01 → 2026-08-31)   → 1.895      (¡idéntico al de arriba!)
 ```
 
-La query "de siempre" (`start_date=2025-09-01`) ya perdió los primeros ~15 días de
-go-live sin avisar. Impacto medido el 16-sep-2026, contra lo que había quedado cargado
-en el cierre de agosto (cuando la ventana completa todavía existía):
+Y recomputando el rango completo del cierre de agosto (`2025-09-01` → `2026-08-31`) día a
+día se ve bajar solo: **1.943 → 1.895 (16-sep)**, sesiones **15.842 → 15.473 (16-sep)**. El
+15-sep, un día antes, daba 1.911 / 15.563 — confirma que es un recorte que avanza, no un
+número fijo. Septiembre 2025 aislado daba 145 usuarios / 829 sesiones el 15-sep y va a
+seguir bajando.
 
-| Métrico | Cargado en cierre agosto | Recomputado 16-sep-2026 | Perdido |
+| Métrico | Cargado en cierre agosto | 15-sep-2026 | 16-sep-2026 |
 |---|---:|---:|---:|
-| users (`a30wnMzqgtJk`) | 1.943 | 1.895 | -48 |
-| sessions (`BhsN9vxRPN7V`) | 15.842 | 15.473 | -369 |
-| prompters (`3GVbGeJsPBCb`) | 859 | 859 | 0 (todavía, pero es cuestión de tiempo — la ventana sigue corriendo un día por día) |
+| users (`a30wnMzqgtJk`) | 1.943 | 1.911 | 1.895 |
+| sessions (`BhsN9vxRPN7V`) | 15.842 | 15.563 | 15.473 |
+| prompters (`3GVbGeJsPBCb`) | 859 | 859 | 859 |
 
-**Por qué no se puede "arreglar" sumando los meses a mano.** `users` y `prompters` son
-usuarios únicos: alguien activo en dos meses distintos se cuenta una vez en la query de
-rango completo pero dos veces si se suman los totales mensuales — es exactamente la regla
-de arriba ("nunca sumar"), y el problema de retención no la vuelve válida. `sessions` es la
-excepción: una sesión no es una identidad que se deduplique entre meses, así que sumar
-sesiones mensuales **sí** es matemáticamente correcto.
+Los **mensuales no se ven afectados** — jul (250/1226/109/489) y ago (287/1260) siguen
+reproduciendo exacto contra el baseline. Solo el acumulado de rango largo se degrada.
 
-**Método correcto — anclar en el último cierre verificado y sumar solo lo aditivo:**
+**Dos formas de responder, y por qué se descartó la de "ventana móvil".** La primera
+reacción (15-sep) fue aceptar que el acumulado es ahora una ventana móvil de 12 meses,
+recomputarlo cada vez y re-etiquetarlo como "últimos 12 meses". Funciona aritméticamente
+—el 15-sep, 1.990 − 1.911 = 79, exactamente el `first_time` medido, cierra igual que el
+método de abajo— pero como método de cierre tiene un problema serio: en un dashboard
+**público**, con seis meses ya publicados como "Cumulative totals — Sep 1, 2025 to...", un
+número que puede **bajar** entre un cierre y el siguiente (1.943 → 1.895 sin que nadie dejó
+de usar KP) lee como pérdida de usuarios. Se descartó el 16-sep-2026 a favor de anclar.
+
+**Método adoptado — anclar en el último cierre verificado y sumar solo lo aditivo:**
 
 - **users**: `<acumulado del cierre anterior> + first_time(mes nuevo)`. `first_time` se mide
   con la receta de `firstSeen` (§ arriba) sobre un rango reciente (dentro del año), así que no
   lo toca el recorte de retención, y por definición un usuario solo tiene un primer visto —
-  nunca se duplica entre meses. Encaja exacto: sirvió para reconstruir el acumulado de
-  septiembre (1.943 + 72 = 2.015) sin tocar la query rota.
+  nunca se duplica entre meses. Da el mismo resultado que recomputar hoy y restar (ver arriba,
+  1.990 − 1.911 = 79), sin depender de una query que se degrada con el calendario. Ejemplo:
+  acumulado de septiembre al corte del 15-sep = 1.943 + 79 = **2.022**.
 - **sessions**: `<acumulado del cierre anterior> + sessions(mes nuevo)` — suma directa, sin
-  trampa, siempre que `sessions(mes nuevo)` sea el mismo número ya publicado para ese mes en
-  el dashboard (no recomputar por separado: FullStory puede seguir terminando de indexar
-  sesiones recientes días después, y usar dos lecturas distintas del mismo mes en la misma
-  vista es peor que la ventana rota — ver el bug de "Content Engagement" en el SKILL.md).
+  trampa (una sesión no es una identidad que se deduplique entre meses, a diferencia de
+  `users`/`prompters`). Usar el mismo `sessions(mes nuevo)` ya publicado para ese mes en el
+  dashboard, no recomputarlo aparte — FullStory puede seguir indexando sesiones recientes
+  días después, y mezclar dos lecturas del mismo mes en la misma vista es peor que la
+  ventana rota (ver el bug de "Content Engagement" en el SKILL.md). Ejemplo: 15.842 + 769 =
+  **16.611**.
 - **prompters**: **sin resolver.** No existe todavía una receta de "primera vez que
   prompteó" (equivalente a `first_time` pero sobre el evento de prompt, no sobre `firstSeen`).
   Sin eso no hay forma aditiva de anclarlo. Mientras tanto se sigue leyendo la query cruda
-  (`3GVbGeJsPBCb` desde `2025-09-01`) porque todavía no perdió a nadie — pero puede empezar a
-  fallar en silencio cualquier día, igual que `users` y `sessions`. **Antes de cada cierre,
-  recomputar `2025-09-01 → <mes anterior>` y comparar contra el acumulado ya publicado: si
-  bajó, dejó de servir y hay que construir la receta de first-time-prompter antes de seguir.**
+  (`3GVbGeJsPBCb` desde `2025-09-01`) porque todavía no perdió a nadie (859 estable del
+  1-sep al 16-sep) — pero puede empezar a fallar en silencio cualquier día, igual que
+  `users` y `sessions`. **Antes de cada cierre, recomputar `2025-09-01 → <mes anterior>` y
+  comparar contra el acumulado ya publicado: si bajó, dejó de servir y hay que construir la
+  receta de first-time-prompter antes de seguir.**
 
 **Ancla verificada — cierre agosto 2026** (última vez que la ventana completa existía):
 users **1.943**, prompters **859**, sessions **15.842**. Partir de acá, no de una query nueva
@@ -313,7 +332,9 @@ con `start_date=2025-09-01`.
 
 > **Regla nueva:** nunca volver a confiar en una query de rango completo desde go-live para
 > el acumulado. No avisa cuando se rompe — hay que asumir que ya está rota y anclar +
-> incrementar.
+> incrementar. Si algún día se prefiere volver a la ventana móvil (re-etiquetando todo el
+> histórico como "últimos 12 meses"), es una decisión de producto a tomar a propósito, no
+> algo que se cuela por default porque la query dejó de avisar.
 
 ---
 
