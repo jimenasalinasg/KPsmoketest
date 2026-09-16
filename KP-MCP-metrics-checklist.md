@@ -402,7 +402,8 @@ en la definición: para cerrar un mes nuevo hay que **reconstruir** el embudo co
 | Open Search · jul 2026 | `813457909` | 2026-07-01 → 2026-07-31 |
 | Contextual (pills) · ago 2026 **(cierre)** | `1692594896` | 2026-08-01 → 2026-08-31 |
 | Contextual (pills) · jul 2026 | `1476024114` | 2026-07-01 → 2026-07-31 |
-| LWA inicio → completado | `2037187131` | 2025-09-01 → 2026-08-31 |
+| ~~LWA inicio → completado~~ | ~~`2037187131`~~ | ~~2025-09-01 → 2026-08-31~~ — **retirado, ver nota abajo** |
+| **LWA inicio → completado (v4, ventana relativa)** | `726453941` | `last_year` (relativo: `NOW-364DAY → NOW+1DAY`) |
 | Contextual (pills) · abr 2026 | `1661380124` | 2026-04-01 → 2026-04-30 |
 | Contextual (pills) · may 2026 | `362258649` | 2026-05-01 → 2026-05-31 |
 | Contextual (pills) · jun 2026 | `989040134` | 2026-06-01 → 2026-06-30 |
@@ -419,6 +420,31 @@ en la definición: para cerrar un mes nuevo hay que **reconstruir** el embudo co
 | Contextual → panel de fuentes · jun 2026 | `118780297` | 2026-06-01 → 2026-06-30 |
 | Contextual → panel de fuentes · jul 2026 | `1150323350` | 2026-07-01 → 2026-07-31 |
 | Contextual → panel de fuentes · ago 2026 | `716477612` | 2026-08-01 → 2026-08-31 |
+
+#### El embudo de LWA también estaba anclado en go-live — mismo bug, sin ancla que lo salve (16-sep-2026)
+
+El viejo `2037187131` tenía el rango fijo `2025-09-01 → 2026-08-31`, igual que la query rota
+de acumulados. Probado con el mismo método (comparar el rango completo contra uno que arranca
+después del corte de retención): **idéntico, 102 → 15, en los dos rangos.** Ya está afectado
+por el recorte silencioso de FullStory.
+
+A diferencia de `users`/`sessions`/`prompters`, acá **no hay ancla previa que lo salve** — nunca
+se guardó un número "limpio" de antes de la degradación, así que el 102 → 15 que estaba
+documentado como "cota superior" puede ya estar subcontando actividad real de los primeros días
+de sep-2025, y ese dato ya no existe en FullStory. No se puede reconstruir.
+
+**El arreglo, hacia adelante:** reconstruido con `update_funnel(..., time_range="last_year")` en
+vez de fechas fijas. FullStory lo guarda como **ventana relativa** —
+`timeRange: {startTime: "NOW/DAY-364DAY", endTime: "NOW/DAY+1DAY"}`, no fechas fijas — que se
+re-evalúa sola en cada `compute_funnel`. Nunca vuelve a pedir más de 364 días atrás, así que
+nunca más puede romperse por esto ni hace falta reconstruirlo a mano. Da **104 → 15** al
+16-sep-2026 (la diferencia con 102 es esperable: la ventana ya no arranca en go-live).
+
+**El trade-off:** deja de ser "desde go-live" y pasa a ser "últimos 12 meses". Aceptado a
+propósito para este embudo — es un diagnóstico de conversión de una feature, no un acumulado
+público con expectativa de crecer mes a mes como `users`. Si algún día se necesita un total
+verdadero desde go-live, no hay forma de recuperarlo — hay que aceptar que la serie histórica
+"real" empieza a existir recién a partir de este re-anclaje.
 
 Los tres de Open Search se clonaron del de agosto con
 `update_funnel(2112175315, start_date, end_date)`: copia los pasos exactos
