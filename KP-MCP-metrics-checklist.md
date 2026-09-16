@@ -262,30 +262,79 @@ Usa los mismos IDs: `a30wnMzqgtJk` (users), `3GVbGeJsPBCb` (prompters), `BhsN9vx
 
 > **NUNCA** sumar los valores mensuales: duplica usuarios recurrentes.
 
-#### El acumulado es una ventana móvil de 12 meses, no «desde go-live»
+#### ⚠️ FullStory retiene ~12 meses: la query única de arriba ya no es segura
 
-Verificado el **15-sep-2026**. Recomputando el mismo rango del cierre de agosto
-(`2025-09-01` → `2026-08-31`) hoy devuelve **1.911 usuarios y 15.563 sesiones**,
-contra los **1.943 / 15.842** que se publicaron el 1-sep. Nada cambió en la
-definición: FullStory retiene ~12 meses y los primeros días de sep-2025 ya se
-cayeron de la ventana. El mes de sep-2025 aislado da hoy 145 usuarios / 829
-sesiones y va a seguir bajando.
+Encontrado dos veces en paralelo, por dos sesiones distintas, el mismo día: primero el
+15-sep-2026 (recomputando el cierre de agosto y viéndolo bajar), después el 16-sep-2026
+(aislando el corte exacto). Las dos coinciden en el diagnóstico. Quedan las dos evidencias:
 
-Consecuencias operativas:
+`compute_metric` **no falla** cuando el rango pedido empieza hace más de ~365 días — devuelve
+un número igual, pero calculado sobre una ventana recortada en silencio, sin avisar.
+Aislado el 16-sep-2026 (hoy − 365 días ≈ 16-sep-2025):
 
-- Los mensuales **no** se ven afectados: jul (250/1226/109/489) y ago (287/1260)
-  reproducen exacto. El baseline sigue sirviendo.
-- El acumulado **sí**: va a bajar solo, mes a mes. No leerlo como caída de uso ni
-  recalcular el histórico contra él.
-- El neto del mes se saca por diferencia contra el acumulado **recomputado hoy**,
-  no contra el publicado. Al 15-sep: 1.990 − 1.911 = 79, que es exactamente el
-  `first_time` medido. Cierra.
-- A partir de sep-2026 el rótulo honesto es «últimos 12 meses», no «desde
-  go-live».
+```
+compute_metric(a30wnMzqgtJk, 2025-09-01 → 2025-09-15)   → 0          (fuera de ventana)
+compute_metric(a30wnMzqgtJk, 2025-09-16 → 2026-08-31)   → 1.895
+compute_metric(a30wnMzqgtJk, 2025-09-01 → 2026-08-31)   → 1.895      (¡idéntico al de arriba!)
+```
 
-**El parcial del 10-sep tenía los acumulados sumados a mano** (1.943 + 72 = 2.015
-usuarios, 15.842 + 607 = 16.449 ≈ 16.448 sesiones), justo lo que esta sección
-prohíbe. Corregido en el corte del 15-sep con query única.
+Y recomputando el rango completo del cierre de agosto (`2025-09-01` → `2026-08-31`) día a
+día se ve bajar solo: **1.943 → 1.895 (16-sep)**, sesiones **15.842 → 15.473 (16-sep)**. El
+15-sep, un día antes, daba 1.911 / 15.563 — confirma que es un recorte que avanza, no un
+número fijo. Septiembre 2025 aislado daba 145 usuarios / 829 sesiones el 15-sep y va a
+seguir bajando.
+
+| Métrico | Cargado en cierre agosto | 15-sep-2026 | 16-sep-2026 |
+|---|---:|---:|---:|
+| users (`a30wnMzqgtJk`) | 1.943 | 1.911 | 1.895 |
+| sessions (`BhsN9vxRPN7V`) | 15.842 | 15.563 | 15.473 |
+| prompters (`3GVbGeJsPBCb`) | 859 | 859 | 859 |
+
+Los **mensuales no se ven afectados** — jul (250/1226/109/489) y ago (287/1260) siguen
+reproduciendo exacto contra el baseline. Solo el acumulado de rango largo se degrada.
+
+**Dos formas de responder, y por qué se descartó la de "ventana móvil".** La primera
+reacción (15-sep) fue aceptar que el acumulado es ahora una ventana móvil de 12 meses,
+recomputarlo cada vez y re-etiquetarlo como "últimos 12 meses". Funciona aritméticamente
+—el 15-sep, 1.990 − 1.911 = 79, exactamente el `first_time` medido, cierra igual que el
+método de abajo— pero como método de cierre tiene un problema serio: en un dashboard
+**público**, con seis meses ya publicados como "Cumulative totals — Sep 1, 2025 to...", un
+número que puede **bajar** entre un cierre y el siguiente (1.943 → 1.895 sin que nadie dejó
+de usar KP) lee como pérdida de usuarios. Se descartó el 16-sep-2026 a favor de anclar.
+
+**Método adoptado — anclar en el último cierre verificado y sumar solo lo aditivo:**
+
+- **users**: `<acumulado del cierre anterior> + first_time(mes nuevo)`. `first_time` se mide
+  con la receta de `firstSeen` (§ arriba) sobre un rango reciente (dentro del año), así que no
+  lo toca el recorte de retención, y por definición un usuario solo tiene un primer visto —
+  nunca se duplica entre meses. Da el mismo resultado que recomputar hoy y restar (ver arriba,
+  1.990 − 1.911 = 79), sin depender de una query que se degrada con el calendario. Ejemplo:
+  acumulado de septiembre al corte del 15-sep = 1.943 + 79 = **2.022**.
+- **sessions**: `<acumulado del cierre anterior> + sessions(mes nuevo)` — suma directa, sin
+  trampa (una sesión no es una identidad que se deduplique entre meses, a diferencia de
+  `users`/`prompters`). Usar el mismo `sessions(mes nuevo)` ya publicado para ese mes en el
+  dashboard, no recomputarlo aparte — FullStory puede seguir indexando sesiones recientes
+  días después, y mezclar dos lecturas del mismo mes en la misma vista es peor que la
+  ventana rota (ver el bug de "Content Engagement" en el SKILL.md). Ejemplo: 15.842 + 769 =
+  **16.611**.
+- **prompters**: **sin resolver.** No existe todavía una receta de "primera vez que
+  prompteó" (equivalente a `first_time` pero sobre el evento de prompt, no sobre `firstSeen`).
+  Sin eso no hay forma aditiva de anclarlo. Mientras tanto se sigue leyendo la query cruda
+  (`3GVbGeJsPBCb` desde `2025-09-01`) porque todavía no perdió a nadie (859 estable del
+  1-sep al 16-sep) — pero puede empezar a fallar en silencio cualquier día, igual que
+  `users` y `sessions`. **Antes de cada cierre, recomputar `2025-09-01 → <mes anterior>` y
+  comparar contra el acumulado ya publicado: si bajó, dejó de servir y hay que construir la
+  receta de first-time-prompter antes de seguir.**
+
+**Ancla verificada — cierre agosto 2026** (última vez que la ventana completa existía):
+users **1.943**, prompters **859**, sessions **15.842**. Partir de acá, no de una query nueva
+con `start_date=2025-09-01`.
+
+> **Regla nueva:** nunca volver a confiar en una query de rango completo desde go-live para
+> el acumulado. No avisa cuando se rompe — hay que asumir que ya está rota y anclar +
+> incrementar. Si algún día se prefiere volver a la ventana móvil (re-etiquetando todo el
+> histórico como "últimos 12 meses"), es una decisión de producto a tomar a propósito, no
+> algo que se cuela por default porque la query dejó de avisar.
 
 ---
 

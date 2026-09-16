@@ -3979,10 +3979,10 @@ function SeptemberMonthly() {
               ["New Search clicks", SEPTEMBER.newSearchClicks],
               ["Latency (median)", SEPTEMBER.latency ?? "pending"],
               ["CSAT", SEPTEMBER.csat ?? "pending"],
-              ["Cumulative users (Sep 1 2025–Sep 15 2026)", "1,990"],
-              ["Cumulative prompters (Sep 1 2025–Sep 15 2026)", "903"],
-              ["Cumulative sessions (Sep 1 2025–Sep 15 2026)", "16,331"],
-              ["Cumulative penetration", "55.3%"],
+              ["Cumulative users (Sep 1 2025–Sep 15 2026, anchored on Aug close)", "2,022"],
+              ["Cumulative prompters (Sep 1 2025–Sep 15 2026, raw — no anchor recipe yet)", "905"],
+              ["Cumulative sessions (Sep 1 2025–Sep 15 2026, anchored on Aug close)", "16,611"],
+              ["Cumulative penetration", "56.2%"],
             ];
             const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
             const blob = new Blob([csv], { type: "text/csv" });
@@ -4002,10 +4002,10 @@ function SeptemberMonthly() {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {[
-            { label: "Users reached", value: "1,990" },
-            { label: "Prompters", value: "903" },
-            { label: "Sessions", value: "16,331" },
-            { label: "Penetration of 3,600", value: "55.3%" },
+            { label: "Users reached", value: "2,022" },
+            { label: "Prompters", value: "905" },
+            { label: "Sessions", value: "16,611" },
+            { label: "Penetration of 3,600", value: "56.2%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -4150,9 +4150,9 @@ function SeptemberMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — early read (15 days in)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${GREEN}` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration at 55.3%, on a base that moved</div>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration crosses 56%, cumulative re-anchored</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            1,990 cumulative users through Sep 15 — 79 net-new, all of them first-time visitors. The comparison point moved too: recomputing the same query for Sep 2025–Aug 2026 today returns 1,911 users and 15,563 sessions, not the 1,943 and 15,842 published at August's close. FullStory's 12-month retention is aging the go-live weeks out of the window, so “since go-live” now reads as a rolling year and the cumulative line will keep drifting down as it advances.
+            2,022 cumulative users through Sep 15 — 79 net-new, all first-time visitors, added on top of August's verified close (1,943) rather than from a fresh go-live query. FullStory only retains ~12 months of raw data: that fresh query already returns 1,911 users and 15,563 sessions for the same Sep 2025–Aug 2026 range that closed at 1,943 / 15,842, quietly dropping the earliest go-live weeks. Anchoring on the last verified close plus this month's new users and sessions keeps the cumulative line accurate instead of drifting down on its own — see the checklist for the recipe. Prompters (905) has no equivalent anchor yet and is still a raw, unverified read.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
@@ -4179,7 +4179,7 @@ function SeptemberMonthly() {
 
       {/* Pending sections note */}
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + 4 confirmed pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA (except lessons generated) — all pulled directly from FullStory dashboard widgets by ID for Sep 1–15. <strong style={{ color: INK2 }}>New and returning users</strong> are computed on the Sin DEV population via the firstSeen segment recipe (checklist §4), same method as August's close. <strong style={{ color: INK2 }}>Cumulative totals</strong> are a single query over Sep 1, 2025 – Sep 15, 2026, never a sum of months; the Sep 10 partial reported them as sums (2,015 / 898 / 16,448) and those were wrong. <strong style={{ color: INK2 }}>Still manual/pending:</strong> prompts sent, latency, CSAT (no survey responses yet this month), and LWA lessons generated (pulled from console at close). <strong style={{ color: INK2 }}>Not built yet:</strong> funnels and retention cohorts — those land with the full close. The qualitative sweep below covers Sep 1–10 and is re-run over the whole month at close. This is a 15-day partial pull; the full month (through Sep 30) replaces it.
+        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + 4 confirmed pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA (except lessons generated) — all pulled directly from FullStory dashboard widgets by ID for Sep 1–15. <strong style={{ color: INK2 }}>New and returning users</strong> are computed on the Sin DEV population via the firstSeen segment recipe (checklist §4), same method as August's close. <strong style={{ color: INK2 }}>Cumulative totals</strong> (retention issue found 15/16-sep-2026, see checklist): FullStory only retains ~12 months of raw data, so a single query from Sep 1, 2025 now silently truncates instead of erroring. Users and sessions above are anchored on August's verified close (1,943 / 15,842) plus this month's new users and sessions, not a fresh go-live query — that keeps the cumulative line from drifting down on its own as the window ages. Prompters (905) has no equivalent anchor recipe yet, so it's still the raw query — usable for now but liable to under-count without warning once the window reaches it. <strong style={{ color: INK2 }}>Still manual/pending:</strong> prompts sent, latency, CSAT (no survey responses yet this month), and LWA lessons generated (pulled from console at close). <strong style={{ color: INK2 }}>Not built yet:</strong> funnels and retention cohorts — those land with the full close. The qualitative sweep below covers Sep 1–10 and is re-run over the whole month at close. This is a 15-day partial pull; the full month (through Sep 30) replaces it.
       </div>
 
     </div>
