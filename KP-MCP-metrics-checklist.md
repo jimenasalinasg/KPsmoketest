@@ -317,14 +317,38 @@ de usar KP) lee como pérdida de usuarios. Se descartó el 16-sep-2026 a favor d
   días después, y mezclar dos lecturas del mismo mes en la misma vista es peor que la
   ventana rota (ver el bug de "Content Engagement" en el SKILL.md). Ejemplo: 15.842 + 769 =
   **16.611**.
-- **prompters**: **sin resolver.** No existe todavía una receta de "primera vez que
-  prompteó" (equivalente a `first_time` pero sobre el evento de prompt, no sobre `firstSeen`).
-  Sin eso no hay forma aditiva de anclarlo. Mientras tanto se sigue leyendo la query cruda
-  (`3GVbGeJsPBCb` desde `2025-09-01`) porque todavía no perdió a nadie (859 estable del
-  1-sep al 16-sep) — pero puede empezar a fallar en silencio cualquier día, igual que
-  `users` y `sessions`. **Antes de cada cierre, recomputar `2025-09-01 → <mes anterior>` y
-  comparar contra el acumulado ya publicado: si bajó, dejó de servir y hay que construir la
-  receta de first-time-prompter antes de seguir.**
+- **prompters** (resuelto 16-sep-2026, con una salvedad — ver abajo): no existe una
+  propiedad "primera vez que prompteó" como `firstSeen` — probado y confirmado que
+  `build_segment` con la frase "users whose first click on X is in the range..." **no**
+  filtra por primera vez, la interpreta como "clickeó X en el rango" a secas (dio 90
+  usuarios, casi igual a la métrica cruda del mes completo, 88 — no estaba excluyendo a
+  nadie). No hay atajo tipo `firstSeen` para un evento custom.
+
+  Lo que sí funciona es la **exclusión**, no la propiedad: un segmento con la
+  condición normal (clickeó `Open-Search-Input-Search` en el mes, visitó `/home`) más
+  `excluding users who clicked Open-Search-Input-Search in the range <desde> → <hasta>`,
+  usando como rango de exclusión todo lo que ya cubre el ancla (desde go-live hasta el
+  cierre anterior). Validado para septiembre: excluyendo `2025-09-01 → 2026-08-31`, dio
+  **46 prompters nuevos** en sep 1–15. Ancla + incremento: 859 + 46 = **905**, exacto
+  contra el número que ya estaba publicado (sacado ese día de la query cruda, que
+  todavía no se había roto) — los dos métodos coinciden, es la misma población medida
+  dos formas distintas.
+
+  **La salvedad: esta receta hereda el mismo reloj de 12 meses, no es permanente como
+  `first_time`.** El rango de exclusión necesita mirar hacia atrás (para saber quién ya
+  prompteó alguna vez), y ese rango empieza a envejecer desde el día en que se construye
+  — no desde go-live. Se probó el 16-sep-2026, con el rango de exclusión (sep-2025 a
+  ago-2026) ya al borde del corte de retención: si algún prompter tuvo su **única**
+  actividad en los primeros ~15 días de sep-2025 (la porción ya recortada), esta receta
+  no lo va a excluir y va a contar de más si vuelve a prompteo. Riesgo chico y acotado
+  por ahora (el estable 859 sugiere que no hay nadie así), pero crece con el tiempo.
+
+  **Mantenimiento: re-anclar ~una vez al año.** De acá en adelante, cada cierre nuevo usa
+  como rango de exclusión "desde el día siguiente al último ancla hasta el mes anterior"
+  (corto, reciente, no toca retención) — no volver a excluir desde go-live. Cuando ese
+  rango de exclusión se acerque a los 12 meses (aprox. mediados de 2027), repetir este
+  mismo ejercicio: hacer una exclusión fresca desde go-live mientras todavía sea válida,
+  fijar un nuevo número ancla, y arrancar el reloj de nuevo desde ahí.
 
 **Ancla verificada — cierre agosto 2026** (última vez que la ventana completa existía):
 users **1.943**, prompters **859**, sessions **15.842**. Partir de acá, no de una query nueva
