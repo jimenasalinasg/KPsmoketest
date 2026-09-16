@@ -3979,8 +3979,8 @@ function SeptemberMonthly() {
               ["Latency (median)", SEPTEMBER.latency ?? "pending"],
               ["CSAT", SEPTEMBER.csat ?? "pending"],
               ["Cumulative users (Sep 1 2025–Sep 10 2026)", "2,015"],
-              ["Cumulative prompters (Sep 1 2025–Sep 10 2026)", "898"],
-              ["Cumulative sessions (Sep 1 2025–Sep 10 2026)", "16,448"],
+              ["Cumulative prompters (Sep 1 2025–Sep 10 2026)", "899"],
+              ["Cumulative sessions (Sep 1 2025–Sep 10 2026)", "16,449"],
               ["Cumulative penetration", "56.0%"],
             ];
             const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
@@ -4002,8 +4002,8 @@ function SeptemberMonthly() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {[
             { label: "Users reached", value: "2,015" },
-            { label: "Prompters", value: "898" },
-            { label: "Sessions", value: "16,448" },
+            { label: "Prompters", value: "899" },
+            { label: "Sessions", value: "16,449" },
             { label: "Penetration of 3,600", value: "56.0%" },
           ].map((m, i) => (
             <div key={i}>
@@ -4172,7 +4172,7 @@ function SeptemberMonthly() {
 
       {/* Pending sections note */}
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + 4 confirmed pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA (except lessons generated) — all pulled directly from FullStory dashboard widgets by ID for Sep 1–10. <strong style={{ color: INK2 }}>New and returning users</strong> are computed on the Sin DEV population via the firstSeen segment recipe (checklist §4), same method as August's close. <strong style={{ color: INK2 }}>Still manual/pending:</strong> prompts sent, latency, CSAT (no survey responses yet this month), and LWA lessons generated (pulled from console at close). <strong style={{ color: INK2 }}>Not built yet:</strong> funnels and retention cohorts — those land with the full close. The qualitative sweep below is live for Sep 1–10 and is re-run over the whole month at close. This is a 10-day partial pull; the full month (through Sep 30) replaces it.
+        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + 4 confirmed pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA (except lessons generated) — all pulled directly from FullStory dashboard widgets by ID for Sep 1–10. <strong style={{ color: INK2 }}>New and returning users</strong> are computed on the Sin DEV population via the firstSeen segment recipe (checklist §4), same method as August's close. <strong style={{ color: INK2 }}>Still manual/pending:</strong> prompts sent, latency, CSAT (no survey responses yet this month), and LWA lessons generated (pulled from console at close). <strong style={{ color: INK2 }}>Not built yet:</strong> funnels and retention cohorts — those land with the full close. <strong style={{ color: INK2 }}>Cumulative totals</strong> (found 16-sep-2026, see checklist): FullStory only retains ~1 year of raw data, so the old single-query pull from Sep 1, 2025 now silently truncates. Users and sessions above are anchored on August's verified close (1,943 / 15,842) plus this month's new-users and sessions instead. Prompters has no equivalent anchor recipe yet — its 899 is still the raw query, unverified against the truncation and liable to under-count without warning. The qualitative sweep below is live for Sep 1–10 and is re-run over the whole month at close. This is a 10-day partial pull; the full month (through Sep 30) replaces it.
       </div>
 
     </div>
