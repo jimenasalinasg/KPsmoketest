@@ -358,6 +358,37 @@ de usar KP) lee como pérdida de usuarios. Se descartó el 16-sep-2026 a favor d
   mismo ejercicio: hacer una exclusión fresca desde go-live mientras todavía sea válida,
   fijar un nuevo número ancla, y arrancar el reloj de nuevo desde ahí.
 
+#### Prompters: la query directa SÍ sirve, con un control que la valida (22-sep-2026)
+
+La receta de exclusión se rompió (ver abajo), pero **el acumulado de prompters no la necesita**.
+Medido el 22-sep-2026 con `3GVbGeJsPBCb`:
+
+| Query | Resultado |
+|---|---:|
+| `2025-09-01` → `2026-08-31` | **859** |
+| `2025-09-16` → `2026-08-31` (arranca después del corte) | **859** |
+| `2025-09-01` → `2025-09-15` (tramo ya recortado) | **0** |
+| `2025-09-01` → `2026-09-22` | **913** |
+
+Las dos primeras idénticas confirman que la ventana **está truncada**. Pero las dos dan
+**859**, que es exactamente el prompters del cierre de agosto verificado: el tramo perdido
+**no contiene a nadie que no haya prompteado también después**. Para esta métrica el recorte
+todavía no cuesta nada, y por eso la query directa es válida: **913** al 22-sep.
+
+**El control, obligatorio en cada cierre:** antes de usar la query directa, computar
+`3GVbGeJsPBCb` sobre `2025-09-01` → `2026-08-31` y verificar que dé **859**. Mientras dé 859,
+la query directa se puede usar tal cual. **El día que dé menos**, el recorte ya se comió a
+alguien: ahí hay que anclar (fijar el último valor verificado como ancla nueva) y pasar a
+sumar incrementos, como users y sessions.
+
+Por qué funciona acá y no con `users`: prompters es un subconjunto chico y muy recurrente —
+quien prompteó una vez en las primeras semanas volvió—, mientras que `users` incluye miles de
+visitas únicas que nunca volvieron, y esas sí desaparecen con la ventana (1.943 → 1.895).
+
+**No hace falta medir «prompters nuevos» para el acumulado.** La receta de exclusión servía
+para eso; con la query directa validada, el incremento sale por resta si se lo quiere reportar
+(913 − 859 = 54 en sep 1–22), pero no es la fuente del acumulado.
+
 #### ⚠️ La receta de exclusión para prompters dejó de reproducir su control (22-sep-2026)
 
 Al recomputar el parcial de septiembre al corte del 22-sep, **la receta de exclusión no

@@ -3981,7 +3981,7 @@ function SeptemberMonthly() {
               ["Latency (median)", SEPTEMBER.latency ?? "pending"],
               ["CSAT", SEPTEMBER.csat ?? "pending"],
               ["Cumulative users (Sep 1 2025–Sep 22 2026, anchored on Aug close)", "2,035"],
-              ["Cumulative prompters (as of Sep 15 — exclusion recipe not reproducible on Sep 22)", "905"],
+              ["Cumulative prompters (Sep 1 2025–Sep 22 2026)", "913"],
               ["Cumulative sessions (Sep 1 2025–Sep 22 2026, anchored on Aug close)", "16,903"],
               ["Cumulative penetration", "56.5%"],
             ];
@@ -4004,7 +4004,7 @@ function SeptemberMonthly() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {[
             { label: "Users reached", value: "2,035" },
-            { label: "Prompters (as of Sep 15)", value: "905" },
+            { label: "Prompters", value: "913" },
             { label: "Sessions", value: "16,903" },
             { label: "Penetration of 3,600", value: "56.5%" },
           ].map((m, i) => (
@@ -4153,7 +4153,7 @@ function SeptemberMonthly() {
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${GREEN}` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration at 56.5%, anchored not re-queried</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            2,035 cumulative users through Sep 22 — August's verified close (1,943) plus this month's 92 first-time visitors, and 16,903 sessions the same way. A fresh go-live query is no longer trustworthy: FullStory retains ~12 months and silently truncates instead of erroring, so the anchor-and-add method from the checklist is what this tile uses.
+            2,035 cumulative users through Sep 22 — August's verified close (1,943) plus this month's 92 first-time visitors, and 16,903 sessions the same way. A fresh go-live query is no longer trustworthy for these two: FullStory retains ~12 months and silently truncates instead of erroring, so the anchor-and-add method from the checklist is what this tile uses. Prompters (913) is the exception — it is still the direct query, because that query reproduces August's verified 859 exactly over the closed month, which proves the truncated weeks hold no prompter who did not also prompt later.
           </p>
         </div>
 <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
@@ -4174,19 +4174,13 @@ function SeptemberMonthly() {
             31 countries. Netherlands is #3 with 22 users (6%), up from 14 at Sep 15 and 9 at Sep 10 — it has grown faster than the month around it at every cut. Still flagged pending confirmation of whether the traffic is human; at this rate it is worth resolving before the close.
           </p>
         </div>
-<div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${RED}` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Cumulative prompters could not be recomputed</div>
-          <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            The tile above still reads 905, the value verified at the Sep 15 cut. The exclusion-segment recipe that produced it does not reproduce today: re-running its own Sep 1–15 control returns 90 rather than the 46 on record, i.e. the exclusion is not filtering anyone, and an exclusion window kept entirely inside the retention period behaves the same. So this is not the retention truncation — it is the recipe itself. Left at the last verified value and flagged rather than carried forward with a number that cannot be reproduced.
-          </p>
-        </div>
       </div>
 
       <QualitativeSection q={QUALITATIVE.september} />
 
       {/* Pending sections note */}
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + 4 confirmed pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA (except lessons generated) — all pulled directly from FullStory dashboard widgets by ID for Sep 1–22. July's baseline was revalidated before writing (250 / 1,226 / 109 / 489, exact). <strong style={{ color: INK2 }}>New and returning users</strong> are computed on the Sin DEV population via the firstSeen segment recipe (checklist §4): the interpreter would not land the range exactly on Sep 22, so it was bracketed — 91 users with firstSeen through Sep 21, 92 through Sep 23, and nobody can be first seen after the activity window ends, so 92 is the count. <strong style={{ color: INK2 }}>Cumulative users and sessions</strong> are anchored on August's verified close (1,943 / 15,842) plus this month's new users and sessions, never a fresh go-live query — FullStory retains ~12 months and truncates such a query silently (checklist §"Acumulados"). <strong style={{ color: INK2 }}>Cumulative prompters is stale on purpose:</strong> it still shows 905, the Sep 15 value, because the exclusion-segment recipe no longer reproduces its own control (90 instead of 46 for Sep 1–15, with the exclusion applying to nobody — and the same result with an exclusion window well inside retention, so this is the recipe, not the retention window). It will be re-derived or replaced at the close. <strong style={{ color: INK2 }}>Still manual/pending:</strong> prompts sent, latency, CSAT (no survey responses yet this month), and LWA lessons generated (pulled from console at close). <strong style={{ color: INK2 }}>Not built yet:</strong> funnels and retention cohorts — those land with the full close. The qualitative sweep below covers Sep 1–10 and is re-run over the whole month at close. This is a 22-day partial pull; the full month (through Sep 30) replaces it.
+        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + 4 confirmed pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA (except lessons generated) — all pulled directly from FullStory dashboard widgets by ID for Sep 1–22. July's baseline was revalidated before writing (250 / 1,226 / 109 / 489, exact). <strong style={{ color: INK2 }}>New and returning users</strong> are computed on the Sin DEV population via the firstSeen segment recipe (checklist §4): the interpreter would not land the range exactly on Sep 22, so it was bracketed — 91 users with firstSeen through Sep 21, 92 through Sep 23, and nobody can be first seen after the activity window ends, so 92 is the count. <strong style={{ color: INK2 }}>Cumulative totals</strong> have to work around FullStory's ~12-month retention, which truncates a go-live-to-today query silently instead of erroring. Users and sessions are therefore anchored on August's verified close (1,943 / 15,842) plus this month's new users and sessions. Prompters (913) is the direct query, kept only because it passes its own control: run over the closed August range it still returns exactly 859, the verified August figure, so the truncated weeks provably contain no prompter who did not also prompt later — the moment that control stops returning 859 the query has to be re-anchored (checklist §"Acumulados"). <strong style={{ color: INK2 }}>Still manual/pending:</strong> prompts sent, latency, CSAT (no survey responses yet this month), and LWA lessons generated (pulled from console at close). <strong style={{ color: INK2 }}>Not built yet:</strong> funnels and retention cohorts — those land with the full close. The qualitative sweep below covers Sep 1–10 and is re-run over the whole month at close. This is a 22-day partial pull; the full month (through Sep 30) replaces it.
       </div>
 
     </div>
