@@ -120,7 +120,15 @@ get_sessions(segment_id, limit=1)   -> matching_users = nuevos del mes
 
 **Segmentos parciales ya construidos** (no rehacerlos, verificar el rango antes
 de reusar): sep 1–15 de 2026 → `14woK7fxWFB8`, `firstSeen` confirmado
-`2026-09-01` → `2026-09-15T23:59:59Z`, **79** usuarios.
+`2026-09-01` → `2026-09-15T23:59:59Z`, **79** usuarios. Sep 1–22 de 2026 → `4GK1ajuKElFB`,
+**92** usuarios.
+
+**Cuando el intérprete no clava el último día, usar bracket.** Al 22-sep pedir «ending
+2026-09-22 inclusive» devolvió `firstSeen` hasta el **23**, y «ending 2026-09-21» hasta el
+**21**. En vez de seguir reformulando: se leen los dos (91 hasta el 21, 92 hasta el 23) y se
+razona el borde — nadie puede tener `firstSeen` posterior al fin de la ventana de actividad,
+así que el de arriba **es** el valor del período y la diferencia de 1 es el usuario nuevo del
+día 22. Sirve como verificación, no solo como parche.
 
 **No hace falta excluir los mails del equipo.** `get_sessions` **falla** con
 `unspecified error` si el segmento lleva `excludeUserProperties`. Se resuelve al
@@ -349,6 +357,36 @@ de usar KP) lee como pérdida de usuarios. Se descartó el 16-sep-2026 a favor d
   rango de exclusión se acerque a los 12 meses (aprox. mediados de 2027), repetir este
   mismo ejercicio: hacer una exclusión fresca desde go-live mientras todavía sea válida,
   fijar un nuevo número ancla, y arrancar el reloj de nuevo desde ahí.
+
+#### ⚠️ La receta de exclusión para prompters dejó de reproducir su control (22-sep-2026)
+
+Al recomputar el parcial de septiembre al corte del 22-sep, **la receta de exclusión no
+reproduce su propio control**. Re-corriendo exactamente el mismo segmento sobre sep 1–15
+—el que el 16-sep dio **46** prompters nuevos— hoy devuelve **90**, que es prácticamente la
+métrica cruda del período (83 al 15-sep): la exclusión no está sacando a nadie.
+
+No es el recorte de retención. Se probó con una ventana de exclusión **enteramente dentro**
+del año (`2025-10-01` → `2026-08-31`, definición confirmada con timestamps completos) y da
+**90 igual**. O sea: el `excludeBehaviors` no está filtrando, punto.
+
+| Corte | Rango de exclusión | Resultado |
+|---|---|---:|
+| 16-sep-2026 (validado) | 2025-09-01 → 2026-08-31 | 46 |
+| 22-sep-2026 | 2025-09-01 → 2026-08-31 | **90** |
+| 22-sep-2026 | 2025-10-01 → 2026-08-31 (dentro de retención) | **90** |
+
+**Mientras tanto, el acumulado de prompters queda congelado en 905** (el valor verificado del
+15-sep), etiquetado como tal en el dashboard, y **no** se avanza con un número que no se puede
+reproducir. `users` y `sessions` no están afectados: su ancla no depende de esta receta.
+
+Pendiente para el cierre: volver a derivar prompters nuevos por otra vía, o aceptar que el
+acumulado de prompters se queda en el último valor verificado hasta que haya un método que
+aguante su propio control. **No cargar 859 + <un número de esta receta> sin que el control de
+sep 1–15 vuelva a dar 46.**
+
+Ojo también con `get_sessions`: si el rango de exclusión vuelve con fechas sin hora
+(`"2026-08-31"` en vez de `"2026-08-31T23:59:59Z"`), la llamada falla con `unspecified error`.
+Reformular hasta que la definición traiga timestamps completos.
 
 **Ancla verificada — cierre agosto 2026** (última vez que la ventana completa existía):
 users **1.943**, prompters **859**, sessions **15.842**. Partir de acá, no de una query nueva
