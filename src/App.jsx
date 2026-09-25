@@ -3056,8 +3056,8 @@ function PillMonthlyTable({ months, rows, note }) {
 const QUALITATIVE = {
   september: {
     kicker: "Qualitative — session sweep",
-    title: "What people actually do here · sampled Sep 1–10",
-    intro: "Five sessions read end to end, sampled across the funnel strata for the first ten days: some who searched and copied, some who searched and left, some who opened a pill and stopped. This is the partial-month read; the full close replaces it. Read for what people came to do, what they took away, and what got in the way.",
+    title: "What people actually do here · sampled Sep 1–10 and Sep 11–22",
+    intro: "Ten sessions read end to end across two passes — five over the first ten days, five more over Sep 11–22 — sampled across the funnel strata each time: some who searched and copied, some who searched and left, some who opened a pill and stopped. This is the partial-month read; the full close replaces it. Read for what people came to do, what they took away, and what got in the way. The second pass was run because extraction nearly doubled in a single week with almost no new users behind it, and no metric explained why.",
     shot: {
       src: shotSep,
       alt: "The Knowledge Platform mid-session: a long research protocol pasted as the prompt, instructing the assistant to answer only from IDB Group documents and cite each with title, operation number, country and date; the answer comes back as a table, and the Sources Overview panel is open on the right listing more than a dozen loan proposals and completion reports from across the region.",
@@ -3068,6 +3068,47 @@ const QUALITATIVE = {
       redaction: "The user's profile photo has been replaced with a blank disc. Nothing else is altered. No name, email or city appears in the frame; the document codes are published IDB operation numbers.",
     },
     themes: [
+      {
+        tag: "New use case",
+        tone: "green",
+        title: "The prompt is now a paste from the document they are writing",
+        body: "Three of the five sessions in the second pass did not type a question at all — they pasted text out of a deliverable in progress and asked what the bank had learned about it. One worked through a risk matrix entry by entry, pasting each assumption verbatim and asking the same thing every time, across at least nine risks in two sittings of over two hours: legislative polarisation, administrative processes, tax burden, thin local markets, misaligned legal frameworks, technological disruption, cultural norms, natural disasters, procurement. Another pasted a client government's list of objectives, then two operation numbers from their own portfolio, asking whether each related to a theme and what results it had. A third pasted a quoted clause out of a policy document and asked what it meant, then narrowed it to the programme it belongs to.",
+        quote: "«dame lecciones y recomendaciones ante este supuesto: …» — repeated, unchanged, once per risk in the matrix",
+        soWhat: "September's first pass found people running evidence reviews, where the protocol lived in the user's document but the questions were still thematic. This is a step further: the input itself is the document. KP is being used to fill in a risk matrix and to interpret policy language — two genres nobody designed for. It also explains the extraction jump: highlights went from 229 to 445 in a week while users grew a quarter, because these sessions are far heavier, not more numerous. The product affordance this asks for is upload or paste a document, and answer per item — and, in the shorter term, a way to re-run one framing over a list without retyping it.",
+        sessions: [{ id: "S-11", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/5712976374407001993:556048473952844245:1789726951070", place: "Spain" }, { id: "S-12", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8171411454864858635:7305213050275078542:1790004635993", place: "Brazil" }, { id: "S-13", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7884492215783631903:7574466123050554104:1790088813299", place: "Colombia" }],
+      },
+      {
+        tag: "Friction",
+        tone: "amber",
+        title: "They click the answer, nothing happens, then they reach for the mouse",
+        body: "Both heavy sessions of the second pass are full of dead clicks landing on the body of the answer — on a recommendation paragraph or a reference item — immediately before the user highlights that same text and copies it. Ten or more times per session, the same sequence: click, nothing, select by hand, copy. They are clicking the thing they want to take, and the thing they want to take is not clickable.",
+        soWhat: "The clipboard finding is now three months old and this is the mechanism behind it. Every recommendation block is a unit the user already treats as one object: a copy affordance on that block, or making the block itself actionable, converts an intent they are expressing many times per session and currently failing at. It is a smaller change than an export feature and the sessions show exactly where it goes.",
+        sessions: [{ id: "S-11", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/5712976374407001993:556048473952844245:1789726951070", place: "Spain" }, { id: "S-12", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8171411454864858635:7305213050275078542:1790004635993", place: "Brazil" }],
+      },
+      {
+        tag: "Friction",
+        tone: "amber",
+        title: "The tour interrupted a query and the session ended there",
+        body: "Third month running, and this pass finally shows the cost. A user picked a suggestion from the Prompt Gallery, sent it, and while the answer was coming back the guided tour opened on top of it. Nine clicks on Next, one on Done, and the session ends — without the answer ever being read. In the first pass the same tour interrupted one user mid-session and was skipped within seconds by two more, one of them after pressing Next twice; nobody in either sample finished it on purpose.",
+        soWhat: "Two months of reporting this as an annoyance understated it. The rule — never open the tour over an in-flight query — is unchanged, cheap, available since the August sweep, and still not done; it now has a lost session attached rather than a suspicion. It also keeps inflating tour completion, at 43% this month, which counts these nine Nexts as a completed tour.",
+        sessions: [{ id: "S-14", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/1287693989177158946:2490411062525382262:1790097332800", place: "Colombia" }, { id: "S-01", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6876446644364478952:5154621503159138924:1788376325917", place: "US" }, { id: "S-02", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/1101650464059151204:613502868302385563:1788962855045", place: "Chile · mobile" }],
+      },
+      {
+        tag: "Bug",
+        tone: "red",
+        title: "Token renewal errors on load, then three minutes of nothing",
+        body: "One session opens with three consecutive console errors from authentication — a token renewal that requires interaction, and a second attempt reporting an interaction already in progress. The page reloads itself once, and the first user action comes almost three minutes later. The session recovered and the user went on to browse lessons and copy one, so nothing was lost here, but the same failure on a less patient visit is indistinguishable from a broken product.",
+        soWhat: "Worth measuring rather than guessing at: how often the token renewal path errors on load, and what the users who hit it do next. It is invisible in every metric the dashboard currently carries, because a session that never gets going still counts as a session.",
+        sessions: [{ id: "S-15", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2141187557737431716:8870461315029057820:1790028856859", place: "Uruguay" }],
+      },
+      {
+        tag: "Opportunity",
+        tone: "green",
+        title: "The contextual surface works when it is entered from a project card",
+        body: "The one contextual session read in this pass went through cleanly: home carousel, a project card in execution, Similar projects, then the dropdown switched to Lessons learned, several lesson cards opened and one copied. No load failure, no confusion about the surface itself. The path that worked started from a project the user had already chosen on the home page.",
+        soWhat: "Five months of poor contextual conversion have been read as a problem with the pills. This session suggests the pills are usable and the gap is upstream, in how people arrive at them — reachable only after choosing a project first. Worth testing before investing in the surface itself: whether the entry point, not the pill, is what is failing.",
+        sessions: [{ id: "S-15", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2141187557737431716:8870461315029057820:1790028856859", place: "Uruguay" }],
+      },
       {
         tag: "New use case",
         tone: "green",
@@ -3093,14 +3134,6 @@ const QUALITATIVE = {
         quote: "«0 of the 20 are new.»",
         soWhat: "A user reaching for breadth hits a ceiling and cannot tell whether it is the corpus or the retrieval. That distinction is the AI team's to make, not the interface's, but the interface is where it surfaces — and right now it surfaces as a dead end with no next step offered.",
         sessions: [{ id: "S-01", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6876446644364478952:5154621503159138924:1788376325917", place: "US" }],
-      },
-      {
-        tag: "Friction",
-        tone: "amber",
-        title: "The guided tour still fires on top of work in progress",
-        body: "Third month running. One user was interrupted mid-session and had to click through the overlay to reach Skip tour. Two more skipped it within seconds of arriving, one of them after pressing Next twice first. Nobody in the sample finished it on purpose.",
-        soWhat: "Tour completion at 43% keeps counting dismissals as completions. The fix — never interrupt an in-flight query — has been cheap and available since the August sweep and is still not done.",
-        sessions: [{ id: "S-01", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6876446644364478952:5154621503159138924:1788376325917", place: "US" }, { id: "S-04", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6390604598236346002:8279628477281202381:1788967392967", place: "Uruguay" }, { id: "S-02", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/1101650464059151204:613502868302385563:1788962855045", place: "Chile · mobile" }],
       },
       {
         tag: "Friction",
@@ -3868,10 +3901,10 @@ function AugustMonthly() {
 const SEPTEMBER = {
   sessions: 1229,
   users: 262,
-  prompters: 113,           // live via MCP (metric 3GVbGeJsPBCb)
+  prompters: 113,          // live via MCP (metric 3GVbGeJsPBCb)
   prompts: null,           // manual — NO hay metrico, pasa a mano al cierre
   returningUsers: 164,     // Sin DEV — users (262) menos nuevos (98)
-  first_time: 98,          // Sin DEV — segmento firstSeen 2026-09-01→2026-09-25 (uU1zZTdZmO8p) + visito /home de produccion
+  first_time: 98,          // Sin DEV — segmento firstSeen uU1zZTdZmO8p, rango exacto 2026-09-01->2026-09-25 confirmado (sin bracket) + visito /home de produccion
   tourCompletion: 43,      // live via MCP (iN3brKBr4rlY) — 43.08 redondeado
   pillPageviews: 69,       // live via MCP (2EYT9yOW6odB)
   sourceClicks: 21,        // live via MCP (Ge6P9qbIeu3b)
@@ -3981,7 +4014,7 @@ function SeptemberMonthly() {
               ["Latency (median)", SEPTEMBER.latency ?? "pending"],
               ["CSAT", SEPTEMBER.csat ?? "pending"],
               ["Cumulative users (Sep 1 2025–Sep 25 2026, anchored on Aug close)", "2,041"],
-              ["Cumulative prompters (Sep 1 2025–Sep 25 2026, anchored via exclusion recipe)", "977"],
+              ["Cumulative prompters (frozen at Sep 22 2026 — control failed Sep 25, see note)", "913"],
               ["Cumulative sessions (Sep 1 2025–Sep 25 2026, anchored on Aug close)", "17,071"],
               ["Cumulative penetration", "56.7%"],
             ];
@@ -3999,12 +4032,12 @@ function SeptemberMonthly() {
       {/* Cumulative totals — pulled live via MCP */}
       <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
-          Cumulative totals — Sep 1, 2025 to Sep 25, 2026 · live via MCP
+          Cumulative totals — Sep 1, 2025 to Sep 25, 2026 · anchored on August close
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {[
             { label: "Users reached", value: "2,041" },
-            { label: "Prompters", value: "977" },
+            { label: "Prompters (as of Sep 22)", value: "913" },
             { label: "Sessions", value: "17,071" },
             { label: "Penetration of 3,600", value: "56.7%" },
           ].map((m, i) => (
@@ -4077,7 +4110,7 @@ function SeptemberMonthly() {
           </button>
         )}
         <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
-          Live from FullStory via MCP. Country data reflects session location by IP; multi-country users may appear more than once. Not in August's list yet: Bahamas, Canada, France, Puerto Rico, Saint Martin, Venezuela (1–6 users each) — first 25 days, may just be early sampling.
+          Live from FullStory via MCP. Country data reflects session location by IP; multi-country users may appear more than once. Not in August's list yet: Bahamas, Canada, France, Puerto Rico, Saint Martin, Venezuela (1–6 users each) — 25 days in, the same six as at the Sep 15/22 cuts.
         </div>
       </div>
 
@@ -4127,7 +4160,7 @@ function SeptemberMonthly() {
         contextual={95}
         rows={[["Highlights", 558, 61], ["Copies", 176, 34], ["Source clicks", 21, 0], ["Downloads", 6, 0]]}
         note={"Downloads: 5 Word · 1 Excel."}
-        split={"OS/Contextual split 89/11 in the first 25 days — an even sharper tilt to Open Search than August's 57/43 close, and further than the 76/24 read at Sep 15."}
+        split={"OS/Contextual split 89/11 over 25 days — the tilt to Open Search keeps sharpening: 76/24 at Sep 15, 85/15 at Sep 22, against August's 57/43 close."}
       />
 
       {/* ── DIVIDER ── */}
@@ -4150,28 +4183,28 @@ function SeptemberMonthly() {
       {/* Signals — executive */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — early read (25 days in)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${GREEN}` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration crosses 56%, cumulative holds on the anchor</div>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${RED}` }}>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration at 56.7% — prompters frozen, its control just failed</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            2,041 cumulative users through Sep 25 — 98 net-new, all first-time visitors, added on top of August's verified close (1,943) rather than from a fresh go-live query. FullStory's ~12-month retention keeps eroding a fresh query: one run today for the same population (Sep 2025–Sep 25 2026) returns just 1,947 users / 16,206 sessions, further short of the anchored 2,041 / 17,071 than the 1,911 / 15,563 it gave on Sep 15 — the truncation is still active and getting worse as go-live recedes past the 12-month mark. Anchoring on the last verified close plus this month's new users and sessions keeps the cumulative line accurate instead of drifting down on its own — see the checklist for the recipe. Prompters (977) uses the same exclusion-segment anchor (prompted this month, excluding anyone who prompted between go-live and August) — cross-checked against a raw query (913, also truncated low, consistent with the same bug) — it needs re-anchoring roughly yearly, unlike users/sessions.
+            2,041 cumulative users through Sep 25 — August's verified close (1,943) plus this month's 98 first-time visitors, this time on an exact firstSeen range with no bracketing needed, and 17,071 sessions the same way. Prompters can no longer use the Sep 22 shortcut: its own control (3GVbGeJsPBCb over the closed Aug range) now returns 857, not the required 859 — the retention truncation has started dropping a prompter after all. Per the checklist's rule, that means re-anchoring, but no validated increment method exists yet (the exclusion-segment recipe already failed its own reproducibility check on Sep 22), so the tile below stays frozen at 913 — the last value verified against a passing control — rather than advancing on an unverified number.
           </p>
         </div>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Pace cooled further, nearing August's baseline</div>
+<div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Pace nearly level with August</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            262 users · 1,229 sessions in 25 days — ~10.5 users/day, down from the ~13.1/day at the Sep 15 checkpoint and now approaching August's full-month average of ~9.3/day (287 over 31 days). 164 of the 262 (63%) already knew KP before September; 98 are new.
+            262 users · 1,229 sessions in 25 days — ~10.5 users/day, easing further from ~11.2 at Sep 22 and ~13.1 at Sep 15, now nearly level with August's full-month average of ~9.3/day. 164 of the 262 (63%) already knew KP before September.
           </p>
         </div>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Extraction already beats all of August</div>
+<div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Extraction keeps widening its lead over August</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            619 highlights and 210 copies in 25 days, already ahead of all of August's 366 and 154 — 169% and 136% of a full month's volume with 5 days still left. The split kept moving: 89/11 Open Search vs contextual, against 76/24 at Sep 15 and 57/43 at August's close. Open Search keeps pulling away, and the contextual surface's share keeps shrinking.
+            619 highlights and 210 copies in 25 days, against 366 and 154 for the whole of August — up from 445 / 161 just three days ago at the Sep 22 cut. The split keeps tilting: 89/11 Open Search vs contextual, from 85/15 at Sep 22 and 57/43 at August's close. Open Search is doing nearly all of it.
           </p>
         </div>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #b06e2f` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Netherlands still in the top three</div>
+<div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #b06e2f` }}>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Netherlands keeps climbing, still unexplained</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            31 countries in 25 days (Trinidad & Tobago newly appeared). Netherlands holds #3 with 24 users (7%), up from 14 at Sep 15 — a 71% jump while the month overall grew 34% (196→262). Still below August's #2 finish (8%), but growing faster than total traffic for the second checkpoint running. Still flagged pending confirmation of whether the traffic is human.
+            31 countries (Trinidad & Tobago present again). Netherlands holds #3 with 24 users (7%), up from 22 at Sep 22 and 14 at Sep 15 — it keeps growing faster than the month around it at every cut. Still flagged pending confirmation of whether the traffic is human; at this rate it is worth resolving before the close.
           </p>
         </div>
       </div>
@@ -4180,7 +4213,7 @@ function SeptemberMonthly() {
 
       {/* Pending sections note */}
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + 4 confirmed pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA (except lessons generated) — all pulled directly from FullStory dashboard widgets by ID for Sep 1–25. <strong style={{ color: INK2 }}>New and returning users</strong> are computed on the Sin DEV population via the firstSeen segment recipe (checklist §4), same method as August's close. <strong style={{ color: INK2 }}>Cumulative totals</strong> (retention issue found 15/16-sep-2026, see checklist): FullStory only retains ~12 months of raw data, so a single query from Sep 1, 2025 now silently truncates instead of erroring. Users and sessions above are anchored on August's verified close (1,943 / 15,842) plus this month's new users and sessions, not a fresh go-live query — that keeps the cumulative line from drifting down on its own as the window ages. Prompters (977) is now anchored too, via an exclusion segment (checklist §"Acumulados") rather than a firstSeen-style property, since FullStory has no "first time did X" property for custom events — it needs re-anchoring roughly yearly, unlike users/sessions which never do. <strong style={{ color: INK2 }}>Still manual/pending:</strong> prompts sent, latency, CSAT (no survey responses yet this month), and LWA lessons generated (pulled from console at close). <strong style={{ color: INK2 }}>Not built yet:</strong> funnels and retention cohorts — those land with the full close. The qualitative sweep below covers Sep 1–10 and is re-run over the whole month at close. This is a 25-day partial pull; the full month (through Sep 30) replaces it.
+        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + 4 confirmed pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA (except lessons generated) — all pulled directly from FullStory dashboard widgets by ID for Sep 1–25. July's baseline was revalidated before writing (250 / 1,226 / 109 / 489, exact). <strong style={{ color: INK2 }}>New and returning users</strong> are computed on the Sin DEV population via the firstSeen segment recipe (checklist §4): this time the interpreter landed the range exactly on Sep 25 (confirmed in the segment definition returned), no bracketing needed. <strong style={{ color: INK2 }}>Cumulative totals</strong> have to work around FullStory's ~12-month retention, which truncates a go-live-to-today query silently instead of erroring. Users and sessions are anchored on August's verified close (1,943 / 15,842) plus this month's new users and sessions. <strong style={{ color: INK2 }}>Prompters is frozen at 913</strong> (the Sep 22 value): the control adopted that day — run `3GVbGeJsPBCb` over the closed Aug range and require 859 — now returns 857, so the direct-query shortcut no longer holds and the truncation has started affecting prompters too. No validated increment method exists yet (the exclusion-segment recipe already failed its own reproducibility check on Sep 22), so the last control-passing value is kept and flagged rather than advanced on a guess; needs a fix before the close (checklist §"Acumulados"). <strong style={{ color: INK2 }}>Still manual/pending:</strong> prompts sent, latency, CSAT (no survey responses yet this month), and LWA lessons generated (pulled from console at close). <strong style={{ color: INK2 }}>Not built yet:</strong> funnels and retention cohorts — those land with the full close. The qualitative sweep below covers two passes, Sep 1–10 and Sep 11–22, ten sessions in all, and is re-run over the whole month at close. This is a 25-day partial pull; the full month (through Sep 30) replaces it.
       </div>
 
     </div>

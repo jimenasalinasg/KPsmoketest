@@ -120,7 +120,15 @@ get_sessions(segment_id, limit=1)   -> matching_users = nuevos del mes
 
 **Segmentos parciales ya construidos** (no rehacerlos, verificar el rango antes
 de reusar): sep 1–15 de 2026 → `14woK7fxWFB8`, `firstSeen` confirmado
-`2026-09-01` → `2026-09-15T23:59:59Z`, **79** usuarios.
+`2026-09-01` → `2026-09-15T23:59:59Z`, **79** usuarios. Sep 1–22 de 2026 → `4GK1ajuKElFB`,
+**92** usuarios.
+
+**Cuando el intérprete no clava el último día, usar bracket.** Al 22-sep pedir «ending
+2026-09-22 inclusive» devolvió `firstSeen` hasta el **23**, y «ending 2026-09-21» hasta el
+**21**. En vez de seguir reformulando: se leen los dos (91 hasta el 21, 92 hasta el 23) y se
+razona el borde — nadie puede tener `firstSeen` posterior al fin de la ventana de actividad,
+así que el de arriba **es** el valor del período y la diferencia de 1 es el usuario nuevo del
+día 22. Sirve como verificación, no solo como parche.
 
 **No hace falta excluir los mails del equipo.** `get_sessions` **falla** con
 `unspecified error` si el segmento lleva `excludeUserProperties`. Se resuelve al
@@ -350,19 +358,89 @@ de usar KP) lee como pérdida de usuarios. Se descartó el 16-sep-2026 a favor d
   mismo ejercicio: hacer una exclusión fresca desde go-live mientras todavía sea válida,
   fijar un nuevo número ancla, y arrancar el reloj de nuevo desde ahí.
 
+#### Prompters: la query directa SÍ sirve, con un control que la valida (22-sep-2026)
+
+La receta de exclusión se rompió (ver abajo), pero **el acumulado de prompters no la necesita**.
+Medido el 22-sep-2026 con `3GVbGeJsPBCb`:
+
+| Query | Resultado |
+|---|---:|
+| `2025-09-01` → `2026-08-31` | **859** |
+| `2025-09-16` → `2026-08-31` (arranca después del corte) | **859** |
+| `2025-09-01` → `2025-09-15` (tramo ya recortado) | **0** |
+| `2025-09-01` → `2026-09-22` | **913** |
+
+Las dos primeras idénticas confirman que la ventana **está truncada**. Pero las dos dan
+**859**, que es exactamente el prompters del cierre de agosto verificado: el tramo perdido
+**no contiene a nadie que no haya prompteado también después**. Para esta métrica el recorte
+todavía no cuesta nada, y por eso la query directa es válida: **913** al 22-sep.
+
+**El control, obligatorio en cada cierre:** antes de usar la query directa, computar
+`3GVbGeJsPBCb` sobre `2025-09-01` → `2026-08-31` y verificar que dé **859**. Mientras dé 859,
+la query directa se puede usar tal cual. **El día que dé menos**, el recorte ya se comió a
+alguien: ahí hay que anclar (fijar el último valor verificado como ancla nueva) y pasar a
+sumar incrementos, como users y sessions.
+
+Por qué funciona acá y no con `users`: prompters es un subconjunto chico y muy recurrente —
+quien prompteó una vez en las primeras semanas volvió—, mientras que `users` incluye miles de
+visitas únicas que nunca volvieron, y esas sí desaparecen con la ventana (1.943 → 1.895).
+
+**No hace falta medir «prompters nuevos» para el acumulado.** La receta de exclusión servía
+para eso; con la query directa validada, el incremento sale por resta si se lo quiere reportar
+(913 − 859 = 54 en sep 1–22), pero no es la fuente del acumulado.
+
+#### ⚠️ El control de la query directa también falló, 3 días después (25-sep-2026)
+
+El control de arriba (`3GVbGeJsPBCb` sobre `2025-09-01 → 2026-08-31` debe dar **859**) se probó
+de nuevo al cerrar el parcial del 25-sep y **ya no da 859 — da 857**, reproducible (se corrió dos
+veces). Es exactamente el escenario que el propio control estaba diseñado para detectar: "el día
+que dé menos, anclar y pasar a incrementos." Ese día llegó más rápido de lo esperado (3 días).
+
+**Problema: no hay incremento validado disponible todavía.** La receta de exclusión (única
+alternativa documentada para medir "prompters nuevos") ya había fallado su propio control el
+22-sep (ver abajo) — no es reutilizable tal cual. Sin una forma confiable de medir el incremento,
+**el acumulado de prompters queda congelado en 913** (el último valor verificado con el control
+en 859, del 22-sep) en vez de avanzarlo con una query que ya no pasa su propio chequeo. Documentado
+así en el dashboard (tarjeta roja en Signals + nota al pie), no corregido con un número sin validar.
+
+**Pendiente para el próximo cierre:** encontrar una receta de incremento para prompters que sí
+reproduzca (quizás un rango de exclusión corto y reciente en vez del rango completo desde
+go-live, ya que el propio `build_segment` parece más confiable en rangos acotados — sin probar
+todavía). Hasta entonces, congelar es la opción honesta.
+
+#### ⚠️ La receta de exclusión para prompters dejó de reproducir su control (22-sep-2026)
+
+Al recomputar el parcial de septiembre al corte del 22-sep, **la receta de exclusión no
+reproduce su propio control**. Re-corriendo exactamente el mismo segmento sobre sep 1–15
+—el que el 16-sep dio **46** prompters nuevos— hoy devuelve **90**, que es prácticamente la
+métrica cruda del período (83 al 15-sep): la exclusión no está sacando a nadie.
+
+No es el recorte de retención. Se probó con una ventana de exclusión **enteramente dentro**
+del año (`2025-10-01` → `2026-08-31`, definición confirmada con timestamps completos) y da
+**90 igual**. O sea: el `excludeBehaviors` no está filtrando, punto.
+
+| Corte | Rango de exclusión | Resultado |
+|---|---|---:|
+| 16-sep-2026 (validado) | 2025-09-01 → 2026-08-31 | 46 |
+| 22-sep-2026 | 2025-09-01 → 2026-08-31 | **90** |
+| 22-sep-2026 | 2025-10-01 → 2026-08-31 (dentro de retención) | **90** |
+
+**Mientras tanto, el acumulado de prompters queda congelado en 905** (el valor verificado del
+15-sep), etiquetado como tal en el dashboard, y **no** se avanza con un número que no se puede
+reproducir. `users` y `sessions` no están afectados: su ancla no depende de esta receta.
+
+Pendiente para el cierre: volver a derivar prompters nuevos por otra vía, o aceptar que el
+acumulado de prompters se queda en el último valor verificado hasta que haya un método que
+aguante su propio control. **No cargar 859 + <un número de esta receta> sin que el control de
+sep 1–15 vuelva a dar 46.**
+
+Ojo también con `get_sessions`: si el rango de exclusión vuelve con fechas sin hora
+(`"2026-08-31"` en vez de `"2026-08-31T23:59:59Z"`), la llamada falla con `unspecified error`.
+Reformular hasta que la definición traiga timestamps completos.
+
 **Ancla verificada — cierre agosto 2026** (última vez que la ventana completa existía):
 users **1.943**, prompters **859**, sessions **15.842**. Partir de acá, no de una query nueva
 con `start_date=2025-09-01`.
-
-**Checkpoint 25-sep-2026** (parcial de septiembre, corte a 25 días): la query cruda
-(`2025-09-01 → 2026-09-25`) sigue degradándose — da **1.947 usuarios / 16.206 sesiones**,
-más bajo que los 1.911 / 15.563 del 15-sep. Confirma que el recorte avanza con el tiempo,
-como esperado. Método ancla + incremento (first_time 98, sesiones del parcial 1.229) da
-**2.041 usuarios / 17.071 sesiones** — usado en el dashboard. Prompters: exclusión
-go-live→ago-2026 dio **118 nuevos**; ancla 859+118=**977**, contra una query cruda del
-mismo rango que dio 913 (también recortada, mismo sentido que users/sessions — consistente,
-no es una alarma). Acumulado de países: 31 (entra Trinidad & Tobago, que ya estaba en la
-lista de agosto — no es país nuevo global, solo reaparece en el corte de septiembre).
 
 > **Regla nueva:** nunca volver a confiar en una query de rango completo desde go-live para
 > el acumulado. No avisa cuando se rompe — hay que asumir que ya está rota y anclar +
@@ -409,6 +487,8 @@ en la definición: para cerrar un mes nuevo hay que **reconstruir** el embudo co
 | Open Search · ago 2026 **(cierre)** | `380466231` | 2026-08-01 → 2026-08-31 |
 | Open Search · sep 2026 (1–10, muestreo cuali) | `1524889128` | 2026-09-01 → 2026-09-10 |
 | Contextual (pills) · sep 2026 (1–10, muestreo cuali) | `1970924463` | 2026-09-01 → 2026-09-10 |
+| Open Search · sep 2026 (1–22, muestreo cuali 2º pase) | `344606505` | 2026-09-01 → 2026-09-22 |
+| Contextual (pills) · sep 2026 (1–22, muestreo cuali 2º pase) | `1255496848` | 2026-09-01 → 2026-09-22 |
 | Open Search · jul 2026 | `813457909` | 2026-07-01 → 2026-07-31 |
 | Contextual (pills) · ago 2026 **(cierre)** | `1692594896` | 2026-08-01 → 2026-08-31 |
 | Contextual (pills) · jul 2026 | `1476024114` | 2026-07-01 → 2026-07-31 |
