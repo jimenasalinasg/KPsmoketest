@@ -354,6 +354,16 @@ de usar KP) lee como pérdida de usuarios. Se descartó el 16-sep-2026 a favor d
 users **1.943**, prompters **859**, sessions **15.842**. Partir de acá, no de una query nueva
 con `start_date=2025-09-01`.
 
+**Checkpoint 25-sep-2026** (parcial de septiembre, corte a 25 días): la query cruda
+(`2025-09-01 → 2026-09-25`) sigue degradándose — da **1.947 usuarios / 16.206 sesiones**,
+más bajo que los 1.911 / 15.563 del 15-sep. Confirma que el recorte avanza con el tiempo,
+como esperado. Método ancla + incremento (first_time 98, sesiones del parcial 1.229) da
+**2.041 usuarios / 17.071 sesiones** — usado en el dashboard. Prompters: exclusión
+go-live→ago-2026 dio **118 nuevos**; ancla 859+118=**977**, contra una query cruda del
+mismo rango que dio 913 (también recortada, mismo sentido que users/sessions — consistente,
+no es una alarma). Acumulado de países: 31 (entra Trinidad & Tobago, que ya estaba en la
+lista de agosto — no es país nuevo global, solo reaparece en el corte de septiembre).
+
 > **Regla nueva:** nunca volver a confiar en una query de rango completo desde go-live para
 > el acumulado. No avisa cuando se rompe — hay que asumir que ya está rota y anclar +
 > incrementar. Si algún día se prefiere volver a la ventana móvil (re-etiquetando todo el
