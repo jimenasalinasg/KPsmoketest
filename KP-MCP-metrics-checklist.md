@@ -389,6 +389,25 @@ visitas únicas que nunca volvieron, y esas sí desaparecen con la ventana (1.94
 para eso; con la query directa validada, el incremento sale por resta si se lo quiere reportar
 (913 − 859 = 54 en sep 1–22), pero no es la fuente del acumulado.
 
+#### ⚠️ El control de la query directa también falló, 3 días después (25-sep-2026)
+
+El control de arriba (`3GVbGeJsPBCb` sobre `2025-09-01 → 2026-08-31` debe dar **859**) se probó
+de nuevo al cerrar el parcial del 25-sep y **ya no da 859 — da 857**, reproducible (se corrió dos
+veces). Es exactamente el escenario que el propio control estaba diseñado para detectar: "el día
+que dé menos, anclar y pasar a incrementos." Ese día llegó más rápido de lo esperado (3 días).
+
+**Problema: no hay incremento validado disponible todavía.** La receta de exclusión (única
+alternativa documentada para medir "prompters nuevos") ya había fallado su propio control el
+22-sep (ver abajo) — no es reutilizable tal cual. Sin una forma confiable de medir el incremento,
+**el acumulado de prompters queda congelado en 913** (el último valor verificado con el control
+en 859, del 22-sep) en vez de avanzarlo con una query que ya no pasa su propio chequeo. Documentado
+así en el dashboard (tarjeta roja en Signals + nota al pie), no corregido con un número sin validar.
+
+**Pendiente para el próximo cierre:** encontrar una receta de incremento para prompters que sí
+reproduzca (quizás un rango de exclusión corto y reciente en vez del rango completo desde
+go-live, ya que el propio `build_segment` parece más confiable en rangos acotados — sin probar
+todavía). Hasta entonces, congelar es la opción honesta.
+
 #### ⚠️ La receta de exclusión para prompters dejó de reproducir su control (22-sep-2026)
 
 Al recomputar el parcial de septiembre al corte del 22-sep, **la receta de exclusión no
