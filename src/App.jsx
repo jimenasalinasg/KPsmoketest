@@ -1254,7 +1254,7 @@ const MAY = {
   highlighted: 463,
   highlightedOpenSearch: 217,
   copied: 191,
-  copiedOpenSearch: 411,
+  copiedOpenSearch: 99,   // corregido 2026-09-25: tenía 411, imposible (mayor que copied). Revalidado via MCP (JOTETVLPeJKh, 2026-05-01→2026-05-31) = 99
   sourceClicks: 50,
   pillPageviews: 130,
   pillTop: "Similar Projects (40)",
