@@ -375,6 +375,36 @@ Las dos primeras idénticas confirman que la ventana **está truncada**. Pero la
 **no contiene a nadie que no haya prompteado también después**. Para esta métrica el recorte
 todavía no cuesta nada, y por eso la query directa es válida: **913** al 22-sep.
 
+#### El control ya falló, y el arreglo es medir la deriva en vez de congelar (28-sep-2026)
+
+El 25-sep el control dio **857** y el parcial congeló prompters en 913. Era lo que decía la
+regla, pero la regla era más estricta de lo necesario. El 28-sep da **855** — la deriva avanza
+sola, como con `users`.
+
+**El truncamiento afecta igual a las dos queries, así que se cancela en la resta.** Los cuatro
+usuarios que le faltan a la query del rango de agosto le faltan también a la query
+go-live→hoy: son los mismos, los que solo prompteaban en el tramo ya caído.
+
+```
+ancla verificada (cierre agosto)                        859
+3GVbGeJsPBCb  2025-09-01 → 2026-08-31  (hoy)            855   -> deriva = 4
+3GVbGeJsPBCb  2025-09-01 → 2026-09-28  (hoy)            917
+acumulado = 859 + (917 - 855) = 917 + 4                 921
+```
+
+Es el método anclado de siempre —ancla + incremento— con el incremento medido sobre una
+**ventana consistente**, no la query directa que el corte del 25-sep dejó de creer con razón.
+
+**De acá en adelante:** en cada corte, computar las dos queries (rango de agosto y
+go-live→hoy), sacar la deriva contra 859 y sumarla. **No congelar.** Un usuario nuevo no
+puede aparecer en el tramo truncado, así que la deriva solo crece.
+
+**Cuándo sí re-anclar:** si la deriva deja de moverse en paralelo — por ejemplo si la query
+larga baja más que la del rango de agosto — la resta dejó de ser válida. Ahí sí, fijar el
+último acumulado verificado como ancla nueva y arrancar de cero.
+
+Serie de la deriva: 22-sep **0** · 25-sep **2** · 28-sep **4**.
+
 **El control, obligatorio en cada cierre:** antes de usar la query directa, computar
 `3GVbGeJsPBCb` sobre `2025-09-01` → `2026-08-31` y verificar que dé **859**. Mientras dé 859,
 la query directa se puede usar tal cual. **El día que dé menos**, el recorte ya se comió a
