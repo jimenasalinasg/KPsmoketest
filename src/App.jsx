@@ -3897,27 +3897,27 @@ function AugustMonthly() {
 }
 
 // ── SEPTEMBER 2026 DATA ──────────────────────
-// Preliminary — through Sep 25, 2026 (25 days in) · segmento Sin DEV (via FullStory MCP, actualizado 2026-09-25)
+// Preliminary — through Sep 28, 2026 (28 days in) · segmento Sin DEV (via FullStory MCP, actualizado 2026-09-28)
 const SEPTEMBER = {
-  sessions: 1229,
-  users: 262,
-  prompters: 113,          // live via MCP (metric 3GVbGeJsPBCb)
+  sessions: 1294,
+  users: 275,
+  prompters: 122,          // live via MCP (metric 3GVbGeJsPBCb)
   prompts: null,           // manual — NO hay metrico, pasa a mano al cierre
-  returningUsers: 164,     // Sin DEV — users (262) menos nuevos (98)
-  first_time: 98,          // Sin DEV — segmento firstSeen uU1zZTdZmO8p, rango exacto 2026-09-01->2026-09-25 confirmado (sin bracket) + visito /home de produccion
-  tourCompletion: 43,      // live via MCP (iN3brKBr4rlY) — 43.08 redondeado
-  pillPageviews: 69,       // live via MCP (2EYT9yOW6odB)
-  sourceClicks: 21,        // live via MCP (Ge6P9qbIeu3b)
+  returningUsers: 172,     // Sin DEV — users (275) menos nuevos (103)
+  first_time: 103,         // Sin DEV — segmento firstSeen JVQ2XMdM73GS, rango exacto 2026-09-01->2026-09-28 confirmado (sin bracket) + visito /home de produccion
+  tourCompletion: 42,      // live via MCP (iN3brKBr4rlY) — 42.22 redondeado
+  pillPageviews: 76,       // live via MCP (2EYT9yOW6odB)
+  sourceClicks: 22,        // live via MCP (Ge6P9qbIeu3b)
   sourceClicksBC: 0,       // live via MCP (LD4uHOPIDS8l) — unique users, no eventos
   thumbsUp: 1,             // live via MCP (AtpRWyuThJUq)
   thumbsDown: 1,           // live via MCP (x6Z3q26RMOra)
   promptGalleryClicks: 23, // live via MCP (lkwqkKIJQ25E)
   recentSearchClicks: 1,   // live via MCP (nfcBnYjQSAfT)
-  newSearchClicks: 1,      // live via MCP (tU5aopeDHc1k)
-  highlighted: 619,        // live via MCP (cMgaz9YMCSJh)
-  highlightedOpenSearch: 558, // live via MCP (RQ6IjtoMbeD5)
-  copied: 210,             // live via MCP (yowGb1tOMe3X)
-  copiedOpenSearch: 176,   // live via MCP (JOTETVLPeJKh)
+  newSearchClicks: 2,      // live via MCP (tU5aopeDHc1k)
+  highlighted: 637,        // live via MCP (cMgaz9YMCSJh)
+  highlightedOpenSearch: 568, // live via MCP (RQ6IjtoMbeD5)
+  copied: 214,             // live via MCP (yowGb1tOMe3X)
+  copiedOpenSearch: 180,   // live via MCP (JOTETVLPeJKh)
   wordDownloads: 5,        // live via MCP (3EkjBy6jYByB)
   excelDownloads: 1,       // live via MCP (FIw2VjBWkJ6J)
   lwa: {
@@ -3932,43 +3932,43 @@ const SEPTEMBER = {
   csat: null,              // manual — todavia sin respuestas cargadas este mes
   totalCountries: 31,
   countries: [
-    { name: "United States (HQ)",       code: "US", users: 190, pct: 52 },
-    { name: "Colombia",                 code: "CO", users: 31, pct: 8 },
-    { name: "Netherlands",              code: "NL", users: 24, pct: 7 }, // REVISAR: atipico para BID, posible VPN/trafico no humano
-    { name: "Argentina",                code: "AR", users: 16, pct: 4 },
-    { name: "Uruguay",                  code: "UY", users: 14, pct: 4 },
-    { name: "Brazil",                   code: "BR", users: 13, pct: 4 },
-    { name: "Peru",                     code: "PE", users: 13, pct: 4 },
-    { name: "Costa Rica",               code: "CR", users: 9,  pct: 2 },
-    { name: "Spain",                    code: "ES", users: 8,  pct: 2 },
-    { name: "Paraguay",                 code: "PY", users: 7,  pct: 2 },
-    { name: "Bahamas",                  code: "BS", users: 6,  pct: 2 },
-    { name: "Mexico",                   code: "MX", users: 6,  pct: 2 },
-    { name: "Panama",                   code: "PA", users: 6,  pct: 2 },
-    { name: "Barbados",                 code: "BB", users: 5,  pct: 1 },
-    { name: "Chile",                    code: "CL", users: 5,  pct: 1 },
-    { name: "Cayman Islands",           code: "KY", users: 4,  pct: 1 },
-    { name: "Dominican Republic",       code: "DO", users: 3,  pct: 1 },
-    { name: "Nicaragua",                code: "NI", users: 3,  pct: 1 },
-    { name: "Bolivia",                  code: "BO", users: 2,  pct: 1 },
-    { name: "Ecuador",                  code: "EC", users: 2,  pct: 1 },
-    { name: "El Salvador",              code: "SV", users: 2,  pct: 1 },
-    { name: "Guatemala",                code: "GT", users: 2,  pct: 1 },
-    { name: "Trinidad & Tobago",        code: "TT", users: 2,  pct: 1 },
-    { name: "Canada",                   code: "CA", users: 1,  pct: 0 },
-    { name: "France",                   code: "FR", users: 1,  pct: 0 },
-    { name: "Guyana",                   code: "GY", users: 1,  pct: 0 },
-    { name: "Puerto Rico",              code: "PR", users: 1,  pct: 0 },
-    { name: "Saint Martin",             code: "MF", users: 1,  pct: 0 },
-    { name: "Suriname",                 code: "SR", users: 1,  pct: 0 },
-    { name: "Sweden",                   code: "SE", users: 1,  pct: 0 },
-    { name: "Venezuela",                code: "VE", users: 1,  pct: 0 },
+    { name: "United States (HQ)",        code: "US", users: 197, pct: 51 },
+    { name: "Colombia",                  code: "CO", users: 33, pct: 9 },
+    { name: "Netherlands",               code: "NL", users: 27, pct: 7 }, // REVISAR: atipico para BID, posible VPN/trafico no humano
+    { name: "Uruguay",                   code: "UY", users: 19, pct: 5 },
+    { name: "Argentina",                 code: "AR", users: 16, pct: 4 },
+    { name: "Brazil",                    code: "BR", users: 13, pct: 3 },
+    { name: "Peru",                      code: "PE", users: 13, pct: 3 },
+    { name: "Costa Rica",                code: "CR", users: 9, pct: 2 },
+    { name: "Spain",                     code: "ES", users: 9, pct: 2 },
+    { name: "Mexico",                    code: "MX", users: 8, pct: 2 },
+    { name: "Paraguay",                  code: "PY", users: 7, pct: 2 },
+    { name: "Bahamas",                   code: "BS", users: 6, pct: 2 },
+    { name: "Panama",                    code: "PA", users: 6, pct: 2 },
+    { name: "Barbados",                  code: "BB", users: 5, pct: 1 },
+    { name: "Chile",                     code: "CL", users: 5, pct: 1 },
+    { name: "Cayman Islands",            code: "KY", users: 4, pct: 1 },
+    { name: "Dominican Republic",        code: "DO", users: 3, pct: 1 },
+    { name: "El Salvador",               code: "SV", users: 3, pct: 1 },
+    { name: "Nicaragua",                 code: "NI", users: 3, pct: 1 },
+    { name: "Trinidad & Tobago",         code: "TT", users: 3, pct: 1 },
+    { name: "Bolivia",                   code: "BO", users: 2, pct: 1 },
+    { name: "Ecuador",                   code: "EC", users: 2, pct: 1 },
+    { name: "Guatemala",                 code: "GT", users: 2, pct: 1 },
+    { name: "Canada",                    code: "CA", users: 1, pct: 0 },
+    { name: "France",                    code: "FR", users: 1, pct: 0 },
+    { name: "Guyana",                    code: "GY", users: 1, pct: 0 },
+    { name: "Puerto Rico",               code: "PR", users: 1, pct: 0 },
+    { name: "Saint Martin",              code: "MF", users: 1, pct: 0 },
+    { name: "Suriname",                  code: "SR", users: 1, pct: 0 },
+    { name: "Sweden",                    code: "SE", users: 1, pct: 0 },
+    { name: "Venezuela",                 code: "VE", users: 1, pct: 0 },
   ],
 };
 
 // ── SEPTEMBER MONTHLY VIEW ─────────────────────────────────
 function SeptemberMonthly() {
-  const MONTH = "September 2026 — through Sep 25 (25 days in)";
+  const MONTH = "September 2026 — through Sep 28 (28 days in)";
   const [showAllCountries, setShowAllCountries] = useState(false);
 
   const MCard = (p) => <MonthMetricCard {...p} variant="august" momentumLabel="August" />;
@@ -4013,10 +4013,10 @@ function SeptemberMonthly() {
               ["New Search clicks", SEPTEMBER.newSearchClicks],
               ["Latency (median)", SEPTEMBER.latency ?? "pending"],
               ["CSAT", SEPTEMBER.csat ?? "pending"],
-              ["Cumulative users (Sep 1 2025–Sep 25 2026, anchored on Aug close)", "2,041"],
-              ["Cumulative prompters (frozen at Sep 22 2026 — control failed Sep 25, see note)", "913"],
-              ["Cumulative sessions (Sep 1 2025–Sep 25 2026, anchored on Aug close)", "17,071"],
-              ["Cumulative penetration", "56.7%"],
+              ["Cumulative users (Sep 1 2025–Sep 28 2026, anchored on Aug close)", "2,046"],
+              ["Cumulative prompters (Sep 1 2025–Sep 28 2026, drift-corrected)", "921"],
+              ["Cumulative sessions (Sep 1 2025–Sep 28 2026, anchored on Aug close)", "17,136"],
+              ["Cumulative penetration", "56.8%"],
             ];
             const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
             const blob = new Blob([csv], { type: "text/csv" });
@@ -4032,14 +4032,14 @@ function SeptemberMonthly() {
       {/* Cumulative totals — pulled live via MCP */}
       <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
-          Cumulative totals — Sep 1, 2025 to Sep 25, 2026 · anchored on August close
+          Cumulative totals — Sep 1, 2025 to Sep 28, 2026 · anchored on August close
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {[
-            { label: "Users reached", value: "2,041" },
-            { label: "Prompters (as of Sep 22)", value: "913" },
-            { label: "Sessions", value: "17,071" },
-            { label: "Penetration of 3,600", value: "56.7%" },
+            { label: "Users reached", value: "2,046" },
+            { label: "Prompters", value: "921" },
+            { label: "Sessions", value: "17,136" },
+            { label: "Penetration of 3,600", value: "56.8%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -4074,7 +4074,7 @@ function SeptemberMonthly() {
       {/* Geo */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}><span>🌎 Geographic Reach — {SEPTEMBER.totalCountries} countries (through Sep 25)</span><MetricInfo m={META.countries} /></span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}><span>🌎 Geographic Reach — {SEPTEMBER.totalCountries} countries (through Sep 28)</span><MetricInfo m={META.countries} /></span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
           <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
@@ -4121,8 +4121,8 @@ function SeptemberMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (September · partial)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard meta="pillPageviews" label="Queries (pill views)" value={String(SEPTEMBER.pillPageviews)} desc="Total visits across all contextual search pills · live via MCP" accent momentum={AUGUST.pillPageviews} />
-        <MCard label="Most used pill — Similar Projects" value="16" desc="interactions so far · Lessons Learned 14 · Literature/Inst. Docs/Data 6 each · live via MCP" small />
-        <MCard label={<>Least used pill —<br/>Literature</>} value="6" desc="tied with Institutional Documents, Data (6 each) · live via MCP" small />
+        <MCard label="Most used pill — Lessons Learned" value="20" desc="interactions so far · Similar Projects 18 · Data 11 · live via MCP" small />
+        <MCard label={<>Least used pill —<br/>Literature</>} value="9" desc="of the four confirmed pills · live via MCP" small />
       </div>
 
       {/* ── DIVIDER ── */}
@@ -4155,12 +4155,12 @@ function SeptemberMonthly() {
       {/* ── CONTENT ENGAGEMENT ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (September · partial)</div>
       <ContentEngagementCard
-        total={856}
-        openSearch={761}
-        contextual={95}
-        rows={[["Highlights", 558, 61], ["Copies", 176, 34], ["Source clicks", 21, 0], ["Downloads", 6, 0]]}
+        total={879}
+        openSearch={776}
+        contextual={103}
+        rows={[["Highlights", 568, 69], ["Copies", 180, 34], ["Source clicks", 22, 0], ["Downloads", 6, 0]]}
         note={"Downloads: 5 Word · 1 Excel."}
-        split={"OS/Contextual split 89/11 over 25 days — the tilt to Open Search keeps sharpening: 76/24 at Sep 15, 85/15 at Sep 22, against August's 57/43 close."}
+        split={"OS/Contextual split 88/12 over 28 days — the tilt to Open Search has held since Sep 22 (85/15) after sharpening from 76/24 at Sep 15, against August's 57/43 close."}
       />
 
       {/* ── DIVIDER ── */}
@@ -4181,30 +4181,30 @@ function SeptemberMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* Signals — executive */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — early read (25 days in)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — early read (28 days in)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${RED}` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration at 56.7% — prompters frozen, its control just failed</div>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${GREEN}` }}>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration at 56.8%, and prompters is measurable again</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            2,041 cumulative users through Sep 25 — August's verified close (1,943) plus this month's 98 first-time visitors, this time on an exact firstSeen range with no bracketing needed, and 17,071 sessions the same way. Prompters can no longer use the Sep 22 shortcut: its own control (3GVbGeJsPBCb over the closed Aug range) now returns 857, not the required 859 — the retention truncation has started dropping a prompter after all. Per the checklist's rule, that means re-anchoring, but no validated increment method exists yet (the exclusion-segment recipe already failed its own reproducibility check on Sep 22), so the tile below stays frozen at 913 — the last value verified against a passing control — rather than advancing on an unverified number.
+            2,046 cumulative users through Sep 28 — August's verified close (1,943) plus this month's 103 first-time visitors, on an exact firstSeen range with no bracketing — and 17,136 sessions the same way. Prompters is unfrozen at 921, without relying on the direct query the Sep 25 cut correctly stopped trusting: that query's control now returns 855 against the verified 859, so it is short by 4. But the same truncation hits both ends, so it cancels in the difference: 859 + (917 − 855) = 921, identical to simply adding the 4 back. The drift is now measured every cut rather than used as a pass/fail gate.
           </p>
         </div>
 <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Pace nearly level with August</div>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Pace has settled at August's level</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            262 users · 1,229 sessions in 25 days — ~10.5 users/day, easing further from ~11.2 at Sep 22 and ~13.1 at Sep 15, now nearly level with August's full-month average of ~9.3/day. 164 of the 262 (63%) already knew KP before September.
+            275 users · 1,294 sessions in 28 days — ~9.8 users/day, down through ~10.5 at Sep 25, ~11.2 at Sep 22 and ~13.1 at Sep 15, and now essentially August's full-month average of ~9.3/day. The hot first third did not hold, but the month still finishes clearly above August in absolute terms. 172 of the 275 (63%) already knew KP before September — the same share at every cut this month.
           </p>
         </div>
 <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Extraction keeps widening its lead over August</div>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Extraction ends the month at nearly twice August</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            619 highlights and 210 copies in 25 days, against 366 and 154 for the whole of August — up from 445 / 161 just three days ago at the Sep 22 cut. The split keeps tilting: 89/11 Open Search vs contextual, from 85/15 at Sep 22 and 57/43 at August's close. Open Search is doing nearly all of it.
+            637 highlights and 214 copies in 28 days, against 366 and 154 for all of August. The surge that ran between Sep 15 and Sep 22 (229 → 445 highlights) has flattened: only 18 more highlights in the last three days. The split held at 88/12 Open Search versus contextual, against 57/43 at August's close. The qualitative pass explains the shape — a handful of very heavy sessions, people working through their own documents, rather than broader extraction.
           </p>
         </div>
 <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #b06e2f` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Netherlands keeps climbing, still unexplained</div>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Netherlands finishes the month at #3, still unexplained</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            31 countries (Trinidad & Tobago present again). Netherlands holds #3 with 24 users (7%), up from 22 at Sep 22 and 14 at Sep 15 — it keeps growing faster than the month around it at every cut. Still flagged pending confirmation of whether the traffic is human; at this rate it is worth resolving before the close.
+            31 countries. Netherlands ends at 27 users (7%), from 24 at Sep 25, 22 at Sep 22 and 9 at Sep 10 — it grew faster than the month around it at every single cut. This is the last partial before the close, so it is the moment to settle whether the traffic is human: if it is not, it has been inflating the country count and the user total all month.
           </p>
         </div>
       </div>
@@ -4213,7 +4213,7 @@ function SeptemberMonthly() {
 
       {/* Pending sections note */}
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + 4 confirmed pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA (except lessons generated) — all pulled directly from FullStory dashboard widgets by ID for Sep 1–25. July's baseline was revalidated before writing (250 / 1,226 / 109 / 489, exact). <strong style={{ color: INK2 }}>New and returning users</strong> are computed on the Sin DEV population via the firstSeen segment recipe (checklist §4): this time the interpreter landed the range exactly on Sep 25 (confirmed in the segment definition returned), no bracketing needed. <strong style={{ color: INK2 }}>Cumulative totals</strong> have to work around FullStory's ~12-month retention, which truncates a go-live-to-today query silently instead of erroring. Users and sessions are anchored on August's verified close (1,943 / 15,842) plus this month's new users and sessions. <strong style={{ color: INK2 }}>Prompters is frozen at 913</strong> (the Sep 22 value): the control adopted that day — run `3GVbGeJsPBCb` over the closed Aug range and require 859 — now returns 857, so the direct-query shortcut no longer holds and the truncation has started affecting prompters too. No validated increment method exists yet (the exclusion-segment recipe already failed its own reproducibility check on Sep 22), so the last control-passing value is kept and flagged rather than advanced on a guess; needs a fix before the close (checklist §"Acumulados"). <strong style={{ color: INK2 }}>Still manual/pending:</strong> prompts sent, latency, CSAT (no survey responses yet this month), and LWA lessons generated (pulled from console at close). <strong style={{ color: INK2 }}>Not built yet:</strong> funnels and retention cohorts — those land with the full close. The qualitative sweep below covers two passes, Sep 1–10 and Sep 11–22, ten sessions in all, and is re-run over the whole month at close. This is a 25-day partial pull; the full month (through Sep 30) replaces it.
+        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + 4 confirmed pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA (except lessons generated) — all pulled directly from FullStory dashboard widgets by ID for Sep 1–28. July's baseline was revalidated before writing (250 / 1,226 / 109 / 489, exact). <strong style={{ color: INK2 }}>New and returning users</strong> are computed on the Sin DEV population via the firstSeen segment recipe (checklist §4); the interpreter landed the range exactly on Sep 28, confirmed in the definition returned, so no bracketing was needed. <strong style={{ color: INK2 }}>Cumulative totals</strong> work around FullStory's ~12-month retention, which truncates a go-live-to-today query silently instead of erroring. Users and sessions are anchored on August's verified close (1,943 / 15,842) plus this month's new users and sessions. <strong style={{ color: INK2 }}>Prompters is unfrozen at 921.</strong> The Sep 25 cut froze it at 913 when its control failed, which was the right call under the rule as written, but the rule was stricter than it needed to be: the control (3GVbGeJsPBCb over the closed August range, required to return 859) now returns 855, and that 4-user shortfall is the truncation itself, present identically in the go-live-to-today query. It therefore cancels in the difference — 859 + (917 − 855) = 921 — which is the anchor-and-add method with the increment measured on a consistent window, not the direct query the Sep 25 cut correctly stopped trusting. From here the drift is measured at every cut and added back, rather than used as a pass/fail gate; if it ever stops moving in step, that is the signal to re-anchor (checklist §"Acumulados"). <strong style={{ color: INK2 }}>Still manual/pending:</strong> prompts sent, latency, CSAT (no survey responses yet this month), and LWA lessons generated (pulled from console at close). <strong style={{ color: INK2 }}>Not built yet:</strong> funnels and retention cohorts — those land with the full close. The qualitative sweep below covers two passes, Sep 1–10 and Sep 11–22, ten sessions in all, and is re-run over the whole month at close. This is a 28-day partial pull; the full month (through Sep 30) replaces it in two days.
       </div>
 
     </div>
@@ -4420,7 +4420,7 @@ function App() {
   const [launchOpen, setLaunchOpen] = useState(false);
 
   const MONTHS = [
-    { id: "september", label: "September 2026 · through Sep 25 (live MCP)" },
+    { id: "september", label: "September 2026 · through Sep 28 (live MCP)" },
     { id: "august",  label: "August 2026" },
     { id: "july",    label: "July 2026" },
     { id: "june",    label: "June 2026" },
