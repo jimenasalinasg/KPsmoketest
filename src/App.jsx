@@ -3057,7 +3057,7 @@ const QUALITATIVE = {
   september: {
     kicker: "Qualitative — session sweep",
     title: "What people actually do here · sampled Sep 1–10 and Sep 11–22",
-    intro: "Ten sessions read end to end across two passes — five over the first ten days, five more over Sep 11–22 — sampled across the funnel strata each time: some who searched and copied, some who searched and left, some who opened a pill and stopped. This is the partial-month read; the full close replaces it. Read for what people came to do, what they took away, and what got in the way. The second pass was run because extraction nearly doubled in a single week with almost no new users behind it, and no metric explained why.",
+    intro: "Ten sessions read end to end across two passes — five over the first ten days, five more over Sep 11–22 — sampled across the funnel strata each time: some who searched and copied, some who searched and left, some who opened a pill and stopped. This is the partial-month read; the full close replaces it. Read for what people came to do, what they took away, and what got in the way. The second pass was run because extraction nearly doubled in a single week with almost no new users behind it, and no metric explained why. The first two findings below come from the in-product survey rather than a session, so they carry a quote but no replay link.",
     shot: {
       src: shotSep,
       alt: "The Knowledge Platform mid-session: a long research protocol pasted as the prompt, instructing the assistant to answer only from IDB Group documents and cite each with title, operation number, country and date; the answer comes back as a table, and the Sources Overview panel is open on the right listing more than a dozen loan proposals and completion reports from across the region.",
@@ -3068,6 +3068,24 @@ const QUALITATIVE = {
       redaction: "The user's profile photo has been replaced with a blank disc. Nothing else is altered. No name, email or city appears in the frame; the document codes are published IDB operation numbers.",
     },
     themes: [
+      {
+        tag: "Bug",
+        tone: "red",
+        title: "A passage attributed to the wrong document, inside the same answer",
+        body: "Not from a session — from the in-product survey, the one three-star response of the month, left by someone doing procurement research across Bank-financed projects. They report that the summary sometimes credits a passage to the wrong document within a single answer. Everything else in the response is positive about the sourcing: they call the source lists with page numbers excellent, and the tool useful for locating documents.",
+        quote: "«Useful for locating documents, and the source lists with page numbers are excellent… the summary sometimes attributes a passage to the wrong document in the same answer.»",
+        soWhat: "Citations are the whole basis on which this product is trusted for research, and a misattribution is worse than a missing source: it is confidently wrong and it survives being copied out. Given that most of the extraction this month came from people pasting the results into their own deliverables, a wrong attribution travels straight into a bank document. This needs reproducing against a real query before the close, and it belongs with the AI team, not the interface.",
+        sessions: [],
+      },
+      {
+        tag: "Coverage gap",
+        tone: "amber",
+        title: "Roughly fifteen chunks per answer, and no way to page past them",
+        body: "The same survey response describes a ceiling: each answer draws on about fifteen chunks, so follow-up questions cannot reach documents beyond that first set. Their ask is specific — export the ranked document list for a query, or filter by document type. This is the second month running that someone reaching for breadth has hit a ceiling and could not tell whether it was the corpus or the retrieval; in September's first pass a user asked for twenty more reports and was told there were none.",
+        quote: "«each answer draws on about 15 chunks, so follow-ups cannot page to new documents… A way to export the ranked document list per query, or to filter by document type, would make it far more valuable.»",
+        soWhat: "Read next to the session sweep this is the same request twice over: the heavy users are assembling a document of their own and want the retrieval set as a list they can work with, not only as prose. An exportable ranked list is a smaller change than it sounds and serves both. The respondent also offered to walk through their procurement use case — worth taking up before the close rather than inferring it from a rating.",
+        sessions: [],
+      },
       {
         tag: "New use case",
         tone: "green",
