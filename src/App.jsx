@@ -3057,7 +3057,7 @@ const QUALITATIVE = {
   september: {
     kicker: "Qualitative — session sweep",
     title: "What people actually do here · sampled Sep 1–10 and Sep 11–22",
-    intro: "Ten sessions read end to end across two passes — five over the first ten days, five more over Sep 11–22 — sampled across the funnel strata each time: some who searched and copied, some who searched and left, some who opened a pill and stopped. This is the partial-month read; the full close replaces it. Read for what people came to do, what they took away, and what got in the way. The second pass was run because extraction nearly doubled in a single week with almost no new users behind it, and no metric explained why.",
+    intro: "Ten sessions read end to end across two passes — five over the first ten days, five more over Sep 11–22 — sampled across the funnel strata each time: some who searched and copied, some who searched and left, some who opened a pill and stopped. This is the partial-month read; the full close replaces it. Read for what people came to do, what they took away, and what got in the way. The second pass was run because extraction nearly doubled in a single week with almost no new users behind it, and no metric explained why. The first two findings below come from the in-product survey rather than a session, so they carry a quote but no replay link.",
     shot: {
       src: shotSep,
       alt: "The Knowledge Platform mid-session: a long research protocol pasted as the prompt, instructing the assistant to answer only from IDB Group documents and cite each with title, operation number, country and date; the answer comes back as a table, and the Sources Overview panel is open on the right listing more than a dozen loan proposals and completion reports from across the region.",
@@ -3068,6 +3068,24 @@ const QUALITATIVE = {
       redaction: "The user's profile photo has been replaced with a blank disc. Nothing else is altered. No name, email or city appears in the frame; the document codes are published IDB operation numbers.",
     },
     themes: [
+      {
+        tag: "Bug",
+        tone: "red",
+        title: "A passage attributed to the wrong document, inside the same answer",
+        body: "Not from a session — from the in-product survey, the one three-star response of the month, left by someone doing procurement research across Bank-financed projects. They report that the summary sometimes credits a passage to the wrong document within a single answer. Everything else in the response is positive about the sourcing: they call the source lists with page numbers excellent, and the tool useful for locating documents.",
+        quote: "«Useful for locating documents, and the source lists with page numbers are excellent… the summary sometimes attributes a passage to the wrong document in the same answer.»",
+        soWhat: "Citations are the whole basis on which this product is trusted for research, and a misattribution is worse than a missing source: it is confidently wrong and it survives being copied out. Given that most of the extraction this month came from people pasting the results into their own deliverables, a wrong attribution travels straight into a bank document. This needs reproducing against a real query before the close, and it belongs with the AI team, not the interface.",
+        sessions: [],
+      },
+      {
+        tag: "Coverage gap",
+        tone: "amber",
+        title: "Roughly fifteen chunks per answer, and no way to page past them",
+        body: "The same survey response describes a ceiling: each answer draws on about fifteen chunks, so follow-up questions cannot reach documents beyond that first set. Their ask is specific — export the ranked document list for a query, or filter by document type. This is the second month running that someone reaching for breadth has hit a ceiling and could not tell whether it was the corpus or the retrieval; in September's first pass a user asked for twenty more reports and was told there were none.",
+        quote: "«each answer draws on about 15 chunks, so follow-ups cannot page to new documents… A way to export the ranked document list per query, or to filter by document type, would make it far more valuable.»",
+        soWhat: "Read next to the session sweep this is the same request twice over: the heavy users are assembling a document of their own and want the retrieval set as a list they can work with, not only as prose. An exportable ranked list is a smaller change than it sounds and serves both. The respondent also offered to walk through their procurement use case — worth taking up before the close rather than inferring it from a rating.",
+        sessions: [],
+      },
       {
         tag: "New use case",
         tone: "green",
@@ -3929,7 +3947,7 @@ const SEPTEMBER = {
     sharedCatalogueView: 0, // live via MCP (gEJ1qqiZ2Df9)
   },
   latency: null,           // manual
-  csat: null,              // manual — todavia sin respuestas cargadas este mes
+  csat: "50%",             // manual — 2 respuestas (5,3) · top-2 box 1/2 · avg 4.00 · ambas del 3-sep (parcial al 2026-09-28)
   totalCountries: 31,
   countries: [
     { name: "United States (HQ)",        code: "US", users: 197, pct: 51 },
@@ -4134,7 +4152,7 @@ function SeptemberMonthly() {
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(SEPTEMBER.prompters)} desc={`${Math.round(SEPTEMBER.prompters/SEPTEMBER.users*100)}% of users reached`} accent momentum={AUGUST.prompters} />
         <MCard meta="prompts" label="Prompts sent" value={null} desc="Manual — pass at close" accent />
         <MCard meta="latency" label="Latency" value={null} desc="Manual — pass at close" small />
-        <MCard meta="csat" label="CSAT" value={null} desc="Manual — no survey responses yet this month" small />
+        <MCard meta="csat" label="CSAT" value={SEPTEMBER.csat} desc="Top-2 box, 1 of 2 responses · avg 4.00 ★ · n=2 is too small to read as a rate" small />
         <MCard meta="sourceClicks" label="Source panel clicks" value={String(SEPTEMBER.sourceClicks)} desc="Clicks on source panel · live via MCP" momentum={AUGUST.sourceClicks} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
@@ -4213,7 +4231,7 @@ function SeptemberMonthly() {
 
       {/* Pending sections note */}
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + 4 confirmed pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA (except lessons generated) — all pulled directly from FullStory dashboard widgets by ID for Sep 1–28. July's baseline was revalidated before writing (250 / 1,226 / 109 / 489, exact). <strong style={{ color: INK2 }}>New and returning users</strong> are computed on the Sin DEV population via the firstSeen segment recipe (checklist §4); the interpreter landed the range exactly on Sep 28, confirmed in the definition returned, so no bracketing was needed. <strong style={{ color: INK2 }}>Cumulative totals</strong> work around FullStory's ~12-month retention, which truncates a go-live-to-today query silently instead of erroring. Users and sessions are anchored on August's verified close (1,943 / 15,842) plus this month's new users and sessions. <strong style={{ color: INK2 }}>Prompters is unfrozen at 921.</strong> The Sep 25 cut froze it at 913 when its control failed, which was the right call under the rule as written, but the rule was stricter than it needed to be: the control (3GVbGeJsPBCb over the closed August range, required to return 859) now returns 855, and that 4-user shortfall is the truncation itself, present identically in the go-live-to-today query. It therefore cancels in the difference — 859 + (917 − 855) = 921 — which is the anchor-and-add method with the increment measured on a consistent window, not the direct query the Sep 25 cut correctly stopped trusting. From here the drift is measured at every cut and added back, rather than used as a pass/fail gate; if it ever stops moving in step, that is the signal to re-anchor (checklist §"Acumulados"). <strong style={{ color: INK2 }}>Still manual/pending:</strong> prompts sent, latency, CSAT (no survey responses yet this month), and LWA lessons generated (pulled from console at close). <strong style={{ color: INK2 }}>Not built yet:</strong> funnels and retention cohorts — those land with the full close. The qualitative sweep below covers two passes, Sep 1–10 and Sep 11–22, ten sessions in all, and is re-run over the whole month at close. This is a 28-day partial pull; the full month (through Sep 30) replaces it in two days.
+        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + 4 confirmed pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA (except lessons generated) — all pulled directly from FullStory dashboard widgets by ID for Sep 1–28. July's baseline was revalidated before writing (250 / 1,226 / 109 / 489, exact). <strong style={{ color: INK2 }}>New and returning users</strong> are computed on the Sin DEV population via the firstSeen segment recipe (checklist §4); the interpreter landed the range exactly on Sep 28, confirmed in the definition returned, so no bracketing was needed. <strong style={{ color: INK2 }}>Cumulative totals</strong> work around FullStory's ~12-month retention, which truncates a go-live-to-today query silently instead of erroring. Users and sessions are anchored on August's verified close (1,943 / 15,842) plus this month's new users and sessions. <strong style={{ color: INK2 }}>Prompters is unfrozen at 921.</strong> The Sep 25 cut froze it at 913 when its control failed, which was the right call under the rule as written, but the rule was stricter than it needed to be: the control (3GVbGeJsPBCb over the closed August range, required to return 859) now returns 855, and that 4-user shortfall is the truncation itself, present identically in the go-live-to-today query. It therefore cancels in the difference — 859 + (917 − 855) = 921 — which is the anchor-and-add method with the increment measured on a consistent window, not the direct query the Sep 25 cut correctly stopped trusting. From here the drift is measured at every cut and added back, rather than used as a pass/fail gate; if it ever stops moving in step, that is the signal to re-anchor (checklist §"Acumulados"). <strong style={{ color: INK2 }}>Still manual/pending:</strong> prompts sent, latency, and LWA lessons generated (pulled from console at close). <strong style={{ color: INK2 }}>CSAT</strong> is loaded manually from the survey console: two responses so far this month, both on Sep 3 — one at 5 stars and one at 3 — which is 50% top-2 box and an average of 4.00. Two responses is not a satisfaction rate and should not be read against August's 40% on five; it is carried for continuity and the n is printed everywhere it appears. <strong style={{ color: INK2 }}>Not built yet:</strong> funnels and retention cohorts — those land with the full close. The qualitative sweep below covers two passes, Sep 1–10 and Sep 11–22, ten sessions in all, and is re-run over the whole month at close. This is a 28-day partial pull; the full month (through Sep 30) replaces it in two days.
       </div>
 
     </div>
