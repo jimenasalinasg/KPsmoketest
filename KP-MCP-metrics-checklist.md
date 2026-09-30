@@ -131,6 +131,41 @@ una cuenta del equipo**. Corregido en el dashboard el 30-sep-2026.
 Consecuencia que vale decir en voz alta: **agosto no tuvo uso genuino de LWA en producción**, y
 septiembre, con dos usuarios fuera del equipo, es el primer mes que sí.
 
+#### LWA se reporta en PERSONAS y excluyendo al equipo (30-sep-2026)
+
+Contar clicks infla: a este volumen una persona que clickea cinco veces parece cinco. Y contar
+con el equipo adentro infla más todavía, porque el grueso del uso de LWA **es** el equipo.
+
+Septiembre 2026, producción, **personas** por acción, con la lista de 28 mails de Sin DEV
+aplicada a mano:
+
+| Acción | con equipo | **fuera del equipo** |
+|---|---:|---:|
+| Creó una lección | 6 personas (12 clicks) | **3** |
+| Copió la lección generada | 4 (4 clicks) | **1** |
+| Compartió con un colega | 2 (3 clicks) | **0** |
+| Abrió una del catálogo | 2 (5 clicks) | **0** |
+| Abrió una compartida | 2 (3 clicks) | **0** |
+
+Agosto 2026: **0 en todo**. El único que creó lecciones (4 clicks) es una cuenta del equipo.
+
+**La lectura:** la mitad de escribir de LWA tiene usuarios reales — tres personas escribieron una
+lección y una se la llevó. La mitad de compartir **no**: todo compartir, toda apertura de
+catálogo y toda lectura de compartidas en septiembre fue el equipo probando.
+
+**Cómo se computa, y por qué a mano.** No se puede attachear un segmento con
+`excludeUserProperties` a un métrico: `compute_metric` devuelve `unspecified error`, con
+`SCOPE_USER` y con `SCOPE_SESSION`. Es el mismo bug que el checklist ya documenta para
+`get_sessions`. Entonces: se arma un segmento por elemento (click + `deps` de host de
+producción), se listan los usuarios con `get_sessions`, y se descuentan a mano los mails de la
+lista de Sin DEV. Con esta población (2 a 6 personas por acción) es perfectamente manejable; si
+algún día crece, hay que resolver la exclusión de otra forma.
+
+**La lista de Sin DEV tiene huecos.** `mcorreal@iadb.org` y `cindyp@iadb.org` **no** están en los
+28 mails, pero su patrón es de equipo (Bogotá, y `cindyp` trabajando en `localhost:4200`). Se
+contaron como usuarios porque el criterio es la lista, no la impresión. Vale revisarla: si
+`mcorreal` es equipo, los creadores de septiembre fuera del equipo son 2 y no 3.
+
 **Regla para el cierre:** LWA se carga **org-wide con filtro de host de producción**, no con Sin
 DEV, y se dice en la vista. Los métricos guardados de gabrielare (`IHPlQ1WT1zEz`, `b46xecCQyFod`,
 `azWUDLxYgaWY`, `o7uGz8LnXgZY`, `gEJ1qqiZ2Df9`) llevan Sin DEV adentro y **no sirven** para esto:

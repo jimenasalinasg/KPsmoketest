@@ -2479,16 +2479,15 @@ const AUGUST = {
   copiedOpenSearch: 73,   // live via MCP (JOTETVLPeJKh)
   wordDownloads: 3,       // live via MCP (3EkjBy6jYByB)
   excelDownloads: 3,      // live via MCP (FIw2VjBWkJ6J)
-  // Recomputado el 30-sep-2026 con el mismo criterio que septiembre: org-wide, solo host de
-  // produccion. Los ceros de agosto SI eran correctos -- en produccion no hubo ninguna de esas
-  // acciones. El que estaba mal era lessonsGenerated.
+  // LWA: mismo criterio que septiembre -- personas fuera del equipo, en produccion.
+  // En agosto no hubo ninguna: el unico que creo lecciones fue una cuenta del equipo.
   lwa: {
-    lessonsGenerated: 4,    // corregido: era 10, que habia entrado por error desde ffbLsADU0Swu sin filtro de host
-    creators: 1,            // un solo usuario, y es una cuenta del equipo que construye
-    share: 0,               // verificado en produccion, org-wide (XOTexx0kvoot)
-    copyLesson: 0,          // verificado en produccion (ftgvZBjF6Olb)
-    viewLesson: 0,          // verificado en produccion (DEUvO54X9yRk)
-    sharedCatalogueView: 0, // verificado en produccion (9AKvRFRstvbl)
+    creators: 0,
+    copied: 0,
+    shared: 0,
+    viewed: 0,
+    sharedViewed: 0,
+    withTeam: { creators: 1, created: 4, shared: 0, copied: 0, viewed: 0, sharedViewed: 0 },
   },
   latency: null,          // manual
   csat: "40%",            // manual — 5 respuestas (3,5,1,1,4) · top-2 box 2/5 · avg 2.80 (full month, closed 2026-09-07)
@@ -3813,16 +3812,16 @@ function AugustMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── LWA (simplified) ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (August · production, all accounts)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (August · people outside the build team)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard meta="lessonsGenerated" label="Lessons created" value={String(AUGUST.lwa.lessonsGenerated)} desc="By one person, an account on the build team · live via MCP" accent />
-        <MCard meta="lwaShare" label="Shares confirmed" value={String(AUGUST.lwa.share)} desc="Nothing shared in production this month" />
-        <MCard meta="lwaCopy" label="Copy lesson" value={String(AUGUST.lwa.copyLesson)} desc="No generated lesson copied out" />
-        <MCard meta="lwaView" label="View lesson" value={String(AUGUST.lwa.viewLesson)} desc="No lesson opened from the catalogue" />
-        <MCard meta="lwaSharedView" label="Shared-catalogue view" value={String(AUGUST.lwa.sharedCatalogueView)} desc="Nothing opened from Shared with you" />
+        <MCard meta="lessonsGenerated" label="Created a lesson" value={String(AUGUST.lwa.creators)} desc="Nobody outside the team wrote one · live via MCP" accent />
+        <MCard meta="lwaCopy" label="Copied one out" value={String(AUGUST.lwa.copied)} desc="No lesson taken away" />
+        <MCard meta="lwaShare" label="Shared with a colleague" value={String(AUGUST.lwa.shared)} desc="Nothing shared in production" />
+        <MCard meta="lwaView" label="Opened from the catalogue" value={String(AUGUST.lwa.viewed)} desc="No lesson reopened" />
+        <MCard meta="lwaSharedView" label="Opened a shared lesson" value={String(AUGUST.lwa.sharedViewed)} desc="Nothing read from Shared with you" />
       </div>
       <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.5 }}>
-        ℹ <strong>Restated on Sep 30, on the same basis as September:</strong> org-wide and production only, not the Sin DEV segment. These zeros turned out to be real — in production nobody shared, copied or opened a lesson in August. What was wrong was Lessons created, published as 10; that figure had come in from a clicks metric with no host filter. Measured properly it is {AUGUST.lwa.lessonsGenerated}, and all of it is one account on the team that builds the platform. August therefore has no genuine user activity in LWA, which makes September — with two users outside the team — the first month that does.
+        ℹ <strong>Restated on Sep 30, on the same basis as September:</strong> people in production, with the build team excluded. August has no LWA use by anyone outside the team. Counting the team as well, one person created {AUGUST.lwa.withTeam.created} lessons and nothing else happened — no shares, no copies, no catalogue opens. The figure published earlier for lessons generated, 10, was wrong: it came from a clicks metric with no host filter. September is the first month with any genuine use.
       </div>
 
       {/* ── DIVIDER ── */}
@@ -3895,17 +3894,18 @@ const SEPTEMBER = {
   copiedOpenSearch: 198,   // live via MCP (JOTETVLPeJKh)
   wordDownloads: 5,        // live via MCP (3EkjBy6jYByB)
   excelDownloads: 1,       // live via MCP (FIw2VjBWkJ6J)
-  // LWA se mide DISTINTO al resto del dashboard, a proposito (ver nota en la vista):
-  // org-wide pero solo host knowledgeplatform.iadb.org. Con el segmento Sin DEV todo daba 0
-  // y era enganoso: el grueso del uso es del equipo que construye, y Sin DEV lo excluye por mail.
+  // LWA: personas FUERA del equipo, en produccion. Recontado el 30-sep-2026.
+  // Se cuentan personas y no clicks: a este volumen un click repetido del mismo usuario
+  // inflaba la lectura. El equipo se excluye con la lista de 28 mails del segmento Sin DEV,
+  // aplicada a mano -- FullStory falla con `unspecified error` si se attachea un segmento con
+  // excludeUserProperties a un metrico, asi que no se puede computar directo.
   lwa: {
-    lessonsGenerated: 12,   // live via MCP — clicks en Question-Set-Create-Draft-Button (uQY9Vcp2aFmr) en produccion
-    creators: 6,            // usuarios unicos que crearon leccion en produccion (2 fuera del equipo)
-    share: 3,               // clicks en Share-Dialog-Button-Share (XOTexx0kvoot) en produccion
-    copyLesson: 4,          // clicks en Lesson-Generated-View-Button-Copy-Header (ftgvZBjF6Olb)
-    viewLesson: 5,          // clicks en Lessons-Catalogue-Button-View (DEUvO54X9yRk)
-    sharedCatalogueView: 3, // clicks en Lessons-Catalogue-Shared-Button-View (9AKvRFRstvbl)
-    devExcluded: { created: 13, shared: 30 }, // lo que ocurrio en localhost:4200 y staging, fuera de estos numeros
+    creators: 3,            // crearon al menos una leccion (annan, katherynm, mcorreal)
+    copied: 1,              // copiaron la leccion generada
+    shared: 0,              // ninguno compartio con un colega
+    viewed: 0,              // ninguno abrio una leccion del catalogo
+    sharedViewed: 0,        // ninguno abrio una compartida
+    withTeam: { creators: 6, created: 12, shared: 3, copied: 4, viewed: 5, sharedViewed: 3 },
   },
   latency: null,           // manual
   csat: "50%",             // manual — 2 respuestas (5,3) · top-2 box 1/2 · avg 4.00 · ambas del 3-sep
@@ -4146,16 +4146,16 @@ function SeptemberMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── LWA (simplified) ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (September · production, all accounts)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (September · people outside the build team)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard meta="lessonsGenerated" label="Lessons created" value={String(SEPTEMBER.lwa.lessonsGenerated)} desc={`${SEPTEMBER.lwa.creators} people, 2 of them outside the build team · live via MCP`} accent />
-        <MCard meta="lwaShare" label="Shares confirmed" value={String(SEPTEMBER.lwa.share)} desc="Lessons actually shared with a colleague · live via MCP" />
-        <MCard meta="lwaCopy" label="Copy lesson" value={String(SEPTEMBER.lwa.copyLesson)} desc="Generated lesson copied out · live via MCP" />
-        <MCard meta="lwaView" label="View lesson" value={String(SEPTEMBER.lwa.viewLesson)} desc="Lessons opened from the catalogue · live via MCP" />
-        <MCard meta="lwaSharedView" label="Shared-catalogue view" value={String(SEPTEMBER.lwa.sharedCatalogueView)} desc="Lessons opened from Shared with you · live via MCP" />
+        <MCard meta="lessonsGenerated" label="Created a lesson" value={String(SEPTEMBER.lwa.creators)} desc="People who wrote at least one lesson · live via MCP" accent />
+        <MCard meta="lwaCopy" label="Copied one out" value={String(SEPTEMBER.lwa.copied)} desc="Took the generated lesson to use elsewhere · live via MCP" />
+        <MCard meta="lwaShare" label="Shared with a colleague" value={String(SEPTEMBER.lwa.shared)} desc="Nobody outside the team shared one" />
+        <MCard meta="lwaView" label="Opened from the catalogue" value={String(SEPTEMBER.lwa.viewed)} desc="Nobody outside the team reopened a lesson" />
+        <MCard meta="lwaSharedView" label="Opened a shared lesson" value={String(SEPTEMBER.lwa.sharedViewed)} desc="Nobody outside the team read one they received" />
       </div>
       <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.5 }}>
-        ℹ <strong>Read these differently from every other number on this page.</strong> LWA is reported org-wide and restricted to production, not on the Sin DEV segment the rest of the dashboard uses. Under Sin DEV every LWA field read zero, which was misleading: most LWA use comes from the team building it, and the segment excludes those accounts by email. Excluded here on purpose: {SEPTEMBER.lwa.devExcluded.created} more lessons created and {SEPTEMBER.lwa.devExcluded.shared} more shares that happened on localhost:4200 and the staging site. What is left still includes the build team — of the {SEPTEMBER.lwa.creators} people who created a lesson in production, two are ordinary users, one working a Uruguay operation and one in a session of over two hours. The earlier reading that the share button had never fired is wrong and has been corrected: it fires, and a complete share was verified in a session replay.
+        ℹ <strong>People, not clicks, and the build team is excluded.</strong> At this volume a click count flatters the feature — one person clicking five times is one person. These are individuals in production, with the team that builds the platform removed using the same email list the Sin DEV segment uses. Counting everyone, the month looks bigger and means less: {SEPTEMBER.lwa.withTeam.creators} people created {SEPTEMBER.lwa.withTeam.created} lessons, with {SEPTEMBER.lwa.withTeam.shared} shares, {SEPTEMBER.lwa.withTeam.copied} copies and {SEPTEMBER.lwa.withTeam.viewed} catalogue opens. A further 13 lessons and 30 shares happened on localhost and staging and are excluded throughout. <strong>The shape that matters:</strong> three people wrote a lesson and one took it away — every share, every catalogue open and every shared-lesson read in September was the team testing. So the writing half of LWA has real users; the sharing half does not yet.
       </div>
 
       {/* ── DIVIDER ── */}
