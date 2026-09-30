@@ -358,6 +358,41 @@ de usar KP) lee como pérdida de usuarios. Se descartó el 16-sep-2026 a favor d
   mismo ejercicio: hacer una exclusión fresca desde go-live mientras todavía sea válida,
   fijar un nuevo número ancla, y arrancar el reloj de nuevo desde ahí.
 
+#### Control obligatorio del cierre: la resta de dos queries (30-sep-2026)
+
+El método anclado es **acumulativo**: cada mes se apoya en el ancla del anterior, así que un
+error en un `first_time` se queda para siempre y no se nota solo. Este control lo detecta, y
+cuesta dos queries.
+
+En cada cierre, computar el mismo métrico sobre dos rangos y restar:
+
+```
+users     a30wnMzqgtJk  2025-09-01 → <fin del mes anterior>   vs.  → <fin del mes cerrado>
+sessions  BhsN9vxRPN7V  idem
+```
+
+La diferencia tiene que dar **exactamente** lo que estás sumando: `first_time` para users, y
+las sesiones del mes para sessions. Verificado el 30-sep-2026:
+
+| | hasta ago-31 | hasta sep-30 | diferencia | lo cargado |
+|---|---:|---:|---:|---:|
+| users | 1.828 | 1.935 | **107** | 107 (`first_time`) |
+| sessions | 14.767 | 16.146 | **1.379** | 1.379 (sesiones del mes) |
+
+Los valores absolutos están truncados por la retención —por eso no se usan directo— pero la
+**diferencia entre dos queries corridas el mismo día** es válida: el tramo que falta le falta
+igual a las dos. Es la misma lógica que la deriva de prompters.
+
+**Si no coincide, no cargues el acumulado hasta entender por qué.** La causa más probable está
+documentada: `first_time` exige visita a `/home` **dentro del mes**, mientras que `users` no, así
+que quien entró por otra página cae en `users` y no en `first_time` y el acumulado queda corto.
+En abril 2026 ese efecto valía −4; en septiembre 2026 dio 0. Si aparece, cargá el acumulado por
+la resta (que hereda la población de `users`) y anotá la diferencia en el PR.
+
+**Sessions no tiene este problema y no necesita `first_time`:** una sesión es un evento, no una
+identidad, así que sumar las del mes es exacto. La regla de «nunca sumes meses» aplica a
+identidades (`users`, `prompters`), no a sesiones.
+
 #### Prompters: la query directa SÍ sirve, con un control que la valida (22-sep-2026)
 
 La receta de exclusión se rompió (ver abajo), pero **el acumulado de prompters no la necesita**.

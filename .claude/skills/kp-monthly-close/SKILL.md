@@ -45,8 +45,17 @@ abrir el PR solo con una nota explicando la discrepancia.**
 Todos los métricos automáticos del §1 del checklist, con el rango del mes.
 Llamadas en paralelo, ~6 por bloque.
 
-Después los acumulados: query única `2025-09-01` → último día del mes cerrado.
-Nunca sumar meses.
+Después los acumulados. **No** por query única desde `2025-09-01`: FullStory retiene ~12
+meses y esa query se trunca en silencio. Van por el método anclado del checklist (§Acumulados):
+
+- `users` = ancla + `first_time` del mes (nunca + `users` del mes: duplica recurrentes).
+- `sessions` = ancla + sesiones del mes (una sesión no es una identidad; sumar es exacto).
+- `prompters` = ancla + incremento medido sobre ventana consistente, sumando la deriva.
+- Ancla vigente: cierre de agosto 2026 — users 1.943, prompters 859, sessions 15.842.
+
+**Control obligatorio antes de cargar:** correr el mismo métrico sobre dos rangos el mismo día
+(hasta el fin del mes anterior y hasta el fin del mes cerrado) y verificar que la diferencia dé
+exactamente lo que estás sumando. Receta y tabla verificada en el checklist.
 
 ### 3bis. Nuevos y recurrentes
 
@@ -379,7 +388,10 @@ países anómalos, campos manuales pendientes.
 ## Nunca
 
 - Inventar valores para campos sin métrico.
-- Sumar meses para obtener acumulados (duplica recurrentes).
+- Sumar los `users` o `prompters` mensuales para armar un acumulado (duplica recurrentes).
+  Sessions sí se suma: es un evento, no una identidad.
+- Sacar un acumulado de una query de rango completo desde go-live: se trunca en silencio.
+- Cargar un acumulado sin correr antes el control de la resta de dos queries.
 - Confiar en un metric_id nuevo sin validarlo contra un mes conocido.
 - Mergear con el build roto.
 - Recomputar un embudo esperando que cambie de rango. Hay que reconstruirlo.
