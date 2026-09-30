@@ -2450,7 +2450,6 @@ const META = {
   lessonsGenerated: { id: null,           src: "console", def: "Lessons produced, taken by hand from the admin console. NOT the FullStory metric ffbLsADU0Swu, which counts clicks on the create-draft button rather than finished lessons." },
   lwaShare:         { id: "IHPlQ1WT1zEz", src: "mcp",     def: "Clicks on the share button. Recently released feature — a zero is a baseline, not disuse." },
   lwaCopy:          { id: "b46xecCQyFod", src: "mcp",     def: "Clicks to copy a generated lesson. Predates the other LWA metrics: 9 events between Sep 2025 and Jun 2026, none since July." },
-  lwaHighlight:     { id: "azWUDLxYgaWY", src: "mcp",     def: "Text highlighted and copied inside a lesson. Recently released feature — a zero is a baseline, not disuse." },
   lwaView:          { id: "o7uGz8LnXgZY", src: "mcp",     def: "Lessons opened from the catalogue. Recently released feature — a zero is a baseline, not disuse." },
   lwaSharedView:    { id: "gEJ1qqiZ2Df9", src: "mcp",     def: "Views from the shared catalogue. Recently released feature — a zero is a baseline, not disuse." },
 };
@@ -2490,7 +2489,6 @@ const AUGUST = {
     copyLesson: 0,          // verificado en produccion (ftgvZBjF6Olb)
     viewLesson: 0,          // verificado en produccion (DEUvO54X9yRk)
     sharedCatalogueView: 0, // verificado en produccion (9AKvRFRstvbl)
-    highlightAndCopy: null, // elemento sin resolver
   },
   latency: null,          // manual
   csat: "40%",            // manual — 5 respuestas (3,5,1,1,4) · top-2 box 2/5 · avg 2.80 (full month, closed 2026-09-07)
@@ -3822,7 +3820,6 @@ function AugustMonthly() {
         <MCard meta="lwaCopy" label="Copy lesson" value={String(AUGUST.lwa.copyLesson)} desc="No generated lesson copied out" />
         <MCard meta="lwaView" label="View lesson" value={String(AUGUST.lwa.viewLesson)} desc="No lesson opened from the catalogue" />
         <MCard meta="lwaSharedView" label="Shared-catalogue view" value={String(AUGUST.lwa.sharedCatalogueView)} desc="Nothing opened from Shared with you" />
-        <MCard meta="lwaHighlight" label="Highlight & copy" value={null} desc="Element not resolved" />
       </div>
       <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.5 }}>
         ℹ <strong>Restated on Sep 30, on the same basis as September:</strong> org-wide and production only, not the Sin DEV segment. These zeros turned out to be real — in production nobody shared, copied or opened a lesson in August. What was wrong was Lessons created, published as 10; that figure had come in from a clicks metric with no host filter. Measured properly it is {AUGUST.lwa.lessonsGenerated}, and all of it is one account on the team that builds the platform. August therefore has no genuine user activity in LWA, which makes September — with two users outside the team — the first month that does.
@@ -3908,7 +3905,6 @@ const SEPTEMBER = {
     copyLesson: 4,          // clicks en Lesson-Generated-View-Button-Copy-Header (ftgvZBjF6Olb)
     viewLesson: 5,          // clicks en Lessons-Catalogue-Button-View (DEUvO54X9yRk)
     sharedCatalogueView: 3, // clicks en Lessons-Catalogue-Shared-Button-View (9AKvRFRstvbl)
-    highlightAndCopy: null, // elemento sin resolver — el metrico viejo (azWUDLxYgaWY) es Sin DEV y da 0
     devExcluded: { created: 13, shared: 30 }, // lo que ocurrio en localhost:4200 y staging, fuera de estos numeros
   },
   latency: null,           // manual
@@ -4157,7 +4153,6 @@ function SeptemberMonthly() {
         <MCard meta="lwaCopy" label="Copy lesson" value={String(SEPTEMBER.lwa.copyLesson)} desc="Generated lesson copied out · live via MCP" />
         <MCard meta="lwaView" label="View lesson" value={String(SEPTEMBER.lwa.viewLesson)} desc="Lessons opened from the catalogue · live via MCP" />
         <MCard meta="lwaSharedView" label="Shared-catalogue view" value={String(SEPTEMBER.lwa.sharedCatalogueView)} desc="Lessons opened from Shared with you · live via MCP" />
-        <MCard meta="lwaHighlight" label="Highlight & copy" value={null} desc="Element not resolved — the old metric is Sin DEV and reads zero" />
       </div>
       <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.5 }}>
         ℹ <strong>Read these differently from every other number on this page.</strong> LWA is reported org-wide and restricted to production, not on the Sin DEV segment the rest of the dashboard uses. Under Sin DEV every LWA field read zero, which was misleading: most LWA use comes from the team building it, and the segment excludes those accounts by email. Excluded here on purpose: {SEPTEMBER.lwa.devExcluded.created} more lessons created and {SEPTEMBER.lwa.devExcluded.shared} more shares that happened on localhost:4200 and the staging site. What is left still includes the build team — of the {SEPTEMBER.lwa.creators} people who created a lesson in production, two are ordinary users, one working a Uruguay operation and one in a session of over two hours. The earlier reading that the share button had never fired is wrong and has been corrected: it fires, and a complete share was verified in a session replay.

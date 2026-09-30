@@ -137,8 +137,10 @@ DEV, y se dice en la vista. Los métricos guardados de gabrielare (`IHPlQ1WT1zEz
 computarlos da 0. Se computan con `metric_definition` a mano, con el `deps` de host — la forma
 por lenguaje natural devuelve `withElementId: {}` vacío y falla.
 
-`highlightAndCopy` queda **sin resolver**: no se identificó su elemento, así que va `null` en vez
-de arrastrar el 0 del métrico Sin DEV.
+`highlightAndCopy` **se retiró del dashboard** (30-sep-2026): nunca se identificó su elemento,
+así que no se puede medir con el criterio de producción, y una tarjeta vacía permanente ocupa
+lugar sin decir nada. El métrico viejo (`azWUDLxYgaWY`) sigue existiendo en FullStory, lleva Sin
+DEV adentro y da 0; si algún día se resuelve el elemento, se vuelve a agregar.
 
 `lessonsGenerated` **deja de ser manual**: son los clicks en `Question-Set-Create-Draft-Button`
 en producción. El §2 decía que ese métrico no servía porque contaba clicks y no lecciones
