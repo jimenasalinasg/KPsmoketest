@@ -63,7 +63,8 @@ Fuente: dashboard **"NEW - Lessons Writing Assistant"**, armado por
 | `lwa.viewLesson`          | `o7uGz8LnXgZY` | feature nueva — baseline |
 | `lwa.sharedCatalogueView` | `gEJ1qqiZ2Df9` | feature nueva — baseline |
 
-> **`lwa.lessonsGenerated` NO va acá — es manual.** Ver §2.
+> **Estos cinco métricos llevan Sin DEV adentro y dan 0.** No usarlos: ver la sección
+> «LWA se mide org-wide y solo producción». `lwa.lessonsGenerated` ya no es manual.
 
 **Los ceros NO son baseline de features nuevas, y tampoco son desuso.** El
 checklist decía lo primero y una versión anterior de esta sección dijo lo
@@ -74,32 +75,57 @@ segundo. Las dos estaban mal. Verificado el 31-ago-2026:
 - **El catálogo de lecciones sí se usa, y bastante:** abrir el diálogo de
   compartir 148 eventos, editar 37, borrar 35, sobre sep-2025 → ago-2026.
 
-### El catálogo y el compartir, con y sin segmento
+### LWA se mide org-wide y solo producción (revisado 30-sep-2026)
 
-| Paso | Elemento | Toda la org | **Sin DEV** |
-|---|---|---:|---:|
-| Abre el diálogo | `Lessons-Catalogue-Button-Share` (`Bz85xmDxjQg3`) | 148 | **0** |
-| Editar | `Lessons-Catalogue-Button-Edit` (`ucHG1MVge21G`) | 37 | **0** |
-| Borrar | `Lessons-Catalogue-Button-Delete` (`yFDFrciS4gWp`) | 35 | **0** |
-| Busca destinatario | `Share-Dialog-Input-Search-Users` (`LGq1WidWKtc1`) | 61 | **0** |
-| Elige destinatario | `Share-Dialog-Option-User` (`rXQu465rWEnH`) | 28 | **0** |
-| Cancela | `Share-Dialog-Button-Cancel` (`OmevdrJx0Vwh`) | 8 | — |
-| **Confirma** | `Share-Dialog-Button-Share` (`XOTexx0kvoot`) | **0** | **0** |
+**La conclusión anterior de esta sección era incorrecta y se retira.** Decía que bajo Sin DEV
+el catálogo entero estaba en cero «por alcance: nadie lo abre», y que valía sospechar de un
+botón de confirmar roto. Las dos cosas son falsas.
 
-**Bajo Sin DEV el catálogo entero está en cero absoluto.** Los 148, 61 y 28
-vienen íntegramente de cuentas que el segmento excluye. Para la población que
-mide el dashboard, `share`, `viewLesson` y `sharedCatalogueView` están en cero
-por **alcance**: nadie abre el catálogo, así que la feature ni se intenta. Es un
-problema de distribución, no un bug.
+Lo verificado el 30-sep-2026, con el mismo elemento medido con y sin segmento:
 
-Dentro del tráfico excluido igual hay algo raro: **ni un compartir completado en
-doce meses**, con 28 selecciones de destinatario y apenas 8 cancelaciones, y con
-todos los demás controles del diálogo disparando. Vale descartar a mano un botón
-de confirmar roto o inalcanzable — pero **eso no es evidencia sobre usuarios**.
+| Acción | elemento | org-wide (todo host) | **producción** | Sin DEV |
+|---|---|---:|---:|---:|
+| Crear lección | `Question-Set-Create-Draft-Button` (`uQY9Vcp2aFmr`) | 25 | **12** | 3 |
+| Confirmar compartir | `Share-Dialog-Button-Share` (`XOTexx0kvoot`) | 33 | **3** | 0 |
+| Copiar lección | `Lesson-Generated-View-Button-Copy-Header` (`ftgvZBjF6Olb`) | — | **4** | — |
+| Ver lección | `Lessons-Catalogue-Button-View` (`DEUvO54X9yRk`) | — | **5** | — |
+| Ver compartidas | `Lessons-Catalogue-Shared-Button-View` (`9AKvRFRstvbl`) | — | **3** | — |
 
-`viewLesson` queda **sin explicación**: sus dos elementos
-(`Lessons-Catalogue-Button-View`, `Lesson-Title-Catalog-Clicked`) están en 0
-mientras sus hermanos del mismo catálogo disparan. Pendiente de mirar en sesión.
+Septiembre 2026. «Producción» = `deps` con `URL_HOST = knowledgeplatform.iadb.org`.
+
+**El cero de Sin DEV no era desuso: era el segmento.** Sin DEV excluye 28 mails, y el grueso
+del uso de LWA viene justamente de las cuentas que construyen la plataforma. No es la condición
+de `/home`: los seis creadores de producción visitaron `/home` en el mes, así que esa no es la
+causa. **Ojo además con el `segmentScope: SCOPE_SESSION`**: una sesión que entra directo a
+`/lessons-learning` sin pasar por `/home` no cuenta para ningún métrico Sin DEV, aunque la
+persona sea un usuario legítimo.
+
+**El botón de confirmar compartir funciona.** 33 eventos en septiembre y un compartir completo
+verificado en repetición: crear lección → catálogo → compartir → buscar destinatario → confirmar
+→ abrir «Compartidas contigo» → copiar. Lo que sostenía el cero viejo era medir con Sin DEV.
+
+**Casi todo el uso es desarrollo.** De las 25 creaciones, 13 ocurrieron en `localhost:4200` o en
+el staging de Azure; de los 33 compartir, 30. Por eso el dashboard reporta solo producción.
+
+**Y hay usuarios reales debajo.** De los 6 que crearon lección en producción en septiembre, dos
+no son del equipo: uno en Washington con una sesión de más de dos horas y 524 eventos, y uno en
+Montevideo trabajando sobre una operación concreta (UR-L1157). El resto son cuentas del equipo,
+incluida la que armó el dashboard de LWA.
+
+**Regla para el cierre:** LWA se carga **org-wide con filtro de host de producción**, no con Sin
+DEV, y se dice en la vista. Los métricos guardados de gabrielare (`IHPlQ1WT1zEz`, `b46xecCQyFod`,
+`azWUDLxYgaWY`, `o7uGz8LnXgZY`, `gEJ1qqiZ2Df9`) llevan Sin DEV adentro y **no sirven** para esto:
+computarlos da 0. Se computan con `metric_definition` a mano, con el `deps` de host — la forma
+por lenguaje natural devuelve `withElementId: {}` vacío y falla.
+
+`highlightAndCopy` queda **sin resolver**: no se identificó su elemento, así que va `null` en vez
+de arrastrar el 0 del métrico Sin DEV.
+
+`lessonsGenerated` **deja de ser manual**: son los clicks en `Question-Set-Create-Draft-Button`
+en producción. El §2 decía que ese métrico no servía porque contaba clicks y no lecciones
+producidas; sigue siendo cierto que es un click, pero es la mejor señal disponible y es mucho
+mejor que dejar el campo vacío todos los meses. Si alguna vez hay conteo real de lecciones en
+la consola, reemplazarlo y anotarlo.
 
 ### `first_time` y `returningUsers` — receta (resuelto 1-sep-2026)
 
@@ -531,10 +557,9 @@ Nunca inventar. Si no hay valor, dejar `null` y listarlo como pendiente en el PR
 - `csat` — % y promedio de estrellas, con n de respuestas
 - `dropoff`, `openSearchVisits` — meses con schema viejo
 - `pillBot` — pill menos usada (ver §4)
-- `lwa.lessonsGenerated` — **se saca a mano de la consola**, no de FullStory.
-  El métrico `ffbLsADU0Swu` NO sirve para este campo: se llama "Lessons Generated
-  - Clicks" y cuenta clicks en `Question-Set-Create-Draft-Button`, no lecciones
-  producidas. Si se computa ese ID, se pisa el dato bueno con un conteo de clicks.
+- ~~`lwa.lessonsGenerated`~~ — **resuelto el 30-sep-2026**, ya no es manual: clicks en
+  `Question-Set-Create-Draft-Button` (`uQY9Vcp2aFmr`) con filtro de host de producción. Ver la
+  sección de LWA.
 
 ---
 
