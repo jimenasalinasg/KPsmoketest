@@ -3876,7 +3876,7 @@ const SEPTEMBER = {
   sessions: 1379,
   users: 284,
   prompters: 125,          // live via MCP (metric 3GVbGeJsPBCb)
-  prompts: null,           // manual — NO hay metrico, pasa a mano al cierre
+  prompts: 867,            // manual — consola de admin (no hay metrico FullStory). Columna "questions", la misma que dio 415 en jul y 634 en ago, ambos ya publicados
   returningUsers: 177,     // Sin DEV — users (284) menos nuevos (107)
   first_time: 107,         // Sin DEV — segmento firstSeen 4ywJmOt04bTP, rango exacto 2026-09-01->2026-09-30 confirmado
   tourCompletion: 40,      // live via MCP (iN3brKBr4rlY) — 40.43 redondeado
@@ -4111,7 +4111,7 @@ function SeptemberMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (September · partial)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(SEPTEMBER.prompters)} desc={`${Math.round(SEPTEMBER.prompters/SEPTEMBER.users*100)}% of users reached`} accent momentum={AUGUST.prompters} />
-        <MCard meta="prompts" label="Prompts sent" value={null} desc="Manual — pass at close" accent />
+        <MCard meta="prompts" label="Prompts sent" value={String(SEPTEMBER.prompts)} desc={`${Math.round(SEPTEMBER.prompts/SEPTEMBER.prompters)} per prompter · from the admin console`} accent momentum={AUGUST.prompts} />
         <MCard meta="latency" label="Latency" value={null} desc="Manual — pass at close" small />
         <MCard meta="csat" label="CSAT" value={SEPTEMBER.csat} desc="Top-2 box, 2 of 3 responses · avg 4.33 ★ · n=3 is still too small to read as a rate" small />
         <MCard meta="sourceClicks" label="Source panel clicks" value={String(SEPTEMBER.sourceClicks)} desc="Clicks on source panel · live via MCP" momentum={AUGUST.sourceClicks} />
@@ -4197,7 +4197,7 @@ function SeptemberMonthly() {
         <strong style={{ color: INK2 }}>Live via MCP:</strong> every number above except the four below, pulled from FullStory by metric ID for Sep 1–30 on the Sin DEV segment. July's baseline was re-checked before writing and matched exactly.
         <br/><br/><strong style={{ color: INK2 }}>This is still a partial.</strong> It was computed at 14:00 UTC on Sep 30, so the last hours of the month are missing. The definitive close is computed after midnight UTC and replaces these figures.
         <br/><br/><strong style={{ color: INK2 }}>Cumulative totals</strong> are not a single query. FullStory keeps about 12 months and silently truncates anything older, so users and sessions are built from August's verified close plus this month's new users and sessions, and prompters corrects for the drift the truncation causes. Method and worked examples live in the checklist.
-        <br/><br/><strong style={{ color: INK2 }}>Loaded by hand:</strong> CSAT — three responses this month, 67% top-2 box, average 4.33. Three responses is not a satisfaction rate and should not be read against August's 40% on five; it is carried for continuity. <strong style={{ color: INK2 }}>Still pending:</strong> prompts sent, latency and LWA lessons generated. <strong style={{ color: INK2 }}>Not built yet:</strong> funnels and retention cohorts, which land with the close.
+        <br/><br/><strong style={{ color: INK2 }}>Loaded by hand:</strong> CSAT — three responses this month, 67% top-2 box, average 4.33. Three responses is not a satisfaction rate and should not be read against August's 40% on five; it is carried for continuity. <strong style={{ color: INK2 }}>Still pending:</strong> latency and LWA lessons generated. Prompts sent (867) comes from the admin console, same column that gave the 415 and 634 already published for July and August. <strong style={{ color: INK2 }}>Not built yet:</strong> funnels and retention cohorts, which land with the close.
       </div>
 
     </div>
