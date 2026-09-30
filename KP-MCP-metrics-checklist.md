@@ -136,7 +136,7 @@ septiembre, con dos usuarios fuera del equipo, es el primer mes que sí.
 Contar clicks infla: a este volumen una persona que clickea cinco veces parece cinco. Y contar
 con el equipo adentro infla más todavía, porque el grueso del uso de LWA **es** el equipo.
 
-Septiembre 2026, producción, **personas** por acción, con la lista de 28 mails de Sin DEV
+Septiembre 2026, producción, **personas** por acción, con la lista de mails de Sin DEV (29 desde el 30-sep-2026)
 aplicada a mano:
 
 | Acción | con equipo | **fuera del equipo** |
@@ -166,11 +166,11 @@ están en los 28 mails. Confirmado por la PM el 30-sep-2026: **`cindyp` sí es d
 `mcorreal` no.**
 
 - `mcorreal` es usuario real: los **3** creadores de septiembre fuera del equipo quedan firmes.
-- `cindyp` **falta** en el segmento Sin DEV. Hoy no cambia ningún número publicado — tiene
-  **0 sesiones** en `/home` de producción en septiembre, trabaja en `localhost:4200` — pero el
-  hueco está y conviene taparlo antes de que alguna vez entre a producción. Agregarla al segmento
-  hoy no movería el histórico, justamente porque no califica en ningún mes; es el momento barato
-  para hacerlo.
+- `cindyp` faltaba en el segmento Sin DEV. **Agregada por la PM el 30-sep-2026 15:28 UTC**: el
+  segmento pasa de 28 a **29 mails**. Se verificó después del cambio que no movió nada —
+  jul 250, ago 287, sep 284 usuarios y 1.379 sesiones, todos idénticos— porque no tenía ni una
+  sesión en `/home` de producción. Se hizo en el momento correcto: una vez que una cuenta del
+  equipo entra a producción, taparlo ya cambia números publicados.
 
 **Regla para el cierre:** LWA se carga **org-wide con filtro de host de producción**, no con Sin
 DEV, y se dice en la vista. Los métricos guardados de gabrielare (`IHPlQ1WT1zEz`, `b46xecCQyFod`,
