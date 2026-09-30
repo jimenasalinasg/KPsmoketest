@@ -2443,7 +2443,7 @@ const META = {
   newSearch:        { id: "tU5aopeDHc1k", src: "mcp",     def: "Clicks on New Search." },
   countries:        { id: "417063426",    src: "mcp",     def: "Unique users grouped by country. Percentages are computed over the metric's own total, excluding the \"Unknown\" row." },
   prompts:          { id: null,           src: "pending", def: "Prompts sent. No FullStory metric covers this — must be loaded manually at close." },
-  latency:          { id: null,           src: "pending", def: "Median response latency. No FullStory metric covers this." },
+  latency:          { id: null,           src: "manual",  def: "Average response time, from the admin console — not a median, and not from FullStory, which has no metric for it. Earlier months were labelled median; the source reports an average." },
   firstTime:        { id: null,           src: "segment", def: "Users whose FullStory First Seen date falls inside the month AND who visited the production /home — the same two conditions as the Sin DEV segment. Built as a segment, not a metric: compute_metric cannot express First Seen. Recipe and IDs in the checklist §4." },
   returningUsers:   { id: null,           src: "derived", def: "Users reached minus new users, both on the Sin DEV population. People who already knew KP before this month. NOT the same as users with 2+ sessions in the month — that is a different measure and is not what this shows." },
   csat:             { id: null,           src: "manual",  def: "Satisfied responses (rating ≥ 4) ÷ total responses, top-2 box on a 1–5 scale. Collected manually. Read the sample size on the card before the percentage — on a handful of responses each one moves it by tens of points." },
@@ -3907,7 +3907,7 @@ const SEPTEMBER = {
     sharedViewed: 0,        // ninguno abrio una compartida
     withTeam: { creators: 6, created: 12, shared: 3, copied: 4, viewed: 5, sharedViewed: 3 },
   },
-  latency: null,           // manual
+  latency: "25s",          // manual — consola de admin, promedio (no mediana). Ago 29s, jul 27s, jun 37s
   csat: "67%",             // manual — 3 respuestas (5,3,5) · top-2 box 2/3 · avg 4.33 · dos del 3-sep, una del 29-sep
   totalCountries: 31,
   countries: [
@@ -4112,7 +4112,7 @@ function SeptemberMonthly() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(SEPTEMBER.prompters)} desc={`${Math.round(SEPTEMBER.prompters/SEPTEMBER.users*100)}% of users reached`} accent momentum={AUGUST.prompters} />
         <MCard meta="prompts" label="Prompts sent" value={String(SEPTEMBER.prompts)} desc={`${Math.round(SEPTEMBER.prompts/SEPTEMBER.prompters)} per prompter · from the admin console`} accent momentum={AUGUST.prompts} />
-        <MCard meta="latency" label="Latency" value={null} desc="Manual — pass at close" small />
+        <MCard meta="latency" label="Latency" value={SEPTEMBER.latency} desc="Average response time · from the admin console · 29s in August" small />
         <MCard meta="csat" label="CSAT" value={SEPTEMBER.csat} desc="Top-2 box, 2 of 3 responses · avg 4.33 ★ · n=3 is still too small to read as a rate" small />
         <MCard meta="sourceClicks" label="Source panel clicks" value={String(SEPTEMBER.sourceClicks)} desc="Clicks on source panel · live via MCP" momentum={AUGUST.sourceClicks} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
@@ -4197,7 +4197,7 @@ function SeptemberMonthly() {
         <strong style={{ color: INK2 }}>Live via MCP:</strong> every number above except the four below, pulled from FullStory by metric ID for Sep 1–30 on the Sin DEV segment. July's baseline was re-checked before writing and matched exactly.
         <br/><br/><strong style={{ color: INK2 }}>This is still a partial.</strong> It was computed at 14:00 UTC on Sep 30, so the last hours of the month are missing. The definitive close is computed after midnight UTC and replaces these figures.
         <br/><br/><strong style={{ color: INK2 }}>Cumulative totals</strong> are not a single query. FullStory keeps about 12 months and silently truncates anything older, so users and sessions are built from August's verified close plus this month's new users and sessions, and prompters corrects for the drift the truncation causes. Method and worked examples live in the checklist.
-        <br/><br/><strong style={{ color: INK2 }}>Loaded by hand:</strong> CSAT — three responses this month, 67% top-2 box, average 4.33. Three responses is not a satisfaction rate and should not be read against August's 40% on five; it is carried for continuity. <strong style={{ color: INK2 }}>Still pending:</strong> latency and LWA lessons generated. Prompts sent (867) comes from the admin console, same column that gave the 415 and 634 already published for July and August. <strong style={{ color: INK2 }}>Not built yet:</strong> funnels and retention cohorts, which land with the close.
+        <br/><br/><strong style={{ color: INK2 }}>Loaded by hand:</strong> CSAT — three responses this month, 67% top-2 box, average 4.33. Three responses is not a satisfaction rate and should not be read against August's 40% on five; it is carried for continuity. <strong style={{ color: INK2 }}>Still pending:</strong> LWA lessons generated. Prompts sent (867) and latency (25s) come from the admin console — the prompts column is the same one that gave the 415 and 634 already published for July and August. Latency there is an average, not the median this field was originally defined as, and it improved from 29s in August. <strong style={{ color: INK2 }}>Not built yet:</strong> funnels and retention cohorts, which land with the close.
       </div>
 
     </div>
