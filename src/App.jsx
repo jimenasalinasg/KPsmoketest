@@ -3895,13 +3895,18 @@ const SEPTEMBER = {
   copiedOpenSearch: 198,   // live via MCP (JOTETVLPeJKh)
   wordDownloads: 5,        // live via MCP (3EkjBy6jYByB)
   excelDownloads: 1,       // live via MCP (FIw2VjBWkJ6J)
+  // LWA se mide DISTINTO al resto del dashboard, a proposito (ver nota en la vista):
+  // org-wide pero solo host knowledgeplatform.iadb.org. Con el segmento Sin DEV todo daba 0
+  // y era enganoso: el grueso del uso es del equipo que construye, y Sin DEV lo excluye por mail.
   lwa: {
-    lessonsGenerated: null, // manual — se saca de consola, no traido todavia
-    share: 0,               // live via MCP (IHPlQ1WT1zEz)
-    copyLesson: 0,          // live via MCP (b46xecCQyFod)
-    highlightAndCopy: 0,    // live via MCP (azWUDLxYgaWY)
-    viewLesson: 0,          // live via MCP (o7uGz8LnXgZY)
-    sharedCatalogueView: 0, // live via MCP (gEJ1qqiZ2Df9)
+    lessonsGenerated: 12,   // live via MCP — clicks en Question-Set-Create-Draft-Button (uQY9Vcp2aFmr) en produccion
+    creators: 6,            // usuarios unicos que crearon leccion en produccion (2 fuera del equipo)
+    share: 3,               // clicks en Share-Dialog-Button-Share (XOTexx0kvoot) en produccion
+    copyLesson: 4,          // clicks en Lesson-Generated-View-Button-Copy-Header (ftgvZBjF6Olb)
+    viewLesson: 5,          // clicks en Lessons-Catalogue-Button-View (DEUvO54X9yRk)
+    sharedCatalogueView: 3, // clicks en Lessons-Catalogue-Shared-Button-View (9AKvRFRstvbl)
+    highlightAndCopy: null, // elemento sin resolver — el metrico viejo (azWUDLxYgaWY) es Sin DEV y da 0
+    devExcluded: { created: 13, shared: 30 }, // lo que ocurrio en localhost:4200 y staging, fuera de estos numeros
   },
   latency: null,           // manual
   csat: "50%",             // manual — 2 respuestas (5,3) · top-2 box 1/2 · avg 4.00 · ambas del 3-sep
@@ -4142,14 +4147,17 @@ function SeptemberMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── LWA (simplified) ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (September · partial)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (September · production, all accounts)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard meta="lessonsGenerated" label="Lessons generated" value={null} desc="Manual — from console, pass at close" accent />
-        <MCard meta="lwaShare" label="Shares" value={String(SEPTEMBER.lwa.share)} desc="Lessons shared · live via MCP" />
-        <MCard meta="lwaCopy" label="Copy lesson" value={String(SEPTEMBER.lwa.copyLesson)} desc="Lessons copied · live via MCP" />
-        <MCard meta="lwaHighlight" label="Highlight & copy" value={SEPTEMBER.lwa.highlightAndCopy.toLocaleString()} desc="Text highlighted and copied in LWA · live via MCP" />
+        <MCard meta="lessonsGenerated" label="Lessons created" value={String(SEPTEMBER.lwa.lessonsGenerated)} desc={`${SEPTEMBER.lwa.creators} people, 2 of them outside the build team · live via MCP`} accent />
+        <MCard meta="lwaShare" label="Shares confirmed" value={String(SEPTEMBER.lwa.share)} desc="Lessons actually shared with a colleague · live via MCP" />
+        <MCard meta="lwaCopy" label="Copy lesson" value={String(SEPTEMBER.lwa.copyLesson)} desc="Generated lesson copied out · live via MCP" />
         <MCard meta="lwaView" label="View lesson" value={String(SEPTEMBER.lwa.viewLesson)} desc="Lessons opened from the catalogue · live via MCP" />
-        <MCard meta="lwaSharedView" label="Shared-catalogue view" value={String(SEPTEMBER.lwa.sharedCatalogueView)} desc="Views from the shared catalogue · live via MCP" />
+        <MCard meta="lwaSharedView" label="Shared-catalogue view" value={String(SEPTEMBER.lwa.sharedCatalogueView)} desc="Lessons opened from Shared with you · live via MCP" />
+        <MCard meta="lwaHighlight" label="Highlight & copy" value={null} desc="Element not resolved — the old metric is Sin DEV and reads zero" />
+      </div>
+      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.5 }}>
+        ℹ <strong>Read these differently from every other number on this page.</strong> LWA is reported org-wide and restricted to production, not on the Sin DEV segment the rest of the dashboard uses. Under Sin DEV every LWA field read zero, which was misleading: most LWA use comes from the team building it, and the segment excludes those accounts by email. Excluded here on purpose: {SEPTEMBER.lwa.devExcluded.created} more lessons created and {SEPTEMBER.lwa.devExcluded.shared} more shares that happened on localhost:4200 and the staging site. What is left still includes the build team — of the {SEPTEMBER.lwa.creators} people who created a lesson in production, two are ordinary users, one working a Uruguay operation and one in a session of over two hours. The earlier reading that the share button had never fired is wrong and has been corrected: it fires, and a complete share was verified in a session replay.
       </div>
 
       {/* ── DIVIDER ── */}
