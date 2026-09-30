@@ -161,10 +161,16 @@ producción), se listan los usuarios con `get_sessions`, y se descuentan a mano 
 lista de Sin DEV. Con esta población (2 a 6 personas por acción) es perfectamente manejable; si
 algún día crece, hay que resolver la exclusión de otra forma.
 
-**La lista de Sin DEV tiene huecos.** `mcorreal@iadb.org` y `cindyp@iadb.org` **no** están en los
-28 mails, pero su patrón es de equipo (Bogotá, y `cindyp` trabajando en `localhost:4200`). Se
-contaron como usuarios porque el criterio es la lista, no la impresión. Vale revisarla: si
-`mcorreal` es equipo, los creadores de septiembre fuera del equipo son 2 y no 3.
+**La lista de Sin DEV tiene un hueco, confirmado.** Ni `mcorreal@iadb.org` ni `cindyp@iadb.org`
+están en los 28 mails. Confirmado por la PM el 30-sep-2026: **`cindyp` sí es del equipo,
+`mcorreal` no.**
+
+- `mcorreal` es usuario real: los **3** creadores de septiembre fuera del equipo quedan firmes.
+- `cindyp` **falta** en el segmento Sin DEV. Hoy no cambia ningún número publicado — tiene
+  **0 sesiones** en `/home` de producción en septiembre, trabaja en `localhost:4200` — pero el
+  hueco está y conviene taparlo antes de que alguna vez entre a producción. Agregarla al segmento
+  hoy no movería el histórico, justamente porque no califica en ningún mes; es el momento barato
+  para hacerlo.
 
 **Regla para el cierre:** LWA se carga **org-wide con filtro de host de producción**, no con Sin
 DEV, y se dice en la vista. Los métricos guardados de gabrielare (`IHPlQ1WT1zEz`, `b46xecCQyFod`,
