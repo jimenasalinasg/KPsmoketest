@@ -2480,14 +2480,17 @@ const AUGUST = {
   copiedOpenSearch: 73,   // live via MCP (JOTETVLPeJKh)
   wordDownloads: 3,       // live via MCP (3EkjBy6jYByB)
   excelDownloads: 3,      // live via MCP (FIw2VjBWkJ6J)
+  // Recomputado el 30-sep-2026 con el mismo criterio que septiembre: org-wide, solo host de
+  // produccion. Los ceros de agosto SI eran correctos -- en produccion no hubo ninguna de esas
+  // acciones. El que estaba mal era lessonsGenerated.
   lwa: {
-    // Fuente: dashboard "NEW - Lessons Writing Assistant" (gabrielare@iadb.org, 12-ago-2026)
-    lessonsGenerated: 10,   // MANUAL — se saca de consola, NO de FullStory. Valor a confirmar; el 10 actual vino por error de ffbLsADU0Swu (clicks, no lecciones)
-    share: 0,               // live via MCP (IHPlQ1WT1zEz) — feature nueva, baseline
-    copyLesson: 0,          // live via MCP (b46xecCQyFod) — 9 eventos desde sep-2025, ninguno desde julio
-    highlightAndCopy: 0,    // live via MCP (azWUDLxYgaWY) — feature nueva, baseline
-    viewLesson: 0,          // live via MCP (o7uGz8LnXgZY) — feature nueva, baseline
-    sharedCatalogueView: 0, // live via MCP (gEJ1qqiZ2Df9) — feature nueva, baseline
+    lessonsGenerated: 4,    // corregido: era 10, que habia entrado por error desde ffbLsADU0Swu sin filtro de host
+    creators: 1,            // un solo usuario, y es una cuenta del equipo que construye
+    share: 0,               // verificado en produccion, org-wide (XOTexx0kvoot)
+    copyLesson: 0,          // verificado en produccion (ftgvZBjF6Olb)
+    viewLesson: 0,          // verificado en produccion (DEUvO54X9yRk)
+    sharedCatalogueView: 0, // verificado en produccion (9AKvRFRstvbl)
+    highlightAndCopy: null, // elemento sin resolver
   },
   latency: null,          // manual
   csat: "40%",            // manual — 5 respuestas (3,5,1,1,4) · top-2 box 2/5 · avg 2.80 (full month, closed 2026-09-07)
@@ -3812,17 +3815,17 @@ function AugustMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── LWA (simplified) ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (August)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (August · production, all accounts)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
-        <MCard meta="lessonsGenerated" label="Lessons generated" value={String(AUGUST.lwa.lessonsGenerated)} desc="Manual — from console · figure pending confirmation" accent />
-        <MCard meta="lwaShare" label="Shares" value={String(AUGUST.lwa.share)} desc="Lessons shared · live via MCP" />
-        <MCard meta="lwaCopy" label="Copy lesson" value={String(AUGUST.lwa.copyLesson)} desc="Lessons copied · live via MCP" />
-        <MCard meta="lwaHighlight" label="Highlight & copy" value={AUGUST.lwa.highlightAndCopy.toLocaleString()} desc="Text highlighted and copied in LWA · live via MCP" />
-        <MCard meta="lwaView" label="View lesson" value={String(AUGUST.lwa.viewLesson)} desc="Lessons opened from the catalogue · live via MCP" />
-        <MCard meta="lwaSharedView" label="Shared-catalogue view" value={String(AUGUST.lwa.sharedCatalogueView)} desc="Views from the shared catalogue · live via MCP" />
+        <MCard meta="lessonsGenerated" label="Lessons created" value={String(AUGUST.lwa.lessonsGenerated)} desc="By one person, an account on the build team · live via MCP" accent />
+        <MCard meta="lwaShare" label="Shares confirmed" value={String(AUGUST.lwa.share)} desc="Nothing shared in production this month" />
+        <MCard meta="lwaCopy" label="Copy lesson" value={String(AUGUST.lwa.copyLesson)} desc="No generated lesson copied out" />
+        <MCard meta="lwaView" label="View lesson" value={String(AUGUST.lwa.viewLesson)} desc="No lesson opened from the catalogue" />
+        <MCard meta="lwaSharedView" label="Shared-catalogue view" value={String(AUGUST.lwa.sharedCatalogueView)} desc="Nothing opened from Shared with you" />
+        <MCard meta="lwaHighlight" label="Highlight & copy" value={null} desc="Element not resolved" />
       </div>
       <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.5 }}>
-        ℹ <strong>Baseline, not disuse.</strong> Share, Highlight &amp; copy, View lesson and Shared-catalogue view track recently released features; their metrics were defined on Aug 12, 2026. A zero here means tracking has just started, not that the feature is being ignored — there is no prior period to compare against. Copy lesson is the exception: it predates them (9 events since Sep 2025) and has registered none since July.
+        ℹ <strong>Restated on Sep 30, on the same basis as September:</strong> org-wide and production only, not the Sin DEV segment. These zeros turned out to be real — in production nobody shared, copied or opened a lesson in August. What was wrong was Lessons created, published as 10; that figure had come in from a clicks metric with no host filter. Measured properly it is {AUGUST.lwa.lessonsGenerated}, and all of it is one account on the team that builds the platform. August therefore has no genuine user activity in LWA, which makes September — with two users outside the team — the first month that does.
       </div>
 
       {/* ── DIVIDER ── */}

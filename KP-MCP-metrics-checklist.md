@@ -112,6 +112,25 @@ no son del equipo: uno en Washington con una sesión de más de dos horas y 524 
 Montevideo trabajando sobre una operación concreta (UR-L1157). El resto son cuentas del equipo,
 incluida la que armó el dashboard de LWA.
 
+**Agosto 2026, recomputado con el mismo criterio (30-sep-2026).** Los ceros de agosto **sí eran
+correctos**: en producción no hubo ni un compartir, ni una copia, ni una apertura de lección.
+
+| Acción | ago 2026 (producción) | sep 2026 (producción) |
+|---|---:|---:|
+| Crear lección | **4** (1 usuario, del equipo) | 12 (6 usuarios, 2 fuera del equipo) |
+| Confirmar compartir | 0 | 3 |
+| Copiar lección | 0 | 4 |
+| Ver lección | 0 | 5 |
+| Ver compartidas | 0 | 3 |
+
+Lo que sí estaba mal en agosto era **`lessonsGenerated: 10`**, un valor que había entrado desde
+`ffbLsADU0Swu` sin filtro de host —el propio comentario del código lo admitía como «a confirmar»—
+y que además contaba clicks de cualquier entorno. Medido bien da **4**, y **el único usuario es
+una cuenta del equipo**. Corregido en el dashboard el 30-sep-2026.
+
+Consecuencia que vale decir en voz alta: **agosto no tuvo uso genuino de LWA en producción**, y
+septiembre, con dos usuarios fuera del equipo, es el primer mes que sí.
+
 **Regla para el cierre:** LWA se carga **org-wide con filtro de host de producción**, no con Sin
 DEV, y se dice en la vista. Los métricos guardados de gabrielare (`IHPlQ1WT1zEz`, `b46xecCQyFod`,
 `azWUDLxYgaWY`, `o7uGz8LnXgZY`, `gEJ1qqiZ2Df9`) llevan Sin DEV adentro y **no sirven** para esto:
