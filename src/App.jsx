@@ -3908,7 +3908,7 @@ const SEPTEMBER = {
     withTeam: { creators: 6, created: 12, shared: 3, copied: 4, viewed: 5, sharedViewed: 3 },
   },
   latency: null,           // manual
-  csat: "50%",             // manual — 2 respuestas (5,3) · top-2 box 1/2 · avg 4.00 · ambas del 3-sep
+  csat: "67%",             // manual — 3 respuestas (5,3,5) · top-2 box 2/3 · avg 4.33 · dos del 3-sep, una del 29-sep
   totalCountries: 31,
   countries: [
     { name: "United States (HQ)",        code: "US", users: 206, pct: 52 },
@@ -4113,7 +4113,7 @@ function SeptemberMonthly() {
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(SEPTEMBER.prompters)} desc={`${Math.round(SEPTEMBER.prompters/SEPTEMBER.users*100)}% of users reached`} accent momentum={AUGUST.prompters} />
         <MCard meta="prompts" label="Prompts sent" value={null} desc="Manual — pass at close" accent />
         <MCard meta="latency" label="Latency" value={null} desc="Manual — pass at close" small />
-        <MCard meta="csat" label="CSAT" value={SEPTEMBER.csat} desc="Top-2 box, 1 of 2 responses · avg 4.00 ★ · n=2 is too small to read as a rate" small />
+        <MCard meta="csat" label="CSAT" value={SEPTEMBER.csat} desc="Top-2 box, 2 of 3 responses · avg 4.33 ★ · n=3 is still too small to read as a rate" small />
         <MCard meta="sourceClicks" label="Source panel clicks" value={String(SEPTEMBER.sourceClicks)} desc="Clicks on source panel · live via MCP" momentum={AUGUST.sourceClicks} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
@@ -4197,7 +4197,7 @@ function SeptemberMonthly() {
         <strong style={{ color: INK2 }}>Live via MCP:</strong> every number above except the four below, pulled from FullStory by metric ID for Sep 1–30 on the Sin DEV segment. July's baseline was re-checked before writing and matched exactly.
         <br/><br/><strong style={{ color: INK2 }}>This is still a partial.</strong> It was computed at 14:00 UTC on Sep 30, so the last hours of the month are missing. The definitive close is computed after midnight UTC and replaces these figures.
         <br/><br/><strong style={{ color: INK2 }}>Cumulative totals</strong> are not a single query. FullStory keeps about 12 months and silently truncates anything older, so users and sessions are built from August's verified close plus this month's new users and sessions, and prompters corrects for the drift the truncation causes. Method and worked examples live in the checklist.
-        <br/><br/><strong style={{ color: INK2 }}>Loaded by hand:</strong> CSAT — two responses this month, 50% top-2 box, average 4.00. Two responses is not a satisfaction rate; it is carried for continuity. <strong style={{ color: INK2 }}>Still pending:</strong> prompts sent, latency and LWA lessons generated. <strong style={{ color: INK2 }}>Not built yet:</strong> funnels and retention cohorts, which land with the close.
+        <br/><br/><strong style={{ color: INK2 }}>Loaded by hand:</strong> CSAT — three responses this month, 67% top-2 box, average 4.33. Three responses is not a satisfaction rate and should not be read against August's 40% on five; it is carried for continuity. <strong style={{ color: INK2 }}>Still pending:</strong> prompts sent, latency and LWA lessons generated. <strong style={{ color: INK2 }}>Not built yet:</strong> funnels and retention cohorts, which land with the close.
       </div>
 
     </div>
