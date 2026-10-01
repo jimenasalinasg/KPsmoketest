@@ -364,8 +364,59 @@ Conversión a `{ name, code, users, pct }`:
 - "United States" → `name: "United States (HQ)"`.
 - `totalCountries` = filas con país nombrado, **excluyendo la fila `Unknown`**.
 - Nombres que difieren de FullStory: `Trinidad and Tobago` → `Trinidad & Tobago`.
-- Si aparece un país europeo/asiático alto que **no** sea España (ej. Netherlands),
-  incluir el dato pero agregar `// REVISAR` en esa línea y mencionarlo en el PR.
+#### ⚠️ La tabla de países NO es la población Sin DEV (resuelto 1-oct-2026)
+
+`417063426` se definió como `count of unique users / any activity`: **sin segmento y sin
+filtro de host**. Es org-wide y todos los hosts — producción + `knowledgeplatform-np-t`
+(test) + localhost + el equipo de desarrollo. Todo lo demás del dashboard es Sin DEV, así
+que la tabla es **otra población** y no reconcilia con `users` del mes:
+
+| Mes | Suma de la tabla | `users` Sin DEV |
+|---|---:|---:|
+| ago 2026 | 378 | 287 |
+| sep 2026 | 400 | 292 |
+
+La nota que se publicó durante meses («usuarios vistos en más de un país se cuentan en
+cada uno») era **incorrecta**: explica una parte menor, no la brecha. La causa es el
+alcance del métrico. **Leer proporciones, no absolutos**, hasta que se reconstruya con
+alcance de producción (pendiente de octubre).
+
+#### 🤖 Netherlands era un monitor automático, no usuarios
+
+El `// REVISAR` de Netherlands se arrastró desde junio. Resuelto el 1-oct-2026: es **una
+sola verificación automatizada**, no tráfico humano ni VPN.
+
+- Groningen, Linux + Chrome, Desktop, **1 segundo**, 6 eventos
+- `num_sessions: 1` en **todas** → ID anónimo nuevo en cada corrida (firma de bot)
+- dispara **~16:54–16:57 UTC todos los días**
+- aterriza en `https://knowledgeplatform-np-t.iadb.org/` y muere con
+  `BrowserAuthError: no_account_error` — no tiene cuenta con la que autenticarse
+- **cero** sesiones holandesas en el host de producción, en agosto y en septiembre
+
+Verificado: sep 28 sesiones (publicado 29), ago 32 sesiones (publicado 32). Las dos filas
+se quitaron de las tablas y los `pct` se recalcularon sobre el nuevo total.
+
+**No contaminó ningún número principal.** El segmento Sin DEV exige visita a
+`https://knowledgeplatform.iadb.org/home`; el bot nunca llega a producción, así que jamás
+entró en `users`, `sessions` ni en nada derivado. Solo distorsionaba la tabla de países.
+
+**Receta para repetirlo** (cualquier país sospechoso):
+1. `build_segment("sessions where country is X")` → `get_sessions(limit=40)`.
+2. Mirar `num_sessions`, `duration_seconds`, `os`, `city` y `last_page_url`. Si todas las
+   sesiones son `num_sessions: 1` con la misma ciudad y ~1s, es un bot.
+3. `build_segment("sessions where country is X and visited url URL host is
+   knowledgeplatform.iadb.org")` → si da 0, no hay usuarios reales de ese país.
+4. `get_session_events` de una sesión para ver en qué host aterriza y con qué error muere.
+
+**Para mover el rango de un segmento a un mes pasado:** `get_sessions` **ignora**
+`start_date`/`end_date` — manda el `timeRange` del segmento, que `build_segment` fija en
+`NOW/DAY-29DAY`. Hay que llamar `update_segment` con `refinement` **y**
+`segment_definition` completa, poniendo `constraints.timeRange` absoluto
+(`2026-08-01T00:00:00Z` → `2026-08-31T23:59:59Z`). Devuelve un `segment_id` nuevo.
+
+**Otros bots en el host de test:** `np-t` acumuló 38 sesiones / 38 usuarios en la ventana
+de 29 días. Además del de Groningen hay uno con `device: "Robot"`, `os: "Robot"` desde
+Hillsboro, Oregon. Ninguno llega a producción.
 
 ### Acumulados (desde go-live)
 
