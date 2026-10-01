@@ -3974,7 +3974,7 @@ function SeptemberMonthly() {
         <div>
           <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report — Preliminary</div>
           <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
-          <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (live via MCP) · Preliminary until the formal close</div>
+          <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (live via MCP)</div>
         </div>
         <button
           onClick={() => {
