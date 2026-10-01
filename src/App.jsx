@@ -2489,7 +2489,7 @@ const AUGUST = {
     sharedViewed: 0,
     withTeam: { creators: 1, created: 4, shared: 0, copied: 0, viewed: 0, sharedViewed: 0 },
   },
-  latency: null,          // manual
+  latency: "29s",         // manual — consola de admin, promedio (no mediana). Cargado 1-oct-2026 al cerrar septiembre
   csat: "40%",            // manual — 5 respuestas (3,5,1,1,4) · top-2 box 2/5 · avg 2.80 (full month, closed 2026-09-07)
   totalCountries: 32,
   countries: [
@@ -3632,7 +3632,7 @@ function AugustMonthly() {
               ["Prompt Gallery clicks", AUGUST.promptGalleryClicks],
               ["Recent Search clicks", AUGUST.recentSearchClicks],
               ["New Search clicks", AUGUST.newSearchClicks],
-              ["Latency (median)", AUGUST.latency ?? "pending"],
+              ["Latency (average)", AUGUST.latency ?? "pending"],
               ["CSAT", AUGUST.csat ?? "pending"],
               ["Cumulative users (Sep 1-Aug 31)", "1,943"],
               ["Cumulative prompters (Sep 1-Aug 31)", "859"],
@@ -3753,7 +3753,7 @@ function AugustMonthly() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(AUGUST.prompters)} desc={`${Math.round(AUGUST.prompters/AUGUST.users*100)}% of users reached`} accent momentum={JULY.prompters} />
         <MCard meta="prompts" label="Prompts sent" value={String(AUGUST.prompts)} desc="Median: 1 per prompter · manual, admin console" accent momentum={JULY.prompts} />
-        <MCard meta="latency" label="Latency" value={null} desc="Manual — pass at close" small />
+        <MCard meta="latency" label="Latency" value={AUGUST.latency} desc="Average response time · from the admin console · 27s in July" small />
         <MCard meta="sourceClicks" label="Source panel clicks" value={String(AUGUST.sourceClicks)} desc="Clicks on source panel · live via MCP" momentum={JULY.sourceClicks} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
@@ -3858,7 +3858,7 @@ function AugustMonthly() {
 
       {/* Pending sections note */}
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + all 5 pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA — all pulled directly from FullStory dashboard widgets by ID. <strong style={{ color: INK2 }}>Loaded manually:</strong> CSAT (40%, n=5, full month, closed Sep 7) and prompts sent (634, from the admin console — no FullStory metric covers this; the closest candidate returns 108 for July against the 415 on record, so it counts one submit button and not prompts). <strong style={{ color: INK2 }}>New and returning users</strong> are now computed on the Sin DEV population — first seen inside the month, built as a segment because metrics cannot express First Seen. The figures previously carried for July were org-wide and have been restated. <strong style={{ color: INK2 }}>Still pending:</strong> answer latency — no metric exists at all, and was not filled with an estimate. Figures cover the closed month, Aug 1–31, pulled on Sep 1.
+        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + all 5 pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA — all pulled directly from FullStory dashboard widgets by ID. <strong style={{ color: INK2 }}>Loaded manually:</strong> CSAT (40%, n=5, full month, closed Sep 7) and prompts sent (634, from the admin console — no FullStory metric covers this; the closest candidate returns 108 for July against the 415 on record, so it counts one submit button and not prompts). <strong style={{ color: INK2 }}>New and returning users</strong> are now computed on the Sin DEV population — first seen inside the month, built as a segment because metrics cannot express First Seen. The figures previously carried for July were org-wide and have been restated. <strong style={{ color: INK2 }}>Latency (29s)</strong> was loaded later, on Oct 1, from the admin console — FullStory has no metric for it. It is an average, not the median this field was originally labelled. Figures cover the closed month, Aug 1–31, pulled on Sep 1.
       </div>
 
       <CohortSection c={COHORTS.august} />
@@ -3992,7 +3992,7 @@ function SeptemberMonthly() {
               ["Prompt Gallery clicks", SEPTEMBER.promptGalleryClicks],
               ["Recent Search clicks", SEPTEMBER.recentSearchClicks],
               ["New Search clicks", SEPTEMBER.newSearchClicks],
-              ["Latency (median)", SEPTEMBER.latency ?? "pending"],
+              ["Latency (average)", SEPTEMBER.latency ?? "pending"],
               ["CSAT", SEPTEMBER.csat ?? "pending"],
               ["Cumulative users (Sep 1 2025–Sep 30 2026, anchored on Aug close)", "2,053"],
               ["Cumulative prompters (Sep 1 2025–Sep 30 2026, drift-corrected)", "923"],
