@@ -230,6 +230,22 @@ revés: construir el segmento *incluyendo* solo los 28 mails y verificar que da
 | jun 2026 | 202 | 177 | 379 |
 | jul 2026 | 86 | 164 | 250 |
 | ago 2026 | 125 | 162 | 287 |
+| sep 2026 | 110 | 182 | 292 |
+
+**Septiembre: el segmento dio 107, la resta de control dio 110. Se publicó 110.**
+Las dos lecturas son correctas y miden cosas distintas:
+
+- El segmento `firstSeen` exige, además del rango de primera vez, **una visita a
+  `https://knowledgeplatform.iadb.org/home`**. Quien entró por un deep link, por
+  una pill o por un enlace compartido y nunca pasó por el home no cuenta. → 107.
+- La resta de control es `users acumulado hasta sep 30` menos `users acumulado
+  hasta ago 31` sobre el mismo segmento Sin DEV: 1935 − 1825 = **110**. No exige
+  visita al home, igual que el métrico `users` del mes.
+
+Regla: **publicar el número de la resta de control**, porque es el que hace que
+el acumulado reconcilie (`anchor + first_time = cumulativo`). El valor del
+segmento se anota aparte. Si la diferencia pasa de ~5%, parar y revisar: ahí ya
+no es la condición del home, es otra cosa.
 
 **Ojo con el rango en junio:** el intérprete devolvió `firstSeen` hasta el
 2026-07-01 con la frase corta «between X and Y». Usar «in the range starting X
@@ -840,6 +856,38 @@ Mes cerrado el 1-sep-2026. Sirve como segundo punto de control:
 | promptGalleryClicks | 12 | | acumulado users | 1943 |
 | recentSearchClicks | 4 | | acumulado sessions | 15842 |
 | newSearchClicks | 0 | | | |
+
+### Baseline de validación — septiembre 2026 (rango 2026-09-01 → 2026-09-30)
+
+Computado el 1-oct-2026 07:00 UTC. **Cada métrico se leyó dos veces** y solo se
+escribió donde las dos lecturas coincidieron (ver la nota de indexación abajo):
+
+| Campo | Valor | | Campo | Valor |
+|---|---|---|---|---|
+| users | 292 | | highlighted | 765 |
+| sessions | 1432 | | highlightedOpenSearch | 675 |
+| prompters | 131 | | copied | 250 |
+| tourCompletion | 40.14 → 40 | | copiedOpenSearch | 212 |
+| wordDownloads | 5 | | excelDownloads | 1 |
+| pillPageviews | 90 | | totalCountries | 31 |
+| sourceClicks | 22 | | Lessons Learned | 23 |
+| sourceClicksBC | 0 | | Similar Projects / Data | 19 / 12 |
+| thumbsUp / thumbsDown | 1 / 1 | | Literature | 10 |
+| promptGalleryClicks | 23 | | acumulado users | 2053 |
+| recentSearchClicks | 1 | | acumulado sessions | 17274 |
+| newSearchClicks | 2 | | acumulado prompters | 923 |
+| first_time | 110 (segmento 107) | | returningUsers | 182 |
+
+**No computar el cierre justo después de medianoche UTC.** A las 00:25 UTC del
+1-oct los datos seguían indexándose: `sessions` para sep 1–30 devolvió 1379,
+luego 1388, luego 1432 en cuestión de minutos, y varias lecturas volvieron en
+caché. Peor: `highlighted` devolvió 675 para sep 1–30, que era en realidad el
+valor de sep 1–29 **y además igual a `highlightedOpenSearch`**, lo que implicaba
+contextual = 0 (imposible). El valor real es 765. Esperar ~6-7 horas y leer dos
+veces cada métrico.
+
+**Control de resta (sessions):** 16165 − 14734 = 1431 contra el 1432 escrito.
+Diferencia de un evento en el borde; aceptable. Si pasa de un puñado, parar.
 
 ### Gotchas de definición (confirmados)
 
