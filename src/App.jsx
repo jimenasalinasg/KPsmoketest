@@ -3956,7 +3956,7 @@ const SEPTEMBER = {
 
 // ── SEPTEMBER MONTHLY VIEW ─────────────────────────────────
 function SeptemberMonthly() {
-  const MONTH = "September 2026 — full month, computed Oct 1, 07:00 UTC";
+  const MONTH = "September 2026";
   const [showAllCountries, setShowAllCountries] = useState(false);
 
   const MCard = (p) => <MonthMetricCard {...p} variant="august" momentumLabel="August" />;
@@ -4038,7 +4038,7 @@ function SeptemberMonthly() {
       </div>
 
       {/* ── GENERAL USABILITY ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (September · full month)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (September)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="users" label="Users reached" value={String(SEPTEMBER.users)} desc="Unique people who used KP in September" accent momentum={AUGUST.users} />
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(SEPTEMBER.prompters)} desc={`${Math.round(SEPTEMBER.prompters/SEPTEMBER.users*100)}% of users reached · live via MCP`} accent momentum={AUGUST.prompters} />
@@ -4053,7 +4053,7 @@ function SeptemberMonthly() {
           <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
             <span>{SEPTEMBER.users} users</span><span>3,600 total</span>
           </div>
-          <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants (full month)</div>
+          <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants</div>
         </div>
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${SEPTEMBER.tourCompletion}%`} desc="Users who finished the tour · live via MCP" momentum={AUGUST.tourCompletion} />
         <MCard meta="sessions" label="Sessions" value={String(SEPTEMBER.sessions)} desc="Total for the month" momentum={AUGUST.sessions} />
@@ -4062,7 +4062,7 @@ function SeptemberMonthly() {
       {/* Geo */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}><span>🌎 Geographic Reach — {SEPTEMBER.totalCountries} countries (full month)</span><MetricInfo m={META.countries} /></span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}><span>🌎 Geographic Reach — {SEPTEMBER.totalCountries} countries</span><MetricInfo m={META.countries} /></span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
           <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
@@ -4106,7 +4106,7 @@ function SeptemberMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── CONTEXTUAL SEARCH ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (September · full month)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (September)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard meta="pillPageviews" label="Queries (pill views)" value={String(SEPTEMBER.pillPageviews)} desc="Total visits across all contextual search pills · live via MCP" accent momentum={AUGUST.pillPageviews} />
         <MCard label="Most used pill — Lessons Learned" value="23" desc="Similar Projects 19 · Data 12 · live via MCP" small />
@@ -4117,7 +4117,7 @@ function SeptemberMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── KNOWLEDGE ASSISTANT ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (September · full month)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (September)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(SEPTEMBER.prompters)} desc={`${Math.round(SEPTEMBER.prompters/SEPTEMBER.users*100)}% of users reached`} accent momentum={AUGUST.prompters} />
         <MCard meta="prompts" label="Prompts sent" value={String(SEPTEMBER.prompts)} desc={`${Math.round(SEPTEMBER.prompts/SEPTEMBER.prompters)} per prompter · from the admin console`} accent momentum={AUGUST.prompts} />
@@ -4141,14 +4141,14 @@ function SeptemberMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── CONTENT ENGAGEMENT ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (September · full month)</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (September)</div>
       <ContentEngagementCard
         total={1043}
         openSearch={915}
         contextual={128}
         rows={[["Highlights", 675, 90], ["Copies", 212, 38], ["Source clicks", 22, 0], ["Downloads", 6, 0]]}
         note={"Downloads: 5 Word · 1 Excel."}
-        split={"OS/Contextual split 88/12 for the full month — it sharpened from 76/24 at the Sep 15 cut and then held, against August's 57/43 close."}
+        split={"OS/Contextual split 88/12 — it sharpened from 76/24 at the Sep 15 cut and then held, against August's 57/43 close."}
       />
 
       {/* ── DIVIDER ── */}
@@ -4176,7 +4176,7 @@ function SeptemberMonthly() {
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach flat on August, but people came back more</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            292 users and 1,432 sessions for the full month, against August's 287 and 1,260. Reach is flat — five more people — but sessions are up 14%, so the same audience came back more often. 110 of the 292 are new and 182 already knew KP: a 62/38 returning split that held at every cut this month.
+            292 users and 1,432 sessions, against August's 287 and 1,260. Reach is flat — five more people — but sessions are up 14%, so the same audience came back more often. 110 of the 292 are new and 182 already knew KP: a 62/38 returning split that held at every cut this month.
           </p>
         </div>
 <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
@@ -4414,7 +4414,7 @@ function App() {
   const [launchOpen, setLaunchOpen] = useState(false);
 
   const MONTHS = [
-    { id: "september", label: "September 2026 · full month (live MCP)" },
+    { id: "september", label: "September 2026" },
     { id: "august",  label: "August 2026" },
     { id: "july",    label: "July 2026" },
     { id: "june",    label: "June 2026" },
