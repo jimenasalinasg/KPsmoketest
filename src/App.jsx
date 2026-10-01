@@ -2900,6 +2900,57 @@ const FUNNELS = {
       note: "In twelve months, 102 people started a lesson and 15 finished one — a median of 37 minutes apart, and none of those completions in July or August. Read both figures as upper bounds: the funnel puts no constraint on which environment the clicks happen in, and 9 of the 24 sessions that register a completion are on localhost or a staging URL rather than production. The Sin DEV segment does not filter those out. An earlier version of this funnel forced a draft-generation step in between and reported zero completions; only 2 users ever pass through that button, which strangled the funnel rather than measuring it.",
     },
   },
+  september: {
+    openSearch: {
+      title: "Open Search",
+      intro: "Someone asks a question in the search box, then takes content away. Unique users, same session, segment Sin DEV.",
+      steps: [
+        { label: "Opens KP", n: 288 },
+        { label: "Runs a search", n: 130, time: "29s" },
+        { label: "Highlights content", n: 47, time: "2m 11s" },
+        { label: "Copies it", n: 31, time: "2.6s" },
+      ],
+      compare: [281, 116, 43, 24],
+      compareLabel: "August",
+      derived: {
+        label: "Opens the source panel",
+        n: 7,
+        from: 1,
+        time: "7m 35s",
+        note: "7 of the 130 who searched, 5.4% — the lowest share of the six months, against 9.5% in August. The range had held between 7.5% and 10.1% since April; September is the first month below it.",
+      },
+      note: "10.8% end to end, against 8.5% in August and 12.1% in July. The entrance barely moved (288 against 281), so the recovery is all downstream: 130 people searched against 116, and two thirds of those who highlighted went on to copy — 66% against 56%. Copies are back to 31, above the floor of 30 that August broke.",
+    },
+    contextual: {
+      title: "Contextual search · pills",
+      intro: "Someone opens a pill — Similar Projects, Lessons Learned, Literature, Institutional Documents or Data — then takes content away. Same entry point as above, so the two are directly comparable.",
+      steps: [
+        { label: "Opens KP", n: 288 },
+        { label: "Opens a pill", n: 34, time: "1m 1s" },
+        { label: "Highlights content", n: 8, time: "2m 3s" },
+        { label: "Copies it", n: 6, time: "1.1s" },
+      ],
+      compare: [281, 37, 9, 3],
+      compareLabel: "August",
+      derived: {
+        label: "Opens a source",
+        n: 0,
+        from: 1,
+        note: "Nobody who opened a pill in September clicked a source link. Still three users in six months, all of them through the Lessons Learned card.",
+      },
+      note: "2.1% end to end, against 1.1% in August. Open Search converts five times better from the same entry point, down from eight. Pill openings (34 against 37) and highlights (8 against 9) barely moved: the whole difference is that 6 of the 8 who highlighted went on to copy, against 3 of 9. At these counts one person is a point of rate — read it as stable, not improved.",
+    },
+    synthesis: [
+      {
+        lead: "Reading the two together.",
+        body: "Both surfaces start from the same 288 people. Open Search pulls 45% of them into a query, up from 41%; the pills pull 12%, from 13%. Of those who search, 24% end up copying something, against 21% in August; of those who open a pill, 18%, against 8%. The gap between the two surfaces narrowed in September, but on the contextual side that is six people.",
+      },
+      {
+        lead: "August's warning did not hold.",
+        body: "August closed with copies below the floor for the first time while entries grew, and flagged it as the number to watch. September answers it: entries rose 2% and the people who completed the funnel rose 29%, from 24 to 31, so the rate went back to 10.8%. Over the six months copies run 39, 36, 37, 30, 24, 31 — August reads as a dip, not a break. One caution on the headline: counted in events, copies rose 62% and highlights 109% (see Content Engagement above), while the people who got through this funnel rose 29%. They are different populations, but the gap fits what the session sweep found — a few people doing a great deal each, not many people doing a little more.",
+      },
+    ],
+  },
 };
 
 function FunnelChart({ steps, compare, compareLabel, note, derived }) {
@@ -4170,6 +4221,12 @@ function SeptemberMonthly() {
       {/* ── DIVIDER ── */}
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
+      {/* ── EMBUDOS ── */}
+      <FunnelSection f={FUNNELS.september} />
+
+      {/* ── DIVIDER ── */}
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
       {/* Signals — executive */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — the month</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
@@ -4207,7 +4264,7 @@ function SeptemberMonthly() {
         <br/><br/><strong style={{ color: INK2 }}>Read twice before writing.</strong> A first pass at 00:25 UTC on Oct 1 found the data still indexing — sessions moved from 1,379 to 1,432 within minutes and some reads came back cached. Nothing was written then. Every figure here was computed twice at 07:00 UTC and only kept where the two reads agreed. It stays marked preliminary until the formal close.
         <br/><br/><strong style={{ color: INK2 }}>Cumulative totals</strong> are not a single query. FullStory keeps about 12 months and silently truncates anything older, so users and sessions are built from August's verified close plus this month's new users and sessions, and prompters corrects for the drift the truncation causes. Each one is checked against a subtraction control before it is written. Method and worked examples live in the checklist.
         <br/><br/><strong style={{ color: INK2 }}>New users: 110, not 107.</strong> The firstSeen segment returns 107 because it also requires a visit to the production home page; the subtraction control against the cumulative anchor returns 110. The 110 is published so the cumulative reconciles, and the 107 is recorded in the checklist.
-        <br/><br/><strong style={{ color: INK2 }}>Loaded by hand:</strong> CSAT — three responses this month, 67% top-2 box, average 4.33. Three responses is not a satisfaction rate and should not be read against August's 40% on five; it is carried for continuity. Prompts sent (867) and latency (25s) come from the admin console — the prompts column is the same one that gave the 415 and 634 already published for July and August. Latency there is an average, not the median this field was originally defined as, and it improved from 29s in August. <strong style={{ color: INK2 }}>Not built yet:</strong> funnels and retention cohorts, which land with the close.
+        <br/><br/><strong style={{ color: INK2 }}>Loaded by hand:</strong> CSAT — three responses this month, 67% top-2 box, average 4.33. Three responses is not a satisfaction rate and should not be read against August's 40% on five; it is carried for continuity. Prompts sent (867) and latency (25s) come from the admin console — the prompts column is the same one that gave the 415 and 634 already published for July and August. Latency there is an average, not the median this field was originally defined as, and it improved from 29s in August. <strong style={{ color: INK2 }}>Funnels</strong> are August's closed funnels cloned with only the date range changed, so the steps are identical; the clone reproduced August's published figures exactly before September was read. <strong style={{ color: INK2 }}>Not built yet:</strong> retention cohorts, which land with the close.
       </div>
 
     </div>

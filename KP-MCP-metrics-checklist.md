@@ -704,6 +704,10 @@ en la definición: para cerrar un mes nuevo hay que **reconstruir** el embudo co
 | Embudo | ID | Rango guardado |
 |---|---|---|
 | Open Search · ago 2026 **(cierre)** | `380466231` | 2026-08-01 → 2026-08-31 |
+| Open Search · sep 2026 **(cierre)** | `1083063130` | 2026-09-01 → 2026-09-30 |
+| Contextual (pills) · sep 2026 **(cierre)** | `1928292973` | 2026-09-01 → 2026-09-30 |
+| OS → panel de fuentes · sep 2026 | `2002429514` | 2026-09-01 → 2026-09-30 |
+| Contextual → panel de fuentes · sep 2026 | `1424215887` | 2026-09-01 → 2026-09-30 |
 | Open Search · sep 2026 (1–10, muestreo cuali) | `1524889128` | 2026-09-01 → 2026-09-10 |
 | Contextual (pills) · sep 2026 (1–10, muestreo cuali) | `1970924463` | 2026-09-01 → 2026-09-10 |
 | Open Search · sep 2026 (1–22, muestreo cuali 2º pase) | `344606505` | 2026-09-01 → 2026-09-22 |
@@ -771,6 +775,28 @@ Embudo contextual mes a mes (Sin DEV), para saber si un corte aguanta:
 | jun | 378 | 69 | 18 | 10 |
 | jul | 248 | 37 | 5 | 2 |
 | ago (cierre) | 281 | 37 | 9 | 3 |
+
+Embudo de Open Search mes a mes (Sin DEV), para saber si un corte aguanta:
+
+| Mes | Entra KP | Busca | Highlight | Copia | Extremo a extremo |
+|---|---:|---:|---:|---:|---:|
+| abr | 588 | 226 | 69 | 39 | 6.6% |
+| may | 360 | 132 | 59 | 36 | 10.0% |
+| jun | 378 | 160 | 61 | 37 | 9.8% |
+| jul | 248 | 109 | 47 | 30 | 12.1% |
+| ago (cierre) | 281 | 116 | 43 | 24 | 8.5% |
+| sep (cierre) | 288 | 130 | 47 | 31 | 10.8% |
+
+Panel de fuentes (OS): sep 7 de 130 (5.4%); ago 11 de 116 (9.5%). Contextual sep: 288 → 34 → 8 → 6
+(2.1%), fuentes 0.
+
+**Cómo se hizo septiembre (1-oct-2026):** `update_funnel(funnel_id_de_agosto, start_date, end_date)`
+sobre los cuatro de agosto (`380466231`, `1692594896`, `1923821785`, `716477612`). **Devuelve un
+`funnel_id` nuevo y deja intacto el original.** Control: se recomputó el de agosto original y dio
+281 / 116 / 43 / 24, igual a lo publicado. Cada embudo nuevo se leyó dos veces con el mismo resultado.
+
+**Entrada ≠ `users`:** el paso 1 da 288 en septiembre contra 292 `users` (agosto: 281 contra 287). Brecha
+chica y estable; no explicada. No usar el paso 1 como `users`.
 
 ### Desglose por pill (abr–ago 2026)
 
