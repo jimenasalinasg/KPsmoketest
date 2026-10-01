@@ -3898,40 +3898,45 @@ const SEPTEMBER = {
   excelDownloads: 1,       // live via MCP (FIw2VjBWkJ6J)
   latency: "25s",          // manual — consola de admin, promedio (no mediana). Ago 29s
   csat: "67%",             // manual — 3 respuestas (5,3,5) · top-2 box 2/3 · avg 4.33
-  totalCountries: 31,
+  totalCountries: 30,       // 31 medidos menos Países Bajos: monitor automatico, ver nota
   countries: [
-    { name: "United States (HQ)",        code: "US", users: 207, pct: 50 },
-    { name: "Colombia",                  code: "CO", users: 35, pct: 9 },
-    { name: "Netherlands",               code: "NL", users: 29, pct: 7 }, // REVISAR: atipico para BID, posible VPN/trafico no humano
-    { name: "Uruguay",                   code: "UY", users: 19, pct: 5 },
-    { name: "Argentina",                 code: "AR", users: 16, pct: 4 },
-    { name: "Brazil",                    code: "BR", users: 14, pct: 3 },
-    { name: "Peru",                      code: "PE", users: 14, pct: 3 },
-    { name: "Spain",                     code: "ES", users: 10, pct: 2 },
-    { name: "Costa Rica",                code: "CR", users: 9, pct: 2 },
-    { name: "Mexico",                    code: "MX", users: 9, pct: 2 },
-    { name: "Panama",                    code: "PA", users: 8, pct: 2 },
-    { name: "Bahamas",                   code: "BS", users: 7, pct: 2 },
-    { name: "Paraguay",                  code: "PY", users: 7, pct: 2 },
-    { name: "Barbados",                  code: "BB", users: 6, pct: 1 },
-    { name: "Cayman Islands",            code: "KY", users: 6, pct: 1 },
-    { name: "Chile",                     code: "CL", users: 5, pct: 1 },
-    { name: "El Salvador",               code: "SV", users: 5, pct: 1 },
-    { name: "Dominican Republic",        code: "DO", users: 3, pct: 1 },
-    { name: "Nicaragua",                 code: "NI", users: 3, pct: 1 },
-    { name: "Trinidad & Tobago",         code: "TT", users: 3, pct: 1 },
-    { name: "Bolivia",                   code: "BO", users: 2, pct: 0 },
-    { name: "Ecuador",                   code: "EC", users: 2, pct: 0 },
-    { name: "Guatemala",                 code: "GT", users: 2, pct: 0 },
-    { name: "Canada",                    code: "CA", users: 1, pct: 0 },
-    { name: "France",                    code: "FR", users: 1, pct: 0 },
-    { name: "Guyana",                    code: "GY", users: 1, pct: 0 },
-    { name: "Puerto Rico",               code: "PR", users: 1, pct: 0 },
-    { name: "Saint Martin",              code: "MF", users: 1, pct: 0 },
-    { name: "Suriname",                  code: "SR", users: 1, pct: 0 },
-    { name: "Sweden",                    code: "SE", users: 1, pct: 0 },
-    { name: "Venezuela",                 code: "VE", users: 1, pct: 0 },
+    { name: "United States (HQ)",              code: "US", users: 207, pct: 52 },
+    { name: "Colombia",                        code: "CO", users: 35, pct: 9 },
+    { name: "Uruguay",                         code: "UY", users: 19, pct: 5 },
+    { name: "Argentina",                       code: "AR", users: 16, pct: 4 },
+    { name: "Brazil",                          code: "BR", users: 14, pct: 4 },
+    { name: "Peru",                            code: "PE", users: 14, pct: 4 },
+    { name: "Spain",                           code: "ES", users: 10, pct: 2 },
+    { name: "Costa Rica",                      code: "CR", users: 9, pct: 2 },
+    { name: "Mexico",                          code: "MX", users: 9, pct: 2 },
+    { name: "Panama",                          code: "PA", users: 8, pct: 2 },
+    { name: "Bahamas",                         code: "BS", users: 7, pct: 2 },
+    { name: "Paraguay",                        code: "PY", users: 7, pct: 2 },
+    { name: "Barbados",                        code: "BB", users: 6, pct: 2 },
+    { name: "Cayman Islands",                  code: "KY", users: 6, pct: 2 },
+    { name: "Chile",                           code: "CL", users: 5, pct: 1 },
+    { name: "El Salvador",                     code: "SV", users: 5, pct: 1 },
+    { name: "Dominican Republic",              code: "DO", users: 3, pct: 1 },
+    { name: "Nicaragua",                       code: "NI", users: 3, pct: 1 },
+    { name: "Trinidad & Tobago",               code: "TT", users: 3, pct: 1 },
+    { name: "Bolivia",                         code: "BO", users: 2, pct: 0 },
+    { name: "Ecuador",                         code: "EC", users: 2, pct: 0 },
+    { name: "Guatemala",                       code: "GT", users: 2, pct: 0 },
+    { name: "Canada",                          code: "CA", users: 1, pct: 0 },
+    { name: "France",                          code: "FR", users: 1, pct: 0 },
+    { name: "Guyana",                          code: "GY", users: 1, pct: 0 },
+    { name: "Puerto Rico",                     code: "PR", users: 1, pct: 0 },
+    { name: "Saint Martin",                    code: "MF", users: 1, pct: 0 },
+    { name: "Suriname",                        code: "SR", users: 1, pct: 0 },
+    { name: "Sweden",                          code: "SE", users: 1, pct: 0 },
+    { name: "Venezuela",                       code: "VE", users: 1, pct: 0 },
   ],
+  // PAISES: la tabla NO es la poblacion Sin DEV. El metrico 417063426 es
+  // "count of unique users / any activity": sin segmento y sin filtro de host, o sea
+  // org-wide y todos los hosts (produccion + np-t + localhost + equipo). Por eso suma
+  // 400 contra 292 usuarios del mes. Paises Bajos (29) se saco: era un monitor
+  // automatico diario sobre knowledgeplatform-np-t.iadb.org, verificado el 1-oct-2026.
+  // Pendiente de octubre: reconstruir la tabla con alcance de produccion.
   // LWA: personas FUERA del equipo, en produccion. Recontado el 30-sep-2026.
   // Se cuentan personas y no clicks: a este volumen un click repetido del mismo usuario
   // inflaba la lectura. El equipo se excluye con la lista de 28 mails del segmento Sin DEV,
@@ -4091,7 +4096,7 @@ function SeptemberMonthly() {
           </button>
         )}
         <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
-          Live from FullStory via MCP. Country data reflects session location by IP; multi-country users may appear more than once. Not in August's list: Bahamas, Canada, France, Puerto Rico, Saint Martin, Venezuela (1–7 users each) — the same six that appeared at the Sep 15 cut and held all month. 411 country rows across 292 users: people seen from more than one country are counted in each.
+          <strong>This table is a wider population than the rest of the report.</strong> The country metric counts any activity with no segment and no host filter, so unlike every other figure here it includes the build team, the test host and localhost — which is why it sums to 400 against the month's 292 users. Read the shares, not the absolute counts. <strong>Netherlands has been removed:</strong> its 29 "users" were an automated monitor hitting the non-production test host once a day, verified on Oct 1 — there were no Dutch users on production at all. Rebuilding this table scoped to production is October work. Not in August's list: Bahamas, Canada, France, Puerto Rico, Saint Martin, Venezuela (1–7 users each).
         </div>
       </div>
 
@@ -4185,9 +4190,9 @@ function SeptemberMonthly() {
           </p>
         </div>
 <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #b06e2f` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Netherlands closes the month at 29 users, unresolved</div>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>The Netherlands anomaly was a robot, and reach is clean</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            31 countries. Netherlands ends third with 29 users (7%), having grown at every cut while the month around it flattened: 9 at Sep 10, 22 at Sep 22, 29 at close. It is the single largest unexplained line in the country table and it has been flagged all month. If the traffic is not human it has inflated both the country count and the user total.
+            Flagged all month, resolved on Oct 1. The 29 Dutch "users" were one automated check firing at 16:55 UTC every single day from Groningen — a fresh anonymous ID each run, one second long, landing on the non-production test host and dying on an authentication error. There were zero Dutch sessions on production. <strong>It never touched the headline numbers:</strong> the Sin DEV segment requires a visit to the production home page, which this robot never reached, so the 292 users and 1,432 sessions never included it. What it did distort is the country table, which is measured org-wide across all hosts.
           </p>
         </div>
       </div>
