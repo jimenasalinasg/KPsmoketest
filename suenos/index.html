@@ -17,6 +17,9 @@
   --line: #15132E;
   --field: #F7F7FD;
   --focus: #3B2FD9;
+  --grain: .22;
+  --glow: rgba(255,255,255,.55);
+  --haze: rgba(150,140,230,.28);
   --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
   --body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
   color-scheme: light;
@@ -24,22 +27,34 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --paper: #14122B; --ink: #F1EFFB; --ink-soft: #B3B0D0;
-    --line: #F1EFFB; --field: #1E1B3F; --focus: #FFC53D; color-scheme: dark;
+    --line: #F1EFFB; --field: #1E1B3F; --focus: #FFC53D; --grain: .35; --glow: rgba(120,110,220,.22); --haze: rgba(255,197,61,.07); color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --paper: #14122B; --ink: #F1EFFB; --ink-soft: #B3B0D0;
-  --line: #F1EFFB; --field: #1E1B3F; --focus: #FFC53D; color-scheme: dark;
+  --line: #F1EFFB; --field: #1E1B3F; --focus: #FFC53D; --grain: .35; --glow: rgba(120,110,220,.22); --haze: rgba(255,197,61,.07); color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 html, body { min-height: 100%; }
 body {
-  margin: 0; background: var(--paper); color: var(--ink);
+  margin: 0; color: var(--ink);
+  background:
+    radial-gradient(ellipse 80% 55% at 15% 0%, var(--glow), transparent 70%),
+    radial-gradient(ellipse 70% 60% at 100% 100%, var(--haze), transparent 70%),
+    var(--paper);
+  background-attachment: fixed;
   font: 400 1.125rem/1.55 var(--body);
   padding-inline: 20px; overflow-x: hidden;
 }
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: var(--grain);
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .3  0 0 0 0 .28  0 0 0 0 .5  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+:root[data-theme="dark"] body::before { mix-blend-mode: screen; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) body::before { mix-blend-mode: screen; } }
 main { position: relative; z-index: 1; max-width: 640px; margin-inline: auto; min-height: 100svh; display: flex; flex-direction: column; padding-block: 28px 40px; }
 .brand { font: 600 .8rem/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
 .dots { display: flex; gap: 6px; margin-top: 14px; }
