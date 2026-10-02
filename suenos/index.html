@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Archivo de sueños</title>
+<meta name="description" content="Un archivo colectivo de sueños con personas que ya no están. Cuéntanos uno, en pocos minutos y solo lo que recuerdes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: una pregunta por pantalla, un círculo grande que se desplaza con cada paso. */
+:root {
+  --paper: #E9EAF7;
+  --ink: #15132E;
+  --ink-soft: #4B4968;
+  --moon: #FFC53D;
+  --line: #15132E;
+  --field: #F7F7FD;
+  --focus: #3B2FD9;
+  --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #14122B; --ink: #F1EFFB; --ink-soft: #B3B0D0; --moon: #FFC53D;
+    --line: #F1EFFB; --field: #1E1B3F; --focus: #FFC53D; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #14122B; --ink: #F1EFFB; --ink-soft: #B3B0D0; --moon: #FFC53D;
+  --line: #F1EFFB; --field: #1E1B3F; --focus: #FFC53D; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { min-height: 100%; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 400 1.125rem/1.55 var(--body);
+  padding-inline: 20px; overflow-x: hidden;
+}
+.moon {
+  position: fixed; z-index: 0; border-radius: 50%; background: var(--moon);
+  width: min(70vw, 560px); aspect-ratio: 1; right: -18vw; top: -14vw;
+  transition: transform 1.2s cubic-bezier(.2,.7,.2,1);
+  pointer-events: none;
+}
+main { position: relative; z-index: 1; max-width: 640px; margin-inline: auto; min-height: 100svh; display: flex; flex-direction: column; padding-block: 28px 40px; }
+.brand { font: 600 .8rem/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
+.dots { display: flex; gap: 6px; margin-top: 14px; }
+.dots i { width: 22px; height: 4px; border-radius: 2px; background: color-mix(in srgb, var(--ink) 18%, transparent); }
+.dots i.on { background: var(--ink); }
+
+form { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.step { display: none; flex-direction: column; gap: 22px; padding-block: 36px; animation: in .5s ease both; }
+.step.active { display: flex; }
+@keyframes in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+h1, h2 { font-family: var(--display); font-weight: 800; letter-spacing: -.02em; line-height: 1.04; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2.6rem, 9vw, 4.4rem); }
+h2 { font-size: clamp(2rem, 6.5vw, 3rem); }
+.lead { margin: 0; color: var(--ink-soft); max-width: 34ch; }
+.hint { margin: 0; font-size: .95rem; color: var(--ink-soft); }
+
+label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 1rem; }
+label small { font-weight: 400; color: var(--ink-soft); font-size: .9rem; }
+input[type=text], input[type=email], textarea {
+  width: 100%; font: inherit; font-weight: 400; color: var(--ink);
+  background: var(--field); border: 2px solid var(--line); border-radius: 14px;
+  padding: 14px 16px;
+}
+textarea { min-height: 7.5em; resize: vertical; }
+::placeholder { color: color-mix(in srgb, var(--ink) 45%, transparent); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 520px) { .grid { grid-template-columns: 1fr; } }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips input { position: absolute; opacity: 0; pointer-events: none; }
+.chips label {
+  flex-direction: row; font-weight: 500; cursor: pointer;
+  border: 2px solid var(--line); border-radius: 999px; padding: 8px 16px; background: var(--field);
+}
+.chips input:checked + span { font-weight: 700; }
+.chips label:has(input:checked) { background: var(--ink); color: var(--paper); }
+.chips label:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+.choice { flex-direction: row; align-items: flex-start; gap: 12px; font-weight: 500; cursor: pointer; }
+.choice input { width: 22px; height: 22px; margin: 3px 0 0; accent-color: var(--ink); flex: none; }
+.choice span { display: flex; flex-direction: column; }
+fieldset { border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+legend { padding: 0; font-weight: 700; margin-bottom: 8px; }
+.consent { border: 2px solid var(--line); border-radius: 18px; padding: 18px; background: var(--field); }
+
+.actions { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 6px; }
+button { font: 700 1.05rem/1 var(--body); cursor: pointer; }
+.go {
+  background: var(--ink); color: var(--paper); border: 2px solid var(--ink);
+  border-radius: 999px; padding: 16px 28px;
+}
+.go:hover { transform: translateY(-2px); }
+.go[disabled] { opacity: .35; cursor: not-allowed; transform: none; }
+.link { background: none; border: 0; color: var(--ink); padding: 8px 2px; text-decoration: underline; text-underline-offset: 4px; font-weight: 500; }
+.back { margin-left: auto; }
+.note { font-size: .85rem; color: var(--ink-soft); margin: 0; }
+.err { color: var(--ink); font-weight: 600; margin: 0; min-height: 1.4em; }
+.file { font-size: .95rem; }
+.file input { font: inherit; }
+.small-links { display: flex; gap: 6px 18px; flex-wrap: wrap; margin-top: auto; padding-top: 20px; font-size: .85rem; color: var(--ink-soft); }
+@media (prefers-reduced-motion: reduce) { .step { animation: none; } .moon { transition: none; } .go:hover { transform: none; } }
+noscript p { padding: 20px; }
+</style>
+</head>
+<body>
+<div class="moon" id="moon" aria-hidden="true"></div>
+<main>
+  <div>
+    <div class="brand">Archivo de sueños</div>
+    <div class="dots" id="dots" aria-hidden="true"></div>
+  </div>
+
+  <form id="f" novalidate>
+    <!-- 0 -->
+    <section class="step active" data-step="0">
+      <h1>¿Alguna vez soñaste con alguien que ya no está?</h1>
+      <p class="lead">Estoy reuniendo esos encuentros para un libro ilustrado sobre sueños, memoria y duelo. No busco interpretaciones. Busco los detalles que hacen que el sueño parezca real.</p>
+      <p class="hint">Tarda unos 3 minutos. Todo se puede saltar menos el permiso final.</p>
+      <div class="actions"><button type="button" class="go" data-next>Contar un sueño</button></div>
+    </section>
+
+    <!-- 1 -->
+    <section class="step" data-step="1">
+      <h2>¿Quién apareció?</h2>
+      <label>Una palabra basta
+        <input type="text" name="quien" placeholder="Mi abuela, un amigo, mi perro…" autocomplete="off">
+      </label>
+      <label>¿Qué edad parecía tener? <small>A veces vuelven más jóvenes.</small>
+        <input type="text" name="edad" placeholder="Veinte años, la de siempre…" autocomplete="off">
+      </label>
+    </section>
+
+    <!-- 2 -->
+    <section class="step" data-step="2">
+      <h2>¿Dónde estaban y qué hacía?</h2>
+      <label>Cuéntalo como lo ves
+        <textarea name="escena" placeholder="Una cocina que ya no existe. Estaba preparando café."></textarea>
+      </label>
+    </section>
+
+    <!-- 3 -->
+    <section class="step" data-step="3">
+      <h2>¿Te dijo algo?</h2>
+      <label>Con sus palabras, aunque sean absurdas
+        <textarea name="dijo" placeholder="O no dijo nada y solo sonrió."></textarea>
+      </label>
+    </section>
+
+    <!-- 4 -->
+    <section class="step" data-step="4">
+      <h2>Lo que quedó en los sentidos</h2>
+      <p class="hint">Escribe solo lo que te venga.</p>
+      <div class="grid">
+        <label>Un objeto <input type="text" name="objeto" placeholder="Una chaqueta de cuero" autocomplete="off"></label>
+        <label>La ropa <input type="text" name="ropa" placeholder="Camisa azul gastada" autocomplete="off"></label>
+        <label>La luz <input type="text" name="luz" placeholder="Tarde, amarilla" autocomplete="off"></label>
+        <label>Un sonido <input type="text" name="sonido" placeholder="Una radio lejos" autocomplete="off"></label>
+        <label>Un olor <input type="text" name="olor" placeholder="El olor de esa casa" autocomplete="off"></label>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="step" data-step="5">
+      <h2>¿Cómo se sintió?</h2>
+      <fieldset>
+        <legend>Durante el sueño</legend>
+        <div class="chips">
+          <label><input type="checkbox" name="durante" value="paz"><span>Paz</span></label>
+          <label><input type="checkbox" name="durante" value="alegría"><span>Alegría</span></label>
+          <label><input type="checkbox" name="durante" value="calma"><span>Calma</span></label>
+          <label><input type="checkbox" name="durante" value="nostalgia"><span>Nostalgia</span></label>
+          <label><input type="checkbox" name="durante" value="tristeza"><span>Tristeza</span></label>
+          <label><input type="checkbox" name="durante" value="miedo"><span>Miedo</span></label>
+          <label><input type="checkbox" name="durante" value="confusión"><span>Confusión</span></label>
+        </div>
+      </fieldset>
+      <label>Al despertar
+        <input type="text" name="despertar" placeholder="Con ganas de seguir durmiendo" autocomplete="off">
+      </label>
+    </section>
+
+    <!-- 6 -->
+    <section class="step" data-step="6">
+      <h2>Si fuera una sola frase o imagen</h2>
+      <label>¿Cuál sería?
+        <input type="text" name="frase" placeholder="Una mano sobre la mesa" autocomplete="off">
+      </label>
+    </section>
+
+    <!-- 7 -->
+    <section class="step" data-step="7">
+      <h2>¿Tienes una imagen que lo recuerde?</h2>
+      <p class="lead">Una foto, un lugar, una prenda, una textura. No se publicará tal cual. Me sirve para dibujar la atmósfera.</p>
+      <label class="file">Hasta dos imágenes (opcional)
+        <input type="file" name="imagenes" accept="image/*" multiple>
+      </label>
+      <p class="note">Si en la imagen aparece una persona, quedará solo como referencia privada.</p>
+    </section>
+
+    <!-- 8 -->
+    <section class="step" data-step="8">
+      <h2>Último paso: tu permiso</h2>
+      <div class="consent">
+        <fieldset>
+          <label class="choice"><input type="checkbox" name="consentimiento" id="consent" value="si">
+            <span>Autorizo que mi relato pueda ser seleccionado, editado, adaptado e ilustrado como parte de un proyecto editorial sobre sueños, memoria y duelo.</span></label>
+        </fieldset>
+        <fieldset style="margin-top:18px">
+          <legend>¿Cómo quieres aparecer?</legend>
+          <label class="choice"><input type="radio" name="autoria" value="anonima" checked><span>Quiero que mi historia sea anónima.</span></label>
+          <label class="choice"><input type="radio" name="autoria" value="nombre"><span>Puede aparecer mi nombre o seudónimo.</span></label>
+          <label id="nombreWrap" hidden>Nombre o seudónimo
+            <input type="text" name="nombre" autocomplete="name">
+          </label>
+        </fieldset>
+      </div>
+      <label>Correo <small>Opcional. Solo para avisarte si tu historia entra al libro.</small>
+        <input type="email" name="correo" autocomplete="email">
+      </label>
+      <p class="note">Enviar una historia no garantiza que forme parte del libro. Puedes pedir que la retire escribiendo a quien te compartió este enlace.</p>
+      <p class="err" id="err" role="alert"></p>
+      <div class="actions"><button type="submit" class="go" id="send" disabled>Enviar mi sueño</button></div>
+    </section>
+
+    <!-- gracias -->
+    <section class="step" data-step="9" id="thanks">
+      <h2>Gracias por traerlo hasta aquí.</h2>
+      <p class="lead">Tu sueño ya está en el archivo. Si conoces a alguien que también haya soñado con alguien que ya no está, puedes compartirle este enlace.</p>
+      <p class="hint">Si el recuerdo removió algo y quieres hablar con alguien, una línea local de apoyo emocional puede acompañarte. No tienes que estar solo en esto.</p>
+    </section>
+
+    <div class="actions" id="nav" hidden>
+      <button type="button" class="go" data-next>Siguiente</button>
+      <button type="button" class="link" data-skip>Saltar</button>
+      <button type="button" class="link back" data-back>Atrás</button>
+    </div>
+  </form>
+</main>
+<noscript><p>Esta página necesita JavaScript para funcionar.</p></noscript>
+
+<script>
+// Donde se guardan las respuestas. Pega aquí la URL de tu formulario (por ejemplo un endpoint de Formspree
+// o un Google Apps Script que reciba un POST). Mientras esté vacío, la página funciona en modo prueba.
+const ENDPOINT = "";
+
+const form = document.getElementById("f");
+const steps = [...form.querySelectorAll(".step")];
+const nav = document.getElementById("nav");
+const dots = document.getElementById("dots");
+const moon = document.getElementById("moon");
+const consent = document.getElementById("consent");
+const send = document.getElementById("send");
+const err = document.getElementById("err");
+const last = steps.length - 1; // gracias
+const totalQ = last - 1;       // pasos 1..8
+let cur = 0;
+
+for (let i = 0; i < totalQ; i++) dots.appendChild(document.createElement("i"));
+
+function show(n) {
+  cur = n;
+  steps.forEach((s, i) => s.classList.toggle("active", i === n));
+  const inQuestions = n >= 1 && n < totalQ; // pasos con navegación común (1..7)
+  nav.hidden = !inQuestions;
+  [...dots.children].forEach((d, i) => d.classList.toggle("on", n >= 1 && i < n));
+  dots.style.visibility = n >= 1 && n <= totalQ ? "visible" : "hidden";
+  const p = n / last;
+  moon.style.transform = `translate(${-p * 40}vw, ${p * 38}vh) scale(${1 - p * 0.25})`;
+  const first = steps[n].querySelector("input:not([type=hidden]):not([type=radio]):not([type=checkbox]), textarea, .go");
+  if (first) setTimeout(() => first.focus({ preventScroll: true }), 60);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+form.addEventListener("click", e => {
+  if (e.target.closest("[data-next], [data-skip]") && cur < totalQ) show(cur + 1);
+  else if (e.target.closest("[data-back]")) show(Math.max(0, cur - 1));
+});
+form.addEventListener("keydown", e => {
+  if (e.key === "Enter" && e.target.matches("input[type=text]") && cur >= 1 && cur < totalQ) {
+    e.preventDefault(); show(cur + 1);
+  }
+});
+
+consent.addEventListener("change", () => { send.disabled = !consent.checked; });
+form.addEventListener("change", e => {
+  if (e.target.name === "autoria") document.getElementById("nombreWrap").hidden = e.target.value !== "nombre";
+  if (e.target.name === "imagenes" && e.target.files.length > 2) {
+    e.target.value = ""; alert("Elige hasta dos imágenes.");
+  }
+});
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  if (!consent.checked) { err.textContent = "Necesito tu permiso para poder usar tu relato."; return; }
+  err.textContent = ""; send.disabled = true; send.textContent = "Enviando…";
+  const data = new FormData(form);
+  data.set("enviado", new Date().toISOString());
+  try {
+    if (ENDPOINT) {
+      const r = await fetch(ENDPOINT, { method: "POST", body: data, headers: { Accept: "application/json" } });
+      if (!r.ok) throw new Error(r.status);
+    } else {
+      console.info("Modo prueba: no hay ENDPOINT configurado.", Object.fromEntries(data));
+    }
+    show(last);
+  } catch (_) {
+    err.textContent = "No se pudo enviar. Revisa tu conexión e inténtalo de nuevo.";
+    send.disabled = false; send.textContent = "Enviar mi sueño";
+  }
+});
+
+show(0);
+</script>
+</body>
+</html>
