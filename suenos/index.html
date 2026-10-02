@@ -9,12 +9,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* Layout: una pregunta por pantalla, un círculo grande que se desplaza con cada paso. */
+/* Layout: una pregunta por pantalla, solo tipografía. */
 :root {
   --paper: #E9EAF7;
   --ink: #15132E;
   --ink-soft: #4B4968;
-  --moon: #FFC53D;
   --line: #15132E;
   --field: #F7F7FD;
   --focus: #3B2FD9;
@@ -24,12 +23,12 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #14122B; --ink: #F1EFFB; --ink-soft: #B3B0D0; --moon: #FFC53D;
+    --paper: #14122B; --ink: #F1EFFB; --ink-soft: #B3B0D0;
     --line: #F1EFFB; --field: #1E1B3F; --focus: #FFC53D; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --paper: #14122B; --ink: #F1EFFB; --ink-soft: #B3B0D0; --moon: #FFC53D;
+  --paper: #14122B; --ink: #F1EFFB; --ink-soft: #B3B0D0;
   --line: #F1EFFB; --field: #1E1B3F; --focus: #FFC53D; color-scheme: dark;
 }
 
@@ -40,12 +39,6 @@ body {
   margin: 0; background: var(--paper); color: var(--ink);
   font: 400 1.125rem/1.55 var(--body);
   padding-inline: 20px; overflow-x: hidden;
-}
-.moon {
-  position: fixed; z-index: 0; border-radius: 50%; background: var(--moon);
-  width: min(70vw, 560px); aspect-ratio: 1; right: -18vw; top: -14vw;
-  transition: transform 1.2s cubic-bezier(.2,.7,.2,1);
-  pointer-events: none;
 }
 main { position: relative; z-index: 1; max-width: 640px; margin-inline: auto; min-height: 100svh; display: flex; flex-direction: column; padding-block: 28px 40px; }
 .brand { font: 600 .8rem/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
@@ -109,12 +102,11 @@ button { font: 700 1.05rem/1 var(--body); cursor: pointer; }
 .file { font-size: .95rem; }
 .file input { font: inherit; }
 .small-links { display: flex; gap: 6px 18px; flex-wrap: wrap; margin-top: auto; padding-top: 20px; font-size: .85rem; color: var(--ink-soft); }
-@media (prefers-reduced-motion: reduce) { .step { animation: none; } .moon { transition: none; } .go:hover { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .step { animation: none; } .go:hover { transform: none; } }
 noscript p { padding: 20px; }
 </style>
 </head>
 <body>
-<div class="moon" id="moon" aria-hidden="true"></div>
 <main>
   <div>
     <div class="brand">Archivo de sueños</div>
@@ -258,7 +250,6 @@ const form = document.getElementById("f");
 const steps = [...form.querySelectorAll(".step")];
 const nav = document.getElementById("nav");
 const dots = document.getElementById("dots");
-const moon = document.getElementById("moon");
 const consent = document.getElementById("consent");
 const send = document.getElementById("send");
 const err = document.getElementById("err");
@@ -275,8 +266,6 @@ function show(n) {
   nav.hidden = !inQuestions;
   [...dots.children].forEach((d, i) => d.classList.toggle("on", n >= 1 && i < n));
   dots.style.visibility = n >= 1 && n <= totalQ ? "visible" : "hidden";
-  const p = n / last;
-  moon.style.transform = `translate(${-p * 40}vw, ${p * 38}vh) scale(${1 - p * 0.25})`;
   const first = steps[n].querySelector("input:not([type=hidden]):not([type=radio]):not([type=checkbox]), textarea, .go");
   if (first) setTimeout(() => first.focus({ preventScroll: true }), 60);
   window.scrollTo({ top: 0, behavior: "smooth" });
