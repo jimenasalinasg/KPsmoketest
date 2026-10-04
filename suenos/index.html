@@ -252,8 +252,8 @@ noscript p { padding: 20px; }
 <noscript><p>Esta página necesita JavaScript para funcionar.</p></noscript>
 
 <script>
-// Donde se guardan las respuestas. Pega aquí la URL de tu formulario (por ejemplo un endpoint de Formspree
-// o un Google Apps Script que reciba un POST). Mientras esté vacío, la página funciona en modo prueba.
+// Pega aquí la URL de la aplicación web de Apps Script (ver suenos/apps-script/LEEME.md).
+// Mientras esté vacío, la página funciona en modo prueba.
 const ENDPOINT = "";
 
 const form = document.getElementById("f");
@@ -298,18 +298,45 @@ form.addEventListener("change", e => {
   }
 });
 
+// Reduce cada imagen a un JPEG de máx. 1600 px antes de enviarla.
+function shrink(file) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const k = Math.min(1, 1600 / Math.max(img.width, img.height));
+      const c = document.createElement("canvas");
+      c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(img.src);
+      resolve({ nombre: file.name, base64: c.toDataURL("image/jpeg", .85).split(",")[1] });
+    };
+    img.onerror = reject;
+    img.src = URL.createObjectURL(file);
+  });
+}
+
 form.addEventListener("submit", async e => {
   e.preventDefault();
   if (!consent.checked) { err.textContent = "Necesito tu permiso para poder usar tu relato."; return; }
   err.textContent = ""; send.disabled = true; send.textContent = "Enviando…";
-  const data = new FormData(form);
-  data.set("enviado", new Date().toISOString());
+  const fd = new FormData(form);
+  const data = {};
+  for (const k of new Set(fd.keys())) {
+    if (k === "imagenes") continue;
+    const v = fd.getAll(k);
+    data[k] = v.length > 1 ? v.join(", ") : v[0];
+  }
+  data.anonima = form.elements.anonima.checked ? "si" : "no";
+  data.enviado = new Date().toISOString();
   try {
+    data.imagenes = await Promise.all([...form.elements.imagenes.files].slice(0, 2).map(shrink));
     if (ENDPOINT) {
-      const r = await fetch(ENDPOINT, { method: "POST", body: data, headers: { Accept: "application/json" } });
-      if (!r.ok) throw new Error(r.status);
+      // text/plain evita el preflight de CORS, que Apps Script no responde.
+      const r = await fetch(ENDPOINT, { method: "POST", body: JSON.stringify(data), headers: { "Content-Type": "text/plain;charset=utf-8" } });
+      const j = await r.json();
+      if (!j.ok) throw new Error(j.error);
     } else {
-      console.info("Modo prueba: no hay ENDPOINT configurado.", Object.fromEntries(data));
+      console.info("Modo prueba: no hay ENDPOINT configurado.", data);
     }
     show(last);
   } catch (_) {
