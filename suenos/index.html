@@ -224,12 +224,7 @@ noscript p { padding: 20px; }
             <span>Autorizo que mi relato pueda ser seleccionado, editado, adaptado e ilustrado como parte de un proyecto editorial sobre sueños, memoria y duelo.</span></label>
         </fieldset>
         <fieldset style="margin-top:18px">
-          <legend>¿Cómo quieres aparecer?</legend>
-          <label class="choice"><input type="radio" name="autoria" value="anonima" checked><span>Quiero que mi historia sea anónima.</span></label>
-          <label class="choice"><input type="radio" name="autoria" value="nombre"><span>Puede aparecer mi nombre o seudónimo.</span></label>
-          <label id="nombreWrap" hidden>Nombre o seudónimo
-            <input type="text" name="nombre" autocomplete="name">
-          </label>
+          <label class="choice"><input type="checkbox" name="anonima" value="si" checked><span>Quiero que mi historia sea anónima.</span></label>
         </fieldset>
       </div>
       <label>Correo <small>Opcional. Solo para avisarte si tu historia entra al libro.</small>
@@ -298,7 +293,6 @@ form.addEventListener("keydown", e => {
 
 consent.addEventListener("change", () => { send.disabled = !consent.checked; });
 form.addEventListener("change", e => {
-  if (e.target.name === "autoria") document.getElementById("nombreWrap").hidden = e.target.value !== "nombre";
   if (e.target.name === "imagenes" && e.target.files.length > 2) {
     e.target.value = ""; alert("Elige hasta dos imágenes.");
   }
