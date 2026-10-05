@@ -3923,10 +3923,10 @@ function AugustMonthly() {
 }
 
 // ── SEPTEMBER 2026 DATA ──────────────────────
-// Preliminary — mes completo, computado el 1-oct-2026 07:00 UTC · segmento Sin DEV (via FullStory MCP)
+// Final — full month, segmento Sin DEV (vía Fullstory MCP, cerrado 2026-10-05)
 // Cada metrico se computo DOS veces y solo se escribio si las dos lecturas coincidieron: a las
 // 00:25 UTC los datos todavia se estaban indexando (sessions 1379 -> 1388 -> 1432 en minutos) y
-// varias primeras lecturas volvieron en cache. Lo marca "Final" el cierre del Routine, no esto.
+// varias primeras lecturas volvieron en cache. Cerrado como Final por el Routine el 5-oct-2026: recomputados users, sessions, prompters, highlights y copias, y controles de acumulados reproducidos.
 const SEPTEMBER = {
   sessions: 1432,
   users: 292,
@@ -4261,7 +4261,7 @@ function SeptemberMonthly() {
       {/* Pending sections note */}
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
         <strong style={{ color: INK2 }}>Live via MCP:</strong> every number above except the three loaded by hand, pulled from FullStory by metric ID for Sep 1–30 on the Sin DEV segment. July's baseline was re-checked before writing and matched exactly.
-        <br/><br/><strong style={{ color: INK2 }}>Read twice before writing.</strong> A first pass at 00:25 UTC on Oct 1 found the data still indexing — sessions moved from 1,379 to 1,432 within minutes and some reads came back cached. Nothing was written then. Every figure here was computed twice at 07:00 UTC and only kept where the two reads agreed. It stays marked preliminary until the formal close.
+        <br/><br/><strong style={{ color: INK2 }}>Read twice before writing.</strong> A first pass at 00:25 UTC on Oct 1 found the data still indexing — sessions moved from 1,379 to 1,432 within minutes and some reads came back cached. Nothing was written then. Every figure here was computed twice at 07:00 UTC and only kept where the two reads agreed. Closed as final on Oct 5, when users, sessions, prompters, highlights and copies were recomputed and the cumulative controls reproduced (users 1,912 − 1,802 = 110; sessions 15,988 − 14,557 = 1,431; prompters drift 4).
         <br/><br/><strong style={{ color: INK2 }}>Cumulative totals</strong> are not a single query. FullStory keeps about 12 months and silently truncates anything older, so users and sessions are built from August's verified close plus this month's new users and sessions, and prompters corrects for the drift the truncation causes. Each one is checked against a subtraction control before it is written. Method and worked examples live in the checklist.
         <br/><br/><strong style={{ color: INK2 }}>New users: 110, not 107.</strong> The firstSeen segment returns 107 because it also requires a visit to the production home page; the subtraction control against the cumulative anchor returns 110. The 110 is published so the cumulative reconciles, and the 107 is recorded in the checklist.
         <br/><br/><strong style={{ color: INK2 }}>Loaded by hand:</strong> CSAT — three responses this month, 67% top-2 box, average 4.33. Three responses is not a satisfaction rate and should not be read against August's 40% on five; it is carried for continuity. Prompts sent (867) and latency (25s) come from the admin console — the prompts column is the same one that gave the 415 and 634 already published for July and August. Latency there is an average, not the median this field was originally defined as, and it improved from 29s in August. <strong style={{ color: INK2 }}>Funnels</strong> are August's closed funnels cloned with only the date range changed, so the steps are identical; the clone reproduced August's published figures exactly before September was read. <strong style={{ color: INK2 }}>Not built yet:</strong> retention cohorts, which land with the close.
