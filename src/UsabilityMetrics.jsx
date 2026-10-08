@@ -202,7 +202,7 @@ export default function UsabilityMetrics() {
       <Block band="engagement">
         <EngRow title="Open Search">
           <Kpi label="Prompts sent" doc={docs.prompts} value={fmt(prompts)} small note="Console · cumulative (not in FullStory)" warn />
-          <Kpi label="Ave. prompt" doc={docs.avePrompt} sub="Since Bank-wide" value={avePrompt} small note="Console-derived" warn />
+          <Kpi label="Ave. prompt" doc={docs.avePrompt} sub="Since Bank-wide" value={avePrompt} small note="Prompts ÷ users, entered manually" warn />
           <Kpi label="Content engagement" doc={docs.osEngagement} value={fmt(osEngagement)} small note="Sum of the ledger: highlight + copy + source panel + downloads" />
         </EngRow>
         <EngRow title="Contextual Search">

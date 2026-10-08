@@ -80,10 +80,12 @@ export function buildDocs(ctx) {
       note: `${CONSOLE} FullStory's prompt metrics count one submit button, not prompts, so they are not used.`,
     },
     avePrompt: {
-      kind: "Console", title: "Ave. prompt",
-      what: "Average prompt figure reported by the admin console.",
-      formula: `Ledger snapshot ave_prompt (latest: ${snap("ave_prompt").value}).`,
-      note: `${CONSOLE} Console-derived: refresh it against the latest prompts sent.`,
+      kind: "Snapshot", title: "Ave. prompt",
+      what: "Average number of prompts per user: prompts sent divided by users.",
+      formula: `Prompts sent ${fmt(snap("prompts_sent").value)} ÷ unique users ${fmt(users.value)} = ${(Math.round((snap("prompts_sent").value / users.value) * 100) / 100)}. The card shows the ledger snapshot ave_prompt = ${snap("ave_prompt").value}, entered manually, so it can lag the two inputs.`,
+      related: [["9gr5ENfdNDCH", "Cantidad de prompts · clicks on Open-Search-Button-textarea-Search (event count; relation to the console figure not confirmed)"]],
+      relatedLabel: "Related saved metric (to confirm)",
+      note: "Prompts sent comes from the admin console (not FullStory); users come from the unique-users snapshot. Whether the divisor should be unique users or prompters is to be confirmed.",
     },
     osEngagement: {
       kind: "Ledger", title: "Open Search · content engagement",
