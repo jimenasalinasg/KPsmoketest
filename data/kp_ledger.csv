@@ -124,12 +124,12 @@ baseline,os_downloads,25,additive,fullstory,unique users: Word 16 + Excel 9 up t
 2026-10,cs_copy,1,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)
 2026-10,cs_highlight_cards,3,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j","highlights on sidebar pill cards: css [data-fs-element*=""Pills-Knowledge""]; single-month window"
 2026-10,cs_highlight_detail,0,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)
-2026-10,cs_queries,35,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)
+2026-10,cs_queries,35,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j","single-month window 2026-10-01..31 (month-to-date, computed 2026-10-08); recipe: saved metric + update_metric segment sjHJR3590z6j; Sep calibration matched ledger"
 2026-10,cs_search_bar,13,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)
 2026-10,cs_source_link,1,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)
-2026-10,os_copy,14,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)
-2026-10,os_highlight,28,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)
-2026-10,os_source_panel,0,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)
+2026-10,os_copy,14,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j","single-month window 2026-10-01..31 (month-to-date, computed 2026-10-08); recipe: saved metric + update_metric segment sjHJR3590z6j; Sep calibration matched ledger"
+2026-10,os_highlight,28,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j","single-month window 2026-10-01..31 (month-to-date, computed 2026-10-08); recipe: saved metric + update_metric segment sjHJR3590z6j; Sep calibration matched ledger"
+2026-10,os_source_panel,1,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j","single-month window 2026-10-01..31 (month-to-date, computed 2026-10-08); recipe: saved metric + update_metric segment sjHJR3590z6j; Sep calibration matched ledger"
 2026-04,prompters,587,snapshot,see note,smoketest repo (Apr-30)
 2026-04,prompts_sent,2279,snapshot,see note,console (Apr-30)
 2026-04,unique_users,1357,snapshot,see note,smoketest repo (Apr-30)
