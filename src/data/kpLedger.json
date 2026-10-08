@@ -172,7 +172,7 @@
   },
   "snapshot": {
     "ave_prompt": {
-      "2026-10": 2.7
+      "2026-10": 6.5
     },
     "lessons_created": {
       "2026-10": 1559
@@ -207,10 +207,10 @@
     {
       "month": "2026-10",
       "metric": "ave_prompt",
-      "value": 2.7,
+      "value": 6.5,
       "type": "snapshot",
       "source": "see note",
-      "note": "console-derived (verify with 6,041)"
+      "note": "prompts_sent / prompters = 6041 / 931; calculated"
     },
     {
       "month": "2025-10",

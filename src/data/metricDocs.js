@@ -81,11 +81,12 @@ export function buildDocs(ctx) {
     },
     avePrompt: {
       kind: "Snapshot", title: "Ave. prompt",
-      what: "Average number of prompts per user: prompts sent divided by users.",
-      formula: `Prompts sent ${fmt(snap("prompts_sent").value)} ÷ unique users ${fmt(users.value)} = ${(Math.round((snap("prompts_sent").value / users.value) * 100) / 100)}. The card shows the ledger snapshot ave_prompt = ${snap("ave_prompt").value}, entered manually, so it can lag the two inputs.`,
+      what: "Average number of prompts per prompter: prompts sent divided by the users who sent at least one prompt.",
+      formula: `Prompts sent ${fmt(snap("prompts_sent").value)} ÷ prompters ${fmt(snap("prompters").value)} = ${(Math.round((snap("prompts_sent").value / snap("prompters").value) * 10) / 10)}. Calculated from the two ledger snapshots, not entered by hand.`,
+      ids: [["3GVbGeJsPBCb", "Usuarios que promptearon · unique users who clicked Open-Search-Input-Search (the prompters figure)"]],
       related: [["9gr5ENfdNDCH", "Cantidad de prompts · clicks on Open-Search-Button-textarea-Search (event count; relation to the console figure not confirmed)"]],
       relatedLabel: "Related saved metric (to confirm)",
-      note: "Prompts sent comes from the admin console (not FullStory); users come from the unique-users snapshot. Whether the divisor should be unique users or prompters is to be confirmed.",
+      note: "Prompts sent comes from the admin console (not FullStory); prompters come from FullStory (anchor + same-day delta).",
     },
     osEngagement: {
       kind: "Ledger", title: "Open Search · content engagement",
