@@ -25,6 +25,20 @@ const FS_GS_RELATED = [
   ["wO6AxZbNP3wO", "Usuarios que buscan proyectos en el search bar · unique users"],
 ];
 
+// cs_copy: PsOR0eOxZVkB verificado en FullStory (11 elementos de copy). Los otros dos son subconjuntos de un solo boton: "a confirmar".
+const CS_COPY_IDS = [
+  ["PsOR0eOxZVkB", "Copied text BC · 11 copy buttons (the ledger values come from it, on Sin DEV (copy)). Covers 11 of ~18 copy buttons, so it undercounts"],
+];
+const CS_COPY_TO_CONFIRM = [
+  ["fD3J4eCjx0JC", "Copy - Literature (Pills-Knowledge-copy-lit) · to confirm"],
+  ["BPdIt4S8cmik", "Copy - Lessons Learned (Pills-Knowledge-copy-ll) · to confirm"],
+];
+const EV = {
+  cards: "Elements [data-fs-element*=\"Pills-Knowledge\"] (the sidebar cards).",
+  detail: "Detail page /open-pill/*/*/SimilarProjects.",
+  source: "8 elements: the 3 POD-Card-*-Button-SourceLink, plus Pills-Knowledge-*-Card-Button-Link and Card-Source.",
+};
+const EVENT_ONLY = "No saved FullStory metric of its own: defined by these events/elements. Exact element list to be documented.";
 const PENDING = "FullStory metric ID to be added: this ledger row uses the product team's own definition.";
 const CONSOLE = "Admin console, not FullStory.";
 
@@ -95,8 +109,11 @@ export function buildDocs(ctx) {
       kind: "Ledger", title: "Contextual Search · content engagement",
       what: "Times someone took content out of Contextual Search, or used Global Search.",
       formula: `Copies ${fmt(csC)} + source links ${fmt(csL)} + highlights ${fmt(csHd + csHc)} (detail ${fmt(csHd)} + sidebar cards ${fmt(csHc)}) + Global Search ${fmt(chips + bar)} (chips ${fmt(chips)} + search bar ${fmt(bar)}) = ${fmt(csC + csL + csHd + csHc + chips + bar)}. Every term is the sum of its monthly ledger rows.`,
-      idsNote: PENDING,
-      related: FS_GS_RELATED,
+      ids: CS_COPY_IDS,
+      idsNote: `Copies: ${"PsOR0eOxZVkB"} above. Highlights and source links have no saved metric of their own (see the events below); Global Search chips/search bar are the related user counts.`,
+      events: `Highlight cards: ${EV.cards} Highlight detail: ${EV.detail} Source links: ${EV.source}`,
+      related: [...CS_COPY_TO_CONFIRM, ...FS_GS_RELATED],
+      relatedLabel: "Other copy metrics (to confirm) and Global Search user counts (unique users, not these counts)",
       note: eventBasis,
     },
     lessons: {
@@ -110,10 +127,10 @@ export function buildDocs(ctx) {
     os_copy: { kind: "Ledger", title: "OS copy", what: "Copies on the Open Search page, per month.", formula: `Ledger row os_copy; total ${fmt(osC)}.`, ids: [FS.osCopy], note: eventBasis },
     os_source_panel: { kind: "Ledger", title: "OS source", what: "Clicks on the source panel in Open Search, per month.", formula: `Ledger row os_source_panel; total ${fmt(osS)}.`, ids: [FS.osSource], note: eventBasis },
     cs_queries: { kind: "Ledger", title: "CS queries", what: "Contextual Search pill and detail page views, per month.", formula: `Ledger row cs_queries; total ${fmt(sum("cs_queries"))}.`, ids: [FS.csQueries], note: eventBasis },
-    cs_copy: { kind: "Ledger", title: "CS copy", what: "Copies in Contextual Search, per month.", formula: `Ledger row cs_copy; total ${fmt(csC)}.`, idsNote: PENDING, note: eventBasis },
-    cs_source_link: { kind: "Ledger", title: "CS source", what: "Source link clicks in Contextual Search, per month.", formula: `Ledger row cs_source_link; total ${fmt(csL)}.`, idsNote: PENDING, note: eventBasis },
-    cs_highlight_detail: { kind: "Ledger", title: "CS hl detail", what: "Highlights in the Contextual Search detail views, per month.", formula: `Ledger row cs_highlight_detail; total ${fmt(csHd)}.`, idsNote: PENDING, note: eventBasis },
-    cs_highlight_cards: { kind: "Ledger", title: "CS hl cards", what: "Highlights on the sidebar pill cards, per month.", formula: `Ledger row cs_highlight_cards; total ${fmt(csHc)}.${noteOf("cs_highlight_cards") ? ` Ledger note: ${noteOf("cs_highlight_cards")}.` : ""}`, idsNote: PENDING, note: eventBasis },
+    cs_copy: { kind: "Ledger", title: "CS copy", what: "Copies in Contextual Search, per month.", formula: `Ledger row cs_copy; total ${fmt(csC)}.`, ids: CS_COPY_IDS, related: CS_COPY_TO_CONFIRM, relatedLabel: "Other copy metrics (to confirm)", note: eventBasis },
+    cs_source_link: { kind: "Ledger", title: "CS source", what: "Source link clicks in Contextual Search, per month.", formula: `Ledger row cs_source_link; total ${fmt(csL)}.`, idsNote: EVENT_ONLY, events: EV.source, note: eventBasis },
+    cs_highlight_detail: { kind: "Ledger", title: "CS hl detail", what: "Highlights in the Contextual Search detail views, per month.", formula: `Ledger row cs_highlight_detail; total ${fmt(csHd)}.`, idsNote: EVENT_ONLY, events: EV.detail, note: eventBasis },
+    cs_highlight_cards: { kind: "Ledger", title: "CS hl cards", what: "Highlights on the sidebar pill cards, per month.", formula: `Ledger row cs_highlight_cards; total ${fmt(csHc)}.${noteOf("cs_highlight_cards") ? ` Ledger note: ${noteOf("cs_highlight_cards")}.` : ""}`, idsNote: EVENT_ONLY, events: EV.cards, note: eventBasis },
     cs_chips: { kind: "Ledger", title: "GS chips", what: "Global Search · filter chips, per month.", formula: `Ledger row cs_chips; total ${fmt(chips)}. The ledger counts events.`, idsNote: PENDING, related: FS_GS_RELATED.slice(0, 2), note: eventBasis },
     cs_search_bar: { kind: "Ledger", title: "GS search bar", what: "Global Search · search bar, per month.", formula: `Ledger row cs_search_bar; total ${fmt(bar)}. The ledger counts events.`, idsNote: PENDING, related: FS_GS_RELATED.slice(2), note: eventBasis },
   };
