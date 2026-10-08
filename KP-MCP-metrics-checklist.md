@@ -387,6 +387,8 @@ Receta diaria en el README (§ «Octubre al dia»). Puntos que importan:
   día 7 incompleto. Se recalcularon a 2,072 y 17,506; los prompters (931) coincidían. Las filas de evento de `2026-10` (`os_*`, `cs_*`)
   dicen «days 1-7» y pudieron quedar cortadas igual: **hay que regenerarlas con la receta del ledger** (no se pueden reproducir con las
   métricas de este checklist, que no llevan el segmento Sin DEV (copy)).
+- **Usability siempre a la par** (regla del 8-oct-2026): la vista Usability metrics y la pestaña del mes en curso se actualizan en la misma
+  corrida y se publican juntas. Ambas leen el ledger; verificar que el acumulado de usuarios sea el mismo en las dos antes del deploy.
 - Mes en curso: no se compara con septiembre completo. Quedan fuera de la pestaña: LWA, países, embudos, cohortes y cualitativo.
 
 ### Regla: un cero no prueba desuso hasta que un hermano dispare

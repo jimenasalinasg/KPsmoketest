@@ -398,7 +398,8 @@ mensuales de `src/App.jsx` leen highlights, copias, source clicks, pill pageview
 ## Octubre al día (mes en curso)
 
 Hay una pestaña «October 2026 · to date» que se actualiza cada día; la receta está en el README (§ «Octubre al dia») y los
-controles en el checklist (§ «Octubre al día»). Al cerrar octubre, el bloque `OCTOBER` de `src/App.jsx` pasa a ser el cierre
+controles en el checklist (§ «Octubre al día»). **La vista Usability metrics se actualiza siempre a la par**: misma corrida, mismo
+deploy, y el acumulado de usuarios debe coincidir en las dos. Al cerrar octubre, el bloque `OCTOBER` de `src/App.jsx` pasa a ser el cierre
 y se agrega el del mes siguiente.
 
 ## Nunca
