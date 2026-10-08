@@ -140,7 +140,7 @@ baseline,os_downloads,25,additive,fullstory,unique users: Word 16 + Excel 9 up t
 2026-09,prompters,923,snapshot,see note,smoketest SEPTEMBER close (drift-corrected); 859 was the Aug-31 close
 2026-09,sessions,17274,snapshot,see note,anchor Sep close
 2026-09,unique_users,2053,snapshot,see note,anchor Sep close
-2026-10,ave_prompt,2.7,snapshot,see note,"console-derived (verify with 6,041)"
+2026-10,ave_prompt,6.5,snapshot,see note,prompts_sent / prompters = 6041 / 931; calculated
 2026-10,lessons_created,1559,snapshot,see note,console
 2026-10,prompters,931,snapshot,see note,"923 Sep close + 8 (Oct 1-7: 926 - 918, same-day queries)"
 2026-10,prompts_sent,6041,snapshot,see note,console
