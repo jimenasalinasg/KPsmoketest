@@ -164,7 +164,7 @@
       "2026-07": 29,
       "2026-08": 21,
       "2026-09": 22,
-      "2026-10": 0
+      "2026-10": 1
     }
   },
   "baseline": {
@@ -730,7 +730,7 @@
       "value": 35,
       "type": "additive",
       "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
-      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+      "note": "single-month window 2026-10-01..31 (month-to-date, computed 2026-10-08); recipe: saved metric + update_metric segment sjHJR3590z6j; Sep calibration matched ledger"
     },
     {
       "month": "2025-10",
@@ -1050,7 +1050,7 @@
       "value": 14,
       "type": "additive",
       "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
-      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+      "note": "single-month window 2026-10-01..31 (month-to-date, computed 2026-10-08); recipe: saved metric + update_metric segment sjHJR3590z6j; Sep calibration matched ledger"
     },
     {
       "month": "baseline",
@@ -1162,7 +1162,7 @@
       "value": 28,
       "type": "additive",
       "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
-      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+      "note": "single-month window 2026-10-01..31 (month-to-date, computed 2026-10-08); recipe: saved metric + update_metric segment sjHJR3590z6j; Sep calibration matched ledger"
     },
     {
       "month": "2025-10",
@@ -1263,10 +1263,10 @@
     {
       "month": "2026-10",
       "metric": "os_source_panel",
-      "value": 0,
+      "value": 1,
       "type": "additive",
       "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
-      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+      "note": "single-month window 2026-10-01..31 (month-to-date, computed 2026-10-08); recipe: saved metric + update_metric segment sjHJR3590z6j; Sep calibration matched ledger"
     },
     {
       "month": "2026-04",
