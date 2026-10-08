@@ -47,7 +47,8 @@ function Info({ doc }) {
     clearTimeout(timer.current);
     const r = btn.current.getBoundingClientRect();
     const left = Math.min(Math.max(8, r.left + r.width / 2 - POP_W / 2), window.innerWidth - POP_W - 8);
-    setPos(r.top < window.innerHeight / 2 ? { left, top: r.bottom + 6 } : { left, bottom: window.innerHeight - r.top + 6 });
+    const below = window.innerHeight - r.bottom, above = r.top;
+    setPos(below >= above ? { left, top: r.bottom + 6, maxHeight: below - 14 } : { left, bottom: window.innerHeight - r.top + 6, maxHeight: above - 14 });
     setOpen(true);
   };
   const hide = () => { timer.current = setTimeout(() => setOpen(false), 150); };
@@ -75,7 +76,7 @@ function Info({ doc }) {
         onClick={show} onFocus={show} onBlur={hide}
         style={{ width: 12, height: 12, borderRadius: 99, border: `1px solid ${BDR}`, background: SURF, color: INK3, fontSize: 8, lineHeight: 1, padding: 0, cursor: "help", fontFamily: "inherit", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0, textTransform: "none" }}>i</button>
       {open && pos && (
-        <span role="tooltip" style={{ position: "fixed", ...pos, width: POP_W, boxSizing: "border-box", zIndex: 100, background: INK, color: "#fff", borderRadius: 8, padding: "12px 14px", boxShadow: "0 4px 16px rgba(0,0,0,.25)", textAlign: "left", textTransform: "none", letterSpacing: "normal", fontWeight: 400, whiteSpace: "normal", fontFamily: BODY, userSelect: "text", cursor: "text" }}>
+        <span role="tooltip" style={{ position: "fixed", ...pos, width: POP_W, boxSizing: "border-box", overflowY: "auto", zIndex: 100, background: INK, color: "#fff", borderRadius: 8, padding: "12px 14px", boxShadow: "0 4px 16px rgba(0,0,0,.25)", textAlign: "left", textTransform: "none", letterSpacing: "normal", fontWeight: 400, whiteSpace: "normal", fontFamily: BODY, userSelect: "text", cursor: "text" }}>
           <span style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 6 }}>
             <span style={{ width: 6, height: 6, borderRadius: 99, background: KIND_COLOR[doc.kind] || INK3 }} />
             <span style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em", color: "#a8c4e0" }}>{doc.kind}</span>
@@ -85,8 +86,9 @@ function Info({ doc }) {
           <Label>How it is measured</Label>
           <Text>{doc.formula}</Text>
           {doc.ids && <><Label>FullStory metric IDs</Label><IdList items={doc.ids} /></>}
-          {!doc.ids && doc.idsNote && <><Label>FullStory</Label><Text color="#f5c58a">{doc.idsNote}</Text></>}
-          {doc.related && <><Label>Related saved metrics (unique users, not this count)</Label><IdList items={doc.related} /></>}
+          {doc.events && <><Label>Events / elements</Label><Text>{doc.events}</Text></>}
+          {doc.idsNote && <>{!doc.ids && <Label>FullStory</Label>}<Text color="#f5c58a">{doc.idsNote}</Text></>}
+          {doc.related && <><Label>{doc.relatedLabel || "Related saved metrics (unique users, not this count)"}</Label><IdList items={doc.related} /></>}
           {doc.note && <span style={{ display: "block", marginTop: 8, paddingTop: 7, borderTop: "1px solid rgba(255,255,255,.15)", fontSize: 9, lineHeight: 1.5, color: "#8fa9c4" }}>{doc.note}</span>}
         </span>
       )}
