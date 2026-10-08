@@ -1056,6 +1056,7 @@ function Monthly() {
           </div>
           <MCard meta="tourCompletion" label="% Onboarding completed" value={`${APRIL.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
           <MCard meta="sessions" label="Sessions" value={APRIL.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} />
+          <MCard meta="activeTime" label="Avg. active time" value={`${snapshotAt("avg_active_time_s", "2026-04").toFixed(1)} s`} desc="Per page view" />
           <MCard meta="csat" label="CSAT — Customer Satisfaction Score" value="75%" desc="out of 5 responses" />
         </Grid>
 
@@ -1434,6 +1435,7 @@ function MayMonthly() {
         </div>
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${MAY.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
         <MCard meta="sessions" label="Sessions" value={MAY.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={APRIL.sessions} />
+        <MCard meta="activeTime" label="Avg. active time" value={`${snapshotAt("avg_active_time_s", "2026-05").toFixed(1)} s`} desc="Per page view" />
       </div>
 
       {/* CSAT block */}
@@ -1835,6 +1837,7 @@ function JuneMonthly() {
         </div>
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${JUNE.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
         <MCard meta="sessions" label="Sessions" value={JUNE.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={MAY.sessions} />
+        <MCard meta="activeTime" label="Avg. active time" value={`${snapshotAt("avg_active_time_s", "2026-06").toFixed(1)} s`} desc="Per page view" />
       </div>
 
       {/* CSAT block */}
@@ -2223,6 +2226,7 @@ function JulyMonthly() {
         </div>
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${JULY.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
         <MCard meta="sessions" label="Sessions" value={String(JULY.sessions)} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={JUNE.sessions} />
+        <MCard meta="activeTime" label="Avg. active time" value={`${snapshotAt("avg_active_time_s", "2026-07").toFixed(1)} s`} desc="Per page view" />
       </div>
 
       {/* CSAT block */}
@@ -2418,6 +2422,7 @@ function JulyMonthly() {
 // Espejo de KP-MCP-metrics-checklist.md.
 const META = {
   users:            { id: "a30wnMzqgtJk", src: "mcp",     def: "Unique users with any activity in the period (MAU). Its FullStory name is \"First time visitors\", but it is NOT a count of new users." },
+  activeTime:       { id: "vpWvDQswlPB4", src: "ledger",  def: "Average active time on page per page view (not per session, despite the FullStory name \"Promedio de Tiempo Activo x Sesión\"), segment Sin DEV (copy). An average: never summed across months." },
   sessions:         { id: "BhsN9vxRPN7V", src: "mcp",     def: "Total sessions in the period. Does not filter internal traffic or bots — criterion still to be confirmed." },
   prompters:        { id: "3GVbGeJsPBCb", src: "mcp",     def: "Unique users who sent at least one prompt." },
   tourCompletion:   { id: "iN3brKBr4rlY", src: "mcp",     def: "Share of users who finished the onboarding tour. Returned with decimals and rounded to the nearest integer." },
@@ -3735,6 +3740,7 @@ function AugustMonthly() {
         </div>
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${AUGUST.tourCompletion}%`} desc="Users who finished the tour · live via MCP" momentum={JULY.tourCompletion} />
         <MCard meta="sessions" label="Sessions" value={String(AUGUST.sessions)} desc="Total for the month" momentum={JULY.sessions} />
+        <MCard meta="activeTime" label="Avg. active time" value={`${snapshotAt("avg_active_time_s", "2026-08").toFixed(1)} s`} desc="Per page view" />
       </div>
 
       {/* Geo */}
@@ -4098,6 +4104,7 @@ function SeptemberMonthly() {
         </div>
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${SEPTEMBER.tourCompletion}%`} desc="Users who finished the tour · live via MCP" momentum={AUGUST.tourCompletion} />
         <MCard meta="sessions" label="Sessions" value={String(SEPTEMBER.sessions)} desc="Total for the month" momentum={AUGUST.sessions} />
+        <MCard meta="activeTime" label="Avg. active time" value={`${snapshotAt("avg_active_time_s", "2026-09").toFixed(1)} s`} desc="Per page view" />
       </div>
 
       {/* Geo */}
@@ -4330,6 +4337,7 @@ function OctoberMonthly() {
         <MCard meta="returningUsers" label="Returning users" value={String(returning)} desc={`${pctOf(returning, OCTOBER.users)}% of users reached · already knew KP before October`} />
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${OCTOBER.tourCompletion}%`} desc="Users who finished the tour" />
         <MCard meta="sessions" label="Sessions" value={String(OCTOBER.sessions)} desc="Total for the month so far" />
+        <MCard meta="activeTime" label="Avg. active time" value={`${snapshotAt("avg_active_time_s", "2026-10").toFixed(1)} s`} desc="Per page view · month so far" />
       </div>
 
       {heading("🔍 Contextual Search (October · to date)")}

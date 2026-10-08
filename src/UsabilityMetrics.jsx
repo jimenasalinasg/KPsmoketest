@@ -139,18 +139,18 @@ function HistoryTable({ docs }) {
   return (
     <div style={{ overflowX: "auto" }}>
       <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 10, color: INK2, minWidth: 720 }}>
-        <thead><tr><th style={{ ...th, ...first }}>Month</th>{COLS.map(([k, l]) => <th key={l} style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>{l}<Info doc={docs[k]} /></span></th>)}</tr></thead>
+        <thead><tr><th style={{ ...th, ...first }}>Month</th>{COLS.map(([k, l]) => <th key={l} style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>{l}<Info doc={docs[k]} /></span></th>)}<th style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>Avg. active time (s)<Info doc={docs.avg_active_time_s} /></span></th></tr></thead>
         <tbody>
           {ledger.months.map((m) => (
-            <tr key={m}><td style={{ ...td, ...first }}>{m}</td>{COLS.map(([k]) => <td key={k} style={td}>{ledger.additive[k]?.[m] ?? "–"}</td>)}</tr>
+            <tr key={m}><td style={{ ...td, ...first }}>{m}</td>{COLS.map(([k]) => <td key={k} style={td}>{ledger.additive[k]?.[m] ?? "–"}</td>)}<td style={td}>{ledger.snapshot.avg_active_time_s?.[m]?.toFixed(1) ?? "–"}</td></tr>
           ))}
           {Object.entries(ledger.baseline).map(([k, v]) => {
             const note = ledger.rows.find((r) => r.metric === k && r.month === "baseline")?.note;
-            return <tr key={k}><td style={{ ...td, ...first }}>baseline · {k}</td><td colSpan={COLS.length} style={{ ...td, textAlign: "left" }}>{fmt(v)}{note ? ` (${note})` : ""}</td></tr>;
+            return <tr key={k}><td style={{ ...td, ...first }}>baseline · {k}</td><td colSpan={COLS.length + 1} style={{ ...td, textAlign: "left" }}>{fmt(v)}{note ? ` (${note})` : ""}</td></tr>;
           })}
           <tr style={{ fontWeight: 600, color: BLUE_D }}>
             <td style={{ ...td, ...first, borderTop: `2px solid ${BLUE_M}` }}>Total</td>
-            {COLS.map(([k]) => <td key={k} style={{ ...td, borderTop: `2px solid ${BLUE_M}` }}>{fmt(ledgerSum(k))}</td>)}
+            {COLS.map(([k]) => <td key={k} style={{ ...td, borderTop: `2px solid ${BLUE_M}` }}>{fmt(ledgerSum(k))}</td>)}<td style={{ ...td, borderTop: `2px solid ${BLUE_M}` }}>–</td>
           </tr>
         </tbody>
       </table>
@@ -194,6 +194,7 @@ export default function UsabilityMetrics() {
         <Cells>
           <Kpi first label="Unique users" doc={docs.users} value={fmt(users)} note="Snapshot: last month-close + the month's delta" />
           <Kpi label="Penetration" doc={docs.penetration} sub={`Out of ${fmt(TOTAL_STAFF)} IDB staff`} value={`${penetration}%`} />
+          <Kpi label="Avg. active time" doc={docs.avg_active_time_s} sub="Per page view · current month" value={`${latestSnapshot("avg_active_time_s").value.toFixed(1)} s`} note={`${latestSnapshot("avg_active_time_s").month}${latestSnapshot("avg_active_time_s").month === last ? " · month so far" : ""}`} />
           <Kpi label="Returning user rate" doc={docs.returning} sub="Within 14 days" value={`${tenths}/10`} note={`${returning}% · a rate, so it is robust to FullStory's retention window`} />
         </Cells>
       </Block>
