@@ -385,6 +385,16 @@ Mergear a `main` (dispara el deploy a GitHub Pages).
 Resumen en español: mes cerrado, movimientos relevantes vs el mes anterior,
 países anómalos, campos manuales pendientes.
 
+## Ledger de eventos (vista Usability metrics)
+
+Desde oct-2026 hay un segundo destino del cierre: `data/kp_ledger.csv`, que alimenta la vista **Usability
+metrics**. Al cerrar el mes, ademas de los pasos de arriba: calcular cada metrica de evento del mes cerrado con
+el segmento `Sin DEV (copy)` (`sjHJR3590z6j`), cargarla con `node scripts/add-month.mjs YYYY-MM metrica=valor ...`
+(snapshots incluidos; `--replace` si el mes estaba parcial), correr `npm run build` y commitear el CSV y
+`src/data/kpLedger.json` juntos. Detalle en el README y en el checklist (§ «Ledger de eventos»). Las tarjetas
+mensuales de `src/App.jsx` leen highlights, copias, source clicks, pill pageviews y Global Search del ledger
+(`L("YYYY-MM", ...)`): no se escriben a mano. El texto de los Signals (porcentajes y splits) si se reescribe.
+
 ## Nunca
 
 - Inventar valores para campos sin métrico.

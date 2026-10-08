@@ -1,0 +1,1392 @@
+{
+  "generatedFrom": "data/kp_ledger.csv",
+  "months": [
+    "2025-10",
+    "2025-11",
+    "2025-12",
+    "2026-01",
+    "2026-02",
+    "2026-03",
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08",
+    "2026-09",
+    "2026-10"
+  ],
+  "additive": {
+    "cs_chips": {
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0,
+      "2026-01": 0,
+      "2026-02": 0,
+      "2026-03": 0,
+      "2026-04": 0,
+      "2026-05": 0,
+      "2026-06": 0,
+      "2026-07": 0,
+      "2026-08": 0,
+      "2026-09": 18,
+      "2026-10": 26
+    },
+    "cs_copy": {
+      "2025-10": 13,
+      "2025-11": 15,
+      "2025-12": 1,
+      "2026-01": 0,
+      "2026-02": 5,
+      "2026-03": 4,
+      "2026-04": 3,
+      "2026-05": 1,
+      "2026-06": 0,
+      "2026-07": 3,
+      "2026-08": 19,
+      "2026-09": 1,
+      "2026-10": 1
+    },
+    "cs_highlight_cards": {
+      "2025-10": 2,
+      "2025-11": 1,
+      "2025-12": 0,
+      "2026-01": 1,
+      "2026-02": 6,
+      "2026-03": 12,
+      "2026-04": 19,
+      "2026-05": 7,
+      "2026-06": 20,
+      "2026-07": 4,
+      "2026-08": 5,
+      "2026-09": 2,
+      "2026-10": 3
+    },
+    "cs_highlight_detail": {
+      "2025-10": 35,
+      "2025-11": 1,
+      "2025-12": 12,
+      "2026-01": 1,
+      "2026-02": 4,
+      "2026-03": 2,
+      "2026-04": 11,
+      "2026-05": 3,
+      "2026-06": 15,
+      "2026-07": 2,
+      "2026-08": 9,
+      "2026-09": 0,
+      "2026-10": 0
+    },
+    "cs_queries": {
+      "2025-10": 194,
+      "2025-11": 101,
+      "2025-12": 55,
+      "2026-01": 29,
+      "2026-02": 102,
+      "2026-03": 133,
+      "2026-04": 216,
+      "2026-05": 104,
+      "2026-06": 255,
+      "2026-07": 95,
+      "2026-08": 119,
+      "2026-09": 77,
+      "2026-10": 35
+    },
+    "cs_search_bar": {
+      "2025-10": 0,
+      "2025-11": 0,
+      "2025-12": 0,
+      "2026-01": 0,
+      "2026-02": 0,
+      "2026-03": 0,
+      "2026-04": 0,
+      "2026-05": 15,
+      "2026-06": 63,
+      "2026-07": 56,
+      "2026-08": 19,
+      "2026-09": 43,
+      "2026-10": 13
+    },
+    "cs_source_link": {
+      "2025-10": 8,
+      "2025-11": 1,
+      "2025-12": 2,
+      "2026-01": 1,
+      "2026-02": 1,
+      "2026-03": 7,
+      "2026-04": 5,
+      "2026-05": 10,
+      "2026-06": 4,
+      "2026-07": 2,
+      "2026-08": 1,
+      "2026-09": 5,
+      "2026-10": 1
+    },
+    "os_copy": {
+      "2025-10": 0,
+      "2025-11": 35,
+      "2025-12": 65,
+      "2026-01": 95,
+      "2026-02": 136,
+      "2026-03": 117,
+      "2026-04": 82,
+      "2026-05": 58,
+      "2026-06": 163,
+      "2026-07": 65,
+      "2026-08": 45,
+      "2026-09": 123,
+      "2026-10": 14
+    },
+    "os_highlight": {
+      "2025-10": 0,
+      "2025-11": 124,
+      "2025-12": 131,
+      "2026-01": 181,
+      "2026-02": 341,
+      "2026-03": 445,
+      "2026-04": 341,
+      "2026-05": 147,
+      "2026-06": 316,
+      "2026-07": 190,
+      "2026-08": 141,
+      "2026-09": 392,
+      "2026-10": 28
+    },
+    "os_source_panel": {
+      "2025-10": 53,
+      "2025-11": 152,
+      "2025-12": 104,
+      "2026-01": 36,
+      "2026-02": 102,
+      "2026-03": 61,
+      "2026-04": 39,
+      "2026-05": 46,
+      "2026-06": 47,
+      "2026-07": 29,
+      "2026-08": 21,
+      "2026-09": 22,
+      "2026-10": 0
+    }
+  },
+  "baseline": {
+    "os_downloads": 25
+  },
+  "snapshot": {
+    "ave_prompt": {
+      "2026-10": 2.7
+    },
+    "lessons_created": {
+      "2026-10": 1559
+    },
+    "prompters": {
+      "2026-04": 587,
+      "2026-05": 673,
+      "2026-08": 859,
+      "2026-09": 923,
+      "2026-10": 931
+    },
+    "prompts_sent": {
+      "2026-04": 2279,
+      "2026-05": 2904,
+      "2026-10": 6041
+    },
+    "returning_rate_pct": {
+      "2026-10": 60.1
+    },
+    "sessions": {
+      "2026-09": 17274,
+      "2026-10": 17479
+    },
+    "unique_users": {
+      "2026-04": 1357,
+      "2026-05": 1574,
+      "2026-09": 2053,
+      "2026-10": 2067
+    }
+  },
+  "rows": [
+    {
+      "month": "2026-10",
+      "metric": "ave_prompt",
+      "value": 2.7,
+      "type": "snapshot",
+      "source": "see note",
+      "note": "console-derived (verify with 6,041)"
+    },
+    {
+      "month": "2025-10",
+      "metric": "cs_chips",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-11",
+      "metric": "cs_chips",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-12",
+      "metric": "cs_chips",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-01",
+      "metric": "cs_chips",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-02",
+      "metric": "cs_chips",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-03",
+      "metric": "cs_chips",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-04",
+      "metric": "cs_chips",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-05",
+      "metric": "cs_chips",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-06",
+      "metric": "cs_chips",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-07",
+      "metric": "cs_chips",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-08",
+      "metric": "cs_chips",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-09",
+      "metric": "cs_chips",
+      "value": 18,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-10",
+      "metric": "cs_chips",
+      "value": 26,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-10",
+      "metric": "cs_copy",
+      "value": 13,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-11",
+      "metric": "cs_copy",
+      "value": 15,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-12",
+      "metric": "cs_copy",
+      "value": 1,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-01",
+      "metric": "cs_copy",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-02",
+      "metric": "cs_copy",
+      "value": 5,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-03",
+      "metric": "cs_copy",
+      "value": 4,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-04",
+      "metric": "cs_copy",
+      "value": 3,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-05",
+      "metric": "cs_copy",
+      "value": 1,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-06",
+      "metric": "cs_copy",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-07",
+      "metric": "cs_copy",
+      "value": 3,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-08",
+      "metric": "cs_copy",
+      "value": 19,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-09",
+      "metric": "cs_copy",
+      "value": 1,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-10",
+      "metric": "cs_copy",
+      "value": 1,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-10",
+      "metric": "cs_highlight_cards",
+      "value": 2,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2025-11",
+      "metric": "cs_highlight_cards",
+      "value": 1,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2025-12",
+      "metric": "cs_highlight_cards",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2026-01",
+      "metric": "cs_highlight_cards",
+      "value": 1,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2026-02",
+      "metric": "cs_highlight_cards",
+      "value": 6,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2026-03",
+      "metric": "cs_highlight_cards",
+      "value": 12,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2026-04",
+      "metric": "cs_highlight_cards",
+      "value": 19,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2026-05",
+      "metric": "cs_highlight_cards",
+      "value": 7,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2026-06",
+      "metric": "cs_highlight_cards",
+      "value": 20,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2026-07",
+      "metric": "cs_highlight_cards",
+      "value": 4,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2026-08",
+      "metric": "cs_highlight_cards",
+      "value": 5,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2026-09",
+      "metric": "cs_highlight_cards",
+      "value": 2,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2026-10",
+      "metric": "cs_highlight_cards",
+      "value": 3,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2025-10",
+      "metric": "cs_highlight_detail",
+      "value": 35,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-11",
+      "metric": "cs_highlight_detail",
+      "value": 1,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-12",
+      "metric": "cs_highlight_detail",
+      "value": 12,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-01",
+      "metric": "cs_highlight_detail",
+      "value": 1,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-02",
+      "metric": "cs_highlight_detail",
+      "value": 4,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-03",
+      "metric": "cs_highlight_detail",
+      "value": 2,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-04",
+      "metric": "cs_highlight_detail",
+      "value": 11,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-05",
+      "metric": "cs_highlight_detail",
+      "value": 3,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-06",
+      "metric": "cs_highlight_detail",
+      "value": 15,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-07",
+      "metric": "cs_highlight_detail",
+      "value": 2,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-08",
+      "metric": "cs_highlight_detail",
+      "value": 9,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-09",
+      "metric": "cs_highlight_detail",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-10",
+      "metric": "cs_highlight_detail",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-10",
+      "metric": "cs_queries",
+      "value": 194,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-11",
+      "metric": "cs_queries",
+      "value": 101,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-12",
+      "metric": "cs_queries",
+      "value": 55,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-01",
+      "metric": "cs_queries",
+      "value": 29,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-02",
+      "metric": "cs_queries",
+      "value": 102,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-03",
+      "metric": "cs_queries",
+      "value": 133,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-04",
+      "metric": "cs_queries",
+      "value": 216,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-05",
+      "metric": "cs_queries",
+      "value": 104,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-06",
+      "metric": "cs_queries",
+      "value": 255,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-07",
+      "metric": "cs_queries",
+      "value": 95,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-08",
+      "metric": "cs_queries",
+      "value": 119,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-09",
+      "metric": "cs_queries",
+      "value": 77,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-10",
+      "metric": "cs_queries",
+      "value": 35,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-10",
+      "metric": "cs_search_bar",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-11",
+      "metric": "cs_search_bar",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-12",
+      "metric": "cs_search_bar",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-01",
+      "metric": "cs_search_bar",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-02",
+      "metric": "cs_search_bar",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-03",
+      "metric": "cs_search_bar",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-04",
+      "metric": "cs_search_bar",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-05",
+      "metric": "cs_search_bar",
+      "value": 15,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-06",
+      "metric": "cs_search_bar",
+      "value": 63,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-07",
+      "metric": "cs_search_bar",
+      "value": 56,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-08",
+      "metric": "cs_search_bar",
+      "value": 19,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-09",
+      "metric": "cs_search_bar",
+      "value": 43,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-10",
+      "metric": "cs_search_bar",
+      "value": 13,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-10",
+      "metric": "cs_source_link",
+      "value": 8,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-11",
+      "metric": "cs_source_link",
+      "value": 1,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-12",
+      "metric": "cs_source_link",
+      "value": 2,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-01",
+      "metric": "cs_source_link",
+      "value": 1,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-02",
+      "metric": "cs_source_link",
+      "value": 1,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-03",
+      "metric": "cs_source_link",
+      "value": 7,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-04",
+      "metric": "cs_source_link",
+      "value": 5,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-05",
+      "metric": "cs_source_link",
+      "value": 10,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-06",
+      "metric": "cs_source_link",
+      "value": 4,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-07",
+      "metric": "cs_source_link",
+      "value": 2,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-08",
+      "metric": "cs_source_link",
+      "value": 1,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-09",
+      "metric": "cs_source_link",
+      "value": 5,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-10",
+      "metric": "cs_source_link",
+      "value": 1,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-10",
+      "metric": "lessons_created",
+      "value": 1559,
+      "type": "snapshot",
+      "source": "see note",
+      "note": "console"
+    },
+    {
+      "month": "2025-10",
+      "metric": "os_copy",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-11",
+      "metric": "os_copy",
+      "value": 35,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-12",
+      "metric": "os_copy",
+      "value": 65,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-01",
+      "metric": "os_copy",
+      "value": 95,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-02",
+      "metric": "os_copy",
+      "value": 136,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-03",
+      "metric": "os_copy",
+      "value": 117,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-04",
+      "metric": "os_copy",
+      "value": 82,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-05",
+      "metric": "os_copy",
+      "value": 58,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-06",
+      "metric": "os_copy",
+      "value": 163,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-07",
+      "metric": "os_copy",
+      "value": 65,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-08",
+      "metric": "os_copy",
+      "value": 45,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-09",
+      "metric": "os_copy",
+      "value": 123,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-10",
+      "metric": "os_copy",
+      "value": 14,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "baseline",
+      "metric": "os_downloads",
+      "value": 25,
+      "type": "additive",
+      "source": "fullstory",
+      "note": "unique users: Word 16 + Excel 9 up to 2026-10-07; not splittable by month"
+    },
+    {
+      "month": "2025-10",
+      "metric": "os_highlight",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-11",
+      "metric": "os_highlight",
+      "value": 124,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-12",
+      "metric": "os_highlight",
+      "value": 131,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-01",
+      "metric": "os_highlight",
+      "value": 181,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-02",
+      "metric": "os_highlight",
+      "value": 341,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-03",
+      "metric": "os_highlight",
+      "value": 445,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-04",
+      "metric": "os_highlight",
+      "value": 341,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-05",
+      "metric": "os_highlight",
+      "value": 147,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-06",
+      "metric": "os_highlight",
+      "value": 316,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-07",
+      "metric": "os_highlight",
+      "value": 190,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-08",
+      "metric": "os_highlight",
+      "value": 141,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-09",
+      "metric": "os_highlight",
+      "value": 392,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-10",
+      "metric": "os_highlight",
+      "value": 28,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-10",
+      "metric": "os_source_panel",
+      "value": 53,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-11",
+      "metric": "os_source_panel",
+      "value": 152,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2025-12",
+      "metric": "os_source_panel",
+      "value": 104,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-01",
+      "metric": "os_source_panel",
+      "value": 36,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-02",
+      "metric": "os_source_panel",
+      "value": 102,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-03",
+      "metric": "os_source_panel",
+      "value": 61,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-04",
+      "metric": "os_source_panel",
+      "value": 39,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-05",
+      "metric": "os_source_panel",
+      "value": 46,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-06",
+      "metric": "os_source_panel",
+      "value": 47,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-07",
+      "metric": "os_source_panel",
+      "value": 29,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-08",
+      "metric": "os_source_panel",
+      "value": 21,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-09",
+      "metric": "os_source_panel",
+      "value": 22,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-10",
+      "metric": "os_source_panel",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+    },
+    {
+      "month": "2026-04",
+      "metric": "prompters",
+      "value": 587,
+      "type": "snapshot",
+      "source": "see note",
+      "note": "smoketest repo (Apr-30)"
+    },
+    {
+      "month": "2026-05",
+      "metric": "prompters",
+      "value": 673,
+      "type": "snapshot",
+      "source": "see note",
+      "note": "smoketest repo (Jun-1)"
+    },
+    {
+      "month": "2026-08",
+      "metric": "prompters",
+      "value": 859,
+      "type": "snapshot",
+      "source": "smoketest AUGUST close",
+      "note": "Aug-31 close"
+    },
+    {
+      "month": "2026-09",
+      "metric": "prompters",
+      "value": 923,
+      "type": "snapshot",
+      "source": "see note",
+      "note": "smoketest SEPTEMBER close (drift-corrected); 859 was the Aug-31 close"
+    },
+    {
+      "month": "2026-10",
+      "metric": "prompters",
+      "value": 931,
+      "type": "snapshot",
+      "source": "see note",
+      "note": "923 Sep close + 8 (Oct 1-7: 926 - 918, same-day queries)"
+    },
+    {
+      "month": "2026-04",
+      "metric": "prompts_sent",
+      "value": 2279,
+      "type": "snapshot",
+      "source": "see note",
+      "note": "console (Apr-30)"
+    },
+    {
+      "month": "2026-05",
+      "metric": "prompts_sent",
+      "value": 2904,
+      "type": "snapshot",
+      "source": "see note",
+      "note": "console (Jun-1)"
+    },
+    {
+      "month": "2026-10",
+      "metric": "prompts_sent",
+      "value": 6041,
+      "type": "snapshot",
+      "source": "see note",
+      "note": "console"
+    },
+    {
+      "month": "2026-10",
+      "metric": "returning_rate_pct",
+      "value": 60.1,
+      "type": "snapshot",
+      "source": "see note",
+      "note": "rate, same-window numerator/denominator"
+    },
+    {
+      "month": "2026-09",
+      "metric": "sessions",
+      "value": 17274,
+      "type": "snapshot",
+      "source": "see note",
+      "note": "anchor Sep close"
+    },
+    {
+      "month": "2026-10",
+      "metric": "sessions",
+      "value": 17479,
+      "type": "snapshot",
+      "source": "see note",
+      "note": "17274 + 205"
+    },
+    {
+      "month": "2026-04",
+      "metric": "unique_users",
+      "value": 1357,
+      "type": "snapshot",
+      "source": "see note",
+      "note": "smoketest repo (Apr-30)"
+    },
+    {
+      "month": "2026-05",
+      "metric": "unique_users",
+      "value": 1574,
+      "type": "snapshot",
+      "source": "see note",
+      "note": "smoketest repo (Jun-1)"
+    },
+    {
+      "month": "2026-09",
+      "metric": "unique_users",
+      "value": 2053,
+      "type": "snapshot",
+      "source": "see note",
+      "note": "anchor Sep close"
+    },
+    {
+      "month": "2026-10",
+      "metric": "unique_users",
+      "value": 2067,
+      "type": "snapshot",
+      "source": "see note",
+      "note": "2053 + 14 (Oct 1-7)"
+    }
+  ]
+}

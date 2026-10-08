@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
+    "ledger:build": "node scripts/ledger-to-json.mjs",
+    "prebuild": "npm run ledger:build",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "add-month": "node scripts/add-month.mjs"
   },
   "dependencies": {
     "react": "^18.2.0",

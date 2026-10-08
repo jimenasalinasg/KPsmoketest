@@ -323,6 +323,57 @@ tamaño a los 162 recurrentes, pero mide otra cosa. No mezclarlos.
 la definición devuelta que la clave `segment` esté. Una investigación entera de
 LWA se hizo sin segmento y dio conclusiones que se cayeron al aplicarlo.
 
+#### Ledger de eventos: base «Sin DEV (copy)» (8-oct-2026)
+
+`data/kp_ledger.csv` alimenta la vista **Usability metrics**. **Todas** las métricas de evento del
+ledger se calculan con el segmento `Sin DEV (copy)` (`sjHJR3590z6j`), un mes completo por vez
+(`source` de cada fila lo dice). Para cargar un mes: `node scripts/add-month.mjs` (ver README).
+
+Las tarjetas mensuales de Open Search y Contextual **leen el ledger desde el 8-oct-2026**
+(`L("YYYY-MM", "metrica")` en `src/App.jsx`). Antes publicaban otros valores. Publicado antes → ledger,
+abril→septiembre:
+
+| Mes | highlights OS | copias OS | source OS | pill pageviews |
+|---|---:|---:|---:|---:|
+| abr | 393 → 341 | 101 → 82 | 52 → 39 | 255 → 216 |
+| may | 217 → 147 | 99 → 58 | 50 → 46 | 130 → 104 |
+| jun | 406 → 316 | 203 → 163 | 50 → 47 | 304 → 255 |
+| jul | 411 → 190 | 135 → 65 | 30 → 29 | 134 → 95 |
+| ago | 210 → 141 | 73 → 45 | 21 → 21 | 183 → 119 |
+| sep | 675 → 392 | 212 → 123 | 22 → 22 | 90 → 77 |
+
+Por eso lo de arriba («los números del dashboard están bien») no se sostiene para esas métricas. El
+mecanismo no está confirmado: `get_metric` no expone el segmento de la definición. Contextual en el
+ledger son métricas propias (`cs_copy`, `cs_highlight_detail`, `cs_highlight_cards`, `cs_source_link`,
+`cs_chips`, `cs_search_bar`), no «total − Open Search», que mezclaba superficies y heredaba al equipo.
+
+Contextual dejó de ser «highlighted − OS»: la tarjeta de julio mostraba 41/22 mientras las constantes daban
+78/48 porque eran dos derivaciones distintas; ahora ambas salen de `cs_highlight_detail` y `cs_copy`. Global Search
+(`cs_chips` + `cs_search_bar`) entra como fila nueva de la tarjeta de Content Engagement desde mayo.
+
+`cs_highlight_cards` (highlights en las tarjetas de pills del sidebar, selector css `[data-fs-element*="Pills-Knowledge"]`)
+dejó de ser una línea base acumulada de 130 (8-oct-2026) y pasó a valores mensuales con Sin DEV (copy): suma 82 de
+oct-2025 a oct-2026. Se suma a los highlights de Contextual de cada mes, y el total de Contextual content engagement
+pasa de 592 a 544. Open Search (4,512) y queries (1,515) no cambian.
+
+Splits Open Search / Contextual de la tarjeta de Content Engagement (publicado → ledger con la línea base →
+ledger con `cs_highlight_cards` mensual):
+
+| Mes | Publicado | Antes de las tarjetas mensuales | Ahora |
+|---|---|---|---|
+| abr | 68/32 | 96/4 | 92/8 |
+| may | 52/48 | 90/10 | 87/13 |
+| jun | 76/24 | 87/13 | 84/16 |
+| jul | 90/10 | 82/18 | 81/19 |
+| ago | 57/43 | 82/18 | 80/20 |
+| sep | 88/12 | 89/11 | 89/11 |
+
+El cierre de septiembre y la vista Usability usan los mismos números: se verificó celda por celda para abr–sep.
+
+**Pendiente (no tocar todavía):** los benchmarks «vs monthly avg» de las tarjetas mensuales usan `BENCH.monthly`
+en `src/App.jsx`, un promedio fijo de periodos quincenales sep-2025 a mar-2026 que no sale del ledger ni usa
+Sin DEV (copy). Ya no es comparable con los valores nuevos; el ledger tiene oct-2025 a mar-2026 para recalcularlo.
+
 ### Regla: un cero no prueba desuso hasta que un hermano dispare
 
 Una versión previa de esta sección concluyó «nadie entró nunca al catálogo»
