@@ -16,7 +16,7 @@ const BODY = "system-ui, -apple-system, sans-serif";
 const COLS = [
   ["os_highlight", "OS highlight"], ["os_copy", "OS copy"], ["os_source_panel", "OS source"],
   ["cs_queries", "CS queries"], ["cs_copy", "CS copy"], ["cs_source_link", "CS source"],
-  ["cs_highlight_detail", "CS hl detail"], ["cs_chips", "GS chips"], ["cs_search_bar", "GS search bar"],
+  ["cs_highlight_detail", "CS hl detail"], ["cs_highlight_cards", "CS hl cards"], ["cs_chips", "GS chips"], ["cs_search_bar", "GS search bar"],
 ];
 
 function downloadCsv() {
@@ -103,7 +103,7 @@ export default function UsabilityMetrics() {
   const tenths = Math.round(returning / 10);
 
   const osEngagement = ledgerSum("os_highlight") + ledgerSum("os_copy") + ledgerSum("os_source_panel") + baseline("os_downloads");
-  const csHighlight = ledgerSum("cs_highlight_detail") + baseline("cs_highlight_cards");
+  const csHighlight = ledgerSum("cs_highlight_detail") + ledgerSum("cs_highlight_cards");
   const globalSearch = ledgerSum("cs_chips") + ledgerSum("cs_search_bar");
   const csEngagement = ledgerSum("cs_copy") + ledgerSum("cs_source_link") + csHighlight + globalSearch;
 
@@ -142,7 +142,7 @@ export default function UsabilityMetrics() {
           <Kpi label="Queries" value={fmt(ledgerSum("cs_queries"))} small note="Sum of the ledger" />
           <Kpi label="Most used pill" value={MOST_USED_PILL} small note="Manual · not in the ledger" warn />
           <Kpi label="Content engagement" value={fmt(csEngagement)} small
-            note={`copy ${fmt(ledgerSum("cs_copy"))} + source/link ${fmt(ledgerSum("cs_source_link"))} + highlight ${fmt(csHighlight)} (detail ${fmt(ledgerSum("cs_highlight_detail"))} + sidebar cards ${fmt(baseline("cs_highlight_cards"))}) + Global Search ${fmt(globalSearch)} (chips ${fmt(ledgerSum("cs_chips"))} + search bar ${fmt(ledgerSum("cs_search_bar"))})`} />
+            note={`copy ${fmt(ledgerSum("cs_copy"))} + source/link ${fmt(ledgerSum("cs_source_link"))} + highlight ${fmt(csHighlight)} (detail ${fmt(ledgerSum("cs_highlight_detail"))} + sidebar cards ${fmt(ledgerSum("cs_highlight_cards"))}) + Global Search ${fmt(globalSearch)} (chips ${fmt(ledgerSum("cs_chips"))} + search bar ${fmt(ledgerSum("cs_search_bar"))})`} />
         </EngRow>
         <EngRow title="Writing Lesson Assistant" last>
           <Kpi label="Lessons learned created" value={fmt(lessons)} small note="Console · Client Portal + KP (not in FullStory)" warn />

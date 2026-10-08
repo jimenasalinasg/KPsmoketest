@@ -838,7 +838,7 @@ function LaunchTimeline({ defaultOpen = true }) {
 // Open Search y Contextual (abril-septiembre) leen data/kp_ledger.csv, via src/data/kpLedger.json (generado) y
 // src/data/ledgerView.js. TODAS las metricas de evento del ledger usan el segmento "Sin DEV (copy)"
 // (sjHJR3590z6j), que excluye al equipo interno (DEV). Antes salian de metricas de FullStory sin ese filtro.
-// highlighted / copied = Open Search + Contextual (cs_highlight_detail / cs_copy). Contextual ya no se deriva
+// highlighted / copied = Open Search + Contextual (cs_highlight_detail + cs_highlight_cards / cs_copy). Contextual ya no se deriva
 // como "total - Open Search": esa resta mezclaba superficies y heredaba al equipo.
 // Para cargar un mes nuevo: node scripts/add-month.mjs (ver README). No editar estos numeros a mano.
 // Los valores de reportes publicados antes de octubre 2026 pueden diferir: ver la nota en Content Engagement.
@@ -854,7 +854,7 @@ const APRIL = {
   retention: 10.9,
   first_time: 411,        // Sin DEV — firstSeen en rango + visito /home de produccion
   returningUsers: 177,    // Sin DEV — users (588) menos nuevos (411)
-  highlighted: L("2026-04", "os_highlight") + L("2026-04", "cs_highlight_detail"),  // ledger os_highlight + cs_highlight_detail · Sin DEV (copy)
+  highlighted: L("2026-04", "os_highlight") + L("2026-04", "cs_highlight_detail") + L("2026-04", "cs_highlight_cards"),  // ledger os_highlight + cs_highlight_detail + cs_highlight_cards · Sin DEV (copy)
   highlightedOpenSearch: L("2026-04", "os_highlight"),  // ledger os_highlight · Sin DEV (copy)
   copied: L("2026-04", "os_copy") + L("2026-04", "cs_copy"),  // ledger os_copy + cs_copy · Sin DEV (copy)
   copiedOpenSearch: L("2026-04", "os_copy"),  // ledger os_copy · Sin DEV (copy)
@@ -1246,7 +1246,7 @@ const MAY = {
   dropoff: 87,
   retention: 16,
   returningUsers: 188,    // Sin DEV — users (363) menos nuevos (175)
-  highlighted: L("2026-05", "os_highlight") + L("2026-05", "cs_highlight_detail"),  // ledger os_highlight + cs_highlight_detail · Sin DEV (copy)
+  highlighted: L("2026-05", "os_highlight") + L("2026-05", "cs_highlight_detail") + L("2026-05", "cs_highlight_cards"),  // ledger os_highlight + cs_highlight_detail + cs_highlight_cards · Sin DEV (copy)
   highlightedOpenSearch: L("2026-05", "os_highlight"),  // ledger os_highlight · Sin DEV (copy)
   copied: L("2026-05", "os_copy") + L("2026-05", "cs_copy"),  // ledger os_copy + cs_copy · Sin DEV (copy)
   copiedOpenSearch: L("2026-05", "os_copy"),  // ledger os_copy = 58 · Sin DEV (copy). Con el equipo daba 99; antes del 2026-09-25 decia 411, imposible (mayor que copied)
@@ -1647,7 +1647,7 @@ const JUNE = {
   avgTime: "20.37s",
   dropoff: 86,
   returningUsers: 177,    // Sin DEV — users (379) menos nuevos (202)
-  highlighted: L("2026-06", "os_highlight") + L("2026-06", "cs_highlight_detail"),  // ledger os_highlight + cs_highlight_detail · Sin DEV (copy)
+  highlighted: L("2026-06", "os_highlight") + L("2026-06", "cs_highlight_detail") + L("2026-06", "cs_highlight_cards"),  // ledger os_highlight + cs_highlight_detail + cs_highlight_cards · Sin DEV (copy)
   highlightedOpenSearch: L("2026-06", "os_highlight"),  // ledger os_highlight · Sin DEV (copy)
   copied: L("2026-06", "os_copy") + L("2026-06", "cs_copy"),  // ledger os_copy + cs_copy · Sin DEV (copy)
   copiedOpenSearch: L("2026-06", "os_copy"),  // ledger os_copy · Sin DEV (copy)
@@ -2037,7 +2037,7 @@ const JULY = {
   avgTime: "20.43s",
   dropoff: 85,
   returningUsers: 164,    // Sin DEV — users (250) menos nuevos (86). Recurrentes de meses anteriores
-  highlighted: L("2026-07", "os_highlight") + L("2026-07", "cs_highlight_detail"),  // ledger os_highlight + cs_highlight_detail · Sin DEV (copy)
+  highlighted: L("2026-07", "os_highlight") + L("2026-07", "cs_highlight_detail") + L("2026-07", "cs_highlight_cards"),  // ledger os_highlight + cs_highlight_detail + cs_highlight_cards · Sin DEV (copy)
   highlightedOpenSearch: L("2026-07", "os_highlight"),  // ledger os_highlight · Sin DEV (copy)
   copied: L("2026-07", "os_copy") + L("2026-07", "cs_copy"),  // ledger os_copy + cs_copy · Sin DEV (copy)
   copiedOpenSearch: L("2026-07", "os_copy"),  // ledger os_copy · Sin DEV (copy)
@@ -2398,7 +2398,7 @@ function JulyMonthly() {
           Signal — Two channels, not a migration
         </div>
         <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
-          Open Search has been the dominant channel since release — that is not new: it carries between 82% and 96% of content engagement in every month from April to July. Contextual search peaked at 255 pill pageviews in June. In July both channels fell with the smaller summer volume — pill pageviews to 95 (-63%) and Open Search extraction by 45% — and the split moved to 82/18 from 87/13 in June, the least Open-Search-heavy of the four months.
+          Open Search has been the dominant channel since release — that is not new: it carries between 81% and 92% of content engagement in every month from April to July. Contextual search peaked at 255 pill pageviews in June. In July both channels fell with the smaller summer volume — pill pageviews to 95 (-63%) and Open Search extraction by 45% — and the split moved to 81/19 from 84/16 in June, the least Open-Search-heavy of the four months.
         </p>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Technical trust restored
@@ -2459,7 +2459,7 @@ const AUGUST = {
   promptGalleryClicks: 12, // live via MCP (lkwqkKIJQ25E)
   recentSearchClicks: 4,  // live via MCP (nfcBnYjQSAfT)
   newSearchClicks: 0,     // live via MCP (tU5aopeDHc1k)
-  highlighted: L("2026-08", "os_highlight") + L("2026-08", "cs_highlight_detail"),  // ledger os_highlight + cs_highlight_detail · Sin DEV (copy)
+  highlighted: L("2026-08", "os_highlight") + L("2026-08", "cs_highlight_detail") + L("2026-08", "cs_highlight_cards"),  // ledger os_highlight + cs_highlight_detail + cs_highlight_cards · Sin DEV (copy)
   highlightedOpenSearch: L("2026-08", "os_highlight"),  // ledger os_highlight · Sin DEV (copy)
   copied: L("2026-08", "os_copy") + L("2026-08", "cs_copy"),  // ledger os_copy + cs_copy · Sin DEV (copy)
   copiedOpenSearch: L("2026-08", "os_copy"),  // ledger os_copy · Sin DEV (copy)
@@ -3848,7 +3848,7 @@ function AugustMonthly() {
       <ContentEngagementCard
         rows={engagementRows("2026-08", 6)}
         note={"Downloads: 3 Word · 3 Excel."}
-        split={"OS/Contextual split 82/18, level with July's 82/18."}
+        split={"OS/Contextual split 80/20 — the most balanced month of the series, just ahead of July's 81/19."}
       />
 
       {/* ── DIVIDER ── */}
@@ -3933,7 +3933,7 @@ const SEPTEMBER = {
   promptGalleryClicks: 23, // live via MCP (lkwqkKIJQ25E)
   recentSearchClicks: 1,   // live via MCP (nfcBnYjQSAfT)
   newSearchClicks: 2,      // live via MCP (tU5aopeDHc1k)
-  highlighted: L("2026-09", "os_highlight") + L("2026-09", "cs_highlight_detail"),  // ledger os_highlight + cs_highlight_detail · Sin DEV (copy)
+  highlighted: L("2026-09", "os_highlight") + L("2026-09", "cs_highlight_detail") + L("2026-09", "cs_highlight_cards"),  // ledger os_highlight + cs_highlight_detail + cs_highlight_cards · Sin DEV (copy)
   highlightedOpenSearch: L("2026-09", "os_highlight"),  // ledger os_highlight · Sin DEV (copy)
   copied: L("2026-09", "os_copy") + L("2026-09", "cs_copy"),  // ledger os_copy + cs_copy · Sin DEV (copy)
   copiedOpenSearch: L("2026-09", "os_copy"),  // ledger os_copy · Sin DEV (copy)
@@ -4186,7 +4186,7 @@ function SeptemberMonthly() {
       <ContentEngagementCard
         rows={engagementRows("2026-09", 6)}
         note={"Downloads: 5 Word · 1 Excel."}
-        split={"OS/Contextual split 89/11, against August's 82/18."}
+        split={"OS/Contextual split 89/11, against August's 80/20."}
       />
 
       {/* ── DIVIDER ── */}
@@ -4226,7 +4226,7 @@ function SeptemberMonthly() {
 <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Extraction jumps, and all of it is Open Search</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            Open Search highlights went from 141 to 392 (+178%) and copies from 45 to 123 (+173%) on flat reach, with the internal team excluded. Contextual search moved the other way: 0 highlights and 1 copy in September against 9 and 19 in August, and the pills were opened 77 times against 119. Counting both surfaces, highlights rose 161% (150 to 392) and copies 94% (64 to 124). The one contextual entry point that grew is Global Search, through chips and the search bar: 61 events against 19. The split closed at 89/11 Open Search versus contextual, from 82/18 in August. The qualitative pass fits this: a handful of very heavy sessions where people work through their own documents.
+            Open Search highlights went from 141 to 392 (+178%) and copies from 45 to 123 (+173%) on flat reach, with the internal team excluded. Contextual search moved the other way: 2 highlights and 1 copy in September against 14 and 19 in August, and the pills were opened 77 times against 119. Counting both surfaces, highlights rose 154% (155 to 394) and copies 94% (64 to 124). The one contextual entry point that grew is Global Search, through chips and the search bar: 61 events against 19. The split closed at 89/11 Open Search versus contextual, from 80/20 in August. The qualitative pass fits this: a handful of very heavy sessions where people work through their own documents.
           </p>
         </div>
 <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${GREEN}` }}>

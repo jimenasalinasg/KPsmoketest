@@ -34,12 +34,12 @@ export function latestSnapshot(metric) {
 }
 
 // Filas de la tarjeta Content Engagement: [etiqueta, Open Search, Contextual].
-// Contextual = highlights del detalle + copias + links a fuente + Global Search (chips + barra de busqueda).
+// Contextual = highlights (detalle + tarjetas del sidebar) + copias + links a fuente + Global Search (chips + barra de busqueda).
 // Las descargas no estan en el ledger por mes (solo la linea base acumulada), por eso entran como parametro.
 export function engagementRows(month, downloads = 0) {
   const globalSearch = L(month, "cs_chips") + L(month, "cs_search_bar");
   const rows = [
-    ["Highlights", L(month, "os_highlight"), L(month, "cs_highlight_detail")],
+    ["Highlights", L(month, "os_highlight"), L(month, "cs_highlight_detail") + L(month, "cs_highlight_cards")],
     ["Copies", L(month, "os_copy"), L(month, "cs_copy")],
     ["Source clicks", L(month, "os_source_panel"), L(month, "cs_source_link")],
   ];

@@ -344,12 +344,29 @@ abril→septiembre:
 
 Por eso lo de arriba («los números del dashboard están bien») no se sostiene para esas métricas. El
 mecanismo no está confirmado: `get_metric` no expone el segmento de la definición. Contextual en el
-ledger son métricas propias (`cs_copy`, `cs_highlight_detail`, `cs_source_link`, `cs_chips`,
-`cs_search_bar`), no «total − Open Search», que mezclaba superficies y heredaba al equipo.
+ledger son métricas propias (`cs_copy`, `cs_highlight_detail`, `cs_highlight_cards`, `cs_source_link`,
+`cs_chips`, `cs_search_bar`), no «total − Open Search», que mezclaba superficies y heredaba al equipo.
 
 Contextual dejó de ser «highlighted − OS»: la tarjeta de julio mostraba 41/22 mientras las constantes daban
 78/48 porque eran dos derivaciones distintas; ahora ambas salen de `cs_highlight_detail` y `cs_copy`. Global Search
 (`cs_chips` + `cs_search_bar`) entra como fila nueva de la tarjeta de Content Engagement desde mayo.
+
+`cs_highlight_cards` (highlights en las tarjetas de pills del sidebar, selector css `[data-fs-element*="Pills-Knowledge"]`)
+dejó de ser una línea base acumulada de 130 (8-oct-2026) y pasó a valores mensuales con Sin DEV (copy): suma 82 de
+oct-2025 a oct-2026. Se suma a los highlights de Contextual de cada mes, y el total de Contextual content engagement
+pasa de 592 a 544. Open Search (4,512) y queries (1,515) no cambian.
+
+Splits Open Search / Contextual de la tarjeta de Content Engagement (publicado → ledger con la línea base →
+ledger con `cs_highlight_cards` mensual):
+
+| Mes | Publicado | Antes de las tarjetas mensuales | Ahora |
+|---|---|---|---|
+| abr | 68/32 | 96/4 | 92/8 |
+| may | 52/48 | 90/10 | 87/13 |
+| jun | 76/24 | 87/13 | 84/16 |
+| jul | 90/10 | 82/18 | 81/19 |
+| ago | 57/43 | 82/18 | 80/20 |
+| sep | 88/12 | 89/11 | 89/11 |
 
 El cierre de septiembre y la vista Usability usan los mismos números: se verificó celda por celda para abr–sep.
 

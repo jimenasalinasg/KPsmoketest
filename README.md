@@ -30,7 +30,7 @@ evento usan el segmento **Sin DEV (copy)** (`sjHJR3590z6j`), que excluye al equi
 
 ```bash
 node scripts/add-month.mjs 2026-11 os_highlight=412 os_copy=130 os_source_panel=25 \
-     cs_queries=90 cs_copy=2 cs_source_link=4 cs_highlight_detail=1 cs_chips=30 cs_search_bar=50
+     cs_queries=90 cs_copy=2 cs_source_link=4 cs_highlight_detail=1 cs_highlight_cards=3 cs_chips=30 cs_search_bar=50
 node scripts/add-month.mjs 2026-11 unique_users=2201 sessions=17900 prompters=990   # snapshots
 node scripts/add-month.mjs 2026-10 os_copy=131 --replace    # un mes que estaba parcial
 npm run build                                               # revisar el diff

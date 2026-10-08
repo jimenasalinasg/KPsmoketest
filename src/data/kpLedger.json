@@ -46,6 +46,21 @@
       "2026-09": 1,
       "2026-10": 1
     },
+    "cs_highlight_cards": {
+      "2025-10": 2,
+      "2025-11": 1,
+      "2025-12": 0,
+      "2026-01": 1,
+      "2026-02": 6,
+      "2026-03": 12,
+      "2026-04": 19,
+      "2026-05": 7,
+      "2026-06": 20,
+      "2026-07": 4,
+      "2026-08": 5,
+      "2026-09": 2,
+      "2026-10": 3
+    },
     "cs_highlight_detail": {
       "2025-10": 35,
       "2025-11": 1,
@@ -153,7 +168,6 @@
     }
   },
   "baseline": {
-    "cs_highlight_cards": 130,
     "os_downloads": 25
   },
   "snapshot": {
@@ -407,12 +421,108 @@
       "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
     },
     {
-      "month": "baseline",
+      "month": "2025-10",
       "metric": "cs_highlight_cards",
-      "value": 130,
+      "value": 2,
       "type": "additive",
-      "source": "fullstory",
-      "note": "sidebar pill cards, cumulative to 2026-10-07; monthly split unavailable (selector not re-queryable)"
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2025-11",
+      "metric": "cs_highlight_cards",
+      "value": 1,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2025-12",
+      "metric": "cs_highlight_cards",
+      "value": 0,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2026-01",
+      "metric": "cs_highlight_cards",
+      "value": 1,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2026-02",
+      "metric": "cs_highlight_cards",
+      "value": 6,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2026-03",
+      "metric": "cs_highlight_cards",
+      "value": 12,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2026-04",
+      "metric": "cs_highlight_cards",
+      "value": 19,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2026-05",
+      "metric": "cs_highlight_cards",
+      "value": 7,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2026-06",
+      "metric": "cs_highlight_cards",
+      "value": 20,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2026-07",
+      "metric": "cs_highlight_cards",
+      "value": 4,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2026-08",
+      "metric": "cs_highlight_cards",
+      "value": 5,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2026-09",
+      "metric": "cs_highlight_cards",
+      "value": 2,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+    },
+    {
+      "month": "2026-10",
+      "metric": "cs_highlight_cards",
+      "value": 3,
+      "type": "additive",
+      "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
     },
     {
       "month": "2025-10",

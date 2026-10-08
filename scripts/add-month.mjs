@@ -3,7 +3,7 @@
 //
 // Uso:
 //   node scripts/add-month.mjs 2026-10 os_highlight=412 os_copy=130 os_source_panel=25 \
-//        cs_queries=90 cs_copy=2 cs_source_link=4 cs_highlight_detail=1 cs_chips=30 cs_search_bar=50
+//        cs_queries=90 cs_copy=2 cs_source_link=4 cs_highlight_detail=1 cs_highlight_cards=3 cs_chips=30 cs_search_bar=50
 //   node scripts/add-month.mjs 2026-10 unique_users=2201 sessions=17900 prompters=990 \
 //        --note "cierre de octubre"                     # el tipo (snapshot) se toma de las filas existentes
 //   node scripts/add-month.mjs 2026-10 os_copy=131 --replace    # sobrescribe un mes parcial (p. ej. dias 1-7)
