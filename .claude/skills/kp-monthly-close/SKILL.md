@@ -395,6 +395,12 @@ el segmento `Sin DEV (copy)` (`sjHJR3590z6j`), cargarla con `node scripts/add-mo
 mensuales de `src/App.jsx` leen highlights, copias, source clicks, pill pageviews y Global Search del ledger
 (`L("YYYY-MM", ...)`): no se escriben a mano. El texto de los Signals (porcentajes y splits) si se reescribe.
 
+## Octubre al día (mes en curso)
+
+Hay una pestaña «October 2026 · to date» que se actualiza cada día; la receta está en el README (§ «Octubre al dia») y los
+controles en el checklist (§ «Octubre al día»). Al cerrar octubre, el bloque `OCTOBER` de `src/App.jsx` pasa a ser el cierre
+y se agrega el del mes siguiente.
+
 ## Nunca
 
 - Inventar valores para campos sin métrico.

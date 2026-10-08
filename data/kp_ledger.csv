@@ -145,5 +145,5 @@ baseline,os_downloads,25,additive,fullstory,unique users: Word 16 + Excel 9 up t
 2026-10,prompters,931,snapshot,see note,"923 Sep close + 8 (Oct 1-7: 926 - 918, same-day queries)"
 2026-10,prompts_sent,6041,snapshot,see note,console
 2026-10,returning_rate_pct,60.1,snapshot,see note,"rate, same-window numerator/denominator"
-2026-10,sessions,17479,snapshot,see note,17274 + 205
-2026-10,unique_users,2067,snapshot,see note,2053 + 14 (Oct 1-7)
+2026-10,sessions,17506,snapshot,see note,"17274 + 232 (Oct 1-7 completo; control de resta 231); recalculado 2026-10-08, antes 17479 (17274 + 205)"
+2026-10,unique_users,2072,snapshot,see note,"2053 + 19 (Oct 1-7 completo; control 1924 - 1905, metrica 1123293977 igual); recalculado 2026-10-08, antes 2067 (2053 + 14)"

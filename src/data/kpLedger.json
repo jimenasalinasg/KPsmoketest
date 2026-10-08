@@ -194,13 +194,13 @@
     },
     "sessions": {
       "2026-09": 17274,
-      "2026-10": 17479
+      "2026-10": 17506
     },
     "unique_users": {
       "2026-04": 1357,
       "2026-05": 1574,
       "2026-09": 2053,
-      "2026-10": 2067
+      "2026-10": 2072
     }
   },
   "rows": [
@@ -1351,10 +1351,10 @@
     {
       "month": "2026-10",
       "metric": "sessions",
-      "value": 17479,
+      "value": 17506,
       "type": "snapshot",
       "source": "see note",
-      "note": "17274 + 205"
+      "note": "17274 + 232 (Oct 1-7 completo; control de resta 231); recalculado 2026-10-08, antes 17479 (17274 + 205)"
     },
     {
       "month": "2026-04",
@@ -1383,10 +1383,10 @@
     {
       "month": "2026-10",
       "metric": "unique_users",
-      "value": 2067,
+      "value": 2072,
       "type": "snapshot",
       "source": "see note",
-      "note": "2053 + 14 (Oct 1-7)"
+      "note": "2053 + 19 (Oct 1-7 completo; control 1924 - 1905, metrica 1123293977 igual); recalculado 2026-10-08, antes 2067 (2053 + 14)"
     }
   ]
 }

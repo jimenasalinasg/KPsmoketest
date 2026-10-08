@@ -49,6 +49,22 @@ mismas reglas que el build, avisa de typos en nombres de metrica y no escribe na
 
 Lo demas (usuarios, sesiones del mes, paises, LWA, embudos, cualitativo) sigue fuera del ledger.
 
+### Octubre al dia
+
+La pestana **October 2026 · to date** es un mes en curso. Cada dia:
+
+1. `through` = ultimo dia **completo** (ayer, UTC). Con FullStory, rango 1-oct → `through`, segmento Sin DEV, cada metrica
+   leida dos veces: usuarios `a30wnMzqgtJk`, sesiones `BhsN9vxRPN7V`, prompters `3GVbGeJsPBCb`, onboarding `iN3brKBr4rlY`,
+   pulgares `AtpRWyuThJUq` / `x6Z3q26RMOra`, galeria `lkwqkKIJQ25E`, recientes `nfcBnYjQSAfT`, nueva busqueda `tU5aopeDHc1k`,
+   descargas `3EkjBy6jYByB` / `FIw2VjBWkJ6J`.
+2. Acumulados con control de resta, **las dos consultas el mismo dia**: usuarios `Q(1-sep-2025 → through) − Q(1-sep-2025 → 30-sep)`
+   son los nuevos del mes; acumulado = 2,053 + nuevos. Sesiones = 17,274 + sesiones del mes. Prompters = 923 + la misma resta.
+   Cargarlos con `node scripts/add-month.mjs 2026-10 unique_users=… sessions=… prompters=… --replace --source "see note" --note "…"`.
+3. Filas de evento (`os_*`, `cs_*`): se recalculan con la receta del ledger y se cargan con `--replace`.
+4. Editar el bloque `OCTOBER` de `src/App.jsx` (`through`, valores, `first_time`), `npm run build`, revisar, deploy.
+
+Al cerrar octubre: el bloque `OCTOBER` pasa a ser el cierre y se agrega el de noviembre.
+
 ### Pendiente
 
 - **Benchmarks "vs monthly avg".** Las tarjetas de las vistas mensuales comparan contra `BENCH.monthly` en
