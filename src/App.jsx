@@ -1,22 +1,12 @@
 import { useState, Fragment } from "react";
+import UsabilityMetrics from "./UsabilityMetrics.jsx";
+import { L, engagementRows, SEGMENT_NAME } from "./data/ledgerView.js";
 import shotAug from "./assets/session-s01-aug2026.png";
 import shotSep from "./assets/session-s01-sep2026.png";
 
 
 
-const BLUE = "#4a90e2";
-const GREEN = "#22a05b";
-const RED = "#d94f3d";
-const AMBER = "#d97706";
-const BG = "#f7f8fb";
-const SURF = "#ffffff";
-const BDR = "#e4e7f2";
-const INK = "#1a1e2e";
-const INK2 = "#3d4460";
-const INK3 = "#8b93b8";
-const BLUE_L = "#eaf2fc";
-const BLUE_M = "#c2d9f7";
-const BLUE_D = "#2c6cb5";
+import { BLUE, GREEN, RED, AMBER, BG, SURF, BDR, INK, INK2, INK3, BLUE_L, BLUE_M, BLUE_D } from "./theme.js";
 
 // ── ACCESS GATE ────────────────────────────────────────────
 // Client-side only: keeps the dashboard from showing up to casual/
@@ -844,8 +834,16 @@ function LaunchTimeline({ defaultOpen = true }) {
   );
 }
 
+// ── CAMBIO DE BASE · octubre 2026 ────────────────────────────
+// Open Search y Contextual (abril-septiembre) leen data/kp_ledger.csv, via src/data/kpLedger.json (generado) y
+// src/data/ledgerView.js. TODAS las metricas de evento del ledger usan el segmento "Sin DEV (copy)"
+// (sjHJR3590z6j), que excluye al equipo interno (DEV). Antes salian de metricas de FullStory sin ese filtro.
+// highlighted / copied = Open Search + Contextual (cs_highlight_detail / cs_copy). Contextual ya no se deriva
+// como "total - Open Search": esa resta mezclaba superficies y heredaba al equipo.
+// Para cargar un mes nuevo: node scripts/add-month.mjs (ver README). No editar estos numeros a mano.
+// Los valores de reportes publicados antes de octubre 2026 pueden diferir: ver la nota en Content Engagement.
 // ── MONTHLY REPORT ────────────────────────────────────────
-// April 2026 data (partial — through Apr 21)
+// April 2026 data — mes completo. El comentario viejo decia "partial — through Apr 21", pero users (588) coincide con la entrada del embudo del mes completo y pillPageviews sale del ledger (mes completo).
 const APRIL = {
   sessions: 1632,
   users: 588,
@@ -856,12 +854,12 @@ const APRIL = {
   retention: 10.9,
   first_time: 411,        // Sin DEV — firstSeen en rango + visito /home de produccion
   returningUsers: 177,    // Sin DEV — users (588) menos nuevos (411)
-  highlighted: 579,
-  highlightedOpenSearch: 393,
-  copied: 167,
-  copiedOpenSearch: 101,
-  sourceClicks: 52,
-  pillPageviews: 255,
+  highlighted: L("2026-04", "os_highlight") + L("2026-04", "cs_highlight_detail"),  // ledger os_highlight + cs_highlight_detail · Sin DEV (copy)
+  highlightedOpenSearch: L("2026-04", "os_highlight"),  // ledger os_highlight · Sin DEV (copy)
+  copied: L("2026-04", "os_copy") + L("2026-04", "cs_copy"),  // ledger os_copy + cs_copy · Sin DEV (copy)
+  copiedOpenSearch: L("2026-04", "os_copy"),  // ledger os_copy · Sin DEV (copy)
+  sourceClicks: L("2026-04", "os_source_panel"),  // ledger os_source_panel (solo OS) · Sin DEV (copy)
+  pillPageviews: L("2026-04", "cs_queries"),  // ledger cs_queries · Sin DEV (copy)
   pillTop: "Similar projects (78)",
   pillBot: "Institutional documents (20)",
   openSearchVisits: 663,
@@ -1155,10 +1153,7 @@ function Monthly() {
       {/* ── CONTENT ENGAGEMENT ── */}
       <Section emoji="📄" title="Content Engagement (April)">
       <ContentEngagementCard
-        total={799}
-        openSearch={546}
-        contextual={253}
-        rows={[["Highlights", 393, 186], ["Copies", 101, 66], ["Source clicks", 52, 1]]}
+        rows={engagementRows("2026-04")}
         note={"Downloads tracking began in June."}
       />
       </Section>
@@ -1251,12 +1246,12 @@ const MAY = {
   dropoff: 87,
   retention: 16,
   returningUsers: 188,    // Sin DEV — users (363) menos nuevos (175)
-  highlighted: 463,
-  highlightedOpenSearch: 217,
-  copied: 191,
-  copiedOpenSearch: 99,   // corregido 2026-09-25: tenía 411, imposible (mayor que copied). Revalidado via MCP (JOTETVLPeJKh, 2026-05-01→2026-05-31) = 99
-  sourceClicks: 50,
-  pillPageviews: 130,
+  highlighted: L("2026-05", "os_highlight") + L("2026-05", "cs_highlight_detail"),  // ledger os_highlight + cs_highlight_detail · Sin DEV (copy)
+  highlightedOpenSearch: L("2026-05", "os_highlight"),  // ledger os_highlight · Sin DEV (copy)
+  copied: L("2026-05", "os_copy") + L("2026-05", "cs_copy"),  // ledger os_copy + cs_copy · Sin DEV (copy)
+  copiedOpenSearch: L("2026-05", "os_copy"),  // ledger os_copy = 58 · Sin DEV (copy). Con el equipo daba 99; antes del 2026-09-25 decia 411, imposible (mayor que copied)
+  sourceClicks: L("2026-05", "os_source_panel"),  // ledger os_source_panel (solo OS) · Sin DEV (copy)
+  pillPageviews: L("2026-05", "cs_queries"),  // ledger cs_queries · Sin DEV (copy)
   pillTop: "Similar Projects (40)",
   pillBot: "Literature (10)",
   openSearchVisits: 144,
@@ -1554,10 +1549,7 @@ function MayMonthly() {
       {/* ── CONTENT ENGAGEMENT ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (May)</div>
       <ContentEngagementCard
-        total={705}
-        openSearch={366}
-        contextual={339}
-        rows={[["Highlights", 217, 246], ["Copies", 99, 92], ["Source clicks", 50, 1]]}
+        rows={engagementRows("2026-05")}
         note={"Downloads tracking began in June."}
       />
 
@@ -1655,12 +1647,12 @@ const JUNE = {
   avgTime: "20.37s",
   dropoff: 86,
   returningUsers: 177,    // Sin DEV — users (379) menos nuevos (202)
-  highlighted: 570,
-  highlightedOpenSearch: 406,
-  copied: 243,
-  copiedOpenSearch: 203,
-  sourceClicks: 50,
-  pillPageviews: 304,
+  highlighted: L("2026-06", "os_highlight") + L("2026-06", "cs_highlight_detail"),  // ledger os_highlight + cs_highlight_detail · Sin DEV (copy)
+  highlightedOpenSearch: L("2026-06", "os_highlight"),  // ledger os_highlight · Sin DEV (copy)
+  copied: L("2026-06", "os_copy") + L("2026-06", "cs_copy"),  // ledger os_copy + cs_copy · Sin DEV (copy)
+  copiedOpenSearch: L("2026-06", "os_copy"),  // ledger os_copy · Sin DEV (copy)
+  sourceClicks: L("2026-06", "os_source_panel"),  // ledger os_source_panel (solo OS) · Sin DEV (copy)
+  pillPageviews: L("2026-06", "cs_queries"),  // ledger cs_queries · Sin DEV (copy)
   pillTop: "Similar Projects (85)",
   pillBot: "Data (27)",
   openSearchVisits: 342,
@@ -1969,10 +1961,7 @@ function JuneMonthly() {
       {/* ── CONTENT ENGAGEMENT ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (June)</div>
       <ContentEngagementCard
-        total={871}
-        openSearch={666}
-        contextual={205}
-        rows={[["Highlights", 406, 164], ["Copies", 203, 40], ["Source clicks", 50, 1], ["Downloads", 7, 0]]}
+        rows={engagementRows("2026-06", 7)}
         note={"Downloads: 5 Word · 2 Excel."}
       />
 
@@ -2048,13 +2037,13 @@ const JULY = {
   avgTime: "20.43s",
   dropoff: 85,
   returningUsers: 164,    // Sin DEV — users (250) menos nuevos (86). Recurrentes de meses anteriores
-  highlighted: 489,
-  highlightedOpenSearch: 411,
-  copied: 183,
-  copiedOpenSearch: 135,
-  sourceClicks: 30,
+  highlighted: L("2026-07", "os_highlight") + L("2026-07", "cs_highlight_detail"),  // ledger os_highlight + cs_highlight_detail · Sin DEV (copy)
+  highlightedOpenSearch: L("2026-07", "os_highlight"),  // ledger os_highlight · Sin DEV (copy)
+  copied: L("2026-07", "os_copy") + L("2026-07", "cs_copy"),  // ledger os_copy + cs_copy · Sin DEV (copy)
+  copiedOpenSearch: L("2026-07", "os_copy"),  // ledger os_copy · Sin DEV (copy)
+  sourceClicks: L("2026-07", "os_source_panel"),  // ledger os_source_panel (solo OS) · Sin DEV (copy)
   sourceClicksBC: 0, // LD4uHOPIDS8l — verificado: 0 usuarios en julio 2026
-  pillPageviews: 134,
+  pillPageviews: L("2026-07", "cs_queries"),  // ledger cs_queries · Sin DEV (copy)
   pillTop: "Lessons Learned (46)",
   pillBot: "Institutional Documents (10)",
   openSearchVisits: 258,
@@ -2352,10 +2341,7 @@ function JulyMonthly() {
       {/* ── CONTENT ENGAGEMENT ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (July)</div>
       <ContentEngagementCard
-        total={648}
-        openSearch={585}
-        contextual={63}
-        rows={[["Highlights", 411, 41], ["Copies", 135, 22], ["Source clicks", 30, 0], ["Downloads", 9, 0]]}
+        rows={engagementRows("2026-07", 9)}
         note={"Downloads: 6 Word · 3 Excel."}
       />
 
@@ -2412,7 +2398,7 @@ function JulyMonthly() {
           Signal — Two channels, not a migration
         </div>
         <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
-          Open Search has been the dominant channel since release — that is not new. Contextual search has consolidated alongside it, peaking at 304 pill pageviews in June. July's 90% Open Search share reflects the smaller summer volume compressing deliberate contextual exploration more than conversational queries — a composition effect, not a behavioral shift. The two channels grow together when there is activity; they don't compete.
+          Open Search has been the dominant channel since release — that is not new: it carries between 82% and 96% of content engagement in every month from April to July. Contextual search peaked at 255 pill pageviews in June. In July both channels fell with the smaller summer volume — pill pageviews to 95 (-63%) and Open Search extraction by 45% — and the split moved to 82/18 from 87/13 in June, the least Open-Search-heavy of the four months.
         </p>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Technical trust restored
@@ -2435,9 +2421,9 @@ const META = {
   sessions:         { id: "BhsN9vxRPN7V", src: "mcp",     def: "Total sessions in the period. Does not filter internal traffic or bots — criterion still to be confirmed." },
   prompters:        { id: "3GVbGeJsPBCb", src: "mcp",     def: "Unique users who sent at least one prompt." },
   tourCompletion:   { id: "iN3brKBr4rlY", src: "mcp",     def: "Share of users who finished the onboarding tour. Returned with decimals and rounded to the nearest integer." },
-  pillPageviews:    { id: "2EYT9yOW6odB", src: "mcp",     def: "Total pageviews across all contextual search pills. Counts EVENTS — does not add up with the per-pill metrics, which count sessions." },
-  sourceClicks:     { id: "Ge6P9qbIeu3b", src: "mcp",     def: "Clicks on the source panel in Open Search." },
-  contentEngagement:{ id: null,           src: "mcp",     def: "Derived, not a single metric: highlights + copies + source-panel clicks + downloads. Open Search vs Contextual splits each component by its Open-Search counterpart. Source IDs: cMgaz9YMCSJh / RQ6IjtoMbeD5 (highlights), yowGb1tOMe3X / JOTETVLPeJKh (copies), Ge6P9qbIeu3b (source clicks), 3EkjBy6jYByB + FIw2VjBWkJ6J (downloads)." },
+  pillPageviews:    { id: null,           src: "ledger",  def: "Total pageviews across all contextual search pills (ledger cs_queries, segment Sin DEV (copy)). Counts EVENTS — does not add up with the per-pill metrics, which count sessions." },
+  sourceClicks:     { id: null,           src: "ledger",  def: "Clicks on the source panel in Open Search (ledger os_source_panel, segment Sin DEV (copy))." },
+  contentEngagement:{ id: null,           src: "ledger",  def: "Derived from the monthly ledger (data/kp_ledger.csv), segment Sin DEV (copy), which excludes the internal team (DEV): highlights + copies + source-panel clicks + Global Search (chips and search bar) + downloads. Open Search and Contextual are separate ledger metrics, not a subtraction. Downloads are not in the ledger by month and are loaded by hand." },
   promptGallery:    { id: "lkwqkKIJQ25E", src: "mcp",     def: "Clicks on the Prompt Gallery." },
   recentSearch:     { id: "nfcBnYjQSAfT", src: "mcp",     def: "Clicks on Recent Search." },
   newSearch:        { id: "tU5aopeDHc1k", src: "mcp",     def: "Clicks on New Search." },
@@ -2453,7 +2439,7 @@ const META = {
   lwaView:          { id: "o7uGz8LnXgZY", src: "mcp",     def: "Lessons opened from the catalogue. Recently released feature — a zero is a baseline, not disuse." },
   lwaSharedView:    { id: "gEJ1qqiZ2Df9", src: "mcp",     def: "Views from the shared catalogue. Recently released feature — a zero is a baseline, not disuse." },
 };
-const SRC_LABEL = { mcp: "FullStory · live", console: "Admin console · manual", manual: "Manual", pending: "Pending — no metric" };
+const SRC_LABEL = { ledger: "Ledger · Sin DEV (copy)", mcp: "FullStory · live", console: "Admin console · manual", manual: "Manual", pending: "Pending — no metric" };
 
 // ── AUGUST 2026 DATA ──────────────────────────────────────
 // Final — full month, segmento Sin DEV (vía Fullstory MCP, cerrado 2026-09-01)
@@ -2465,18 +2451,18 @@ const AUGUST = {
   returningUsers: 162,    // Sin DEV — users (287) menos nuevos (125). Recurrentes de meses anteriores
   first_time: 125,        // Sin DEV — segmento firstSeen en rango + visito /home de produccion. Ver §4 del checklist para la receta
   tourCompletion: 51,     // live via MCP (iN3brKBr4rlY) — 50.93 redondeado
-  pillPageviews: 183,     // live via MCP (2EYT9yOW6odB)
-  sourceClicks: 21,       // live via MCP (Ge6P9qbIeu3b)
+  pillPageviews: L("2026-08", "cs_queries"),  // ledger cs_queries · Sin DEV (copy)
+  sourceClicks: L("2026-08", "os_source_panel"),  // ledger os_source_panel (solo OS) · Sin DEV (copy)
   sourceClicksBC: 1,      // live via MCP (LD4uHOPIDS8l) — unique users, no eventos
   thumbsUp: 1,            // live via MCP (AtpRWyuThJUq)
   thumbsDown: 0,          // live via MCP (x6Z3q26RMOra)
   promptGalleryClicks: 12, // live via MCP (lkwqkKIJQ25E)
   recentSearchClicks: 4,  // live via MCP (nfcBnYjQSAfT)
   newSearchClicks: 0,     // live via MCP (tU5aopeDHc1k)
-  highlighted: 366,       // live via MCP (cMgaz9YMCSJh)
-  highlightedOpenSearch: 210, // live via MCP (RQ6IjtoMbeD5)
-  copied: 154,            // live via MCP (yowGb1tOMe3X)
-  copiedOpenSearch: 73,   // live via MCP (JOTETVLPeJKh)
+  highlighted: L("2026-08", "os_highlight") + L("2026-08", "cs_highlight_detail"),  // ledger os_highlight + cs_highlight_detail · Sin DEV (copy)
+  highlightedOpenSearch: L("2026-08", "os_highlight"),  // ledger os_highlight · Sin DEV (copy)
+  copied: L("2026-08", "os_copy") + L("2026-08", "cs_copy"),  // ledger os_copy + cs_copy · Sin DEV (copy)
+  copiedOpenSearch: L("2026-08", "os_copy"),  // ledger os_copy · Sin DEV (copy)
   wordDownloads: 3,       // live via MCP (3EkjBy6jYByB)
   excelDownloads: 3,      // live via MCP (FIw2VjBWkJ6J)
   // LWA: mismo criterio que septiembre -- personas fuera del equipo, en produccion.
@@ -2534,7 +2520,11 @@ const AUGUST = {
 // Una sola tabla componente x superficie. Reemplaza el patron anterior, que
 // mostraba los mismos numeros dos veces: una linea de formula arriba y un
 // EngagementCard con barras justo debajo.
-function ContentEngagementCard({ total, openSearch, contextual, rows, note, split }) {
+function ContentEngagementCard({ rows, note, split }) {
+  // Todo se deriva de las filas (que salen del ledger): sin totales escritos a mano que se desfasen.
+  const openSearch = rows.reduce((a, r) => a + r[1], 0);
+  const contextual = rows.reduce((a, r) => a + r[2], 0);
+  const total = openSearch + contextual;
   const pctOS = Math.round(openSearch / total * 100);
   return (
     <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "18px 20px" }}>
@@ -2585,6 +2575,9 @@ function ContentEngagementCard({ total, openSearch, contextual, rows, note, spli
       </div>
       {note && <div style={{ fontSize: 9, color: BLUE, marginTop: 10, fontStyle: "italic" }}>{note}</div>}
       {split && <div style={{ fontSize: 9, color: BLUE, marginTop: 4, fontStyle: "italic" }}>{split}</div>}
+      <div style={{ fontSize: 9, color: BLUE, marginTop: 8, lineHeight: 1.5, borderTop: `1px solid ${BLUE_M}`, paddingTop: 8 }}>
+        Open Search and Contextual figures use the {SEGMENT_NAME} segment, which excludes the internal team (DEV). Reports published before October 2026 may show different values.
+      </div>
     </div>
   );
 }
@@ -3609,7 +3602,7 @@ function MonthMetricCard({ label, value, desc, accent, small, bench, momentum, m
 // ── METRIC INFO TOOLTIP ───────────────────────────────────
 function MetricInfo({ m }) {
   const [open, setOpen] = useState(false);
-  const dot = m.src === "mcp" ? GREEN : m.src === "pending" ? INK3 : AMBER;
+  const dot = m.src === "mcp" || m.src === "ledger" ? GREEN : m.src === "pending" ? INK3 : AMBER;
   return (
     <span style={{ position: "relative", display: "inline-flex" }}>
       <button
@@ -3793,7 +3786,7 @@ function AugustMonthly() {
       {/* ── CONTEXTUAL SEARCH ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (August)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
-        <MCard meta="pillPageviews" label="Queries (pill views)" value={String(AUGUST.pillPageviews)} desc="Total visits across all contextual search pills · live via MCP" accent momentum={JULY.pillPageviews} />
+        <MCard meta="pillPageviews" label="Queries (pill views)" value={String(AUGUST.pillPageviews)} desc="Total visits across all contextual search pills · from the ledger" accent momentum={JULY.pillPageviews} />
         <MCard label="Most used pill — Lessons Learned" value="44" desc="interactions · leads again (Similar Projects 19) · live via MCP" small />
         <MCard label={<>Least used pill —<br/>Data</>} value="7" desc="interactions · live via MCP" small />
       </div>
@@ -3807,7 +3800,7 @@ function AugustMonthly() {
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(AUGUST.prompters)} desc={`${Math.round(AUGUST.prompters/AUGUST.users*100)}% of users reached`} accent momentum={JULY.prompters} />
         <MCard meta="prompts" label="Prompts sent" value={String(AUGUST.prompts)} desc="Median: 1 per prompter · manual, admin console" accent momentum={JULY.prompts} />
         <MCard meta="latency" label="Latency" value={AUGUST.latency} desc="Average response time · from the admin console · 27s in July" small />
-        <MCard meta="sourceClicks" label="Source panel clicks" value={String(AUGUST.sourceClicks)} desc="Clicks on source panel · live via MCP" momentum={JULY.sourceClicks} />
+        <MCard meta="sourceClicks" label="Source panel clicks" value={String(AUGUST.sourceClicks)} desc="Clicks on source panel · from the ledger" momentum={JULY.sourceClicks} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
           <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
@@ -3853,12 +3846,9 @@ function AugustMonthly() {
       {/* ── CONTENT ENGAGEMENT ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (August)</div>
       <ContentEngagementCard
-        total={548}
-        openSearch={310}
-        contextual={238}
-        rows={[["Highlights", 210, 156], ["Copies", 73, 81], ["Source clicks", 21, 1], ["Downloads", 6, 0]]}
+        rows={engagementRows("2026-08", 6)}
         note={"Downloads: 3 Word · 3 Excel."}
-        split={"OS/Contextual split 57/43 — the most balanced month of the series, against July's 90/10."}
+        split={"OS/Contextual split 82/18, level with July's 82/18."}
       />
 
       {/* ── DIVIDER ── */}
@@ -3911,7 +3901,7 @@ function AugustMonthly() {
 
       {/* Pending sections note */}
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, pill views (total + all 5 pills), source clicks, feedback, gallery/recent/new search, highlights, copies, downloads and LWA — all pulled directly from FullStory dashboard widgets by ID. <strong style={{ color: INK2 }}>Loaded manually:</strong> CSAT (40%, n=5, full month, closed Sep 7) and prompts sent (634, from the admin console — no FullStory metric covers this; the closest candidate returns 108 for July against the 415 on record, so it counts one submit button and not prompts). <strong style={{ color: INK2 }}>New and returning users</strong> are now computed on the Sin DEV population — first seen inside the month, built as a segment because metrics cannot express First Seen. The figures previously carried for July were org-wide and have been restated. <strong style={{ color: INK2 }}>Latency (29s)</strong> was loaded later, on Oct 1, from the admin console — FullStory has no metric for it. It is an average, not the median this field was originally labelled. Figures cover the closed month, Aug 1–31, pulled on Sep 1.
+        <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, all 5 pills, feedback, gallery/recent/new search, downloads and LWA — all pulled directly from FullStory dashboard widgets by ID. <strong style={{ color: INK2 }}>Open Search and Contextual</strong> (highlights, copies, source clicks, pill views and Global Search) come from the monthly ledger, segment Sin DEV (copy), which excludes the internal team; they were restated in October 2026 and earlier versions of this report may show different values. <strong style={{ color: INK2 }}>Loaded manually:</strong> CSAT (40%, n=5, full month, closed Sep 7) and prompts sent (634, from the admin console — no FullStory metric covers this; the closest candidate returns 108 for July against the 415 on record, so it counts one submit button and not prompts). <strong style={{ color: INK2 }}>New and returning users</strong> are now computed on the Sin DEV population — first seen inside the month, built as a segment because metrics cannot express First Seen. The figures previously carried for July were org-wide and have been restated. <strong style={{ color: INK2 }}>Latency (29s)</strong> was loaded later, on Oct 1, from the admin console — FullStory has no metric for it. It is an average, not the median this field was originally labelled. Figures cover the closed month, Aug 1–31, pulled on Sep 1.
       </div>
 
       <CohortSection c={COHORTS.august} />
@@ -3935,18 +3925,18 @@ const SEPTEMBER = {
   returningUsers: 182,     // users (292) menos nuevos (110)
   first_time: 110,         // ver nota: el segmento firstSeen da 107, la resta de control da 110. Se usa 110
   tourCompletion: 40,      // live via MCP (iN3brKBr4rlY) — 40.14 redondeado
-  pillPageviews: 90,       // live via MCP (2EYT9yOW6odB)
-  sourceClicks: 22,        // live via MCP (Ge6P9qbIeu3b)
+  pillPageviews: L("2026-09", "cs_queries"),  // ledger cs_queries · Sin DEV (copy)
+  sourceClicks: L("2026-09", "os_source_panel"),  // ledger os_source_panel (solo OS) · Sin DEV (copy)
   sourceClicksBC: 0,       // live via MCP (LD4uHOPIDS8l)
   thumbsUp: 1,             // live via MCP (AtpRWyuThJUq)
   thumbsDown: 1,           // live via MCP (x6Z3q26RMOra)
   promptGalleryClicks: 23, // live via MCP (lkwqkKIJQ25E)
   recentSearchClicks: 1,   // live via MCP (nfcBnYjQSAfT)
   newSearchClicks: 2,      // live via MCP (tU5aopeDHc1k)
-  highlighted: 765,        // live via MCP (cMgaz9YMCSJh)
-  highlightedOpenSearch: 675, // live via MCP (RQ6IjtoMbeD5)
-  copied: 250,             // live via MCP (yowGb1tOMe3X)
-  copiedOpenSearch: 212,   // live via MCP (JOTETVLPeJKh)
+  highlighted: L("2026-09", "os_highlight") + L("2026-09", "cs_highlight_detail"),  // ledger os_highlight + cs_highlight_detail · Sin DEV (copy)
+  highlightedOpenSearch: L("2026-09", "os_highlight"),  // ledger os_highlight · Sin DEV (copy)
+  copied: L("2026-09", "os_copy") + L("2026-09", "cs_copy"),  // ledger os_copy + cs_copy · Sin DEV (copy)
+  copiedOpenSearch: L("2026-09", "os_copy"),  // ledger os_copy · Sin DEV (copy)
   wordDownloads: 5,        // live via MCP (3EkjBy6jYByB)
   excelDownloads: 1,       // live via MCP (FIw2VjBWkJ6J)
   latency: "25s",          // manual — consola de admin, promedio (no mediana). Ago 29s
@@ -4159,7 +4149,7 @@ function SeptemberMonthly() {
       {/* ── CONTEXTUAL SEARCH ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (September)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
-        <MCard meta="pillPageviews" label="Queries (pill views)" value={String(SEPTEMBER.pillPageviews)} desc="Total visits across all contextual search pills · live via MCP" accent momentum={AUGUST.pillPageviews} />
+        <MCard meta="pillPageviews" label="Queries (pill views)" value={String(SEPTEMBER.pillPageviews)} desc="Total visits across all contextual search pills · from the ledger" accent momentum={AUGUST.pillPageviews} />
         <MCard label="Most used pill — Lessons Learned" value="23" desc="Similar Projects 19 · Data 12 · live via MCP" small />
         <MCard label={<>Least used pill —<br/>Literature</>} value="10" desc="of the four confirmed pills · live via MCP" small />
       </div>
@@ -4174,7 +4164,7 @@ function SeptemberMonthly() {
         <MCard meta="prompts" label="Prompts sent" value={String(SEPTEMBER.prompts)} desc={`${Math.round(SEPTEMBER.prompts/SEPTEMBER.prompters)} per prompter · from the admin console`} accent momentum={AUGUST.prompts} />
         <MCard meta="latency" label="Latency" value={SEPTEMBER.latency} desc="Average response time · from the admin console · 29s in August" small />
         <MCard meta="csat" label="CSAT" value={SEPTEMBER.csat} desc="Top-2 box, 2 of 3 responses · avg 4.33 ★ · n=3 is still too small to read as a rate" small />
-        <MCard meta="sourceClicks" label="Source panel clicks" value={String(SEPTEMBER.sourceClicks)} desc="Clicks on source panel · live via MCP" momentum={AUGUST.sourceClicks} />
+        <MCard meta="sourceClicks" label="Source panel clicks" value={String(SEPTEMBER.sourceClicks)} desc="Clicks on source panel · from the ledger" momentum={AUGUST.sourceClicks} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
           <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
@@ -4194,12 +4184,9 @@ function SeptemberMonthly() {
       {/* ── CONTENT ENGAGEMENT ── */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (September)</div>
       <ContentEngagementCard
-        total={1043}
-        openSearch={915}
-        contextual={128}
-        rows={[["Highlights", 675, 90], ["Copies", 212, 38], ["Source clicks", 22, 0], ["Downloads", 6, 0]]}
+        rows={engagementRows("2026-09", 6)}
         note={"Downloads: 5 Word · 1 Excel."}
-        split={"OS/Contextual split 88/12 — it sharpened from 76/24 at the Sep 15 cut and then held, against August's 57/43 close."}
+        split={"OS/Contextual split 89/11, against August's 82/18."}
       />
 
       {/* ── DIVIDER ── */}
@@ -4237,9 +4224,9 @@ function SeptemberMonthly() {
           </p>
         </div>
 <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Extraction is the story: nearly double August</div>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Extraction jumps, and all of it is Open Search</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            765 highlights and 250 copies against 366 and 154 in August — up 109% and 62% on flat reach. The month front-loaded it: the jump ran between Sep 15 and Sep 22, then flattened. The split closed at 88/12 Open Search versus contextual, from 57/43 at August's close. The qualitative pass found why: a handful of very heavy sessions where people work through their own documents.
+            Open Search highlights went from 141 to 392 (+178%) and copies from 45 to 123 (+173%) on flat reach, with the internal team excluded. Contextual search moved the other way: 0 highlights and 1 copy in September against 9 and 19 in August, and the pills were opened 77 times against 119. Counting both surfaces, highlights rose 161% (150 to 392) and copies 94% (64 to 124). The one contextual entry point that grew is Global Search, through chips and the search bar: 61 events against 19. The split closed at 89/11 Open Search versus contextual, from 82/18 in August. The qualitative pass fits this: a handful of very heavy sessions where people work through their own documents.
           </p>
         </div>
 <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${GREEN}` }}>
@@ -4260,7 +4247,7 @@ function SeptemberMonthly() {
 
       {/* Pending sections note */}
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Live via MCP:</strong> every number above except the three loaded by hand, pulled from FullStory by metric ID for Sep 1–30 on the Sin DEV segment. July's baseline was re-checked before writing and matched exactly.
+        <strong style={{ color: INK2 }}>Live via MCP:</strong> every number above except the three loaded by hand and the Open Search and Contextual figures, pulled from FullStory by metric ID for Sep 1–30 on the Sin DEV segment. Open Search and Contextual (highlights, copies, source clicks, pill views and Global Search) come from the monthly ledger, segment Sin DEV (copy). July's baseline was re-checked before writing and matched exactly.
         <br/><br/><strong style={{ color: INK2 }}>Read twice before writing.</strong> A first pass at 00:25 UTC on Oct 1 found the data still indexing — sessions moved from 1,379 to 1,432 within minutes and some reads came back cached. Nothing was written then. Every figure here was computed twice at 07:00 UTC and only kept where the two reads agreed. Closed as final on Oct 5, when users, sessions, prompters, highlights and copies were recomputed and the cumulative controls reproduced (users 1,912 − 1,802 = 110; sessions 15,988 − 14,557 = 1,431; prompters drift 4).
         <br/><br/><strong style={{ color: INK2 }}>Cumulative totals</strong> are not a single query. FullStory keeps about 12 months and silently truncates anything older, so users and sessions are built from August's verified close plus this month's new users and sessions, and prompters corrects for the drift the truncation causes. Each one is checked against a subtraction control before it is written. Method and worked examples live in the checklist.
         <br/><br/><strong style={{ color: INK2 }}>New users: 110, not 107.</strong> The firstSeen segment returns 107 because it also requires a visit to the production home page; the subtraction control against the cumulative anchor returns 110. The 110 is published so the cumulative reconciles, and the 107 is recorded in the checklist.
@@ -4539,7 +4526,7 @@ function App() {
           </div>
           <div style={{ fontSize: 14, fontWeight: 500, color: INK }}>Post Go-live Key Metrics</div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }} onClick={(e) => e.stopPropagation()}>
+        <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }} onClick={(e) => e.stopPropagation()}>
           {/* Month selector */}
           <div style={{ position: "relative" }}>
             {ddBtn(isMonth, () => { setMonthOpen(!monthOpen); setLaunchOpen(false); }, (
@@ -4549,17 +4536,18 @@ function App() {
           </div>
           {/* Launch views selector */}
           <div style={{ position: "relative" }}>
-            {ddBtn(!isMonth && view !== "benchmark", () => { setLaunchOpen(!launchOpen); setMonthOpen(false); }, (
+            {ddBtn(!isMonth && view !== "benchmark" && view !== "usability", () => { setLaunchOpen(!launchOpen); setMonthOpen(false); }, (
               <>{!isMonth && currentLaunch ? currentLaunch.label : "Launch views"} <span style={{ fontSize: 8 }}>▾</span></>
             ))}
             {launchOpen && ddMenu(LAUNCH_VIEWS, setView, () => setLaunchOpen(false))}
           </div>
           {/* Benchmark */}
           {ddBtn(view === "benchmark", () => { setView("benchmark"); setMonthOpen(false); setLaunchOpen(false); }, "Benchmark")}
+          {ddBtn(view === "usability", () => { setView("usability"); setMonthOpen(false); setLaunchOpen(false); }, "Usability metrics")}
         </div>
       </div>
 
-      {view === "smoke" ? <SmokeTest /> : view === "week1" ? <Week1 data={WEEK1} /> : view === "week12" ? <Week1 data={WEEK12} /> : view === "may" ? <MayMonthly /> : view === "june" ? <JuneMonthly /> : view === "july" ? <JulyMonthly /> : view === "august" ? <AugustMonthly /> : view === "september" ? <SeptemberMonthly /> : view === "benchmark" ? <Benchmark /> : <Monthly />}
+      {view === "smoke" ? <SmokeTest /> : view === "week1" ? <Week1 data={WEEK1} /> : view === "week12" ? <Week1 data={WEEK12} /> : view === "may" ? <MayMonthly /> : view === "june" ? <JuneMonthly /> : view === "july" ? <JulyMonthly /> : view === "august" ? <AugustMonthly /> : view === "september" ? <SeptemberMonthly /> : view === "benchmark" ? <Benchmark /> : view === "usability" ? <UsabilityMetrics /> : <Monthly />}
 
       <div style={{ textAlign: "center", padding: 18, fontSize: 9, color: INK3, letterSpacing: "0.06em", borderTop: `1px solid ${BDR}` }}>
         IDB Knowledge Platform · Post Go-live Key Metrics · Go-live {GO_LIVE_DATE}

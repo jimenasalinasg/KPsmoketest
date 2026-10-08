@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KP Usability Metrics</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue: #1b5cf0;
+    --blue-deep: #0c2340;
+    --ink: #1a2b45;
+    --label: #5b6b85;
+    --muted: #8b95a8;
+    --line: #d9e1f2;
+    --bg: #ffffff;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    padding: 44px 48px;
+  }
+  .wrap { max-width: 1240px; margin: 0 auto; }
+
+  h1 { font-size: 34px; font-weight: 800; color: var(--blue); letter-spacing: -0.01em; margin-bottom: 8px; }
+  .subtitle { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 36px; gap: 24px; flex-wrap: wrap; }
+  .subtitle p { font-size: 15px; color: var(--ink); }
+  .subtitle .range { font-size: 13px; color: var(--muted); white-space: nowrap; }
+
+  /* layout: side band + content grid */
+  .block { display: grid; grid-template-columns: 56px 1fr; gap: 18px; margin-bottom: 30px; }
+  .band {
+    background: var(--blue); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .band span {
+    writing-mode: vertical-rl; transform: rotate(180deg);
+    color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: lowercase;
+  }
+  /* little arrow notch */
+  .band::after {
+    content: ""; position: absolute; right: -8px; top: 50%; transform: translateY(-50%);
+    border-top: 9px solid transparent; border-bottom: 9px solid transparent; border-left: 9px solid var(--blue);
+  }
+
+  .cells { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .cell { padding: 6px 22px 18px; border-left: 1px solid var(--line); }
+  .cell:first-child { border-left: none; }
+  .cell.rowlabel { border-left: none; display: flex; align-items: center; }
+  .rowlabel-text { font-size: 17px; font-weight: 800; color: var(--ink); line-height: 1.2; }
+
+  .k-label { font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em; color: var(--label); text-transform: uppercase; margin-bottom: 2px; }
+  .k-sublabel { font-size: 11px; color: var(--muted); margin-bottom: 8px; font-weight: 400; }
+  .k-value { font-size: 40px; font-weight: 800; color: var(--blue); line-height: 1.05; letter-spacing: -0.01em; }
+  .k-value.sm { font-size: 26px; }
+  .k-note { font-size: 10.5px; color: var(--muted); margin-top: 6px; line-height: 1.35; }
+  .k-note.warn { color: #b0620a; }
+
+  .rows { display: grid; row-gap: 2px; }
+  .engrow { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); padding-top: 16px; margin-top: 2px; }
+  .engrow:first-child { border-top: none; padding-top: 0; }
+
+  .footer { display: flex; justify-content: flex-end; align-items: center; gap: 9px; margin-top: 34px; }
+  .footer .mark { width: 26px; height: 26px; border-radius: 6px; background: linear-gradient(135deg, var(--blue) 0%, #19b3d6 100%); }
+  .footer .wordmark { font-size: 17px; font-weight: 800; color: var(--blue-deep); }
+
+  .source-note { font-size: 11px; color: var(--muted); margin-top: 10px; }
+
+  .method { margin-top: 56px; border-top: 2px solid var(--blue); padding-top: 28px; }
+  .method h2 { font-size: 22px; font-weight: 800; color: var(--blue-deep); margin-bottom: 4px; }
+  .method .lede { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
+  .method h3 { font-size: 15px; font-weight: 800; color: var(--ink); margin: 22px 0 8px; }
+  .method p { font-size: 13px; line-height: 1.55; color: #3a4a63; margin-bottom: 10px; }
+  .method code { background: #eef2fb; color: var(--blue-deep); padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+  .method .warn { color: #b0620a; font-weight: 600; }
+  .method ul { margin: 0 0 10px 18px; }
+  .method li { font-size: 13px; line-height: 1.55; color: #3a4a63; margin-bottom: 5px; }
+  .method .example { background: #f3f6fd; border-radius: 10px; padding: 14px 18px; font-size: 13px; color: var(--ink); margin: 6px 0 14px; }
+  .mtable { width: 100%; border-collapse: collapse; margin: 6px 0 14px; }
+  .mtable th, .mtable td { text-align: left; font-size: 12.5px; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+  .mtable th { color: var(--label); font-weight: 700; text-transform: uppercase; font-size: 11px; letter-spacing: 0.03em; }
+  .mtable td { color: #3a4a63; }
+  .ok { color: #1a7f43; font-weight: 700; }
+  .no { color: #b0620a; font-weight: 700; }
+
+  .htable-wrap { overflow-x: auto; }
+  .htable { border-collapse: collapse; width: 100%; min-width: 900px; }
+  .htable th, .htable td { font-size: 12px; padding: 6px 8px; border-bottom: 1px solid var(--line); text-align: right; }
+  .htable th:first-child, .htable td:first-child { text-align: left; }
+  .htable th { color: var(--label); font-size: 10.5px; text-transform: uppercase; }
+  .htable tr.tot td { font-weight: 800; color: var(--blue-deep); border-top: 2px solid var(--blue); }
+  @media (max-width: 760px) {
+    body { padding: 24px 16px; }
+    .cells, .engrow { grid-template-columns: 1fr 1fr; }
+    .cell.rowlabel { grid-column: 1 / -1; padding-bottom: 6px; }
+    h1 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>6 in 10 users return within two weeks</h1>
+  <div class="subtitle"><p>Insight into how users are accessing and engaging with Knowledge Platform</p>
+  <span class="range">Sep 2025 – Oct 2026 · excl. internal team (DEV)</span></div>
+  <div class="block"><div class="band"><span>access</span></div><div class="cells">
+   <div class="cell"><div class="k-label">Unique users</div><div class="k-value">2,067</div><div class="k-note">anchored snapshot (month-close + delta)</div></div>
+   <div class="cell"><div class="k-label">Penetration</div><div class="k-sublabel">Out of 3,600 IDB staff</div><div class="k-value">57.4%</div></div>
+   <div class="cell"><div class="k-label">Returning user rate</div><div class="k-sublabel">within 14 days</div><div class="k-value">6/10</div><div class="k-note">60.1% · rate, robust to truncation</div></div>
+   <div class="cell"></div></div></div>
+  <div class="block"><div class="band"><span>engagement</span></div><div class="rows">
+   <div class="engrow"><div class="cell rowlabel"><div class="rowlabel-text">Open Search</div></div>
+    <div class="cell"><div class="k-label">Prompts sent</div><div class="k-value sm">6,041</div><div class="k-note warn">console · cumulative (not in Fullstory)</div></div>
+    <div class="cell"><div class="k-label">Ave. prompt</div><div class="k-sublabel">since Bank-wide</div><div class="k-value sm">2.7</div><div class="k-note warn">console-derived</div></div>
+    <div class="cell"><div class="k-label">Content engagement</div><div class="k-value sm">4,512</div><div class="k-note">sum of monthly ledger: highlight, copy, downloads, source panel</div></div></div>
+   <div class="engrow"><div class="cell rowlabel"><div class="rowlabel-text">Contextual Search</div></div>
+    <div class="cell"><div class="k-label">Queries</div><div class="k-value sm">1,822</div><div class="k-note">sum of monthly ledger</div></div>
+    <div class="cell"><div class="k-label">Most used pill</div><div class="k-value sm" style="font-size:22px;">Similar project</div></div>
+    <div class="cell"><div class="k-label">Content engagement</div><div class="k-value sm">679</div><div class="k-note">copy 85 + source/link 55 + highlight 280 + Global Search 259 (chips 45 + search bar 214)</div></div></div>
+   <div class="engrow"><div class="cell rowlabel"><div class="rowlabel-text">Writing Lesson<br>Assistant</div></div>
+    <div class="cell"><div class="k-label">Lessons learned created</div><div class="k-value sm">1,559</div><div class="k-note warn">console · Client Portal + KP (not in Fullstory)</div></div><div class="cell"></div><div class="cell"></div></div>
+  </div></div>
+  <div class="footer"><div class="mark"></div><div class="wordmark">IDB Group</div></div>
+  <div class="source-note">Segment "Sin DEV" (internal team excluded), since the Sep 2025 gradual launch (Bank-wide go-live Mar 31, 2026). Event metrics are the sum of saved monthly values (ledger); users, sessions and prompters are month-close snapshots plus the current-month delta. Prompts sent, ave. prompt and lessons created come from the product console. Latest snapshot: 2026-10.</div>
+<div class="method"><h2>Monthly history & sustainable model</h2>
+<div class="lede">Every number above is generated from <code>kp_ledger.csv</code>. Each month adds rows; nothing is recomputed from FullStory's moving window.</div>
+<h3>Additive events — sum of months</h3><p>Single-month windows are not affected by FullStory's ~12-month retention. Cumulative = sum of the monthly rows. Contextual Search figures are total minus the DEV-only segment for each month.</p><div class="htable-wrap"><table class="htable"><thead><tr><th>Month</th><th>OS highlight</th><th>OS copy</th><th>OS source</th><th>CS queries</th><th>CS copy</th><th>CS source</th><th>CS hl detail</th><th>GS chips</th><th>GS search bar</th></tr></thead><tbody><tr><td>2025-10</td><td>0</td><td>0</td><td>53</td><td>225</td><td>13</td><td>10</td><td>68</td><td>0</td><td>0</td></tr><tr><td>2025-11</td><td>124</td><td>35</td><td>152</td><td>114</td><td>15</td><td>3</td><td>9</td><td>0</td><td>0</td></tr><tr><td>2025-12</td><td>131</td><td>65</td><td>104</td><td>58</td><td>1</td><td>2</td><td>12</td><td>0</td><td>0</td></tr><tr><td>2026-01</td><td>181</td><td>95</td><td>36</td><td>31</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td></tr><tr><td>2026-02</td><td>341</td><td>136</td><td>102</td><td>108</td><td>5</td><td>1</td><td>5</td><td>0</td><td>0</td></tr><tr><td>2026-03</td><td>445</td><td>117</td><td>61</td><td>150</td><td>4</td><td>7</td><td>2</td><td>0</td><td>0</td></tr><tr><td>2026-04</td><td>341</td><td>82</td><td>39</td><td>255</td><td>3</td><td>6</td><td>12</td><td>0</td><td>0</td></tr><tr><td>2026-05</td><td>147</td><td>58</td><td>46</td><td>130</td><td>1</td><td>11</td><td>4</td><td>0</td><td>15</td></tr><tr><td>2026-06</td><td>316</td><td>163</td><td>47</td><td>307</td><td>6</td><td>4</td><td>15</td><td>0</td><td>63</td></tr><tr><td>2026-07</td><td>190</td><td>65</td><td>29</td><td>134</td><td>14</td><td>2</td><td>2</td><td>0</td><td>60</td></tr><tr><td>2026-08</td><td>141</td><td>45</td><td>21</td><td>183</td><td>21</td><td>2</td><td>19</td><td>0</td><td>19</td></tr><tr><td>2026-09</td><td>392</td><td>123</td><td>22</td><td>90</td><td>1</td><td>5</td><td>1</td><td>19</td><td>44</td></tr><tr><td>2026-10</td><td>28</td><td>14</td><td>0</td><td>37</td><td>1</td><td>1</td><td>0</td><td>26</td><td>13</td></tr><tr><td>baseline · OS downloads (users)</td><td colspan="9" style="text-align:left">25 (cumulative to 2026-10-07, no monthly split)</td></tr><tr><td>baseline · CS highlight cards</td><td colspan="9" style="text-align:left">130 (cumulative to 2026-10-07, no monthly split)</td></tr><tr class="tot"><td>Total</td><td>2,777</td><td>998</td><td>712</td><td>1,822</td><td>85</td><td>55</td><td>150</td><td>45</td><td>214</td></tr></tbody></table></div>
+<h3>Non-additive — month-close snapshots</h3><p>Unique users, sessions and prompters cannot be summed (the same person appears in several months). Save the cumulative value at each month-close; between closes, current = last anchor + same-day delta (<code>[Sep1→today] − [Sep1→prev month-end]</code>).</p><table class="mtable"><thead><tr><th>Snapshot (cumulative since Sep 2025)</th><th>2026-04</th><th>2026-05</th><th>2026-09</th><th>2026-10</th></tr></thead><tbody><tr><td>Unique users</td><td>1,357</td><td>1,574</td><td>2,053</td><td>2,067</td></tr><tr><td>Sessions</td><td>–</td><td>–</td><td>17,274</td><td>17,479</td></tr><tr><td>Prompters</td><td>587</td><td>673</td><td>859</td><td>929</td></tr><tr><td>Prompts sent (console)</td><td>2,279</td><td>2,904</td><td>–</td><td>6,041</td></tr></tbody></table>
+<h3>Monthly routine (first days of each month)</h3>
+<ul><li>For every event metric: compute the closed month alone (1st → last day) in total and, for pill metrics, DEV-only; append <code>total − DEV</code> to the ledger.</li>
+<li>Snapshots: compute Sep 1, 2025 → month-end for unique users (<code>1123293977</code>), sessions, prompters (<code>3GVbGeJsPBCb</code>) and append as <code>snapshot</code>.</li>
+<li>Console numbers (prompts sent, ave. prompt, lessons created): ask the product team, append.</li>
+<li>Run <code>python3 build_dashboard.py</code> and republish.</li></ul>
+<h3>Known limits</h3><ul>
+<li>Sep 2025 returns 0 in FullStory (already expired or pre-launch); history starts Oct 2025. Cross-check: the monthly sum for queries matched the direct cumulative query to the unit (1,785), so little was lost in practice.</li>
+<li>Sidebar-card highlights (130) and download users (25) are cumulative baselines, not monthly.</li>
+<li>Oct 2026 is a partial month (days 1–7); the next close overwrites it with the full month.</li>
+<li>Ave. prompt (2.7) is console-derived and should be refreshed against 6,041 prompts.</li></ul></div>
+</div></body></html>
