@@ -374,6 +374,23 @@ El cierre de septiembre y la vista Usability usan los mismos números: se verifi
 en `src/App.jsx`, un promedio fijo de periodos quincenales sep-2025 a mar-2026 que no sale del ledger ni usa
 Sin DEV (copy). Ya no es comparable con los valores nuevos; el ledger tiene oct-2025 a mar-2026 para recalcularlo.
 
+#### Octubre al día — pestaña «October 2026 · to date» (8-oct-2026)
+
+Receta diaria en el README (§ «Octubre al dia»). Puntos que importan:
+
+- **Las dos consultas de la resta, el mismo día.** `Q(1-sep-2025 → hoy)` y `Q(1-sep-2025 → 30-sep)` arrancan en el límite de
+  retención de ~12 meses, que se corre cada día; el valor de `Q(→30-sep)` de ayer ya no sirve. La diferencia se cancela solo si
+  las dos se piden juntas.
+- **Control del 8-oct** (1–7 oct): usuarios 1,924 − 1,905 = **19** nuevos; sesiones 16,118 − 15,887 = **231** (directo: 232);
+  prompters 926 − 918 = **8**. La métrica `1123293977` («Usuarios únicos sin DEV») da lo mismo que `a30wnMzqgtJk`.
+- **El ledger traía snapshots viejos** (usuarios 2,067 = 2,053 + 14; sesiones 17,479 = 17,274 + 205), probablemente calculados con el
+  día 7 incompleto. Se recalcularon a 2,072 y 17,506; los prompters (931) coincidían. Las filas de evento de `2026-10` (`os_*`, `cs_*`)
+  dicen «days 1-7» y pudieron quedar cortadas igual: **hay que regenerarlas con la receta del ledger** (no se pueden reproducir con las
+  métricas de este checklist, que no llevan el segmento Sin DEV (copy)).
+- **Usability siempre a la par** (regla del 8-oct-2026): la vista Usability metrics y la pestaña del mes en curso se actualizan en la misma
+  corrida y se publican juntas. Ambas leen el ledger; verificar que el acumulado de usuarios sea el mismo en las dos antes del deploy.
+- Mes en curso: no se compara con septiembre completo. Quedan fuera de la pestaña: LWA, países, embudos, cohortes y cualitativo.
+
 ### Regla: un cero no prueba desuso hasta que un hermano dispare
 
 Una versión previa de esta sección concluyó «nadie entró nunca al catálogo»

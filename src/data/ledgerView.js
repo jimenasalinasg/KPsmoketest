@@ -47,3 +47,10 @@ export function engagementRows(month, downloads = 0) {
   if (downloads > 0) rows.push(["Downloads", downloads, 0]);
   return rows;
 }
+
+// Snapshot de un mes concreto. Falla fuerte si falta: la vista de octubre no debe mostrar en silencio el cierre de otro mes.
+export function snapshotAt(metric, month) {
+  const v = ledger.snapshot[metric]?.[month];
+  if (v === undefined) throw new Error(`kp_ledger.csv: falta el snapshot ${metric} de ${month}`);
+  return v;
+}
