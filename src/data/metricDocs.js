@@ -79,6 +79,13 @@ export function buildDocs(ctx) {
       formula: `Ledger snapshot prompts_sent (latest: ${fmt(snap("prompts_sent").value)}).`,
       note: `${CONSOLE} FullStory's prompt metrics count one submit button, not prompts, so they are not used.`,
     },
+    avg_active_time_s: {
+      kind: "Monthly average", title: "Avg. active time",
+      what: "Average time a person is actively on a KP page (clicking, scrolling, typing), per page view.",
+      formula: `Average of the page-view active duration over all page views in the month, Sin DEV (copy). Latest ${snap("avg_active_time_s").month}: ${snap("avg_active_time_s").value.toFixed(1)} s. It is an average, so it is never summed across months.`,
+      ids: [["vpWvDQswlPB4", "Promedio de Tiempo Activo x Sesión · average of time on page active, visited page = any. Despite the name it averages per page view, not per session"]],
+      note: "Month-to-date for the current month. The segment is applied on top of the saved metric (it is not part of the saved definition).",
+    },
     avePrompt: {
       kind: "Snapshot", title: "Ave. prompt",
       what: "Average number of prompts per prompter: prompts sent divided by the users who sent at least one prompt.",
