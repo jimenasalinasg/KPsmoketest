@@ -212,7 +212,7 @@ export default function UsabilityMetrics() {
           <Kpi label="Content engagement" doc={docs.csEngagement} value={fmt(csEngagement)} small
             note={`copy ${fmt(ledgerSum("cs_copy"))} + source/link ${fmt(ledgerSum("cs_source_link"))} + highlight ${fmt(csHighlight)} (detail ${fmt(ledgerSum("cs_highlight_detail"))} + sidebar cards ${fmt(ledgerSum("cs_highlight_cards"))}) + Global Search ${fmt(globalSearch)} (chips ${fmt(ledgerSum("cs_chips"))} + search bar ${fmt(ledgerSum("cs_search_bar"))})`} />
         </EngRow>
-        <EngRow title="Writing Lesson Assistant" last>
+        <EngRow title="Lessons Writing Assistant" last>
           <Kpi label="Lessons learned created" doc={docs.lessons} value={fmt(lessons)} small note="Console · Client Portal + KP (not in FullStory)" warn />
         </EngRow>
       </Block>
