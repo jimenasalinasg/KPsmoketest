@@ -112,8 +112,8 @@ export function buildDocs(ctx) {
     mostUsedPill: {
       kind: "Fullstory", title: "Most used pill",
       what: "The contextual pill with the most use.",
-      formula: "Highest of the four pill session metrics in Fullstory (Similar Projects, Lessons Learned, Data, Literature), Sin DEV, for the last closed month. Not computed from the ledger.",
-      note: "Sep 2026: Lessons Learned 23, Similar Projects 19, Data 12, Literature 10. Recompute at each close.",
+      formula: "Highest of the four pill session metrics in Fullstory (Similar Projects, Lessons Learned, Data, Literature), Sin DEV, summed over the whole ledger window (Oct 2025 to date), not a single month. Not computed from the ledger.",
+      note: "Oct 1 2025 to Oct 12 2026: Lessons Learned 381, Similar Projects 369, Literature 187, Data 78. Close race, so recompute the full window at each close.",
     },
     csEngagement: {
       kind: "Ledger", title: "Contextual Search · content engagement",
