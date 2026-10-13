@@ -8,7 +8,7 @@ import { buildDocs } from "./data/metricDocs.js";
 import { BLUE, BLUE_D, BLUE_L, BLUE_M, GREEN, AMBER, SURF, BDR, INK, INK2, INK3 } from "./theme.js";
 
 const TOTAL_STAFF = 3600;                 // IDB staff y consultores: divisor de la penetracion (no esta en el ledger)
-const MOST_USED_PILL = "Similar project"; // MANUAL: no esta en el ledger; actualizar a mano si cambia
+const MOST_USED_PILL = "Lessons Learned"; // De Fullstory (rhTcgj1srgne, PJyiZSAt3EXH, eCemfOCLh5qU, w0ktk3sF3v3I), sep-2026: LL 23 > SP 19 > Data 12 > Lit 10. No esta en el ledger: recomputar en cada cierre
 
 const fmt = (n) => n.toLocaleString("en-US");
 const monthLabel = (m) => new Date(`${m}-01T00:00:00Z`).toLocaleString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
@@ -208,7 +208,7 @@ export default function UsabilityMetrics() {
         </EngRow>
         <EngRow title="Contextual Search">
           <Kpi label="Queries" doc={docs.queries} value={fmt(ledgerSum("cs_queries"))} small note="Sum of the ledger" />
-          <Kpi label="Most used pill" doc={docs.mostUsedPill} value={MOST_USED_PILL} small note="Manual · not in the ledger" warn />
+          <Kpi label="Most used pill" doc={docs.mostUsedPill} value={MOST_USED_PILL} small note="From Fullstory (Sep 2026) · not in the ledger" warn />
           <Kpi label="Content engagement" doc={docs.csEngagement} value={fmt(csEngagement)} small
             note={`copy ${fmt(ledgerSum("cs_copy"))} + source/link ${fmt(ledgerSum("cs_source_link"))} + highlight ${fmt(csHighlight)} (detail ${fmt(ledgerSum("cs_highlight_detail"))} + sidebar cards ${fmt(ledgerSum("cs_highlight_cards"))}) + Global Search ${fmt(globalSearch)} (chips ${fmt(ledgerSum("cs_chips"))} + search bar ${fmt(ledgerSum("cs_search_bar"))})`} />
         </EngRow>
