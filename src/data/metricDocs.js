@@ -110,10 +110,10 @@ export function buildDocs(ctx) {
       note: eventBasis,
     },
     mostUsedPill: {
-      kind: "Manual", title: "Most used pill",
+      kind: "Fullstory", title: "Most used pill",
       what: "The contextual pill with the most use.",
-      formula: "Set by hand by the product team; it is not computed from the ledger.",
-      note: "Update it manually when it changes.",
+      formula: "Highest of the four pill session metrics in Fullstory (Similar Projects, Lessons Learned, Data, Literature), Sin DEV, for the last closed month. Not computed from the ledger.",
+      note: "Sep 2026: Lessons Learned 23, Similar Projects 19, Data 12, Literature 10. Recompute at each close.",
     },
     csEngagement: {
       kind: "Ledger", title: "Contextual Search · content engagement",
