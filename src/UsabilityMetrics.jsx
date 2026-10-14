@@ -163,7 +163,7 @@ export default function UsabilityMetrics() {
   const users = latestSnapshot("unique_users").value;
   const returning = latestSnapshot("returning_rate_pct").value;
   const prompts = latestSnapshot("prompts_sent").value;
-  const avePrompt = Math.round((prompts / latestSnapshot("prompters").value) * 10) / 10;
+  const medianPrompt = latestSnapshot("median_prompts").value;
   const lessons = latestSnapshot("lessons_created").value;
   const penetration = Math.round((users / TOTAL_STAFF) * 1000) / 10;
   const tenths = Math.round(returning / 10);
@@ -203,7 +203,7 @@ export default function UsabilityMetrics() {
       <Block band="engagement">
         <EngRow title="Open Search">
           <Kpi label="Prompts sent" doc={docs.prompts} value={fmt(prompts)} small note="Console · cumulative (not in FullStory)" warn />
-          <Kpi label="Ave. prompt" doc={docs.avePrompt} sub="Since Bank-wide" value={avePrompt} small note="Prompts ÷ prompters" />
+          <Kpi label="Median prompts" doc={docs.medianPrompt} sub="Per user · month so far" value={medianPrompt} small note="Median of prompts per user" />
           <Kpi label="Content engagement" doc={docs.osEngagement} value={fmt(osEngagement)} small note="Sum of the ledger: highlight + copy + source panel + downloads" />
         </EngRow>
         <EngRow title="Contextual Search">
