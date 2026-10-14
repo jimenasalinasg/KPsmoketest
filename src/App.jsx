@@ -4270,12 +4270,12 @@ function SeptemberMonthly() {
 // Open Search y Contextual salen del ledger (filas 2026-10); lo demas, de FullStory via MCP con el segmento
 // Sin DEV, cada metrica leida dos veces. Al cerrar octubre este bloque pasa a ser el cierre del mes.
 const OCTOBER = {
-  through: "2026-10-12",
-  users: 103,
-  sessions: 372,
+  through: "2026-10-13",
+  users: 111,
+  sessions: 423,
   prompters: 35,
-  first_time: 28,           // control: usuarios acumulados 1-sep-2025 -> 12-oct (1924) menos los del cierre de septiembre (1896, misma consulta del dia)
-  tourCompletion: 41,       // 41.03 redondeado
+  first_time: 30,           // control: usuarios acumulados 1-sep-2025 -> 13-oct (1923) menos los del cierre de septiembre (1893, misma consulta del dia)
+  tourCompletion: 40,       // 39.53 redondeado
   thumbsUp: 1,
   thumbsDown: 0,
   promptGalleryClicks: 0,
