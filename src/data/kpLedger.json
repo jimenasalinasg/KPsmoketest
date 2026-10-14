@@ -186,6 +186,15 @@
     "lessons_created": {
       "2026-10": 1559
     },
+    "median_prompts": {
+      "2026-04": 1,
+      "2026-05": 1,
+      "2026-06": 1,
+      "2026-07": 1,
+      "2026-08": 1,
+      "2026-09": 1,
+      "2026-10": 1
+    },
     "prompters": {
       "2026-04": 587,
       "2026-05": 673,
@@ -1012,6 +1021,62 @@
       "type": "snapshot",
       "source": "see note",
       "note": "console"
+    },
+    {
+      "month": "2026-04",
+      "metric": "median_prompts",
+      "value": 1,
+      "type": "snapshot",
+      "source": "fullstory metric 1fbmp2OI4wee (Prompts por usuario)",
+      "note": "median of clicks on Open-Search-Button-textarea-Search per user in the month; user table limited to 50 rows, the tail beyond them is all 1s, so the median is unaffected"
+    },
+    {
+      "month": "2026-05",
+      "metric": "median_prompts",
+      "value": 1,
+      "type": "snapshot",
+      "source": "fullstory metric 1fbmp2OI4wee (Prompts por usuario)",
+      "note": "median of clicks on Open-Search-Button-textarea-Search per user in the month; user table limited to 50 rows, the tail beyond them is all 1s, so the median is unaffected"
+    },
+    {
+      "month": "2026-06",
+      "metric": "median_prompts",
+      "value": 1,
+      "type": "snapshot",
+      "source": "fullstory metric 1fbmp2OI4wee (Prompts por usuario)",
+      "note": "median of clicks on Open-Search-Button-textarea-Search per user in the month; user table limited to 50 rows, the tail beyond them is all 1s, so the median is unaffected"
+    },
+    {
+      "month": "2026-07",
+      "metric": "median_prompts",
+      "value": 1,
+      "type": "snapshot",
+      "source": "fullstory metric 1fbmp2OI4wee (Prompts por usuario)",
+      "note": "median of clicks on Open-Search-Button-textarea-Search per user in the month; table of users (<50 rows for Jul-Oct windows, so complete);"
+    },
+    {
+      "month": "2026-08",
+      "metric": "median_prompts",
+      "value": 1,
+      "type": "snapshot",
+      "source": "fullstory metric 1fbmp2OI4wee (Prompts por usuario)",
+      "note": "median of clicks on Open-Search-Button-textarea-Search per user in the month; table of users (<50 rows for Jul-Oct windows, so complete);"
+    },
+    {
+      "month": "2026-09",
+      "metric": "median_prompts",
+      "value": 1,
+      "type": "snapshot",
+      "source": "fullstory metric 1fbmp2OI4wee (Prompts por usuario)",
+      "note": "median of clicks on Open-Search-Button-textarea-Search per user in the month; table of users (<50 rows for Jul-Oct windows, so complete);"
+    },
+    {
+      "month": "2026-10",
+      "metric": "median_prompts",
+      "value": 1,
+      "type": "snapshot",
+      "source": "fullstory metric 1fbmp2OI4wee (Prompts por usuario)",
+      "note": "median of clicks on Open-Search-Button-textarea-Search per user in the month; table of users (<50 rows for Jul-Oct windows, so complete); Oct = days 1-13: 12 users, values 5,2 and ten 1s"
     },
     {
       "month": "2025-10",

@@ -86,14 +86,12 @@ export function buildDocs(ctx) {
       ids: [["vpWvDQswlPB4", "Promedio de Tiempo Activo x Sesión · average of time on page active, visited page = any. Despite the name it averages per page view, not per session"]],
       note: "Month-to-date for the current month. The segment is applied on top of the saved metric (it is not part of the saved definition).",
     },
-    avePrompt: {
-      kind: "Snapshot", title: "Ave. prompt",
-      what: "Average number of prompts per prompter: prompts sent divided by the users who sent at least one prompt.",
-      formula: `Prompts sent ${fmt(snap("prompts_sent").value)} ÷ prompters ${fmt(snap("prompters").value)} = ${(Math.round((snap("prompts_sent").value / snap("prompters").value) * 10) / 10)}. Calculated from the two ledger snapshots, not entered by hand.`,
-      ids: [["3GVbGeJsPBCb", "Usuarios que promptearon · unique users who clicked Open-Search-Input-Search (the prompters figure)"]],
-      related: [["9gr5ENfdNDCH", "Cantidad de prompts · clicks on Open-Search-Button-textarea-Search (event count; relation to the console figure not confirmed)"]],
-      relatedLabel: "Related saved metric (to confirm)",
-      note: "Prompts sent comes from the admin console (not FullStory); prompters come from FullStory (anchor + same-day delta).",
+    medianPrompt: {
+      kind: "Monthly median", title: "Median prompts",
+      what: "Typical number of prompts per user: the median across users of how many times each one pressed the Open Search prompt button in the month. Half of the users sent that many or fewer.",
+      formula: `Per user, count clicks on Open-Search-Button-textarea-Search in the month; take the median of those counts. Latest ${snap("median_prompts").month}: ${snap("median_prompts").value}. Most prompters send a single prompt, which a mean would hide (the mean is pulled up by a few heavy users).`,
+      ids: [["1fbmp2OI4wee", "Prompts por usuario · count of events, grouped by user. The median is read from the user table (FullStory does not compute it)"]],
+      note: "Month to date for the current month. The table lists up to 50 users; in the windows used it is complete or its tail is all 1s, so the median is unaffected. It counts clicks on that one button, so it can differ from the console's prompts-sent total.",
     },
     osEngagement: {
       kind: "Ledger", title: "Open Search · content engagement",

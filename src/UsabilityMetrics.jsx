@@ -139,18 +139,18 @@ function HistoryTable({ docs }) {
   return (
     <div style={{ overflowX: "auto" }}>
       <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 10, color: INK2, minWidth: 720 }}>
-        <thead><tr><th style={{ ...th, ...first }}>Month</th>{COLS.map(([k, l]) => <th key={l} style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>{l}<Info doc={docs[k]} /></span></th>)}<th style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>Avg. active time (s)<Info doc={docs.avg_active_time_s} /></span></th></tr></thead>
+        <thead><tr><th style={{ ...th, ...first }}>Month</th>{COLS.map(([k, l]) => <th key={l} style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>{l}<Info doc={docs[k]} /></span></th>)}<th style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>Avg. active time (s)<Info doc={docs.avg_active_time_s} /></span></th><th style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>Median prompts<Info doc={docs.medianPrompt} /></span></th></tr></thead>
         <tbody>
           {ledger.months.map((m) => (
-            <tr key={m}><td style={{ ...td, ...first }}>{m}</td>{COLS.map(([k]) => <td key={k} style={td}>{ledger.additive[k]?.[m] ?? "–"}</td>)}<td style={td}>{ledger.snapshot.avg_active_time_s?.[m]?.toFixed(1) ?? "–"}</td></tr>
+            <tr key={m}><td style={{ ...td, ...first }}>{m}</td>{COLS.map(([k]) => <td key={k} style={td}>{ledger.additive[k]?.[m] ?? "–"}</td>)}<td style={td}>{ledger.snapshot.avg_active_time_s?.[m]?.toFixed(1) ?? "–"}</td><td style={td}>{ledger.snapshot.median_prompts?.[m] ?? "–"}</td></tr>
           ))}
           {Object.entries(ledger.baseline).map(([k, v]) => {
             const note = ledger.rows.find((r) => r.metric === k && r.month === "baseline")?.note;
-            return <tr key={k}><td style={{ ...td, ...first }}>baseline · {k}</td><td colSpan={COLS.length + 1} style={{ ...td, textAlign: "left" }}>{fmt(v)}{note ? ` (${note})` : ""}</td></tr>;
+            return <tr key={k}><td style={{ ...td, ...first }}>baseline · {k}</td><td colSpan={COLS.length + 2} style={{ ...td, textAlign: "left" }}>{fmt(v)}{note ? ` (${note})` : ""}</td></tr>;
           })}
           <tr style={{ fontWeight: 600, color: BLUE_D }}>
             <td style={{ ...td, ...first, borderTop: `2px solid ${BLUE_M}` }}>Total</td>
-            {COLS.map(([k]) => <td key={k} style={{ ...td, borderTop: `2px solid ${BLUE_M}` }}>{fmt(ledgerSum(k))}</td>)}<td style={{ ...td, borderTop: `2px solid ${BLUE_M}` }}>–</td>
+            {COLS.map(([k]) => <td key={k} style={{ ...td, borderTop: `2px solid ${BLUE_M}` }}>{fmt(ledgerSum(k))}</td>)}<td style={{ ...td, borderTop: `2px solid ${BLUE_M}` }}>–</td><td style={{ ...td, borderTop: `2px solid ${BLUE_M}` }}>–</td>
           </tr>
         </tbody>
       </table>
@@ -163,7 +163,7 @@ export default function UsabilityMetrics() {
   const users = latestSnapshot("unique_users").value;
   const returning = latestSnapshot("returning_rate_pct").value;
   const prompts = latestSnapshot("prompts_sent").value;
-  const avePrompt = Math.round((prompts / latestSnapshot("prompters").value) * 10) / 10;
+  const medianPrompt = latestSnapshot("median_prompts").value;
   const lessons = latestSnapshot("lessons_created").value;
   const penetration = Math.round((users / TOTAL_STAFF) * 1000) / 10;
   const tenths = Math.round(returning / 10);
@@ -203,7 +203,7 @@ export default function UsabilityMetrics() {
       <Block band="engagement">
         <EngRow title="Open Search">
           <Kpi label="Prompts sent" doc={docs.prompts} value={fmt(prompts)} small note="Console · cumulative (not in FullStory)" warn />
-          <Kpi label="Ave. prompt" doc={docs.avePrompt} sub="Since Bank-wide" value={avePrompt} small note="Prompts ÷ prompters" />
+          <Kpi label="Median prompts" doc={docs.medianPrompt} sub="Per user · month so far" value={medianPrompt} small note="Median of prompts per user" />
           <Kpi label="Content engagement" doc={docs.osEngagement} value={fmt(osEngagement)} small note="Sum of the ledger: highlight + copy + source panel + downloads" />
         </EngRow>
         <EngRow title="Contextual Search">
