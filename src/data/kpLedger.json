@@ -187,6 +187,9 @@
       "2026-10": 1559
     },
     "median_prompts": {
+      "2026-04": 1,
+      "2026-05": 1,
+      "2026-06": 1,
       "2026-07": 1,
       "2026-08": 1,
       "2026-09": 1,
@@ -1018,6 +1021,30 @@
       "type": "snapshot",
       "source": "see note",
       "note": "console"
+    },
+    {
+      "month": "2026-04",
+      "metric": "median_prompts",
+      "value": 1,
+      "type": "snapshot",
+      "source": "fullstory metric 1fbmp2OI4wee (Prompts por usuario)",
+      "note": "median of clicks on Open-Search-Button-textarea-Search per user in the month; user table limited to 50 rows, the tail beyond them is all 1s, so the median is unaffected"
+    },
+    {
+      "month": "2026-05",
+      "metric": "median_prompts",
+      "value": 1,
+      "type": "snapshot",
+      "source": "fullstory metric 1fbmp2OI4wee (Prompts por usuario)",
+      "note": "median of clicks on Open-Search-Button-textarea-Search per user in the month; user table limited to 50 rows, the tail beyond them is all 1s, so the median is unaffected"
+    },
+    {
+      "month": "2026-06",
+      "metric": "median_prompts",
+      "value": 1,
+      "type": "snapshot",
+      "source": "fullstory metric 1fbmp2OI4wee (Prompts por usuario)",
+      "note": "median of clicks on Open-Search-Button-textarea-Search per user in the month; user table limited to 50 rows, the tail beyond them is all 1s, so the median is unaffected"
     },
     {
       "month": "2026-07",
