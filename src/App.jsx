@@ -4281,7 +4281,7 @@ const OCTOBER = {
   promptGalleryClicks: 0,
   recentSearchClicks: 0,
   newSearchClicks: 0,
-  wordDownloads: 1,
+  wordDownloads: 0,        // con segmento Sin DEV (copy): 0. La metrica sin segmento daba 1 (un usuario del equipo DEV).
   excelDownloads: 0,
 };
 
