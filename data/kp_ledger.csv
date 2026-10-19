@@ -124,12 +124,12 @@ baseline,os_downloads,25,additive,fullstory,unique users: Word 16 + Excel 9 up t
 2026-10,cs_copy,1,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)
 2026-10,cs_highlight_cards,3,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j","highlights on sidebar pill cards: css [data-fs-element*=""Pills-Knowledge""]; single-month window"
 2026-10,cs_highlight_detail,0,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)
-2026-10,cs_queries,62,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window 2026-10-01..14; recipe: saved metric + update_metric segment sjHJR3590z6j (calibrated on Sep)
+2026-10,cs_queries,64,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window 2026-10-01..18; recipe: saved metric + update_metric segment sjHJR3590z6j (calibrated on Sep)
 2026-10,cs_search_bar,13,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)
 2026-10,cs_source_link,1,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)
-2026-10,os_copy,15,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window 2026-10-01..14; recipe: saved metric + update_metric segment sjHJR3590z6j (calibrated on Sep)
-2026-10,os_highlight,38,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window 2026-10-01..14; recipe: saved metric + update_metric segment sjHJR3590z6j (calibrated on Sep)
-2026-10,os_source_panel,1,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window 2026-10-01..14; recipe: saved metric + update_metric segment sjHJR3590z6j (calibrated on Sep)
+2026-10,os_copy,17,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window 2026-10-01..18; recipe: saved metric + update_metric segment sjHJR3590z6j (calibrated on Sep)
+2026-10,os_highlight,51,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window 2026-10-01..18; recipe: saved metric + update_metric segment sjHJR3590z6j (calibrated on Sep)
+2026-10,os_source_panel,5,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window 2026-10-01..18; recipe: saved metric + update_metric segment sjHJR3590z6j (calibrated on Sep)
 2026-04,prompters,587,snapshot,see note,smoketest repo (Apr-30)
 2026-04,prompts_sent,2279,snapshot,see note,console (Apr-30)
 2026-04,unique_users,1357,snapshot,see note,smoketest repo (Apr-30)
@@ -142,22 +142,22 @@ baseline,os_downloads,25,additive,fullstory,unique users: Word 16 + Excel 9 up t
 2026-09,unique_users,2053,snapshot,see note,anchor Sep close
 2026-10,ave_prompt,6.5,snapshot,see note,prompts_sent / prompters = 6041 / 931; calculated
 2026-10,lessons_created,1559,snapshot,see note,console
-2026-10,prompters,936,snapshot,see note,"2053 + 40 / 17274 + 488 / 923 + 13 (Oct 1-14 completo; control de resta: usuarios 1930-1890=40, sesiones 16192-15705=487 (directo 488), prompters 922-909=13; consultas del 2026-10-15)"
+2026-10,prompters,936,snapshot,see note,"2053 + 41 / 17274 + 571 / 923 + 13 (Oct 1-18 completo; control de resta: usuarios 1918-1877=41, sesiones 16112-15542=570 (directo 571), prompters 910-897=13; consultas del 2026-10-19)"
 2026-10,prompts_sent,6041,snapshot,see note,console
 2026-10,returning_rate_pct,60.1,snapshot,see note,"rate, same-window numerator/denominator"
-2026-10,sessions,17762,snapshot,see note,"2053 + 40 / 17274 + 488 / 923 + 13 (Oct 1-14 completo; control de resta: usuarios 1930-1890=40, sesiones 16192-15705=487 (directo 488), prompters 922-909=13; consultas del 2026-10-15)"
-2026-10,unique_users,2093,snapshot,see note,"2053 + 40 / 17274 + 488 / 923 + 13 (Oct 1-14 completo; control de resta: usuarios 1930-1890=40, sesiones 16192-15705=487 (directo 488), prompters 922-909=13; consultas del 2026-10-15)"
+2026-10,sessions,17845,snapshot,see note,"2053 + 41 / 17274 + 571 / 923 + 13 (Oct 1-18 completo; control de resta: usuarios 1918-1877=41, sesiones 16112-15542=570 (directo 571), prompters 910-897=13; consultas del 2026-10-19)"
+2026-10,unique_users,2094,snapshot,see note,"2053 + 41 / 17274 + 571 / 923 + 13 (Oct 1-18 completo; control de resta: usuarios 1918-1877=41, sesiones 16112-15542=570 (directo 571), prompters 910-897=13; consultas del 2026-10-19)"
 2026-04,avg_active_time_s,16.3,snapshot,fullstory metric vpWvDQswlPB4 + segment 'Sin DEV (copy)' sjHJR3590z6j,"average active time on page per page view (ms/1000), single-month window; average, never summed"
 2026-05,avg_active_time_s,20.1,snapshot,fullstory metric vpWvDQswlPB4 + segment 'Sin DEV (copy)' sjHJR3590z6j,"average active time on page per page view (ms/1000), single-month window; average, never summed"
 2026-06,avg_active_time_s,19.5,snapshot,fullstory metric vpWvDQswlPB4 + segment 'Sin DEV (copy)' sjHJR3590z6j,"average active time on page per page view (ms/1000), single-month window; average, never summed"
 2026-07,avg_active_time_s,19.8,snapshot,fullstory metric vpWvDQswlPB4 + segment 'Sin DEV (copy)' sjHJR3590z6j,"average active time on page per page view (ms/1000), single-month window; average, never summed"
 2026-08,avg_active_time_s,15,snapshot,fullstory metric vpWvDQswlPB4 + segment 'Sin DEV (copy)' sjHJR3590z6j,"average active time on page per page view (ms/1000), single-month window; average, never summed"
 2026-09,avg_active_time_s,19.8,snapshot,fullstory metric vpWvDQswlPB4 + segment 'Sin DEV (copy)' sjHJR3590z6j,"average active time on page per page view (ms/1000), single-month window; average, never summed"
-2026-10,avg_active_time_s,16.2,snapshot,fullstory metric vpWvDQswlPB4 + segment 'Sin DEV (copy)' sjHJR3590z6j,"Oct = days 1-14 (month to date); average active time on page per page view (ms/1000), single-month window; average, never summed"
+2026-10,avg_active_time_s,16.9,snapshot,fullstory metric vpWvDQswlPB4 + segment 'Sin DEV (copy)' sjHJR3590z6j,"Oct = days 1-18 (month to date); average active time on page per page view (ms/1000), single-month window; average, never summed"
 2026-07,median_prompts,1,snapshot,fullstory metric 1fbmp2OI4wee (Prompts por usuario),"median of clicks on Open-Search-Button-textarea-Search per user in the month; table of users (<50 rows for Jul-Oct windows, so complete);"
 2026-08,median_prompts,1,snapshot,fullstory metric 1fbmp2OI4wee (Prompts por usuario),"median of clicks on Open-Search-Button-textarea-Search per user in the month; table of users (<50 rows for Jul-Oct windows, so complete);"
 2026-09,median_prompts,1,snapshot,fullstory metric 1fbmp2OI4wee (Prompts por usuario),"median of clicks on Open-Search-Button-textarea-Search per user in the month; table of users (<50 rows for Jul-Oct windows, so complete);"
-2026-10,median_prompts,1,snapshot,see note,"median of clicks on Open-Search-Button-textarea-Search per user in the month; Oct = days 1-14: 12 users, values 5,2 and ten 1s"
+2026-10,median_prompts,1,snapshot,see note,"median of clicks on Open-Search-Button-textarea-Search per user in the month; Oct = days 1-18: 14 users, values 5,5,2 and eleven 1s"
 2026-04,median_prompts,1,snapshot,fullstory metric 1fbmp2OI4wee (Prompts por usuario),"median of clicks on Open-Search-Button-textarea-Search per user in the month; user table limited to 50 rows, the tail beyond them is all 1s, so the median is unaffected"
 2026-05,median_prompts,1,snapshot,fullstory metric 1fbmp2OI4wee (Prompts por usuario),"median of clicks on Open-Search-Button-textarea-Search per user in the month; user table limited to 50 rows, the tail beyond them is all 1s, so the median is unaffected"
 2026-06,median_prompts,1,snapshot,fullstory metric 1fbmp2OI4wee (Prompts por usuario),"median of clicks on Open-Search-Button-textarea-Search per user in the month; user table limited to 50 rows, the tail beyond them is all 1s, so the median is unaffected"
