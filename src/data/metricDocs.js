@@ -80,11 +80,11 @@ export function buildDocs(ctx) {
       note: `${CONSOLE} FullStory's prompt metrics count one submit button, not prompts, so they are not used.`,
     },
     csCategoryUsers: {
-      kind: "Monthly unique users", title: "Users in a knowledge category",
-      what: "People who opened at least one knowledge category in Contextual Search (Data, Lessons Learned, Literature, Similar Projects, Institutional Documents or WLA) in the month.",
-      formula: `Unique users with a page view on any of those six category pages, Sin DEV (copy). Latest ${snap("cs_category_users").month}: ${snap("cs_category_users").value}. People, not page views: a user who opens five categories counts once. Never summed across months.`,
+      kind: "Cumulative unique users", title: "Users in a knowledge category",
+      what: "People who have opened at least one knowledge category in Contextual Search (Data, Lessons Learned, Literature, Similar Projects, Institutional Documents or WLA), counted once each since Oct 21, 2025.",
+      formula: `Unique users with a page view on any of those six category pages, Sin DEV (copy), from 2025-10-21 up to the month shown. Latest ${snap("cs_category_users_cum").month}: ${fmt(snap("cs_category_users_cum").value)}. People, not page views: someone who opens five categories, or comes back in ten different months, counts once.`,
       ids: [["RdCIdS4OrJhB", "Users in Contextual Search · unique users who visited any of the six category pages"]],
-      note: "Month to date for the current month. It counts opening a category page, not a click on one specific button. The segment is applied on top of the saved metric (it is not part of the saved definition).",
+      note: "Starts Oct 21, 2025 because that is the earliest day FullStory still serves (about 12 months of history), so it is a floor: anyone whose only visit was earlier is not counted. Every point uses the same start date. Month-by-month figures (people who opened a category in that month only) are on each monthly view. It counts opening a category page, not a click on one specific button.",
     },
     avg_active_time_s: {
       kind: "Monthly average", title: "Avg. active time",

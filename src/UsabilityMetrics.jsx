@@ -164,10 +164,10 @@ function HistoryTable({ docs }) {
   return (
     <div style={{ overflowX: "auto" }}>
       <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 10, color: INK2, minWidth: 720 }}>
-        <thead><tr><th style={{ ...th, ...first }}>Month</th>{COLS.map(([k, l]) => <th key={l} style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>{l}<Info doc={docs[k]} /></span></th>)}<th style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>Avg. active time (s)<Info doc={docs.avg_active_time_s} /></span></th><th style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>Median prompts<Info doc={docs.medianPrompt} /></span></th><th style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>Users in a category<Info doc={docs.csCategoryUsers} /></span></th></tr></thead>
+        <thead><tr><th style={{ ...th, ...first }}>Month</th>{COLS.map(([k, l]) => <th key={l} style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>{l}<Info doc={docs[k]} /></span></th>)}<th style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>Avg. active time (s)<Info doc={docs.avg_active_time_s} /></span></th><th style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>Median prompts<Info doc={docs.medianPrompt} /></span></th><th style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>Users in a category (cum.)<Info doc={docs.csCategoryUsers} /></span></th></tr></thead>
         <tbody>
           {ledger.months.map((m) => (
-            <tr key={m}><td style={{ ...td, ...first }}>{m}</td>{COLS.map(([k]) => <td key={k} style={td}>{ledger.additive[k]?.[m] ?? "–"}</td>)}<td style={td}>{ledger.snapshot.avg_active_time_s?.[m]?.toFixed(1) ?? "–"}</td><td style={td}>{ledger.snapshot.median_prompts?.[m] ?? "–"}</td><td style={td}>{ledger.snapshot.cs_category_users?.[m] ?? "–"}</td></tr>
+            <tr key={m}><td style={{ ...td, ...first }}>{m}</td>{COLS.map(([k]) => <td key={k} style={td}>{ledger.additive[k]?.[m] ?? "–"}</td>)}<td style={td}>{ledger.snapshot.avg_active_time_s?.[m]?.toFixed(1) ?? "–"}</td><td style={td}>{ledger.snapshot.median_prompts?.[m] ?? "–"}</td><td style={td}>{ledger.snapshot.cs_category_users_cum?.[m] ?? "–"}</td></tr>
           ))}
           {Object.entries(ledger.baseline).map(([k, v]) => {
             const note = ledger.rows.find((r) => r.metric === k && r.month === "baseline")?.note;
@@ -233,7 +233,7 @@ export default function UsabilityMetrics() {
         </EngRow>
         <EngRow title="Contextual Search">
           <Kpi label="Queries" doc={docs.queries} value={fmt(ledgerSum("cs_queries"))} small note="Sum of the ledger" />
-          <Kpi label="Users in a category" history="cs_category_users" doc={docs.csCategoryUsers} sub="Opened ≥1 knowledge category" value={fmt(latestSnapshot("cs_category_users").value)} small note={`${latestSnapshot("cs_category_users").month}${latestSnapshot("cs_category_users").month === last ? " · month so far" : ""} · people, not page views`} />
+          <Kpi label="Users in a category" history="cs_category_users_cum" doc={docs.csCategoryUsers} sub="Opened ≥1 knowledge category · cumulative" value={fmt(latestSnapshot("cs_category_users_cum").value)} small note={`Unique people since Oct 21, 2025 · ${latestSnapshot("cs_category_users_cum").month}${latestSnapshot("cs_category_users_cum").month === last ? " · to date" : ""}`} />
           <Kpi label="Most used pill" doc={docs.mostUsedPill} value={MOST_USED_PILL} small note="From Fullstory · all months · not in the ledger" warn />
           <Kpi label="Content engagement" doc={docs.csEngagement} value={fmt(csEngagement)} small
             note={`copy ${fmt(ledgerSum("cs_copy"))} + source/link ${fmt(ledgerSum("cs_source_link"))} + highlight ${fmt(csHighlight)} (detail ${fmt(ledgerSum("cs_highlight_detail"))} + sidebar cards ${fmt(ledgerSum("cs_highlight_cards"))}) + Global Search ${fmt(globalSearch)} (chips ${fmt(ledgerSum("cs_chips"))} + search bar ${fmt(ledgerSum("cs_search_bar"))})`} />
