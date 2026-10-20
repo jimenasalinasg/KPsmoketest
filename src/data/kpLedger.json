@@ -197,6 +197,21 @@
       "2026-09": 41,
       "2026-10": 34
     },
+    "cs_category_users_cum": {
+      "2025-10": 26,
+      "2025-11": 55,
+      "2025-12": 67,
+      "2026-01": 83,
+      "2026-02": 105,
+      "2026-03": 144,
+      "2026-04": 235,
+      "2026-05": 272,
+      "2026-06": 323,
+      "2026-07": 349,
+      "2026-08": 379,
+      "2026-09": 401,
+      "2026-10": 427
+    },
     "lessons_created": {
       "2026-10": 1559
     },
@@ -395,6 +410,110 @@
       "type": "snapshot",
       "source": "fullstory metric RdCIdS4OrJhB (Users in Contextual Search) + segment 'Sin DEV (copy)' sjHJR3590z6j",
       "note": "Oct = days 1-18 (month to date); unique users who opened at least one knowledge category (Data, Lessons Learned, Literature, Similar Projects, Institutional Documents, WLA), single-month window; never summed across months"
+    },
+    {
+      "month": "2025-10",
+      "metric": "cs_category_users_cum",
+      "value": 26,
+      "type": "snapshot",
+      "source": "fullstory metric RdCIdS4OrJhB + segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "Oct-2025 starts Oct 21 (FullStory 12-month limit); CUMULATIVE unique users who opened at least one knowledge category since 2025-10-21 (earliest day FullStory still serves, queried on 2026-10-20 with the same start date for every point); not additive. Future points: anchor + same-day subtraction"
+    },
+    {
+      "month": "2025-11",
+      "metric": "cs_category_users_cum",
+      "value": 55,
+      "type": "snapshot",
+      "source": "fullstory metric RdCIdS4OrJhB + segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "CUMULATIVE unique users who opened at least one knowledge category since 2025-10-21 (earliest day FullStory still serves, queried on 2026-10-20 with the same start date for every point); not additive. Future points: anchor + same-day subtraction"
+    },
+    {
+      "month": "2025-12",
+      "metric": "cs_category_users_cum",
+      "value": 67,
+      "type": "snapshot",
+      "source": "fullstory metric RdCIdS4OrJhB + segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "CUMULATIVE unique users who opened at least one knowledge category since 2025-10-21 (earliest day FullStory still serves, queried on 2026-10-20 with the same start date for every point); not additive. Future points: anchor + same-day subtraction"
+    },
+    {
+      "month": "2026-01",
+      "metric": "cs_category_users_cum",
+      "value": 83,
+      "type": "snapshot",
+      "source": "fullstory metric RdCIdS4OrJhB + segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "CUMULATIVE unique users who opened at least one knowledge category since 2025-10-21 (earliest day FullStory still serves, queried on 2026-10-20 with the same start date for every point); not additive. Future points: anchor + same-day subtraction"
+    },
+    {
+      "month": "2026-02",
+      "metric": "cs_category_users_cum",
+      "value": 105,
+      "type": "snapshot",
+      "source": "fullstory metric RdCIdS4OrJhB + segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "CUMULATIVE unique users who opened at least one knowledge category since 2025-10-21 (earliest day FullStory still serves, queried on 2026-10-20 with the same start date for every point); not additive. Future points: anchor + same-day subtraction"
+    },
+    {
+      "month": "2026-03",
+      "metric": "cs_category_users_cum",
+      "value": 144,
+      "type": "snapshot",
+      "source": "fullstory metric RdCIdS4OrJhB + segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "CUMULATIVE unique users who opened at least one knowledge category since 2025-10-21 (earliest day FullStory still serves, queried on 2026-10-20 with the same start date for every point); not additive. Future points: anchor + same-day subtraction"
+    },
+    {
+      "month": "2026-04",
+      "metric": "cs_category_users_cum",
+      "value": 235,
+      "type": "snapshot",
+      "source": "fullstory metric RdCIdS4OrJhB + segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "CUMULATIVE unique users who opened at least one knowledge category since 2025-10-21 (earliest day FullStory still serves, queried on 2026-10-20 with the same start date for every point); not additive. Future points: anchor + same-day subtraction"
+    },
+    {
+      "month": "2026-05",
+      "metric": "cs_category_users_cum",
+      "value": 272,
+      "type": "snapshot",
+      "source": "fullstory metric RdCIdS4OrJhB + segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "CUMULATIVE unique users who opened at least one knowledge category since 2025-10-21 (earliest day FullStory still serves, queried on 2026-10-20 with the same start date for every point); not additive. Future points: anchor + same-day subtraction"
+    },
+    {
+      "month": "2026-06",
+      "metric": "cs_category_users_cum",
+      "value": 323,
+      "type": "snapshot",
+      "source": "fullstory metric RdCIdS4OrJhB + segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "CUMULATIVE unique users who opened at least one knowledge category since 2025-10-21 (earliest day FullStory still serves, queried on 2026-10-20 with the same start date for every point); not additive. Future points: anchor + same-day subtraction"
+    },
+    {
+      "month": "2026-07",
+      "metric": "cs_category_users_cum",
+      "value": 349,
+      "type": "snapshot",
+      "source": "fullstory metric RdCIdS4OrJhB + segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "CUMULATIVE unique users who opened at least one knowledge category since 2025-10-21 (earliest day FullStory still serves, queried on 2026-10-20 with the same start date for every point); not additive. Future points: anchor + same-day subtraction"
+    },
+    {
+      "month": "2026-08",
+      "metric": "cs_category_users_cum",
+      "value": 379,
+      "type": "snapshot",
+      "source": "fullstory metric RdCIdS4OrJhB + segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "CUMULATIVE unique users who opened at least one knowledge category since 2025-10-21 (earliest day FullStory still serves, queried on 2026-10-20 with the same start date for every point); not additive. Future points: anchor + same-day subtraction"
+    },
+    {
+      "month": "2026-09",
+      "metric": "cs_category_users_cum",
+      "value": 401,
+      "type": "snapshot",
+      "source": "fullstory metric RdCIdS4OrJhB + segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "CUMULATIVE unique users who opened at least one knowledge category since 2025-10-21 (earliest day FullStory still serves, queried on 2026-10-20 with the same start date for every point); not additive. Future points: anchor + same-day subtraction"
+    },
+    {
+      "month": "2026-10",
+      "metric": "cs_category_users_cum",
+      "value": 427,
+      "type": "snapshot",
+      "source": "fullstory metric RdCIdS4OrJhB + segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "Oct-2026 = through Oct 18 (month to date); CUMULATIVE unique users who opened at least one knowledge category since 2025-10-21 (earliest day FullStory still serves, queried on 2026-10-20 with the same start date for every point); not additive. Future points: anchor + same-day subtraction"
     },
     {
       "month": "2025-10",
