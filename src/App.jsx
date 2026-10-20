@@ -1117,6 +1117,7 @@ function Monthly() {
       <Section emoji="🔍" title="Contextual Search (April)">
         <Grid cols="repeat(auto-fit, minmax(200px, 1fr))">
           <MCard meta="pillPageviews" label="Queries (pill views)" value={String(APRIL.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
+          <MCard meta="categoryUsers" label="Users in a category" value={String(snapshotAt("cs_category_users", "2026-04"))} desc="People who opened at least one knowledge category · from the ledger" />
           <MCard label="Most used pill — Similar projects" value="56" desc="interactions" small bench={BENCH.monthly.pillTop} />
           <MCard label={<>Least used pill —<br/>Institutional docs</>} value="20" desc="interactions" small bench={BENCH.monthly.pillBot} />
         </Grid>
@@ -1518,6 +1519,7 @@ function MayMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (May)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard meta="pillPageviews" label="Queries (pill views)" value={String(MAY.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
+        <MCard meta="categoryUsers" label="Users in a category" value={String(snapshotAt("cs_category_users", "2026-05"))} desc="People who opened at least one knowledge category · from the ledger" momentum={snapshotAt("cs_category_users", "2026-04")} />
         <MCard label="Most used pill — Similar Projects" value="40" desc="interactions" small bench={BENCH.monthly.pillTop} />
         <MCard label={<>Least used pill —<br/>Literature</>} value="10" desc="interactions" small bench={BENCH.monthly.pillBot} />
       </div>
@@ -1924,6 +1926,7 @@ function JuneMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (June)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard meta="pillPageviews" label="Queries (pill views)" value={String(JUNE.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
+        <MCard meta="categoryUsers" label="Users in a category" value={String(snapshotAt("cs_category_users", "2026-06"))} desc="People who opened at least one knowledge category · from the ledger" momentum={snapshotAt("cs_category_users", "2026-05")} />
         <MCard label="Most used pill — Similar Projects" value="82" desc="interactions" small bench={BENCH.monthly.pillTop} />
         <MCard label={<>Least used pill —<br/>Data</>} value="27" desc="interactions" small bench={BENCH.monthly.pillBot} />
       </div>
@@ -2307,6 +2310,7 @@ function JulyMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (July)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard meta="pillPageviews" label="Queries (pill views)" value={String(JULY.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
+        <MCard meta="categoryUsers" label="Users in a category" value={String(snapshotAt("cs_category_users", "2026-07"))} desc="People who opened at least one knowledge category · from the ledger" momentum={snapshotAt("cs_category_users", "2026-06")} />
         <MCard label="Most used pill — Lessons Learned" value="37" desc="interactions · leading for the first time in a full month 🆕" small bench={BENCH.monthly.pillTop} />
         <MCard label={<>Least used pill —<br/>Institutional Docs</>} value="10" desc="interactions" small bench={BENCH.monthly.pillBot} />
       </div>
@@ -2426,6 +2430,7 @@ const META = {
   sessions:         { id: "BhsN9vxRPN7V", src: "mcp",     def: "Total sessions in the period. Does not filter internal traffic or bots — criterion still to be confirmed." },
   prompters:        { id: "3GVbGeJsPBCb", src: "mcp",     def: "Unique users who sent at least one prompt." },
   tourCompletion:   { id: "iN3brKBr4rlY", src: "mcp",     def: "Share of users who finished the onboarding tour. Returned with decimals and rounded to the nearest integer." },
+  categoryUsers:    { id: "RdCIdS4OrJhB", src: "ledger",  def: "Unique users who opened at least one knowledge category in Contextual Search (Data, Lessons Learned, Literature, Similar Projects, Institutional Documents or WLA) in the month, segment Sin DEV (copy). People, not page views; never summed across months. Counts opening a category page, not a click on one specific button." },
   pillPageviews:    { id: null,           src: "ledger",  def: "Total pageviews across all contextual search pills (ledger cs_queries, segment Sin DEV (copy)). Counts EVENTS — does not add up with the per-pill metrics, which count sessions." },
   sourceClicks:     { id: null,           src: "ledger",  def: "Clicks on the source panel in Open Search (ledger os_source_panel, segment Sin DEV (copy))." },
   contentEngagement:{ id: null,           src: "ledger",  def: "Derived from the monthly ledger (data/kp_ledger.csv), segment Sin DEV (copy), which excludes the internal team (DEV): highlights + copies + source-panel clicks + Global Search (chips and search bar) + downloads. Open Search and Contextual are separate ledger metrics, not a subtraction. Downloads are not in the ledger by month and are loaded by hand." },
@@ -3793,6 +3798,7 @@ function AugustMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (August)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard meta="pillPageviews" label="Queries (pill views)" value={String(AUGUST.pillPageviews)} desc="Total visits across all contextual search pills · from the ledger" accent momentum={JULY.pillPageviews} />
+        <MCard meta="categoryUsers" label="Users in a category" value={String(snapshotAt("cs_category_users", "2026-08"))} desc="People who opened at least one knowledge category · from the ledger" momentum={snapshotAt("cs_category_users", "2026-07")} />
         <MCard label="Most used pill — Lessons Learned" value="44" desc="interactions · leads again (Similar Projects 19) · live via MCP" small />
         <MCard label={<>Least used pill —<br/>Data</>} value="7" desc="interactions · live via MCP" small />
       </div>
@@ -4157,6 +4163,7 @@ function SeptemberMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (September)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard meta="pillPageviews" label="Queries (pill views)" value={String(SEPTEMBER.pillPageviews)} desc="Total visits across all contextual search pills · from the ledger" accent momentum={AUGUST.pillPageviews} />
+        <MCard meta="categoryUsers" label="Users in a category" value={String(snapshotAt("cs_category_users", "2026-09"))} desc="People who opened at least one knowledge category · from the ledger" momentum={snapshotAt("cs_category_users", "2026-08")} />
         <MCard label="Most used pill — Lessons Learned" value="23" desc="Similar Projects 19 · Data 12 · live via MCP" small />
         <MCard label={<>Least used pill —<br/>Literature</>} value="10" desc="of the four confirmed pills · live via MCP" small />
       </div>
@@ -4343,6 +4350,7 @@ function OctoberMonthly() {
       {heading("🔍 Contextual Search (October · to date)")}
       <div style={grid(200)}>
         <MCard meta="pillPageviews" label="Queries (pill views)" value={String(L(M, "cs_queries"))} desc="Total visits across all contextual search pills · from the ledger" accent />
+        <MCard meta="categoryUsers" label="Users in a category" value={String(snapshotAt("cs_category_users", "2026-10"))} desc="People who opened at least one knowledge category · month so far · from the ledger" />
         <MCard label="Global Search events" value={String(chips + searchBar)} desc={`Chips ${chips} · search bar ${searchBar} · from the ledger`} />
       </div>
 
