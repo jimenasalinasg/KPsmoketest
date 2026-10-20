@@ -96,38 +96,13 @@ function Info({ doc }) {
   );
 }
 
-const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-// Serie mensual en miniatura dentro de una tarjeta: barras con el valor encima y el mes debajo. Lee del ledger, nada fijo.
-function MiniHistory({ metric }) {
-  const byMonth = ledger.snapshot[metric] ?? {};
-  const months = Object.keys(byMonth).sort();
-  if (months.length < 2) return null;
-  const max = Math.max(...months.map((m) => byMonth[m]));
-  return (
-    <div style={{ marginTop: 10, display: "flex", alignItems: "flex-end", gap: 4 }} aria-label={`History of ${metric}`}>
-      {months.map((m, i) => {
-        const cur = i === months.length - 1;
-        return (
-          <div key={m} style={{ flex: 1, minWidth: 0, textAlign: "center" }}>
-            <div style={{ fontSize: 8, color: cur ? BLUE_D : INK3, fontWeight: cur ? 600 : 400, fontVariantNumeric: "tabular-nums" }}>{byMonth[m]}</div>
-            <div style={{ height: Math.max(3, Math.round((byMonth[m] / max) * 34)), background: cur ? BLUE_D : BLUE_M, borderRadius: 2, margin: "2px 0" }} />
-            <div style={{ fontSize: 8, color: INK3 }}>{MON[Number(m.slice(5)) - 1]}</div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-function Kpi({ label, sub, value, note, warn, small, first, doc, history }) {
+function Kpi({ label, sub, value, note, warn, small, first, doc }) {
   return (
     <div style={{ padding: "4px 16px 12px", borderLeft: first ? "none" : `1px solid ${BDR}`, minWidth: 0 }}>
       <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, display: "flex", alignItems: "center", gap: 5 }}><span>{label}</span><Info doc={doc} /></div>
       {sub && <div style={{ fontSize: 9, color: INK3, marginTop: 2 }}>{sub}</div>}
       <div style={{ fontSize: small ? 22 : 30, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1.1, marginTop: 6 }}>{value}</div>
       {note && <div style={{ fontSize: 9, color: warn ? AMBER : INK3, marginTop: 6, lineHeight: 1.4 }}>{note}</div>}
-      {history && <MiniHistory metric={history} />}
     </div>
   );
 }
@@ -233,7 +208,7 @@ export default function UsabilityMetrics() {
         </EngRow>
         <EngRow title="Contextual Search">
           <Kpi label="Queries" doc={docs.queries} value={fmt(ledgerSum("cs_queries"))} small note="Sum of the ledger" />
-          <Kpi label="Users in a category" history="cs_category_users_cum" doc={docs.csCategoryUsers} sub="Opened ≥1 knowledge category · cumulative" value={fmt(latestSnapshot("cs_category_users_cum").value)} small note={`Unique people since Oct 21, 2025 · ${latestSnapshot("cs_category_users_cum").month}${latestSnapshot("cs_category_users_cum").month === last ? " · to date" : ""}`} />
+          <Kpi label="Users in a category" doc={docs.csCategoryUsers} sub="Opened ≥1 knowledge category · cumulative" value={fmt(latestSnapshot("cs_category_users_cum").value)} small note={`Unique people since Oct 21, 2025 · ${latestSnapshot("cs_category_users_cum").month}${latestSnapshot("cs_category_users_cum").month === last ? " · to date" : ""}`} />
           <Kpi label="Most used pill" doc={docs.mostUsedPill} value={MOST_USED_PILL} small note="From Fullstory · all months · not in the ledger" warn />
           <Kpi label="Content engagement" doc={docs.csEngagement} value={fmt(csEngagement)} small
             note={`copy ${fmt(ledgerSum("cs_copy"))} + source/link ${fmt(ledgerSum("cs_source_link"))} + highlight ${fmt(csHighlight)} (detail ${fmt(ledgerSum("cs_highlight_detail"))} + sidebar cards ${fmt(ledgerSum("cs_highlight_cards"))}) + Global Search ${fmt(globalSearch)} (chips ${fmt(ledgerSum("cs_chips"))} + search bar ${fmt(ledgerSum("cs_search_bar"))})`} />
