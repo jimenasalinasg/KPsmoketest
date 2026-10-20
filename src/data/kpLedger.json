@@ -184,6 +184,11 @@
       "2026-10": 16.9
     },
     "cs_category_users": {
+      "2025-11": 35,
+      "2025-12": 16,
+      "2026-01": 21,
+      "2026-02": 29,
+      "2026-03": 47,
       "2026-04": 114,
       "2026-05": 61,
       "2026-06": 73,
@@ -294,6 +299,46 @@
       "type": "snapshot",
       "source": "fullstory metric vpWvDQswlPB4 + segment 'Sin DEV (copy)' sjHJR3590z6j",
       "note": "Oct = days 1-18 (month to date); average active time on page per page view (ms/1000), single-month window; average, never summed"
+    },
+    {
+      "month": "2025-11",
+      "metric": "cs_category_users",
+      "value": 35,
+      "type": "snapshot",
+      "source": "fullstory metric RdCIdS4OrJhB (Users in Contextual Search) + segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "unique users who opened at least one knowledge category (Data, Lessons Learned, Literature, Similar Projects, Institutional Documents, WLA), single-month window; never summed across months"
+    },
+    {
+      "month": "2025-12",
+      "metric": "cs_category_users",
+      "value": 16,
+      "type": "snapshot",
+      "source": "fullstory metric RdCIdS4OrJhB (Users in Contextual Search) + segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "unique users who opened at least one knowledge category (Data, Lessons Learned, Literature, Similar Projects, Institutional Documents, WLA), single-month window; never summed across months"
+    },
+    {
+      "month": "2026-01",
+      "metric": "cs_category_users",
+      "value": 21,
+      "type": "snapshot",
+      "source": "fullstory metric RdCIdS4OrJhB (Users in Contextual Search) + segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "unique users who opened at least one knowledge category (Data, Lessons Learned, Literature, Similar Projects, Institutional Documents, WLA), single-month window; never summed across months"
+    },
+    {
+      "month": "2026-02",
+      "metric": "cs_category_users",
+      "value": 29,
+      "type": "snapshot",
+      "source": "fullstory metric RdCIdS4OrJhB (Users in Contextual Search) + segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "unique users who opened at least one knowledge category (Data, Lessons Learned, Literature, Similar Projects, Institutional Documents, WLA), single-month window; never summed across months"
+    },
+    {
+      "month": "2026-03",
+      "metric": "cs_category_users",
+      "value": 47,
+      "type": "snapshot",
+      "source": "fullstory metric RdCIdS4OrJhB (Users in Contextual Search) + segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "unique users who opened at least one knowledge category (Data, Lessons Learned, Literature, Similar Projects, Institutional Documents, WLA), single-month window; never summed across months"
     },
     {
       "month": "2026-04",
