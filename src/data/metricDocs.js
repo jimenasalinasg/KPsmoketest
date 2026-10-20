@@ -63,7 +63,7 @@ export function buildDocs(ctx) {
     penetration: {
       kind: "Derived", title: "Penetration",
       what: "Share of IDB staff and consultants who have used KP.",
-      formula: `${fmt(users.value)} unique users ÷ ${fmt(totalStaff)} IDB staff = ${(Math.round((users.value / totalStaff) * 1000) / 10)}%.`,
+      formula: `${fmt(users.value)} unique users ÷ ${fmt(totalStaff)} IDB staff and consultants =${(Math.round((users.value / totalStaff) * 1000) / 10)}%.`,
       note: `The ${fmt(totalStaff)} headcount is a fixed reference, not a FullStory metric.`,
     },
     returning: {

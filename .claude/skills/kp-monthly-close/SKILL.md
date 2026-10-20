@@ -373,7 +373,7 @@ Rama `cierre-<mes>-<anio>`, commit, push, PR.
 
 El cuerpo del PR debe incluir:
 - Tabla de valores del cierre, con comparación vs el mes anterior
-- Penetración (`users/3600*100`, 1 decimal)
+- Penetración (`users/7287*100`, 1 decimal; 7,287 = staff + consultores, constante `BID_TOTAL` en App.jsx y `TOTAL_STAFF` en UsabilityMetrics.jsx)
 - Países marcados `// REVISAR`
 - **Lista explícita de campos manuales pendientes**
 - Embudos reconstruidos, con los `funnel_id` nuevos, o los que no se pudieron

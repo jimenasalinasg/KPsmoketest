@@ -926,7 +926,7 @@ la atribución es por secuencia, no por ubicación en la página. Direccional.
 ## 3. Reglas de cálculo
 
 - **Content engagement total** = highlights + copies + source clicks + downloads.
-- **Penetración** = `users / 3600 * 100`, 1 decimal. Denominador: 3.600 staff+consultores del BID.
+- **Penetración** = `users / 7287 * 100`, 1 decimal. Denominador: 7.287 staff+consultores del BID (antes 3.600, solo staff; cambio del 2026-10-20, aplicado a todos los meses).
 - Validar cualquier metric_id nuevo contra un mes conocido antes de confiar en él (§4).
 
 ---
