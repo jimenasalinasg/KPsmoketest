@@ -61,7 +61,7 @@ function PasswordGate({ children }) {
 const GO_LIVE_DATE = "March 31, 2026";
 const SMOKE_WINDOW = "Mar 31 – Apr 1, 2026";
 const WEEK1_WINDOW = "Mar 31 – Apr 10, 2026";
-const BID_TOTAL = 3600;
+const BID_TOTAL = 7287; // universo: IDB staff + consultores (antes 3,600 solo staff). Divisor de TODAS las penetraciones.
 
 // ── SMOKE TEST DATA ───────────────────────────────────────
 // true = confirmed ✓, false = issue ✗, null = pending
@@ -195,7 +195,7 @@ const WEEK12 = {
   prompts_sample: WEEK1.prompts_sample,
   observations: [
     "1,011 sessions across 2 weeks — platform sustaining strong engagement post bank-wide launch.",
-    "439 unique users reached — 12.2% of 3,600 Staff & Consultants in just two weeks.",
+    "439 unique users reached — 6.0% of 7,287 Staff & Consultants in just two weeks.",
     "166 prompters (38% of unique users) — growing share of users going deeper with the AI assistant.",
     "Retention at 18.6% — baseline established for Q2 tracking.",
   ],
@@ -1022,7 +1022,7 @@ function Monthly() {
             { label: "Prompters", value: "587" },
             { label: "Prompts sent", value: "2,279" },
             { label: "Avg prompts · Apr", value: "1.9" },
-            { label: "Penetration of 3,600", value: "37.7%" },
+            { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: "18.6%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -1045,12 +1045,12 @@ function Monthly() {
           {/* Penetration — custom card with bar */}
           <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
-            <div style={{ fontSize: 28, fontWeight: 500, letterSpacing: "-0.03em", lineHeight: 1, color: BLUE_D, marginBottom: 10 }}>16.3%</div>
+            <div style={{ fontSize: 28, fontWeight: 500, letterSpacing: "-0.03em", lineHeight: 1, color: BLUE_D, marginBottom: 10 }}>{Math.round(APRIL.users/BID_TOTAL*100*10)/10}%</div>
             <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
-              <div style={{ width: "16.3%", height: "100%", background: BLUE_D, borderRadius: 99 }} />
+              <div style={{ width: `${Math.round(APRIL.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
             </div>
             <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-              <span>{APRIL.users} users</span><span>3,600 total</span>
+              <span>{APRIL.users} users</span><span>{BID_TOTAL.toLocaleString()} total</span>
             </div>
             <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
           </div>
@@ -1398,7 +1398,7 @@ function MayMonthly() {
             { label: "Prompters", value: "673" },
             { label: "Prompts sent", value: "2,904" },
             { label: "Avg prompts · May", value: "4.7" },
-            { label: "Penetration of 3,600", value: "43.7%" },
+            { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: "21.6%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -1424,12 +1424,12 @@ function MayMonthly() {
         </div>
         <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(MAY.users/3600*100*10)/10}%</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(MAY.users/BID_TOTAL*100*10)/10}%</div>
           <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
-            <div style={{ width: `${Math.round(MAY.users/3600*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
+            <div style={{ width: `${Math.round(MAY.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
           </div>
           <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-            <span>{MAY.users} users</span><span>3,600 total</span>
+            <span>{MAY.users} users</span><span>{BID_TOTAL.toLocaleString()} total</span>
           </div>
           <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
         </div>
@@ -1800,7 +1800,7 @@ function JuneMonthly() {
             { label: "Prompters", value: "746" },
             { label: "Prompts sent", value: "3,929" },
             { label: "Avg prompts · Jun", value: "6.4" },
-            { label: "Penetration of 3,600", value: "48.2%" },
+            { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: "23.8%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -1826,12 +1826,12 @@ function JuneMonthly() {
         </div>
         <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(JUNE.users/3600*100*10)/10}%</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(JUNE.users/BID_TOTAL*100*10)/10}%</div>
           <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
-            <div style={{ width: `${Math.round(JUNE.users/3600*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
+            <div style={{ width: `${Math.round(JUNE.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
           </div>
           <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-            <span>{JUNE.users} users</span><span>3,600 total</span>
+            <span>{JUNE.users} users</span><span>{BID_TOTAL.toLocaleString()} total</span>
           </div>
           <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
         </div>
@@ -2189,7 +2189,7 @@ function JulyMonthly() {
             { label: "Prompters", value: "796" },
             { label: "Prompts sent", value: "4,344" },
             { label: "Avg prompts · Jul", value: "3.8" },
-            { label: "Penetration of 3,600", value: "50.5%" },
+            { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: "24.9%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -2215,12 +2215,12 @@ function JulyMonthly() {
         </div>
         <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(JULY.users/3600*100*10)/10}%</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(JULY.users/BID_TOTAL*100*10)/10}%</div>
           <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
-            <div style={{ width: `${Math.round(JULY.users/3600*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
+            <div style={{ width: `${Math.round(JULY.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
           </div>
           <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-            <span>{JULY.users} users</span><span>3,600 total</span>
+            <span>{JULY.users} users</span><span>{BID_TOTAL.toLocaleString()} total</span>
           </div>
           <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
         </div>
@@ -2390,13 +2390,13 @@ function JulyMonthly() {
           Signal — Adoption holds without a physical event
         </div>
         <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
-          July's only activation was a single online awareness session (40 attendees, Jul 17) — no country roadshow. Yet 251 users and 36% within-month return held steady, and cumulative penetration crossed 50%. Evidence that a lightweight, low-cost online format can sustain engagement is the most strategically useful finding of the month: it points to a more scalable activation model than country-by-country roadshows.
+          July's only activation was a single online awareness session (40 attendees, Jul 17) — no country roadshow. Yet 251 users and 36% within-month return held steady, and cumulative penetration reached 25% of staff and consultants. Evidence that a lightweight, low-cost online format can sustain engagement is the most strategically useful finding of the month: it points to a more scalable activation model than country-by-country roadshows.
         </p>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Volume dipped, loyal base held
         </div>
         <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
-          July saw fewer users than prior months (251 vs 379 in June), explained by the northern-hemisphere summer and the absence of a physical roadshow. What matters is where the drop landed: acquisition slowed, but recurrence held — 91 users returned for 2+ sessions (36% of those reached), in line with prior months, and cumulative penetration still crossed 50%. The loyal base did not erode; the real test is whether volume recovers on its own as staff return in August, or needs another activation to lift.
+          July saw fewer users than prior months (251 vs 379 in June), explained by the northern-hemisphere summer and the absence of a physical roadshow. What matters is where the drop landed: acquisition slowed, but recurrence held — 91 users returned for 2+ sessions (36% of those reached), in line with prior months, and cumulative penetration still reached 25% of staff and consultants. The loyal base did not erode; the real test is whether volume recovers on its own as staff return in August, or needs another activation to lift.
         </p>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Two channels, not a migration
@@ -3286,7 +3286,7 @@ const COHORTS = {
       },
       {
         lead: "What this says about where to push.",
-        body: "Reach is not the constraint: 1,943 people, 54% of the bank, have already used KP at least once. The constraint is the second visit. Moving first-month retention from 9% to 15% would add more monthly users than another two hundred first-timers would, because the first-timers mostly leave and the retained ones compound.",
+        body: "Reach is not the constraint: 1,943 people, 27% of staff and consultants, have already used KP at least once. The constraint is the second visit. Moving first-month retention from 9% to 15% would add more monthly users than another two hundred first-timers would, because the first-timers mostly leave and the retained ones compound.",
       },
     ],
   },
@@ -3687,7 +3687,7 @@ function AugustMonthly() {
               ["CSAT", AUGUST.csat ?? "pending"],
               ["Cumulative users (Sep 1-Aug 31)", "1,943"],
               ["Cumulative prompters (Sep 1-Aug 31)", "859"],
-              ["Cumulative penetration", "54.0%"],
+              ["Cumulative penetration", "26.7%"],
             ];
             const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
             const blob = new Blob([csv], { type: "text/csv" });
@@ -3710,7 +3710,7 @@ function AugustMonthly() {
             { label: "Users reached", value: "1,943" },
             { label: "Prompters", value: "859" },
             { label: "Sessions", value: "15,842" },
-            { label: "Penetration of 3,600", value: "54.0%" },
+            { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: "26.7%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -3729,12 +3729,12 @@ function AugustMonthly() {
         <MCard meta="returningUsers" label="Returning users" value={String(AUGUST.returningUsers)} desc={`${Math.round(AUGUST.returningUsers/AUGUST.users*100)}% of users reached · already knew KP before August`} momentum={JULY.returningUsers} />
         <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(AUGUST.users/3600*100*10)/10}%</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(AUGUST.users/BID_TOTAL*100*10)/10}%</div>
           <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
-            <div style={{ width: `${Math.round(AUGUST.users/3600*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
+            <div style={{ width: `${Math.round(AUGUST.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
           </div>
           <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-            <span>{AUGUST.users} users</span><span>3,600 total</span>
+            <span>{AUGUST.users} users</span><span>{BID_TOTAL.toLocaleString()} total</span>
           </div>
           <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants</div>
         </div>
@@ -3886,9 +3886,9 @@ function AugustMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — August, closed</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${GREEN}` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration reaches 54%</div>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration reaches 27%</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            1,943 cumulative users — +125 net-new over the month, against July's close of 1,818, and 54.0% of the bank reached. Adoption keeps compounding past the halfway mark with no active campaign behind it.
+            1,943 cumulative users — +125 net-new over the month, against July's close of 1,818, and 26.7% of staff and consultants reached. Adoption keeps compounding with no active campaign behind it.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
@@ -4051,7 +4051,7 @@ function SeptemberMonthly() {
               ["Cumulative users (Sep 1 2025–Sep 30 2026, anchored on Aug close)", "2,053"],
               ["Cumulative prompters (Sep 1 2025–Sep 30 2026, drift-corrected)", "923"],
               ["Cumulative sessions (Sep 1 2025–Sep 30 2026, anchored on Aug close)", "17,274"],
-              ["Cumulative penetration", "57.0%"],
+              ["Cumulative penetration", "28.2%"],
             ];
             const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
             const blob = new Blob([csv], { type: "text/csv" });
@@ -4074,7 +4074,7 @@ function SeptemberMonthly() {
             { label: "Users reached", value: "2,053" },
             { label: "Prompters", value: "923" },
             { label: "Sessions", value: "17,274" },
-            { label: "Penetration of 3,600", value: "57.0%" },
+            { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: "28.2%" },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
@@ -4093,12 +4093,12 @@ function SeptemberMonthly() {
         <MCard meta="returningUsers" label="Returning users" value={String(SEPTEMBER.returningUsers)} desc={`${Math.round(SEPTEMBER.returningUsers/SEPTEMBER.users*100)}% of users reached · already knew KP before September`} momentum={AUGUST.returningUsers} />
         <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(SEPTEMBER.users/3600*100*10)/10}%</div>
+          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(SEPTEMBER.users/BID_TOTAL*100*10)/10}%</div>
           <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
-            <div style={{ width: `${Math.round(SEPTEMBER.users/3600*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
+            <div style={{ width: `${Math.round(SEPTEMBER.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
           </div>
           <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-            <span>{SEPTEMBER.users} users</span><span>3,600 total</span>
+            <span>{SEPTEMBER.users} users</span><span>{BID_TOTAL.toLocaleString()} total</span>
           </div>
           <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants</div>
         </div>
@@ -4237,7 +4237,7 @@ function SeptemberMonthly() {
           </p>
         </div>
 <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${GREEN}` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration crosses 57%, on a stable method</div>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration reaches 28%, on a stable method</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
             2,053 cumulative users — August's verified close plus this month's 110 first-timers — and 17,274 sessions the same way. Prompters reaches 923, with the drift correction reading 4 for the third cut running. The subtraction control on sessions came back at 1,431 against the 1,432 written here: a one-event boundary difference, not a method problem.
           </p>
@@ -4292,7 +4292,7 @@ function OctoberMonthly() {
   const through = new Date(`${OCTOBER.through}T00:00:00Z`).toLocaleString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
   const day = Number(OCTOBER.through.slice(8));
   const cumUsers = snapshotAt("unique_users", M), cumSessions = snapshotAt("sessions", M), cumPrompters = snapshotAt("prompters", M);
-  const penetration = (cumUsers / 3600 * 100).toFixed(1);
+  const penetration = (cumUsers / BID_TOTAL * 100).toFixed(1);
   const returning = OCTOBER.users - OCTOBER.first_time;
   const pctOf = (a, b) => Math.round(a / b * 100);
   const chips = L(M, "cs_chips"), searchBar = L(M, "cs_search_bar");
@@ -4319,7 +4319,7 @@ function OctoberMonthly() {
             { label: "Users reached", value: cumUsers.toLocaleString("en-US") },
             { label: "Prompters", value: cumPrompters.toLocaleString("en-US") },
             { label: "Sessions", value: cumSessions.toLocaleString("en-US") },
-            { label: "Penetration of 3,600", value: `${penetration}%` },
+            { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: `${penetration}%` },
           ].map((m, i) => (
             <div key={i}>
               <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>

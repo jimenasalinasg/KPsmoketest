@@ -7,7 +7,7 @@ import { ledger, SEGMENT_NAME, ledgerSum, baseline, latestSnapshot } from "./dat
 import { buildDocs } from "./data/metricDocs.js";
 import { BLUE, BLUE_D, BLUE_L, BLUE_M, GREEN, AMBER, SURF, BDR, INK, INK2, INK3 } from "./theme.js";
 
-const TOTAL_STAFF = 3600;                 // IDB staff y consultores: divisor de la penetracion (no esta en el ledger)
+const TOTAL_STAFF = 7287;                 // IDB staff + consultores: divisor de la penetracion (no esta en el ledger)
 const MOST_USED_PILL = "Lessons Learned"; // HISTORICO (misma ventana que el ledger), de Fullstory (rhTcgj1srgne, PJyiZSAt3EXH, eCemfOCLh5qU, w0ktk3sF3v3I), 2025-10-01 a 2026-10-12: LL 381 > SP 369 > Lit 187 > Data 78. No esta en el ledger: recomputar con la ventana completa en cada cierre
 
 const fmt = (n) => n.toLocaleString("en-US");
@@ -193,7 +193,7 @@ export default function UsabilityMetrics() {
       <Block band="access">
         <Cells>
           <Kpi first label="Unique users" doc={docs.users} value={fmt(users)} note="Snapshot: last month-close + the month's delta" />
-          <Kpi label="Penetration" doc={docs.penetration} sub={`Out of ${fmt(TOTAL_STAFF)} IDB staff`} value={`${penetration}%`} />
+          <Kpi label="Penetration" doc={docs.penetration} sub={`Out of ${fmt(TOTAL_STAFF)} IDB staff & consultants`} value={`${penetration}%`} />
           <Kpi label="Avg. active time" doc={docs.avg_active_time_s} sub="Per page view · current month" value={`${latestSnapshot("avg_active_time_s").value.toFixed(1)} s`} note={`${latestSnapshot("avg_active_time_s").month}${latestSnapshot("avg_active_time_s").month === last ? " · month so far" : ""}`} />
           <Kpi label="Returning user rate" doc={docs.returning} sub="Within 14 days" value={`${tenths}/10`} note={`${returning}% · a rate, so it is robust to FullStory's retention window`} />
         </Cells>

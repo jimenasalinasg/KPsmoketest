@@ -1,2 +1,8 @@
 node_modules/
 dist/
+
+# Datos personales: nunca al repo (es publico). Ver scripts/merge-users.mjs
+kp_users_master*
+*Sin_DEV*.csv
+*users_export*.csv
+*.bak-20*
