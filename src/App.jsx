@@ -3,6 +3,7 @@ import UsabilityMetrics from "./UsabilityMetrics.jsx";
 import { L, engagementRows, snapshotAt, SEGMENT_NAME } from "./data/ledgerView.js";
 import shotAug from "./assets/session-s01-aug2026.png";
 import shotSep from "./assets/session-s01-sep2026.png";
+import shotOct from "./assets/session-s09-oct2026.png";
 
 
 
@@ -3242,6 +3243,15 @@ const QUALITATIVE = {
     kicker: "Qualitative — session sweep",
     title: "What people actually do here · 9 sessions, Oct 1–27",
     intro: "Main idea: people use KP to look up a specific operation, and what gets in their way is waiting and sign-in errors. Nine sessions read end to end, picked from people who copied, left, opened sources or opened a pill. A pattern to check, not a measurement. The full-month pass comes with the close.",
+    shot: {
+      src: shotOct,
+      alt: "The Knowledge Platform in Portuguese. The user asks whether there is a Portuguese version. The assistant answers that it only has the English loan proposal for the operation, names the executing agency and guarantor, and offers to summarise or extract the key points in Portuguese. The answer above it ends with a link to the operational sources overview.",
+      session: "S-09",
+      place: "Brazil · PT",
+      url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6710784331649232724:2982347701974588883:1791381202326",
+      caption: "One frame from S-09, the clearest case of the month's main pattern. The user came with an operation code and is now on the usual follow-ups: is there a Portuguese version? The assistant says plainly that it only has the English document, says what it does have, and offers a Portuguese summary instead of inventing a translation.",
+      redaction: "The user's initials in the two avatars have been replaced with blank discs. Nothing else is altered. No name, email or city appears in the frame; the operation code is a published IDB number.",
+    },
     themes: [
       {
         tag: "New use case",
