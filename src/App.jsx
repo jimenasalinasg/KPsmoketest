@@ -4290,6 +4290,9 @@ const OCTOBER = {
   newSearchClicks: 0,
   wordDownloads: 0,        // con segmento Sin DEV (copy): 0. La metrica sin segmento daba 1 (un usuario del equipo DEV).
   excelDownloads: 0,
+  csat: "100%",             // manual: lista de encuestas (feedback) 2026-10-29 · 2 respuestas (5,5) · top-2 box 2/2 · avg 5.00 · n=2, no es una tasa
+  csatResponses: 2,
+  csatAvg: 5.0,
 };
 
 // ── OCTOBER MONTHLY VIEW (to date) ─────────────────────────
@@ -4359,6 +4362,7 @@ function OctoberMonthly() {
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(OCTOBER.prompters)} desc={`${pctOf(OCTOBER.prompters, OCTOBER.users)}% of users reached`} accent />
         <MCard meta="sourceClicks" label="Source panel clicks" value={String(L(M, "os_source_panel"))} desc="Clicks on source panel · from the ledger" />
         <MCard label="Response feedback" value={`👍 ${OCTOBER.thumbsUp} · 👎 ${OCTOBER.thumbsDown}`} desc="AI responses rated" small />
+        <MCard meta="csat" label="CSAT" value={OCTOBER.csat} desc={`Top-2 box, ${OCTOBER.csatResponses} of ${OCTOBER.csatResponses} responses · avg ${OCTOBER.csatAvg.toFixed(2)} ★ · n=${OCTOBER.csatResponses} is far too small to read as a rate`} small />
         <MCard meta="promptGallery" label="Prompt Gallery clicks" value={String(OCTOBER.promptGalleryClicks)} />
         <MCard meta="recentSearch" label="Recent Search clicks" value={String(OCTOBER.recentSearchClicks)} />
         <MCard meta="newSearch" label="New Search clicks" value={String(OCTOBER.newSearchClicks)} />
@@ -4373,7 +4377,7 @@ function OctoberMonthly() {
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
         <strong style={{ color: INK2 }}>Month to date.</strong> October is partial: it covers Oct 1–{day}, complete days only, and it is not compared with September's full month. It is refreshed every day and the last complete day is shown at the top.
         <br/><br/><strong style={{ color: INK2 }}>Where the numbers come from.</strong> Users, sessions, prompters, onboarding, feedback and search clicks are read from FullStory on the Sin DEV segment, twice each, and kept only where both reads agreed. New users are the cumulative unique users to date minus September's close, not the first-seen segment. Highlights, copies, source clicks, pill views and Global Search come from the ledger (data/kp_ledger.csv, segment Sin DEV (copy)); the cumulative totals use its snapshots.
-        <br/><br/><strong style={{ color: INK2 }}>Not in this tab yet:</strong> Lessons Writing Assistant, countries, funnels, retention cohorts and the qualitative sweep, which land with the close; CSAT, latency and prompts sent come from the admin console.
+        <br/><br/><strong style={{ color: INK2 }}>Not in this tab yet:</strong> Lessons Writing Assistant, countries, funnels, retention cohorts and the qualitative sweep, which land with the close; CSAT is loaded by hand from the survey list (two responses so far this month, both 5 stars), and it is carried for continuity, not as a satisfaction rate. Latency and prompts sent come from the admin console.
       </div>
 
     </div>
