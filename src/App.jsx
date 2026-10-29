@@ -3238,6 +3238,51 @@ const QUALITATIVE = {
       "Switching language mid-session sends you back to the start of the list. In a three-language bank, that is a reason not to switch.",
     ],
   },
+  october: {
+    kicker: "Qualitative — session sweep",
+    title: "What people actually do here · 9 sessions, Oct 1–27",
+    intro: "Main idea: people use KP to look up a specific operation, and what gets in their way is waiting and sign-in errors. Nine sessions read end to end, picked from people who copied, left, opened sources or opened a pill. A pattern to check, not a measurement. The full-month pass comes with the close.",
+    themes: [
+      {
+        tag: "New use case",
+        tone: "green",
+        title: "They arrive with an operation code, not a question",
+        body: "3 of 9 typed or pasted a code, then asked the same follow-ups: is it approved, is there a Portuguese version, who leads it.",
+        soWhat: "Answer those three up front whenever someone enters a code.",
+        sessions: [{ id: "S-02", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7700339469860114377:5876844348762331830:1791398332814", place: "US" }, { id: "S-08", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/4499951521660917701:1374514661962380456:1792099300379", place: "Uruguay" }, { id: "S-09", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6710784331649232724:2982347701974588883:1791381202326", place: "Brazil" }],
+      },
+      {
+        tag: "Friction",
+        tone: "amber",
+        title: "They wait a long time for answers",
+        body: "In 3 sessions, minutes pass between a question and the next action. One ended on a one-word reply, with nothing opened or copied.",
+        soWhat: "Compare with latency when the console data lands. If it matches, this is the first thing to fix.",
+        sessions: [{ id: "S-03", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3833206081754427652:2386757367342388586:1793126326370", place: "ES" }, { id: "S-02", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7700339469860114377:5876844348762331830:1791398332814", place: "US" }, { id: "S-06", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3022122187867622856:6077310078458139911:1793041068147", place: "US" }],
+      },
+      {
+        tag: "Bug",
+        tone: "red",
+        title: "Sign-in errors on load",
+        body: "3 of 9 sessions logged authentication errors in their first seconds. The page reloaded and they carried on, so no metric shows it.",
+        soWhat: "Same error as in September. Count it and pass the error text to whoever owns sign-in.",
+        sessions: [{ id: "S-03", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3833206081754427652:2386757367342388586:1793126326370", place: "ES" }, { id: "S-06", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3022122187867622856:6077310078458139911:1793041068147", place: "US" }, { id: "S-09", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6710784331649232724:2982347701974588883:1791381202326", place: "Brazil" }],
+      },
+      {
+        tag: "Opportunity",
+        tone: "green",
+        title: "Pills are a quick look, not a destination",
+        body: "Of 3 pill sessions, two left within a minute or so and only one stayed, about twelve minutes. That fits 33 people opening a pill and only 2 copying.",
+        soWhat: "A link from the pill to the Assistant, carrying the project, would give the quick lookers a next step.",
+        sessions: [{ id: "S-05", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3342387239912624474:7173635749571822276:1793117543535", place: "US" }, { id: "S-07", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8381765414344869013:6520275666541052331:1792614109997", place: "Brazil" }, { id: "S-06", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3022122187867622856:6077310078458139911:1793041068147", place: "US" }],
+      },
+    ],
+    alsoNoted: [
+      "No way to edit the last question: one user copied it, pasted it back and re-sent it three times.",
+      "The tour was skipped in two sessions within seconds; two of nine finished it.",
+      "All nine were on desktop. No mobile in this sample.",
+    ],
+    note: "No screenshot in this pass; it is added at the close after review. Sessions show country only. The links need a FullStory login.",
+  },
   august: {
     kicker: "Qualitative — session sweep",
     title: "What people actually do here · sampled Aug 1–28",
@@ -4580,14 +4625,12 @@ function OctoberMonthly() {
         </div>
       </div>
 
-      <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Qualitative sweep.</strong> The session review and the quotes are done once a month, on a stratified sample of the full month, so they land with the close and are not part of the month-to-date tab.
-      </div>
+      <QualitativeSection q={QUALITATIVE.october} />
 
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
         <strong style={{ color: INK2 }}>Month to date.</strong> October is partial: it covers Oct 1–{day}, complete days only, and it is not compared with September's full month. It is refreshed every day and the last complete day is shown at the top.
         <br/><br/><strong style={{ color: INK2 }}>Where the numbers come from.</strong> Users, sessions, prompters, onboarding, feedback and search clicks are read from FullStory on the Sin DEV segment, twice each, and kept only where both reads agreed. New users are the cumulative unique users to date minus September's close, not the first-seen segment. Highlights, copies, source clicks, pill views and Global Search come from the ledger (data/kp_ledger.csv, segment Sin DEV (copy)); the cumulative totals use its snapshots.
-        <br/><br/><strong style={{ color: INK2 }}>Still pending for the close:</strong> prompts sent and latency come from the admin console and are loaded with the close, and the retention cohorts and the qualitative sweep are done once the month is complete. Countries, funnels and pills are computed on the Sin DEV segment over Oct 1–{day}; the country table is not comparable with September's. CSAT is loaded by hand from the survey list (two responses so far this month, both 5 stars), and it is carried for continuity, not as a satisfaction rate.
+        <br/><br/><strong style={{ color: INK2 }}>Still pending for the close:</strong> prompts sent and latency come from the admin console and are loaded with the close, and the retention cohorts and the full-month qualitative sweep are done once the month is complete (the sweep above is the month-to-date pass). Countries, funnels and pills are computed on the Sin DEV segment over Oct 1–{day}; the country table is not comparable with September's. CSAT is loaded by hand from the survey list (two responses so far this month, both 5 stars), and it is carried for continuity, not as a satisfaction rate.
       </div>
 
     </div>
