@@ -63,6 +63,8 @@ La pestana **October 2026 · to date** es un mes en curso. Cada dia:
 3. Filas de evento (`os_*`, `cs_*`): se recalculan con la receta del ledger y se cargan con `--replace`.
 4. Editar el bloque `OCTOBER` de `src/App.jsx` (`through`, valores, `first_time`), `npm run build`, revisar, deploy.
 
+5. **CSAT** (a mano, de la lista de encuestas «Surveys by month» de FullStory): `csat`, `csatResponses` y `csatAvg` del bloque `OCTOBER`. Top-2 box = respuestas ≥ 4 ÷ total. Con n tan chico no es una tasa: se dice en la tarjeta.
+
 **La vista Usability metrics se actualiza siempre a la par**, en la misma corrida y el mismo deploy. Las dos leen el mismo ledger,
 asi que cargar los pasos 2 y 3 ya la actualiza; no se deploya una sin la otra. Antes de publicar, comprobar que los usuarios acumulados
 de la pestana de octubre y los de Usability coinciden, y que el mes mas reciente de Usability es el de la pestana.
