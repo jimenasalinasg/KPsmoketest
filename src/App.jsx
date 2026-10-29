@@ -3238,6 +3238,61 @@ const QUALITATIVE = {
       "Switching language mid-session sends you back to the start of the list. In a three-language bank, that is a reason not to switch.",
     ],
   },
+  october: {
+    kicker: "Qualitative — session sweep",
+    title: "What people actually do here · sampled Oct 1–27 (month to date)",
+    intro: "Nine sessions read end to end, sampled across the funnel strata: people who searched and copied, people who searched and left, people who opened the source panel, and people who opened a pill and stopped. A tenth, from the product team, was discarded. This is the month-to-date pass; the close repeats it on the whole month. Patterns to verify, not measurement — no percentages are drawn from nine sessions.",
+    themes: [
+      {
+        tag: "New use case",
+        tone: "green",
+        title: "They come with an operation code, not a question",
+        body: "Three of the nine sessions were built around a code. One user typed bare codes and nothing else, then opened the sources overview each time. Another pasted a code, asked for its executing agencies, then asked for the operations in the same programme. The third pasted two codes in turn and asked whether each was in preparation or already approved, whether a Portuguese version existed and who the team leader was, copied three passages out and said the answers were going into their own table.",
+        quote: "«essa operação está em preparação ou já foi…» · «who is the team leader?»",
+        soWhat: "For these users the Assistant is a lookup by identifier, and what they ask next is always the same: status, language, who is behind it. A short card answering those for a bare code would save them the follow-ups, and the table they are filling is an export waiting to be built. It fits the operation-code interest we saw in the click data.",
+        sessions: [{ id: "S-02", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7700339469860114377:5876844348762331830:1791398332814", place: "US" }, { id: "S-08", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/4499951521660917701:1374514661962380456:1792099300379", place: "Uruguay" }, { id: "S-09", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6710784331649232724:2982347701974588883:1791381202326", place: "Brazil" }],
+      },
+      {
+        tag: "Friction",
+        tone: "amber",
+        title: "Long silences after a question, and one session that ended on a reply",
+        body: "In one session a question was typed, nothing happened for almost five minutes, and the only thing that followed was a one-word reply — then the session ended with no source opened and nothing copied. In another, gaps of two and a half minutes and nearly six minutes sit between a question and the next action. The log cannot separate waiting from reading, so this is a pattern to check, not a latency finding.",
+        soWhat: "Latency comes from the admin console and lands with the close; read these three sessions against it. If the long gaps match slow answers, that is the first thing to fix, because the users who wait are the ones asking the longest questions.",
+        sessions: [{ id: "S-03", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3833206081754427652:2386757367342388586:1793126326370", place: "ES" }, { id: "S-02", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7700339469860114377:5876844348762331830:1791398332814", place: "US" }, { id: "S-06", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3022122187867622856:6077310078458139911:1793041068147", place: "US" }],
+      },
+      {
+        tag: "Friction",
+        tone: "amber",
+        title: "Re-asking by copy and paste",
+        body: "One user copied their own question out of the answer panel, pasted it into the search box, lengthened it and sent it again, three times over, then spent the end of the session clicking and highlighting through the referenced passages one by one.",
+        soWhat: "There is no way to edit the last question. People are building one themselves with the clipboard. An edit-and-resend on the question line is small and the session shows exactly where it goes.",
+        sessions: [{ id: "S-01", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3911388276175001188:5049789881358337655:1792096488814", place: "US" }],
+      },
+      {
+        tag: "Bug",
+        tone: "red",
+        title: "Sign-in errors on load, again",
+        body: "Three of nine sessions logged authentication errors in the first seconds: a silent token refresh that failed, a token-acquisition timeout, and a required re-interaction. In each the page reloaded and the session carried on, so none of them shows up as a failure in any metric.",
+        soWhat: "Same family of error as in September, now in a third of this sample. A session that starts with a failed sign-in still counts as a session. Worth counting these before the pills open to more people, and worth passing the error text to whoever owns the sign-in.",
+        sessions: [{ id: "S-03", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3833206081754427652:2386757367342388586:1793126326370", place: "ES" }, { id: "S-06", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3022122187867622856:6077310078458139911:1793041068147", place: "US" }, { id: "S-09", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6710784331649232724:2982347701974588883:1791381202326", place: "Brazil" }],
+      },
+      {
+        tag: "Opportunity",
+        tone: "green",
+        title: "Pills are a stop on the way somewhere else",
+        body: "Of the three pill sessions, one opened Literature from a project card, spent 25 seconds there and moved on to Recent searches and the Assistant. Another landed on Lessons Learned and the session ended at that page. Only one stayed: about twelve minutes moving between Literature, Data, Lessons Learned and Similar Projects, with a ten-minute gap on a single Data pill.",
+        soWhat: "That would explain why pills open (33 people) and rarely end in a copy (2). People check what exists for a project and move on; a few read deeply. A link from the pill to the Assistant, carrying the project, would turn the first group's next step into one click.",
+        sessions: [{ id: "S-05", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3342387239912624474:7173635749571822276:1793117543535", place: "US" }, { id: "S-07", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8381765414344869013:6520275666541052331:1792614109997", place: "Brazil" }, { id: "S-06", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3022122187867622856:6077310078458139911:1793041068147", place: "US" }],
+      },
+    ],
+    alsoNoted: [
+      "The tour was skipped within seconds in two sessions; one user switched the language to Spanish and reopened the tour. Two of the nine clicked it through to the end.",
+      "The sources overview button was pressed twice in a row both times it was used in one session, as though the first press did not register.",
+      "Dead clicks on the answer body appear in three sessions, once each. Far fewer than in September, when heavy sessions logged ten or more.",
+      "All nine sessions were on desktop; there is no mobile session in this sample.",
+    ],
+    note: "No screenshot in the month-to-date pass; the close adds one after it has been checked pixel by pixel. Sessions are labelled S-01 to S-09 with country only; the links need a FullStory login.",
+  },
   august: {
     kicker: "Qualitative — session sweep",
     title: "What people actually do here · sampled Aug 1–28",
@@ -4580,14 +4635,12 @@ function OctoberMonthly() {
         </div>
       </div>
 
-      <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Qualitative sweep.</strong> The session review and the quotes are done once a month, on a stratified sample of the full month, so they land with the close and are not part of the month-to-date tab.
-      </div>
+      <QualitativeSection q={QUALITATIVE.october} />
 
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
         <strong style={{ color: INK2 }}>Month to date.</strong> October is partial: it covers Oct 1–{day}, complete days only, and it is not compared with September's full month. It is refreshed every day and the last complete day is shown at the top.
         <br/><br/><strong style={{ color: INK2 }}>Where the numbers come from.</strong> Users, sessions, prompters, onboarding, feedback and search clicks are read from FullStory on the Sin DEV segment, twice each, and kept only where both reads agreed. New users are the cumulative unique users to date minus September's close, not the first-seen segment. Highlights, copies, source clicks, pill views and Global Search come from the ledger (data/kp_ledger.csv, segment Sin DEV (copy)); the cumulative totals use its snapshots.
-        <br/><br/><strong style={{ color: INK2 }}>Still pending for the close:</strong> prompts sent and latency come from the admin console and are loaded with the close, and the retention cohorts and the qualitative sweep are done once the month is complete. Countries, funnels and pills are computed on the Sin DEV segment over Oct 1–{day}; the country table is not comparable with September's. CSAT is loaded by hand from the survey list (two responses so far this month, both 5 stars), and it is carried for continuity, not as a satisfaction rate.
+        <br/><br/><strong style={{ color: INK2 }}>Still pending for the close:</strong> prompts sent and latency come from the admin console and are loaded with the close, and the retention cohorts and the full-month qualitative sweep are done once the month is complete (the sweep above is the month-to-date pass). Countries, funnels and pills are computed on the Sin DEV segment over Oct 1–{day}; the country table is not comparable with September's. CSAT is loaded by hand from the survey list (two responses so far this month, both 5 stars), and it is carried for continuity, not as a satisfaction rate.
       </div>
 
     </div>
