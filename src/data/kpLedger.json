@@ -89,7 +89,7 @@
       "2026-07": 95,
       "2026-08": 119,
       "2026-09": 77,
-      "2026-10": 111
+      "2026-10": 113
     },
     "cs_search_bar": {
       "2025-10": 0,
@@ -181,7 +181,7 @@
       "2026-07": 19.8,
       "2026-08": 15,
       "2026-09": 19.8,
-      "2026-10": 15.4
+      "2026-10": 15.2
     },
     "cs_category_users": {
       "2025-11": 35,
@@ -195,7 +195,7 @@
       "2026-07": 40,
       "2026-08": 43,
       "2026-09": 41,
-      "2026-10": 51
+      "2026-10": 53
     },
     "cs_category_users_cum": {
       "2025-10": 26,
@@ -210,7 +210,7 @@
       "2026-07": 349,
       "2026-08": 379,
       "2026-09": 401,
-      "2026-10": 437
+      "2026-10": 438
     },
     "lessons_created": {
       "2026-10": 1559
@@ -241,13 +241,13 @@
     },
     "sessions": {
       "2026-09": 17274,
-      "2026-10": 18234
+      "2026-10": 18295
     },
     "unique_users": {
       "2026-04": 1357,
       "2026-05": 1574,
       "2026-09": 2053,
-      "2026-10": 2121
+      "2026-10": 2127
     }
   },
   "rows": [
@@ -310,10 +310,10 @@
     {
       "month": "2026-10",
       "metric": "avg_active_time_s",
-      "value": 15.4,
+      "value": 15.2,
       "type": "snapshot",
       "source": "fullstory metric vpWvDQswlPB4 + segment 'Sin DEV (copy)' sjHJR3590z6j",
-      "note": "Oct = days 1-28 (month to date); average active time on page per page view (ms/1000), single-month window; average, never summed"
+      "note": "Oct = days 1-29 (month to date); average active time on page per page view (ms/1000), single-month window; average, never summed"
     },
     {
       "month": "2025-11",
@@ -406,10 +406,10 @@
     {
       "month": "2026-10",
       "metric": "cs_category_users",
-      "value": 51,
+      "value": 53,
       "type": "snapshot",
       "source": "see note",
-      "note": "Oct = days 1-28 (month to date); unique users who opened at least one knowledge category (Data, Lessons Learned, Literature, Similar Projects, Institutional Documents, WLA), single-month window; never summed across months"
+      "note": "Oct = days 1-29 (month to date); unique users who opened at least one knowledge category (Data, Lessons Learned, Literature, Similar Projects, Institutional Documents, WLA), single-month window; never summed across months"
     },
     {
       "month": "2025-10",
@@ -510,10 +510,10 @@
     {
       "month": "2026-10",
       "metric": "cs_category_users_cum",
-      "value": 437,
+      "value": 438,
       "type": "snapshot",
       "source": "see note",
-      "note": "Oct-2026 = through Oct 28 (month to date); CUMULATIVE unique users who opened at least one knowledge category since 2025-10-21; anchor 429 (Oct 20) + same-day delta 422-414 on start 2025-10-30 (queried 2026-10-29); not additive"
+      "note": "Oct-2026 = through Oct 29 (month to date); CUMULATIVE unique users who opened at least one knowledge category since 2025-10-21; anchor 429 (Oct 20) + same-day delta 421-412 on start 2025-10-31 (queried 2026-10-30); not additive"
     },
     {
       "month": "2025-10",
@@ -1030,10 +1030,10 @@
     {
       "month": "2026-10",
       "metric": "cs_queries",
-      "value": 111,
+      "value": 113,
       "type": "additive",
       "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
-      "note": "single-month window 2026-10-01..28; recipe: saved metric + update_metric segment sjHJR3590z6j (calibrated on Sep)"
+      "note": "single-month window 2026-10-01..29; recipe: saved metric + update_metric segment sjHJR3590z6j (calibrated on Sep)"
     },
     {
       "month": "2025-10",
@@ -1409,7 +1409,7 @@
       "value": 21,
       "type": "additive",
       "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
-      "note": "single-month window 2026-10-01..28; recipe: saved metric + update_metric segment sjHJR3590z6j (calibrated on Sep)"
+      "note": "single-month window 2026-10-01..29; recipe: saved metric + update_metric segment sjHJR3590z6j (calibrated on Sep)"
     },
     {
       "month": "baseline",
@@ -1521,7 +1521,7 @@
       "value": 62,
       "type": "additive",
       "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
-      "note": "single-month window 2026-10-01..28; recipe: saved metric + update_metric segment sjHJR3590z6j (calibrated on Sep)"
+      "note": "single-month window 2026-10-01..29; recipe: saved metric + update_metric segment sjHJR3590z6j (calibrated on Sep)"
     },
     {
       "month": "2025-10",
@@ -1625,7 +1625,7 @@
       "value": 6,
       "type": "additive",
       "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
-      "note": "single-month window 2026-10-01..28; recipe: saved metric + update_metric segment sjHJR3590z6j (calibrated on Sep)"
+      "note": "single-month window 2026-10-01..29; recipe: saved metric + update_metric segment sjHJR3590z6j (calibrated on Sep)"
     },
     {
       "month": "2026-04",
@@ -1665,7 +1665,7 @@
       "value": 949,
       "type": "snapshot",
       "source": "see note",
-      "note": "2053 + 68 / 17274 + 960 / 923 + 26 (Oct 1-28 completo; control de resta: usuarios 1894-1826=68, sesiones 15983-15024=959 (directo 960), prompters 883-857=26; consultas del 2026-10-29)"
+      "note": "2053 + 74 / 17274 + 1021 / 923 + 26 (Oct 1-29 completo; control de resta: usuarios 1895-1821=74, sesiones 15989-14969=1020 (directo 1021), prompters 881-855=26; consultas del 2026-10-30)"
     },
     {
       "month": "2026-04",
@@ -1710,10 +1710,10 @@
     {
       "month": "2026-10",
       "metric": "sessions",
-      "value": 18234,
+      "value": 18295,
       "type": "snapshot",
       "source": "see note",
-      "note": "2053 + 68 / 17274 + 960 / 923 + 26 (Oct 1-28 completo; control de resta: usuarios 1894-1826=68, sesiones 15983-15024=959 (directo 960), prompters 883-857=26; consultas del 2026-10-29)"
+      "note": "2053 + 74 / 17274 + 1021 / 923 + 26 (Oct 1-29 completo; control de resta: usuarios 1895-1821=74, sesiones 15989-14969=1020 (directo 1021), prompters 881-855=26; consultas del 2026-10-30)"
     },
     {
       "month": "2026-04",
@@ -1742,10 +1742,10 @@
     {
       "month": "2026-10",
       "metric": "unique_users",
-      "value": 2121,
+      "value": 2127,
       "type": "snapshot",
       "source": "see note",
-      "note": "2053 + 68 / 17274 + 960 / 923 + 26 (Oct 1-28 completo; control de resta: usuarios 1894-1826=68, sesiones 15983-15024=959 (directo 960), prompters 883-857=26; consultas del 2026-10-29)"
+      "note": "2053 + 74 / 17274 + 1021 / 923 + 26 (Oct 1-29 completo; control de resta: usuarios 1895-1821=74, sesiones 15989-14969=1020 (directo 1021), prompters 881-855=26; consultas del 2026-10-30)"
     }
   ]
 }

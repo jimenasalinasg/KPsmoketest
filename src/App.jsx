@@ -2960,10 +2960,10 @@ const FUNNELS = {
 FUNNELS.october = {
   openSearch: {
     title: "Open Search",
-    intro: "Someone asks a question in the search box, then takes content away. Unique users, same session, segment Sin DEV. October to date (Oct 1–28).",
+    intro: "Someone asks a question in the search box, then takes content away. Unique users, same session, segment Sin DEV. October to date (Oct 1–29).",
     steps: [
-      { label: "Opens KP", n: 210 },
-      { label: "Runs a search", n: 61, time: "33s" },
+      { label: "Opens KP", n: 217 },
+      { label: "Runs a search", n: 61, time: "32s" },
       { label: "Highlights content", n: 23, time: "3m 26s" },
       { label: "Copies it", n: 16, time: "2.2s" },
     ],
@@ -2976,14 +2976,14 @@ FUNNELS.october = {
       time: "3m 0s",
       note: "3 of the 61 who searched, 4.9% — just under September's 5.4%, the lowest the metric has been.",
     },
-    note: "7.6% end to end (16 of 210), against 10.8% in September. The drop is at the first step: 29% of those who enter search, against 45%. After that the funnel holds — 38% of searchers highlight (36% in September) and 70% of those who highlight copy (66% in September). Month to date, so read it against a full month with care.",
+    note: "7.4% end to end (16 of 217), against 10.8% in September. The drop is at the first step: 28% of those who enter search, against 45%. After that the funnel holds — 38% of searchers highlight (36% in September) and 70% of those who highlight copy (66% in September). Month to date, so read it against a full month with care.",
   },
   contextual: {
     title: "Contextual search · pills",
     intro: "Someone opens a pill — Similar Projects, Lessons Learned, Literature, Institutional Documents or Data — then takes content away. Same entry point as above, so the two are directly comparable.",
     steps: [
-      { label: "Opens KP", n: 210 },
-      { label: "Opens a pill", n: 38, time: "1m 26s" },
+      { label: "Opens KP", n: 217 },
+      { label: "Opens a pill", n: 40, time: "1m 25s" },
       { label: "Highlights content", n: 9, time: "1m 22s" },
       { label: "Copies it", n: 2, time: "0.9s" },
     ],
@@ -2995,12 +2995,12 @@ FUNNELS.october = {
       from: 1,
       note: "Nobody who opened a pill in October so far clicked a source link.",
     },
-    note: "1.0% end to end (2 of 210), against 2.1% in September. Pill openings are already ahead — 38 people, 18% of those who enter, against 34 and 12% — and highlights are 9 against September's 8, but only 2 copied against 6.",
+    note: "0.9% end to end (2 of 217), against 2.1% in September. Pill openings are already ahead — 40 people, 18% of those who enter, against 34 and 12% — and highlights are 9 against September's 8, but only 2 copied against 6.",
   },
   synthesis: [
     {
       lead: "Reading the two together.",
-      body: "Both surfaces start from the same 210 people. Open Search pulls 29% of them into a query, down from 45% in September; the pills pull 18%, up from 12%. Once someone searches, the rest of the path behaves as it did in September, so the change is in how many start, not in what happens after.",
+      body: "Both surfaces start from the same 217 people. Open Search pulls 28% of them into a query, down from 45% in September; the pills pull 18%, up from 12%. Once someone searches, the rest of the path behaves as it did in September, so the change is in how many start, not in what happens after.",
     },
   ],
 };
@@ -3281,7 +3281,7 @@ const QUALITATIVE = {
         tag: "Opportunity",
         tone: "green",
         title: "Pills are a quick look, not a destination",
-        body: "Of 3 pill sessions, two left within a minute or so and only one stayed, about twelve minutes. That fits 38 people opening a pill and only 2 copying.",
+        body: "Of 3 pill sessions, two left within a minute or so and only one stayed, about twelve minutes. That fits 40 people opening a pill and only 2 copying.",
         soWhat: "A link from the pill to the Assistant, carrying the project, would give the quick lookers a next step.",
         sessions: [{ id: "S-05", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3342387239912624474:7173635749571822276:1793117543535", place: "US" }, { id: "S-07", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8381765414344869013:6520275666541052331:1792614109997", place: "Brazil" }, { id: "S-06", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3022122187867622856:6077310078458139911:1793041068147", place: "US" }],
       },
@@ -4380,12 +4380,12 @@ function SeptemberMonthly() {
 // Open Search y Contextual salen del ledger (filas 2026-10); lo demas, de FullStory via MCP con el segmento
 // Sin DEV, cada metrica leida dos veces. Al cerrar octubre este bloque pasa a ser el cierre del mes.
 const OCTOBER = {
-  through: "2026-10-28",
-  users: 213,
-  sessions: 960,
+  through: "2026-10-29",
+  users: 220,
+  sessions: 1021,
   prompters: 62,
-  first_time: 68,           // control: usuarios acumulados 1-sep-2025 -> 28-oct (1894) menos los del cierre de septiembre (1826, misma consulta del dia)
-  tourCompletion: 38,       // 38.14 redondeado
+  first_time: 74,           // control: usuarios acumulados 1-sep-2025 -> 29-oct (1895) menos los del cierre de septiembre (1821, misma consulta del dia)
+  tourCompletion: 37,       // 37.37 redondeado
   thumbsUp: 1,
   thumbsDown: 0,
   promptGalleryClicks: 6,
@@ -4396,10 +4396,10 @@ const OCTOBER = {
   csat: "100%",             // manual: lista de encuestas (feedback) 2026-10-29 · 2 respuestas (5,5) · top-2 box 2/2 · avg 5.00 · n=2, no es una tasa
   csatResponses: 2,
   csatAvg: 5.0,
-  totalCountries: 26,       // paises con actividad Sin DEV (copy) en knowledgeplatform.iadb.org, 1-28 oct. ATENCION: poblacion distinta de la tabla de septiembre (ver nota en la tarjeta)
+  totalCountries: 26,       // paises con actividad Sin DEV (copy) en knowledgeplatform.iadb.org, 1-29 oct. ATENCION: poblacion distinta de la tabla de septiembre (ver nota en la tarjeta)
   countries: [
-    { name: "United States (HQ)", code: "US", users: 113 },
-    { name: "Brazil", code: "BR", users: 9 }, { name: "Colombia", code: "CO", users: 9 },
+    { name: "United States (HQ)", code: "US", users: 118 },
+    { name: "Brazil", code: "BR", users: 10 }, { name: "Colombia", code: "CO", users: 9 },
     { name: "Panama", code: "PA", users: 8 }, { name: "Argentina", code: "AR", users: 7 }, { name: "Barbados", code: "BB", users: 7 },
     { name: "Cayman Islands", code: "KY", users: 5 },
     { name: "Jamaica", code: "JM", users: 4 }, { name: "Uruguay", code: "UY", users: 4 },
@@ -4407,12 +4407,12 @@ const OCTOBER = {
     { name: "Belize", code: "BZ", users: 2 }, { name: "Bolivia", code: "BO", users: 2 }, { name: "Chile", code: "CL", users: 2 },
     { name: "Costa Rica", code: "CR", users: 2 }, { name: "Paraguay", code: "PY", users: 2 },
     { name: "Bahamas", code: "BS", users: 1 }, { name: "Canada", code: "CA", users: 1 }, { name: "El Salvador", code: "SV", users: 1 }, { name: "Guatemala", code: "GT", users: 1 },
-    { name: "Haiti", code: "HT", users: 1 }, { name: "Korea", code: "KR", users: 1 }, { name: "Spain", code: "ES", users: 1 },
+    { name: "Haiti", code: "HT", users: 1 }, { name: "Korea", code: "KR", users: 1 }, { name: "Spain", code: "ES", users: 2 },
     { name: "Suriname", code: "SR", users: 1 }, { name: "Trinidad & Tobago", code: "TT", users: 1 },
   ],
-  // Pills: sesiones con vista de pagina por pill, 1-28 oct (metricos PJyiZSAt3EXH, rhTcgj1srgne, w0ktk3sF3v3I, eCemfOCLh5qU; septiembre reproduce 23/19/10/12 exacto)
-  pills: { lessons: 28, data: 20, similar: 10, literature: 13 },
-  // LWA: personas fuera del equipo, Sin DEV (copy), 1-28 oct. Creadores calibrado contra septiembre (3 = 3).
+  // Pills: sesiones con vista de pagina por pill, 1-29 oct (metricos PJyiZSAt3EXH, rhTcgj1srgne, w0ktk3sF3v3I, eCemfOCLh5qU; septiembre reproduce 23/19/10/12 exacto)
+  pills: { lessons: 28, data: 20, similar: 11, literature: 13 },
+  // LWA: personas fuera del equipo, Sin DEV (copy), 1-29 oct. Creadores calibrado contra septiembre (3 = 3).
   // Copiaron / abrieron del catalogo: sin metodo verificado (copiar dio 0 contra 1 publicado en septiembre; abrir del catalogo no tiene metrico).
   lwa: { creators: 2, copied: null, shared: 0, viewed: null, sharedViewed: 0 },
 };
@@ -4610,19 +4610,19 @@ function OctoberMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — the month so far</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach is running below September, with three days left</div>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach is running below September, with two days left</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            {OCTOBER.users} users and {OCTOBER.sessions} sessions through Oct {day}, against September's 292 and 1,432 for the whole month. {OCTOBER.first_time} are first-timers. Three days remain, so reaching September's level looks unlikely; the full month closes on Nov 1.
+            {OCTOBER.users} users and {OCTOBER.sessions} sessions through Oct {day}, against September's 292 and 1,432 for the whole month. {OCTOBER.first_time} are first-timers. Two days remain, so reaching September's level looks unlikely; the full month closes on Nov 1.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Fewer people start a search; what happens after is unchanged</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            29% of those who enter run a search, against 45% in September. Once they do, 38% highlight and 70% of those copy, about the same as September. Open Search highlights ({L(M, "os_highlight")}) and copies ({L(M, "os_copy")}) are far below September's 392 and 123, a month driven by a handful of very heavy sessions.
+            28% of those who enter run a search, against 45% in September. Once they do, 38% highlight and 70% of those copy, about the same as September. Open Search highlights ({L(M, "os_highlight")}) and copies ({L(M, "os_copy")}) are far below September's 392 and 123, a month driven by a handful of very heavy sessions.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${GREEN}` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration reaches {penetration}%, and 437 people have opened a category</div>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration reaches {penetration}%, and 438 people have opened a category</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
             {cumUsers.toLocaleString("en-US")} cumulative users — September's close of 2,053 plus {OCTOBER.first_time} first-timers — and {cumSessions.toLocaleString("en-US")} sessions the same way. Since October 2025, {snapshotAt("cs_category_users_cum", M)} people have opened at least one knowledge category, {snapshotAt("cs_category_users", M)} of them this month.
           </p>
@@ -4630,7 +4630,7 @@ function OctoberMonthly() {
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #b06e2f` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Contextual search is already ahead of September on openings</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            {L(M, "cs_queries")} pill views against September's 77, and {OCTOBER.pills.lessons} sessions on Lessons Learned against 23. The gap is in what follows: 38 people open a pill, but only 2 copy.
+            {L(M, "cs_queries")} pill views against September's 77, and {OCTOBER.pills.lessons} sessions on Lessons Learned against 23. The gap is in what follows: 40 people open a pill, but only 2 copy.
           </p>
         </div>
       </div>
