@@ -2960,10 +2960,10 @@ const FUNNELS = {
 FUNNELS.october = {
   openSearch: {
     title: "Open Search",
-    intro: "Someone asks a question in the search box, then takes content away. Unique users, same session, segment Sin DEV. October to date (Oct 1–29).",
+    intro: "Someone asks a question in the search box, then takes content away. Unique users, same session, segment Sin DEV. October (Oct 1–31).",
     steps: [
-      { label: "Opens KP", n: 217 },
-      { label: "Runs a search", n: 61, time: "32s" },
+      { label: "Opens KP", n: 227 },
+      { label: "Runs a search", n: 63, time: "32s" },
       { label: "Highlights content", n: 23, time: "3m 26s" },
       { label: "Copies it", n: 16, time: "2.2s" },
     ],
@@ -2974,18 +2974,18 @@ FUNNELS.october = {
       n: 3,
       from: 1,
       time: "3m 0s",
-      note: "3 of the 61 who searched, 4.9% — just under September's 5.4%, the lowest the metric has been.",
+      note: "3 of the 63 who searched, 4.8% — just under September's 5.4%, the lowest the metric has been.",
     },
-    note: "7.4% end to end (16 of 217), against 10.8% in September. The drop is at the first step: 28% of those who enter search, against 45%. After that the funnel holds — 38% of searchers highlight (36% in September) and 70% of those who highlight copy (66% in September). Month to date, so read it against a full month with care.",
+    note: "7.0% end to end (16 of 227), against 10.8% in September. The drop is at the first step: 28% of those who enter search, against 45%. After that the funnel holds — 37% of searchers highlight (36% in September) and 70% of those who highlight copy (66% in September).",
   },
   contextual: {
     title: "Contextual search · pills",
     intro: "Someone opens a pill — Similar Projects, Lessons Learned, Literature, Institutional Documents or Data — then takes content away. Same entry point as above, so the two are directly comparable.",
     steps: [
-      { label: "Opens KP", n: 217 },
-      { label: "Opens a pill", n: 40, time: "1m 25s" },
-      { label: "Highlights content", n: 9, time: "1m 22s" },
-      { label: "Copies it", n: 2, time: "0.9s" },
+      { label: "Opens KP", n: 227 },
+      { label: "Opens a pill", n: 43, time: "1m 26s" },
+      { label: "Highlights content", n: 11, time: "52s" },
+      { label: "Copies it", n: 3, time: "1.0s" },
     ],
     compare: [288, 34, 8, 6],
     compareLabel: "September (full month)",
@@ -2993,14 +2993,14 @@ FUNNELS.october = {
       label: "Opens a source",
       n: 0,
       from: 1,
-      note: "Nobody who opened a pill in October so far clicked a source link.",
+      note: "Nobody who opened a pill in October clicked a source link.",
     },
-    note: "0.9% end to end (2 of 217), against 2.1% in September. Pill openings are already ahead — 40 people, 18% of those who enter, against 34 and 12% — and highlights are 9 against September's 8, but only 2 copied against 6.",
+    note: "1.3% end to end (3 of 227), against 2.1% in September. Pill openings ended ahead — 43 people, 19% of those who enter, against 34 and 12% — and highlights are 11 against September's 8, but only 3 copied against 6.",
   },
   synthesis: [
     {
       lead: "Reading the two together.",
-      body: "Both surfaces start from the same 217 people. Open Search pulls 28% of them into a query, down from 45% in September; the pills pull 18%, up from 12%. Once someone searches, the rest of the path behaves as it did in September, so the change is in how many start, not in what happens after.",
+      body: "Both surfaces start from the same 227 people. Open Search pulls 28% of them into a query, down from 45% in September; the pills pull 19%, up from 12%. Once someone searches, the rest of the path behaves as it did in September, so the change is in how many start, not in what happens after.",
     },
   ],
 };
@@ -3281,7 +3281,7 @@ const QUALITATIVE = {
         tag: "Opportunity",
         tone: "green",
         title: "Pills are a quick look, not a destination",
-        body: "Of 3 pill sessions, two left within a minute or so and only one stayed, about twelve minutes. That fits 40 people opening a pill and only 2 copying.",
+        body: "Of 3 pill sessions, two left within a minute or so and only one stayed, about twelve minutes. That fits 43 people opening a pill and only 3 copying.",
         soWhat: "A link from the pill to the Assistant, carrying the project, would give the quick lookers a next step.",
         sessions: [{ id: "S-05", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3342387239912624474:7173635749571822276:1793117543535", place: "US" }, { id: "S-07", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8381765414344869013:6520275666541052331:1792614109997", place: "Brazil" }, { id: "S-06", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3022122187867622856:6077310078458139911:1793041068147", place: "US" }],
       },
@@ -4380,12 +4380,12 @@ function SeptemberMonthly() {
 // Open Search y Contextual salen del ledger (filas 2026-10); lo demas, de FullStory via MCP con el segmento
 // Sin DEV, cada metrica leida dos veces. Al cerrar octubre este bloque pasa a ser el cierre del mes.
 const OCTOBER = {
-  through: "2026-10-29",
-  users: 220,
-  sessions: 1021,
-  prompters: 62,
-  first_time: 74,           // control: usuarios acumulados 1-sep-2025 -> 29-oct (1895) menos los del cierre de septiembre (1821, misma consulta del dia)
-  tourCompletion: 37,       // 37.37 redondeado
+  through: "2026-10-31",
+  users: 230,
+  sessions: 1084,
+  prompters: 64,
+  first_time: 79,           // control: usuarios acumulados 1-sep-2025 -> 31-oct (1888) menos los del cierre de septiembre (1809, misma consulta del dia)
+  tourCompletion: 38,       // 37.5 redondeado
   thumbsUp: 1,
   thumbsDown: 0,
   promptGalleryClicks: 6,
@@ -4396,23 +4396,23 @@ const OCTOBER = {
   csat: "100%",             // manual: lista de encuestas (feedback) 2026-10-29 · 2 respuestas (5,5) · top-2 box 2/2 · avg 5.00 · n=2, no es una tasa
   csatResponses: 2,
   csatAvg: 5.0,
-  totalCountries: 26,       // paises con actividad Sin DEV (copy) en knowledgeplatform.iadb.org, 1-29 oct. ATENCION: poblacion distinta de la tabla de septiembre (ver nota en la tarjeta)
+  totalCountries: 26,       // paises con actividad Sin DEV (copy) en knowledgeplatform.iadb.org, 1-31 oct. ATENCION: poblacion distinta de la tabla de septiembre (ver nota en la tarjeta)
   countries: [
-    { name: "United States (HQ)", code: "US", users: 118 },
-    { name: "Brazil", code: "BR", users: 10 }, { name: "Colombia", code: "CO", users: 9 },
+    { name: "United States (HQ)", code: "US", users: 125 },
+    { name: "Brazil", code: "BR", users: 11 }, { name: "Colombia", code: "CO", users: 9 },
     { name: "Panama", code: "PA", users: 8 }, { name: "Argentina", code: "AR", users: 7 }, { name: "Barbados", code: "BB", users: 7 },
     { name: "Cayman Islands", code: "KY", users: 5 },
-    { name: "Jamaica", code: "JM", users: 4 }, { name: "Uruguay", code: "UY", users: 4 },
-    { name: "Dominican Republic", code: "DO", users: 3 }, { name: "Mexico", code: "MX", users: 3 }, { name: "Peru", code: "PE", users: 3 },
+    { name: "Jamaica", code: "JM", users: 4 }, { name: "Uruguay", code: "UY", users: 5 },
+    { name: "Dominican Republic", code: "DO", users: 3 }, { name: "Mexico", code: "MX", users: 4 }, { name: "Peru", code: "PE", users: 3 },
     { name: "Belize", code: "BZ", users: 2 }, { name: "Bolivia", code: "BO", users: 2 }, { name: "Chile", code: "CL", users: 2 },
     { name: "Costa Rica", code: "CR", users: 2 }, { name: "Paraguay", code: "PY", users: 2 },
     { name: "Bahamas", code: "BS", users: 1 }, { name: "Canada", code: "CA", users: 1 }, { name: "El Salvador", code: "SV", users: 1 }, { name: "Guatemala", code: "GT", users: 1 },
-    { name: "Haiti", code: "HT", users: 1 }, { name: "Korea", code: "KR", users: 1 }, { name: "Spain", code: "ES", users: 2 },
+    { name: "Haiti", code: "HT", users: 1 }, { name: "Korea", code: "KR", users: 1 }, { name: "Spain", code: "ES", users: 3 },
     { name: "Suriname", code: "SR", users: 1 }, { name: "Trinidad & Tobago", code: "TT", users: 1 },
   ],
-  // Pills: sesiones con vista de pagina por pill, 1-29 oct (metricos PJyiZSAt3EXH, rhTcgj1srgne, w0ktk3sF3v3I, eCemfOCLh5qU; septiembre reproduce 23/19/10/12 exacto)
-  pills: { lessons: 28, data: 20, similar: 11, literature: 13 },
-  // LWA: personas fuera del equipo, Sin DEV (copy), 1-29 oct. Creadores calibrado contra septiembre (3 = 3).
+  // Pills: sesiones con vista de pagina por pill, 1-31 oct (metricos PJyiZSAt3EXH, rhTcgj1srgne, w0ktk3sF3v3I, eCemfOCLh5qU; septiembre reproduce 23/19/10/12 exacto)
+  pills: { lessons: 34, data: 21, similar: 13, literature: 14 },
+  // LWA: personas fuera del equipo, Sin DEV (copy), 1-31 oct. Creadores calibrado contra septiembre (3 = 3).
   // Copiaron / abrieron del catalogo: sin metodo verificado (copiar dio 0 contra 1 publicado en septiembre; abrir del catalogo no tiene metrico).
   lwa: { creators: 2, copied: null, shared: 0, viewed: null, sharedViewed: 0 },
 };
@@ -4427,7 +4427,7 @@ function OctoberMonthly() {
   const countryTotal = OCTOBER.countries.reduce((a, c) => a + c.users, 0);
   const usPct = Math.round(usData.users / countryTotal * 100);
   const maxUsers = regional[0].users;
-  const MCard = (p) => <MonthMetricCard {...p} variant="august" />;
+  const MCard = (p) => <MonthMetricCard {...p} variant="august" momentumLabel="September" />;
   const through = new Date(`${OCTOBER.through}T00:00:00Z`).toLocaleString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
   const day = Number(OCTOBER.through.slice(8));
   const cumUsers = snapshotAt("unique_users", M), cumSessions = snapshotAt("sessions", M), cumPrompters = snapshotAt("prompters", M);
@@ -4444,14 +4444,14 @@ function OctoberMonthly() {
 
       <div style={{ marginBottom: 8, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
         <div>
-        <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report — Month to date</div>
-        <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>October 2026 — Oct 1–{day} ({day} of 31 days)</div>
-        <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (segment Sin DEV) and the ledger · Updated daily, last complete day: {through}</div>
+        <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report — Pre-close</div>
+        <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>October 2026 — Oct 1–{day}</div>
+        <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (segment Sin DEV) and the ledger · FullStory data through {through} (full month) · console data, retention and the full qualitative sweep land with the close</div>
         </div>
         <button
           onClick={() => {
             const rows = [
-              ["Metric", "Value"], ["Month", `October 2026 (Oct 1-${day}, month to date)`],
+              ["Metric", "Value"], ["Month", `October 2026 (Oct 1-${day}; console data pending)`],
               ["Users reached", OCTOBER.users], ["Sessions", OCTOBER.sessions], ["Prompters", OCTOBER.prompters],
               ["New users", OCTOBER.first_time], ["Returning users", returning], ["Tour completion %", OCTOBER.tourCompletion + "%"],
               ["Avg. active time (s)", snapshotAt("avg_active_time_s", M)], ["Pill pageviews", L(M, "cs_queries")],
@@ -4494,12 +4494,12 @@ function OctoberMonthly() {
         </div>
       </div>
 
-      {heading("📊 General Usability (October · to date)", { marginTop: 8 })}
+      {heading("📊 General Usability (October)", { marginTop: 8 })}
       <div style={grid(160)}>
-        <MCard meta="users" label="Users reached" value={String(OCTOBER.users)} desc="Unique people who used KP so far in October" accent />
-        <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(OCTOBER.prompters)} desc={`${pctOf(OCTOBER.prompters, OCTOBER.users)}% of users reached`} accent />
-        <MCard meta="firstTime" label="New users" value={String(OCTOBER.first_time)} desc={`First-time visitors · other ${returning} are returning from prior months`} />
-        <MCard meta="returningUsers" label="Returning users" value={String(returning)} desc={`${pctOf(returning, OCTOBER.users)}% of users reached · already knew KP before October`} />
+        <MCard meta="users" label="Users reached" value={String(OCTOBER.users)} desc="Unique people who used KP in October" accent momentum={SEPTEMBER.users} />
+        <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(OCTOBER.prompters)} desc={`${pctOf(OCTOBER.prompters, OCTOBER.users)}% of users reached`} accent momentum={SEPTEMBER.prompters} />
+        <MCard meta="firstTime" label="New users" value={String(OCTOBER.first_time)} desc={`First-time visitors · other ${returning} are returning from prior months`} momentum={SEPTEMBER.first_time} />
+        <MCard meta="returningUsers" label="Returning users" value={String(returning)} desc={`${pctOf(returning, OCTOBER.users)}% of users reached · already knew KP before October`} momentum={SEPTEMBER.returningUsers} />
         <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
           <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(OCTOBER.users/BID_TOTAL*100*10)/10}%</div>
@@ -4511,9 +4511,9 @@ function OctoberMonthly() {
           </div>
           <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants · month so far</div>
         </div>
-        <MCard meta="tourCompletion" label="% Onboarding completed" value={`${OCTOBER.tourCompletion}%`} desc="Users who finished the tour" />
-        <MCard meta="sessions" label="Sessions" value={String(OCTOBER.sessions)} desc="Total for the month so far" />
-        <MCard meta="activeTime" label="Avg. active time" value={`${snapshotAt("avg_active_time_s", "2026-10").toFixed(1)} s`} desc="Per page view · month so far" />
+        <MCard meta="tourCompletion" label="% Onboarding completed" value={`${OCTOBER.tourCompletion}%`} desc="Users who finished the tour" momentum={SEPTEMBER.tourCompletion} />
+        <MCard meta="sessions" label="Sessions" value={String(OCTOBER.sessions)} desc="Total for the month" momentum={SEPTEMBER.sessions} />
+        <MCard meta="activeTime" label="Avg. active time" value={`${snapshotAt("avg_active_time_s", "2026-10").toFixed(1)} s`} desc="Per page view · October" momentum={snapshotAt("avg_active_time_s", "2026-09")} />
       </div>
 
       {/* Geo */}
@@ -4559,29 +4559,29 @@ function OctoberMonthly() {
         </div>
       </div>
 
-      {heading("🔍 Contextual Search (October · to date)")}
+      {heading("🔍 Contextual Search (October)")}
       <div style={grid(200)}>
-        <MCard meta="pillPageviews" label="Queries (pill views)" value={String(L(M, "cs_queries"))} desc="Total visits across all contextual search pills · from the ledger" accent />
-        <MCard meta="categoryUsers" label="Users in a category" value={String(snapshotAt("cs_category_users", "2026-10"))} desc="People who opened at least one knowledge category · month so far · from the ledger" />
+        <MCard meta="pillPageviews" label="Queries (pill views)" value={String(L(M, "cs_queries"))} desc="Total visits across all contextual search pills · from the ledger" accent momentum={SEPTEMBER.pillPageviews} />
+        <MCard meta="categoryUsers" label="Users in a category" value={String(snapshotAt("cs_category_users", "2026-10"))} desc="People who opened at least one knowledge category · October · from the ledger" momentum={snapshotAt("cs_category_users", "2026-09")} />
         <MCard label="Global Search events" value={String(chips + searchBar)} desc={`Chips ${chips} · search bar ${searchBar} · from the ledger`} />
-        <MCard label="Most used pill — Lessons Learned" value={String(OCTOBER.pills.lessons)} desc={`Data ${OCTOBER.pills.data} · Similar Projects ${OCTOBER.pills.similar} · live via MCP`} small />
+        <MCard label="Most used pill — Lessons Learned" value={String(OCTOBER.pills.lessons)} desc={`Data ${OCTOBER.pills.data} · Similar Projects ${OCTOBER.pills.similar} · live via MCP`} small momentum={23} />
         <MCard label={<>Least used pill —<br/>Similar Projects</>} value={String(OCTOBER.pills.similar)} desc={`of the four confirmed pills (Literature ${OCTOBER.pills.literature}) · live via MCP`} small />
       </div>
 
-      {heading("🤖 Knowledge Assistant — Open Search (October · to date)")}
+      {heading("🤖 Knowledge Assistant — Open Search (October)")}
       <div style={grid(160)}>
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(OCTOBER.prompters)} desc={`${pctOf(OCTOBER.prompters, OCTOBER.users)}% of users reached`} accent />
         <MCard meta="prompts" label="Prompts sent" value="—" desc="Pending · from the admin console, loaded with the close" small />
         <MCard meta="latency" label="Latency" value="—" desc="Pending · average response time from the admin console, loaded with the close" small />
-        <MCard meta="sourceClicks" label="Source panel clicks" value={String(L(M, "os_source_panel"))} desc="Clicks on source panel · from the ledger" />
+        <MCard meta="sourceClicks" label="Source panel clicks" value={String(L(M, "os_source_panel"))} desc="Clicks on source panel · from the ledger" momentum={SEPTEMBER.sourceClicks} />
         <MCard label="Response feedback" value={`👍 ${OCTOBER.thumbsUp} · 👎 ${OCTOBER.thumbsDown}`} desc="AI responses rated" small />
         <MCard meta="csat" label="CSAT" value={OCTOBER.csat} desc={`Top-2 box, ${OCTOBER.csatResponses} of ${OCTOBER.csatResponses} responses · avg ${OCTOBER.csatAvg.toFixed(2)} ★ · n=${OCTOBER.csatResponses} is far too small to read as a rate`} small />
-        <MCard meta="promptGallery" label="Prompt Gallery clicks" value={String(OCTOBER.promptGalleryClicks)} />
-        <MCard meta="recentSearch" label="Recent Search clicks" value={String(OCTOBER.recentSearchClicks)} />
-        <MCard meta="newSearch" label="New Search clicks" value={String(OCTOBER.newSearchClicks)} />
+        <MCard meta="promptGallery" label="Prompt Gallery clicks" value={String(OCTOBER.promptGalleryClicks)} momentum={SEPTEMBER.promptGalleryClicks} />
+        <MCard meta="recentSearch" label="Recent Search clicks" value={String(OCTOBER.recentSearchClicks)} momentum={SEPTEMBER.recentSearchClicks} />
+        <MCard meta="newSearch" label="New Search clicks" value={String(OCTOBER.newSearchClicks)} momentum={SEPTEMBER.newSearchClicks} />
       </div>
 
-      {heading("📄 Content Engagement (October · to date)")}
+      {heading("📄 Content Engagement (October)")}
       <ContentEngagementCard
         rows={engagementRows(M, downloads)}
         note={`Downloads: ${OCTOBER.wordDownloads} Word · ${OCTOBER.excelDownloads} Excel.`}
@@ -4589,7 +4589,7 @@ function OctoberMonthly() {
 
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
-      {heading("📝 Lessons Writing Assistant — LWA (October · to date)")}
+      {heading("📝 Lessons Writing Assistant — LWA (October)")}
       <div style={grid(160)}>
         <MCard meta="lessonsGenerated" label="Created a lesson" value={String(OCTOBER.lwa.creators)} desc="People outside the team who wrote at least one lesson · live via MCP" accent />
         <MCard meta="lwaCopy" label="Copied one out" value={OCTOBER.lwa.copied == null ? "—" : String(OCTOBER.lwa.copied)} desc="Not measured yet: the method did not reproduce September" />
@@ -4610,19 +4610,19 @@ function OctoberMonthly() {
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — the month so far</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach is running below September, with two days left</div>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach finished below September</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            {OCTOBER.users} users and {OCTOBER.sessions} sessions through Oct {day}, against September's 292 and 1,432 for the whole month. {OCTOBER.first_time} are first-timers. Two days remain, so reaching September's level looks unlikely; the full month closes on Nov 1.
+            {OCTOBER.users} users and {OCTOBER.sessions} sessions through Oct {day}, against September's 292 and 1,432 for the whole month. {OCTOBER.first_time} are first-timers. The month is complete: reaching September's level was not possible. Console data, retention and the full-month qualitative sweep land with the close.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Fewer people start a search; what happens after is unchanged</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            28% of those who enter run a search, against 45% in September. Once they do, 38% highlight and 70% of those copy, about the same as September. Open Search highlights ({L(M, "os_highlight")}) and copies ({L(M, "os_copy")}) are far below September's 392 and 123, a month driven by a handful of very heavy sessions.
+            28% of those who enter run a search, against 45% in September. Once they do, 37% highlight and 70% of those copy, about the same as September. Open Search highlights ({L(M, "os_highlight")}) and copies ({L(M, "os_copy")}) are far below September's 392 and 123, a month driven by a handful of very heavy sessions.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${GREEN}` }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration reaches {penetration}%, and 438 people have opened a category</div>
+          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration reaches {penetration}%, and 440 people have opened a category</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
             {cumUsers.toLocaleString("en-US")} cumulative users — September's close of 2,053 plus {OCTOBER.first_time} first-timers — and {cumSessions.toLocaleString("en-US")} sessions the same way. Since October 2025, {snapshotAt("cs_category_users_cum", M)} people have opened at least one knowledge category, {snapshotAt("cs_category_users", M)} of them this month.
           </p>
@@ -4630,7 +4630,7 @@ function OctoberMonthly() {
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #b06e2f` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Contextual search is already ahead of September on openings</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            {L(M, "cs_queries")} pill views against September's 77, and {OCTOBER.pills.lessons} sessions on Lessons Learned against 23. The gap is in what follows: 40 people open a pill, but only 2 copy.
+            {L(M, "cs_queries")} pill views against September's 77, and {OCTOBER.pills.lessons} sessions on Lessons Learned against 23. The gap is in what follows: 43 people open a pill, but only 2 copy.
           </p>
         </div>
       </div>
@@ -4638,7 +4638,7 @@ function OctoberMonthly() {
       <QualitativeSection q={QUALITATIVE.october} />
 
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Month to date.</strong> October is partial: it covers Oct 1–{day}, complete days only, and it is not compared with September's full month. It is refreshed every day and the last complete day is shown at the top.
+        <strong style={{ color: INK2 }}>October is complete on FullStory data.</strong> It covers Oct 1–{day}. The chips on each card compare it with September's full month: green means it went up, red means it went down. The final close adds the console data, the retention cohorts and the full-month qualitative sweep.
         <br/><br/><strong style={{ color: INK2 }}>Where the numbers come from.</strong> Users, sessions, prompters, onboarding, feedback and search clicks are read from FullStory on the Sin DEV segment, twice each, and kept only where both reads agreed. New users are the cumulative unique users to date minus September's close, not the first-seen segment. Highlights, copies, source clicks, pill views and Global Search come from the ledger (data/kp_ledger.csv, segment Sin DEV (copy)); the cumulative totals use its snapshots.
         <br/><br/><strong style={{ color: INK2 }}>Still pending for the close:</strong> prompts sent and latency come from the admin console and are loaded with the close, and the retention cohorts and the full-month qualitative sweep are done once the month is complete (the sweep above is the month-to-date pass). Countries, funnels and pills are computed on the Sin DEV segment over Oct 1–{day}; the country table is not comparable with September's. CSAT is loaded by hand from the survey list (two responses so far this month, both 5 stars), and it is carried for continuity, not as a satisfaction rate.
       </div>
@@ -4847,7 +4847,7 @@ function App() {
   const [launchOpen, setLaunchOpen] = useState(false);
 
   const MONTHS = [
-    { id: "october",   label: "October 2026 · to date" },
+    { id: "october",   label: "October 2026 · pre-close" },
     { id: "september", label: "September 2026" },
     { id: "august",  label: "August 2026" },
     { id: "july",    label: "July 2026" },
