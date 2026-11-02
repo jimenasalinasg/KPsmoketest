@@ -4444,7 +4444,7 @@ function OctoberMonthly() {
 
       <div style={{ marginBottom: 8, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
         <div>
-        <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report — Pre-close</div>
+        <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report — October</div>
         <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>October 2026 — Oct 1–{day}</div>
         <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (segment Sin DEV) and the ledger · FullStory data through {through} (full month) · console data, retention and the full qualitative sweep land with the close</div>
         </div>
@@ -4842,12 +4842,12 @@ function Benchmark() {
 
 // ── APP ───────────────────────────────────────────────────
 function App() {
-  const [view, setView] = useState("september");
+  const [view, setView] = useState("october");
   const [monthOpen, setMonthOpen] = useState(false);
   const [launchOpen, setLaunchOpen] = useState(false);
 
   const MONTHS = [
-    { id: "october",   label: "October 2026 · pre-close" },
+    { id: "october",   label: "October 2026" },
     { id: "september", label: "September 2026" },
     { id: "august",  label: "August 2026" },
     { id: "july",    label: "July 2026" },
