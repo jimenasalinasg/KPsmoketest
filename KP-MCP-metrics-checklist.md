@@ -1133,3 +1133,14 @@ también existe en `AUGUST` (`sourceClicksBC: 1`).
 Una versión previa de este checklist decía que `users` y `sessions` no se podían
 computar de forma confiable vía MCP. Se verificó contra julio 2026: ambos
 coinciden exacto con los valores ya validados. Se computan vía MCP.
+
+#### LWA en octubre 2026 — receta verificada (2-nov-2026)
+
+Mismos cinco elementos del 30-sep, **personas únicas, org-wide, host de producción**, y los mails de Sin DEV (31 hoy) se descuentan a mano:
+`compute_metric` con `metric_definition` (click `withElementId` + `deps` `URL_HOST = knowledgeplatform.iadb.org`, agregación única, rango del mes),
+y luego `get_sessions(metric_id)` para ver los mails (no se publican). Elementos: crear `uQY9Vcp2aFmr`, copiar `ftgvZBjF6Olb`, compartir `XOTexx0kvoot`,
+abrir del catálogo `DEUvO54X9yRk`, compartidas `9AKvRFRstvbl`.
+
+Calibración con septiembre (reproduce lo publicado): crear 6 personas / **3** fuera del equipo; copiar 4 / **1**; abrir del catálogo 2 / **0**.
+Octubre: crear 5 / **2**; copiar 2 / **1**; compartir 1 / **0**; catálogo 2 / **1**; compartidas 2 / **0**.
+El método anterior de octubre (métrico guardado + segmento Sin DEV) dejaba copiar y catálogo en «—» porque el segmento descarta sesiones que no pasan por `/home`.

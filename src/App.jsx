@@ -2444,11 +2444,11 @@ const META = {
   firstTime:        { id: null,           src: "segment", def: "Users whose FullStory First Seen date falls inside the month AND who visited the production /home — the same two conditions as the Sin DEV segment. Built as a segment, not a metric: compute_metric cannot express First Seen. Recipe and IDs in the checklist §4." },
   returningUsers:   { id: null,           src: "derived", def: "Users reached minus new users, both on the Sin DEV population. People who already knew KP before this month. NOT the same as users with 2+ sessions in the month — that is a different measure and is not what this shows." },
   csat:             { id: null,           src: "manual",  def: "Satisfied responses (rating ≥ 4) ÷ total responses, top-2 box on a 1–5 scale. Collected manually. Read the sample size on the card before the percentage — on a handful of responses each one moves it by tens of points." },
-  lessonsGenerated: { id: null,           src: "console", def: "Lessons produced, taken by hand from the admin console. NOT the FullStory metric ffbLsADU0Swu, which counts clicks on the create-draft button rather than finished lessons." },
-  lwaShare:         { id: "IHPlQ1WT1zEz", src: "mcp",     def: "Clicks on the share button. Recently released feature — a zero is a baseline, not disuse." },
-  lwaCopy:          { id: "b46xecCQyFod", src: "mcp",     def: "Clicks to copy a generated lesson. Predates the other LWA metrics: 9 events between Sep 2025 and Jun 2026, none since July." },
-  lwaView:          { id: "o7uGz8LnXgZY", src: "mcp",     def: "Lessons opened from the catalogue. Recently released feature — a zero is a baseline, not disuse." },
-  lwaSharedView:    { id: "gEJ1qqiZ2Df9", src: "mcp",     def: "Views from the shared catalogue. Recently released feature — a zero is a baseline, not disuse." },
+  lessonsGenerated: { id: "uQY9Vcp2aFmr", src: "mcp",     def: "People who clicked Create draft (Question-Set-Create-Draft-Button) to start a lesson. A click, not a finished lesson, so it is the best signal available rather than a production count. Counted as unique people on the production site (knowledgeplatform.iadb.org), removing the build team's accounts by hand. The saved metric ffbLsADU0Swu carries the Sin DEV segment and reads 0, so it is not used." },
+  lwaShare:         { id: "XOTexx0kvoot", src: "mcp",     def: "People who confirmed sharing a lesson (Share-Dialog-Button-Share). Counted as unique people on the production site (knowledgeplatform.iadb.org), removing the build team's accounts by hand. The saved metric IHPlQ1WT1zEz carries the Sin DEV segment and reads 0, so it is not used." },
+  lwaCopy:          { id: "ftgvZBjF6Olb", src: "mcp",     def: "People who copied the generated lesson (Lesson-Generated-View-Button-Copy-Header). Counted as unique people on the production site (knowledgeplatform.iadb.org), removing the build team's accounts by hand. The saved metric b46xecCQyFod carries the Sin DEV segment and reads 0, so it is not used." },
+  lwaView:          { id: "DEUvO54X9yRk", src: "mcp",     def: "People who opened a lesson from the catalogue (Lessons-Catalogue-Button-View). Counted as unique people on the production site (knowledgeplatform.iadb.org), removing the build team's accounts by hand. The saved metric o7uGz8LnXgZY carries the Sin DEV segment and reads 0, so it is not used." },
+  lwaSharedView:    { id: "9AKvRFRstvbl", src: "mcp",     def: "People who opened a lesson shared with them (Lessons-Catalogue-Shared-Button-View). Counted as unique people on the production site (knowledgeplatform.iadb.org), removing the build team's accounts by hand. The saved metric gEJ1qqiZ2Df9 carries the Sin DEV segment and reads 0, so it is not used." },
 };
 const SRC_LABEL = { ledger: "Ledger · Sin DEV (copy)", mcp: "FullStory · live", console: "Admin console · manual", manual: "Manual", pending: "Pending — no metric" };
 
@@ -4412,9 +4412,12 @@ const OCTOBER = {
   ],
   // Pills: sesiones con vista de pagina por pill, 1-31 oct (metricos PJyiZSAt3EXH, rhTcgj1srgne, w0ktk3sF3v3I, eCemfOCLh5qU; septiembre reproduce 23/19/10/12 exacto)
   pills: { lessons: 34, data: 21, similar: 13, literature: 14 },
-  // LWA: personas fuera del equipo, Sin DEV (copy), 1-31 oct. Creadores calibrado contra septiembre (3 = 3).
-  // Copiaron / abrieron del catalogo: sin metodo verificado (copiar dio 0 contra 1 publicado en septiembre; abrir del catalogo no tiene metrico).
-  lwa: { creators: 2, copied: null, shared: 0, viewed: null, sharedViewed: 0 },
+  // LWA: personas fuera del equipo, en produccion (host knowledgeplatform.iadb.org), 1-31 oct. Misma receta de septiembre:
+  // personas unicas por elemento, org-wide, y se descuentan a mano los mails del segmento Sin DEV (no se puede attachear el segmento).
+  // Elementos: crear uQY9Vcp2aFmr, copiar ftgvZBjF6Olb, compartir XOTexx0kvoot, abrir del catalogo DEUvO54X9yRk, compartidas 9AKvRFRstvbl.
+  // Calibrado contra septiembre: 3 / 1 / 0 / 0 / 0 fuera del equipo (6 / 4 / - / 2 / - con equipo), identico a lo publicado.
+  // Octubre con equipo: crear 5, copiar 2, compartir 1, catalogo 2, compartidas 2.
+  lwa: { creators: 2, copied: 1, shared: 0, viewed: 1, sharedViewed: 0 },
 };
 
 // ── OCTOBER MONTHLY VIEW (to date) ─────────────────────────
@@ -4591,14 +4594,14 @@ function OctoberMonthly() {
 
       {heading("📝 Lessons Writing Assistant — LWA (October)")}
       <div style={grid(160)}>
-        <MCard meta="lessonsGenerated" label="Created a lesson" value={String(OCTOBER.lwa.creators)} desc="People outside the team who wrote at least one lesson · live via MCP" accent />
-        <MCard meta="lwaCopy" label="Copied one out" value={OCTOBER.lwa.copied == null ? "—" : String(OCTOBER.lwa.copied)} desc="Not measured yet: the method did not reproduce September" />
+        <MCard meta="lessonsGenerated" label="Created a lesson" value={String(OCTOBER.lwa.creators)} desc="People outside the team who wrote at least one lesson · live via MCP" accent momentum={3} />
+        <MCard meta="lwaCopy" label="Copied one out" value={String(OCTOBER.lwa.copied)} desc="Person outside the team who took the generated lesson away · live via MCP" />
         <MCard meta="lwaShare" label="Shared with a colleague" value={String(OCTOBER.lwa.shared)} desc="Nobody outside the team shared one" />
-        <MCard meta="lwaView" label="Opened from the catalogue" value={OCTOBER.lwa.viewed == null ? "—" : String(OCTOBER.lwa.viewed)} desc="Not measured yet: no metric for this step" />
+        <MCard meta="lwaView" label="Opened from the catalogue" value={String(OCTOBER.lwa.viewed)} desc="Person outside the team who opened a lesson from the catalogue · live via MCP" />
         <MCard meta="lwaSharedView" label="Opened a shared lesson" value={String(OCTOBER.lwa.sharedViewed)} desc="Nobody outside the team read one they received" />
       </div>
       <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.5 }}>
-        ℹ <strong>People, not clicks, and the build team is excluded.</strong> At this volume a click count flatters the feature — one person clicking five times is one person. These are individuals on the Sin DEV segment. Two steps show a dash because we could not yet measure them in people without the team; the creator count was checked against September (3 and 3).
+        ℹ <strong>People, not clicks, and the build team is excluded.</strong> At this volume a click count flatters the feature — one person clicking five times is one person. Each step counts unique people on the production site and removes the build team's accounts by hand, because FullStory cannot attach that exclusion to a metric. The same method reproduces September's published 3, 1, 0, 0 and 0.
       </div>
 
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
