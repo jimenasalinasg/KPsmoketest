@@ -66,6 +66,20 @@ export function buildDocs(ctx) {
       formula: `${fmt(users.value)} unique users ÷ ${fmt(totalStaff)} IDB staff and consultants =${(Math.round((users.value / totalStaff) * 1000) / 10)}%.`,
       note: `The ${fmt(totalStaff)} headcount is a fixed reference, not a FullStory metric.`,
     },
+    frequentUsers: {
+      kind: "Monthly snapshot", title: "Frequent users",
+      what: "People outside the team who come back about once a week or more: at least 4 visits to the KP home page in the 28 days up to the month-end.",
+      formula: `Unique users with 4 or more visits to https://knowledgeplatform.iadb.org/home in a rolling 28-day window, minus the Sin DEV team accounts. Latest ${snap("frequent_users").month}: ${snap("frequent_users").value}.`,
+      idsNote: "No saved metric: it is a FullStory segment per window (visited the exact URL at least 4 times within 28 days). FullStory cannot attach the team exclusion to a segment that is read by user, so the team accounts are listed and removed by hand.",
+      note: "A rolling window, so it can be rebuilt for any past month inside FullStory's ~12-month history. It counts home page visits, not sessions. A snapshot, never summed across months.",
+    },
+    powerUsers: {
+      kind: "Monthly snapshot", title: "Power users",
+      what: "People outside the team who come back twice a week or more: at least 8 visits to the KP home page in the 28 days up to the month-end. Always a subset of frequent users.",
+      formula: `Unique users with 8 or more visits to https://knowledgeplatform.iadb.org/home in a rolling 28-day window, minus the Sin DEV team accounts. Latest ${snap("power_users").month}: ${snap("power_users").value}.`,
+      idsNote: "Same recipe as frequent users, with a threshold of 8.",
+      note: "The 8-visit threshold is a starting point. The Nielsen 90-9-1 rule is only a loose reference for how small this group should be.",
+    },
     returning: {
       kind: "Snapshot", title: "Returning user rate",
       what: "Of the people who visit KP, the share who come back within 14 days.",

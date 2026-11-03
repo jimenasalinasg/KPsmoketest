@@ -139,18 +139,18 @@ function HistoryTable({ docs }) {
   return (
     <div style={{ overflowX: "auto" }}>
       <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 10, color: INK2, minWidth: 720 }}>
-        <thead><tr><th style={{ ...th, ...first }}>Month</th>{COLS.map(([k, l]) => <th key={l} style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>{l}<Info doc={docs[k]} /></span></th>)}<th style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>Avg. active time (s)<Info doc={docs.avg_active_time_s} /></span></th><th style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>Median prompts<Info doc={docs.medianPrompt} /></span></th><th style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>Users in a category (cum.)<Info doc={docs.csCategoryUsers} /></span></th></tr></thead>
+        <thead><tr><th style={{ ...th, ...first }}>Month</th>{COLS.map(([k, l]) => <th key={l} style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>{l}<Info doc={docs[k]} /></span></th>)}<th style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>Avg. active time (s)<Info doc={docs.avg_active_time_s} /></span></th><th style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>Median prompts<Info doc={docs.medianPrompt} /></span></th><th style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>Users in a category (cum.)<Info doc={docs.csCategoryUsers} /></span></th><th style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>Frequent users<Info doc={docs.frequentUsers} /></span></th><th style={th}><span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>Power users<Info doc={docs.powerUsers} /></span></th></tr></thead>
         <tbody>
           {ledger.months.map((m) => (
-            <tr key={m}><td style={{ ...td, ...first }}>{m}</td>{COLS.map(([k]) => <td key={k} style={td}>{ledger.additive[k]?.[m] ?? "–"}</td>)}<td style={td}>{ledger.snapshot.avg_active_time_s?.[m]?.toFixed(1) ?? "–"}</td><td style={td}>{ledger.snapshot.median_prompts?.[m] ?? "–"}</td><td style={td}>{ledger.snapshot.cs_category_users_cum?.[m] ?? "–"}</td></tr>
+            <tr key={m}><td style={{ ...td, ...first }}>{m}</td>{COLS.map(([k]) => <td key={k} style={td}>{ledger.additive[k]?.[m] ?? "–"}</td>)}<td style={td}>{ledger.snapshot.avg_active_time_s?.[m]?.toFixed(1) ?? "–"}</td><td style={td}>{ledger.snapshot.median_prompts?.[m] ?? "–"}</td><td style={td}>{ledger.snapshot.cs_category_users_cum?.[m] ?? "–"}</td><td style={td}>{ledger.snapshot.frequent_users?.[m] ?? "–"}</td><td style={td}>{ledger.snapshot.power_users?.[m] ?? "–"}</td></tr>
           ))}
           {Object.entries(ledger.baseline).map(([k, v]) => {
             const note = ledger.rows.find((r) => r.metric === k && r.month === "baseline")?.note;
-            return <tr key={k}><td style={{ ...td, ...first }}>baseline · {k}</td><td colSpan={COLS.length + 3} style={{ ...td, textAlign: "left" }}>{fmt(v)}{note ? ` (${note})` : ""}</td></tr>;
+            return <tr key={k}><td style={{ ...td, ...first }}>baseline · {k}</td><td colSpan={COLS.length + 5} style={{ ...td, textAlign: "left" }}>{fmt(v)}{note ? ` (${note})` : ""}</td></tr>;
           })}
           <tr style={{ fontWeight: 600, color: BLUE_D }}>
             <td style={{ ...td, ...first, borderTop: `2px solid ${BLUE_M}` }}>Total</td>
-            {COLS.map(([k]) => <td key={k} style={{ ...td, borderTop: `2px solid ${BLUE_M}` }}>{fmt(ledgerSum(k))}</td>)}<td style={{ ...td, borderTop: `2px solid ${BLUE_M}` }}>–</td><td style={{ ...td, borderTop: `2px solid ${BLUE_M}` }}>–</td><td style={{ ...td, borderTop: `2px solid ${BLUE_M}` }}>–</td>
+            {COLS.map(([k]) => <td key={k} style={{ ...td, borderTop: `2px solid ${BLUE_M}` }}>{fmt(ledgerSum(k))}</td>)}<td style={{ ...td, borderTop: `2px solid ${BLUE_M}` }}>–</td><td style={{ ...td, borderTop: `2px solid ${BLUE_M}` }}>–</td><td style={{ ...td, borderTop: `2px solid ${BLUE_M}` }}>–</td><td style={{ ...td, borderTop: `2px solid ${BLUE_M}` }}>–</td><td style={{ ...td, borderTop: `2px solid ${BLUE_M}` }}>–</td>
           </tr>
         </tbody>
       </table>
@@ -196,6 +196,14 @@ export default function UsabilityMetrics() {
           <Kpi label="Penetration" doc={docs.penetration} sub={`Out of ${fmt(TOTAL_STAFF)} IDB staff & consultants`} value={`${penetration}%`} />
           <Kpi label="Avg. active time" doc={docs.avg_active_time_s} sub="Per page view · current month" value={`${latestSnapshot("avg_active_time_s").value.toFixed(1)} s`} note={`${latestSnapshot("avg_active_time_s").month}${latestSnapshot("avg_active_time_s").month === last ? " · month so far" : ""}`} />
           <Kpi label="Returning user rate" doc={docs.returning} sub="Within 14 days" value={`${tenths}/10`} note={`${returning}% · a rate, so it is robust to FullStory's retention window`} />
+        </Cells>
+      </Block>
+
+      <SectionLabel>Habit</SectionLabel>
+      <Block band="access">
+        <Cells>
+          <Kpi first label="Frequent users" doc={docs.frequentUsers} sub="≥4 visits in 28 days" value={fmt(latestSnapshot("frequent_users").value)} note={`${latestSnapshot("frequent_users").month} · ${(latestSnapshot("frequent_users").value / latestSnapshot("unique_users").value * 100).toFixed(1)}% of unique users`} />
+          <Kpi label="Power users" doc={docs.powerUsers} sub="≥8 visits in 28 days" value={fmt(latestSnapshot("power_users").value)} note={`${latestSnapshot("power_users").month} · ${(latestSnapshot("power_users").value / latestSnapshot("unique_users").value * 100).toFixed(1)}% of unique users`} />
         </Cells>
       </Block>
 
