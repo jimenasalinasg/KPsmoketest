@@ -61,6 +61,7 @@ La pestana **October 2026 · to date** es un mes en curso. Cada dia:
    son los nuevos del mes; acumulado = 2,053 + nuevos. Sesiones = 17,274 + sesiones del mes. Prompters = 923 + la misma resta.
    Cargarlos con `node scripts/add-month.mjs 2026-10 unique_users=… sessions=… prompters=… --replace --source "see note" --note "…"`.
 3. Filas de evento (`os_*`, `cs_*`): se recalculan con la receta del ledger y se cargan con `--replace`.
+3b. **Frecuentes y power users** (`frequent_users`, `power_users`): receta por MCP en `KP-MCP-metrics-checklist.md` (§ «Usuarios frecuentes y power users»); ventana de 28 días que termina en `through`.
 4. Editar el bloque `OCTOBER` de `src/App.jsx` (`through`, valores, `first_time`), `npm run build`, revisar, deploy.
 
 5. **CSAT** (a mano, de la lista de encuestas «Surveys by month» de FullStory): `csat`, `csatResponses` y `csatAvg` del bloque `OCTOBER`. Top-2 box = respuestas ≥ 4 ÷ total. Con n tan chico no es una tasa: se dice en la tarjeta.

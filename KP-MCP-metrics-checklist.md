@@ -1144,3 +1144,24 @@ abrir del catálogo `DEUvO54X9yRk`, compartidas `9AKvRFRstvbl`.
 Calibración con septiembre (reproduce lo publicado): crear 6 personas / **3** fuera del equipo; copiar 4 / **1**; abrir del catálogo 2 / **0**.
 Octubre: crear 5 / **2**; copiar 2 / **1**; compartir 1 / **0**; catálogo 2 / **1**; compartidas 2 / **0**.
 El método anterior de octubre (métrico guardado + segmento Sin DEV) dejaba copiar y catálogo en «—» porque el segmento descarta sesiones que no pasan por `/home`.
+
+### Usuarios frecuentes y power users — receta automatizable por MCP (3-nov-2026)
+
+Definición vigente (ventana móvil de 28 días, **visitas a `/home`**, no sesiones): **frecuente** = al menos 4 visitas (≈1 por semana);
+**power user** = al menos 8 visitas (≥2 por semana, subconjunto de frecuente). Sin el equipo. Es una foto mensual: la ventana termina el último día
+del mes (octubre: 4-oct → 31-oct) y se puede reconstruir hacia atrás dentro de los ~12 meses de FullStory. La definición original (sesiones por
+semana desde `Created`) necesita la exportación de usuarios y solo vale hacia adelante; queda `scripts/user-tiers.mjs` para eso, a mano.
+
+Pasos (los puede correr la rutina diaria o el cierre):
+1. Leer los mails del equipo de `get_segment(sjHJR3590z6j)` (el `excludeUserProperties` del segmento Sin DEV). No hardcodearlos.
+2. `build_segment` con la ventana: «users who visited the exact URL https://knowledgeplatform.iadb.org/home at least 4 times within 28 days»
+   (y otro con 8), `start_date`/`end_date` de la ventana. **Revisar la definición devuelta**: `visitedUrl.equals`, `occurrences` 4 u 8 y `withinTime`
+   2419200s. El constructor a veces devuelve `substring` si no se dice «exact URL»; si pasa, rehacerlo.
+3. `get_sessions(segment_id, limit=50)` y paginar con `offset` hasta cubrir `matching_users`. Contar cuántos mails son del equipo y restarlos del total.
+   **No** poner la exclusión dentro del segmento: `get_sessions` falla con `unspecified error` (mismo bug documentado arriba).
+4. `node scripts/add-month.mjs AAAA-MM frequent_users=N power_users=M --replace --note "ventana, equipo restado"`.
+
+Calibración: septiembre (3-sep → 30-sep) 48 frecuentes y 8 power; octubre (4-oct → 31-oct) 44 y 9. Equipo descontado: 7 y 6 en septiembre, 9 y 7 en octubre.
+
+Límites: cuenta cargas de `/home`, no sesiones distintas (una pestaña que recarga suma). Cuentas genéricas que no están en la lista del equipo
+(p. ej. una de presentaciones) pasan como usuarios. El umbral de 8 es un punto de partida: está en la receta, no en el código.

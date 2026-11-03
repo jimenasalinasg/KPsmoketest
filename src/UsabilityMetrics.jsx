@@ -199,6 +199,14 @@ export default function UsabilityMetrics() {
         </Cells>
       </Block>
 
+      <SectionLabel>Habit</SectionLabel>
+      <Block band="access">
+        <Cells>
+          <Kpi first label="Frequent users" doc={docs.frequentUsers} sub="≥4 visits in 28 days" value={fmt(latestSnapshot("frequent_users").value)} note={`${latestSnapshot("frequent_users").month} · ${(latestSnapshot("frequent_users").value / latestSnapshot("unique_users").value * 100).toFixed(1)}% of unique users`} />
+          <Kpi label="Power users" doc={docs.powerUsers} sub="≥8 visits in 28 days" value={fmt(latestSnapshot("power_users").value)} note={`${latestSnapshot("power_users").month} · ${(latestSnapshot("power_users").value / latestSnapshot("unique_users").value * 100).toFixed(1)}% of unique users`} />
+        </Cells>
+      </Block>
+
       <SectionLabel>Engagement</SectionLabel>
       <Block band="engagement">
         <EngRow title="Open Search">

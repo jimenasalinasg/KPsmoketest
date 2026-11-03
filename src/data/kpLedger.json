@@ -212,6 +212,10 @@
       "2026-09": 401,
       "2026-10": 440
     },
+    "frequent_users": {
+      "2026-09": 48,
+      "2026-10": 44
+    },
     "lessons_created": {
       "2026-10": 1559
     },
@@ -223,6 +227,10 @@
       "2026-08": 1,
       "2026-09": 1,
       "2026-10": 1
+    },
+    "power_users": {
+      "2026-09": 8,
+      "2026-10": 9
     },
     "prompters": {
       "2026-04": 587,
@@ -1244,6 +1252,22 @@
       "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
     },
     {
+      "month": "2026-09",
+      "metric": "frequent_users",
+      "value": 48,
+      "type": "snapshot",
+      "source": "fullstory segments (visits to /home) minus team by hand",
+      "note": "Rolling 28-day window 2026-09-03..2026-09-30; frequent = at least 4 visits to /home, power = at least 8; users outside the team: segment total minus 7 (frequent) / 6 (power) Sin DEV team accounts removed by hand; a snapshot, never summed"
+    },
+    {
+      "month": "2026-10",
+      "metric": "frequent_users",
+      "value": 44,
+      "type": "snapshot",
+      "source": "fullstory segments (visits to /home) minus team by hand",
+      "note": "Rolling 28-day window 2026-10-04..2026-10-31; frequent = at least 4 visits to /home, power = at least 8; users outside the team: segment total minus 9 (frequent) / 7 (power) Sin DEV team accounts removed by hand; a snapshot, never summed"
+    },
+    {
       "month": "2026-10",
       "metric": "lessons_created",
       "value": 1559,
@@ -1626,6 +1650,22 @@
       "type": "additive",
       "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
       "note": "single-month window 2026-10-01..31; recipe: saved metric + update_metric segment sjHJR3590z6j (calibrated on Sep)"
+    },
+    {
+      "month": "2026-09",
+      "metric": "power_users",
+      "value": 8,
+      "type": "snapshot",
+      "source": "fullstory segments (visits to /home) minus team by hand",
+      "note": "Rolling 28-day window 2026-09-03..2026-09-30; frequent = at least 4 visits to /home, power = at least 8; users outside the team: segment total minus 7 (frequent) / 6 (power) Sin DEV team accounts removed by hand; a snapshot, never summed"
+    },
+    {
+      "month": "2026-10",
+      "metric": "power_users",
+      "value": 9,
+      "type": "snapshot",
+      "source": "fullstory segments (visits to /home) minus team by hand",
+      "note": "Rolling 28-day window 2026-10-04..2026-10-31; frequent = at least 4 visits to /home, power = at least 8; users outside the team: segment total minus 9 (frequent) / 7 (power) Sin DEV team accounts removed by hand; a snapshot, never summed"
     },
     {
       "month": "2026-04",

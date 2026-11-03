@@ -2428,6 +2428,8 @@ function JulyMonthly() {
 const META = {
   users:            { id: "a30wnMzqgtJk", src: "mcp",     def: "Unique users with any activity in the period (MAU). Its FullStory name is \"First time visitors\", but it is NOT a count of new users." },
   activeTime:       { id: "vpWvDQswlPB4", src: "ledger",  def: "Average active time on page per page view (not per session, despite the FullStory name \"Promedio de Tiempo Activo x Sesión\"), segment Sin DEV (copy). An average: never summed across months." },
+  frequentUsers:    { id: null, src: "ledger",  def: "Frequent users: people outside the team with at least 4 visits to the KP home page in the 28 days up to the month-end, so about one visit a week or more. Counted from a FullStory segment; the team accounts are removed by hand." },
+  powerUsers:       { id: null, src: "ledger",  def: "Power users: people outside the team with at least 8 visits to the KP home page in the 28 days up to the month-end, so two visits a week or more. Always a subset of frequent users." },
   sessions:         { id: "BhsN9vxRPN7V", src: "mcp",     def: "Total sessions in the period. Does not filter internal traffic or bots — criterion still to be confirmed." },
   prompters:        { id: "3GVbGeJsPBCb", src: "mcp",     def: "Unique users who sent at least one prompt." },
   tourCompletion:   { id: "iN3brKBr4rlY", src: "mcp",     def: "Share of users who finished the onboarding tour. Returned with decimals and rounded to the nearest integer." },
@@ -4214,7 +4216,8 @@ function SeptemberMonthly() {
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${SEPTEMBER.tourCompletion}%`} desc="Users who finished the tour · live via MCP" momentum={AUGUST.tourCompletion} />
         <MCard meta="sessions" label="Sessions" value={String(SEPTEMBER.sessions)} desc="Total for the month" momentum={AUGUST.sessions} />
         <MCard meta="activeTime" label="Avg. active time" value={`${snapshotAt("avg_active_time_s", "2026-09").toFixed(1)} s`} desc="Per page view" />
-      </div>
+        <MCard meta="frequentUsers" label="Frequent users" value={String(snapshotAt("frequent_users", "2026-09"))} desc={`${Math.round(snapshotAt("frequent_users", "2026-09") / SEPTEMBER.users * 100)}% of users reached · ≥4 visits in 28 days`} />
+        <MCard meta="powerUsers" label="Power users" value={String(snapshotAt("power_users", "2026-09"))} desc={`${Math.round(snapshotAt("power_users", "2026-09") / SEPTEMBER.users * 100)}% of users reached · ≥8 visits in 28 days`} />      </div>
 
       {/* Geo */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
@@ -4514,17 +4517,18 @@ function OctoberMonthly() {
           <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
             <span>{OCTOBER.users} users</span><span>{BID_TOTAL.toLocaleString()} total</span>
           </div>
-          <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants · month so far</div>
+          <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants</div>
         </div>
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${OCTOBER.tourCompletion}%`} desc="Users who finished the tour" momentum={SEPTEMBER.tourCompletion} />
         <MCard meta="sessions" label="Sessions" value={String(OCTOBER.sessions)} desc="Total for the month" momentum={SEPTEMBER.sessions} />
         <MCard meta="activeTime" label="Avg. active time" value={`${snapshotAt("avg_active_time_s", "2026-10").toFixed(1)} s`} desc="Per page view · October" momentum={snapshotAt("avg_active_time_s", "2026-09")} />
-      </div>
+        <MCard meta="frequentUsers" label="Frequent users" value={String(snapshotAt("frequent_users", "2026-10"))} desc={`${pctOf(snapshotAt("frequent_users", "2026-10"), OCTOBER.users)}% of users reached · ≥4 visits in 28 days`} momentum={snapshotAt("frequent_users", "2026-09")} />
+        <MCard meta="powerUsers" label="Power users" value={String(snapshotAt("power_users", "2026-10"))} desc={`${pctOf(snapshotAt("power_users", "2026-10"), OCTOBER.users)}% of users reached · ≥8 visits in 28 days`} momentum={snapshotAt("power_users", "2026-09")} />      </div>
 
       {/* Geo */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
-          🌎 Geographic Reach — {OCTOBER.totalCountries} countries · month so far
+          🌎 Geographic Reach — {OCTOBER.totalCountries} countries
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
           <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
@@ -4612,7 +4616,7 @@ function OctoberMonthly() {
 
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — the month so far</div>
+      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — October</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach finished below September</div>
