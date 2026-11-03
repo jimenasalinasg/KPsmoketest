@@ -1058,6 +1058,8 @@ function Monthly() {
           <MCard meta="tourCompletion" label="% Onboarding completed" value={`${APRIL.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
           <MCard meta="sessions" label="Sessions" value={APRIL.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} />
           <MCard meta="activeTime" label="Avg. active time" value={`${snapshotAt("avg_active_time_s", "2026-04").toFixed(1)} s`} desc="Per page view" />
+          <MCard meta="frequentUsers" label="Frequent users" value={String(snapshotAt("frequent_users", "2026-04"))} desc={`${Math.round(snapshotAt("frequent_users", "2026-04") / APRIL.users * 100)}% of users reached · ≥4 visits in 28 days`} />
+          <MCard meta="powerUsers" label="Power users" value={String(snapshotAt("power_users", "2026-04"))} desc={`${Math.round(snapshotAt("power_users", "2026-04") / APRIL.users * 100)}% of users reached · ≥8 visits in 28 days`} />
           <MCard meta="csat" label="CSAT — Customer Satisfaction Score" value="75%" desc="out of 5 responses" />
         </Grid>
 
@@ -1438,6 +1440,8 @@ function MayMonthly() {
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${MAY.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
         <MCard meta="sessions" label="Sessions" value={MAY.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={APRIL.sessions} />
         <MCard meta="activeTime" label="Avg. active time" value={`${snapshotAt("avg_active_time_s", "2026-05").toFixed(1)} s`} desc="Per page view" />
+        <MCard meta="frequentUsers" label="Frequent users" value={String(snapshotAt("frequent_users", "2026-05"))} desc={`${Math.round(snapshotAt("frequent_users", "2026-05") / MAY.users * 100)}% of users reached · ≥4 visits in 28 days`} momentum={snapshotAt("frequent_users", "2026-04")} />
+        <MCard meta="powerUsers" label="Power users" value={String(snapshotAt("power_users", "2026-05"))} desc={`${Math.round(snapshotAt("power_users", "2026-05") / MAY.users * 100)}% of users reached · ≥8 visits in 28 days`} momentum={snapshotAt("power_users", "2026-04")} />
       </div>
 
       {/* CSAT block */}
@@ -1841,6 +1845,8 @@ function JuneMonthly() {
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${JUNE.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
         <MCard meta="sessions" label="Sessions" value={JUNE.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={MAY.sessions} />
         <MCard meta="activeTime" label="Avg. active time" value={`${snapshotAt("avg_active_time_s", "2026-06").toFixed(1)} s`} desc="Per page view" />
+        <MCard meta="frequentUsers" label="Frequent users" value={String(snapshotAt("frequent_users", "2026-06"))} desc={`${Math.round(snapshotAt("frequent_users", "2026-06") / JUNE.users * 100)}% of users reached · ≥4 visits in 28 days`} momentum={snapshotAt("frequent_users", "2026-05")} />
+        <MCard meta="powerUsers" label="Power users" value={String(snapshotAt("power_users", "2026-06"))} desc={`${Math.round(snapshotAt("power_users", "2026-06") / JUNE.users * 100)}% of users reached · ≥8 visits in 28 days`} momentum={snapshotAt("power_users", "2026-05")} />
       </div>
 
       {/* CSAT block */}
@@ -2231,6 +2237,8 @@ function JulyMonthly() {
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${JULY.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
         <MCard meta="sessions" label="Sessions" value={String(JULY.sessions)} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={JUNE.sessions} />
         <MCard meta="activeTime" label="Avg. active time" value={`${snapshotAt("avg_active_time_s", "2026-07").toFixed(1)} s`} desc="Per page view" />
+        <MCard meta="frequentUsers" label="Frequent users" value={String(snapshotAt("frequent_users", "2026-07"))} desc={`${Math.round(snapshotAt("frequent_users", "2026-07") / JULY.users * 100)}% of users reached · ≥4 visits in 28 days`} momentum={snapshotAt("frequent_users", "2026-06")} />
+        <MCard meta="powerUsers" label="Power users" value={String(snapshotAt("power_users", "2026-07"))} desc={`${Math.round(snapshotAt("power_users", "2026-07") / JULY.users * 100)}% of users reached · ≥8 visits in 28 days`} momentum={snapshotAt("power_users", "2026-06")} />
       </div>
 
       {/* CSAT block */}
@@ -3851,6 +3859,8 @@ function AugustMonthly() {
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${AUGUST.tourCompletion}%`} desc="Users who finished the tour · live via MCP" momentum={JULY.tourCompletion} />
         <MCard meta="sessions" label="Sessions" value={String(AUGUST.sessions)} desc="Total for the month" momentum={JULY.sessions} />
         <MCard meta="activeTime" label="Avg. active time" value={`${snapshotAt("avg_active_time_s", "2026-08").toFixed(1)} s`} desc="Per page view" />
+        <MCard meta="frequentUsers" label="Frequent users" value={String(snapshotAt("frequent_users", "2026-08"))} desc={`${Math.round(snapshotAt("frequent_users", "2026-08") / AUGUST.users * 100)}% of users reached · ≥4 visits in 28 days`} momentum={snapshotAt("frequent_users", "2026-07")} />
+        <MCard meta="powerUsers" label="Power users" value={String(snapshotAt("power_users", "2026-08"))} desc={`${Math.round(snapshotAt("power_users", "2026-08") / AUGUST.users * 100)}% of users reached · ≥8 visits in 28 days`} momentum={snapshotAt("power_users", "2026-07")} />
       </div>
 
       {/* Geo */}
@@ -4216,8 +4226,8 @@ function SeptemberMonthly() {
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${SEPTEMBER.tourCompletion}%`} desc="Users who finished the tour · live via MCP" momentum={AUGUST.tourCompletion} />
         <MCard meta="sessions" label="Sessions" value={String(SEPTEMBER.sessions)} desc="Total for the month" momentum={AUGUST.sessions} />
         <MCard meta="activeTime" label="Avg. active time" value={`${snapshotAt("avg_active_time_s", "2026-09").toFixed(1)} s`} desc="Per page view" />
-        <MCard meta="frequentUsers" label="Frequent users" value={String(snapshotAt("frequent_users", "2026-09"))} desc={`${Math.round(snapshotAt("frequent_users", "2026-09") / SEPTEMBER.users * 100)}% of users reached · ≥4 visits in 28 days`} />
-        <MCard meta="powerUsers" label="Power users" value={String(snapshotAt("power_users", "2026-09"))} desc={`${Math.round(snapshotAt("power_users", "2026-09") / SEPTEMBER.users * 100)}% of users reached · ≥8 visits in 28 days`} />      </div>
+        <MCard meta="frequentUsers" label="Frequent users" value={String(snapshotAt("frequent_users", "2026-09"))} desc={`${Math.round(snapshotAt("frequent_users", "2026-09") / SEPTEMBER.users * 100)}% of users reached · ≥4 visits in 28 days`} momentum={snapshotAt("frequent_users", "2026-08")} />
+        <MCard meta="powerUsers" label="Power users" value={String(snapshotAt("power_users", "2026-09"))} desc={`${Math.round(snapshotAt("power_users", "2026-09") / SEPTEMBER.users * 100)}% of users reached · ≥8 visits in 28 days`} momentum={snapshotAt("power_users", "2026-08")} />      </div>
 
       {/* Geo */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
