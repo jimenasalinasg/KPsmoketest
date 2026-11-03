@@ -4396,6 +4396,8 @@ const OCTOBER = {
   csat: "100%",             // manual: lista de encuestas (feedback) 2026-10-29 · 2 respuestas (5,5) · top-2 box 2/2 · avg 5.00 · n=2, no es una tasa
   csatResponses: 2,
   csatAvg: 5.0,
+  prompts: 1771,            // consola de admin, mes de octubre (foto del 3-nov): 62 usuarios, 1681 sesiones, 1771 preguntas, promedio 14s, 1351 sin respuesta, 58 fuentes faltantes
+  latency: "14s",           // consola de admin, promedio (no mediana). Sep 25s
   totalCountries: 26,       // paises con actividad Sin DEV (copy) en knowledgeplatform.iadb.org, 1-31 oct. ATENCION: poblacion distinta de la tabla de septiembre (ver nota en la tarjeta)
   countries: [
     { name: "United States (HQ)", code: "US", users: 125 },
@@ -4462,7 +4464,7 @@ function OctoberMonthly() {
               ["Open Search copies", L(M, "os_copy")], ["Source panel clicks (OS)", L(M, "os_source_panel")],
               ["Thumbs up", OCTOBER.thumbsUp], ["Thumbs down", OCTOBER.thumbsDown], ["Prompt Gallery clicks", OCTOBER.promptGalleryClicks],
               ["Recent Search clicks", OCTOBER.recentSearchClicks], ["New Search clicks", OCTOBER.newSearchClicks],
-              ["CSAT (top-2 box, n=" + OCTOBER.csatResponses + ")", OCTOBER.csat], ["Prompts sent", "pending (admin console)"], ["Latency", "pending (admin console)"],
+              ["CSAT (top-2 box, n=" + OCTOBER.csatResponses + ")", OCTOBER.csat], ["Prompts sent", OCTOBER.prompts], ["Latency", OCTOBER.latency],
               ["Cumulative users (Sep 1 2025-" + OCTOBER.through + ")", cumUsers], ["Cumulative prompters", cumPrompters], ["Cumulative sessions", cumSessions],
               ["Cumulative penetration", penetration + "%"],
             ];
@@ -4574,8 +4576,8 @@ function OctoberMonthly() {
       {heading("🤖 Knowledge Assistant — Open Search (October)")}
       <div style={grid(160)}>
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(OCTOBER.prompters)} desc={`${pctOf(OCTOBER.prompters, OCTOBER.users)}% of users reached`} accent />
-        <MCard meta="prompts" label="Prompts sent" value="—" desc="Pending · from the admin console, loaded with the close" small />
-        <MCard meta="latency" label="Latency" value="—" desc="Pending · average response time from the admin console, loaded with the close" small />
+        <MCard meta="prompts" label="Prompts sent" value={String(OCTOBER.prompts)} desc={`${Math.round(OCTOBER.prompts/OCTOBER.prompters)} per prompter · from the admin console`} accent momentum={SEPTEMBER.prompts} />
+        <MCard meta="latency" label="Latency" value={OCTOBER.latency} desc="Average response time · from the admin console · 25s in September" small momentum={25} />
         <MCard meta="sourceClicks" label="Source panel clicks" value={String(L(M, "os_source_panel"))} desc="Clicks on source panel · from the ledger" momentum={SEPTEMBER.sourceClicks} />
         <MCard label="Response feedback" value={`👍 ${OCTOBER.thumbsUp} · 👎 ${OCTOBER.thumbsDown}`} desc="AI responses rated" small />
         <MCard meta="csat" label="CSAT" value={OCTOBER.csat} desc={`Top-2 box, ${OCTOBER.csatResponses} of ${OCTOBER.csatResponses} responses · avg ${OCTOBER.csatAvg.toFixed(2)} ★ · n=${OCTOBER.csatResponses} is far too small to read as a rate`} small />
@@ -4642,8 +4644,8 @@ function OctoberMonthly() {
 
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
         <strong style={{ color: INK2 }}>October is complete on FullStory data.</strong> It covers Oct 1–{day}. The chips on each card compare it with September's full month: green means it went up, red means it went down. The final close adds the console data, the retention cohorts and the full-month qualitative sweep.
-        <br/><br/><strong style={{ color: INK2 }}>Where the numbers come from.</strong> Users, sessions, prompters, onboarding, feedback and search clicks are read from FullStory on the Sin DEV segment, twice each, and kept only where both reads agreed. New users are the cumulative unique users to date minus September's close, not the first-seen segment. Highlights, copies, source clicks, pill views and Global Search come from the ledger (data/kp_ledger.csv, segment Sin DEV (copy)); the cumulative totals use its snapshots.
-        <br/><br/><strong style={{ color: INK2 }}>Still pending for the close:</strong> prompts sent and latency come from the admin console and are loaded with the close, and the retention cohorts and the full-month qualitative sweep are done once the month is complete (the sweep above is the month-to-date pass). Countries, funnels and pills are computed on the Sin DEV segment over Oct 1–{day}; the country table is not comparable with September's. CSAT is loaded by hand from the survey list (two responses so far this month, both 5 stars), and it is carried for continuity, not as a satisfaction rate.
+        <br/><br/><strong style={{ color: INK2 }}>Where the numbers come from.</strong> Users, sessions, prompters, onboarding, feedback and search clicks are read from FullStory on the Sin DEV segment, twice each, and kept only where both reads agreed. New users are the cumulative unique users to date minus September's close, not the first-seen segment. Highlights, copies, source clicks, pill views and Global Search come from the ledger (data/kp_ledger.csv, segment Sin DEV (copy)); the cumulative totals use its snapshots. Prompts sent and latency are the admin console's October figures, loaded by hand as in earlier months.
+        <br/><br/><strong style={{ color: INK2 }}>Still pending for the close:</strong> the retention cohorts and the full-month qualitative sweep are done once the month is complete (the sweep above is the month-to-date pass). Countries, funnels and pills are computed on the Sin DEV segment over Oct 1–{day}; the country table is not comparable with September's. CSAT is loaded by hand from the survey list (two responses so far this month, both 5 stars), and it is carried for continuity, not as a satisfaction rate.
       </div>
 
     </div>
