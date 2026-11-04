@@ -4666,6 +4666,104 @@ function OctoberMonthly() {
   );
 }
 
+const NOVEMBER = {
+  through: "2026-11-03",
+  users: 37,
+  sessions: 86,
+  prompters: 9,
+  first_time: 6,            // control: usuarios acumulados 1-sep-2025 -> 3-nov (1889) menos los del cierre de octubre (1883, misma consulta del dia)
+  tourCompletion: 40,
+  thumbsUp: 0,
+  thumbsDown: 0,
+  promptGalleryClicks: 0,
+  recentSearchClicks: 0,
+  newSearchClicks: 1,
+  wordDownloads: 0,
+  excelDownloads: 0,
+};
+
+// ── NOVEMBER MONTHLY VIEW (to date) ─────────────────────────
+function NovemberMonthly() {
+  const M = "2026-11";
+  const MCard = (p) => <MonthMetricCard {...p} variant="august" />;
+  const through = new Date(`${NOVEMBER.through}T00:00:00Z`).toLocaleString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+  const day = Number(NOVEMBER.through.slice(8));
+  const cumUsers = snapshotAt("unique_users", M), cumSessions = snapshotAt("sessions", M), cumPrompters = snapshotAt("prompters", M);
+  const penetration = (cumUsers / BID_TOTAL * 100).toFixed(1);
+  const returning = NOVEMBER.users - NOVEMBER.first_time;
+  const pctOf = (a, b) => Math.round(a / b * 100);
+  const heading = (t, extra) => <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, ...extra }}>{t}</div>;
+  const grid = (min) => ({ display: "grid", gridTemplateColumns: `repeat(auto-fit, minmax(${min}px, 1fr))`, gap: 10 });
+
+  return (
+    <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
+
+      <div style={{ marginBottom: 8 }}>
+        <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report — Month to date</div>
+        <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>November 2026 — Nov 1–{day} ({day} of 30 days)</div>
+        <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (segment Sin DEV) and the ledger · Updated daily, last complete day: {through}</div>
+      </div>
+
+      <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
+          Cumulative totals — Sep 1, 2025 to {through}, 2026 · anchored on September close
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 16 }}>
+          {[
+            { label: "Users reached", value: cumUsers.toLocaleString("en-US") },
+            { label: "Prompters", value: cumPrompters.toLocaleString("en-US") },
+            { label: "Sessions", value: cumSessions.toLocaleString("en-US") },
+            { label: `Penetration of ${BID_TOTAL.toLocaleString("en-US")}`, value: `${penetration}%` },
+          ].map((m, i) => (
+            <div key={i}>
+              <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: 9, color: "#a8c4e0", textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {heading("📊 General Usability (November · to date)", { marginTop: 8 })}
+      <div style={grid(160)}>
+        <MCard meta="users" label="Users reached" value={String(NOVEMBER.users)} desc="Unique people who used KP so far in November" accent />
+        <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(NOVEMBER.prompters)} desc={`${pctOf(NOVEMBER.prompters, NOVEMBER.users)}% of users reached`} accent />
+        <MCard meta="firstTime" label="New users" value={String(NOVEMBER.first_time)} desc={`First-time visitors · other ${returning} are returning from prior months`} />
+        <MCard meta="returningUsers" label="Returning users" value={String(returning)} desc={`${pctOf(returning, NOVEMBER.users)}% of users reached · already knew KP before November`} />
+        <MCard meta="tourCompletion" label="% Onboarding completed" value={`${NOVEMBER.tourCompletion}%`} desc="Users who finished the tour" />
+        <MCard meta="sessions" label="Sessions" value={String(NOVEMBER.sessions)} desc="Total for the month so far" />
+        <MCard meta="activeTime" label="Avg. active time" value={`${snapshotAt("avg_active_time_s", M).toFixed(1)} s`} desc="Per page view · month so far" />
+        <MCard meta="frequentUsers" label="Frequent users" value={String(snapshotAt("frequent_users", M))} desc="≥4 visits in the 28 days up to Nov 3" />
+        <MCard meta="powerUsers" label="Power users" value={String(snapshotAt("power_users", M))} desc="≥8 visits in the 28 days up to Nov 3" />
+      </div>
+
+      {heading("🔍 Contextual Search (November · to date)")}
+      <div style={grid(200)}>
+        <MCard meta="pillPageviews" label="Queries (pill views)" value={String(L(M, "cs_queries"))} desc="Total visits across all contextual search pills · from the ledger" accent />
+        <MCard meta="categoryUsers" label="Users in a category" value={String(snapshotAt("cs_category_users", M))} desc="People who opened at least one knowledge category · month so far · from the ledger" />
+      </div>
+
+      {heading("🤖 Knowledge Assistant — Open Search (November · to date)")}
+      <div style={grid(160)}>
+        <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(NOVEMBER.prompters)} desc={`${pctOf(NOVEMBER.prompters, NOVEMBER.users)}% of users reached`} accent />
+        <MCard label="Highlights" value={String(L(M, "os_highlight"))} desc="Text highlighted in answers · from the ledger" />
+        <MCard label="Copies" value={String(L(M, "os_copy"))} desc="Text copied from answers · from the ledger" />
+        <MCard meta="sourceClicks" label="Source panel clicks" value={String(L(M, "os_source_panel"))} desc="Clicks on source panel · from the ledger" />
+        <MCard label="Response feedback" value={`👍 ${NOVEMBER.thumbsUp} · 👎 ${NOVEMBER.thumbsDown}`} desc="AI responses rated" small />
+        <MCard meta="promptGallery" label="Prompt Gallery clicks" value={String(NOVEMBER.promptGalleryClicks)} />
+        <MCard meta="recentSearch" label="Recent Search clicks" value={String(NOVEMBER.recentSearchClicks)} />
+        <MCard meta="newSearch" label="New Search clicks" value={String(NOVEMBER.newSearchClicks)} />
+      </div>
+
+      <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
+        <strong style={{ color: INK2 }}>Month to date, three days in.</strong> November is partial: it covers Nov 1–{day}, complete days only, and two of those were a weekend. It is not compared with October's full month, and at this size a single person moves a card, so read it as a first signal. It is refreshed every day and the last complete day is shown at the top.
+        <br/><br/><strong style={{ color: INK2 }}>Where the numbers come from.</strong> Users, sessions, prompters, onboarding, feedback and search clicks are read from FullStory on the Sin DEV segment. New users are the cumulative unique users to date minus October's close, read the same day. Highlights, copies, source clicks and pill views come from the ledger (data/kp_ledger.csv, segment Sin DEV (copy)). Frequent and power users use a rolling 28-day window that ends on Nov 3 (so it reaches back to Oct 7), with the team accounts removed by hand.
+        <br/><br/><strong style={{ color: INK2 }}>Not in this tab yet:</strong> Lessons Writing Assistant, countries, funnels, the other contextual-search events, prompts sent and latency (admin console), retention cohorts, CSAT and the qualitative sweep. They land as the month fills in and with the close.
+      </div>
+
+    </div>
+  );
+}
+
 // ── PRODUCT BENCHMARK ─────────────────────────────────────
 function Benchmark() {
   const reachProducts = [
@@ -4866,6 +4964,7 @@ function App() {
   const [launchOpen, setLaunchOpen] = useState(false);
 
   const MONTHS = [
+    { id: "november",  label: "November 2026 · to date" },
     { id: "october",   label: "October 2026" },
     { id: "september", label: "September 2026" },
     { id: "august",  label: "August 2026" },
@@ -4956,7 +5055,7 @@ function App() {
         </div>
       </div>
 
-      {view === "smoke" ? <SmokeTest /> : view === "week1" ? <Week1 data={WEEK1} /> : view === "week12" ? <Week1 data={WEEK12} /> : view === "may" ? <MayMonthly /> : view === "june" ? <JuneMonthly /> : view === "july" ? <JulyMonthly /> : view === "august" ? <AugustMonthly /> : view === "october" ? <OctoberMonthly /> : view === "september" ? <SeptemberMonthly /> : view === "benchmark" ? <Benchmark /> : view === "usability" ? <UsabilityMetrics /> : <Monthly />}
+      {view === "smoke" ? <SmokeTest /> : view === "week1" ? <Week1 data={WEEK1} /> : view === "week12" ? <Week1 data={WEEK12} /> : view === "may" ? <MayMonthly /> : view === "june" ? <JuneMonthly /> : view === "july" ? <JulyMonthly /> : view === "august" ? <AugustMonthly /> : view === "november" ? <NovemberMonthly /> : view === "october" ? <OctoberMonthly /> : view === "september" ? <SeptemberMonthly /> : view === "benchmark" ? <Benchmark /> : view === "usability" ? <UsabilityMetrics /> : <Monthly />}
 
       <div style={{ textAlign: "center", padding: 18, fontSize: 9, color: INK3, letterSpacing: "0.06em", borderTop: `1px solid ${BDR}` }}>
         IDB Knowledge Platform · Post Go-live Key Metrics · Go-live {GO_LIVE_DATE}
