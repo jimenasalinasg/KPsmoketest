@@ -179,6 +179,10 @@ export const EXPLORERS = { through: "2026-11-03", base: 1655, rows: [
 
 // Calidad de respuesta (consola de administracion): share de preguntas respondidas. Solo meses con dato.
 export const ANSWER_RATE = { "2026-09": 0.54, "2026-10": 0.24 };
+// Meses que no sirven de referencia para la tasa de respuesta. Octubre: un solo usuario concentro una gran parte
+// de las preguntas y muchas de las suyas quedaron sin respuesta, asi que el 24% no representa al resto.
+export const ANSWER_RATE_OUTLIERS = { "2026-10": "un solo usuario hizo una gran parte de las preguntas del mes" };
+export const answerRef = (months) => months.filter((m) => ANSWER_RATE[m] != null && !ANSWER_RATE_OUTLIERS[m]).at(-1) ?? null;
 
 // Temas mas preguntados: requieren la exportacion de preguntas de la consola. Mientras sea null, la historia no se muestra.
 export const TOP_TOPICS = null; // [{ topic: "…", count: n }, …]
