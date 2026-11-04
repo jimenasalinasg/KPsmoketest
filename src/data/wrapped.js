@@ -182,3 +182,15 @@ export const ANSWER_RATE = { "2026-09": 0.54, "2026-10": 0.24 };
 
 // Temas mas preguntados: requieren la exportacion de preguntas de la consola. Mientras sea null, la historia no se muestra.
 export const TOP_TOPICS = null; // [{ topic: "…", count: n }, …]
+
+// ── Cierre: lo que aprendimos y lo que viene (4-nov-2026) ──
+// Aprendizajes de los barridos cualitativos publicados en cada mes (QUALITATIVE en App.jsx):
+// agosto 10 sesiones, septiembre 10, octubre 13. Son patrones a verificar, no mediciones.
+export const SWEEPS = { sessions: 33, months: "ago–oct" };
+export const LEARNINGS = [
+  { title: "No vienen a buscar: vienen a escribir.", body: "Pegan su propio borrador o matriz de riesgos y piden a KP que complete secciones. En septiembre, 4 de 10 sesiones trabajaron sobre un documento propio.", src: "Barridos de agosto y septiembre" },
+  { title: "Llegan con un código, no con una pregunta.", body: "Escriben el número de operación y siguen con lo mismo: ¿está aprobada?, ¿hay versión en portugués?, ¿quién la lidera? Pasó en 3 de 13 sesiones en octubre.", src: "Barrido de octubre" },
+  { title: "Reescriben su pregunta a mano.", body: "Copian lo que preguntaron, lo pegan y cambian el final para afinar la búsqueda. Es la forma que encontraron de editar y volver a preguntar.", src: "Barridos de agosto y octubre" },
+];
+// Retos para 2027, cada uno con su dato. M+1 = cohortes de agosto (16 de 125) y septiembre (13 de 110), tabla COHORTS de octubre.
+export const RETURN_M1 = { cohorts: [["agosto", 16, 125], ["septiembre", 13, 110]] };

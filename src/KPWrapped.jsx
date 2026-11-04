@@ -6,6 +6,7 @@ import {
   YEAR, ALL_MONTHS, MONTH_LABEL, MILESTONES, ORGANIC_USERS, SEGMENT_RULES,
   monthsInRange, sumCovered, fieldByMonth, pillRanking, featureRanking, loyalty, pct, fmt,
   weekdayProfile, COUNTRIES, BORROWERS, TOP_OPERATIONS, EXPLORERS, ANSWER_RATE, TOP_TOPICS, DAILY_THROUGH,
+  LEARNINGS, SWEEPS, RETURN_M1,
 } from "./data/wrapped.js";
 
 const ES = { "United States": "Estados Unidos", Brazil: "Brasil", Panama: "Panamá", Peru: "Perú", Mexico: "México", Spain: "España", "Dominican Republic": "Rep. Dominicana", "Cayman Islands": "Islas Caimán", "Trinidad and Tobago": "Trinidad y Tobago", Belize: "Belice", Haiti: "Haití", Canada: "Canadá", France: "Francia", "United Kingdom": "Reino Unido", Germany: "Alemania", Belgium: "Bélgica", Italy: "Italia", Switzerland: "Suiza", Korea: "Corea", "Saint Martin": "San Martín", Bahamas: "Bahamas", Suriname: "Surinam" };
@@ -136,13 +137,6 @@ export default function KPWrapped({ months: monthRows }) {
   const feats = featureRanking(months);
   const miles = MILESTONES.filter((m) => m.date.slice(0, 7) >= from && m.date.slice(0, 7) <= to);
 
-  const insights = [];
-  if (newPeople.value > 0) insights.push({ t: "Más personas descubrieron la plataforma.", b: `${fmt(newPeople.value)} personas usaron KP por primera vez${cumUsers ? `, y ya son ${fmt(cumUsers)} desde el lanzamiento orgánico` : ""}.` });
-  if (growth != null && growth > 0) insights.push({ t: "El lanzamiento multiplicó el alcance.", b: `Después del go-live, el promedio mensual de usuarios fue ${pct(growth)} más alto que en los meses orgánicos de ${YEAR}.` });
-  if (star && star.value > 0) insights.push({ t: "Una pill se convirtió en la favorita.", b: `${star.name} abrió ${fmt(star.value)} sesiones, ${pct(star.share)} de todas las vistas de pills.` });
-  if (feats.riser) insights.push({ t: "Abrimos nuevas formas de explorar conocimiento.", b: `${feats.riser.name} ganó ${Math.round(feats.riser.shift * 100)} puntos de participación en la segunda mitad del período.` });
-  else if (returningShare != null && returningShare >= 0.5) insights.push({ t: "La mayoría ya nos conocía.", b: `En ${MONTH_LABEL(loyMonth)}, ${pct(returningShare)} de las personas que usaron KP ya lo habían usado antes.` });
-  const topInsights = insights.slice(0, 4);
 
   // Mes récord (usuarios únicos Sin DEV por mes; noviembre parcial queda fuera del récord)
   const userMonths = months.filter((m) => usersBy[m] != null);
@@ -408,17 +402,30 @@ export default function KPWrapped({ months: monthRows }) {
 
       {/* 7 — Cierre */}
       <Section id="w7" label="Cierre" {...st(nx())}>
-        <div className="kpw-k kpw-rise">El conocimiento sigue creciendo</div>
+        <div className="kpw-k kpw-rise">Lo que aprendimos de ustedes</div>
         <div className="kpw-grid" style={{ marginTop: 22 }}>
-          {topInsights.map((it, i) => (
+          {LEARNINGS.map((l, i) => (
             <div key={i} className={`kpw-stat kpw-rise kpw-d${Math.min(i + 1, 4)}`}>
-              <b style={{ fontSize: "clamp(22px,2.4vw,30px)", letterSpacing: "-.025em", lineHeight: 1.08, color: "var(--ink)" }}>{it.t}</b>
-              <span>{it.b}</span>
+              <b style={{ fontSize: "clamp(22px,2.4vw,30px)", letterSpacing: "-.025em", lineHeight: 1.08, color: "var(--ink)" }}>{l.title}</b>
+              <span>{l.body}</span>
+            </div>
+          ))}
+        </div>
+        <div className="kpw-k kpw-rise kpw-d2" style={{ marginTop: 44 }}>Los retos que nos dejan los datos para 2027</div>
+        <div className="kpw-grid kpw-rise kpw-d3" style={{ marginTop: 18 }}>
+          {[
+            ansLast && { n: pct(ANSWER_RATE[ansLast.m]), t: "Responder más.", b: `Es la parte de las preguntas que el asistente respondió en ${monthLong(ansLast.m).toLowerCase()}.` },
+            { n: pct(RETURN_M1.cohorts.reduce((a, c) => a + c[1], 0) / RETURN_M1.cohorts.reduce((a, c) => a + c[2], 0)), t: "Ganar la segunda visita.", b: `Es la parte de quienes llegaron en ${RETURN_M1.cohorts.map((c) => c[0]).join(" y ")} que volvió al mes siguiente.` },
+            cumUsers != null && { n: pct(1 - cumUsers / 7287), t: "Llegar a todos.", b: `Es la parte del staff y los consultores del BID que todavía no ha abierto KP.` },
+          ].filter(Boolean).map((c, i) => (
+            <div key={i} className="kpw-stat" style={{ borderTopColor: "var(--acc)" }}>
+              <b style={{ fontSize: "clamp(40px,5vw,72px)" }}>{c.n}</b>
+              <span><strong style={{ color: "var(--ink)" }}>{c.t}</strong> {c.b}</span>
             </div>
           ))}
         </div>
         <h2 className="kpw-h kpw-pop" style={{ marginTop: 56, fontSize: "clamp(48px,10vw,150px)", maxWidth: "none" }}>That's a wrap.<br /><span style={{ color: "var(--acc)" }}>See you in 2027.</span></h2>
-        <p className="kpw-note">Cada insight aparece solo si los datos del rango lo respaldan. Rango: {rangeLabel}{partialTo}.</p>
+        <p className="kpw-note">Aprendizajes: patrones de {SWEEPS.sessions} sesiones leídas de principio a fin ({SWEEPS.months}), sin el equipo; son hipótesis a verificar, no mediciones. Retos: respuesta de la consola de administración; segunda visita de la tabla de cohortes (visita al home el mes siguiente); alcance = 1 − personas acumuladas / 7,287.</p>
       </Section>
 
       <nav className="kpw-nav" aria-label="Navegación de Wrapped">
