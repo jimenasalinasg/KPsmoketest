@@ -72,6 +72,10 @@ de la pestana de octubre y los de Usability coinciden, y que el mes mas reciente
 
 Al cerrar octubre: el bloque `OCTOBER` pasa a ser el cierre y se agrega el de noviembre.
 
+### Noviembre al dia
+
+Misma receta que octubre con el bloque `NOVEMBER` y la vista `NovemberMonthly` de `src/App.jsx`, y el mes `2026-11` en el ledger. Los acumulados se anclan en el cierre de octubre (2,132 usuarios, 18,358 sesiones, 950 prompters, 440 en categoria). La pestana empieza corta (sin LWA, paises, embudos, otros eventos de Contextual, consola, retencion, CSAT ni cualitativo) y va ganando secciones; al cierre de noviembre pasa a ser el cierre y se agrega diciembre.
+
 ### Pendiente
 
 - **Benchmarks "vs monthly avg".** Las tarjetas de las vistas mensuales comparan contra `BENCH.monthly` en
