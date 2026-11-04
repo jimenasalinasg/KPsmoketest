@@ -30,7 +30,7 @@
       "2026-07": 0,
       "2026-08": 0,
       "2026-09": 18,
-      "2026-10": 26
+      "2026-10": 104
     },
     "cs_copy": {
       "2025-10": 13,
@@ -60,7 +60,7 @@
       "2026-07": 4,
       "2026-08": 5,
       "2026-09": 2,
-      "2026-10": 3
+      "2026-10": 10
     },
     "cs_highlight_detail": {
       "2025-10": 35,
@@ -106,7 +106,7 @@
       "2026-07": 56,
       "2026-08": 19,
       "2026-09": 43,
-      "2026-10": 13
+      "2026-10": 31
     },
     "cs_source_link": {
       "2025-10": 8,
@@ -121,7 +121,7 @@
       "2026-07": 2,
       "2026-08": 1,
       "2026-09": 5,
-      "2026-10": 1
+      "2026-10": 4
     },
     "os_copy": {
       "2025-10": 0,
@@ -177,7 +177,7 @@
   },
   "snapshot": {
     "ave_prompt": {
-      "2026-10": 6.5
+      "2026-10": 8
     },
     "avg_active_time_s": {
       "2026-04": 16.3,
@@ -263,7 +263,7 @@
     "prompts_sent": {
       "2026-04": 2279,
       "2026-05": 2904,
-      "2026-10": 6041
+      "2026-10": 7616
     },
     "returning_rate_pct": {
       "2026-10": 60.1
@@ -285,10 +285,10 @@
     {
       "month": "2026-10",
       "metric": "ave_prompt",
-      "value": 6.5,
+      "value": 8,
       "type": "snapshot",
       "source": "see note",
-      "note": "prompts_sent / prompters = 6041 / 931; calculated"
+      "note": "cumulative prompts: console 2904 (Jun-1) + monthly console Jun 1025, Jul 415, Aug 634, Sep 867, Oct 1771 = 7616; ave = 7616 / 950 prompters"
     },
     {
       "month": "2026-04",
@@ -669,10 +669,10 @@
     {
       "month": "2026-10",
       "metric": "cs_chips",
-      "value": 26,
+      "value": 104,
       "type": "additive",
       "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
-      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+      "note": "single-month window 2026-10-01..31 (recomputed 2026-11-04); css on data-fs-element over Sin DEV, calibrated: Sep reproduces 18/43/5/2 and Oct 1-7 chips 26"
     },
     {
       "month": "2025-10",
@@ -776,7 +776,7 @@
       "value": 1,
       "type": "additive",
       "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
-      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+      "note": "PENDING: still Oct 1-7 values. Full-month recompute on 2026-11-04 did not calibrate (cs_copy via PsOR0eOxZVkB gives 0 for Sep vs 1; detail highlights give 0 for Aug vs 9), so not replaced"
     },
     {
       "month": "2025-10",
@@ -877,10 +877,10 @@
     {
       "month": "2026-10",
       "metric": "cs_highlight_cards",
-      "value": 3,
+      "value": 10,
       "type": "additive",
       "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
-      "note": "highlights on sidebar pill cards: css [data-fs-element*=\"Pills-Knowledge\"]; single-month window"
+      "note": "single-month window 2026-10-01..31 (recomputed 2026-11-04); css on data-fs-element over Sin DEV, calibrated: Sep reproduces 18/43/5/2 and Oct 1-7 chips 26"
     },
     {
       "month": "2025-10",
@@ -984,7 +984,7 @@
       "value": 0,
       "type": "additive",
       "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
-      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+      "note": "PENDING: still Oct 1-7 values. Full-month recompute on 2026-11-04 did not calibrate (cs_copy via PsOR0eOxZVkB gives 0 for Sep vs 1; detail highlights give 0 for Aug vs 9), so not replaced"
     },
     {
       "month": "2025-10",
@@ -1197,10 +1197,10 @@
     {
       "month": "2026-10",
       "metric": "cs_search_bar",
-      "value": 13,
+      "value": 31,
       "type": "additive",
       "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
-      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+      "note": "single-month window 2026-10-01..31 (recomputed 2026-11-04); css on data-fs-element over Sin DEV, calibrated: Sep reproduces 18/43/5/2 and Oct 1-7 chips 26"
     },
     {
       "month": "2025-10",
@@ -1301,10 +1301,10 @@
     {
       "month": "2026-10",
       "metric": "cs_source_link",
-      "value": 1,
+      "value": 4,
       "type": "additive",
       "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
-      "note": "single-month window; Oct-2026 = days 1-7; standard basis: Sin DEV (copy)"
+      "note": "single-month window 2026-10-01..31 (recomputed 2026-11-04); css on data-fs-element over Sin DEV, calibrated: Sep reproduces 18/43/5/2 and Oct 1-7 chips 26"
     },
     {
       "month": "2026-04",
@@ -1431,8 +1431,8 @@
       "metric": "median_prompts",
       "value": 1,
       "type": "snapshot",
-      "source": "see note",
-      "note": "median of clicks on Open-Search-Button-textarea-Search per user in the month; Oct = days 1-27: 14 users, values 6,5,2,2 and ten 1s"
+      "source": "fullstory metric 1fbmp2OI4wee (Prompts por usuario) + segment 'Sin DEV (copy)' sjHJR3590z6j",
+      "note": "median of clicks on Open-Search-Button-textarea-Search per user; Oct = days 1-31 (recomputed 2026-11-04): 11 users, values 7,3,3 and eight 1s"
     },
     {
       "month": "2025-10",
@@ -1909,10 +1909,10 @@
     {
       "month": "2026-10",
       "metric": "prompts_sent",
-      "value": 6041,
+      "value": 7616,
       "type": "snapshot",
       "source": "see note",
-      "note": "console"
+      "note": "cumulative prompts: console 2904 (Jun-1) + monthly console Jun 1025, Jul 415, Aug 634, Sep 867, Oct 1771 = 7616; ave = 7616 / 950 prompters"
     },
     {
       "month": "2026-10",

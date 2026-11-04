@@ -1017,7 +1017,7 @@ function Monthly() {
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to Apr 30, 2026
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 16 }}>
           {[
             { label: "Users reached", value: "1,357" },
             { label: "Prompters", value: "587" },
@@ -1396,7 +1396,7 @@ function MayMonthly() {
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to Jun 1, 2026
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 16 }}>
           {[
             { label: "Users reached", value: "1,574" },
             { label: "Prompters", value: "673" },
@@ -1801,7 +1801,7 @@ function JuneMonthly() {
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to Jun 30, 2026
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 16 }}>
           {[
             { label: "Users reached", value: "1,734" },
             { label: "Prompters", value: "746" },
@@ -1889,7 +1889,7 @@ function JuneMonthly() {
             </div>
           </div>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px 16px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))", gap: "6px 16px" }}>
           {(showAllCountries ? regional : regional.slice(0, 12)).map((c, i) => {
             const mayUsers = { BR: 20, CR: 9, PA: 12, CO: 35 }[c.code];
             const diff = mayUsers != null ? c.users - mayUsers : null;
@@ -2193,7 +2193,7 @@ function JulyMonthly() {
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to Jul 31, 2026
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 16 }}>
           {[
             { label: "Users reached", value: "1,818" },
             { label: "Prompters", value: "796" },
@@ -3251,8 +3251,8 @@ const QUALITATIVE = {
   },
   october: {
     kicker: "Qualitative — session sweep",
-    title: "What people actually do here · 9 sessions, Oct 1–27",
-    intro: "Main idea: people use KP to look up a specific operation, and what gets in their way is waiting and sign-in errors. Nine sessions read end to end, picked from people who copied, left, opened sources or opened a pill. A pattern to check, not a measurement. The full-month pass comes with the close.",
+    title: "What people actually do here · 13 sessions, Oct 1–31",
+    intro: "Main idea: people use KP to look up a specific operation, and what gets in their way is waiting and sign-in errors. Thirteen sessions read end to end: nine from Oct 1–27 and four added at the close from Oct 28–31, picked from people who searched or opened a pill. A pattern to check, not a measurement.",
     shot: {
       src: shotOct,
       alt: "The Knowledge Platform in Portuguese. The user asks whether there is a Portuguese version. The assistant answers that it only has the English loan proposal for the operation, names the executing agency and guarantor, and offers to summarise or extract the key points in Portuguese. The answer above it ends with a link to the operational sources overview.",
@@ -3267,7 +3267,7 @@ const QUALITATIVE = {
         tag: "New use case",
         tone: "green",
         title: "They arrive with an operation code, not a question",
-        body: "3 of 9 typed or pasted a code, then asked the same follow-ups: is it approved, is there a Portuguese version, who leads it.",
+        body: "3 of 13 typed or pasted a code, then asked the same follow-ups: is it approved, is there a Portuguese version, who leads it.",
         soWhat: "Answer those three up front whenever someone enters a code.",
         sessions: [{ id: "S-02", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7700339469860114377:5876844348762331830:1791398332814", place: "US" }, { id: "S-08", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/4499951521660917701:1374514661962380456:1792099300379", place: "Uruguay" }, { id: "S-09", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6710784331649232724:2982347701974588883:1791381202326", place: "Brazil" }],
       },
@@ -3275,33 +3275,41 @@ const QUALITATIVE = {
         tag: "Friction",
         tone: "amber",
         title: "They wait a long time for answers",
-        body: "In 3 sessions, minutes pass between a question and the next action. One ended on a one-word reply, with nothing opened or copied.",
-        soWhat: "Compare with latency when the console data lands. If it matches, this is the first thing to fix.",
-        sessions: [{ id: "S-03", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3833206081754427652:2386757367342388586:1793126326370", place: "ES" }, { id: "S-02", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7700339469860114377:5876844348762331830:1791398332814", place: "US" }, { id: "S-06", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3022122187867622856:6077310078458139911:1793041068147", place: "US" }],
+        body: "In 4 of 13 sessions, minutes pass between a question and the next action. One ended on a one-word reply; in another the user waited two and a half minutes on a country-strategy question and went back to browsing projects.",
+        soWhat: "The console average fell to 14s, so the wait is not the typical answer: it is the long ones. Read it next to the 76% of October questions the console logs as unanswered.",
+        sessions: [{ id: "S-03", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3833206081754427652:2386757367342388586:1793126326370", place: "ES" }, { id: "S-02", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7700339469860114377:5876844348762331830:1791398332814", place: "US" }, { id: "S-06", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3022122187867622856:6077310078458139911:1793041068147", place: "US" }, { id: "S-10", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7014775597424000811:1323484305986912", place: "Panama" }],
       },
       {
         tag: "Bug",
         tone: "red",
         title: "Sign-in errors on load",
-        body: "3 of 9 sessions logged authentication errors in their first seconds. The page reloaded and they carried on, so no metric shows it.",
+        body: "6 of 13 sessions logged authentication errors in their first seconds (token refresh failing). The page reloaded and they carried on, so no metric shows it.",
         soWhat: "Same error as in September. Count it and pass the error text to whoever owns sign-in.",
-        sessions: [{ id: "S-03", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3833206081754427652:2386757367342388586:1793126326370", place: "ES" }, { id: "S-06", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3022122187867622856:6077310078458139911:1793041068147", place: "US" }, { id: "S-09", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6710784331649232724:2982347701974588883:1791381202326", place: "Brazil" }],
+        sessions: [{ id: "S-03", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3833206081754427652:2386757367342388586:1793126326370", place: "ES" }, { id: "S-06", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3022122187867622856:6077310078458139911:1793041068147", place: "US" }, { id: "S-09", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6710784331649232724:2982347701974588883:1791381202326", place: "Brazil" }, { id: "S-10", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7014775597424000811:1323484305986912", place: "Panama" }, { id: "S-11", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8244086041508871258:5030671919959505585", place: "US" }, { id: "S-13", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3481753423836574330:6024231333231114119", place: "US" }],
       },
       {
         tag: "Opportunity",
         tone: "green",
         title: "Pills are a quick look, not a destination",
-        body: "Of 3 pill sessions, two left within a minute or so and only one stayed, about twelve minutes. That fits 43 people opening a pill and only 3 copying.",
+        body: "Of 5 pill sessions, three were quick looks. The two longer ones were tours: one person stepped through every pill of two projects in five minutes and copied one card; another sat four minutes on a Data pill and left with nothing copied.",
         soWhat: "A link from the pill to the Assistant, carrying the project, would give the quick lookers a next step.",
-        sessions: [{ id: "S-05", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3342387239912624474:7173635749571822276:1793117543535", place: "US" }, { id: "S-07", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8381765414344869013:6520275666541052331:1792614109997", place: "Brazil" }, { id: "S-06", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3022122187867622856:6077310078458139911:1793041068147", place: "US" }],
+        sessions: [{ id: "S-05", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3342387239912624474:7173635749571822276:1793117543535", place: "US" }, { id: "S-07", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8381765414344869013:6520275666541052331:1792614109997", place: "Brazil" }, { id: "S-06", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3022122187867622856:6077310078458139911:1793041068147", place: "US" }, { id: "S-12", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6897932329812509550:8723128915685074442", place: "US" }, { id: "S-13", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3481753423836574330:6024231333231114119", place: "US" }],
+      },
+      {
+        tag: "Bug",
+        tone: "red",
+        title: "A Data pill opened on an error page",
+        body: "In 1 of 13 sessions, opening the Data pill of a project in preparation landed on the technical-difficulties page. The user clicked back to home and tried another project.",
+        soWhat: "One case. Check whether Data pills fail for projects in preparation before reading the Data pill numbers.",
+        sessions: [{ id: "S-10", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7014775597424000811:1323484305986912", place: "Panama" }],
       },
     ],
     alsoNoted: [
       "No way to edit the last question: one user copied it, pasted it back and re-sent it three times.",
-      "The tour was skipped in two sessions within seconds; two of nine finished it.",
-      "All nine were on desktop. No mobile in this sample.",
+      "The tour was skipped or closed in five sessions within seconds; three of thirteen finished it. In one it appeared after the user had already typed a question.",
+      "All thirteen were on desktop. No mobile in this sample.",
     ],
-    note: "No screenshot in this pass; it is added at the close after review. Sessions show country only. The links need a FullStory login.",
+    note: "Closed Nov 4 over the full month: S-01 to S-09 from Oct 1–27, S-10 to S-13 from Oct 28–31 (product team excluded by email before reading). The screenshot was reviewed and the avatars blanked. Sessions show country only. The links need a FullStory login.",
   },
   august: {
     kicker: "Qualitative — session sweep",
@@ -3382,6 +3390,35 @@ const QUALITATIVE = {
 // segmento que first_time). Las columnas son cuantos de esos siguen activos
 // N meses despues. Receta en el skill, §3bis.
 const COHORTS = {
+  october: {
+    title: "Retention by cohort · Apr–Oct 2026",
+    intro: "Each row is the group of people who used KP for the first time in that month. The columns count how many of that same group came back one, two, three… months later. Segment Sin DEV; coming back means a visit to the KP home in that later month. September and October columns added at the October close (Nov 4).",
+    cols: ["M+1", "M+2", "M+3", "M+4", "M+5", "M+6"],
+    rows: [
+      { cohort: "April",     size: 411, values: [62, 36, 31, 31, 36, 25] },
+      { cohort: "May",       size: 175, values: [23, 15, 17, 12, 12, null] },
+      { cohort: "June",      size: 202, values: [27, 23, 18, 10, null, null] },
+      { cohort: "July",      size: 86,  values: [8, 7, 7, null, null, null] },
+      { cohort: "August",    size: 125, values: [16, 8, null, null, null, null] },
+      { cohort: "September", size: 110, values: [13, null, null, null, null, null] },
+      { cohort: "October",   size: 79,  values: [null, null, null, null, null, null] },
+    ],
+    note: "October's own cohort has no month after it yet. Percentages are of each cohort's own size. Control: rebuilding July and October with their own month as the window gives 86 and 79, the published new-user counts. Sizes for August and September are the published new-user counts (the segment gives 107 for September; see the September view).",
+    takeaways: [
+      {
+        lead: "The first-month slide stopped after July.",
+        body: "Second-month return was 15% for April, 13% for May and June, 9% for July — and then 13% for August and 12% for September. July looks like the low point, not the start of a trend.",
+      },
+      {
+        lead: "October was a weak month for every cohort at once.",
+        body: "April's cohort went from 36 in September to 25 in October, June's from 18 to 10, August's from 16 to 8. When every row drops in the same month, the cause is the month (October had 230 users against 292 in September), not the age of the cohort.",
+      },
+      {
+        lead: "The floor is still there.",
+        body: "About one in sixteen of April's intake is still coming back six months later. Whoever survives the first two months tends to stay; the second visit remains the place to push.",
+      },
+    ],
+  },
   august: {
     title: "Retention by cohort · Apr–Aug 2026",
     intro: "Each row is the group of people who used KP for the first time in that month. The columns count how many of that same group came back one, two, three and four months later. Segment Sin DEV; coming back means a visit to the KP home in that later month.",
@@ -4381,7 +4418,7 @@ function SeptemberMonthly() {
         <br/><br/><strong style={{ color: INK2 }}>Read twice before writing.</strong> A first pass at 00:25 UTC on Oct 1 found the data still indexing — sessions moved from 1,379 to 1,432 within minutes and some reads came back cached. Nothing was written then. Every figure here was computed twice at 07:00 UTC and only kept where the two reads agreed. Closed as final on Oct 5, when users, sessions, prompters, highlights and copies were recomputed and the cumulative controls reproduced (users 1,912 − 1,802 = 110; sessions 15,988 − 14,557 = 1,431; prompters drift 4).
         <br/><br/><strong style={{ color: INK2 }}>Cumulative totals</strong> are not a single query. FullStory keeps about 12 months and silently truncates anything older, so users and sessions are built from August's verified close plus this month's new users and sessions, and prompters corrects for the drift the truncation causes. Each one is checked against a subtraction control before it is written. Method and worked examples live in the checklist.
         <br/><br/><strong style={{ color: INK2 }}>New users: 110, not 107.</strong> The firstSeen segment returns 107 because it also requires a visit to the production home page; the subtraction control against the cumulative anchor returns 110. The 110 is published so the cumulative reconciles, and the 107 is recorded in the checklist.
-        <br/><br/><strong style={{ color: INK2 }}>Loaded by hand:</strong> CSAT — three responses this month, 67% top-2 box, average 4.33. Three responses is not a satisfaction rate and should not be read against August's 40% on five; it is carried for continuity. Prompts sent (867) and latency (25s) come from the admin console — the prompts column is the same one that gave the 415 and 634 already published for July and August. Latency there is an average, not the median this field was originally defined as, and it improved from 29s in August. <strong style={{ color: INK2 }}>Funnels</strong> are August's closed funnels cloned with only the date range changed, so the steps are identical; the clone reproduced August's published figures exactly before September was read. <strong style={{ color: INK2 }}>Not built yet:</strong> retention cohorts, which land with the close.
+        <br/><br/><strong style={{ color: INK2 }}>Loaded by hand:</strong> CSAT — three responses this month, 67% top-2 box, average 4.33. Three responses is not a satisfaction rate and should not be read against August's 40% on five; it is carried for continuity. Prompts sent (867) and latency (25s) come from the admin console — the prompts column is the same one that gave the 415 and 634 already published for July and August. Latency there is an average, not the median this field was originally defined as, and it improved from 29s in August. <strong style={{ color: INK2 }}>Funnels</strong> are August's closed funnels cloned with only the date range changed, so the steps are identical; the clone reproduced August's published figures exactly before September was read. <strong style={{ color: INK2 }}>Retention cohorts</strong> for September are in the October view, which carries the September and October columns.
       </div>
 
     </div>
@@ -4411,6 +4448,8 @@ const OCTOBER = {
   csatAvg: 5.0,
   prompts: 1771,            // consola de admin, mes de octubre (foto del 3-nov): 62 usuarios, 1681 sesiones, 1771 preguntas, promedio 14s, 1351 sin respuesta, 58 fuentes faltantes
   latency: "14s",           // consola de admin, promedio (no mediana). Sep 25s
+  unanswered: 1351,         // consola de admin, octubre: preguntas sin respuesta (76%). Sep 46%
+  missingSources: 58,       // consola de admin, octubre: fuentes faltantes reportadas. Sep 28
   totalCountries: 26,       // paises con actividad Sin DEV (copy) en knowledgeplatform.iadb.org, 1-31 oct. ATENCION: poblacion distinta de la tabla de septiembre (ver nota en la tarjeta)
   countries: [
     { name: "United States (HQ)", code: "US", users: 125 },
@@ -4464,12 +4503,12 @@ function OctoberMonthly() {
         <div>
         <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report — October</div>
         <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>October 2026 — Oct 1–{day}</div>
-        <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (segment Sin DEV) and the ledger · FullStory data through {through} (full month) · console data, retention and the full qualitative sweep land with the close</div>
+        <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (segment Sin DEV) and the ledger · FullStory data through {through} (full month) · closed Nov 4 with console data, retention and the full qualitative sweep</div>
         </div>
         <button
           onClick={() => {
             const rows = [
-              ["Metric", "Value"], ["Month", `October 2026 (Oct 1-${day}; console data pending)`],
+              ["Metric", "Value"], ["Month", `October 2026 (Oct 1-${day}; closed)`],
               ["Users reached", OCTOBER.users], ["Sessions", OCTOBER.sessions], ["Prompters", OCTOBER.prompters],
               ["New users", OCTOBER.first_time], ["Returning users", returning], ["Tour completion %", OCTOBER.tourCompletion + "%"],
               ["Avg. active time (s)", snapshotAt("avg_active_time_s", M)], ["Pill pageviews", L(M, "cs_queries")],
@@ -4600,6 +4639,18 @@ function OctoberMonthly() {
         <MCard meta="newSearch" label="New Search clicks" value={String(OCTOBER.newSearchClicks)} momentum={SEPTEMBER.newSearchClicks} />
       </div>
 
+      {heading("🛡️ Answer quality guardrails (October)")}
+      <div style={grid(160)}>
+        <MCard label="Answer rate" value={`${100 - Math.round(OCTOBER.unanswered / OCTOBER.prompts * 100)}%`} desc={`${(OCTOBER.prompts - OCTOBER.unanswered).toLocaleString("en-US")} of ${OCTOBER.prompts.toLocaleString("en-US")} questions answered · admin console · 54% in September`} accent momentum={54} />
+        <MCard label="Missing sources" value={String(OCTOBER.missingSources)} desc="Answers the console flags with a missing source · 28 in September" momentum={28} />
+        <MCard label="Extraction" value={`${(L(M, "os_copy") / OCTOBER.prompts * 100).toFixed(1)}`} desc={`Open Search copies per 100 questions · ${(L("2026-09", "os_copy") / SEPTEMBER.prompts * 100).toFixed(1)} in September`} momentum={L("2026-09", "os_copy") / SEPTEMBER.prompts * 100} />
+        <MCard meta="latency" label="Latency" value={OCTOBER.latency} desc="Average response time · admin console · 25s in September" small momentum={25} />
+        <MCard meta="csat" label="CSAT" value={OCTOBER.csat} desc={`n=${OCTOBER.csatResponses} · 67% on n=3 in September · too few to read as a rate`} small />
+      </div>
+      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.5 }}>
+        ℹ <strong>Faster, but it answers less.</strong> Latency fell from 25s to 14s while the share of questions the console logs as unanswered rose from 46% to 76%, and missing sources doubled. A faster "no answer" is not an improvement. Read the four together every month: a change that moves one and hurts another is a trade-off to decide, not a win. On green chips here, up is good for answer rate and extraction; for missing sources and latency a red chip (down) is the good direction.
+      </div>
+
       {heading("📄 Content Engagement (October)")}
       <ContentEngagementCard
         rows={engagementRows(M, downloads)}
@@ -4631,7 +4682,7 @@ function OctoberMonthly() {
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach finished below September</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            {OCTOBER.users} users and {OCTOBER.sessions} sessions through Oct {day}, against September's 292 and 1,432 for the whole month. {OCTOBER.first_time} are first-timers. The month is complete: reaching September's level was not possible. Console data, retention and the full-month qualitative sweep land with the close.
+            {OCTOBER.users} users and {OCTOBER.sessions} sessions through Oct {day}, against September's 292 and 1,432 for the whole month. {OCTOBER.first_time} are first-timers. The month is closed below September; the retention table below shows every cohort dipping in October at once.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
@@ -4654,12 +4705,13 @@ function OctoberMonthly() {
         </div>
       </div>
 
+      <CohortSection c={COHORTS.october} />
       <QualitativeSection q={QUALITATIVE.october} />
 
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>October is complete on FullStory data.</strong> It covers Oct 1–{day}. The chips on each card compare it with September's full month: green means it went up, red means it went down. The final close adds the console data, the retention cohorts and the full-month qualitative sweep.
+        <strong style={{ color: INK2 }}>October is closed.</strong> It covers Oct 1–{day}. The chips on each card compare it with September's full month: green means it went up, red means it went down. Closed on Nov 4 with the console data, the answer-quality guardrails, the retention cohorts and the full-month qualitative sweep.
         <br/><br/><strong style={{ color: INK2 }}>Where the numbers come from.</strong> Users, sessions, prompters, onboarding, feedback and search clicks are read from FullStory on the Sin DEV segment, twice each, and kept only where both reads agreed. New users are the cumulative unique users to date minus September's close, not the first-seen segment. Highlights, copies, source clicks, pill views and Global Search come from the ledger (data/kp_ledger.csv, segment Sin DEV (copy)); the cumulative totals use its snapshots. Prompts sent and latency are the admin console's October figures, loaded by hand as in earlier months.
-        <br/><br/><strong style={{ color: INK2 }}>Still pending for the close:</strong> the retention cohorts and the full-month qualitative sweep are done once the month is complete (the sweep above is the month-to-date pass). Countries, funnels and pills are computed on the Sin DEV segment over Oct 1–{day}; the country table is not comparable with September's. CSAT is loaded by hand from the survey list (two responses so far this month, both 5 stars), and it is carried for continuity, not as a satisfaction rate.
+        <br/><br/><strong style={{ color: INK2 }}>Retention and sessions.</strong> The cohort table extends August's with the September and October columns, same recipe, with a size control. The qualitative sweep adds four sessions from Oct 28–31 to the nine read earlier. Two Contextual rows of the ledger (copies and detail-page highlights) still carry the Oct 1–7 values: the full-month recompute did not reproduce September, so they were not replaced. Countries, funnels and pills are computed on the Sin DEV segment over Oct 1–{day}; the country table is not comparable with September's. CSAT is loaded by hand from the survey list (two responses so far this month, both 5 stars), and it is carried for continuity, not as a satisfaction rate.
       </div>
 
     </div>
