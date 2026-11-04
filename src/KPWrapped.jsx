@@ -37,7 +37,7 @@ const THEMES = {
 const mix = (v, p) => `color-mix(in srgb, var(${v}) ${p}%, transparent)`;
 
 const CSS = `
-.kpw{--pad:clamp(20px,5vw,72px);position:relative;height:calc(100dvh - 64px);overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth;background:${C.night};font-family:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;font-variant-numeric:tabular-nums}
+.kpw{--pad:clamp(20px,5vw,72px);position:relative;height:calc(100dvh - 64px);overflow-y:auto;scroll-snap-type:y proximity;background:${C.night};font-family:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;font-variant-numeric:tabular-nums}
 .kpw *{box-sizing:border-box}
 .kpw-s{--dim:${mix("--ink", 74)};--faint:${mix("--ink", 54)};--line:${mix("--ink", 22)};--track:${mix("--ink", 10)};--track2:${mix("--ink", 26)};
   position:relative;min-height:calc(100dvh - 64px);scroll-snap-align:start;padding:clamp(84px,12vh,120px) var(--pad) 120px;display:flex;flex-direction:column;justify-content:center;background:var(--bg);color:var(--ink)}
@@ -51,10 +51,10 @@ const CSS = `
 .kpw-p{font-size:clamp(16px,1.6vw,20px);line-height:1.45;color:var(--dim);max-width:46ch;margin:0;font-weight:400}
 .kpw-big{font-weight:900;letter-spacing:-.06em;line-height:.8;font-size:clamp(96px,min(20vw,30vh),260px);color:var(--acc)}
 .kpw-note{font:400 12px/1.55 "Inter Tight",system-ui,sans-serif;color:var(--faint);max-width:92ch;margin-top:28px;padding-top:12px;border-top:1px solid var(--line)}
-.kpw-rise{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.kpw-rise{opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s cubic-bezier(.2,.7,.2,1)}
 .kpw-s.on .kpw-rise{opacity:1;transform:none}
-.kpw-d1{transition-delay:.1s}.kpw-d2{transition-delay:.22s}.kpw-d3{transition-delay:.34s}.kpw-d4{transition-delay:.46s}
-.kpw-bar{height:100%;background:var(--acc);width:0;transition:width 1s cubic-bezier(.2,.7,.2,1) .25s}
+.kpw-d1{transition-delay:.05s}.kpw-d2{transition-delay:.1s}.kpw-d3{transition-delay:.15s}.kpw-d4{transition-delay:.2s}
+.kpw-bar{height:100%;background:var(--acc);width:0;transition:width .6s cubic-bezier(.2,.7,.2,1) .1s}
 .kpw-s.on .kpw-bar{width:var(--w)}
 .kpw-grid{display:grid;gap:clamp(18px,3vw,40px);grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
 .kpw-stat{border-top:2px solid var(--ink);padding-top:14px}
@@ -80,7 +80,7 @@ const CSS = `
 .kpw-card.hl .kpw-k::before{background:var(--bg)}
 .kpw-ev{font:500 11px/1.4 "DM Mono",ui-monospace,monospace;color:var(--faint);margin-top:14px}
 @keyframes kpwpop{0%{transform:translateY(24px);opacity:0}100%{transform:none;opacity:1}}
-.kpw-s.on .kpw-pop{animation:kpwpop .9s cubic-bezier(.2,.7,.2,1) .1s both}
+.kpw-s.on .kpw-pop{animation:kpwpop .5s cubic-bezier(.2,.7,.2,1) both}
 @media (max-width:720px){.kpw{height:auto;overflow:visible;scroll-snap-type:none}.kpw-s{min-height:auto;padding:76px var(--pad) 80px}.kpw-frame-mid{display:none}.kpw-nav{position:fixed;left:0;right:0;bottom:12px;height:auto;justify-content:center;padding:0}.kpw-navi{transform:none}.kpw-card{border-right:0;border-bottom:1px solid var(--line);padding:18px 0!important}.kpw-card.hl{padding:18px 16px!important}}
 @media (prefers-reduced-motion: reduce){
   .kpw{scroll-behavior:auto}
@@ -164,7 +164,7 @@ export default function KPWrapped({ months: monthRows }) {
   useEffect(() => {
     const root = ref.current; if (!root) return;
     const secs = [...root.querySelectorAll("[data-wrap]")];
-    const io = new IntersectionObserver((ents) => ents.forEach((e) => { if (e.isIntersecting) setActive(secs.indexOf(e.target)); }), { root: null, rootMargin: "-45% 0px -45% 0px", threshold: 0 });
+    const io = new IntersectionObserver((ents) => ents.forEach((e) => { if (e.isIntersecting) setActive(secs.indexOf(e.target)); }), { root: null, rootMargin: "-30% 0px -30% 0px", threshold: 0 });
     secs.forEach((s) => io.observe(s));
     return () => io.disconnect();
   }, []);
