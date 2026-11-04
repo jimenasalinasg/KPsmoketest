@@ -244,16 +244,23 @@ const BENCH = {
   tourCompletion: 58,
   pillTop: 25,
   pillBot: 5,
-  // Monthly benchmarks (avg of organic biweekly periods Sep 2025–Mar 2026)
+  // Monthly benchmarks — recalculados el 4-nov-2026 sobre el segmento Sin DEV (copy) sjHJR3590z6j,
+  // promedio de cuatro meses organicos completos: dic-2025, ene, feb y mar-2026 (1-30, sin el go-live del 31).
+  // Oct/nov-2025 quedan fuera: FullStory retiene ~12 meses y ya no los sirve completos.
+  // users a30wnMzqgtJk 165/116/150/248 · sessions BhsN9vxRPN7V 435/306/443/579 · prompters 3GVbGeJsPBCb 78/65/90/101
+  // (FullStory, update_metric + segmento; la tendencia mensual coincide con el valor de cada mes).
+  // pillPageviews, highlights, copies y sourceClicks salen del ledger (cs_queries; os_* + cs_*), mismos cuatro meses.
+  // Sin recalcular (no hay fuente Sin DEV para el periodo): prompts (consola), tourCompletion (metrica de ratio,
+  // update_metric no la acepta con segmento), retention, pillTop, pillBot.
   monthly: {
-    sessions: 502,
-    users: 192,
+    sessions: 441,
+    users: 170,
     prompts: 264,
-    prompters: 96,
-    highlights: 380,
-    copies: 158,
-    sourceClicks: 142,
-    pillPageviews: 87,
+    prompters: 84,
+    highlights: 284,
+    copies: 106,
+    sourceClicks: 79,
+    pillPageviews: 80,
     tourCompletion: 58,
     retention: 32,
     pillTop: 25,
@@ -732,7 +739,7 @@ function LaunchTimeline({ defaultOpen = true }) {
       note: "Highest single-week adoption to date.",
       impact: [
         { label: "Sessions ×3.3 in April (1,632 vs 502 avg)", dir: "up" },
-        { label: "Users ×3 (588 vs 192 avg)", dir: "up" },
+        { label: "Users ×3 (584 vs 170 avg)", dir: "up" },
         { label: "Retention — the share of users who come back within 2 weeks — averaged ~32% during the organic period. After go-live it fell to 10.9%: an influx of one-time explorers diluted the loyal base", dir: "down" },
       ],
     },
@@ -754,7 +761,7 @@ function LaunchTimeline({ defaultOpen = true }) {
       date: "May–Jun 2026",
       tag: "Country Roadshows 🇨🇴🇧🇷🇨🇷🇵🇦",
       color: "#1464A0",
-      stats: ["379 users in June", "1,052 sessions in May · 1,019 in June", "871 content engagement events in June", "1,025 prompts in June (↑64% vs May)"],
+      stats: ["360 users in June", "1,052 sessions in May · 1,019 in June", "871 content engagement events in June", "1,025 prompts in June (↑64% vs May)"],
       note: "Country-level activation sessions. User change measured in the weeks following each event:",
       impact: [
         { label: "Colombia (May 26–27): +11 users in the following weeks (24→35)", dir: "up" },
@@ -847,14 +854,14 @@ function LaunchTimeline({ defaultOpen = true }) {
 // April 2026 data — mes completo. El comentario viejo decia "partial — through Apr 21", pero users (588) coincide con la entrada del embudo del mes completo y pillPageviews sale del ledger (mes completo).
 const APRIL = {
   sessions: 1632,
-  users: 588,
-  prompters: 226,
+  users: 584, // Sin DEV (sjHJR3590z6j), reexpresado 4-nov-2026; antes 588 sin segmento
+  prompters: 218, // Sin DEV, reexpresado 4-nov-2026; antes 226 sin segmento
   prompts: 429,
   avgTime: "16.31s",
   dropoff: 92,
   retention: 10.9,
   first_time: 411,        // Sin DEV — firstSeen en rango + visito /home de produccion
-  returningUsers: 177,    // Sin DEV — users (588) menos nuevos (411)
+  returningUsers: 173,    // Sin DEV — users (584) menos nuevos (411)
   highlighted: L("2026-04", "os_highlight") + L("2026-04", "cs_highlight_detail") + L("2026-04", "cs_highlight_cards"),  // ledger os_highlight + cs_highlight_detail + cs_highlight_cards · Sin DEV (copy)
   highlightedOpenSearch: L("2026-04", "os_highlight"),  // ledger os_highlight · Sin DEV (copy)
   copied: L("2026-04", "os_copy") + L("2026-04", "cs_copy"),  // ledger os_copy + cs_copy · Sin DEV (copy)
@@ -1243,14 +1250,14 @@ function Monthly() {
 // Partial — May 31, 2026
 const MAY = {
   sessions: 1052,
-  users: 363,
+  users: 344, // Sin DEV (sjHJR3590z6j), reexpresado 4-nov-2026; antes 363 sin segmento
   first_time: 175,        // Sin DEV — firstSeen en rango + visito /home de produccion
-  prompters: 133,
+  prompters: 123, // Sin DEV, reexpresado 4-nov-2026; antes 133 sin segmento
   prompts: 625,
   avgTime: "20.2s",
   dropoff: 87,
   retention: 16,
-  returningUsers: 188,    // Sin DEV — users (363) menos nuevos (175)
+  returningUsers: 169,    // Sin DEV — users (344) menos nuevos (175)
   highlighted: L("2026-05", "os_highlight") + L("2026-05", "cs_highlight_detail") + L("2026-05", "cs_highlight_cards"),  // ledger os_highlight + cs_highlight_detail + cs_highlight_cards · Sin DEV (copy)
   highlightedOpenSearch: L("2026-05", "os_highlight"),  // ledger os_highlight · Sin DEV (copy)
   copied: L("2026-05", "os_copy") + L("2026-05", "cs_copy"),  // ledger os_copy + cs_copy · Sin DEV (copy)
@@ -1649,13 +1656,13 @@ function MayMonthly() {
 // Final — June 2026
 const JUNE = {
   sessions: 1019,
-  users: 379,
+  users: 360, // Sin DEV (sjHJR3590z6j), reexpresado 4-nov-2026; antes 379 sin segmento
   first_time: 202,        // Sin DEV — firstSeen en rango + visito /home de produccion
-  prompters: 160,
+  prompters: 151, // Sin DEV, reexpresado 4-nov-2026; antes 160 sin segmento
   prompts: 1025,
   avgTime: "20.37s",
   dropoff: 86,
-  returningUsers: 177,    // Sin DEV — users (379) menos nuevos (202)
+  returningUsers: 158,    // Sin DEV — users (360) menos nuevos (202)
   highlighted: L("2026-06", "os_highlight") + L("2026-06", "cs_highlight_detail") + L("2026-06", "cs_highlight_cards"),  // ledger os_highlight + cs_highlight_detail + cs_highlight_cards · Sin DEV (copy)
   highlightedOpenSearch: L("2026-06", "os_highlight"),  // ledger os_highlight · Sin DEV (copy)
   copied: L("2026-06", "os_copy") + L("2026-06", "cs_copy"),  // ledger os_copy + cs_copy · Sin DEV (copy)
@@ -2043,13 +2050,13 @@ function JuneMonthly() {
 // Final — full month, segmento Sin DEV (vía Fullstory MCP, cerrado 2026-08-18)
 const JULY = {
   sessions: 1226,
-  users: 250,
+  users: 237, // Sin DEV (sjHJR3590z6j), reexpresado 4-nov-2026; antes 250 sin segmento
   first_time: 86,        // Sin DEV — segmento firstSeen en rango + visito /home de produccion. El 156 anterior era org-wide, sin segmento: otra poblacion
-  prompters: 109,
+  prompters: 97, // Sin DEV, reexpresado 4-nov-2026; antes 109 sin segmento
   prompts: 415,
   avgTime: "20.43s",
   dropoff: 85,
-  returningUsers: 164,    // Sin DEV — users (250) menos nuevos (86). Recurrentes de meses anteriores
+  returningUsers: 151,    // Sin DEV — users (237) menos nuevos (86). Recurrentes de meses anteriores
   highlighted: L("2026-07", "os_highlight") + L("2026-07", "cs_highlight_detail") + L("2026-07", "cs_highlight_cards"),  // ledger os_highlight + cs_highlight_detail + cs_highlight_cards · Sin DEV (copy)
   highlightedOpenSearch: L("2026-07", "os_highlight"),  // ledger os_highlight · Sin DEV (copy)
   copied: L("2026-07", "os_copy") + L("2026-07", "cs_copy"),  // ledger os_copy + cs_copy · Sin DEV (copy)
@@ -2409,7 +2416,7 @@ function JulyMonthly() {
           Signal — Volume dipped, loyal base held
         </div>
         <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
-          July saw fewer users than prior months (251 vs 379 in June), explained by the northern-hemisphere summer and the absence of a physical roadshow. What matters is where the drop landed: acquisition slowed, but recurrence held — 91 users returned for 2+ sessions (36% of those reached), in line with prior months, and cumulative penetration still reached 25% of staff and consultants. The loyal base did not erode; the real test is whether volume recovers on its own as staff return in August, or needs another activation to lift.
+          July saw fewer users than prior months (237 vs 360 in June), explained by the northern-hemisphere summer and the absence of a physical roadshow. What matters is where the drop landed: acquisition slowed, but recurrence held — 91 users returned for 2+ sessions (36% of those reached), in line with prior months, and cumulative penetration still reached 25% of staff and consultants. The loyal base did not erode; the real test is whether volume recovers on its own as staff return in August, or needs another activation to lift.
         </p>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Two channels, not a migration
@@ -2438,7 +2445,7 @@ const META = {
   activeTime:       { id: "vpWvDQswlPB4", src: "ledger",  def: "Average active time on page per page view (not per session, despite the FullStory name \"Promedio de Tiempo Activo x Sesión\"), segment Sin DEV (copy). An average: never summed across months." },
   frequentUsers:    { id: null, src: "ledger",  def: "Frequent users: people outside the team with at least 4 visits to the KP home page in the 28 days up to the month-end, so about one visit a week or more. Counted from a FullStory segment; the team accounts are removed by hand." },
   powerUsers:       { id: null, src: "ledger",  def: "Power users: people outside the team with at least 8 visits to the KP home page in the 28 days up to the month-end, so two visits a week or more. Always a subset of frequent users." },
-  sessions:         { id: "BhsN9vxRPN7V", src: "mcp",     def: "Total sessions in the period. Does not filter internal traffic or bots — criterion still to be confirmed." },
+  sessions:         { id: "BhsN9vxRPN7V", src: "mcp",     def: "Total sessions in the period, all environments, build team included. Users and prompters are on the Sin DEV segment; sessions are not, because that segment only keeps sessions that load the KP home and would drop two thirds of real sessions (restated Nov 4, 2026)." },
   prompters:        { id: "3GVbGeJsPBCb", src: "mcp",     def: "Unique users who sent at least one prompt." },
   tourCompletion:   { id: "iN3brKBr4rlY", src: "mcp",     def: "Share of users who finished the onboarding tour. Returned with decimals and rounded to the nearest integer." },
   categoryUsers:    { id: "RdCIdS4OrJhB", src: "ledger",  def: "Unique users who opened at least one knowledge category in Contextual Search (Data, Lessons Learned, Literature, Similar Projects, Institutional Documents or WLA) in the month, segment Sin DEV (copy). People, not page views; never summed across months. Counts opening a category page, not a click on one specific button." },
@@ -2466,10 +2473,10 @@ const SRC_LABEL = { ledger: "Ledger · Sin DEV (copy)", mcp: "FullStory · live"
 // Final — full month, segmento Sin DEV (vía Fullstory MCP, cerrado 2026-09-01)
 const AUGUST = {
   sessions: 1260,
-  users: 287,
-  prompters: 117,         // live via MCP (metric 3GVbGeJsPBCb)
+  users: 271, // Sin DEV (sjHJR3590z6j), reexpresado 4-nov-2026; antes 287 sin segmento
+  prompters: 110,         // live via MCP (metric 3GVbGeJsPBCb) // Sin DEV, reexpresado 4-nov-2026; antes 117 sin segmento
   prompts: 634,           // manual — admin console (no FullStory metric). 1fbmp2OI4wee ("Prompts por usuario") NO sirve: da 108 para julio contra los 415 cargados, y devuelve una tabla por email
-  returningUsers: 162,    // Sin DEV — users (287) menos nuevos (125). Recurrentes de meses anteriores
+  returningUsers: 146,    // Sin DEV — users (271) menos nuevos (125). Recurrentes de meses anteriores
   first_time: 125,        // Sin DEV — segmento firstSeen en rango + visito /home de produccion. Ver §4 del checklist para la receta
   tourCompletion: 51,     // live via MCP (iN3brKBr4rlY) — 50.93 redondeado
   pillPageviews: L("2026-08", "cs_queries"),  // ledger cs_queries · Sin DEV (copy)
@@ -3411,7 +3418,7 @@ const COHORTS = {
       },
       {
         lead: "October was a weak month for every cohort at once.",
-        body: "April's cohort went from 36 in September to 25 in October, June's from 18 to 10, August's from 16 to 8. When every row drops in the same month, the cause is the month (October had 230 users against 292 in September), not the age of the cohort.",
+        body: "April's cohort went from 36 in September to 25 in October, June's from 18 to 10, August's from 16 to 8. When every row drops in the same month, the cause is the month (October had 209 users against 267 in September), not the age of the cohort.",
       },
       {
         lead: "The floor is still there.",
@@ -3939,7 +3946,7 @@ function AugustMonthly() {
           </button>
         )}
         <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
-          <strong>This table is a wider population than the rest of the report.</strong> The country metric counts any activity with no segment and no host filter, so unlike every other figure here it includes the build team, the test host and localhost — which is why it sums to 378 against the month's 287 users. Read the shares, not the absolute counts. <strong>Netherlands has been removed:</strong> its 32 "users" were an automated monitor hitting the non-production test host once a day, the same one found in September and verified on Oct 1 — there were no Dutch users on production in August either. New face this month: Germany 🇩🇪.
+          <strong>This table is a wider population than the rest of the report.</strong> The country metric counts any activity with no segment and no host filter, so unlike every other figure here it includes the build team, the test host and localhost — which is why it sums to 378 against the month's 271 users. Read the shares, not the absolute counts. <strong>Netherlands has been removed:</strong> its 32 "users" were an automated monitor hitting the non-production test host once a day, the same one found in September and verified on Oct 1 — there were no Dutch users on production in August either. New face this month: Germany 🇩🇪.
         </div>
       </div>
 
@@ -4052,7 +4059,7 @@ function AugustMonthly() {
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>August closes above July on both counts</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            287 users · 1,260 sessions, against July's 250 and 1,226 — up 15% and 3%. What read as a summer trough in July has reversed, and August is the strongest month for users since May. But the growth did not reach the far end of the funnel: copies fell to 24, the lowest of the series. More people came, and fewer took something away.
+            271 users · 1,260 sessions, against July's 237 and 1,226 — up 14% and 3%. What read as a summer trough in July has reversed, and August is the strongest month for users since June. But the growth did not reach the far end of the funnel: copies fell to 24, the lowest of the series. More people came, and fewer took something away.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
@@ -4083,10 +4090,10 @@ function AugustMonthly() {
 // varias primeras lecturas volvieron en cache. Cerrado como Final por el Routine el 5-oct-2026: recomputados users, sessions, prompters, highlights y copias, y controles de acumulados reproducidos.
 const SEPTEMBER = {
   sessions: 1432,
-  users: 292,
-  prompters: 131,          // live via MCP (metric 3GVbGeJsPBCb)
+  users: 267, // Sin DEV (sjHJR3590z6j), reexpresado 4-nov-2026; antes 292 sin segmento
+  prompters: 124,          // live via MCP (metric 3GVbGeJsPBCb) // Sin DEV, reexpresado 4-nov-2026; antes 131 sin segmento
   prompts: 867,            // manual — consola de admin. Columna "questions", la misma que dio 415 en jul y 634 en ago
-  returningUsers: 182,     // users (292) menos nuevos (110)
+  returningUsers: 157,     // users (267) menos nuevos (110)
   first_time: 110,         // ver nota: el segmento firstSeen da 107, la resta de control da 110. Se usa 110
   tourCompletion: 40,      // live via MCP (iN3brKBr4rlY) — 40.14 redondeado
   pillPageviews: L("2026-09", "cs_queries"),  // ledger cs_queries · Sin DEV (copy)
@@ -4305,7 +4312,7 @@ function SeptemberMonthly() {
           </button>
         )}
         <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
-          <strong>This table is a wider population than the rest of the report.</strong> The country metric counts any activity with no segment and no host filter, so unlike every other figure here it includes the build team, the test host and localhost — which is why it sums to 400 against the month's 292 users. Read the shares, not the absolute counts. <strong>Netherlands has been removed:</strong> its 29 "users" were an automated monitor hitting the non-production test host once a day, verified on Oct 1 — there were no Dutch users on production at all. Rebuilding this table scoped to production is October work. Not in August's list: Bahamas, Canada, France, Puerto Rico, Saint Martin, Venezuela (1–7 users each).
+          <strong>This table is a wider population than the rest of the report.</strong> The country metric counts any activity with no segment and no host filter, so unlike every other figure here it includes the build team, the test host and localhost — which is why it sums to 400 against the month's 267 users. Read the shares, not the absolute counts. <strong>Netherlands has been removed:</strong> its 29 "users" were an automated monitor hitting the non-production test host once a day, verified on Oct 1 — there were no Dutch users on production at all. Rebuilding this table scoped to production is October work. Not in August's list: Bahamas, Canada, France, Puerto Rico, Saint Martin, Venezuela (1–7 users each).
         </div>
       </div>
 
@@ -4387,7 +4394,7 @@ function SeptemberMonthly() {
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach flat on August, but people came back more</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            292 users and 1,432 sessions, against August's 287 and 1,260. Reach is flat — five more people — but sessions are up 14%, so the same audience came back more often. 110 of the 292 are new and 182 already knew KP: a 62/38 returning split that held at every cut this month.
+            267 users and 1,432 sessions, against August's 271 and 1,260. Reach is flat — four fewer people — but sessions are up 14%, so the same audience came back more often. 110 of the 267 are new and 157 already knew KP: a 59/41 returning split.
           </p>
         </div>
 <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
@@ -4431,9 +4438,9 @@ function SeptemberMonthly() {
 // Sin DEV, cada metrica leida dos veces. Al cerrar octubre este bloque pasa a ser el cierre del mes.
 const OCTOBER = {
   through: "2026-10-31",
-  users: 230,
+  users: 209, // Sin DEV (sjHJR3590z6j), reexpresado 4-nov-2026; antes 230 sin segmento
   sessions: 1084,
-  prompters: 64,
+  prompters: 53, // Sin DEV, reexpresado 4-nov-2026; antes 64 sin segmento
   first_time: 79,           // control: usuarios acumulados 1-sep-2025 -> 31-oct (1888) menos los del cierre de septiembre (1809, misma consulta del dia)
   tourCompletion: 38,       // 37.5 redondeado
   thumbsUp: 1,
@@ -4682,7 +4689,7 @@ function OctoberMonthly() {
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach finished below September</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
-            {OCTOBER.users} users and {OCTOBER.sessions} sessions through Oct {day}, against September's 292 and 1,432 for the whole month. {OCTOBER.first_time} are first-timers. The month is closed below September; the retention table below shows every cohort dipping in October at once.
+            {OCTOBER.users} users and {OCTOBER.sessions} sessions through Oct {day}, against September's 267 and 1,432 for the whole month. {OCTOBER.first_time} are first-timers. The month is closed below September; the retention table below shows every cohort dipping in October at once.
           </p>
         </div>
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
@@ -4720,9 +4727,9 @@ function OctoberMonthly() {
 
 const NOVEMBER = {
   through: "2026-11-03",
-  users: 37,
+  users: 31, // Sin DEV (sjHJR3590z6j), reexpresado 4-nov-2026; antes 37 sin segmento
   sessions: 86,
-  prompters: 9,
+  prompters: 7, // Sin DEV, reexpresado 4-nov-2026; antes 9 sin segmento
   first_time: 6,            // control: usuarios acumulados 1-sep-2025 -> 3-nov (1889) menos los del cierre de octubre (1883, misma consulta del dia)
   tourCompletion: 40,
   thumbsUp: 0,
