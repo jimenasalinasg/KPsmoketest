@@ -1,6 +1,6 @@
 import { useState, Fragment } from "react";
 import UsabilityMetrics from "./UsabilityMetrics.jsx";
-import KPWrapped, { WrappedEgg, useWrappedEgg } from "./KPWrapped.jsx";
+import KPWrapped, { WrappedEgg, useWrappedEgg, useEndOfPageHint, GiftHint } from "./KPWrapped.jsx";
 import { L, engagementRows, snapshotAt, SEGMENT_NAME } from "./data/ledgerView.js";
 import shotAug from "./assets/session-s01-aug2026.png";
 import shotSep from "./assets/session-s01-sep2026.png";
@@ -5035,6 +5035,7 @@ function Benchmark() {
 function App() {
   const [view, setView] = useState("october");
   const egg = useWrappedEgg();
+  const hint = useEndOfPageHint(view, view === "wrapped" || egg.open);
   const [monthOpen, setMonthOpen] = useState(false);
   const [launchOpen, setLaunchOpen] = useState(false);
 
@@ -5131,6 +5132,7 @@ function App() {
         </div>
       </div>
 
+      {hint.show && !egg.open && <GiftHint onOpen={() => { hint.dismiss(); egg.openGift(); }} onDismiss={hint.dismiss} />}
       {egg.open && <WrappedEgg onClose={egg.close} onOpen={() => { egg.close(); setView("wrapped"); setMonthOpen(false); setLaunchOpen(false); window.scrollTo(0, 0); }} />}
       {view === "smoke" ? <SmokeTest /> : view === "week1" ? <Week1 data={WEEK1} /> : view === "week12" ? <Week1 data={WEEK12} /> : view === "may" ? <MayMonthly /> : view === "june" ? <JuneMonthly /> : view === "july" ? <JulyMonthly /> : view === "august" ? <AugustMonthly /> : view === "november" ? <NovemberMonthly /> : view === "october" ? <OctoberMonthly /> : view === "september" ? <SeptemberMonthly /> : view === "benchmark" ? <Benchmark /> : view === "usability" ? <UsabilityMetrics /> : view === "wrapped" ? <KPWrapped months={WRAPPED_MONTHS} /> : <Monthly />}
 
