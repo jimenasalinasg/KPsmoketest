@@ -414,9 +414,9 @@ export default function KPWrapped({ months: monthRows }) {
         <div className="kpw-k kpw-rise kpw-d2" style={{ marginTop: 44 }}>Los retos que nos dejan los datos para 2027</div>
         <div className="kpw-grid kpw-rise kpw-d3" style={{ marginTop: 18 }}>
           {[
-            ansLast && { n: pct(ANSWER_RATE[ansLast.m]), t: "Responder más.", b: `Es la parte de las preguntas que el asistente respondió en ${monthLong(ansLast.m).toLowerCase()}.` },
-            { n: pct(RETURN_M1.cohorts.reduce((a, c) => a + c[1], 0) / RETURN_M1.cohorts.reduce((a, c) => a + c[2], 0)), t: "Ganar la segunda visita.", b: `Es la parte de quienes llegaron en ${RETURN_M1.cohorts.map((c) => c[0]).join(" y ")} que volvió al mes siguiente.` },
-            cumUsers != null && { n: pct(1 - cumUsers / 7287), t: "Llegar a todos.", b: `Es la parte del staff y los consultores del BID que todavía no ha abierto KP.` },
+            ansLast && { n: pct(ANSWER_RATE[ansLast.m]), t: "Responder más.", b: `En ${monthLong(ansLast.m).toLowerCase()}, el asistente respondió solo ${Math.round(ANSWER_RATE[ansLast.m] * 100)} de cada 100 preguntas.` },
+            { n: pct(RETURN_M1.cohorts.reduce((a, c) => a + c[1], 0) / RETURN_M1.cohorts.reduce((a, c) => a + c[2], 0)), t: "Ganar la segunda visita.", b: `De cada 100 personas que llegaron por primera vez en ${RETURN_M1.cohorts.map((c) => c[0]).join(" y ")}, solo ${Math.round(RETURN_M1.cohorts.reduce((a, c) => a + c[1], 0) / RETURN_M1.cohorts.reduce((a, c) => a + c[2], 0) * 100)} volvieron al mes siguiente.` },
+            cumUsers != null && { n: pct(1 - cumUsers / 7287), t: "Llegar a todos.", b: `${Math.round((1 - cumUsers / 7287) * 100)} de cada 100 personas del staff y consultores del BID todavía no han abierto KP.` },
           ].filter(Boolean).map((c, i) => (
             <div key={i} className="kpw-stat" style={{ borderTopColor: "var(--acc)" }}>
               <b style={{ fontSize: "clamp(40px,5vw,72px)" }}>{c.n}</b>
