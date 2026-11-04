@@ -491,7 +491,7 @@ export function GiftHint({ onOpen, onDismiss }) {
   return (
     <div className="kpe-hint" role="status">
       <style>{EGG_CSS}</style>
-      <button className="kpe-hint-go" onClick={onOpen}><span className="kpe-hint-gift" aria-hidden="true">🎁</span><span><b>Llegaste al final.</b> Tienes un regalo.</span></button>
+      <button className="kpe-hint-go" onClick={onOpen}><span className="kpe-hint-gift" aria-hidden="true">🎁</span><span><b>Llegaste al final</b> · tienes un regalo</span></button>
       <button className="kpe-hint-x" onClick={onDismiss} aria-label="Cerrar aviso">×</button>
     </div>
   );
@@ -511,12 +511,12 @@ const EGG_CSS = `
 @keyframes kpefade{from{opacity:0}to{opacity:1}}
 @keyframes kpeup{from{transform:translateY(30px) scale(.97);opacity:0}to{transform:none;opacity:1}}
 @keyframes kpebob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-8px) rotate(6deg)}}
-.kpe-hint{position:fixed;right:20px;bottom:20px;z-index:900;display:flex;align-items:stretch;background:${C.lime};color:${C.night};font-family:"Inter Tight",system-ui,sans-serif;box-shadow:0 10px 30px rgba(11,16,51,.25);animation:kpeup .45s cubic-bezier(.2,.7,.2,1) both}
-.kpe-hint-go{all:unset;cursor:pointer;display:flex;align-items:center;gap:12px;padding:14px 16px;font-size:15px}
-.kpe-hint-go b{font-weight:800}
-.kpe-hint-gift{font-size:26px;display:inline-block;animation:kpebob 2.4s ease-in-out infinite}
-.kpe-hint-x{all:unset;cursor:pointer;padding:0 14px;font:500 20px/1 "DM Mono",monospace;border-left:1px solid rgba(11,16,51,.2);display:grid;place-items:center}
-.kpe-hint-go:focus-visible,.kpe-hint-x:focus-visible{outline:3px solid ${C.night};outline-offset:-3px}
+.kpe-hint{position:fixed;right:20px;bottom:20px;z-index:900;display:flex;align-items:stretch;background:#fff;color:#1a1e2e;border:1px solid #e4e7f2;border-radius:8px;font-family:"DM Mono",ui-monospace,monospace;box-shadow:0 6px 20px rgba(26,30,46,.10);animation:kpeup .45s cubic-bezier(.2,.7,.2,1) both}
+.kpe-hint-go{all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;padding:11px 14px;font-size:12px;color:#3d4460}
+.kpe-hint-go b{font-weight:500;color:#1a1e2e}.kpe-hint-go:hover b{color:#2c6cb5;text-decoration:underline;text-underline-offset:3px}
+.kpe-hint-gift{font-size:16px;display:inline-block}
+.kpe-hint-x{all:unset;cursor:pointer;padding:0 12px;font:400 16px/1 "DM Mono",monospace;color:#8b93b8;border-left:1px solid #e4e7f2;display:grid;place-items:center}
+.kpe-hint-go:focus-visible,.kpe-hint-x:focus-visible{outline:2px solid #4a90e2;outline-offset:-2px;border-radius:6px}
 @media (max-width:520px){.kpe-hint{left:12px;right:12px;bottom:12px}}
 @media (prefers-reduced-motion: reduce){.kpe-back,.kpe,.kpe-gift,.kpe-hint,.kpe-hint-gift{animation:none}}
 `;
