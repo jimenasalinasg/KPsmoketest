@@ -160,11 +160,12 @@ export default function KPWrapped({ months: monthRows }) {
   // ── Navegación ──
   const ref = useRef(null);
   const [active, setActive] = useState(0);
+  const [seen, setSeen] = useState(() => new Set([0]));
   const SLIDES = TOP_TOPICS ? 14 : 13;
   useEffect(() => {
     const root = ref.current; if (!root) return;
     const secs = [...root.querySelectorAll("[data-wrap]")];
-    const io = new IntersectionObserver((ents) => ents.forEach((e) => { if (e.isIntersecting) setActive(secs.indexOf(e.target)); }), { root: null, rootMargin: "-30% 0px -30% 0px", threshold: 0 });
+    const io = new IntersectionObserver((ents) => ents.forEach((e) => { if (!e.isIntersecting) return; const i = secs.indexOf(e.target); setActive(i); setSeen((prev) => (prev.has(i) ? prev : new Set(prev).add(i))); }), { root: null, rootMargin: "-30% 0px -30% 0px", threshold: 0 });
     secs.forEach((s) => io.observe(s));
     return () => io.disconnect();
   }, []);
@@ -179,7 +180,7 @@ export default function KPWrapped({ months: monthRows }) {
   };
   const on = (i) => active === i;
   let n = 0; const nx = () => n++;
-  const st = (i) => ({ active: on(i), num: i + 1, total: SLIDES });
+  const st = (i) => ({ active: seen.has(i), num: i + 1, total: SLIDES });
   const rangeLabel = `${MONTH_LABEL(from)}–${MONTH_LABEL(to)} ${YEAR}`;
   const partialTo = rowsBy[to]?.partial ? ` (${MONTH_LABEL(to)} hasta el ${rowsBy[to].through})` : "";
 
