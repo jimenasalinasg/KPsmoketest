@@ -4742,6 +4742,10 @@ const NOVEMBER = {
   excelDownloads: 0,
 };
 
+// En standby hasta el lanzamiento de diciembre: el tab solo aparece con ?wrapped en la URL.
+// Para lanzarlo, cambiar a `true` (o borrar la condicion).
+const WRAPPED_ON = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("wrapped");
+
 // ── KP WRAPPED: filas mensuales reales (bloques de arriba). Noviembre es parcial.
 const WRAPPED_MONTHS = [
   ["2026-04", APRIL], ["2026-05", MAY], ["2026-06", JUNE], ["2026-07", JULY], ["2026-08", AUGUST],
@@ -5121,7 +5125,7 @@ function App() {
           {/* Benchmark */}
           {ddBtn(view === "benchmark", () => { setView("benchmark"); setMonthOpen(false); setLaunchOpen(false); }, "Benchmark")}
           {ddBtn(view === "usability", () => { setView("usability"); setMonthOpen(false); setLaunchOpen(false); }, "Usability metrics")}
-          {ddBtn(view === "wrapped", () => { setView("wrapped"); setMonthOpen(false); setLaunchOpen(false); }, "KP Wrapped 2026")}
+          {WRAPPED_ON && ddBtn(view === "wrapped", () => { setView("wrapped"); setMonthOpen(false); setLaunchOpen(false); }, "KP Wrapped 2026")}
         </div>
       </div>
 
