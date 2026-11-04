@@ -78,8 +78,6 @@ Misma receta que octubre con el bloque `NOVEMBER` y la vista `NovemberMonthly` d
 
 ### Pendiente
 
-- **Benchmarks "vs monthly avg".** Las tarjetas de las vistas mensuales comparan contra `BENCH.monthly` en
-  `src/App.jsx`: un promedio fijo de periodos quincenales sep-2025 a mar-2026 (por ejemplo `pillPageviews: 87`,
-  `highlights: 380`, `copies: 158`, `sourceClicks: 142`). No sale del ledger ni usa la base Sin DEV (copy), asi que
-  esas comparaciones no son comparables con los valores nuevos. El ledger ya tiene oct-2025 a mar-2026 para
-  recalcularlo. Decision tomada el 8-oct-2026: no se cambia todavia.
+- **Benchmarks "vs monthly avg".** `BENCH.monthly` en `src/App.jsx` se recalculo el 4-nov-2026 sobre Sin DEV (copy):
+  promedio dic-2025 a mar-2026 (users 170, sessions 441, prompters 84, pill views 80; detalle en el comentario del codigo).
+  Quedan con el valor viejo `prompts`, `tourCompletion`, `retention` y `pillTop`/`pillBot`: no hay fuente Sin DEV para ese periodo.

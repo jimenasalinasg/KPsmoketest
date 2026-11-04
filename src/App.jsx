@@ -244,16 +244,23 @@ const BENCH = {
   tourCompletion: 58,
   pillTop: 25,
   pillBot: 5,
-  // Monthly benchmarks (avg of organic biweekly periods Sep 2025–Mar 2026)
+  // Monthly benchmarks — recalculados el 4-nov-2026 sobre el segmento Sin DEV (copy) sjHJR3590z6j,
+  // promedio de cuatro meses organicos completos: dic-2025, ene, feb y mar-2026 (1-30, sin el go-live del 31).
+  // Oct/nov-2025 quedan fuera: FullStory retiene ~12 meses y ya no los sirve completos.
+  // users a30wnMzqgtJk 165/116/150/248 · sessions BhsN9vxRPN7V 435/306/443/579 · prompters 3GVbGeJsPBCb 78/65/90/101
+  // (FullStory, update_metric + segmento; la tendencia mensual coincide con el valor de cada mes).
+  // pillPageviews, highlights, copies y sourceClicks salen del ledger (cs_queries; os_* + cs_*), mismos cuatro meses.
+  // Sin recalcular (no hay fuente Sin DEV para el periodo): prompts (consola), tourCompletion (metrica de ratio,
+  // update_metric no la acepta con segmento), retention, pillTop, pillBot.
   monthly: {
-    sessions: 502,
-    users: 192,
+    sessions: 441,
+    users: 170,
     prompts: 264,
-    prompters: 96,
-    highlights: 380,
-    copies: 158,
-    sourceClicks: 142,
-    pillPageviews: 87,
+    prompters: 84,
+    highlights: 284,
+    copies: 106,
+    sourceClicks: 79,
+    pillPageviews: 80,
     tourCompletion: 58,
     retention: 32,
     pillTop: 25,
