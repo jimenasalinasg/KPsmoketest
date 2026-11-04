@@ -6,7 +6,7 @@ import {
   YEAR, ALL_MONTHS, MONTH_LABEL, MILESTONES, ORGANIC_USERS, SEGMENT_RULES,
   monthsInRange, sumCovered, fieldByMonth, pillRanking, featureRanking, loyalty, pct, fmt,
   weekdayProfile, COUNTRIES, BORROWERS, TOP_OPERATIONS, EXPLORERS, ANSWER_RATE, TOP_TOPICS, DAILY_THROUGH,
-  LEARNINGS, SWEEPS, RETURN_M1,
+  LEARNINGS, SWEEPS, RETURN_M1, answerRef,
 } from "./data/wrapped.js";
 
 const ES = { "United States": "Estados Unidos", Brazil: "Brasil", Panama: "Panamá", Peru: "Perú", Mexico: "México", Spain: "España", "Dominican Republic": "Rep. Dominicana", "Cayman Islands": "Islas Caimán", "Trinidad and Tobago": "Trinidad y Tobago", Belize: "Belice", Haiti: "Haití", Canada: "Canadá", France: "Francia", "United Kingdom": "Reino Unido", Germany: "Alemania", Belgium: "Bélgica", Italy: "Italia", Switzerland: "Suiza", Korea: "Corea", "Saint Martin": "San Martín", Bahamas: "Bahamas", Suriname: "Surinam" };
@@ -146,8 +146,7 @@ export default function KPWrapped({ months: monthRows }) {
   const borrowersReached = COUNTRIES.rows.filter((c) => BORROWERS.includes(c.name)).length;
   const lat = months.map((m) => ({ m, v: rowsBy[m]?.latency })).filter((x) => x.v != null);
   const latFirst = lat[0], latLast = lat.at(-1);
-  const ansFirst = latFirst && ANSWER_RATE[latFirst.m] != null ? latFirst : lat.find((x) => ANSWER_RATE[x.m] != null);
-  const ansLast = latLast && ANSWER_RATE[latLast.m] != null ? latLast : null;
+  const ansMonth = answerRef(months);
   const monthLong = (m) => { const t = new Date(`${m}-01T00:00:00Z`).toLocaleString("es", { month: "long", timeZone: "UTC" }); return t[0].toUpperCase() + t.slice(1); };
   const fmtDay = (d) => new Date(`${d}T00:00:00Z`).toLocaleString("es", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" });
 
@@ -367,7 +366,6 @@ export default function KPWrapped({ months: monthRows }) {
           <div className="kpw-big kpw-pop">{latLast.v}s</div>
           <h2 className="kpw-h2 kpw-rise kpw-d1">El asistente pasó de {latFirst.v} a {latLast.v} segundos por respuesta.</h2>
           <p className="kpw-p kpw-rise kpw-d2">Tiempo promedio de respuesta: {lat.map((x) => `${MONTH_LABEL(x.m)} ${x.v}s`).join(" → ")}.</p>
-          {ansFirst && ansLast && ansLast.m !== ansFirst.m && <p className="kpw-p kpw-rise kpw-d3" style={{ marginTop: 16, color: "var(--ink)" }}>Pero la velocidad no lo es todo: en {MONTH_LABEL(ansLast.m)} respondió {pct(ANSWER_RATE[ansLast.m])} de las preguntas, frente a {pct(ANSWER_RATE[ansFirst.m])} en {MONTH_LABEL(ansFirst.m)}. Responder más es el reto de 2027.</p>}
           <p className="kpw-note">Consola de administración, promedio (no mediana). Meses anteriores a agosto se publicaron como mediana y no se comparan.</p>
         </> : <p className="kpw-p kpw-rise">Hacen falta al menos dos meses con latencia en el rango (hay datos de agosto a octubre).</p>}
       </Section>
@@ -414,7 +412,7 @@ export default function KPWrapped({ months: monthRows }) {
         <div className="kpw-k kpw-rise kpw-d2" style={{ marginTop: 44 }}>Los retos que nos dejan los datos para 2027</div>
         <div className="kpw-grid kpw-rise kpw-d3" style={{ marginTop: 18 }}>
           {[
-            ansLast && { n: pct(ANSWER_RATE[ansLast.m]), t: "Responder más.", b: `En ${monthLong(ansLast.m).toLowerCase()}, el asistente respondió solo ${Math.round(ANSWER_RATE[ansLast.m] * 100)} de cada 100 preguntas.` },
+            ansMonth && { n: pct(ANSWER_RATE[ansMonth]), t: "Responder más.", b: `En ${monthLong(ansMonth).toLowerCase()}, el asistente respondió ${Math.round(ANSWER_RATE[ansMonth] * 100)} de cada 100 preguntas. La meta es acercarnos a las 100.` },
             { n: pct(RETURN_M1.cohorts.reduce((a, c) => a + c[1], 0) / RETURN_M1.cohorts.reduce((a, c) => a + c[2], 0)), t: "Ganar la segunda visita.", b: `De cada 100 personas que llegaron por primera vez en ${RETURN_M1.cohorts.map((c) => c[0]).join(" y ")}, solo ${Math.round(RETURN_M1.cohorts.reduce((a, c) => a + c[1], 0) / RETURN_M1.cohorts.reduce((a, c) => a + c[2], 0) * 100)} volvieron al mes siguiente.` },
             cumUsers != null && { n: pct(1 - cumUsers / 7287), t: "Llegar a todos.", b: `${Math.round((1 - cumUsers / 7287) * 100)} de cada 100 personas del staff y consultores del BID todavía no han abierto KP.` },
           ].filter(Boolean).map((c, i) => (
@@ -425,7 +423,7 @@ export default function KPWrapped({ months: monthRows }) {
           ))}
         </div>
         <h2 className="kpw-h kpw-pop" style={{ marginTop: 56, fontSize: "clamp(48px,10vw,150px)", maxWidth: "none" }}>That's a wrap.<br /><span style={{ color: "var(--acc)" }}>See you in 2027.</span></h2>
-        <p className="kpw-note">Aprendizajes: patrones de {SWEEPS.sessions} sesiones leídas de principio a fin ({SWEEPS.months}), sin el equipo; son hipótesis a verificar, no mediciones. Retos: respuesta de la consola de administración; segunda visita de la tabla de cohortes (visita al home el mes siguiente); alcance = 1 − personas acumuladas / 7,287.</p>
+        <p className="kpw-note">Aprendizajes: patrones de {SWEEPS.sessions} sesiones leídas de principio a fin ({SWEEPS.months}), sin el equipo; son hipótesis a verificar, no mediciones. Retos: respuesta de la consola de administración (octubre no se usa como referencia: un solo usuario hizo una gran parte de las preguntas del mes); segunda visita de la tabla de cohortes (visita al home el mes siguiente); alcance = 1 − personas acumuladas / 7,287.</p>
       </Section>
 
       <nav className="kpw-nav" aria-label="Navegación de Wrapped">
