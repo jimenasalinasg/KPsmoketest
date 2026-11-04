@@ -1,5 +1,6 @@
 import { useState, Fragment } from "react";
 import UsabilityMetrics from "./UsabilityMetrics.jsx";
+import KPWrapped from "./KPWrapped.jsx";
 import { L, engagementRows, snapshotAt, SEGMENT_NAME } from "./data/ledgerView.js";
 import shotAug from "./assets/session-s01-aug2026.png";
 import shotSep from "./assets/session-s01-sep2026.png";
@@ -4741,6 +4742,15 @@ const NOVEMBER = {
   excelDownloads: 0,
 };
 
+// ── KP WRAPPED: filas mensuales reales (bloques de arriba). Noviembre es parcial.
+const WRAPPED_MONTHS = [
+  ["2026-04", APRIL], ["2026-05", MAY], ["2026-06", JUNE], ["2026-07", JULY], ["2026-08", AUGUST],
+  ["2026-09", SEPTEMBER], ["2026-10", OCTOBER], ["2026-11", NOVEMBER],
+].map(([month, b]) => ({
+  month, users: b.users, sessions: b.sessions, first_time: b.first_time ?? null, prompts: b.prompts ?? null,
+  partial: month === "2026-11", through: month === "2026-11" ? Number(NOVEMBER.through.slice(8)) : null,
+}));
+
 // ── NOVEMBER MONTHLY VIEW (to date) ─────────────────────────
 function NovemberMonthly() {
   const M = "2026-11";
@@ -5103,7 +5113,7 @@ function App() {
           </div>
           {/* Launch views selector */}
           <div style={{ position: "relative" }}>
-            {ddBtn(!isMonth && view !== "benchmark" && view !== "usability", () => { setLaunchOpen(!launchOpen); setMonthOpen(false); }, (
+            {ddBtn(!isMonth && view !== "benchmark" && view !== "usability" && view !== "wrapped", () => { setLaunchOpen(!launchOpen); setMonthOpen(false); }, (
               <>{!isMonth && currentLaunch ? currentLaunch.label : "Launch views"} <span style={{ fontSize: 8 }}>▾</span></>
             ))}
             {launchOpen && ddMenu(LAUNCH_VIEWS, setView, () => setLaunchOpen(false))}
@@ -5111,10 +5121,11 @@ function App() {
           {/* Benchmark */}
           {ddBtn(view === "benchmark", () => { setView("benchmark"); setMonthOpen(false); setLaunchOpen(false); }, "Benchmark")}
           {ddBtn(view === "usability", () => { setView("usability"); setMonthOpen(false); setLaunchOpen(false); }, "Usability metrics")}
+          {ddBtn(view === "wrapped", () => { setView("wrapped"); setMonthOpen(false); setLaunchOpen(false); }, "KP Wrapped 2026")}
         </div>
       </div>
 
-      {view === "smoke" ? <SmokeTest /> : view === "week1" ? <Week1 data={WEEK1} /> : view === "week12" ? <Week1 data={WEEK12} /> : view === "may" ? <MayMonthly /> : view === "june" ? <JuneMonthly /> : view === "july" ? <JulyMonthly /> : view === "august" ? <AugustMonthly /> : view === "november" ? <NovemberMonthly /> : view === "october" ? <OctoberMonthly /> : view === "september" ? <SeptemberMonthly /> : view === "benchmark" ? <Benchmark /> : view === "usability" ? <UsabilityMetrics /> : <Monthly />}
+      {view === "smoke" ? <SmokeTest /> : view === "week1" ? <Week1 data={WEEK1} /> : view === "week12" ? <Week1 data={WEEK12} /> : view === "may" ? <MayMonthly /> : view === "june" ? <JuneMonthly /> : view === "july" ? <JulyMonthly /> : view === "august" ? <AugustMonthly /> : view === "november" ? <NovemberMonthly /> : view === "october" ? <OctoberMonthly /> : view === "september" ? <SeptemberMonthly /> : view === "benchmark" ? <Benchmark /> : view === "usability" ? <UsabilityMetrics /> : view === "wrapped" ? <KPWrapped months={WRAPPED_MONTHS} /> : <Monthly />}
 
       <div style={{ textAlign: "center", padding: 18, fontSize: 9, color: INK3, letterSpacing: "0.06em", borderTop: `1px solid ${BDR}` }}>
         IDB Knowledge Platform · Post Go-live Key Metrics · Go-live {GO_LIVE_DATE}
