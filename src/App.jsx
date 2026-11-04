@@ -1,6 +1,6 @@
 import { useState, Fragment } from "react";
 import UsabilityMetrics from "./UsabilityMetrics.jsx";
-import KPWrapped from "./KPWrapped.jsx";
+import KPWrapped, { WrappedEgg, useWrappedEgg } from "./KPWrapped.jsx";
 import { L, engagementRows, snapshotAt, SEGMENT_NAME } from "./data/ledgerView.js";
 import shotAug from "./assets/session-s01-aug2026.png";
 import shotSep from "./assets/session-s01-sep2026.png";
@@ -4742,7 +4742,8 @@ const NOVEMBER = {
   excelDownloads: 0,
 };
 
-// En standby hasta el lanzamiento de diciembre: el tab solo aparece con ?wrapped en la URL (o en un build con VITE_WRAPPED=1).
+// Easter egg: el tab aparece al desbloquearlo (5 clics en el titulo o codigo Konami; queda recordado en el navegador),
+// con ?wrapped en la URL o en un build con VITE_WRAPPED=1.
 // Para lanzarlo, cambiar a `true` (o borrar la condicion).
 const WRAPPED_ON = import.meta.env.VITE_WRAPPED === "1" || (typeof window !== "undefined" && new URLSearchParams(window.location.search).has("wrapped"));
 
@@ -5033,6 +5034,7 @@ function Benchmark() {
 // ── APP ───────────────────────────────────────────────────
 function App() {
   const [view, setView] = useState("october");
+  const egg = useWrappedEgg();
   const [monthOpen, setMonthOpen] = useState(false);
   const [launchOpen, setLaunchOpen] = useState(false);
 
@@ -5105,7 +5107,7 @@ function App() {
           <div style={{ fontSize: 9, letterSpacing: "0.14em", textTransform: "uppercase", color: BLUE, fontWeight: 500, marginBottom: 2 }}>
             IDB Knowledge Platform
           </div>
-          <div style={{ fontSize: 14, fontWeight: 500, color: INK }}>Post Go-live Key Metrics</div>
+          <div onClick={egg.onTitleClick} style={{ fontSize: 14, fontWeight: 500, color: INK, userSelect: "none" }}>Post Go-live Key Metrics</div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }} onClick={(e) => e.stopPropagation()}>
           {/* Month selector */}
@@ -5125,10 +5127,11 @@ function App() {
           {/* Benchmark */}
           {ddBtn(view === "benchmark", () => { setView("benchmark"); setMonthOpen(false); setLaunchOpen(false); }, "Benchmark")}
           {ddBtn(view === "usability", () => { setView("usability"); setMonthOpen(false); setLaunchOpen(false); }, "Usability metrics")}
-          {WRAPPED_ON && ddBtn(view === "wrapped", () => { setView("wrapped"); setMonthOpen(false); setLaunchOpen(false); }, "KP Wrapped 2026")}
+          {(WRAPPED_ON || egg.unlocked) && ddBtn(view === "wrapped", () => { setView("wrapped"); setMonthOpen(false); setLaunchOpen(false); }, "🎁 KP Wrapped 2026")}
         </div>
       </div>
 
+      {egg.open && <WrappedEgg onClose={egg.close} onOpen={() => { egg.close(); setView("wrapped"); setMonthOpen(false); setLaunchOpen(false); window.scrollTo(0, 0); }} />}
       {view === "smoke" ? <SmokeTest /> : view === "week1" ? <Week1 data={WEEK1} /> : view === "week12" ? <Week1 data={WEEK12} /> : view === "may" ? <MayMonthly /> : view === "june" ? <JuneMonthly /> : view === "july" ? <JulyMonthly /> : view === "august" ? <AugustMonthly /> : view === "november" ? <NovemberMonthly /> : view === "october" ? <OctoberMonthly /> : view === "september" ? <SeptemberMonthly /> : view === "benchmark" ? <Benchmark /> : view === "usability" ? <UsabilityMetrics /> : view === "wrapped" ? <KPWrapped months={WRAPPED_MONTHS} /> : <Monthly />}
 
       <div style={{ textAlign: "center", padding: 18, fontSize: 9, color: INK3, letterSpacing: "0.06em", borderTop: `1px solid ${BDR}` }}>

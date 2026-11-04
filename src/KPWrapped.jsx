@@ -440,3 +440,72 @@ export default function KPWrapped({ months: monthRows }) {
     </div>
   );
 }
+
+// ── Easter egg: se desbloquea con 5 clics en el título del dashboard o con el código Konami ──
+const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
+const EGG_KEY = "kp_wrapped_unlocked";
+
+export function useWrappedEgg() {
+  const [unlocked, setUnlocked] = useState(() => { try { return localStorage.getItem(EGG_KEY) === "1"; } catch { return false; } });
+  const [open, setOpen] = useState(false);
+  const clicks = useRef([]);
+  const unlock = () => { setOpen(true); setUnlocked(true); try { localStorage.setItem(EGG_KEY, "1"); } catch { /* sin almacenamiento: se desbloquea solo en esta visita */ } };
+  useEffect(() => {
+    let pos = 0;
+    const onKey = (e) => {
+      const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+      pos = k === KONAMI[pos] ? pos + 1 : k === KONAMI[0] ? 1 : 0;
+      if (pos === KONAMI.length) { pos = 0; unlock(); }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+  const onTitleClick = () => {
+    const now = Date.now();
+    clicks.current = [...clicks.current.filter((t) => now - t < 2500), now];
+    if (clicks.current.length >= 5) { clicks.current = []; unlock(); }
+  };
+  return { unlocked, open, close: () => setOpen(false), onTitleClick };
+}
+
+const EGG_CSS = `
+.kpe-back{position:fixed;inset:0;z-index:1000;background:rgba(11,16,51,.72);display:grid;place-items:center;padding:20px;animation:kpefade .25s ease both}
+.kpe{position:relative;width:min(560px,100%);background:${C.lime};color:${C.night};padding:clamp(28px,5vw,44px);font-family:"Inter Tight",system-ui,sans-serif;animation:kpeup .45s cubic-bezier(.2,.7,.2,1) both}
+.kpe-k{font:500 11px/1 "DM Mono",monospace;letter-spacing:.14em;text-transform:uppercase;display:flex;justify-content:space-between;border-bottom:1px solid rgba(11,16,51,.25);padding-bottom:10px}
+.kpe h2{font-weight:800;letter-spacing:-.04em;line-height:.92;font-size:clamp(36px,7vw,58px);margin:22px 0 14px}
+.kpe p{font-size:17px;line-height:1.45;margin:0 0 26px;max-width:40ch}
+.kpe-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.kpe-go{all:unset;cursor:pointer;background:${C.night};color:${C.paper};font:600 15px "Inter Tight",system-ui,sans-serif;padding:14px 20px}
+.kpe-go:focus-visible,.kpe-x:focus-visible{outline:3px solid ${C.night};outline-offset:3px}
+.kpe-x{all:unset;cursor:pointer;font:500 12px "DM Mono",monospace;letter-spacing:.08em;text-transform:uppercase;padding:14px 6px;text-decoration:underline;text-underline-offset:3px}
+.kpe-gift{position:absolute;top:-28px;right:28px;font-size:56px;line-height:1;animation:kpebob 2.4s ease-in-out infinite}
+@keyframes kpefade{from{opacity:0}to{opacity:1}}
+@keyframes kpeup{from{transform:translateY(30px) scale(.97);opacity:0}to{transform:none;opacity:1}}
+@keyframes kpebob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-8px) rotate(6deg)}}
+@media (prefers-reduced-motion: reduce){.kpe-back,.kpe,.kpe-gift{animation:none}}
+`;
+
+export function WrappedEgg({ onOpen, onClose }) {
+  const goRef = useRef(null);
+  useEffect(() => {
+    goRef.current?.focus();
+    const esc = (e) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", esc);
+    return () => window.removeEventListener("keydown", esc);
+  }, [onClose]);
+  return (
+    <div className="kpe-back" onClick={onClose}>
+      <style>{EGG_CSS}</style>
+      <div className="kpe" role="dialog" aria-modal="true" aria-labelledby="kpe-t" onClick={(e) => e.stopPropagation()}>
+        <span className="kpe-gift" aria-hidden="true">🎁</span>
+        <div className="kpe-k"><span>Easter egg desbloqueado</span><span>KP · {YEAR}</span></div>
+        <h2 id="kpe-t">Gracias por revisar las métricas.</h2>
+        <p>Pocas personas llegan hasta aquí. Como premio, te dejamos algo que todavía no está en el menú: el año de Knowledge Platform contado en 13 historias.</p>
+        <div className="kpe-row">
+          <button ref={goRef} className="kpe-go" onClick={onOpen}>Abrir KP Wrapped 2026 →</button>
+          <button className="kpe-x" onClick={onClose}>Ahora no</button>
+        </div>
+      </div>
+    </div>
+  );
+}
