@@ -4742,16 +4742,16 @@ const NOVEMBER = {
   excelDownloads: 0,
 };
 
-// En standby hasta el lanzamiento de diciembre: el tab solo aparece con ?wrapped en la URL.
+// En standby hasta el lanzamiento de diciembre: el tab solo aparece con ?wrapped en la URL (o en un build con VITE_WRAPPED=1).
 // Para lanzarlo, cambiar a `true` (o borrar la condicion).
-const WRAPPED_ON = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("wrapped");
+const WRAPPED_ON = import.meta.env.VITE_WRAPPED === "1" || (typeof window !== "undefined" && new URLSearchParams(window.location.search).has("wrapped"));
 
 // ── KP WRAPPED: filas mensuales reales (bloques de arriba). Noviembre es parcial.
 const WRAPPED_MONTHS = [
   ["2026-04", APRIL], ["2026-05", MAY], ["2026-06", JUNE], ["2026-07", JULY], ["2026-08", AUGUST],
   ["2026-09", SEPTEMBER], ["2026-10", OCTOBER], ["2026-11", NOVEMBER],
 ].map(([month, b]) => ({
-  month, users: b.users, sessions: b.sessions, first_time: b.first_time ?? null, prompts: b.prompts ?? null,
+  month, users: b.users, sessions: b.sessions, first_time: b.first_time ?? null, prompts: b.prompts ?? null, latency: b.latency ? parseInt(b.latency, 10) : null,
   partial: month === "2026-11", through: month === "2026-11" ? Number(NOVEMBER.through.slice(8)) : null,
 }));
 

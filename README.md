@@ -91,6 +91,9 @@ Misma receta que octubre con el bloque `NOVEMBER` y la vista `NovemberMonthly` d
 Tab narrativo (`src/KPWrapped.jsx`, calculos en `src/data/wrapped.js`). Lee los bloques mensuales de `App.jsx` (`WRAPPED_MONTHS`),
 el ledger y constantes de FullStory documentadas en `wrapped.js` (vistas por pill, usuarios organicos ene-mar, hitos). Al cerrar un mes:
 agregar el mes a `WRAPPED_MONTHS` y su columna a `PILL_SESSIONS` (metricas guardadas de cada pill + segmento Sin DEV).
+Historias extra (mes record, dia favorito, mapa, operaciones, tipos de explorador, latencia) leen constantes de FullStory en
+`wrapped.js` (1-ene → 3-nov); al lanzar en diciembre, recalcularlas hasta el 30-nov. "Lo que mas nos preguntaron" se muestra solo
+cuando `TOP_TOPICS` tenga datos (exportacion de la consola). En standby: el tab aparece solo con `?wrapped` en la URL.
 Umbrales de frecuencia en `SEGMENT_RULES` (se aplican en FullStory; NN/g no publica un umbral de power users).
 
 ### Pendiente
