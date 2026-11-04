@@ -278,6 +278,23 @@ de la cohorte se recupera su tamaño, que es el control: **si no da el
 | jun 2026 | 202 | 27 | 23 | — | — |
 | jul 2026 | 86 | 8 | — | — | — |
 
+**Extendida al cierre de octubre (4-nov-2026)** — tabla vigente en `COHORTS.october`:
+
+| Cohorte | tamaño | M+1 | M+2 | M+3 | M+4 | M+5 | M+6 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| abr | 411 | 62 | 36 | 31 | 31 | 36 | 25 |
+| may | 175 | 23 | 15 | 17 | 12 | 12 | — |
+| jun | 202 | 27 | 23 | 18 | 10 | — | — |
+| jul | 86 | 8 | 7 | 7 | — | — | — |
+| ago | 125 | 16 | 8 | — | — | — | — |
+| sep | 110 | 13 | — | — | — | — | — |
+| oct | 79 | — | — | — | — | — | — |
+
+Control: julio y octubre con su propio mes dan 86 y 79. **El intérprete corre el fin de `firstSeen` un día** (p. ej. may → 1-jun,
+sep → 1-oct) aunque se diga «inclusive» o «before». Se corrige con bracket: se mide el día que se cuela (cohorte desde el día 2
+del mes siguiente, restada de la cohorte completa) y se descuenta. Mayo-en-sep 18 − 6 (gente con firstSeen 1-jun) = 12;
+ago-en-oct 8 − 0 = 8; sep-en-oct 15 − 2 (firstSeen 1-oct) = 13. Revisar siempre `firstSeen.range` en la definición devuelta.
+
 Va al objeto `COHORTS` de `src/App.jsx`, nunca al JSX. Cada cierre agrega **una
 fila** (la cohorte del mes que se cierra, sin columnas todavía) y **una celda
 nueva** a cada fila anterior. El mes que se cierra no tiene M+1 todavía: esa
@@ -1165,3 +1182,15 @@ Calibración: septiembre (3-sep → 30-sep) 48 frecuentes y 8 power; octubre (4-
 
 Límites: cuenta cargas de `/home`, no sesiones distintas (una pestaña que recarga suma). Cuentas genéricas que no están en la lista del equipo
 (p. ej. una de presentaciones) pasan como usuarios. El umbral de 8 es un punto de partida: está en la receta, no en el código.
+
+### Filas `cs_*` del ledger — receta reproducible (4-nov-2026)
+
+`compute_metric` con `metric_definition` (click o highlight sobre css `data-fs-element`) + `segment.segmentId = sjHJR3590z6j`, `SCOPE_SESSION`:
+- `cs_chips`: click `[data-fs-element*="Home-Project-Grouping-Button-Select-Chip"]`, `[data-fs-element*="Home-Project-Grouping-Button-Select-Card"]`. Sep 18 ✓, oct 1–7 26 ✓.
+- `cs_search_bar`: click `Home-Project-Search-Input`, `Home-Project-Search-Button`, `Home-Project-Toolbar-Button-Search` (igualdad). Sep 43 ✓.
+- `cs_source_link`: click `[data-fs-element*="Button-SourceLink"]`, `Pills-Knowledge…Card-Button-Link`, `Pills-Knowledge…Card-Source`. Sep 5 ✓.
+- `cs_highlight_cards`: highlight `[data-fs-element*="Pills-Knowledge"]`. Sep 2 ✓.
+- **Sin receta:** `cs_copy` (`PsOR0eOxZVkB` con Sin DEV da 0 en sep contra 1) y `cs_highlight_detail` (highlight en URL con SimilarProjects da 0 en ago contra 9). Octubre queda con los valores del 1–7.
+- `update_metric` con `refinement` sobre las métricas guardadas de Global Search **borra el filtro de elementos** (queda «click any»): no usarlo.
+
+Octubre completo: chips 104, search bar 31, source link 4, highlight cards 10. Mediana de prompts (mes completo, `1fbmp2OI4wee` + Sin DEV): 1 (11 usuarios).
