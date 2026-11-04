@@ -76,6 +76,16 @@ Al cerrar octubre: el bloque `OCTOBER` pasa a ser el cierre y se agrega el de no
 
 Misma receta que octubre con el bloque `NOVEMBER` y la vista `NovemberMonthly` de `src/App.jsx`, y el mes `2026-11` en el ledger. Los acumulados se anclan en el cierre de octubre (2,132 usuarios, 18,358 sesiones, 950 prompters, 440 en categoria). La pestana empieza corta (sin LWA, paises, embudos, otros eventos de Contextual, consola, retencion, CSAT ni cualitativo) y va ganando secciones; al cierre de noviembre pasa a ser el cierre y se agrega diciembre.
 
+### Usuarios, prompters y sesiones del mes (regla desde el 4-nov-2026)
+
+- **Usuarios** y **prompters** del mes van sobre Sin DEV: `compute_metric` con `metric_definition` (usuarios: `event {}`, unicos;
+  prompters: click `A3vpsKJZw0X8`, unicos) y `segment.segmentId = sjHJR3590z6j`, `SCOPE_SESSION`. Hasta el 4-nov se publicaban sin segmento
+  (`compute_metric(a30wnMzqgtJk | 3GVbGeJsPBCb)` con fechas, que ignora el segmento). Reexpresado abr-nov: usuarios 584/344/360/237/271/267/209/31,
+  prompters 218/123/151/97/110/124/53/7.
+- **Sesiones** siguen con `BhsN9vxRPN7V` sin segmento (todos los entornos, equipo incluido): el segmento Sin DEV en modo sesion solo deja
+  las sesiones que cargan `/home` exacto y bajaria las sesiones a un tercio (oct: 343 contra 1,083).
+- Los **acumulados** (usuarios, prompters) ya eran Sin DEV: la consulta Sin DEV desde 2025-11-05 da 1,876 al 31-oct, como el control 1,888.
+
 ### Pendiente
 
 - **Benchmarks "vs monthly avg".** `BENCH.monthly` en `src/App.jsx` se recalculo el 4-nov-2026 sobre Sin DEV (copy):
