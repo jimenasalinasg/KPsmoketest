@@ -498,16 +498,16 @@ export function GiftHint({ onOpen, onDismiss }) {
 }
 
 const EGG_CSS = `
-.kpe-back{position:fixed;inset:0;z-index:1000;background:rgba(11,16,51,.72);display:grid;place-items:center;padding:20px;animation:kpefade .25s ease both}
-.kpe{position:relative;width:min(560px,100%);background:${C.lime};color:${C.night};padding:clamp(28px,5vw,44px);font-family:"Inter Tight",system-ui,sans-serif;animation:kpeup .45s cubic-bezier(.2,.7,.2,1) both}
-.kpe-k{font:500 11px/1 "DM Mono",monospace;letter-spacing:.14em;text-transform:uppercase;display:flex;justify-content:space-between;border-bottom:1px solid rgba(11,16,51,.25);padding-bottom:10px}
-.kpe h2{font-weight:800;letter-spacing:-.04em;line-height:.92;font-size:clamp(36px,7vw,58px);margin:22px 0 14px}
-.kpe p{font-size:17px;line-height:1.45;margin:0 0 26px;max-width:40ch}
+.kpe-back{position:fixed;inset:0;z-index:1000;background:rgba(26,30,46,.45);display:grid;place-items:center;padding:20px;animation:kpefade .25s ease both}
+.kpe{position:relative;width:min(540px,100%);background:#fff;color:#1a1e2e;border:1px solid #e4e7f2;border-radius:12px;box-shadow:0 20px 50px rgba(26,30,46,.18);padding:clamp(26px,5vw,40px);font-family:"Inter Tight",system-ui,sans-serif;animation:kpeup .45s cubic-bezier(.2,.7,.2,1) both}
+.kpe-k{font:500 11px/1 "DM Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#8b93b8;display:flex;justify-content:space-between;border-bottom:1px solid #e4e7f2;padding-bottom:10px}
+.kpe h2{font-weight:800;letter-spacing:-.035em;line-height:.95;font-size:clamp(32px,6vw,48px);margin:20px 0 12px;color:#1a1e2e}
+.kpe p{font-size:16px;line-height:1.5;margin:0 0 24px;max-width:42ch;color:#3d4460}
 .kpe-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.kpe-go{all:unset;cursor:pointer;background:${C.night};color:${C.paper};font:600 15px "Inter Tight",system-ui,sans-serif;padding:14px 20px}
-.kpe-go:focus-visible,.kpe-x:focus-visible{outline:3px solid ${C.night};outline-offset:3px}
-.kpe-x{all:unset;cursor:pointer;font:500 12px "DM Mono",monospace;letter-spacing:.08em;text-transform:uppercase;padding:14px 6px;text-decoration:underline;text-underline-offset:3px}
-.kpe-gift{position:absolute;top:-28px;right:28px;font-size:56px;line-height:1;animation:kpebob 2.4s ease-in-out infinite}
+.kpe-go{all:unset;cursor:pointer;background:#2c6cb5;color:#fff;border-radius:7px;font:600 14px "Inter Tight",system-ui,sans-serif;padding:12px 18px}.kpe-go:hover{background:#245a98}
+.kpe-go:focus-visible,.kpe-x:focus-visible{outline:2px solid #4a90e2;outline-offset:3px}
+.kpe-x{all:unset;cursor:pointer;font:500 12px "DM Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:#8b93b8;padding:12px 6px}.kpe-x:hover{color:#1a1e2e}
+.kpe-gift{position:absolute;top:-22px;right:28px;font-size:40px;line-height:1}
 @keyframes kpefade{from{opacity:0}to{opacity:1}}
 @keyframes kpeup{from{transform:translateY(30px) scale(.97);opacity:0}to{transform:none;opacity:1}}
 @keyframes kpebob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-8px) rotate(6deg)}}
