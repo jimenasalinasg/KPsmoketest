@@ -45,7 +45,7 @@
       "2026-07": 3,
       "2026-08": 19,
       "2026-09": 1,
-      "2026-10": 1
+      "2026-10": 2
     },
     "cs_highlight_cards": {
       "2025-10": 2,
@@ -75,7 +75,7 @@
       "2026-07": 2,
       "2026-08": 9,
       "2026-09": 0,
-      "2026-10": 0
+      "2026-10": 9
     },
     "cs_queries": {
       "2025-10": 194,
@@ -773,10 +773,10 @@
     {
       "month": "2026-10",
       "metric": "cs_copy",
-      "value": 1,
+      "value": 2,
       "type": "additive",
       "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
-      "note": "PENDING: still Oct 1-7 values. Full-month recompute on 2026-11-04 did not calibrate (cs_copy via PsOR0eOxZVkB gives 0 for Sep vs 1; detail highlights give 0 for Aug vs 9), so not replaced"
+      "note": "single-month window 2026-10-01..31 (recomputed 2026-11-04): clicks on css [data-fs-element^=POD-][data-fs-element*=Button-Copy]; reproduces Jun-Sep exactly (0,3,19,1); Apr/May give 7/2 vs 3/1 published"
     },
     {
       "month": "2025-10",
@@ -981,10 +981,10 @@
     {
       "month": "2026-10",
       "metric": "cs_highlight_detail",
-      "value": 0,
+      "value": 9,
       "type": "additive",
       "source": "fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",
-      "note": "PENDING: still Oct 1-7 values. Full-month recompute on 2026-11-04 did not calibrate (cs_copy via PsOR0eOxZVkB gives 0 for Sep vs 1; detail highlights give 0 for Aug vs 9), so not replaced"
+      "note": "single-month window 2026-10-01..31 (recomputed 2026-11-04): highlight events on URL path containing SimilarProjects; reproduces Apr-Sep exactly (11,3,15,2,9,0)"
     },
     {
       "month": "2025-10",

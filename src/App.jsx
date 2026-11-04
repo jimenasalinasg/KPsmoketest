@@ -1,5 +1,6 @@
 import { useState, Fragment } from "react";
 import UsabilityMetrics from "./UsabilityMetrics.jsx";
+import KPWrapped, { WrappedEgg, useWrappedEgg, useEndOfPageHint, GiftHint } from "./KPWrapped.jsx";
 import { L, engagementRows, snapshotAt, SEGMENT_NAME } from "./data/ledgerView.js";
 import shotAug from "./assets/session-s01-aug2026.png";
 import shotSep from "./assets/session-s01-sep2026.png";
@@ -4718,7 +4719,7 @@ function OctoberMonthly() {
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
         <strong style={{ color: INK2 }}>October is closed.</strong> It covers Oct 1–{day}. The chips on each card compare it with September's full month: green means it went up, red means it went down. Closed on Nov 4 with the console data, the answer-quality guardrails, the retention cohorts and the full-month qualitative sweep.
         <br/><br/><strong style={{ color: INK2 }}>Where the numbers come from.</strong> Users, sessions, prompters, onboarding, feedback and search clicks are read from FullStory on the Sin DEV segment, twice each, and kept only where both reads agreed. New users are the cumulative unique users to date minus September's close, not the first-seen segment. Highlights, copies, source clicks, pill views and Global Search come from the ledger (data/kp_ledger.csv, segment Sin DEV (copy)); the cumulative totals use its snapshots. Prompts sent and latency are the admin console's October figures, loaded by hand as in earlier months.
-        <br/><br/><strong style={{ color: INK2 }}>Retention and sessions.</strong> The cohort table extends August's with the September and October columns, same recipe, with a size control. The qualitative sweep adds four sessions from Oct 28–31 to the nine read earlier. Two Contextual rows of the ledger (copies and detail-page highlights) still carry the Oct 1–7 values: the full-month recompute did not reproduce September, so they were not replaced. Countries, funnels and pills are computed on the Sin DEV segment over Oct 1–{day}; the country table is not comparable with September's. CSAT is loaded by hand from the survey list (two responses so far this month, both 5 stars), and it is carried for continuity, not as a satisfaction rate.
+        <br/><br/><strong style={{ color: INK2 }}>Retention and sessions.</strong> The cohort table extends August's with the September and October columns, same recipe, with a size control. The qualitative sweep adds four sessions from Oct 28–31 to the nine read earlier. Countries, funnels and pills are computed on the Sin DEV segment over Oct 1–{day}; the country table is not comparable with September's. CSAT is loaded by hand from the survey list (two responses so far this month, both 5 stars), and it is carried for continuity, not as a satisfaction rate.
       </div>
 
     </div>
@@ -4740,6 +4741,20 @@ const NOVEMBER = {
   wordDownloads: 0,
   excelDownloads: 0,
 };
+
+// Easter egg: el tab aparece al desbloquearlo (5 clics en el titulo o codigo Konami; queda recordado en el navegador),
+// con ?wrapped en la URL o en un build con VITE_WRAPPED=1.
+// Para lanzarlo, cambiar a `true` (o borrar la condicion).
+const WRAPPED_ON = import.meta.env.VITE_WRAPPED === "1" || (typeof window !== "undefined" && new URLSearchParams(window.location.search).has("wrapped"));
+
+// ── KP WRAPPED: filas mensuales reales (bloques de arriba). Noviembre es parcial.
+const WRAPPED_MONTHS = [
+  ["2026-04", APRIL], ["2026-05", MAY], ["2026-06", JUNE], ["2026-07", JULY], ["2026-08", AUGUST],
+  ["2026-09", SEPTEMBER], ["2026-10", OCTOBER], ["2026-11", NOVEMBER],
+].map(([month, b]) => ({
+  month, users: b.users, sessions: b.sessions, first_time: b.first_time ?? null, prompts: b.prompts ?? null, latency: b.latency ? parseInt(b.latency, 10) : null,
+  partial: month === "2026-11", through: month === "2026-11" ? Number(NOVEMBER.through.slice(8)) : null,
+}));
 
 // ── NOVEMBER MONTHLY VIEW (to date) ─────────────────────────
 function NovemberMonthly() {
@@ -5019,6 +5034,8 @@ function Benchmark() {
 // ── APP ───────────────────────────────────────────────────
 function App() {
   const [view, setView] = useState("october");
+  const egg = useWrappedEgg();
+  const hint = useEndOfPageHint(view, view === "wrapped" || egg.open);
   const [monthOpen, setMonthOpen] = useState(false);
   const [launchOpen, setLaunchOpen] = useState(false);
 
@@ -5091,7 +5108,7 @@ function App() {
           <div style={{ fontSize: 9, letterSpacing: "0.14em", textTransform: "uppercase", color: BLUE, fontWeight: 500, marginBottom: 2 }}>
             IDB Knowledge Platform
           </div>
-          <div style={{ fontSize: 14, fontWeight: 500, color: INK }}>Post Go-live Key Metrics</div>
+          <div onClick={egg.onTitleClick} style={{ fontSize: 14, fontWeight: 500, color: INK, userSelect: "none" }}>Post Go-live Key Metrics</div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }} onClick={(e) => e.stopPropagation()}>
           {/* Month selector */}
@@ -5103,7 +5120,7 @@ function App() {
           </div>
           {/* Launch views selector */}
           <div style={{ position: "relative" }}>
-            {ddBtn(!isMonth && view !== "benchmark" && view !== "usability", () => { setLaunchOpen(!launchOpen); setMonthOpen(false); }, (
+            {ddBtn(!isMonth && view !== "benchmark" && view !== "usability" && view !== "wrapped", () => { setLaunchOpen(!launchOpen); setMonthOpen(false); }, (
               <>{!isMonth && currentLaunch ? currentLaunch.label : "Launch views"} <span style={{ fontSize: 8 }}>▾</span></>
             ))}
             {launchOpen && ddMenu(LAUNCH_VIEWS, setView, () => setLaunchOpen(false))}
@@ -5111,10 +5128,13 @@ function App() {
           {/* Benchmark */}
           {ddBtn(view === "benchmark", () => { setView("benchmark"); setMonthOpen(false); setLaunchOpen(false); }, "Benchmark")}
           {ddBtn(view === "usability", () => { setView("usability"); setMonthOpen(false); setLaunchOpen(false); }, "Usability metrics")}
+          {(WRAPPED_ON || egg.unlocked) && ddBtn(view === "wrapped", () => { setView("wrapped"); setMonthOpen(false); setLaunchOpen(false); }, "🎁 KP Wrapped 2026")}
         </div>
       </div>
 
-      {view === "smoke" ? <SmokeTest /> : view === "week1" ? <Week1 data={WEEK1} /> : view === "week12" ? <Week1 data={WEEK12} /> : view === "may" ? <MayMonthly /> : view === "june" ? <JuneMonthly /> : view === "july" ? <JulyMonthly /> : view === "august" ? <AugustMonthly /> : view === "november" ? <NovemberMonthly /> : view === "october" ? <OctoberMonthly /> : view === "september" ? <SeptemberMonthly /> : view === "benchmark" ? <Benchmark /> : view === "usability" ? <UsabilityMetrics /> : <Monthly />}
+      {hint.show && !egg.open && <GiftHint onOpen={() => { hint.dismiss(); egg.openGift(); }} onDismiss={hint.dismiss} />}
+      {egg.open && <WrappedEgg onClose={egg.close} onOpen={() => { egg.close(); setView("wrapped"); setMonthOpen(false); setLaunchOpen(false); window.scrollTo(0, 0); }} />}
+      {view === "smoke" ? <SmokeTest /> : view === "week1" ? <Week1 data={WEEK1} /> : view === "week12" ? <Week1 data={WEEK12} /> : view === "may" ? <MayMonthly /> : view === "june" ? <JuneMonthly /> : view === "july" ? <JulyMonthly /> : view === "august" ? <AugustMonthly /> : view === "november" ? <NovemberMonthly /> : view === "october" ? <OctoberMonthly /> : view === "september" ? <SeptemberMonthly /> : view === "benchmark" ? <Benchmark /> : view === "usability" ? <UsabilityMetrics /> : view === "wrapped" ? <KPWrapped months={WRAPPED_MONTHS} /> : <Monthly />}
 
       <div style={{ textAlign: "center", padding: 18, fontSize: 9, color: INK3, letterSpacing: "0.06em", borderTop: `1px solid ${BDR}` }}>
         IDB Knowledge Platform · Post Go-live Key Metrics · Go-live {GO_LIVE_DATE}

@@ -1190,7 +1190,8 @@ Límites: cuenta cargas de `/home`, no sesiones distintas (una pestaña que reca
 - `cs_search_bar`: click `Home-Project-Search-Input`, `Home-Project-Search-Button`, `Home-Project-Toolbar-Button-Search` (igualdad). Sep 43 ✓.
 - `cs_source_link`: click `[data-fs-element*="Button-SourceLink"]`, `Pills-Knowledge…Card-Button-Link`, `Pills-Knowledge…Card-Source`. Sep 5 ✓.
 - `cs_highlight_cards`: highlight `[data-fs-element*="Pills-Knowledge"]`. Sep 2 ✓.
-- **Sin receta:** `cs_copy` (`PsOR0eOxZVkB` con Sin DEV da 0 en sep contra 1) y `cs_highlight_detail` (highlight en URL con SimilarProjects da 0 en ago contra 9). Octubre queda con los valores del 1–7.
+- `cs_highlight_detail`: highlight `any` con `deps` url `URL_PATH` **substring** `SimilarProjects` (con `containsToken` da 0). Abr–sep 11/3/15/2/9/0 ✓. Oct 9.
+- `cs_copy`: click `[data-fs-element^="POD-"][data-fs-element*="Button-Copy"]`. Jun–sep 0/3/19/1 ✓; abr/may dan 7/2 contra 3/1 publicados. Oct 2. (`PsOR0eOxZVkB` da 0: no sirve.)
 - `update_metric` con `refinement` sobre las métricas guardadas de Global Search **borra el filtro de elementos** (queda «click any»): no usarlo.
 
 Octubre completo: chips 104, search bar 31, source link 4, highlight cards 10. Mediana de prompts (mes completo, `1fbmp2OI4wee` + Sin DEV): 1 (11 usuarios).
