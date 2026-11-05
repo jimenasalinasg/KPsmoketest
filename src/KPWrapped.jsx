@@ -6,7 +6,7 @@ import {
   YEAR, ALL_MONTHS, MONTH_LABEL, MILESTONES, ORGANIC_USERS, SEGMENT_RULES,
   monthsInRange, sumCovered, fieldByMonth, pillRanking, featureRanking, loyalty, pct, fmt,
   weekdayProfile, COUNTRIES, BORROWERS, TOP_OPERATIONS, EXPLORERS, ANSWER_RATE, TOP_TOPICS, DAILY_THROUGH,
-  LEARNINGS, SWEEPS, RETURN_M1, answerRef,
+  LEARNINGS, SWEEPS, RETURN_M1, answerRef, HOURS_ET, shiftProfile,
 } from "./data/wrapped.js";
 
 const ES = { "United States": "Estados Unidos", Brazil: "Brasil", Panama: "Panamá", Peru: "Perú", Mexico: "México", Spain: "España", "Dominican Republic": "Rep. Dominicana", "Cayman Islands": "Islas Caimán", "Trinidad and Tobago": "Trinidad y Tobago", Belize: "Belice", Haiti: "Haití", Canada: "Canadá", France: "Francia", "United Kingdom": "Reino Unido", Germany: "Alemania", Belgium: "Bélgica", Italy: "Italia", Switzerland: "Suiza", Korea: "Corea", "Saint Martin": "San Martín", Bahamas: "Bahamas", Suriname: "Surinam" };
@@ -23,6 +23,7 @@ const THEMES = {
   "w2":       { bg: C.paper,  ink: C.night, acc: C.cobalt },
   "w-rec":    { bg: C.sun,    ink: C.night, acc: C.night },
   "w-day":    { bg: C.night,  ink: C.paper, acc: C.mint },
+  "w-hour":   { bg: C.cobalt, ink: C.paper, acc: C.sun },
   "w-map":    { bg: C.lime,   ink: C.night, acc: C.night },
   "w3":       { bg: C.paper,  ink: C.night, acc: C.coral },
   "w4":       { bg: C.night,  ink: C.paper, acc: C.sun },
@@ -143,6 +144,8 @@ export default function KPWrapped({ months: monthRows }) {
   const recordMonth = userMonths.filter((m) => !rowsBy[m]?.partial).reduce((a, m) => (a == null || usersBy[m] > usersBy[a] ? m : a), null);
   const maxUsers = Math.max(1, ...userMonths.map((m) => usersBy[m]));
   const week = weekdayProfile(months);
+  const shift = shiftProfile();
+  const hourLabel = (h) => (h === 0 ? "12 a. m." : h < 12 ? `${h} a. m.` : h === 12 ? "12 m." : `${h - 12} p. m.`);
   const borrowersReached = COUNTRIES.rows.filter((c) => BORROWERS.includes(c.name)).length;
   const lat = months.map((m) => ({ m, v: rowsBy[m]?.latency })).filter((x) => x.v != null);
   const latFirst = lat[0], latLast = lat.at(-1);
@@ -154,7 +157,7 @@ export default function KPWrapped({ months: monthRows }) {
   const ref = useRef(null);
   const [active, setActive] = useState(0);
   const [seen, setSeen] = useState(() => new Set([0]));
-  const SLIDES = TOP_TOPICS ? 14 : 13;
+  const SLIDES = TOP_TOPICS ? 15 : 14;
   useEffect(() => {
     const root = ref.current; if (!root) return;
     const secs = [...root.querySelectorAll("[data-wrap]")];
@@ -248,6 +251,29 @@ export default function KPWrapped({ months: monthRows }) {
           </div>
           <p className="kpw-note">Sesiones por día de la semana (segmento Sin DEV), {week.days} días con datos hasta el {DAILY_THROUGH.slice(8)}-nov. Día calendario en UTC. La hora del día no se incluye: FullStory no la entrega con zona horaria confiable por MCP.</p>
         </> : <p className="kpw-p kpw-rise">Sin datos diarios en este rango.</p>}
+      </Section>
+
+      {/* Hora favorita */}
+      <Section id="w-hour" label="Hora favorita" {...st(nx())}>
+        <div className="kpw-k kpw-rise">¿Turno mañana o turno tarde?</div>
+        <h2 className="kpw-h2 kpw-pop" style={{ color: "var(--acc)", fontSize: "clamp(40px,min(7vw,10vh),96px)" }}>Somos del {shift.winner.name.toLowerCase()}.</h2>
+        <p className="kpw-p kpw-rise kpw-d1">{pct(shift.winner.share)} de las sesiones pasan entre {shift.winner.range.replace(" – ", " y las ")}, hora de Washington. Y la hora pico es a las {hourLabel(shift.peak)}: la del segundo café ☕.</p>
+        <div className="kpw-rise kpw-d2" role="img" aria-label={HOURS_ET.values.map((v, h) => `${hourLabel(h)} ${v}`).join(", ")} style={{ display: "grid", gridTemplateColumns: "repeat(24,1fr)", gap: 3, alignItems: "end", height: "clamp(120px,22vh,200px)", marginTop: 28 }}>
+          {HOURS_ET.values.map((v, h) => (
+            <div key={h} title={`${hourLabel(h)}: ${v}`} style={{ height: `${Math.max(2, (v / HOURS_ET.values[shift.peak]) * 100)}%`, background: h === shift.peak ? "var(--acc)" : h >= 12 && h < 18 ? "var(--ink)" : "var(--track2)" }} />
+          ))}
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(24,1fr)", gap: 3, marginTop: 6, font: "500 10px \"DM Mono\", monospace", color: "var(--faint)" }}>
+          {HOURS_ET.values.map((_, h) => <span key={h} style={{ textAlign: "center" }}>{h % 6 === 0 ? hourLabel(h).replace(" ", "") : ""}</span>)}
+        </div>
+        <div className="kpw-grid kpw-rise kpw-d3" style={{ marginTop: 26 }}>
+          {shift.shifts.map((x) => (
+            <div key={x.key} className="kpw-stat" style={{ "--acc": x === shift.winner ? "var(--acc)" : "var(--ink)" }}>
+              <b>{pct(x.share)}</b><span><strong style={{ color: "var(--ink)" }}>{x.name}</strong> · {x.range}</span>
+            </div>
+          ))}
+        </div>
+        <p className="kpw-note">Sesiones por hora en octubre (2 al 31), segmento Sin DEV, convertidas de UTC a la hora de Washington (UTC−4); no cambia con el rango. Una sesión que cruza dos horas cuenta en ambas. El pico de las 11 a. m. lo empuja un solo día: el 7 de octubre hubo 15 sesiones a esa hora.</p>
       </Section>
 
       {/* Mapa */}

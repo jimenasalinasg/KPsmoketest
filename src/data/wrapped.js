@@ -198,3 +198,20 @@ export const LEARNINGS = [
 ];
 // Retos para 2027, cada uno con su dato. M+1 = cohortes de agosto (16 de 125) y septiembre (13 de 110), tabla COHORTS de octubre.
 export const RETURN_M1 = { cohorts: [["agosto", 16, 125], ["septiembre", 13, 110]] };
+
+// Sesiones por hora del dia, hora de Washington (EDT, UTC-4), 2 → 31 de octubre de 2026 (segmento Sin DEV, produccion).
+// FullStory entrega las horas en UTC (verificado: 7-oct 15:00-15:59 UTC = 15 sesiones en la serie y en una consulta directa);
+// se corrieron 4 horas. Indice 0 = medianoche. Una sesion que cruza una hora cuenta en ambas.
+export const HOURS_ET = { from: "2026-10-02", to: "2026-10-31", values: [2, 0, 1, 1, 0, 0, 1, 3, 8, 28, 35, 46, 32, 20, 38, 37, 39, 23, 10, 6, 7, 3, 3, 5] };
+export function shiftProfile(values = HOURS_ET.values) {
+  const sum = (a, b) => values.slice(a, b).reduce((s, v) => s + v, 0);
+  const total = sum(0, 24);
+  const shifts = [
+    { key: "am", name: "Turno mañana", range: "6 a. m. – 12 m.", value: sum(6, 12) },
+    { key: "pm", name: "Turno tarde", range: "12 m. – 6 p. m.", value: sum(12, 18) },
+    { key: "night", name: "Turno noche", range: "6 p. m. – 6 a. m.", value: sum(18, 24) + sum(0, 6) },
+  ].map((s) => ({ ...s, share: total ? s.value / total : 0 }));
+  const winner = [...shifts].sort((a, b) => b.value - a.value)[0];
+  const peak = values.indexOf(Math.max(...values));
+  return { total, shifts, winner, peak };
+}
