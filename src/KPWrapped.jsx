@@ -426,7 +426,7 @@ export default function KPWrapped({ months: monthRows }) {
         <div className="kpw-grid kpw-rise kpw-d4" style={{ marginTop: 18 }}>
           <div className="kpw-stat" style={{ borderTopColor: "var(--acc)" }}>
             <b style={{ fontSize: "clamp(22px,2.4vw,30px)", letterSpacing: "-.025em", lineHeight: 1.08, color: "var(--ink)" }}>¿Destino o capa?</b>
-            <span>Evaluamos llevar KP dentro de Copilot, Claude y otros agentes del Banco, para que el conocimiento llegue a donde la gente ya trabaja.</span>
+            <span>Evaluamos llevar KP dentro de Copilot, Claude y los productos del ciclo operativo del Banco, como la preparación de proyectos, para que el conocimiento llegue a donde la gente ya trabaja.</span>
           </div>
           <div aria-hidden="true" /><div aria-hidden="true" />
         </div>
