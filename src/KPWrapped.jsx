@@ -422,8 +422,13 @@ export default function KPWrapped({ months: monthRows }) {
             </div>
           ))}
         </div>
+        <div className="kpw-rise kpw-d4" style={{ marginTop: 40, borderTop: "2px solid var(--acc)", paddingTop: 16, display: "grid", gap: 10, gridTemplateColumns: "minmax(0,1fr)", maxWidth: 900 }}>
+          <div className="kpw-k">La conversación abierta</div>
+          <div style={{ fontWeight: 800, letterSpacing: "-.03em", lineHeight: 1, fontSize: "clamp(28px,4vw,52px)" }}>¿Destino o capa?</div>
+          <p className="kpw-p" style={{ maxWidth: "62ch" }}>Estamos conversando si Knowledge Platform debe integrarse a los productos y agentes que el Banco ya usa, como Copilot o Claude, y pasar de ser un lugar al que hay que ir a una capa de conocimiento que llega a donde la gente ya trabaja.{cumUsers != null ? ` Los números de arriba alimentan esa conversación: si ${Math.round((1 - cumUsers / 7287) * 100)} de cada 100 personas todavía no han entrado y pocas vuelven al mes siguiente, quizás el conocimiento tenga que ir a buscarlas.` : ""}</p>
+        </div>
         <h2 className="kpw-h kpw-pop" style={{ marginTop: 56, fontSize: "clamp(48px,10vw,150px)", maxWidth: "none" }}>That's a wrap.<br /><span style={{ color: "var(--acc)" }}>See you in 2027.</span></h2>
-        <p className="kpw-note">Aprendizajes: patrones de {SWEEPS.sessions} sesiones leídas de principio a fin ({SWEEPS.months}), sin el equipo; son hipótesis a verificar, no mediciones. Retos: respuesta de la consola de administración (octubre no se usa como referencia: un solo usuario hizo una gran parte de las preguntas del mes); segunda visita de la tabla de cohortes (visita al home el mes siguiente); alcance = 1 − personas acumuladas / 7,287.</p>
+        <p className="kpw-note">Aprendizajes: patrones de {SWEEPS.sessions} sesiones leídas de principio a fin ({SWEEPS.months}), sin el equipo; son hipótesis a verificar, no mediciones. Retos: respuesta de la consola de administración (octubre no se usa como referencia: un solo usuario hizo una gran parte de las preguntas del mes); segunda visita de la tabla de cohortes (visita al home el mes siguiente); alcance = 1 − personas acumuladas / 7,287. «¿Destino o capa?» es una decisión de producto en discusión, no un dato.</p>
       </Section>
 
       <nav className="kpw-nav" aria-label="Navegación de Wrapped">
