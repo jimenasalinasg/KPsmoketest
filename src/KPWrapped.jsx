@@ -422,8 +422,16 @@ export default function KPWrapped({ months: monthRows }) {
             </div>
           ))}
         </div>
+        <div className="kpw-k kpw-rise kpw-d4" style={{ marginTop: 40 }}>La conversación abierta</div>
+        <div className="kpw-grid kpw-rise kpw-d4" style={{ marginTop: 18 }}>
+          <div className="kpw-stat" style={{ borderTopColor: "var(--acc)" }}>
+            <b style={{ fontSize: "clamp(22px,2.4vw,30px)", letterSpacing: "-.025em", lineHeight: 1.08, color: "var(--ink)" }}>¿Destino o capa?</b>
+            <span>Evaluamos llevar KP dentro de Copilot, Claude y otros agentes del Banco, para que el conocimiento llegue a donde la gente ya trabaja.</span>
+          </div>
+          <div aria-hidden="true" /><div aria-hidden="true" />
+        </div>
         <h2 className="kpw-h kpw-pop" style={{ marginTop: 56, fontSize: "clamp(48px,10vw,150px)", maxWidth: "none" }}>That's a wrap.<br /><span style={{ color: "var(--acc)" }}>See you in 2027.</span></h2>
-        <p className="kpw-note">Aprendizajes: patrones de {SWEEPS.sessions} sesiones leídas de principio a fin ({SWEEPS.months}), sin el equipo; son hipótesis a verificar, no mediciones. Retos: respuesta de la consola de administración (octubre no se usa como referencia: un solo usuario hizo una gran parte de las preguntas del mes); segunda visita de la tabla de cohortes (visita al home el mes siguiente); alcance = 1 − personas acumuladas / 7,287.</p>
+        <p className="kpw-note">Aprendizajes: patrones de {SWEEPS.sessions} sesiones leídas de principio a fin ({SWEEPS.months}), sin el equipo; son hipótesis a verificar, no mediciones. Retos: respuesta de la consola de administración (octubre no se usa como referencia: un solo usuario hizo una gran parte de las preguntas del mes); segunda visita de la tabla de cohortes (visita al home el mes siguiente); alcance = 1 − personas acumuladas / 7,287. «¿Destino o capa?» es una decisión de producto en discusión, no un dato.</p>
       </Section>
 
       <nav className="kpw-nav" aria-label="Navegación de Wrapped">
