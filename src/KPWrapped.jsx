@@ -202,9 +202,9 @@ export default function KPWrapped({ months: monthRows }) {
         <div className="kpw-k kpw-rise">El año en números · {rangeLabel}</div>
         <h2 className="kpw-h2 kpw-rise kpw-d1">Los números, primero.</h2>
         <div className="kpw-grid" style={{ marginTop: 26 }}>
-          <div className="kpw-stat kpw-rise kpw-d1">{sessions.covered ? <><b>{fmt(sessions.value)}</b><span>{from === ALL_MONTHS[0] ? "Este año" : `En ${rangeLabel}`} nos visitaron {fmt(sessions.value)} veces (sesiones).<Partial cov={sessions} /></span></> : <span>Sin datos de sesiones en este rango: se registran desde abril.</span>}</div>
-          <div className="kpw-stat kpw-rise kpw-d2" style={{ "--acc": "var(--ink)" }}>{newPeople.covered ? <><b>{fmt(newPeople.value)}</b><span>{fmt(newPeople.value)} personas exploraron Knowledge Platform por primera vez.<Partial cov={newPeople} /></span></> : <span>Sin datos de usuarios nuevos en este rango.</span>}</div>
-          <div className="kpw-stat kpw-rise kpw-d3" style={{ "--acc": "var(--ink)" }}>{prompts.covered ? <><b>{fmt(prompts.value)}</b><span>Juntos hicimos {fmt(prompts.value)} preguntas al Knowledge Assistant.<Partial cov={prompts} /></span></> : <span>Sin datos de preguntas en este rango.</span>}</div>
+          <div className="kpw-stat kpw-rise kpw-d1">{sessions.covered ? <><b>{fmt(sessions.value)}</b><span>veces nos visitaron {from === ALL_MONTHS[0] ? "este año" : `en ${rangeLabel}`} (sesiones).<Partial cov={sessions} /></span></> : <span>Sin datos de sesiones en este rango: se registran desde abril.</span>}</div>
+          <div className="kpw-stat kpw-rise kpw-d2" style={{ "--acc": "var(--ink)" }}>{newPeople.covered ? <><b>{fmt(newPeople.value)}</b><span>personas exploraron Knowledge Platform por primera vez.<Partial cov={newPeople} /></span></> : <span>Sin datos de usuarios nuevos en este rango.</span>}</div>
+          <div className="kpw-stat kpw-rise kpw-d3" style={{ "--acc": "var(--ink)" }}>{prompts.covered ? <><b>{fmt(prompts.value)}</b><span>preguntas le hicimos juntos al Knowledge Assistant.<Partial cov={prompts} /></span></> : <span>Sin datos de preguntas en este rango.</span>}</div>
         </div>
         <div className="kpw-grid kpw-rise kpw-d4" style={{ marginTop: 34 }}>
           {cumUsers != null && <p className="kpw-p"><strong style={{ color: "var(--ink)" }}>{fmt(cumUsers)} personas</strong> han usado KP desde su lanzamiento orgánico (sept. 2025) — {pct(cumUsers / 7287, 1)} del staff y consultores del BID.</p>}
