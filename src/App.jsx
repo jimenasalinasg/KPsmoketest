@@ -4214,9 +4214,9 @@ function SeptemberMonthly() {
               ["New Search clicks", SEPTEMBER.newSearchClicks],
               ["Latency (average)", SEPTEMBER.latency ?? "pending"],
               ["CSAT", SEPTEMBER.csat ?? "pending"],
-              ["Cumulative users (Sep 1 2025–Sep 30 2026, anchored on Aug close)", "2,053"],
+              ["Cumulative users (Sep 1 2025–Sep 30 2026, September close)", "2,053"],
               ["Cumulative prompters (Sep 1 2025–Sep 30 2026, drift-corrected)", "923"],
-              ["Cumulative sessions (Sep 1 2025–Sep 30 2026, anchored on Aug close)", "17,274"],
+              ["Cumulative sessions (Sep 1 2025–Sep 30 2026, September close)", "17,274"],
               ["Cumulative penetration", "28.2%"],
             ];
             const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
@@ -4233,7 +4233,7 @@ function SeptemberMonthly() {
       {/* Cumulative totals — pulled live via MCP */}
       <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
-          Cumulative totals — Sep 1, 2025 to Sep 30, 2026 · anchored on August close
+          Cumulative totals — Sep 1, 2025 to Sep 30, 2026 · September close (August close + September)
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {[
@@ -4542,7 +4542,7 @@ function OctoberMonthly() {
       {/* Cumulative totals */}
       <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
-          Cumulative totals — Sep 1, 2025 to {through}, 2026 · anchored on September close
+          Cumulative totals — Sep 1, 2025 to {through}, 2026 · October close (September close + October)
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 16 }}>
           {[
@@ -4780,7 +4780,7 @@ function NovemberMonthly() {
 
       <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
-          Cumulative totals — Sep 1, 2025 to {through}, 2026 · anchored on September close
+          Cumulative totals — Sep 1, 2025 to {through}, 2026 · month to date (October close + November)
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 16 }}>
           {[
