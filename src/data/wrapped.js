@@ -216,7 +216,7 @@ export function shiftProfile(values = HOURS_ET.values) {
   return { total, shifts, winner, peak };
 }
 
-// Evidencia para "¿Destino o capa?": el Lessons Writing Assistant ya vive dentro del ciclo operativo.
+// Evidencia para "¿Destino o capa?": el Lessons Writing Assistant ya vive dentro del ciclo operativo, en Client Portal.
 // Dato del equipo de producto (no FullStory), al 31-oct-2026. Ojo: el ledger tiene lessons_created = 1,559 (consola, oct-2026),
 // que mide otra cosa (lecciones creadas, no lecciones aprendidas registradas); no se mezclan.
 export const LWA_EVIDENCE = { lessons: 777, asOf: "2026-10-31", countries: 24 };
