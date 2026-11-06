@@ -6,7 +6,7 @@ import {
   YEAR, ALL_MONTHS, MONTH_LABEL, MILESTONES, ORGANIC_USERS, SEGMENT_RULES,
   monthsInRange, sumCovered, fieldByMonth, pillRanking, featureRanking, loyalty, pct, fmt,
   weekdayProfile, COUNTRIES, BORROWERS, TOP_OPERATIONS, EXPLORERS, ANSWER_RATE, TOP_TOPICS, DAILY_THROUGH,
-  LEARNINGS, SWEEPS, RETURN_M1, answerRef, HOURS_ET, shiftProfile,
+  LEARNINGS, SWEEPS, RETURN_M1, answerRef, HOURS_ET, shiftProfile, LWA_EVIDENCE,
 } from "./data/wrapped.js";
 
 const ES = { "United States": "Estados Unidos", Brazil: "Brasil", Panama: "Panamá", Peru: "Perú", Mexico: "México", Spain: "España", "Dominican Republic": "Rep. Dominicana", "Cayman Islands": "Islas Caimán", "Trinidad and Tobago": "Trinidad y Tobago", Belize: "Belice", Haiti: "Haití", Canada: "Canadá", France: "Francia", "United Kingdom": "Reino Unido", Germany: "Alemania", Belgium: "Bélgica", Italy: "Italia", Switzerland: "Suiza", Korea: "Corea", "Saint Martin": "San Martín", Bahamas: "Bahamas", Suriname: "Surinam" };
@@ -454,10 +454,14 @@ export default function KPWrapped({ months: monthRows }) {
             <b style={{ fontSize: "clamp(22px,2.4vw,30px)", letterSpacing: "-.025em", lineHeight: 1.08, color: "var(--ink)" }}>¿Destino o capa?</b>
             <span>Evaluamos llevar KP dentro de Copilot, Claude y los productos del ciclo operativo del Banco, como la preparación de proyectos, para que el conocimiento llegue a donde la gente ya trabaja.</span>
           </div>
-          <div aria-hidden="true" /><div aria-hidden="true" />
+          <div className="kpw-stat" style={{ borderTopColor: "var(--acc)" }}>
+            <b style={{ fontSize: "clamp(40px,5vw,72px)" }}>{fmt(LWA_EVIDENCE.lessons)}</b>
+            <span><strong style={{ color: "var(--ink)" }}>Ya hay evidencia.</strong> Lecciones aprendidas escritas con el Lessons Writing Assistant en los {LWA_EVIDENCE.countries} países con operaciones activas, más las operaciones regionales.</span>
+          </div>
+          <div aria-hidden="true" />
         </div>
         <h2 className="kpw-h kpw-pop" style={{ marginTop: 56, fontSize: "clamp(48px,10vw,150px)", maxWidth: "none" }}>That's a wrap.<br /><span style={{ color: "var(--acc)" }}>See you in 2027.</span></h2>
-        <p className="kpw-note">Aprendizajes: patrones de {SWEEPS.sessions} sesiones leídas de principio a fin ({SWEEPS.months}), sin el equipo; son hipótesis a verificar, no mediciones. Retos: respuesta de la consola de administración (octubre no se usa como referencia: un solo usuario hizo una gran parte de las preguntas del mes); segunda visita de la tabla de cohortes (visita al home el mes siguiente); alcance = 1 − personas acumuladas / 7,287. «¿Destino o capa?» es una decisión de producto en discusión, no un dato.</p>
+        <p className="kpw-note">Aprendizajes: patrones de {SWEEPS.sessions} sesiones leídas de principio a fin ({SWEEPS.months}), sin el equipo; son hipótesis a verificar, no mediciones. Retos: respuesta de la consola de administración (octubre no se usa como referencia: un solo usuario hizo una gran parte de las preguntas del mes); segunda visita de la tabla de cohortes (visita al home el mes siguiente); alcance = 1 − personas acumuladas / 7,287. «¿Destino o capa?» es una decisión de producto en discusión, no un dato. Lecciones del Lessons Writing Assistant: dato del equipo de producto al 31-oct-2026.</p>
       </Section>
 
       <nav className="kpw-nav" aria-label="Navegación de Wrapped">
