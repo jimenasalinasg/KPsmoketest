@@ -5069,10 +5069,12 @@ function App() {
     { id: "may",     label: "May 2026" },
     { id: "monthly", label: "April 2026" },
   ];
+  // Lanzamiento y contexto: vistas de una sola vez (go-live y comparacion con otras plataformas), no se actualizan.
   const LAUNCH_VIEWS = [
-    { id: "week12", label: "Week 1+2", sub: "Mar 31–Apr 17" },
+    { id: "smoke",  label: "Smoke Test", sub: "Go-live · 0–48h" },
     { id: "week1",  label: "Week 1 Pulse", sub: "Mar 31–Apr 10" },
-    { id: "smoke",  label: "Smoke Test", sub: "0–48h" },
+    { id: "week12", label: "Week 1+2", sub: "Mar 31–Apr 17" },
+    { id: "benchmark", label: "Benchmark", sub: "KP vs other IDB platforms · Apr–Jul" },
   ];
 
   const isMonth = MONTHS.some(m => m.id === view);
@@ -5133,24 +5135,24 @@ function App() {
           <div onClick={egg.onTitleClick} style={{ fontSize: 14, fontWeight: 500, color: INK, userSelect: "none" }}>Post Go-live Key Metrics</div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }} onClick={(e) => e.stopPropagation()}>
-          {/* Month selector */}
+          {/* 1. Seguimiento mensual: el reporte que se actualiza cada dia */}
           <div style={{ position: "relative" }}>
             {ddBtn(isMonth, () => { setMonthOpen(!monthOpen); setLaunchOpen(false); }, (
-              <>Month: {isMonth ? currentMonth.label : MONTHS[0].label} <span aria-hidden="true" style={{ fontSize: 8 }}>▾</span></>
+              <>Monthly report: {isMonth ? currentMonth.label : MONTHS[0].label} <span aria-hidden="true" style={{ fontSize: 8 }}>▾</span></>
             ), monthOpen)}
             {monthOpen && ddMenu(MONTHS, setView, () => setMonthOpen(false))}
           </div>
-          {/* Launch views selector */}
+          {/* 2. Tendencias: la serie historica y acumulada */}
+          {ddBtn(view === "usability", () => { setView("usability"); setMonthOpen(false); setLaunchOpen(false); }, "Usability trends")}
+          {/* 3. Research cualitativo */}
+          {ddBtn(view === "library", () => { setView("library"); setMonthOpen(false); setLaunchOpen(false); }, "Case library")}
+          {/* 4. Lanzamiento y contexto (archivo) */}
           <div style={{ position: "relative" }}>
-            {ddBtn(!isMonth && view !== "benchmark" && view !== "usability" && view !== "wrapped" && view !== "library", () => { setLaunchOpen(!launchOpen); setMonthOpen(false); }, (
-              <>{!isMonth && currentLaunch ? currentLaunch.label : "Launch views"} <span aria-hidden="true" style={{ fontSize: 8 }}>▾</span></>
+            {ddBtn(!!currentLaunch, () => { setLaunchOpen(!launchOpen); setMonthOpen(false); }, (
+              <>{currentLaunch ? currentLaunch.label : "Launch & benchmark"} <span aria-hidden="true" style={{ fontSize: 8 }}>▾</span></>
             ), launchOpen)}
             {launchOpen && ddMenu(LAUNCH_VIEWS, setView, () => setLaunchOpen(false))}
           </div>
-          {/* Benchmark */}
-          {ddBtn(view === "benchmark", () => { setView("benchmark"); setMonthOpen(false); setLaunchOpen(false); }, "Benchmark")}
-          {ddBtn(view === "usability", () => { setView("usability"); setMonthOpen(false); setLaunchOpen(false); }, "Usability metrics")}
-          {ddBtn(view === "library", () => { setView("library"); setMonthOpen(false); setLaunchOpen(false); }, "Librería de casos")}
           {(WRAPPED_ON || egg.unlocked) && ddBtn(view === "wrapped", () => { setView("wrapped"); setMonthOpen(false); setLaunchOpen(false); }, "🎁 KP Wrapped 2026")}
         </div>
       </div>
