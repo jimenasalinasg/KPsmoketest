@@ -1,5 +1,6 @@
 import { useState, Fragment } from "react";
 import UsabilityMetrics from "./UsabilityMetrics.jsx";
+import CaseLibrary from "./CaseLibrary.jsx";
 import KPWrapped, { WrappedEgg, useWrappedEgg, useEndOfPageHint, GiftHint } from "./KPWrapped.jsx";
 import { L, engagementRows, snapshotAt, SEGMENT_NAME } from "./data/ledgerView.js";
 import shotAug from "./assets/session-s01-aug2026.png";
@@ -4765,25 +4766,6 @@ const NOVEMBER = {
 // con ?wrapped en la URL o en un build con VITE_WRAPPED=1.
 // Para lanzarlo, cambiar a `true` (o borrar la condicion).
 const WRAPPED_ON = import.meta.env.VITE_WRAPPED === "1" || (typeof window !== "undefined" && new URLSearchParams(window.location.search).has("wrapped"));
-
-// ── LIBRERIA DE CASOS ─────────────────────────────────────
-// La libreria vive en un artifact aparte; este tab solo la presenta y la abre en otra pestaña.
-const CASE_LIBRARY_URL = "https://claude.ai/artifact/S5fLcxQ53vwipqURY1svag";
-function CaseLibrary() {
-  return (
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: "64px 20px", display: "flex", justifyContent: "center" }}>
-      <section aria-labelledby="case-library-title" style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "32px 28px", maxWidth: 460, width: "100%", textAlign: "center" }}>
-        <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>IDB Knowledge Platform</div>
-        <h2 id="case-library-title" style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", margin: "0 0 10px" }}>Librería de casos</h2>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 24px" }}>47 casos de uso documentados desde FullStory y research cualitativo</p>
-        <a href={CASE_LIBRARY_URL} target="_blank" rel="noopener noreferrer"
-           style={{ display: "inline-block", fontFamily: "inherit", fontSize: 12, fontWeight: 600, letterSpacing: "0.04em", padding: "10px 18px", borderRadius: 7, background: BLUE, color: ON_ACCENT, textDecoration: "none" }}>
-          Abrir librería <span aria-hidden="true">→</span><span style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)" }}> (se abre en una pestaña nueva)</span>
-        </a>
-      </section>
-    </div>
-  );
-}
 
 // ── KP WRAPPED: filas mensuales reales (bloques de arriba). Noviembre es parcial.
 const WRAPPED_MONTHS = [
