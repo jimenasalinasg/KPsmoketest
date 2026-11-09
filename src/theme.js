@@ -50,6 +50,6 @@ export const AMBER_PALE = "#f5c58a";
 export const AMBER_INK = "#92400e";
 
 // Categorias (bordes de tarjetas de señales; no texto)
-export const PURPLE = "#7c5cbf";
+export const PURPLE = "#6a4bb3";
 export const PURPLE_L = "#9b7cc7";
 export const BROWN = "#b06e2f";

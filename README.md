@@ -104,6 +104,12 @@ Umbrales de frecuencia en `SEGMENT_RULES` (se aplican en FullStory; NN/g no publ
 - Foco visible (`:focus-visible`), cursor de mano y enlaces subrayados vienen de `A11Y_CSS` en `src/App.jsx`.
 - No hay dark mode: cada token tiene un solo valor.
 
+### Libreria de casos
+
+Tab nativo (`src/CaseLibrary.jsx`, datos en `src/data/caseLibrary.js`): copia anonimizada de la libreria de research que vive en
+claude.ai (no se puede embeber: claude.ai no permite iframes desde otros dominios). Para actualizarla, volver a leer el documento
+`library/state` de esa libreria y reemplazar `CASES`. Repo publico: ciudades -> pais y sin usuarios de FullStory, nombres ni correos.
+
 ### Pendiente
 
 - **Benchmarks "vs monthly avg".** `BENCH.monthly` en `src/App.jsx` se recalculo el 4-nov-2026 sobre Sin DEV (copy):
