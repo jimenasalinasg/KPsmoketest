@@ -3,11 +3,11 @@
 // Para actualizar: volver a leer esa libreria, anonimizar igual (repo PUBLICO: sin nombres, correos ni ciudades) y reemplazar CASES.
 export const SNAPSHOT = { date: "2026-11-09", source: "https://claude.ai/artifact/S5fLcxQ53vwipqURY1svag" };
 export const MODES = {
-  consulta:    { label: "Consulta",    long: "Consulta — lookup y precisión" },
-  analisis:    { label: "Análisis",    long: "Análisis — comparar y entender por qué" },
-  integracion: { label: "Integración", long: "Integración — traen su contexto" },
-  extraccion:  { label: "Extracción",  long: "Extracción — llevárselo a su flujo" },
-  transversal: { label: "Transversal", long: "Transversal — aún sin encajar" },
+  consulta:    { label: "Consulta",    long: "Consulta — lookup y precisión" , icon: "🔍" },
+  analisis:    { label: "Análisis",    long: "Análisis — comparar y entender por qué" , icon: "🔬" },
+  integracion: { label: "Integración", long: "Integración — traen su contexto" , icon: "📎" },
+  extraccion:  { label: "Extracción",  long: "Extracción — llevárselo a su flujo" , icon: "📤" },
+  transversal: { label: "Transversal", long: "Transversal — aún sin encajar" , icon: "🔀" },
 };
 export const MODE_ORDER = ["consulta", "analisis", "integracion", "extraccion", "transversal"];
 export const RECOS = [
