@@ -8,7 +8,22 @@ import shotOct from "./assets/session-s09-oct2026.png";
 
 
 
-import { BLUE, GREEN, RED, AMBER, BG, SURF, BDR, INK, INK2, INK3, BLUE_L, BLUE_M, BLUE_D } from "./theme.js";
+import {
+  AMBER, AMBER_INK, AMBER_L, AMBER_M, AMBER_PALE, BDR, BDR_2, BG, BLUE, BLUE_D, BLUE_DEEP, BLUE_L, BLUE_M, BLUE_PALE, BLUE_SOFT, BLUE_SOFT_2, BROWN, GREEN, GREEN_2, GREEN_INK, GREEN_L, GREEN_M, INK, INK2, INK3, NAVY, NAVY_2, ON_ACCENT, ON_DARK, ON_DARK_2, PURPLE, PURPLE_L, RED, RED_INK, RED_INK_2, RED_L, RED_M, RED_M_2, SURF,
+} from "./theme.js";
+
+// ── ESTILOS DE ACCESIBILIDAD COMPARTIDOS ───────────────────
+// Foco visible para teclado en todo control (no se dibuja con mouse gracias a :focus-visible),
+// cursor de mano en lo clickeable y enlaces subrayados para que se vean interactivos.
+const A11Y_CSS = `
+  button, select, summary, [role="button"], [role="menuitem"], a[href] { cursor: pointer; }
+  button:disabled { cursor: default; }
+  :where(button, a[href], select, input, textarea, summary, [tabindex]):focus-visible {
+    outline: 2px solid ${BLUE}; outline-offset: 2px; border-radius: 4px;
+  }
+  a[href] { color: ${BLUE_D}; text-decoration: underline; text-underline-offset: 2px; }
+  a[href]:hover { color: ${INK}; }
+`;
 
 // ── ACCESS GATE ────────────────────────────────────────────
 // Client-side only: keeps the dashboard from showing up to casual/
@@ -39,6 +54,7 @@ function PasswordGate({ children }) {
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: BG, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+      <style>{A11Y_CSS}</style>
       <form onSubmit={submit} style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 12, padding: "32px 28px", width: 300, boxShadow: "0 8px 24px rgba(10,35,66,0.08)" }}>
         <div style={{ fontSize: 13, fontWeight: 600, color: INK, marginBottom: 4 }}>IDB Knowledge Platform</div>
         <div style={{ fontSize: 11, color: INK3, marginBottom: 18 }}>Post Go-live Key Metrics — restricted</div>
@@ -48,10 +64,13 @@ function PasswordGate({ children }) {
           value={value}
           onChange={(e) => { setValue(e.target.value); setError(false); }}
           placeholder="Password"
-          style={{ width: "100%", boxSizing: "border-box", fontFamily: "inherit", fontSize: 13, padding: "9px 12px", border: `1px solid ${error ? RED : BDR}`, borderRadius: 7, outline: "none", marginBottom: 10 }}
+          aria-label="Password"
+          aria-invalid={error || undefined}
+          aria-describedby={error ? "gate-error" : undefined}
+          style={{ width: "100%", boxSizing: "border-box", fontFamily: "inherit", fontSize: 13, padding: "9px 12px", border: `1px solid ${error ? RED : BDR_2}`, borderRadius: 7, marginBottom: 10 }}
         />
-        {error && <div style={{ fontSize: 11, color: RED, marginBottom: 10 }}>Contraseña incorrecta.</div>}
-        <button type="submit" style={{ width: "100%", fontFamily: "inherit", fontSize: 12, fontWeight: 600, padding: "10px 12px", border: "none", borderRadius: 7, cursor: "pointer", background: BLUE, color: "#fff" }}>
+        {error && <div id="gate-error" role="alert" style={{ fontSize: 11, color: RED, marginBottom: 10 }}>Contraseña incorrecta.</div>}
+        <button type="submit" style={{ width: "100%", fontFamily: "inherit", fontSize: 12, fontWeight: 600, padding: "10px 12px", border: "none", borderRadius: 7, cursor: "pointer", background: BLUE, color: ON_ACCENT }}>
           Entrar
         </button>
       </form>
@@ -224,11 +243,11 @@ function StatusBadge({ value }) {
     </span>
   );
   return value ? (
-    <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 99, background: "#edfaf4", color: GREEN, fontWeight: 500 }}>
+    <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 99, background: GREEN_L, color: GREEN, fontWeight: 500 }}>
       ✓ confirmed
     </span>
   ) : (
-    <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 99, background: "#fef0ee", color: RED, fontWeight: 500 }}>
+    <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 99, background: RED_L, color: RED, fontWeight: 500 }}>
       ✗ issue
     </span>
   );
@@ -300,7 +319,7 @@ function MetricCard({ label, value, desc, invert = false, bench }) {
         <div style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 6 }}>
           <span style={{
             fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99,
-            background: badge.isGood ? "#edfaf4" : "#fef0ee",
+            background: badge.isGood ? GREEN_L : RED_L,
             color: badge.isGood ? GREEN : RED,
           }}>{badge.label} vs organic avg</span>
           <span style={{ fontSize: 9, color: INK3 }}>({badge.bench})</span>
@@ -356,8 +375,8 @@ function SmokeTest() {
       {/* Status banner */}
       <div style={{
         borderRadius: 10, padding: "14px 20px", marginBottom: 24,
-        background: allConfirmed ? "#edfaf4" : hasIssue ? "#fef0ee" : "#fffbeb",
-        border: `1px solid ${allConfirmed ? "#a7f3d0" : hasIssue ? "#fca5a5" : "#fde68a"}`,
+        background: allConfirmed ? GREEN_L : hasIssue ? RED_L : AMBER_L,
+        border: `1px solid ${allConfirmed ? GREEN_M : hasIssue ? RED_M : AMBER_M}`,
         display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap",
       }}>
         <span style={{ fontSize: 20 }}>{allConfirmed ? "✅" : hasIssue ? "🚨" : "⏳"}</span>
@@ -445,7 +464,7 @@ function SmokeTest() {
 
       {/* Notes */}
       {SMOKE.notes && (
-        <div style={{ background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 10, padding: "14px 18px" }}>
+        <div style={{ background: AMBER_L, border: `1px solid ${AMBER_M}`, borderRadius: 10, padding: "14px 18px" }}>
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: AMBER, marginBottom: 6 }}>Observación</div>
           <div style={{ fontSize: 12, color: INK2, lineHeight: 1.6 }}>{SMOKE.notes}</div>
         </div>
@@ -481,20 +500,20 @@ function GeoMap({ data }) {
       </div>
 
       {/* HQ callout */}
-      <div style={{ background: "#1464A0", borderRadius: 8, padding: "12px 16px", marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ background: BLUE_DEEP, borderRadius: 8, padding: "12px 16px", marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <span style={{ fontSize: 22 }}>{flag("US")}</span>
           <div>
-            <div style={{ fontSize: 12, fontWeight: 600, color: "#fff" }}>United States (HQ)</div>
-            <div style={{ fontSize: 10, color: "#a8c4e0" }}>{usData?.users} users</div>
+            <div style={{ fontSize: 12, fontWeight: 600, color: ON_ACCENT }}>United States (HQ)</div>
+            <div style={{ fontSize: 10, color: ON_DARK_2 }}>{usData?.users} users</div>
           </div>
         </div>
         <div style={{ textAlign: "right" }}>
-          <div style={{ fontSize: 22, fontWeight: 700, color: "#fff", letterSpacing: "-0.02em" }}>{usData?.pct}%</div>
-          <div style={{ fontSize: 9, color: "#a8c4e0" }}>of total</div>
+          <div style={{ fontSize: 22, fontWeight: 700, color: ON_ACCENT, letterSpacing: "-0.02em" }}>{usData?.pct}%</div>
+          <div style={{ fontSize: 9, color: ON_DARK_2 }}>of total</div>
         </div>
         <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: 99, height: 8, width: 120, overflow: "hidden" }}>
-          <div style={{ width: `${usData?.pct}%`, height: "100%", background: "#fff", borderRadius: 99 }} />
+          <div style={{ width: `${usData?.pct}%`, height: "100%", background: ON_ACCENT, borderRadius: 99 }} />
         </div>
       </div>
 
@@ -515,7 +534,7 @@ function GeoMap({ data }) {
                 <div style={{
                   width: `${(c.users / maxUsers) * 100}%`,
                   height: "100%",
-                  background: c.users >= 20 ? "#1464A0" : c.users >= 10 ? "#2c6cb5" : c.users >= 5 ? BLUE : "#7ab3e0",
+                  background: c.users >= 20 ? BLUE_DEEP : c.users >= 10 ? BLUE_D : c.users >= 5 ? BLUE : BLUE_SOFT,
                   borderRadius: 99,
                 }} />
               </div>
@@ -578,7 +597,7 @@ function Week1({ data = WEEK1 }) {
           <div style={{ fontSize: 30, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>{fmt(engagement)}</div>
           {engagement != null && (
             <div style={{ marginBottom: 10, display: "flex", alignItems: "center", gap: 6 }}>
-              <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: "#edfaf4", color: GREEN }}>
+              <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: GREEN_L, color: GREEN }}>
                 ↑ {Math.round(((engagement / (BENCH.highlighted)) - 1) * 100)}% vs organic avg
               </span>
               <span style={{ fontSize: 9, color: INK3 }}>({BENCH.highlighted} avg highlights)</span>
@@ -592,7 +611,7 @@ function Week1({ data = WEEK1 }) {
               <span style={{ fontSize: 10, color: INK3 }}>{data.highlighted} total</span>
             </div>
             <div style={{ background: BG, borderRadius: 99, height: 8, overflow: "hidden", marginBottom: 3 }}>
-              <div style={{ width: "100%", height: "100%", background: "#c2d9f7", borderRadius: 99, position: "relative" }}>
+              <div style={{ width: "100%", height: "100%", background: BLUE_M, borderRadius: 99, position: "relative" }}>
                 <div style={{ width: `${(data.highlightedOpenSearch / data.highlighted) * 100}%`, height: "100%", background: BLUE, borderRadius: 99 }} />
               </div>
             </div>
@@ -602,7 +621,7 @@ function Week1({ data = WEEK1 }) {
                 Open Search: {data.highlightedOpenSearch}
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: "#c2d9f7" }} />
+                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: BLUE_M }} />
                 Contextual Search: {data.highlighted - data.highlightedOpenSearch}
               </span>
             </div>
@@ -615,17 +634,17 @@ function Week1({ data = WEEK1 }) {
               <span style={{ fontSize: 10, color: INK3 }}>{data.copied} total</span>
             </div>
             <div style={{ background: BG, borderRadius: 99, height: 8, overflow: "hidden", marginBottom: 3 }}>
-              <div style={{ width: "100%", height: "100%", background: "#fde68a", borderRadius: 99, position: "relative" }}>
-                <div style={{ width: `${(data.copiedOpenSearch / data.copied) * 100}%`, height: "100%", background: "#d97706", borderRadius: 99 }} />
+              <div style={{ width: "100%", height: "100%", background: AMBER_M, borderRadius: 99, position: "relative" }}>
+                <div style={{ width: `${(data.copiedOpenSearch / data.copied) * 100}%`, height: "100%", background: AMBER, borderRadius: 99 }} />
               </div>
             </div>
             <div style={{ display: "flex", gap: 12, fontSize: 9, color: INK3 }}>
               <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: "#d97706" }} />
+                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: AMBER }} />
                 Open Search: {data.copiedOpenSearch}
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: "#fde68a" }} />
+                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: AMBER_M }} />
                 Contextual Search: {data.copied - data.copiedOpenSearch}
               </span>
             </div>
@@ -648,7 +667,7 @@ function Week1({ data = WEEK1 }) {
               </div>
             </div>
             <div style={{ fontSize: 10, color: INK3, marginBottom: 8 }}>AI assistant responses rated</div>
-            <div style={{ padding: "8px 12px", background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 7, fontSize: 9, color: "#92400e", lineHeight: 1.5 }}>
+            <div style={{ padding: "8px 12px", background: AMBER_L, border: `1px solid ${AMBER_M}`, borderRadius: 7, fontSize: 9, color: AMBER_INK, lineHeight: 1.5 }}>
               ⚠ Volume is still low to derive conclusions. This indicator will become meaningful from the second period onward.
             </div>
           </div>
@@ -664,8 +683,8 @@ function Week1({ data = WEEK1 }) {
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {data.prompts_sample.map((p, i) => {
               const icon = p.rating === "up" ? "👍" : p.rating === "down" ? "👎" : "👍👎";
-              const bg = p.rating === "up" ? "#edfaf4" : p.rating === "down" ? "#fef0ee" : "#fffbeb";
-              const border = p.rating === "up" ? "#a7f3d0" : p.rating === "down" ? "#fca5a5" : "#fde68a";
+              const bg = p.rating === "up" ? GREEN_L : p.rating === "down" ? RED_L : AMBER_L;
+              const border = p.rating === "up" ? GREEN_M : p.rating === "down" ? RED_M : AMBER_M;
               return (
                 <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 14px", background: bg, border: `1px solid ${border}`, borderRadius: 8 }}>
                   <span style={{ fontSize: 16, flexShrink: 0 }}>{icon}</span>
@@ -702,7 +721,7 @@ function Week1({ data = WEEK1 }) {
                   </div>
                   {benchBadge && (
                     <div style={{ marginTop: 5, display: "flex", alignItems: "center", gap: 5 }}>
-                      <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: benchBadge.isGood ? "#edfaf4" : "#fef0ee", color: benchBadge.isGood ? GREEN : RED }}>
+                      <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: benchBadge.isGood ? GREEN_L : RED_L, color: benchBadge.isGood ? GREEN : RED }}>
                         {benchBadge.label} vs organic avg
                       </span>
                       <span style={{ fontSize: 9, color: INK3 }}>({bench} avg)</span>
@@ -728,14 +747,14 @@ function LaunchTimeline({ defaultOpen = true }) {
     {
       date: "Sep 2025",
       tag: "Release MVP",
-      color: "#2c6cb5",
+      color: BLUE_D,
       stats: ["~192 users/month (organic baseline)", "~502 sessions/month (organic baseline)", "~538 content engagement events/month"],
       note: "Closed release — organic discovery, no bank-wide communication. The Sep–Mar organic period sets the baseline all post-launch metrics are compared against.",
     },
     {
       date: "Mar 31, 2026",
       tag: "Bank-wide Go-live",
-      color: "#0C447C",
+      color: NAVY_2,
       stats: ["360 users in week 1", "757 sessions in week 1", "491 content engagement events in week 1"],
       note: "Highest single-week adoption to date.",
       impact: [
@@ -747,7 +766,7 @@ function LaunchTimeline({ defaultOpen = true }) {
     {
       date: "Mar 30 – May 6, 2026",
       tag: "New Learner Campaign (LWA)",
-      color: "#3d8f6e",
+      color: GREEN_2,
       stats: ["60 LWA users in April", "56 lessons started", "100% reviewed before completing"],
       note: "Launched Mar 30, activity peaks Apr 8–9, closed May 6.",
       impact: [
@@ -761,7 +780,7 @@ function LaunchTimeline({ defaultOpen = true }) {
     {
       date: "May–Jun 2026",
       tag: "Country Roadshows 🇨🇴🇧🇷🇨🇷🇵🇦",
-      color: "#1464A0",
+      color: BLUE_DEEP,
       stats: ["360 users in June", "1,052 sessions in May · 1,019 in June", "871 content engagement events in June", "1,025 prompts in June (↑64% vs May)"],
       note: "Country-level activation sessions. User change measured in the weeks following each event:",
       impact: [
@@ -775,7 +794,7 @@ function LaunchTimeline({ defaultOpen = true }) {
     {
       date: "Jul 17, 2026",
       tag: "Awareness Session (online)",
-      color: "#7c5cbf",
+      color: PURPLE,
       stats: ["40 users connected live", "Online activation session"],
       note: "First virtual awareness session — 40 people connected on Friday, July 17.",
       impact: [
@@ -1021,8 +1040,8 @@ function Monthly() {
       </div>
 
       {/* Cumulative metrics since Sep 2025 */}
-      <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px", marginBottom: 24 }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
+      <div style={{ background: NAVY, borderRadius: 10, padding: "16px 20px", marginBottom: 24 }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to Apr 30, 2026
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 16 }}>
@@ -1034,8 +1053,8 @@ function Monthly() {
             { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: "18.6%" },
           ].map((m, i) => (
             <div key={i}>
-              <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
-              <div style={{ fontSize: 9, color: "#a8c4e0", textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+              <div style={{ fontSize: 22, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: 9, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
             </div>
           ))}
         </div>
@@ -1087,7 +1106,7 @@ function Monthly() {
               <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>340 · 58%</span>
             </div>
             <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
-              <div style={{ width: "58%", height: "100%", background: "#1464A0", borderRadius: 99 }} />
+              <div style={{ width: "58%", height: "100%", background: BLUE_DEEP, borderRadius: 99 }} />
             </div>
           </div>
         </div>
@@ -1108,7 +1127,7 @@ function Monthly() {
                     </div>
                     <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
                       <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%",
-                        background: c.users >= 100 ? "#1464A0" : c.users >= 40 ? "#2c6cb5" : c.users >= 15 ? BLUE : "#7ab3e0",
+                        background: c.users >= 100 ? BLUE_DEEP : c.users >= 40 ? BLUE_D : c.users >= 15 ? BLUE : BLUE_SOFT,
                         borderRadius: 99 }} />
                     </div>
                   </div>
@@ -1400,8 +1419,8 @@ function MayMonthly() {
       </div>
 
       {/* Cumulative totals */}
-      <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
+      <div style={{ background: NAVY, borderRadius: 10, padding: "16px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to Jun 1, 2026
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 16 }}>
@@ -1413,8 +1432,8 @@ function MayMonthly() {
             { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: "21.6%" },
           ].map((m, i) => (
             <div key={i}>
-              <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
-              <div style={{ fontSize: 9, color: "#a8c4e0", textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+              <div style={{ fontSize: 22, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: 9, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
             </div>
           ))}
         </div>
@@ -1462,10 +1481,10 @@ function MayMonthly() {
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <div style={{ padding: "8px 12px", background: "#edfaf4", border: "1px solid #a7f3d0", borderRadius: 7, fontSize: 10, color: "#065f46" }}>
+          <div style={{ padding: "8px 12px", background: GREEN_L, border: `1px solid ${GREEN_M}`, borderRadius: 7, fontSize: 10, color: GREEN_INK }}>
             👍 <strong>Most valued:</strong> "Found quickly · Content clear · Simple and smooth · Useful for work" — most repeated combo on 5★ responses
           </div>
-          <div style={{ padding: "8px 12px", background: "#fef0ee", border: "1px solid #fca5a5", borderRadius: 7, fontSize: 10, color: "#7f1d1d" }}>
+          <div style={{ padding: "8px 12px", background: RED_L, border: `1px solid ${RED_M}`, borderRadius: 7, fontSize: 10, color: RED_INK }}>
             👎 <strong>Least valued:</strong> "Didn't find what I needed" · "Experience felt slow" · "I cannot search" — points to <strong>search relevance/discoverability</strong>, not technical errors
           </div>
         </div>
@@ -1484,7 +1503,7 @@ function MayMonthly() {
               <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usData.pct}%</span>
             </div>
             <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
-              <div style={{ width: `${usData.pct}%`, height: "100%", background: "#1464A0", borderRadius: 99 }} />
+              <div style={{ width: `${usData.pct}%`, height: "100%", background: BLUE_DEEP, borderRadius: 99 }} />
             </div>
           </div>
         </div>
@@ -1500,7 +1519,7 @@ function MayMonthly() {
                     <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
                     <span style={{ display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}>
                       {diff != null && (
-                        <span style={{ fontSize: 8, fontWeight: 600, padding: "1px 5px", borderRadius: 99, background: diff >= 0 ? "#edfaf4" : "#fef0ee", color: diff >= 0 ? GREEN : RED }}>
+                        <span style={{ fontSize: 8, fontWeight: 600, padding: "1px 5px", borderRadius: 99, background: diff >= 0 ? GREEN_L : RED_L, color: diff >= 0 ? GREEN : RED }}>
                           {diff >= 0 ? "+" : ""}{diff}
                         </span>
                       )}
@@ -1508,7 +1527,7 @@ function MayMonthly() {
                     </span>
                   </div>
                   <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
-                    <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 15 ? "#1464A0" : c.users >= 8 ? BLUE : "#7ab3e0", borderRadius: 99 }} />
+                    <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 15 ? BLUE_DEEP : c.users >= 8 ? BLUE : BLUE_SOFT, borderRadius: 99 }} />
                   </div>
                 </div>
               </div>
@@ -1732,8 +1751,8 @@ const JUNE = {
 function JuneMonthly() {
   const MONTH = "June 2026";
   const [showAllCountries, setShowAllCountries] = useState(false);
-  const SIGNAL_STYLE = { fontSize: 12, color: "#3d4460", lineHeight: 1.6, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" };
-  const SIGNAL_STYLE_MB = { fontSize: 12, color: "#3d4460", lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" };
+  const SIGNAL_STYLE = { fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" };
+  const SIGNAL_STYLE_MB = { fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" };
 
   const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
 
@@ -1805,8 +1824,8 @@ function JuneMonthly() {
       </div>
 
       {/* Cumulative totals */}
-      <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
+      <div style={{ background: NAVY, borderRadius: 10, padding: "16px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to Jun 30, 2026
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 16 }}>
@@ -1818,8 +1837,8 @@ function JuneMonthly() {
             { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: "23.8%" },
           ].map((m, i) => (
             <div key={i}>
-              <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
-              <div style={{ fontSize: 9, color: "#a8c4e0", textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+              <div style={{ fontSize: 22, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: 9, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
             </div>
           ))}
         </div>
@@ -1864,17 +1883,17 @@ function JuneMonthly() {
           <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>58.3%</div>
           <div style={{ fontSize: 10, color: INK3, marginTop: 4, display: "flex", alignItems: "center", gap: 8 }}>
             <span>12 responses · June 2026</span>
-            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: "#fef0ee", color: RED }}>↓ 18.2pp vs May</span>
+            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: RED_L, color: RED }}>↓ 18.2pp vs May</span>
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <div style={{ padding: "8px 12px", background: "#edfaf4", border: "1px solid #a7f3d0", borderRadius: 7, fontSize: 10, color: "#065f46" }}>
+          <div style={{ padding: "8px 12px", background: GREEN_L, border: `1px solid ${GREEN_M}`, borderRadius: 7, fontSize: 10, color: GREEN_INK }}>
             👍 <strong>Most valued:</strong> same pattern as May — "Found quickly · Content clear · Simple and smooth · Useful for work" on 5★ responses
           </div>
-          <div style={{ padding: "8px 12px", background: "#fef0ee", border: "1px solid #fca5a5", borderRadius: 7, fontSize: 10, color: "#7f1d1d" }}>
+          <div style={{ padding: "8px 12px", background: RED_L, border: `1px solid ${RED_M}`, borderRadius: 7, fontSize: 10, color: RED_INK }}>
             👎 <strong>Least valued — technical failures, not UX:</strong> frequent crashes requiring restart, API connection issue, authorization failure, and a specific <strong>400 error on TC RG-T4150</strong>. Two additional comments on content clarity and not finding what was needed.
           </div>
-          <div style={{ padding: "8px 12px", background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 7, fontSize: 10, color: "#92400e" }}>
+          <div style={{ padding: "8px 12px", background: AMBER_L, border: `1px solid ${AMBER_M}`, borderRadius: 7, fontSize: 10, color: AMBER_INK }}>
             ⚠ <strong>Recommendation:</strong> log the 400 error / TC RG-T4150 as a separate technical ticket — it is not general product feedback and should not be treated as a UX signal.
           </div>
         </div>
@@ -1893,7 +1912,7 @@ function JuneMonthly() {
               <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usData.pct}%</span>
             </div>
             <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
-              <div style={{ width: `${usData.pct}%`, height: "100%", background: "#1464A0", borderRadius: 99 }} />
+              <div style={{ width: `${usData.pct}%`, height: "100%", background: BLUE_DEEP, borderRadius: 99 }} />
             </div>
           </div>
         </div>
@@ -1909,7 +1928,7 @@ function JuneMonthly() {
                     <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
                     <span style={{ display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}>
                       {diff != null && (
-                        <span style={{ fontSize: 8, fontWeight: 600, padding: "1px 5px", borderRadius: 99, background: diff >= 0 ? "#edfaf4" : "#fef0ee", color: diff >= 0 ? GREEN : RED }}>
+                        <span style={{ fontSize: 8, fontWeight: 600, padding: "1px 5px", borderRadius: 99, background: diff >= 0 ? GREEN_L : RED_L, color: diff >= 0 ? GREEN : RED }}>
                           {diff >= 0 ? "+" : ""}{diff}
                         </span>
                       )}
@@ -1917,7 +1936,7 @@ function JuneMonthly() {
                     </span>
                   </div>
                   <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
-                    <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 30 ? "#1464A0" : c.users >= 10 ? BLUE : "#7ab3e0", borderRadius: 99 }} />
+                    <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 30 ? BLUE_DEEP : c.users >= 10 ? BLUE : BLUE_SOFT, borderRadius: 99 }} />
                   </div>
                 </div>
               </div>
@@ -1958,7 +1977,7 @@ function JuneMonthly() {
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Latency</div>
           <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>37s</div>
           <div style={{ fontSize: 9, color: INK3, lineHeight: 1.4, marginBottom: 6 }}>Avg response time in Open Search</div>
-          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: "#edfaf4", color: GREEN }}>
+          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: GREEN_L, color: GREEN }}>
             ↓40% vs last month (1m 02s)
           </span>
         </div>
@@ -2197,8 +2216,8 @@ function JulyMonthly() {
       </div>
 
       {/* Cumulative totals (through June — July pending) */}
-      <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
+      <div style={{ background: NAVY, borderRadius: 10, padding: "16px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to Jul 31, 2026
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 16 }}>
@@ -2210,8 +2229,8 @@ function JulyMonthly() {
             { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: "24.9%" },
           ].map((m, i) => (
             <div key={i}>
-              <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
-              <div style={{ fontSize: 9, color: "#a8c4e0", textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+              <div style={{ fontSize: 22, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: 9, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
             </div>
           ))}
         </div>
@@ -2256,14 +2275,14 @@ function JulyMonthly() {
           <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>100%</div>
           <div style={{ fontSize: 10, color: INK3, marginTop: 4, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
             <span>4 responses · avg 4.75 / 5 ★ · July 2026</span>
-            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: "#edfaf4", color: GREEN }}>↑ 41.7pp vs June</span>
+            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: GREEN_L, color: GREEN }}>↑ 41.7pp vs June</span>
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <div style={{ padding: "8px 12px", background: "#edfaf4", border: "1px solid #a7f3d0", borderRadius: 7, fontSize: 10, color: "#065f46" }}>
+          <div style={{ padding: "8px 12px", background: GREEN_L, border: `1px solid ${GREEN_M}`, borderRadius: 7, fontSize: 10, color: GREEN_INK }}>
             👍 <strong>All 4 responses positive:</strong> "Encontré rápidamente lo que buscaba" · "A plataforma foi útil para meu trabalho" · "The platform was useful for my work" · "El contenido fue claro"
           </div>
-          <div style={{ padding: "8px 12px", background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 7, fontSize: 10, color: "#92400e" }}>
+          <div style={{ padding: "8px 12px", background: AMBER_L, border: `1px solid ${AMBER_M}`, borderRadius: 7, fontSize: 10, color: AMBER_INK }}>
             ⚠ <strong>Small sample:</strong> only 4 responses so far — strong recovery from June's technical incident (58.3%), but not yet representative. Expect the figure to settle as more responses arrive.
           </div>
         </div>
@@ -2288,7 +2307,7 @@ function JulyMonthly() {
               <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usData.pct}%</span>
             </div>
             <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
-              <div style={{ width: `${usData.pct}%`, height: "100%", background: "#1464A0", borderRadius: 99 }} />
+              <div style={{ width: `${usData.pct}%`, height: "100%", background: BLUE_DEEP, borderRadius: 99 }} />
             </div>
           </div>
         </div>
@@ -2302,7 +2321,7 @@ function JulyMonthly() {
                   <span style={{ fontSize: 9, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
                 </div>
                 <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
-                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 8 ? "#1464A0" : c.users >= 4 ? BLUE : "#7ab3e0", borderRadius: 99 }} />
+                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 8 ? BLUE_DEEP : c.users >= 4 ? BLUE : BLUE_SOFT, borderRadius: 99 }} />
                 </div>
               </div>
             </div>
@@ -2344,7 +2363,7 @@ function JulyMonthly() {
           <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Latency (median)</div>
           <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>27s</div>
           <div style={{ fontSize: 9, color: INK3, lineHeight: 1.4, marginBottom: 6 }}>Median response time in Open Search</div>
-          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: "#edfaf4", color: GREEN }}>↓27% vs June (37s)</span>
+          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: GREEN_L, color: GREEN }}>↓27% vs June (37s)</span>
         </div>
         <MCard meta="sourceClicks" label="Source panel clicks" value={String(JULY.sourceClicks)} desc="Clicks on source panel" momentum={JUNE.sourceClicks} />
         <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
@@ -2571,7 +2590,7 @@ function ContentEngagementCard({ rows, note, split }) {
       </div>
       <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 16 }}>
         <div style={{ width: `${pctOS}%`, background: BLUE_D }} />
-        <div style={{ width: `${100 - pctOS}%`, background: "#9ec4e8" }} />
+        <div style={{ width: `${100 - pctOS}%`, background: BLUE_SOFT_2 }} />
       </div>
 
       <div style={{ overflowX: "auto" }}>
@@ -3149,10 +3168,10 @@ function PillMonthlyTable({ months, rows, note }) {
                 {r.values.map((v, j) => (
                   <td key={j} style={{ padding: "4px 0 4px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
                     <div style={{
-                      background: v === 0 ? "transparent" : BLUE_L,
-                      opacity: v === 0 ? 1 : 0.35 + (v / max) * 0.65,
+                      // La intensidad va solo en el fondo: el numero conserva su contraste (antes la opacidad lo apagaba).
+                      background: v === 0 ? "transparent" : `color-mix(in srgb, ${BLUE_M} ${Math.round(25 + (v / max) * 75)}%, ${SURF})`,
                       borderRadius: 4, padding: "3px 5px",
-                      color: v === 0 ? BDR : INK, fontWeight: v === 0 ? 400 : 500,
+                      color: v === 0 ? INK3 : INK, fontWeight: v === 0 ? 400 : 500,
                     }}>{v}</div>
                   </td>
                 ))}
@@ -3533,11 +3552,11 @@ function SessionShot({ shot }) {
         {shot.caption}
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center", marginTop: 8 }}>
           <a href={shot.url} target="_blank" rel="noopener noreferrer"
-             style={{ fontSize: 9, color: INK3, textDecoration: "none", border: `1px solid ${BDR}`, borderRadius: 20, padding: "3px 9px", whiteSpace: "nowrap" }}>
+             style={{ fontSize: 9, color: BLUE_D, textDecoration: "underline", textUnderlineOffset: 2, border: `1px solid ${BDR}`, borderRadius: 20, padding: "3px 9px", whiteSpace: "nowrap" }}>
             ▸ watch {shot.session} · {shot.place}
           </a>
           <a href={shot.src} target="_blank" rel="noopener noreferrer"
-             style={{ fontSize: 9, color: INK3, textDecoration: "none", border: `1px solid ${BDR}`, borderRadius: 20, padding: "3px 9px", whiteSpace: "nowrap" }}>
+             style={{ fontSize: 9, color: BLUE_D, textDecoration: "underline", textUnderlineOffset: 2, border: `1px solid ${BDR}`, borderRadius: 20, padding: "3px 9px", whiteSpace: "nowrap" }}>
             ⤢ full size
           </a>
         </div>
@@ -3562,7 +3581,7 @@ function QualitativeSection({ q }) {
           {q.themes.map((t, i) => (
             <div key={i} style={{ borderTop: i > 0 ? `1px solid ${BDR}` : "none", paddingTop: i > 0 ? 14 : 0 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 6 }}>
-                <span style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 600, color: "#fff", background: TONE[t.tone], borderRadius: 4, padding: "3px 7px", whiteSpace: "nowrap" }}>{t.tag}</span>
+                <span style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 600, color: ON_ACCENT, background: TONE[t.tone], borderRadius: 4, padding: "3px 7px", whiteSpace: "nowrap" }}>{t.tag}</span>
                 <span style={{ fontSize: 12, fontWeight: 600, color: INK, lineHeight: 1.35 }}>{t.title}</span>
               </div>
               <p style={{ fontSize: 11, color: INK2, lineHeight: 1.6, margin: "0 0 8px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>{t.body}</p>
@@ -3575,7 +3594,7 @@ function QualitativeSection({ q }) {
               <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                 {t.sessions.map((sn, j) => (
                   <a key={j} href={sn.url} target="_blank" rel="noopener noreferrer"
-                     style={{ fontSize: 9, color: INK3, textDecoration: "none", border: `1px solid ${BDR}`, borderRadius: 20, padding: "3px 9px", whiteSpace: "nowrap" }}>
+                     style={{ fontSize: 9, color: BLUE_D, textDecoration: "underline", textUnderlineOffset: 2, border: `1px solid ${BDR}`, borderRadius: 20, padding: "3px 9px", whiteSpace: "nowrap" }}>
                     ▸ watch {sn.id} · {sn.place}
                   </a>
                 ))}
@@ -3625,8 +3644,8 @@ function CohortTable({ cols, rows, note }) {
                   const pct = v / r.size * 100;
                   return (
                     <td key={j} style={{ padding: "4px 0 4px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
-                      <div style={{ background: `rgba(74, 144, 226, ${(0.06 + Math.min(pct / 16, 1) * 0.22).toFixed(3)})`, borderRadius: 4, padding: "3px 5px", color: INK }}>
-                        {v} <span style={{ color: INK3, fontWeight: 400 }}>· {pct.toFixed(1)}%</span>
+                      <div style={{ background: `color-mix(in srgb, ${BLUE} ${Math.round((0.06 + Math.min(pct / 16, 1) * 0.22) * 100)}%, ${SURF})`, borderRadius: 4, padding: "3px 5px", color: INK }}>
+                        {v} <span style={{ color: INK2, fontWeight: 400 }}>· {pct.toFixed(1)}%</span>
                       </div>
                     </td>
                   );
@@ -3708,7 +3727,7 @@ function MonthMetricCard({ label, value, desc, accent, small, bench, momentum, m
       {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginBottom: badge ? 6 : 0 }}>{desc}</div>}
       {badge && (
         <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
-          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: badge.isGood ? "#edfaf4" : "#fef0ee", color: badge.isGood ? GREEN : RED }}>
+          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: badge.isGood ? GREEN_L : RED_L, color: badge.isGood ? GREEN : RED }}>
             {badge.label} vs monthly avg
           </span>
           <span style={{ fontSize: 9, color: INK3 }}>({bench})</span>
@@ -3730,7 +3749,7 @@ function MonthMetricCard({ label, value, desc, accent, small, bench, momentum, m
         {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6 }}>{desc}</div>}
         {momentumBadge && (
           <div style={{ marginTop: 4 }}>
-            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: momentumBadge.label.startsWith("↑") ? "#edfaf4" : "#fef0ee", color: momentumBadge.label.startsWith("↑") ? GREEN : RED }}>
+            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: momentumBadge.label.startsWith("↑") ? GREEN_L : RED_L, color: momentumBadge.label.startsWith("↑") ? GREEN : RED }}>
               {momentumBadge.label} vs {momentumLabel} ({momentum})
             </span>
           </div>
@@ -3749,7 +3768,7 @@ function MonthMetricCard({ label, value, desc, accent, small, bench, momentum, m
       {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6, marginBottom: (badge || momentumBadge) ? 6 : 0 }}>{desc}</div>}
       {badge && (
         <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4, flexWrap: "wrap" }}>
-          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: badge.isGood ? "#edfaf4" : "#fef0ee", color: badge.isGood ? GREEN : RED }}>
+          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: badge.isGood ? GREEN_L : RED_L, color: badge.isGood ? GREEN : RED }}>
             {badge.label} vs monthly avg
           </span>
           <span style={{ fontSize: 9, color: INK3 }}>({bench})</span>
@@ -3758,7 +3777,7 @@ function MonthMetricCard({ label, value, desc, accent, small, bench, momentum, m
       )}
       {!badge && momentumBadge && (
         <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
-          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: momentumBadge.label.startsWith("↑") ? "#edfaf4" : "#fef0ee", color: momentumBadge.label.startsWith("↑") ? GREEN : RED }}>
+          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: momentumBadge.label.startsWith("↑") ? GREEN_L : RED_L, color: momentumBadge.label.startsWith("↑") ? GREEN : RED }}>
             {momentumBadge.label} vs {momentumLabel} ({momentum})
           </span>
         </div>
@@ -3781,18 +3800,18 @@ function MetricInfo({ m }) {
         onMouseLeave={() => setOpen(false)}
         onFocus={() => setOpen(true)}
         onBlur={() => setOpen(false)}
-        style={{ width: 12, height: 12, borderRadius: 99, border: `1px solid ${BDR}`, background: SURF, color: INK3, fontSize: 8, lineHeight: 1, padding: 0, cursor: "help", fontFamily: "inherit", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
+        style={{ width: 16, height: 16, borderRadius: 99, border: `1px solid ${BDR_2}`, background: SURF, color: INK2, fontSize: 9, lineHeight: 1, padding: 0, cursor: "help", fontFamily: "inherit", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
       >i</button>
       {open && (
-        <span role="tooltip" style={{ position: "absolute", bottom: "calc(100% + 6px)", left: "50%", transform: "translateX(-50%)", zIndex: 50, width: 240, background: INK, color: "#fff", borderRadius: 8, padding: "10px 12px", boxShadow: "0 4px 16px rgba(0,0,0,.22)", textTransform: "none", letterSpacing: 0, fontWeight: 400 }}>
+        <span role="tooltip" style={{ position: "absolute", bottom: "calc(100% + 6px)", left: "50%", transform: "translateX(-50%)", zIndex: 50, width: 240, background: INK, color: ON_ACCENT, borderRadius: 8, padding: "10px 12px", boxShadow: "0 4px 16px rgba(0,0,0,.22)", textTransform: "none", letterSpacing: 0, fontWeight: 400 }}>
           <span style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 6 }}>
             <span style={{ width: 6, height: 6, borderRadius: 99, background: dot, flexShrink: 0 }} />
-            <span style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em", color: "#a8c4e0" }}>{SRC_LABEL[m.src]}</span>
+            <span style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em", color: ON_DARK_2 }}>{SRC_LABEL[m.src]}</span>
           </span>
-          <span style={{ display: "block", fontSize: 10, lineHeight: 1.5, color: "#e8edf5" }}>{m.def}</span>
+          <span style={{ display: "block", fontSize: 10, lineHeight: 1.5, color: ON_DARK }}>{m.def}</span>
           {m.id && (
-            <span style={{ display: "block", marginTop: 7, paddingTop: 6, borderTop: "1px solid rgba(255,255,255,.15)", fontSize: 9, color: "#8fa9c4" }}>
-              metric_id <code style={{ color: "#c8d8ea" }}>{m.id}</code>
+            <span style={{ display: "block", marginTop: 7, paddingTop: 6, borderTop: "1px solid rgba(255,255,255,.15)", fontSize: 9, color: ON_DARK_2 }}>
+              metric_id <code style={{ color: ON_DARK_2 }}>{m.id}</code>
             </span>
           )}
         </span>
@@ -3864,8 +3883,8 @@ function AugustMonthly() {
       </div>
 
       {/* Cumulative totals — pulled live via MCP */}
-      <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
+      <div style={{ background: NAVY, borderRadius: 10, padding: "16px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to Aug 31, 2026 · live via MCP
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
@@ -3876,8 +3895,8 @@ function AugustMonthly() {
             { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: "26.7%" },
           ].map((m, i) => (
             <div key={i}>
-              <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
-              <div style={{ fontSize: 9, color: "#a8c4e0", textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+              <div style={{ fontSize: 22, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: 9, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
             </div>
           ))}
         </div>
@@ -3921,7 +3940,7 @@ function AugustMonthly() {
               <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usData.pct}%</span>
             </div>
             <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
-              <div style={{ width: `${usData.pct}%`, height: "100%", background: "#1464A0", borderRadius: 99 }} />
+              <div style={{ width: `${usData.pct}%`, height: "100%", background: BLUE_DEEP, borderRadius: 99 }} />
             </div>
           </div>
         </div>
@@ -3935,7 +3954,7 @@ function AugustMonthly() {
                   <span style={{ fontSize: 9, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
                 </div>
                 <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
-                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 4 ? "#1464A0" : c.users >= 2 ? BLUE : "#7ab3e0", borderRadius: 99 }} />
+                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 4 ? BLUE_DEEP : c.users >= 2 ? BLUE : BLUE_SOFT, borderRadius: 99 }} />
                 </div>
               </div>
             </div>
@@ -3993,20 +4012,20 @@ function AugustMonthly() {
           <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>{AUGUST.csat}</div>
           <div style={{ fontSize: 10, color: INK3, marginTop: 4, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
             <span>5 responses · avg 2.80 / 5 ★ · August 2026 (full month, closed 2026-09-07)</span>
-            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: "#fef0ee", color: RED }}>↓ 60.0pp vs July</span>
+            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: RED_L, color: RED }}>↓ 60.0pp vs July</span>
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <div style={{ padding: "8px 12px", background: "#edfaf4", border: "1px solid #a7f3d0", borderRadius: 7, fontSize: 10, color: "#065f46" }}>
+          <div style={{ padding: "8px 12px", background: GREEN_L, border: `1px solid ${GREEN_M}`, borderRadius: 7, fontSize: 10, color: GREEN_INK }}>
             👍 <strong>2 positive (5★, 4★):</strong> "I quickly found what I was looking for" · "The content was clear" · "The experience was simple and smooth" · "The platform was useful for my work"
           </div>
-          <div style={{ padding: "8px 12px", background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 7, fontSize: 10, color: "#92400e" }}>
+          <div style={{ padding: "8px 12px", background: AMBER_L, border: `1px solid ${AMBER_M}`, borderRadius: 7, fontSize: 10, color: AMBER_INK }}>
             😐 <strong>1 neutral (3★):</strong> "The platform could be more useful to my work" — genuine product signal on perceived usefulness.
           </div>
-          <div style={{ padding: "8px 12px", background: "#fef0ee", border: "1px solid #fecaca", borderRadius: 7, fontSize: 10, color: "#991b1b" }}>
+          <div style={{ padding: "8px 12px", background: RED_L, border: `1px solid ${RED_M_2}`, borderRadius: 7, fontSize: 10, color: RED_INK_2 }}>
             👎 <strong>2 negative (1★, 1★):</strong> "The platform is empty, only showing access to a program" — reads as a technical or access-permissions fault, not a satisfaction judgement. · "plataforma confusa, abri e não aparecia nada e ao mover o mouse a página começou a recarregar... muito estranha essa UX" — describes a rendering/reload bug, also technical rather than a satisfaction judgement.
           </div>
-          <div style={{ padding: "8px 12px", background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 7, fontSize: 10, color: "#92400e" }}>
+          <div style={{ padding: "8px 12px", background: AMBER_L, border: `1px solid ${AMBER_M}`, borderRadius: 7, fontSize: 10, color: AMBER_INK }}>
             ⚠ <strong>Read with caution: n=5.</strong> Full-month sample. Both negative reports describe technical/rendering issues (empty page on open, mouse-triggered reload) rather than dissatisfaction with content or usefulness — consistent with June's precedent of tracking technical complaints separately from satisfaction signal. Excluding both as technical tickets, the remaining three responses split 2 positive / 1 neutral.
           </div>
         </div>
@@ -4051,19 +4070,19 @@ function AugustMonthly() {
       {/* Signals — executive */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — August, closed</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${GREEN}` }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration reaches 27%</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
             1,943 cumulative users — +125 net-new over the month, against July's close of 1,818, and 26.7% of staff and consultants reached. Adoption keeps compounding with no active campaign behind it.
           </p>
         </div>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>August closes above July on both counts</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
             271 users · 1,260 sessions, against July's 237 and 1,226 — up 14% and 3%. What read as a summer trough in July has reversed, and August is the strongest month for users since June. But the growth did not reach the far end of the funnel: copies fell to 24, the lowest of the series. More people came, and fewer took something away.
           </p>
         </div>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach widens, Netherlands dilutes</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
             32 countries at close. Netherlands finishes #2 with 32 users and its share held at 8% — the erosion of earlier months (11% → 9% → 8%) has stopped. A count that keeps rising at a fixed share is still consistent with an automated source rather than a user base, and it stays flagged, pending confirmation. Argentina climbed to 17, level with Brazil, and Mexico to 10, level with Panama.
@@ -4231,8 +4250,8 @@ function SeptemberMonthly() {
       </div>
 
       {/* Cumulative totals — pulled live via MCP */}
-      <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
+      <div style={{ background: NAVY, borderRadius: 10, padding: "16px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to Sep 30, 2026 · September close (August close + September)
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
@@ -4243,8 +4262,8 @@ function SeptemberMonthly() {
             { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: "28.2%" },
           ].map((m, i) => (
             <div key={i}>
-              <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
-              <div style={{ fontSize: 9, color: "#a8c4e0", textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+              <div style={{ fontSize: 22, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: 9, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
             </div>
           ))}
         </div>
@@ -4287,7 +4306,7 @@ function SeptemberMonthly() {
               <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usData.pct}%</span>
             </div>
             <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
-              <div style={{ width: `${usData.pct}%`, height: "100%", background: "#1464A0", borderRadius: 99 }} />
+              <div style={{ width: `${usData.pct}%`, height: "100%", background: BLUE_DEEP, borderRadius: 99 }} />
             </div>
           </div>
         </div>
@@ -4301,7 +4320,7 @@ function SeptemberMonthly() {
                   <span style={{ fontSize: 9, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
                 </div>
                 <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
-                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 4 ? "#1464A0" : c.users >= 2 ? BLUE : "#7ab3e0", borderRadius: 99 }} />
+                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 4 ? BLUE_DEEP : c.users >= 2 ? BLUE : BLUE_SOFT, borderRadius: 99 }} />
                 </div>
               </div>
             </div>
@@ -4392,25 +4411,25 @@ function SeptemberMonthly() {
       {/* Signals — executive */}
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — the month</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach flat on August, but people came back more</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
             267 users and 1,432 sessions, against August's 271 and 1,260. Reach is flat — four fewer people — but sessions are up 14%, so the same audience came back more often. 110 of the 267 are new and 157 already knew KP: a 59/41 returning split.
           </p>
         </div>
-<div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
+<div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Extraction jumps, and all of it is Open Search</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
             Open Search highlights went from 141 to 392 (+178%) and copies from 45 to 123 (+173%) on flat reach, with the internal team excluded. Contextual search moved the other way: 2 highlights and 1 copy in September against 14 and 19 in August, and the pills were opened 77 times against 119. Counting both surfaces, highlights rose 154% (155 to 394) and copies 94% (64 to 124). The one contextual entry point that grew is Global Search, through chips and the search bar: 61 events against 19. The split closed at 89/11 Open Search versus contextual, from 80/20 in August. The qualitative pass fits this: a handful of very heavy sessions where people work through their own documents.
           </p>
         </div>
-<div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${GREEN}` }}>
+<div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration reaches 28%, on a stable method</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
             2,053 cumulative users — August's verified close plus this month's 110 first-timers — and 17,274 sessions the same way. Prompters reaches 923, with the drift correction reading 4 for the third cut running. The subtraction control on sessions came back at 1,431 against the 1,432 written here: a one-event boundary difference, not a method problem.
           </p>
         </div>
-<div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #b06e2f` }}>
+<div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>The Netherlands anomaly was a robot, and reach is clean</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
             Flagged all month, resolved on Oct 1. The 29 Dutch "users" were one automated check firing at 16:55 UTC every single day from Groningen — a fresh anonymous ID each run, one second long, landing on the non-production test host and dying on an authentication error. There were zero Dutch sessions on production. <strong>It never touched the headline numbers:</strong> the Sin DEV segment requires a visit to the production home page, which this robot never reached, so the 292 users and 1,432 sessions never included it. What it did distort is the country table, which is measured org-wide across all hosts.
@@ -4540,8 +4559,8 @@ function OctoberMonthly() {
       </div>
 
       {/* Cumulative totals */}
-      <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
+      <div style={{ background: NAVY, borderRadius: 10, padding: "16px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to {through}, 2026 · October close (September close + October)
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 16 }}>
@@ -4552,8 +4571,8 @@ function OctoberMonthly() {
             { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: `${penetration}%` },
           ].map((m, i) => (
             <div key={i}>
-              <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
-              <div style={{ fontSize: 9, color: "#a8c4e0", textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+              <div style={{ fontSize: 22, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: 9, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
             </div>
           ))}
         </div>
@@ -4595,7 +4614,7 @@ function OctoberMonthly() {
               <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usPct}%</span>
             </div>
             <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
-              <div style={{ width: `${usPct}%`, height: "100%", background: "#1464A0", borderRadius: 99 }} />
+              <div style={{ width: `${usPct}%`, height: "100%", background: BLUE_DEEP, borderRadius: 99 }} />
             </div>
           </div>
         </div>
@@ -4609,7 +4628,7 @@ function OctoberMonthly() {
                   <span style={{ fontSize: 9, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
                 </div>
                 <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
-                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 4 ? "#1464A0" : c.users >= 2 ? BLUE : "#7ab3e0", borderRadius: 99 }} />
+                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 4 ? BLUE_DEEP : c.users >= 2 ? BLUE : BLUE_SOFT, borderRadius: 99 }} />
                 </div>
               </div>
             </div>
@@ -4687,25 +4706,25 @@ function OctoberMonthly() {
 
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — October</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${BLUE}` }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach finished below September</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
             {OCTOBER.users} users and {OCTOBER.sessions} sessions through Oct {day}, against September's 267 and 1,432 for the whole month. {OCTOBER.first_time} are first-timers. The month is closed below September; the retention table below shows every cohort dipping in October at once.
           </p>
         </div>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #7c5cbf` }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Fewer people start a search; what happens after is unchanged</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
             28% of those who enter run a search, against 45% in September. Once they do, 37% highlight and 70% of those copy, about the same as September. Open Search highlights ({L(M, "os_highlight")}) and copies ({L(M, "os_copy")}) are far below September's 392 and 123, a month driven by a handful of very heavy sessions.
           </p>
         </div>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid ${GREEN}` }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration reaches {penetration}%, and 440 people have opened a category</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
             {cumUsers.toLocaleString("en-US")} cumulative users — September's close of 2,053 plus {OCTOBER.first_time} first-timers — and {cumSessions.toLocaleString("en-US")} sessions the same way. Since October 2025, {snapshotAt("cs_category_users_cum", M)} people have opened at least one knowledge category, {snapshotAt("cs_category_users", M)} of them this month.
           </p>
         </div>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px", borderLeft: `3px solid #b06e2f` }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
           <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Contextual search is already ahead of September on openings</div>
           <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
             {L(M, "cs_queries")} pill views against September's 77, and {OCTOBER.pills.lessons} sessions on Lessons Learned against 23. The gap is in what follows: 43 people open a pill, but only 2 copy.
@@ -4778,8 +4797,8 @@ function NovemberMonthly() {
         <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (segment Sin DEV) and the ledger · Updated daily, last complete day: {through}</div>
       </div>
 
-      <div style={{ background: "#0A2342", borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 14 }}>
+      <div style={{ background: NAVY, borderRadius: 10, padding: "16px 20px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to {through}, 2026 · month to date (October close + November)
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 16 }}>
@@ -4790,8 +4809,8 @@ function NovemberMonthly() {
             { label: `Penetration of ${BID_TOTAL.toLocaleString("en-US")}`, value: `${penetration}%` },
           ].map((m, i) => (
             <div key={i}>
-              <div style={{ fontSize: 22, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
-              <div style={{ fontSize: 9, color: "#a8c4e0", textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+              <div style={{ fontSize: 22, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: 9, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
             </div>
           ))}
         </div>
@@ -4863,8 +4882,8 @@ function Benchmark() {
   const intensity = [
     { name: "Knowledge Platform",        val: 2.9,  sub: "717 sessions · 251 users", kp: true, color: BLUE },
     { name: "Client Connectivity (staff)", val: 5.3, sub: "~1,997 sessions · ~380 users", color: BLUE },
-    { name: "Client Connectivity (external)", val: 9.6, sub: "13,418 sessions · ~1,400 users", color: "#9b7cc7" },
-    { name: "Digital Solution Portal",   val: 12.4, sub: "124 sessions · ~10 users", color: "#cbd5e1" },
+    { name: "Client Connectivity (external)", val: 9.6, sub: "13,418 sessions · ~1,400 users", color: PURPLE_L },
+    { name: "Digital Solution Portal",   val: 12.4, sub: "124 sessions · ~10 users", color: BDR_2 },
     { name: "Impact Management",         val: 23.5, sub: "3,836 sessions · 163 users", color: GREEN },
   ];
   const maxIntensity = 23.5;
@@ -4880,9 +4899,9 @@ function Benchmark() {
       </div>
 
       {/* One-line read */}
-      <div style={{ background: "#0A2342", borderRadius: 10, padding: "20px 24px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a8c4e0", marginBottom: 10 }}>The one-line read</div>
-        <div style={{ fontSize: 15, fontWeight: 500, color: "#fff", lineHeight: 1.5, marginBottom: 18 }}>
+      <div style={{ background: NAVY, borderRadius: 10, padding: "20px 24px" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 10 }}>The one-line read</div>
+        <div style={{ fontSize: 15, fontWeight: 500, color: ON_ACCENT, lineHeight: 1.5, marginBottom: 18 }}>
           KP's reach is mid-pack among IDB internal tools. Its frequency is the lowest — because it competes for a different moment: the occasional question, not the daily task.
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
@@ -4893,8 +4912,8 @@ function Benchmark() {
             { v: "36%", l: "Returned 2+ times" },
           ].map((m, i) => (
             <div key={i}>
-              <div style={{ fontSize: 26, fontWeight: 500, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.v}</div>
-              <div style={{ fontSize: 8, color: "#a8c4e0", textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.l}</div>
+              <div style={{ fontSize: 26, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.v}</div>
+              <div style={{ fontSize: 8, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.l}</div>
             </div>
           ))}
         </div>
@@ -4923,7 +4942,7 @@ function Benchmark() {
                 {p.sub && <div style={{ fontSize: 8, color: INK3 }}>{p.sub}</div>}
               </div>
               <div style={{ flex: 1, background: BG, borderRadius: 4, height: 16, overflow: "hidden" }}>
-                <div style={{ width: `${(p.users/maxReach)*100}%`, height: "100%", background: p.kp ? "#1464A0" : "#c7ddf0", borderRadius: 4 }} />
+                <div style={{ width: `${(p.users/maxReach)*100}%`, height: "100%", background: p.kp ? BLUE_DEEP : BLUE_PALE, borderRadius: 4 }} />
               </div>
               <div style={{ width: 40, textAlign: "right", fontSize: 11, color: p.kp ? BLUE_D : INK2, fontWeight: p.kp ? 600 : 400 }}>{p.users}</div>
             </div>
@@ -4957,7 +4976,7 @@ function Benchmark() {
         {/* Intensity legend */}
         <div style={{ display: "flex", gap: 20, marginBottom: 10, fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em" }}>
           <span style={{ color: BLUE }}>Occasional lookup</span>
-          <span style={{ color: "#9b7cc7" }}>Recurring</span>
+          <span style={{ color: PURPLE }}>Recurring</span>
           <span style={{ color: GREEN }}>Daily work tool</span>
         </div>
 
@@ -4994,8 +5013,8 @@ function Benchmark() {
           <div style={{ flex: "1 1 200px", background: BG, borderRadius: 6, padding: "14px 16px", textAlign: "center", boxSizing: "border-box" }}>
             <span style={{ fontSize: 12, color: INK2 }}>~160 · one single visit</span>
           </div>
-          <div style={{ flex: "1 1 120px", background: "#1464A0", borderRadius: 6, padding: "14px 16px", textAlign: "center", boxSizing: "border-box" }}>
-            <span style={{ fontSize: 12, color: "#fff", fontWeight: 600 }}>91 · came back</span>
+          <div style={{ flex: "1 1 120px", background: BLUE_DEEP, borderRadius: 6, padding: "14px 16px", textAlign: "center", boxSizing: "border-box" }}>
+            <span style={{ fontSize: 12, color: ON_ACCENT, fontWeight: 600 }}>91 · came back</span>
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 9, color: INK3, marginBottom: 16 }}>
@@ -5059,12 +5078,13 @@ function App() {
   const currentMonth = MONTHS.find(m => m.id === view);
   const currentLaunch = LAUNCH_VIEWS.find(l => l.id === view);
 
-  const ddBtn = (active, onClick, children) => (
-    <button onClick={onClick} style={{
+  // expanded: undefined para botones simples; true/false para los que abren un menu (aria-expanded + aria-haspopup).
+  const ddBtn = (active, onClick, children, expanded) => (
+    <button type="button" onClick={onClick} aria-pressed={expanded === undefined ? active : undefined} aria-expanded={expanded} aria-haspopup={expanded === undefined ? undefined : "menu"} style={{
       fontFamily: "inherit", fontSize: 11, fontWeight: 500,
       padding: "8px 14px", border: `1px solid ${active ? BLUE : BDR}`,
       borderRadius: 6, cursor: "pointer", letterSpacing: "0.04em", textTransform: "uppercase",
-      background: active ? BLUE : SURF, color: active ? "#fff" : INK3,
+      background: active ? BLUE : SURF, color: active ? ON_ACCENT : INK3,
       display: "flex", alignItems: "center", gap: 6,
     }}>
       {children}
@@ -5076,9 +5096,9 @@ function App() {
       position: "absolute", top: "calc(100% + 4px)", right: 0, zIndex: 50,
       background: SURF, border: `1px solid ${BDR}`, borderRadius: 8,
       boxShadow: "0 8px 24px rgba(10,35,66,0.12)", minWidth: 180, overflow: "hidden",
-    }}>
+    }} role="menu" onKeyDown={(e) => { if (e.key === "Escape") closeFn(); }}>
       {items.map((item) => (
-        <button key={item.id}
+        <button key={item.id} type="button" role="menuitem" aria-current={view === item.id ? "page" : undefined}
           onClick={() => { onPick(item.id); closeFn(); }}
           style={{
             fontFamily: "inherit", display: "block", width: "100%", textAlign: "left",
@@ -5096,6 +5116,7 @@ function App() {
   return (
     <div style={{ fontFamily: "'DM Mono', monospace", background: BG, minHeight: "100vh", color: INK, fontSize: 13 }}
       onClick={() => { if (monthOpen) setMonthOpen(false); if (launchOpen) setLaunchOpen(false); }}>
+      <style>{A11Y_CSS}</style>
 
       {/* Topbar */}
       <div style={{
@@ -5114,15 +5135,15 @@ function App() {
           {/* Month selector */}
           <div style={{ position: "relative" }}>
             {ddBtn(isMonth, () => { setMonthOpen(!monthOpen); setLaunchOpen(false); }, (
-              <>Month: {isMonth ? currentMonth.label : MONTHS[0].label} <span style={{ fontSize: 8 }}>▾</span></>
-            ))}
+              <>Month: {isMonth ? currentMonth.label : MONTHS[0].label} <span aria-hidden="true" style={{ fontSize: 8 }}>▾</span></>
+            ), monthOpen)}
             {monthOpen && ddMenu(MONTHS, setView, () => setMonthOpen(false))}
           </div>
           {/* Launch views selector */}
           <div style={{ position: "relative" }}>
             {ddBtn(!isMonth && view !== "benchmark" && view !== "usability" && view !== "wrapped", () => { setLaunchOpen(!launchOpen); setMonthOpen(false); }, (
-              <>{!isMonth && currentLaunch ? currentLaunch.label : "Launch views"} <span style={{ fontSize: 8 }}>▾</span></>
-            ))}
+              <>{!isMonth && currentLaunch ? currentLaunch.label : "Launch views"} <span aria-hidden="true" style={{ fontSize: 8 }}>▾</span></>
+            ), launchOpen)}
             {launchOpen && ddMenu(LAUNCH_VIEWS, setView, () => setLaunchOpen(false))}
           </div>
           {/* Benchmark */}

@@ -96,6 +96,14 @@ Historias extra (mes record, dia favorito, mapa, operaciones, tipos de explorado
 cuando `TOP_TOPICS` tenga datos (exportacion de la consola). En standby: el tab aparece solo con `?wrapped` en la URL.
 Umbrales de frecuencia en `SEGMENT_RULES` (se aplican en FullStory; NN/g no publica un umbral de power users).
 
+### Accesibilidad y tokens (9-nov-2026)
+
+- Todo color sale de `src/theme.js` (KP Wrapped tiene su paleta propia en `KPWrapped.jsx`). No se escriben hex sueltos en las vistas.
+- Contraste WCAG 2.1 AA verificado con axe-core en todas las vistas (meses, Usability, Benchmark, Launch views, login, Wrapped, easter egg).
+  Si se cambia un token, volver a medir: los valores de contraste estan anotados en `theme.js`.
+- Foco visible (`:focus-visible`), cursor de mano y enlaces subrayados vienen de `A11Y_CSS` en `src/App.jsx`.
+- No hay dark mode: cada token tiene un solo valor.
+
 ### Pendiente
 
 - **Benchmarks "vs monthly avg".** `BENCH.monthly` en `src/App.jsx` se recalculo el 4-nov-2026 sobre Sin DEV (copy):

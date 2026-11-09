@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import ledgerCsv from "../data/kp_ledger.csv?raw";
 import { ledger, SEGMENT_NAME, ledgerSum, baseline, latestSnapshot } from "./data/ledgerView.js";
 import { buildDocs } from "./data/metricDocs.js";
-import { BLUE, BLUE_D, BLUE_L, BLUE_M, GREEN, AMBER, SURF, BDR, INK, INK2, INK3 } from "./theme.js";
+import { BLUE, BLUE_D, BLUE_L, BLUE_M, GREEN, AMBER, SURF, BDR, INK, INK2, INK3, AMBER_PALE, ON_ACCENT, ON_DARK, ON_DARK_2 } from "./theme.js";
 
 const TOTAL_STAFF = 7287;                 // IDB staff + consultores: divisor de la penetracion (no esta en el ledger)
 const MOST_USED_PILL = "Lessons Learned"; // HISTORICO (misma ventana que el ledger), de Fullstory (rhTcgj1srgne, PJyiZSAt3EXH, eCemfOCLh5qU, w0ktk3sF3v3I), 2025-10-01 a 2026-10-12: LL 381 > SP 369 > Lit 187 > Data 78. No esta en el ledger: recomputar con la ventana completa en cada cierre
@@ -63,11 +63,11 @@ function Info({ doc }) {
     return () => { document.removeEventListener("keydown", onKey); document.removeEventListener("pointerdown", onAway); window.removeEventListener("scroll", close, true); };
   }, [open]);
   if (!doc) return null;
-  const Label = ({ children }) => <span style={{ display: "block", fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em", color: "#8fa9c4", margin: "8px 0 2px" }}>{children}</span>;
-  const Text = ({ children, color }) => <span style={{ display: "block", fontSize: 10, lineHeight: 1.5, color: color || "#e8edf5" }}>{children}</span>;
+  const Label = ({ children }) => <span style={{ display: "block", fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em", color: ON_DARK_2, margin: "8px 0 2px" }}>{children}</span>;
+  const Text = ({ children, color }) => <span style={{ display: "block", fontSize: 10, lineHeight: 1.5, color: color || ON_DARK }}>{children}</span>;
   const IdList = ({ items }) => items.map(([id, label]) => (
-    <span key={id} style={{ display: "block", fontSize: 9, lineHeight: 1.45, color: "#c8d8ea", marginBottom: 3 }}>
-      <code style={{ color: "#fff", background: "rgba(255,255,255,.12)", borderRadius: 3, padding: "0 4px", marginRight: 5 }}>{id}</code>{label}
+    <span key={id} style={{ display: "block", fontSize: 9, lineHeight: 1.45, color: ON_DARK_2, marginBottom: 3 }}>
+      <code style={{ color: ON_ACCENT, background: "rgba(255,255,255,.12)", borderRadius: 3, padding: "0 4px", marginRight: 5 }}>{id}</code>{label}
     </span>
   ));
   return (
@@ -76,10 +76,10 @@ function Info({ doc }) {
         onClick={show} onFocus={show} onBlur={hide}
         style={{ width: 12, height: 12, borderRadius: 99, border: `1px solid ${BDR}`, background: SURF, color: INK3, fontSize: 8, lineHeight: 1, padding: 0, cursor: "help", fontFamily: "inherit", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0, textTransform: "none" }}>i</button>
       {open && pos && (
-        <span role="tooltip" style={{ position: "fixed", ...pos, width: POP_W, boxSizing: "border-box", overflowY: "auto", zIndex: 100, background: INK, color: "#fff", borderRadius: 8, padding: "12px 14px", boxShadow: "0 4px 16px rgba(0,0,0,.25)", textAlign: "left", textTransform: "none", letterSpacing: "normal", fontWeight: 400, whiteSpace: "normal", fontFamily: BODY, userSelect: "text", cursor: "text" }}>
+        <span role="tooltip" style={{ position: "fixed", ...pos, width: POP_W, boxSizing: "border-box", overflowY: "auto", zIndex: 100, background: INK, color: ON_ACCENT, borderRadius: 8, padding: "12px 14px", boxShadow: "0 4px 16px rgba(0,0,0,.25)", textAlign: "left", textTransform: "none", letterSpacing: "normal", fontWeight: 400, whiteSpace: "normal", fontFamily: BODY, userSelect: "text", cursor: "text" }}>
           <span style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 6 }}>
             <span style={{ width: 6, height: 6, borderRadius: 99, background: KIND_COLOR[doc.kind] || INK3 }} />
-            <span style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em", color: "#a8c4e0" }}>{doc.kind}</span>
+            <span style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em", color: ON_DARK_2 }}>{doc.kind}</span>
           </span>
           <span style={{ display: "block", fontSize: 11, fontWeight: 600, marginBottom: 4 }}>{doc.title}</span>
           <Text>{doc.what}</Text>
@@ -87,9 +87,9 @@ function Info({ doc }) {
           <Text>{doc.formula}</Text>
           {doc.ids && <><Label>FullStory metric IDs</Label><IdList items={doc.ids} /></>}
           {doc.events && <><Label>Events / elements</Label><Text>{doc.events}</Text></>}
-          {doc.idsNote && <>{!doc.ids && <Label>FullStory</Label>}<Text color="#f5c58a">{doc.idsNote}</Text></>}
+          {doc.idsNote && <>{!doc.ids && <Label>FullStory</Label>}<Text color={AMBER_PALE}>{doc.idsNote}</Text></>}
           {doc.related && <><Label>{doc.relatedLabel || "Related saved metrics (unique users, not this count)"}</Label><IdList items={doc.related} /></>}
-          {doc.note && <span style={{ display: "block", marginTop: 8, paddingTop: 7, borderTop: "1px solid rgba(255,255,255,.15)", fontSize: 9, lineHeight: 1.5, color: "#8fa9c4" }}>{doc.note}</span>}
+          {doc.note && <span style={{ display: "block", marginTop: 8, paddingTop: 7, borderTop: "1px solid rgba(255,255,255,.15)", fontSize: 9, lineHeight: 1.5, color: ON_DARK_2 }}>{doc.note}</span>}
         </span>
       )}
     </span>
@@ -112,7 +112,7 @@ function Block({ band, children }) {
   return (
     <div style={{ display: "grid", gridTemplateColumns: "36px minmax(0, 1fr)", gap: 10 }}>
       <div style={{ background: BLUE_D, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <span style={{ writingMode: "vertical-rl", transform: "rotate(180deg)", color: "#fff", fontSize: 9, fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase" }}>{band}</span>
+        <span style={{ writingMode: "vertical-rl", transform: "rotate(180deg)", color: ON_ACCENT, fontSize: 9, fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase" }}>{band}</span>
       </div>
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "14px 6px 6px", minWidth: 0 }}>{children}</div>
     </div>
