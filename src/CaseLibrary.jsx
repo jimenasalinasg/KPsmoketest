@@ -12,14 +12,14 @@ const STATUS = {
 
 const fmtDate = (d) => new Date(`${d}T00:00:00Z`).toLocaleDateString("es", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
 
-function Pill({ active, onClick, children, count, ...rest }) {
+function Pill({ active, onClick, children, count, color = BLUE, icon, ...rest }) {
   return (
     <button type="button" onClick={onClick} aria-pressed={active} {...rest} style={{
       fontFamily: "inherit", fontSize: 11, padding: "6px 12px", borderRadius: 99,
-      border: `1px solid ${active ? BLUE : BDR_2}`, background: active ? BLUE : SURF, color: active ? ON_ACCENT : INK2,
+      border: `1px solid ${active ? color : BDR_2}`, background: active ? color : SURF, color: active ? ON_ACCENT : INK2,
       display: "inline-flex", alignItems: "center", gap: 6,
     }}>
-      {children}{count != null && <span style={{ fontVariantNumeric: "tabular-nums", opacity: active ? 1 : 0.85 }}>{count}</span>}
+      {icon && <span aria-hidden="true">{icon}</span>}{children}{count != null && <span style={{ fontVariantNumeric: "tabular-nums", opacity: active ? 1 : 0.85 }}>{count}</span>}
     </button>
   );
 }
@@ -29,10 +29,10 @@ function CaseCard({ c, hero }) {
   const st = STATUS[c.status] ?? STATUS.hipotesis;
   const evId = `ev-${c.id}`;
   return (
-    <article style={{ breakInside: "avoid", background: hero ? BLUE_L : SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: hero ? "20px 20px" : "16px 18px", marginBottom: 12 }}>
+    <article style={{ breakInside: "avoid", background: hero ? BLUE_L : SURF, border: `1px solid ${BDR}`, borderTop: `3px solid ${MODE_COLOR[c.tag] ?? BDR}`, borderRadius: 10, padding: hero ? "20px 20px" : "16px 18px", marginBottom: 12 }}>
       <p style={{ margin: 0, fontSize: hero ? 14 : 12, lineHeight: 1.55, color: INK }}>{c.title}</p>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, flexWrap: "wrap", marginTop: 12 }}>
-        <span style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: MODE_COLOR[c.tag] ?? INK2 }}>{MODES[c.tag]?.label ?? c.tag}</span>
+        <span style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: MODE_COLOR[c.tag] ?? INK2 }}><span aria-hidden="true" style={{ marginRight: 4 }}>{MODES[c.tag]?.icon}</span>{MODES[c.tag]?.label ?? c.tag}</span>
         <span style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", color: st.color, background: st.bg, borderRadius: 99, padding: "2px 8px" }}>{st.label}</span>
       </div>
       <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls={evId} style={{
@@ -60,6 +60,8 @@ export default function CaseLibrary() {
       key: k,
       label: groupBy === "modo" ? MODES[k].long : STATUS[k].label,
       short: groupBy === "modo" ? MODES[k].label : STATUS[k].label,
+      icon: groupBy === "modo" ? MODES[k].icon : null,
+      color: groupBy === "modo" ? MODE_COLOR[k] : STATUS[k].color,
       items: items.filter((c) => c[field] === k).sort((a, b) => (a.status === b.status ? b.date.localeCompare(a.date) : a.status === "confirmado" ? -1 : 1)),
     })).filter((g) => g.items.length);
   }, [groupBy, q]);
@@ -93,7 +95,7 @@ export default function CaseLibrary() {
         </div>
         <div role="group" aria-label="Filtrar" style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
           <Pill active={!filter} onClick={() => setFilter(null)} count={total}>Todos</Pill>
-          {groups.map((g) => <Pill key={g.key} active={filter === g.key} onClick={() => setFilter(g.key)} count={g.items.length}>{g.short}</Pill>)}
+          {groups.map((g) => <Pill key={g.key} active={filter === g.key} onClick={() => setFilter(g.key)} count={g.items.length} icon={g.icon} color={g.color}>{g.short}</Pill>)}
         </div>
       </section>
 
@@ -118,8 +120,8 @@ export default function CaseLibrary() {
 
       {shown.length ? shown.map((g) => (
         <section key={g.key} aria-labelledby={`kpl-${g.key}`}>
-          <div style={{ display: "flex", alignItems: "baseline", gap: 10, borderBottom: `1px solid ${BDR}`, paddingBottom: 8, marginBottom: 12 }}>
-            <h2 id={`kpl-${g.key}`} style={{ fontSize: 13, fontWeight: 600, color: groupBy === "modo" ? MODE_COLOR[g.key] : INK, margin: 0 }}>{g.label}</h2>
+          <div style={{ display: "flex", alignItems: "baseline", gap: 10, borderBottom: `2px solid ${g.color}`, paddingBottom: 8, marginBottom: 12 }}>
+            <h2 id={`kpl-${g.key}`} style={{ fontSize: 13, fontWeight: 600, color: g.color, margin: 0 }}>{g.icon && <span aria-hidden="true" style={{ marginRight: 6 }}>{g.icon}</span>}{g.label}</h2>
             <span style={{ fontSize: 10, color: INK3 }}>{g.items.length} {g.items.length === 1 ? "caso" : "casos"}</span>
           </div>
           <div className="kpl-grid">
