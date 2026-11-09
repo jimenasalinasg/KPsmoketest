@@ -2,6 +2,7 @@
 // (bloques mensuales de App + ledger + lecturas de FullStory documentadas). Sin valores inventados.
 import { useEffect, useMemo, useRef, useState } from "react";
 import { latestSnapshot, ledger } from "./data/ledgerView.js";
+import { SURF, BDR, INK, INK2, INK3, BLUE, BLUE_D } from "./theme.js";
 import {
   YEAR, ALL_MONTHS, MONTH_LABEL, MILESTONES, ORGANIC_USERS, SEGMENT_RULES,
   monthsInRange, sumCovered, fieldByMonth, pillRanking, featureRanking, loyalty, pct, fmt,
@@ -14,7 +15,7 @@ const esName = (n) => ES[n] ?? n;
 
 const C = {
   night: "#0B1033", paper: "#F2EFE6", lime: "#D4FF3A", coral: "#FF5A45", sun: "#FFC233",
-  cobalt: "#2D4BFF", mint: "#3FE0C5", violet: "#6B4EFF",
+  cobalt: "#2438E0", mint: "#3FE0C5", violet: "#4F2DE0",
 };
 
 // Cada historia es un campo de color plano con una sola tinta y un acento. Sin degradados ni manchas.
@@ -41,7 +42,7 @@ const mix = (v, p) => `color-mix(in srgb, var(${v}) ${p}%, transparent)`;
 const CSS = `
 .kpw{--pad:clamp(20px,5vw,72px);position:relative;height:calc(100dvh - 64px);overflow-y:auto;scroll-snap-type:y proximity;background:${C.night};font-family:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;font-variant-numeric:tabular-nums}
 .kpw *{box-sizing:border-box}
-.kpw-s{--dim:${mix("--ink", 74)};--faint:${mix("--ink", 54)};--line:${mix("--ink", 22)};--track:${mix("--ink", 10)};--track2:${mix("--ink", 26)};
+.kpw-s{--dim:${mix("--ink", 90)};--faint:${mix("--ink", 80)};--line:${mix("--ink", 22)};--track:${mix("--ink", 10)};--track2:${mix("--ink", 26)};
   position:relative;min-height:calc(100dvh - 64px);scroll-snap-align:start;padding:clamp(84px,12vh,120px) var(--pad) 120px;display:flex;flex-direction:column;justify-content:center;background:var(--bg);color:var(--ink)}
 .kpw-frame{position:absolute;top:22px;left:var(--pad);right:var(--pad);display:flex;justify-content:space-between;gap:16px;padding-bottom:10px;border-bottom:1px solid var(--line);font:500 11px/1 "DM Mono",ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
 .kpw-frame b{color:var(--ink);font-weight:500}
@@ -66,7 +67,7 @@ const CSS = `
 .kpw-navi{pointer-events:auto;transform:translateY(-58px);display:flex;align-items:center;gap:10px;background:${C.night};color:${C.paper};padding:6px 10px;outline:1px solid rgba(242,239,230,.18)}
 .kpw-btn{all:unset;cursor:pointer;width:32px;height:32px;display:grid;place-items:center;font:500 14px "DM Mono",monospace}
 .kpw-btn:hover,.kpw-btn:focus-visible{background:rgba(255,255,255,.12);outline:2px solid ${C.lime};outline-offset:1px}
-.kpw-btn[disabled]{opacity:.3;cursor:default}
+.kpw-btn[disabled]{opacity:.65;cursor:default}
 .kpw-dot{all:unset;cursor:pointer;width:8px;height:3px;background:rgba(242,239,230,.3);transition:background .3s,width .3s}
 .kpw-dot[aria-current="step"]{width:22px;background:${C.lime}}
 .kpw-dot:focus-visible{outline:2px solid ${C.lime};outline-offset:3px}
@@ -284,7 +285,7 @@ export default function KPWrapped({ months: monthRows }) {
         <div className="kpw-rise kpw-d2" style={{ display: "flex", flexWrap: "wrap", gap: "clamp(6px,1vw,10px)", alignItems: "center", marginTop: 26 }} aria-label="Países por personas">
           {COUNTRIES.rows.map((c, i) => {
             const size = 26 + Math.sqrt(c.users / COUNTRIES.rows[0].users) * 110;
-            return <span key={c.name} title={`${esName(c.name)}: ${c.users}`} style={{ width: size, height: size, borderRadius: "50%", display: "grid", placeItems: "center", textAlign: "center", padding: 4, fontSize: size > 70 ? 12 : 9, lineHeight: 1.1, color: i < 10 ? "var(--bg)" : "var(--ink)", background: i === 0 ? "var(--ink)" : i < 10 ? `color-mix(in srgb, var(--ink) ${82 - i * 4}%, transparent)` : "var(--track2)", overflow: "hidden" }}>{size > 46 ? <span>{esName(c.name)}<br /><b>{c.users}</b></span> : ""}</span>;
+            return <span key={c.name} title={`${esName(c.name)}: ${c.users}`} style={{ width: size, height: size, borderRadius: "50%", display: "grid", placeItems: "center", textAlign: "center", padding: 4, fontSize: size > 70 ? 12 : 9, lineHeight: 1.1, color: i < 10 ? "var(--bg)" : "var(--ink)", background: i < 10 ? "var(--ink)" : "var(--track2)", overflow: "hidden" }}>{size > 46 ? <span>{esName(c.name)}<br /><b>{c.users}</b></span> : ""}</span>;
           })}
         </div>
         <p className="kpw-note">Personas distintas por país, 1-ene → 3-nov (segmento Sin DEV, sitio de producción); no cambia con el rango. El país es el que detecta FullStory por la conexión: una VPN puede ubicar a alguien en otro país.</p>
@@ -321,7 +322,7 @@ export default function KPWrapped({ months: monthRows }) {
           <p className="kpw-p kpw-rise kpw-d2">Con {fmt(star.value)} visualizaciones, fue la protagonista de {YEAR}: {pct(star.share)} de todas las vistas de pills.</p>
           <ol style={{ listStyle: "none", padding: 0, margin: "30px 0 0", display: "grid", gap: 12 }}>
             {pills.rows.map((r, i) => (
-              <li key={r.name} className={`kpw-rise kpw-d${Math.min(i + 1, 4)}`} style={{ display: "grid", gridTemplateColumns: "34px 1fr auto", alignItems: "center", gap: 12, opacity: i < 3 ? 1 : .6 }}>
+              <li key={r.name} className={`kpw-rise kpw-d${Math.min(i + 1, 4)}`} style={{ display: "grid", gridTemplateColumns: "34px 1fr auto", alignItems: "center", gap: 12 }}>
                 <span style={{ font: "500 13px \"DM Mono\", monospace", color: i === 0 ? "var(--acc)" : "var(--faint)" }}>{String(i + 1).padStart(2, "0")}</span>
                 <span><span style={{ display: "block", fontSize: 15, marginBottom: 6 }}>{r.name}</span>
                   <span style={{ display: "block", height: 6, background: "var(--track)" }}><span className="kpw-bar" style={{ display: "block", "--w": `${(r.value / star.value) * 100}%`, "--acc": i === 0 ? "var(--acc)" : i < 3 ? "var(--ink)" : "var(--faint)" }} /></span></span>
@@ -535,24 +536,24 @@ export function GiftHint({ onOpen, onDismiss }) {
 
 const EGG_CSS = `
 .kpe-back{position:fixed;inset:0;z-index:1000;background:rgba(26,30,46,.45);display:grid;place-items:center;padding:20px;animation:kpefade .25s ease both}
-.kpe{position:relative;width:min(540px,100%);background:#fff;color:#1a1e2e;border:1px solid #e4e7f2;border-radius:12px;box-shadow:0 20px 50px rgba(26,30,46,.18);padding:clamp(26px,5vw,40px);font-family:"Inter Tight",system-ui,sans-serif;animation:kpeup .45s cubic-bezier(.2,.7,.2,1) both}
-.kpe-k{font:500 11px/1 "DM Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#8b93b8;display:flex;justify-content:space-between;border-bottom:1px solid #e4e7f2;padding-bottom:10px}
-.kpe h2{font-weight:800;letter-spacing:-.035em;line-height:.95;font-size:clamp(32px,6vw,48px);margin:20px 0 12px;color:#1a1e2e}
-.kpe p{font-size:16px;line-height:1.5;margin:0 0 24px;max-width:42ch;color:#3d4460}
+.kpe{position:relative;width:min(540px,100%);background:${SURF};color:${INK};border:1px solid ${BDR};border-radius:12px;box-shadow:0 20px 50px rgba(26,30,46,.18);padding:clamp(26px,5vw,40px);font-family:"Inter Tight",system-ui,sans-serif;animation:kpeup .45s cubic-bezier(.2,.7,.2,1) both}
+.kpe-k{font:500 11px/1 "DM Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:${INK3};display:flex;justify-content:space-between;border-bottom:1px solid ${BDR};padding-bottom:10px}
+.kpe h2{font-weight:800;letter-spacing:-.035em;line-height:.95;font-size:clamp(32px,6vw,48px);margin:20px 0 12px;color:${INK}}
+.kpe p{font-size:16px;line-height:1.5;margin:0 0 24px;max-width:42ch;color:${INK2}}
 .kpe-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.kpe-go{all:unset;cursor:pointer;background:#2c6cb5;color:#fff;border-radius:7px;font:600 14px "Inter Tight",system-ui,sans-serif;padding:12px 18px}.kpe-go:hover{background:#245a98}
-.kpe-go:focus-visible,.kpe-x:focus-visible{outline:2px solid #4a90e2;outline-offset:3px}
-.kpe-x{all:unset;cursor:pointer;font:500 12px "DM Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:#8b93b8;padding:12px 6px}.kpe-x:hover{color:#1a1e2e}
+.kpe-go{all:unset;cursor:pointer;background:${BLUE};color:${SURF};border-radius:7px;font:600 14px "Inter Tight",system-ui,sans-serif;padding:12px 18px}.kpe-go:hover{background:${BLUE_D}}
+.kpe-go:focus-visible,.kpe-x:focus-visible{outline:2px solid ${BLUE};outline-offset:3px}
+.kpe-x{all:unset;cursor:pointer;font:500 12px "DM Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:${INK3};padding:12px 6px}.kpe-x:hover{color:${INK}}
 .kpe-gift{position:absolute;top:-22px;right:28px;font-size:40px;line-height:1}
 @keyframes kpefade{from{opacity:0}to{opacity:1}}
 @keyframes kpeup{from{transform:translateY(30px) scale(.97);opacity:0}to{transform:none;opacity:1}}
 @keyframes kpebob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-8px) rotate(6deg)}}
-.kpe-hint{position:fixed;right:20px;bottom:20px;z-index:900;display:flex;align-items:stretch;background:#fff;color:#1a1e2e;border:1px solid #e4e7f2;border-radius:8px;font-family:"DM Mono",ui-monospace,monospace;box-shadow:0 6px 20px rgba(26,30,46,.10);animation:kpeup .45s cubic-bezier(.2,.7,.2,1) both}
-.kpe-hint-go{all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;padding:11px 14px;font-size:12px;color:#3d4460}
-.kpe-hint-go b{font-weight:500;color:#1a1e2e}.kpe-hint-go:hover b{color:#2c6cb5;text-decoration:underline;text-underline-offset:3px}
+.kpe-hint{position:fixed;right:20px;bottom:20px;z-index:900;display:flex;align-items:stretch;background:${SURF};color:${INK};border:1px solid ${BDR};border-radius:8px;font-family:"DM Mono",ui-monospace,monospace;box-shadow:0 6px 20px rgba(26,30,46,.10);animation:kpeup .45s cubic-bezier(.2,.7,.2,1) both}
+.kpe-hint-go{all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;padding:11px 14px;font-size:12px;color:${INK2}}
+.kpe-hint-go b{font-weight:500;color:${INK}}.kpe-hint-go:hover b{color:${BLUE};text-decoration:underline;text-underline-offset:3px}
 .kpe-hint-gift{font-size:16px;display:inline-block}
-.kpe-hint-x{all:unset;cursor:pointer;padding:0 12px;font:400 16px/1 "DM Mono",monospace;color:#8b93b8;border-left:1px solid #e4e7f2;display:grid;place-items:center}
-.kpe-hint-go:focus-visible,.kpe-hint-x:focus-visible{outline:2px solid #4a90e2;outline-offset:-2px;border-radius:6px}
+.kpe-hint-x{all:unset;cursor:pointer;padding:0 12px;font:400 16px/1 "DM Mono",monospace;color:${INK3};border-left:1px solid ${BDR};display:grid;place-items:center}
+.kpe-hint-go:focus-visible,.kpe-hint-x:focus-visible{outline:2px solid ${BLUE};outline-offset:-2px;border-radius:6px}
 @media (max-width:520px){.kpe-hint{left:12px;right:12px;bottom:12px}}
 @media (prefers-reduced-motion: reduce){.kpe-back,.kpe,.kpe-gift,.kpe-hint,.kpe-hint-gift{animation:none}}
 `;
