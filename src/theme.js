@@ -10,7 +10,7 @@
 // Superficies y texto
 export const BG = "#f7f8fb";
 export const SURF = "#ffffff";
-export const BDR = "#e4e7f2";
+export const BDR = "#e8ebf2";
 export const BDR_2 = "#cbd5e1";
 export const INK = "#1a1e2e";
 export const INK2 = "#3d4460";
@@ -62,3 +62,4 @@ export const T = { micro: 11, xs: 12, sm: 13, md: 14, base: 15, lg: 16, xl: 18, 
 // Radios: chip (pastilla), sm (badges), md (controles), lg (tarjetas/paneles)
 export const R = { sm: 4, md: 8, lg: 10, pill: 99 };
 export const PAGE_W = 1000;                                                  // ancho máximo de contenido en todas las pestañas
+export const SHADOW = "0 1px 2px rgba(16,24,40,.04), 0 1px 3px rgba(16,24,40,.06)"; // elevación suave de tarjetas

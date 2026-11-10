@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import ledgerCsv from "../data/kp_ledger.csv?raw";
 import { ledger, SEGMENT_NAME, ledgerSum, baseline, latestSnapshot } from "./data/ledgerView.js";
 import { buildDocs } from "./data/metricDocs.js";
-import { BLUE, BLUE_D, BLUE_L, BLUE_M, GREEN, AMBER, SURF, BDR, INK, INK2, INK3, AMBER_PALE, ON_ACCENT, ON_DARK, ON_DARK_2, FONT, T, R, PAGE_W } from "./theme.js";
+import { BLUE, BLUE_D, BLUE_L, BLUE_M, GREEN, AMBER, SURF, BDR, INK, INK2, INK3, AMBER_PALE, ON_ACCENT, ON_DARK, ON_DARK_2, FONT, T, R, PAGE_W, SHADOW } from "./theme.js";
 
 const TOTAL_STAFF = 7287;                 // IDB staff + consultores: divisor de la penetracion (no esta en el ledger)
 const MOST_USED_PILL = "Lessons Learned"; // HISTORICO (misma ventana que el ledger), de Fullstory (rhTcgj1srgne, PJyiZSAt3EXH, eCemfOCLh5qU, w0ktk3sF3v3I), 2025-10-01 a 2026-10-12: LL 381 > SP 369 > Lit 187 > Data 78. No esta en el ledger: recomputar con la ventana completa en cada cierre
@@ -29,7 +29,7 @@ function downloadCsv() {
 }
 
 const SectionLabel = ({ children }) => (
-  <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>{children}</div>
+  <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.04em", color: INK2, fontWeight: 500, marginBottom: -8 }}>{children}</div>
 );
 
 const rowNote = (metric) => ledger.rows.find((r) => r.metric === metric)?.note ?? "";
@@ -63,7 +63,7 @@ function Info({ doc }) {
     return () => { document.removeEventListener("keydown", onKey); document.removeEventListener("pointerdown", onAway); window.removeEventListener("scroll", close, true); };
   }, [open]);
   if (!doc) return null;
-  const Label = ({ children }) => <span style={{ display: "block", fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.08em", color: ON_DARK_2, margin: "8px 0 2px" }}>{children}</span>;
+  const Label = ({ children }) => <span style={{ display: "block", fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: ON_DARK_2, margin: "8px 0 2px" }}>{children}</span>;
   const Text = ({ children, color }) => <span style={{ display: "block", fontSize: T.xs, lineHeight: 1.5, color: color || ON_DARK }}>{children}</span>;
   const IdList = ({ items }) => items.map(([id, label]) => (
     <span key={id} style={{ display: "block", fontSize: T.micro, lineHeight: 1.45, color: ON_DARK_2, marginBottom: 3 }}>
@@ -79,7 +79,7 @@ function Info({ doc }) {
         <span role="tooltip" style={{ position: "fixed", ...pos, width: POP_W, boxSizing: "border-box", overflowY: "auto", zIndex: 100, background: INK, color: ON_ACCENT, borderRadius: R.md, padding: "12px 14px", boxShadow: "0 4px 16px rgba(0,0,0,.25)", textAlign: "left", textTransform: "none", letterSpacing: "normal", fontWeight: 400, whiteSpace: "normal", fontFamily: BODY, userSelect: "text", cursor: "text" }}>
           <span style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 6 }}>
             <span style={{ width: 6, height: 6, borderRadius: R.pill, background: KIND_COLOR[doc.kind] || INK3 }} />
-            <span style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.08em", color: ON_DARK_2 }}>{doc.kind}</span>
+            <span style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: ON_DARK_2 }}>{doc.kind}</span>
           </span>
           <span style={{ display: "block", fontSize: T.sm, fontWeight: 600, marginBottom: 4 }}>{doc.title}</span>
           <Text>{doc.what}</Text>
@@ -99,7 +99,7 @@ function Info({ doc }) {
 function Kpi({ label, sub, value, note, warn, small, first, doc }) {
   return (
     <div style={{ padding: "4px 16px 12px", borderLeft: first ? "none" : `1px solid ${BDR}`, minWidth: 0 }}>
-      <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, display: "flex", alignItems: "center", gap: 5 }}><span>{label}</span><Info doc={doc} /></div>
+      <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: INK3, display: "flex", alignItems: "center", gap: 5 }}><span>{label}</span><Info doc={doc} /></div>
       {sub && <div style={{ fontSize: T.micro, color: INK3, marginTop: 2 }}>{sub}</div>}
       <div style={{ fontSize: small ? 22 : 30, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1.1, marginTop: 6 }}>{value}</div>
       {note && <div style={{ fontSize: T.micro, color: warn ? AMBER : INK3, marginTop: 6, lineHeight: 1.4 }}>{note}</div>}
@@ -112,9 +112,9 @@ function Block({ band, children }) {
   return (
     <div style={{ display: "grid", gridTemplateColumns: "36px minmax(0, 1fr)", gap: 10 }}>
       <div style={{ background: BLUE_D, borderRadius: R.md, display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <span style={{ writingMode: "vertical-rl", transform: "rotate(180deg)", color: ON_ACCENT, fontSize: T.micro, fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase" }}>{band}</span>
+        <span style={{ writingMode: "vertical-rl", transform: "rotate(180deg)", color: ON_ACCENT, fontSize: T.micro, fontWeight: 500, letterSpacing: "0.04em", textTransform: "uppercase" }}>{band}</span>
       </div>
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "14px 6px 6px", minWidth: 0 }}>{children}</div>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, boxShadow: SHADOW, padding: "14px 6px 6px", minWidth: 0 }}>{children}</div>
     </div>
   );
 }
@@ -179,8 +179,8 @@ export default function UsabilityMetrics() {
     <div style={{ maxWidth: PAGE_W, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 12, flexWrap: "wrap" }}>
         <div>
-          <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Usability metrics</div>
-          <div style={{ fontSize: T.h2, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{tenths} in 10 users return within two weeks</div>
+          <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.04em", color: INK3, marginBottom: 4 }}>Usability metrics</div>
+          <div style={{ fontSize: T.h2, fontWeight: 600, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{tenths} in 10 users return within two weeks</div>
           <div style={{ fontSize: T.sm, color: INK3 }}>Insight into how users are accessing and engaging with Knowledge Platform · {monthLabel(first)} – {monthLabel(last)} · excl. internal team (DEV)</div>
         </div>
         <button onClick={downloadCsv}
@@ -227,7 +227,7 @@ export default function UsabilityMetrics() {
       </Block>
 
       <SectionLabel>Monthly history</SectionLabel>
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 20px" }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, boxShadow: SHADOW, padding: "16px 20px" }}>
         <p style={{ ...small, fontSize: T.sm, color: INK2, margin: "0 0 12px" }}>
           One row per month, summed for the totals. Single-month windows are not affected by FullStory's ~12-month retention. Every event metric uses the {SEGMENT_NAME} segment.
         </p>
