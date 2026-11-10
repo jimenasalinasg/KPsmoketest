@@ -4533,8 +4533,8 @@ function OctoberMonthly() {
 
       <div style={{ marginBottom: 8, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
         <div>
-        <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.04em", color: INK3, marginBottom: 4 }}>Monthly Report — October</div>
-        <div style={{ fontSize: T.h2, fontWeight: 600, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>October 2026 — Oct 1–{day}</div>
+        <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.04em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
+        <div style={{ fontSize: T.h2, fontWeight: 600, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>October 2026</div>
         <div style={{ fontSize: T.sm, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (segment Sin DEV) and the ledger · FullStory data through {through} (full month) · closed Nov 4 with console data, retention and the full qualitative sweep</div>
         </div>
         <button
