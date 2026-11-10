@@ -53,3 +53,12 @@ export const AMBER_INK = "#92400e";
 export const PURPLE = "#6a4bb3";
 export const PURPLE_L = "#9b7cc7";
 export const BROWN = "#b06e2f";
+
+// ── Mini design system: tipografía, escala y radios (compartidos por todas las pestañas salvo KP Wrapped) ──
+export const FONT = "'Inter Tight', system-ui, -apple-system, 'Segoe UI', sans-serif"; // texto de lectura y UI
+export const FONT_MONO = "'DM Mono', ui-monospace, monospace";                          // solo cifras/código puntuales
+// Escala tipográfica (px). Mínimo legible 11.
+export const T = { micro: 11, xs: 12, sm: 13, md: 14, base: 15, lg: 16, xl: 18, h3: 20, h2: 22, h1: 26, kpi: 28, display: 34 };
+// Radios: chip (pastilla), sm (badges), md (controles), lg (tarjetas/paneles)
+export const R = { sm: 4, md: 8, lg: 10, pill: 99 };
+export const PAGE_W = 1000;                                                  // ancho máximo de contenido en todas las pestañas

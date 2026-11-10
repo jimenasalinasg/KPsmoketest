@@ -10,8 +10,7 @@ import shotOct from "./assets/session-s09-oct2026.png";
 
 
 import {
-  AMBER, AMBER_INK, AMBER_L, AMBER_M, AMBER_PALE, BDR, BDR_2, BG, BLUE, BLUE_D, BLUE_DEEP, BLUE_L, BLUE_M, BLUE_PALE, BLUE_SOFT, BLUE_SOFT_2, BROWN, GREEN, GREEN_2, GREEN_INK, GREEN_L, GREEN_M, INK, INK2, INK3, NAVY, NAVY_2, ON_ACCENT, ON_DARK, ON_DARK_2, PURPLE, PURPLE_L, RED, RED_INK, RED_INK_2, RED_L, RED_M, RED_M_2, SURF,
-} from "./theme.js";
+  AMBER, AMBER_INK, AMBER_L, AMBER_M, AMBER_PALE, BDR, BDR_2, BG, BLUE, BLUE_D, BLUE_DEEP, BLUE_L, BLUE_M, BLUE_PALE, BLUE_SOFT, BLUE_SOFT_2, BROWN, GREEN, GREEN_2, GREEN_INK, GREEN_L, GREEN_M, INK, INK2, INK3, NAVY, NAVY_2, ON_ACCENT, ON_DARK, ON_DARK_2, PURPLE, PURPLE_L, RED, RED_INK, RED_INK_2, RED_L, RED_M, RED_M_2, SURF, FONT, T, R, PAGE_W } from "./theme.js";
 
 // ── ESTILOS DE ACCESIBILIDAD COMPARTIDOS ───────────────────
 // Foco visible para teclado en todo control (no se dibuja con mouse gracias a :focus-visible),
@@ -54,11 +53,11 @@ function PasswordGate({ children }) {
   };
 
   return (
-    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: BG, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: BG, fontFamily: FONT }}>
       <style>{A11Y_CSS}</style>
-      <form onSubmit={submit} style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 12, padding: "32px 28px", width: 300, boxShadow: "0 8px 24px rgba(10,35,66,0.08)" }}>
-        <div style={{ fontSize: 13, fontWeight: 600, color: INK, marginBottom: 4 }}>IDB Knowledge Platform</div>
-        <div style={{ fontSize: 11, color: INK3, marginBottom: 18 }}>Post Go-live Key Metrics — restricted</div>
+      <form onSubmit={submit} style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "32px 28px", width: 300, boxShadow: "0 8px 24px rgba(10,35,66,0.08)" }}>
+        <div style={{ fontSize: T.base, fontWeight: 600, color: INK, marginBottom: 4 }}>IDB Knowledge Platform</div>
+        <div style={{ fontSize: T.sm, color: INK3, marginBottom: 18 }}>Post Go-live Key Metrics — restricted</div>
         <input
           type="password"
           autoFocus
@@ -68,10 +67,10 @@ function PasswordGate({ children }) {
           aria-label="Password"
           aria-invalid={error || undefined}
           aria-describedby={error ? "gate-error" : undefined}
-          style={{ width: "100%", boxSizing: "border-box", fontFamily: "inherit", fontSize: 13, padding: "9px 12px", border: `1px solid ${error ? RED : BDR_2}`, borderRadius: 7, marginBottom: 10 }}
+          style={{ width: "100%", boxSizing: "border-box", fontFamily: "inherit", fontSize: T.base, padding: "9px 12px", border: `1px solid ${error ? RED : BDR_2}`, borderRadius: R.md, marginBottom: 10 }}
         />
-        {error && <div id="gate-error" role="alert" style={{ fontSize: 11, color: RED, marginBottom: 10 }}>Contraseña incorrecta.</div>}
-        <button type="submit" style={{ width: "100%", fontFamily: "inherit", fontSize: 12, fontWeight: 600, padding: "10px 12px", border: "none", borderRadius: 7, cursor: "pointer", background: BLUE, color: ON_ACCENT }}>
+        {error && <div id="gate-error" role="alert" style={{ fontSize: T.sm, color: RED, marginBottom: 10 }}>Contraseña incorrecta.</div>}
+        <button type="submit" style={{ width: "100%", fontFamily: "inherit", fontSize: T.md, fontWeight: 600, padding: "10px 12px", border: "none", borderRadius: R.md, cursor: "pointer", background: BLUE, color: ON_ACCENT }}>
           Entrar
         </button>
       </form>
@@ -230,7 +229,7 @@ function fmt(n) { return n != null ? n.toLocaleString() : null; }
 // ── PLACEHOLDER ───────────────────────────────────────────
 function Placeholder({ label }) {
   return (
-    <span style={{ color: BDR, fontSize: 11, fontStyle: "italic" }}>
+    <span style={{ color: BDR, fontSize: T.sm, fontStyle: "italic" }}>
       {label || "pending data"}
     </span>
   );
@@ -239,16 +238,16 @@ function Placeholder({ label }) {
 // ── STATUS BADGE ──────────────────────────────────────────
 function StatusBadge({ value }) {
   if (value === null) return (
-    <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 99, background: BG, color: INK3, border: `1px dashed ${BDR}`, fontWeight: 500 }}>
+    <span style={{ fontSize: T.sm, padding: "3px 10px", borderRadius: R.pill, background: BG, color: INK3, border: `1px dashed ${BDR}`, fontWeight: 500 }}>
       — pending
     </span>
   );
   return value ? (
-    <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 99, background: GREEN_L, color: GREEN, fontWeight: 500 }}>
+    <span style={{ fontSize: T.sm, padding: "3px 10px", borderRadius: R.pill, background: GREEN_L, color: GREEN, fontWeight: 500 }}>
       ✓ confirmed
     </span>
   ) : (
-    <span style={{ fontSize: 11, padding: "3px 10px", borderRadius: 99, background: RED_L, color: RED, fontWeight: 500 }}>
+    <span style={{ fontSize: T.sm, padding: "3px 10px", borderRadius: R.pill, background: RED_L, color: RED, fontWeight: 500 }}>
       ✗ issue
     </span>
   );
@@ -309,21 +308,21 @@ function MetricCard({ label, value, desc, invert = false, bench }) {
   }
 
   return (
-    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
-      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9 }}>{label}</div>
-      <div style={{ fontSize: 30, fontWeight: 500, color: hasValue ? INK : BDR, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>
+    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "18px 20px" }}>
+      <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9 }}>{label}</div>
+      <div style={{ fontSize: T.kpi, fontWeight: 500, color: hasValue ? INK : BDR, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>
         {hasValue ? value : "—"}
       </div>
-      {!hasValue && <div style={{ fontSize: 10, color: INK3, fontStyle: "italic" }}>pending data</div>}
-      {desc && hasValue && <div style={{ fontSize: 10, color: INK3, marginTop: 5, lineHeight: 1.5 }}>{desc}</div>}
+      {!hasValue && <div style={{ fontSize: T.xs, color: INK3, fontStyle: "italic" }}>pending data</div>}
+      {desc && hasValue && <div style={{ fontSize: T.xs, color: INK3, marginTop: 5, lineHeight: 1.5 }}>{desc}</div>}
       {badge && (
         <div style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 6 }}>
           <span style={{
-            fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99,
+            fontSize: T.micro, fontWeight: 600, padding: "2px 7px", borderRadius: R.pill,
             background: badge.isGood ? GREEN_L : RED_L,
             color: badge.isGood ? GREEN : RED,
           }}>{badge.label} vs organic avg</span>
-          <span style={{ fontSize: 9, color: INK3 }}>({badge.bench})</span>
+          <span style={{ fontSize: T.micro, color: INK3 }}>({badge.bench})</span>
         </div>
       )}
     </div>
@@ -335,23 +334,23 @@ function PenetrationBar({ users }) {
   const hasData = users != null;
   const pct = hasData ? ((users / BID_TOTAL) * 100).toFixed(1) : 0;
   return (
-    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px", marginBottom: 16 }}>
+    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 20px", marginBottom: 16 }}>
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10, flexWrap: "wrap", gap: 4 }}>
-        <span style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3 }}>
+        <span style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3 }}>
           Penetración — Staff & Consultores IDB
         </span>
-        <span style={{ fontSize: 9, color: INK3 }}>
+        <span style={{ fontSize: T.micro, color: INK3 }}>
           {hasData ? `${users.toLocaleString()} de ${BID_TOTAL.toLocaleString()}` : `— de ${BID_TOTAL.toLocaleString()}`}
         </span>
       </div>
-      <div style={{ background: BG, borderRadius: 99, height: 8, overflow: "hidden", marginBottom: 8 }}>
-        <div style={{ height: "100%", width: `${pct}%`, background: BLUE, borderRadius: 99, transition: "width 0.4s ease" }} />
+      <div style={{ background: BG, borderRadius: R.pill, height: 8, overflow: "hidden", marginBottom: 8 }}>
+        <div style={{ height: "100%", width: `${pct}%`, background: BLUE, borderRadius: R.pill, transition: "width 0.4s ease" }} />
       </div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <span style={{ fontSize: 12, fontWeight: 500, color: hasData ? BLUE_D : INK3 }}>
+        <span style={{ fontSize: T.md, fontWeight: 500, color: hasData ? BLUE_D : INK3 }}>
           {hasData ? `${pct}% del universo objetivo` : "pending data"}
         </span>
-        <span style={{ fontSize: 10, color: AMBER }}>🚀 Go-live: {GO_LIVE_DATE}</span>
+        <span style={{ fontSize: T.xs, color: AMBER }}>🚀 Go-live: {GO_LIVE_DATE}</span>
       </div>
     </div>
   );
@@ -371,35 +370,35 @@ function SmokeTest() {
   const isPending = checks.some(c => c.value === null);
 
   return (
-    <div style={{ maxWidth: 860, margin: "0 auto", padding: "28px 16px 56px" }}>
+    <div style={{ maxWidth: PAGE_W, margin: "0 auto", padding: "28px 16px 56px" }}>
 
       {/* Status banner */}
       <div style={{
-        borderRadius: 10, padding: "14px 20px", marginBottom: 24,
+        borderRadius: R.lg, padding: "14px 20px", marginBottom: 24,
         background: allConfirmed ? GREEN_L : hasIssue ? RED_L : AMBER_L,
         border: `1px solid ${allConfirmed ? GREEN_M : hasIssue ? RED_M : AMBER_M}`,
         display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap",
       }}>
-        <span style={{ fontSize: 20 }}>{allConfirmed ? "✅" : hasIssue ? "🚨" : "⏳"}</span>
+        <span style={{ fontSize: T.h3 }}>{allConfirmed ? "✅" : hasIssue ? "🚨" : "⏳"}</span>
         <div>
-          <div style={{ fontSize: 13, fontWeight: 500, color: allConfirmed ? GREEN : hasIssue ? RED : AMBER }}>
+          <div style={{ fontSize: T.base, fontWeight: 500, color: allConfirmed ? GREEN : hasIssue ? RED : AMBER }}>
             {allConfirmed ? "Smoke test passed — medición OK" : hasIssue ? "Issues detectados — revisar antes de continuar" : "Smoke test en progreso — datos pendientes"}
           </div>
-          <div style={{ fontSize: 10, color: INK3, marginTop: 2 }}>
+          <div style={{ fontSize: T.xs, color: INK3, marginTop: 2 }}>
             Go-live: {GO_LIVE_DATE} · Ventana de validación: {SMOKE_WINDOW}
           </div>
         </div>
       </div>
 
       {/* Checklist */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "20px 22px", marginBottom: 16 }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 16 }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "20px 22px", marginBottom: 16 }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 16 }}>
           Checklist de validación técnica
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {checks.map((c, i) => (
-            <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "10px 14px", background: BG, borderRadius: 8 }}>
-              <span style={{ fontSize: 12, color: INK2 }}>{c.label}</span>
+            <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "10px 14px", background: BG, borderRadius: R.md }}>
+              <span style={{ fontSize: T.md, color: INK2 }}>{c.label}</span>
               <StatusBadge value={c.value} />
             </div>
           ))}
@@ -407,8 +406,8 @@ function SmokeTest() {
       </div>
 
       {/* First numbers */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "20px 22px", marginBottom: 16 }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 16 }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "20px 22px", marginBottom: 16 }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 16 }}>
           Primeros números (48h)
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: 10 }}>
@@ -424,9 +423,9 @@ function SmokeTest() {
             { label: "Rage clicks", val: SMOKE.rageclicksCount, color: SMOKE.rageclicksCount === 0 ? GREEN : RED },
             { label: "Tour completion", val: SMOKE.tourCompletion != null ? `${SMOKE.tourCompletion}%` : null, color: INK },
           ].map((m, i) => (
-            <div key={i} style={{ textAlign: "center", padding: "14px 10px", background: BG, borderRadius: 8 }}>
-              <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: INK3, marginBottom: 8 }}>{m.label}</div>
-              <div style={{ fontSize: 22, fontWeight: 500, color: m.val != null ? m.color : BDR }}>
+            <div key={i} style={{ textAlign: "center", padding: "14px 10px", background: BG, borderRadius: R.md }}>
+              <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.08em", color: INK3, marginBottom: 8 }}>{m.label}</div>
+              <div style={{ fontSize: T.h2, fontWeight: 500, color: m.val != null ? m.color : BDR }}>
                 {m.val != null ? m.val : "—"}
               </div>
             </div>
@@ -436,27 +435,27 @@ function SmokeTest() {
 
       {/* Knowledge categories */}
       {(SMOKE.pillTop || SMOKE.pillBot) && (
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", marginBottom: 16 }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 14 }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "18px 20px", marginBottom: 16 }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 14 }}>
             Knowledge Categories (48h)
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {SMOKE.pillTop && (
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 14px", background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8 }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 14px", background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.md }}>
                 <div>
-                  <div style={{ fontSize: 9, textTransform: "uppercase", color: BLUE_D, marginBottom: 3 }}>Most accessed</div>
-                  <div style={{ fontSize: 13, fontWeight: 500, color: BLUE_D }}>{SMOKE.pillTop.replace(/\s*\(\d+\)$/, '')}</div>
+                  <div style={{ fontSize: T.micro, textTransform: "uppercase", color: BLUE_D, marginBottom: 3 }}>Most accessed</div>
+                  <div style={{ fontSize: T.base, fontWeight: 500, color: BLUE_D }}>{SMOKE.pillTop.replace(/\s*\(\d+\)$/, '')}</div>
                 </div>
-                <span style={{ fontSize: 12, fontWeight: 500, color: BLUE_D }}>{SMOKE.pillTop.match(/\((\d+)\)/)?.[1]} interactions</span>
+                <span style={{ fontSize: T.md, fontWeight: 500, color: BLUE_D }}>{SMOKE.pillTop.match(/\((\d+)\)/)?.[1]} interactions</span>
               </div>
             )}
             {SMOKE.pillBot && (
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 14px", background: BG, border: `1px solid ${BDR}`, borderRadius: 8 }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 14px", background: BG, border: `1px solid ${BDR}`, borderRadius: R.md }}>
                 <div>
-                  <div style={{ fontSize: 9, textTransform: "uppercase", color: INK3, marginBottom: 3 }}>Least accessed</div>
-                  <div style={{ fontSize: 13, fontWeight: 500, color: INK2 }}>{SMOKE.pillBot.replace(/\s*\(\d+\)$/, '')}</div>
+                  <div style={{ fontSize: T.micro, textTransform: "uppercase", color: INK3, marginBottom: 3 }}>Least accessed</div>
+                  <div style={{ fontSize: T.base, fontWeight: 500, color: INK2 }}>{SMOKE.pillBot.replace(/\s*\(\d+\)$/, '')}</div>
                 </div>
-                <span style={{ fontSize: 12, fontWeight: 500, color: INK3 }}>{SMOKE.pillBot.match(/\((\d+)\)/)?.[1]} interactions</span>
+                <span style={{ fontSize: T.md, fontWeight: 500, color: INK3 }}>{SMOKE.pillBot.match(/\((\d+)\)/)?.[1]} interactions</span>
               </div>
             )}
           </div>
@@ -465,9 +464,9 @@ function SmokeTest() {
 
       {/* Notes */}
       {SMOKE.notes && (
-        <div style={{ background: AMBER_L, border: `1px solid ${AMBER_M}`, borderRadius: 10, padding: "14px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: AMBER, marginBottom: 6 }}>Observación</div>
-          <div style={{ fontSize: 12, color: INK2, lineHeight: 1.6 }}>{SMOKE.notes}</div>
+        <div style={{ background: AMBER_L, border: `1px solid ${AMBER_M}`, borderRadius: R.lg, padding: "14px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: AMBER, marginBottom: 6 }}>Observación</div>
+          <div style={{ fontSize: T.md, color: INK2, lineHeight: 1.6 }}>{SMOKE.notes}</div>
         </div>
       )}
     </div>
@@ -492,51 +491,51 @@ function GeoMap({ data }) {
   const outsidePct = Math.round((outsideHQ / totalUsers) * 100);
 
   return (
-    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", marginBottom: 16 }}>
-      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>
+    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "18px 20px", marginBottom: 16 }}>
+      <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>
         Geographic Reach — Users by Country
       </div>
-      <div style={{ fontSize: 10, color: INK3, marginBottom: 16 }}>
+      <div style={{ fontSize: T.xs, color: INK3, marginBottom: 16 }}>
         {totalUsers} users · {countries.length} countries · {data.window}
       </div>
 
       {/* HQ callout */}
-      <div style={{ background: BLUE_DEEP, borderRadius: 8, padding: "12px 16px", marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ background: BLUE_DEEP, borderRadius: R.md, padding: "12px 16px", marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <span style={{ fontSize: 22 }}>{flag("US")}</span>
+          <span style={{ fontSize: T.h2 }}>{flag("US")}</span>
           <div>
-            <div style={{ fontSize: 12, fontWeight: 600, color: ON_ACCENT }}>United States (HQ)</div>
-            <div style={{ fontSize: 10, color: ON_DARK_2 }}>{usData?.users} users</div>
+            <div style={{ fontSize: T.md, fontWeight: 600, color: ON_ACCENT }}>United States (HQ)</div>
+            <div style={{ fontSize: T.xs, color: ON_DARK_2 }}>{usData?.users} users</div>
           </div>
         </div>
         <div style={{ textAlign: "right" }}>
-          <div style={{ fontSize: 22, fontWeight: 700, color: ON_ACCENT, letterSpacing: "-0.02em" }}>{usData?.pct}%</div>
-          <div style={{ fontSize: 9, color: ON_DARK_2 }}>of total</div>
+          <div style={{ fontSize: T.h2, fontWeight: 700, color: ON_ACCENT, letterSpacing: "-0.02em" }}>{usData?.pct}%</div>
+          <div style={{ fontSize: T.micro, color: ON_DARK_2 }}>of total</div>
         </div>
-        <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: 99, height: 8, width: 120, overflow: "hidden" }}>
-          <div style={{ width: `${usData?.pct}%`, height: "100%", background: ON_ACCENT, borderRadius: 99 }} />
+        <div style={{ background: "rgba(255,255,255,0.15)", borderRadius: R.pill, height: 8, width: 120, overflow: "hidden" }}>
+          <div style={{ width: `${usData?.pct}%`, height: "100%", background: ON_ACCENT, borderRadius: R.pill }} />
         </div>
       </div>
 
       {/* Regional bar chart */}
-      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: INK3, marginBottom: 12 }}>
+      <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.08em", color: INK3, marginBottom: 12 }}>
         Regional breakdown (excl. HQ)
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
         {regional.map((c, i) => (
           <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <span style={{ fontSize: 18, flexShrink: 0, width: 26, textAlign: "center" }}>{flag(c.code)}</span>
+            <span style={{ fontSize: T.xl, flexShrink: 0, width: 26, textAlign: "center" }}>{flag(c.code)}</span>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-                <span style={{ fontSize: 11, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
-                <span style={{ fontSize: 11, color: INK3, flexShrink: 0, marginLeft: 8, fontVariantNumeric: "tabular-nums" }}>{c.users}</span>
+                <span style={{ fontSize: T.sm, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
+                <span style={{ fontSize: T.sm, color: INK3, flexShrink: 0, marginLeft: 8, fontVariantNumeric: "tabular-nums" }}>{c.users}</span>
               </div>
-              <div style={{ background: BG, borderRadius: 99, height: 5, overflow: "hidden" }}>
+              <div style={{ background: BG, borderRadius: R.pill, height: 5, overflow: "hidden" }}>
                 <div style={{
                   width: `${(c.users / maxUsers) * 100}%`,
                   height: "100%",
                   background: c.users >= 20 ? BLUE_DEEP : c.users >= 10 ? BLUE_D : c.users >= 5 ? BLUE : BLUE_SOFT,
-                  borderRadius: 99,
+                  borderRadius: R.pill,
                 }} />
               </div>
             </div>
@@ -545,14 +544,14 @@ function GeoMap({ data }) {
       </div>
 
       {/* Summary */}
-      <div style={{ marginTop: 16, padding: "10px 14px", background: BLUE_L, borderRadius: 8, border: `1px solid ${BLUE_M}`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <div style={{ marginTop: 16, padding: "10px 14px", background: BLUE_L, borderRadius: R.md, border: `1px solid ${BLUE_M}`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: BLUE_D, marginBottom: 2 }}>Total reach</div>
-          <div style={{ fontSize: 14, fontWeight: 600, color: BLUE_D }}>{countries.length} countries</div>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.08em", color: BLUE_D, marginBottom: 2 }}>Total reach</div>
+          <div style={{ fontSize: T.base, fontWeight: 600, color: BLUE_D }}>{countries.length} countries</div>
         </div>
         <div style={{ textAlign: "right" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: BLUE_D, marginBottom: 2 }}>Users outside HQ</div>
-          <div style={{ fontSize: 14, fontWeight: 600, color: BLUE_D }}>{outsideHQ} users · {outsidePct}%</div>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.08em", color: BLUE_D, marginBottom: 2 }}>Users outside HQ</div>
+          <div style={{ fontSize: T.base, fontWeight: 600, color: BLUE_D }}>{outsideHQ} users · {outsidePct}%</div>
         </div>
       </div>
     </div>
@@ -569,17 +568,17 @@ function Week1({ data = WEEK1 }) {
   const bot = parse(data.pillBot);
 
   return (
-    <div style={{ maxWidth: 860, margin: "0 auto", padding: "28px 16px 56px" }}>
+    <div style={{ maxWidth: PAGE_W, margin: "0 auto", padding: "28px 16px 56px" }}>
 
       {/* Header */}
       <div style={{ marginBottom: 24 }}>
-        <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>
+        <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>
           Post Go-live · {data === WEEK1 ? "Week 1" : "Week 1 + 2"}
         </div>
-        <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>
+        <div style={{ fontSize: T.h2, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>
           {data.window || WEEK1_WINDOW}
         </div>
-        <div style={{ fontSize: 11, color: INK3 }}>
+        <div style={{ fontSize: T.sm, color: INK3 }}>
           Primer pulso post lanzamiento bank-wide · Go-live: {GO_LIVE_DATE} · Fuente: FullStory
         </div>
       </div>
@@ -593,36 +592,36 @@ function Week1({ data = WEEK1 }) {
         <MetricCard label="Prompters" value={fmt(data.prompters)} desc={data.prompts ? `${data.prompts} prompts sent · users who engaged with the AI assistant` : null} bench={BENCH.prompters} />
         <MetricCard label="Drop-off <10s" value={pct(data.dropoff)} desc="Sessions ending under 10s · lower is better" invert bench={BENCH.dropoff} />
         {/* Content Engagement custom card */}
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9 }}>Content Engagement</div>
-          <div style={{ fontSize: 30, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>{fmt(engagement)}</div>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "18px 20px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9 }}>Content Engagement</div>
+          <div style={{ fontSize: T.kpi, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>{fmt(engagement)}</div>
           {engagement != null && (
             <div style={{ marginBottom: 10, display: "flex", alignItems: "center", gap: 6 }}>
-              <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: GREEN_L, color: GREEN }}>
+              <span style={{ fontSize: T.micro, fontWeight: 600, padding: "2px 7px", borderRadius: R.pill, background: GREEN_L, color: GREEN }}>
                 ↑ {Math.round(((engagement / (BENCH.highlighted)) - 1) * 100)}% vs organic avg
               </span>
-              <span style={{ fontSize: 9, color: INK3 }}>({BENCH.highlighted} avg highlights)</span>
+              <span style={{ fontSize: T.micro, color: INK3 }}>({BENCH.highlighted} avg highlights)</span>
             </div>
           )}
 
           {/* Highlights bar */}
           <div style={{ marginBottom: 12 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-              <span style={{ fontSize: 10, color: INK2, fontWeight: 500 }}>Highlights</span>
-              <span style={{ fontSize: 10, color: INK3 }}>{data.highlighted} total</span>
+              <span style={{ fontSize: T.xs, color: INK2, fontWeight: 500 }}>Highlights</span>
+              <span style={{ fontSize: T.xs, color: INK3 }}>{data.highlighted} total</span>
             </div>
-            <div style={{ background: BG, borderRadius: 99, height: 8, overflow: "hidden", marginBottom: 3 }}>
-              <div style={{ width: "100%", height: "100%", background: BLUE_M, borderRadius: 99, position: "relative" }}>
-                <div style={{ width: `${(data.highlightedOpenSearch / data.highlighted) * 100}%`, height: "100%", background: BLUE, borderRadius: 99 }} />
+            <div style={{ background: BG, borderRadius: R.pill, height: 8, overflow: "hidden", marginBottom: 3 }}>
+              <div style={{ width: "100%", height: "100%", background: BLUE_M, borderRadius: R.pill, position: "relative" }}>
+                <div style={{ width: `${(data.highlightedOpenSearch / data.highlighted) * 100}%`, height: "100%", background: BLUE, borderRadius: R.pill }} />
               </div>
             </div>
-            <div style={{ display: "flex", gap: 12, fontSize: 9, color: INK3 }}>
+            <div style={{ display: "flex", gap: 12, fontSize: T.micro, color: INK3 }}>
               <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: BLUE }} />
+                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: R.sm, background: BLUE }} />
                 Open Search: {data.highlightedOpenSearch}
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: BLUE_M }} />
+                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: R.sm, background: BLUE_M }} />
                 Contextual Search: {data.highlighted - data.highlightedOpenSearch}
               </span>
             </div>
@@ -631,21 +630,21 @@ function Week1({ data = WEEK1 }) {
           {/* Copies bar */}
           <div>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-              <span style={{ fontSize: 10, color: INK2, fontWeight: 500 }}>Copies</span>
-              <span style={{ fontSize: 10, color: INK3 }}>{data.copied} total</span>
+              <span style={{ fontSize: T.xs, color: INK2, fontWeight: 500 }}>Copies</span>
+              <span style={{ fontSize: T.xs, color: INK3 }}>{data.copied} total</span>
             </div>
-            <div style={{ background: BG, borderRadius: 99, height: 8, overflow: "hidden", marginBottom: 3 }}>
-              <div style={{ width: "100%", height: "100%", background: AMBER_M, borderRadius: 99, position: "relative" }}>
-                <div style={{ width: `${(data.copiedOpenSearch / data.copied) * 100}%`, height: "100%", background: AMBER, borderRadius: 99 }} />
+            <div style={{ background: BG, borderRadius: R.pill, height: 8, overflow: "hidden", marginBottom: 3 }}>
+              <div style={{ width: "100%", height: "100%", background: AMBER_M, borderRadius: R.pill, position: "relative" }}>
+                <div style={{ width: `${(data.copiedOpenSearch / data.copied) * 100}%`, height: "100%", background: AMBER, borderRadius: R.pill }} />
               </div>
             </div>
-            <div style={{ display: "flex", gap: 12, fontSize: 9, color: INK3 }}>
+            <div style={{ display: "flex", gap: 12, fontSize: T.micro, color: INK3 }}>
               <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: AMBER }} />
+                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: R.sm, background: AMBER }} />
                 Open Search: {data.copiedOpenSearch}
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 2, background: AMBER_M }} />
+                <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: R.sm, background: AMBER_M }} />
                 Contextual Search: {data.copied - data.copiedOpenSearch}
               </span>
             </div>
@@ -657,18 +656,18 @@ function Week1({ data = WEEK1 }) {
           <MetricCard label="Source panel clicks" value={fmt(data.sourcePanelClicks)} desc="Clicks on source panel in Knowledge Assistant" />
         )}
         {(data.thumbsUp != null || data.thumbsDown != null) && (
-          <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9 }}>Response Feedback</div>
+          <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "18px 20px" }}>
+            <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 9 }}>Response Feedback</div>
             <div style={{ display: "flex", gap: 20, marginBottom: 7 }}>
               <div>
-                <div style={{ fontSize: 28, fontWeight: 500, color: GREEN, lineHeight: 1 }}>👍 {data.thumbsUp ?? "—"}</div>
+                <div style={{ fontSize: T.kpi, fontWeight: 500, color: GREEN, lineHeight: 1 }}>👍 {data.thumbsUp ?? "—"}</div>
               </div>
               <div>
-                <div style={{ fontSize: 28, fontWeight: 500, color: RED, lineHeight: 1 }}>👎 {data.thumbsDown ?? "—"}</div>
+                <div style={{ fontSize: T.kpi, fontWeight: 500, color: RED, lineHeight: 1 }}>👎 {data.thumbsDown ?? "—"}</div>
               </div>
             </div>
-            <div style={{ fontSize: 10, color: INK3, marginBottom: 8 }}>AI assistant responses rated</div>
-            <div style={{ padding: "8px 12px", background: AMBER_L, border: `1px solid ${AMBER_M}`, borderRadius: 7, fontSize: 9, color: AMBER_INK, lineHeight: 1.5 }}>
+            <div style={{ fontSize: T.xs, color: INK3, marginBottom: 8 }}>AI assistant responses rated</div>
+            <div style={{ padding: "8px 12px", background: AMBER_L, border: `1px solid ${AMBER_M}`, borderRadius: R.md, fontSize: T.micro, color: AMBER_INK, lineHeight: 1.5 }}>
               ⚠ Volume is still low to derive conclusions. This indicator will become meaningful from the second period onward.
             </div>
           </div>
@@ -677,8 +676,8 @@ function Week1({ data = WEEK1 }) {
 
       {/* Sample Prompts */}
       {data.prompts_sample?.length > 0 && (
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", marginBottom: 16 }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 14 }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "18px 20px", marginBottom: 16 }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 14 }}>
             Sample Prompts — Response Feedback
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -687,9 +686,9 @@ function Week1({ data = WEEK1 }) {
               const bg = p.rating === "up" ? GREEN_L : p.rating === "down" ? RED_L : AMBER_L;
               const border = p.rating === "up" ? GREEN_M : p.rating === "down" ? RED_M : AMBER_M;
               return (
-                <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 14px", background: bg, border: `1px solid ${border}`, borderRadius: 8 }}>
-                  <span style={{ fontSize: 16, flexShrink: 0 }}>{icon}</span>
-                  <span style={{ fontSize: 11, color: INK2, lineHeight: 1.5, fontStyle: "italic" }}>"{p.text}"</span>
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 14px", background: bg, border: `1px solid ${border}`, borderRadius: R.md }}>
+                  <span style={{ fontSize: T.lg, flexShrink: 0 }}>{icon}</span>
+                  <span style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, fontStyle: "italic" }}>"{p.text}"</span>
                 </div>
               );
             })}
@@ -701,8 +700,8 @@ function Week1({ data = WEEK1 }) {
       <GeoMap data={data} />
 
       {/* Knowledge categories */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", marginBottom: 16 }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 14 }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "18px 20px", marginBottom: 16 }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 14 }}>
           Knowledge Categories
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -714,23 +713,23 @@ function Week1({ data = WEEK1 }) {
               return { label: higher ? `↑ ${pctDiff}%` : `↓ ${pctDiff}%`, isGood: higher };
             })() : null;
             return (
-              <div key={label} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 14px", background: isTop ? BLUE_L : BG, border: `1px solid ${isTop ? BLUE_M : BDR}`, borderRadius: 8, gap: 8 }}>
+              <div key={label} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 14px", background: isTop ? BLUE_L : BG, border: `1px solid ${isTop ? BLUE_M : BDR}`, borderRadius: R.md, gap: 8 }}>
                 <div>
-                  <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: isTop ? BLUE_D : INK3, marginBottom: 3 }}>{label}</div>
-                  <div style={{ fontSize: 13, fontWeight: 500, color: isTop ? BLUE_D : INK2 }}>
+                  <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.08em", color: isTop ? BLUE_D : INK3, marginBottom: 3 }}>{label}</div>
+                  <div style={{ fontSize: T.base, fontWeight: 500, color: isTop ? BLUE_D : INK2 }}>
                     {item ? item.name : <span style={{ color: BDR, fontStyle: "italic", fontWeight: 400 }}>pending data</span>}
                   </div>
                   {benchBadge && (
                     <div style={{ marginTop: 5, display: "flex", alignItems: "center", gap: 5 }}>
-                      <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: benchBadge.isGood ? GREEN_L : RED_L, color: benchBadge.isGood ? GREEN : RED }}>
+                      <span style={{ fontSize: T.micro, fontWeight: 600, padding: "2px 7px", borderRadius: R.pill, background: benchBadge.isGood ? GREEN_L : RED_L, color: benchBadge.isGood ? GREEN : RED }}>
                         {benchBadge.label} vs organic avg
                       </span>
-                      <span style={{ fontSize: 9, color: INK3 }}>({bench} avg)</span>
+                      <span style={{ fontSize: T.micro, color: INK3 }}>({bench} avg)</span>
                     </div>
                   )}
                 </div>
                 {item?.count != null && (
-                  <span style={{ fontSize: 12, fontWeight: 500, color: isTop ? BLUE_D : INK3 }}>{item.count} interactions</span>
+                  <span style={{ fontSize: T.md, fontWeight: 500, color: isTop ? BLUE_D : INK3 }}>{item.count} interactions</span>
                 )}
               </div>
             );
@@ -807,15 +806,15 @@ function LaunchTimeline({ defaultOpen = true }) {
   ];
 
   return (
-    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: open ? "20px 24px" : "14px 24px" }}>
+    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: open ? "20px 24px" : "14px 24px" }}>
       <button
         onClick={() => setOpen(!open)}
         style={{ fontFamily: "inherit", display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", background: "none", border: "none", cursor: "pointer", padding: 0, marginBottom: open ? 20 : 0 }}
       >
-        <span style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3 }}>
+        <span style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3 }}>
           🗓 Launch Timeline — {milestones.length} key milestones
         </span>
-        <span style={{ fontSize: 10, color: BLUE_D, fontWeight: 500 }}>{open ? "▴ Hide" : "▾ Show"}</span>
+        <span style={{ fontSize: T.xs, color: BLUE_D, fontWeight: 500 }}>{open ? "▴ Hide" : "▾ Show"}</span>
       </button>
       {open && (
       <div style={{ position: "relative" }}>
@@ -826,27 +825,27 @@ function LaunchTimeline({ defaultOpen = true }) {
             <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
               {/* Date label */}
               <div style={{ width: 60, flexShrink: 0, textAlign: "right" }}>
-                <span style={{ fontSize: 9, fontWeight: 600, color: INK3, lineHeight: 1.3 }}>{m.date}</span>
+                <span style={{ fontSize: T.micro, fontWeight: 600, color: INK3, lineHeight: 1.3 }}>{m.date}</span>
               </div>
               {/* Dot */}
               <div style={{ flexShrink: 0, width: 16, height: 16, borderRadius: "50%", background: m.color, border: `3px solid ${SURF}`, boxShadow: `0 0 0 2px ${m.color}`, marginTop: 1, zIndex: 1 }} />
               {/* Content */}
               <div style={{ flex: 1, paddingBottom: 4 }}>
-                <div style={{ fontSize: 11, fontWeight: 600, color: INK, marginBottom: 6 }}>{m.tag}</div>
+                <div style={{ fontSize: T.sm, fontWeight: 600, color: INK, marginBottom: 6 }}>{m.tag}</div>
                 <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 8 }}>
                   {m.stats.map((s, j) => (
-                    <span key={j} style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{s}</span>
+                    <span key={j} style={{ fontSize: T.micro, padding: "2px 8px", borderRadius: R.pill, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{s}</span>
                   ))}
                 </div>
-                <p style={{ fontSize: 10, color: INK3, lineHeight: 1.5, margin: "0 0 8px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>{m.note}</p>
+                <p style={{ fontSize: T.xs, color: INK3, lineHeight: 1.5, margin: "0 0 8px 0", fontFamily: FONT }}>{m.note}</p>
                 {m.impact && (
                   <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                     {m.impact.map((imp, k) => (
                       <div key={k} style={{ display: "flex", alignItems: "flex-start", gap: 6 }}>
-                        <span style={{ fontSize: 9, flexShrink: 0, marginTop: 1 }}>
+                        <span style={{ fontSize: T.micro, flexShrink: 0, marginTop: 1 }}>
                           {imp.dir === "up" ? "📈" : imp.dir === "down" ? "📉" : "▪️"}
                         </span>
-                        <span style={{ fontSize: 9, color: imp.dir === "up" ? GREEN : imp.dir === "down" ? RED : INK3, lineHeight: 1.4, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+                        <span style={{ fontSize: T.micro, color: imp.dir === "up" ? GREEN : imp.dir === "down" ? RED : INK3, lineHeight: 1.4, fontFamily: FONT }}>
                           {imp.label}
                         </span>
                       </div>
@@ -961,7 +960,7 @@ function Monthly() {
   // ── section wrapper ──
   const Section = ({ title, emoji, children }) => (
     <div style={{ marginBottom: 20 }}>
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
         {emoji} {title}
       </div>
       {children}
@@ -973,14 +972,14 @@ function Monthly() {
   );
 
   return (
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: "28px 16px 56px" }}>
+    <div style={{ maxWidth: PAGE_W, margin: "0 auto", padding: "28px 16px 56px" }}>
 
       {/* Header */}
       <div style={{ marginBottom: 20, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
         <div>
-          <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
-          <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
-          <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory</div>
+          <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
+          <div style={{ fontSize: T.h2, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
+          <div style={{ fontSize: T.sm, color: INK3 }}>IDB Knowledge Platform · Source: FullStory</div>
         </div>
         <button
           onClick={() => {
@@ -1034,15 +1033,15 @@ function Monthly() {
             a.click();
             URL.revokeObjectURL(url);
           }}
-          style={{ fontFamily: "inherit", fontSize: 10, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: 6, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
+          style={{ fontFamily: "inherit", fontSize: T.xs, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: R.md, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
         >
           ↓ Export CSV
         </button>
       </div>
 
       {/* Cumulative metrics since Sep 2025 */}
-      <div style={{ background: NAVY, borderRadius: 10, padding: "16px 20px", marginBottom: 24 }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
+      <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px", marginBottom: 24 }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to Apr 30, 2026
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 16 }}>
@@ -1054,8 +1053,8 @@ function Monthly() {
             { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: "18.6%" },
           ].map((m, i) => (
             <div key={i}>
-              <div style={{ fontSize: 22, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
-              <div style={{ fontSize: 9, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+              <div style={{ fontSize: T.h2, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: T.micro, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
             </div>
           ))}
         </div>
@@ -1065,23 +1064,23 @@ function Monthly() {
           <MCard meta="users" label="Users reached" value={String(APRIL.users)} desc="Unique people who used KP at least once in April" accent bench={BENCH.monthly.users} />
           <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(APRIL.prompters)} desc={`${Math.round(APRIL.prompters/APRIL.users*100)}% of users reached`} accent bench={BENCH.monthly.prompters} />
           <MCard meta="firstTime" label="New users" value={String(APRIL.first_time)} desc={`First-time visitors · other ${APRIL.users - APRIL.first_time} are returning from the organic period`} />
-          <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
-            <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{APRIL.returningUsers}</div>
-            <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Already knew KP before April — first seen in an earlier month</div>
-            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D }}>{Math.round(APRIL.returningUsers/APRIL.users*100)}% of users reached</span>
+          <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+            <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
+            <div style={{ fontSize: T.kpi, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{APRIL.returningUsers}</div>
+            <div style={{ fontSize: T.micro, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Already knew KP before April — first seen in an earlier month</div>
+            <span style={{ fontSize: T.micro, fontWeight: 600, padding: "2px 8px", borderRadius: R.pill, background: BLUE_L, color: BLUE_D }}>{Math.round(APRIL.returningUsers/APRIL.users*100)}% of users reached</span>
           </div>
           {/* Penetration — custom card with bar */}
-          <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
-            <div style={{ fontSize: 28, fontWeight: 500, letterSpacing: "-0.03em", lineHeight: 1, color: BLUE_D, marginBottom: 10 }}>{Math.round(APRIL.users/BID_TOTAL*100*10)/10}%</div>
-            <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
-              <div style={{ width: `${Math.round(APRIL.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
+          <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.lg, padding: "16px 18px" }}>
+            <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
+            <div style={{ fontSize: T.kpi, fontWeight: 500, letterSpacing: "-0.03em", lineHeight: 1, color: BLUE_D, marginBottom: 10 }}>{Math.round(APRIL.users/BID_TOTAL*100*10)/10}%</div>
+            <div style={{ background: BLUE_M, borderRadius: R.pill, height: 6, overflow: "hidden", marginBottom: 6 }}>
+              <div style={{ width: `${Math.round(APRIL.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: R.pill }} />
             </div>
-            <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+            <div style={{ fontSize: T.micro, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
               <span>{APRIL.users} users</span><span>{BID_TOTAL.toLocaleString()} total</span>
             </div>
-            <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
+            <div style={{ fontSize: T.micro, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
           </div>
           <MCard meta="tourCompletion" label="% Onboarding completed" value={`${APRIL.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
           <MCard meta="sessions" label="Sessions" value={APRIL.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} />
@@ -1094,20 +1093,20 @@ function Monthly() {
       </Section>
 
       {/* Compact geo */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px", marginTop: 10 }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 20px", marginTop: 10 }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
           🌎 Geographic Reach — {APRIL.users.toLocaleString()} users · {APRIL.totalCountries} countries
         </div>
         {/* HQ bar — full width */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
-          <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: R.md }}>
+          <span style={{ fontSize: T.xl, flexShrink: 0 }}>🇺🇸</span>
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-              <span style={{ fontSize: 11, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
-              <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>340 · 58%</span>
+              <span style={{ fontSize: T.sm, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
+              <span style={{ fontSize: T.sm, color: BLUE_D, fontWeight: 500 }}>340 · 58%</span>
             </div>
-            <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
-              <div style={{ width: "58%", height: "100%", background: BLUE_DEEP, borderRadius: 99 }} />
+            <div style={{ background: BLUE_M, borderRadius: R.pill, height: 6, overflow: "hidden" }}>
+              <div style={{ width: "58%", height: "100%", background: BLUE_DEEP, borderRadius: R.pill }} />
             </div>
           </div>
         </div>
@@ -1120,16 +1119,16 @@ function Monthly() {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px 16px" }}>
               {regional.map((c, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
-                  <span style={{ fontSize: 13, flexShrink: 0 }}>{flag(c.code)}</span>
+                  <span style={{ fontSize: T.base, flexShrink: 0 }}>{flag(c.code)}</span>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
-                      <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
-                      <span style={{ fontSize: 9, color: INK3, flexShrink: 0, marginLeft: 4, fontVariantNumeric: "tabular-nums" }}>{c.users}</span>
+                      <span style={{ fontSize: T.micro, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
+                      <span style={{ fontSize: T.micro, color: INK3, flexShrink: 0, marginLeft: 4, fontVariantNumeric: "tabular-nums" }}>{c.users}</span>
                     </div>
-                    <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
+                    <div style={{ background: BG, borderRadius: R.pill, height: 3, overflow: "hidden" }}>
                       <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%",
                         background: c.users >= 100 ? BLUE_DEEP : c.users >= 40 ? BLUE_D : c.users >= 15 ? BLUE : BLUE_SOFT,
-                        borderRadius: 99 }} />
+                        borderRadius: R.pill }} />
                     </div>
                   </div>
                 </div>
@@ -1137,7 +1136,7 @@ function Monthly() {
             </div>
           );
         })()}
-        <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
+        <div style={{ marginTop: 10, fontSize: T.micro, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
           Country data reflects session location by IP. Users who accessed the platform from multiple countries within the period may appear in more than one country.
         </div>
       </div>
@@ -1162,17 +1161,17 @@ function Monthly() {
           <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(APRIL.prompters)} desc={`${Math.round(APRIL.prompters/APRIL.users*100)}% of users reached`} accent bench={BENCH.monthly.prompters} />
           <MCard meta="prompts" label="Prompts sent" value={String(APRIL.prompts)} desc="Median: 1 per prompter" accent bench={BENCH.monthly.prompts} />
           <MCard meta="sourceClicks" label="Source panel clicks" value={String(APRIL.sourceClicks)} desc="Clicks on source panel" />
-          <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
+          <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+            <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
             <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
               <div>
-                <div style={{ fontSize: 28, fontWeight: 500, color: GREEN, letterSpacing: "-0.03em", lineHeight: 1 }}>👍 {APRIL.thumbsUp}</div>
+                <div style={{ fontSize: T.kpi, fontWeight: 500, color: GREEN, letterSpacing: "-0.03em", lineHeight: 1 }}>👍 {APRIL.thumbsUp}</div>
               </div>
               <div>
-                <div style={{ fontSize: 28, fontWeight: 500, color: RED, letterSpacing: "-0.03em", lineHeight: 1 }}>👎 {APRIL.thumbsDown}</div>
+                <div style={{ fontSize: T.kpi, fontWeight: 500, color: RED, letterSpacing: "-0.03em", lineHeight: 1 }}>👎 {APRIL.thumbsDown}</div>
               </div>
             </div>
-            <div style={{ fontSize: 9, color: INK3, marginTop: 8 }}>AI responses rated by users</div>
+            <div style={{ fontSize: T.micro, color: INK3, marginTop: 8 }}>AI responses rated by users</div>
           </div>
           <MCard meta="promptGallery" label="Prompt Gallery clicks" value={String(APRIL.promptGalleryClicks)} />
           <MCard meta="recentSearch" label="Recent Search clicks" value={String(APRIL.recentSearchClicks)} />
@@ -1198,9 +1197,9 @@ function Monthly() {
       <Section emoji="📝" title="Lessons Writing Assistant — LWA (April)">
 
         {/* Context block */}
-        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "12px 16px", marginBottom: 14 }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 6 }}>Context — Q1 2026 Institutional baseline</div>
-          <p style={{ fontSize: 11, color: BLUE_D, lineHeight: 1.6, margin: 0 }}>
+        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.md, padding: "12px 16px", marginBottom: 14 }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 6 }}>Context — Q1 2026 Institutional baseline</div>
+          <p style={{ fontSize: T.sm, color: BLUE_D, lineHeight: 1.6, margin: 0 }}>
             During Q1 2026, <strong>784 lessons</strong> were created across <strong>452 operations</strong> registered in the Client Portal — independent of the KP platform. This provides important context: LWA usage within KP represents an emerging channel alongside existing institutional lesson-creation practices.
           </p>
         </div>
@@ -1209,31 +1208,31 @@ function Monthly() {
           <MCard label="Unique users" value={String(APRIL.lwa.uniqueUsers)} accent />
         </Grid>
 
-        <div style={{ fontSize: 9, color: INK3, marginBottom: 10, marginTop: 16, fontStyle: "italic" }}>Usage & Completion</div>
+        <div style={{ fontSize: T.micro, color: INK3, marginBottom: 10, marginTop: 16, fontStyle: "italic" }}>Usage & Completion</div>
         <Grid cols="repeat(auto-fit, minmax(150px, 1fr))">
           <MCard label="Users who created lessons" value={String(APRIL.lwa.usersCreated)} />
-          <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Lessons started</div>
-            <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{APRIL.lwa.lessonsStartedTotal}</div>
+          <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+            <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Lessons started</div>
+            <div style={{ fontSize: T.kpi, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{APRIL.lwa.lessonsStartedTotal}</div>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-              <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{APRIL.lwa.lessonsStartedExecution} Execution</span>
-              <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BG, color: INK3, fontWeight: 500 }}>{APRIL.lwa.lessonsStartedPCR} PCR</span>
+              <span style={{ fontSize: T.micro, padding: "2px 8px", borderRadius: R.pill, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{APRIL.lwa.lessonsStartedExecution} Execution</span>
+              <span style={{ fontSize: T.micro, padding: "2px 8px", borderRadius: R.pill, background: BG, color: INK3, fontWeight: 500 }}>{APRIL.lwa.lessonsStartedPCR} PCR</span>
             </div>
           </div>
           <MCard label="Lessons completed" value={String(APRIL.lwa.completed)} desc="Clicked 'Complete lesson'" accent />
           <MCard label="% Reviewed before completing" value={`${APRIL.lwa.pctReviewed}%`} desc="Quality: with prior edits" />
         </Grid>
 
-        <div style={{ fontSize: 9, color: INK3, marginBottom: 10, marginTop: 16, fontStyle: "italic" }}>Effort & Perceived value</div>
+        <div style={{ fontSize: T.micro, color: INK3, marginBottom: 10, marginTop: 16, fontStyle: "italic" }}>Effort & Perceived value</div>
         <Grid cols="repeat(auto-fit, minmax(160px, 1fr))">
           <MCard label="Avg. time to save" value={APRIL.lwa.avgTime} small desc="From first click to final save" />
           <MCard label="Lessons edited" value={String(APRIL.lwa.edited)} desc="In unique sessions" />
-          <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Combined copies</div>
-            <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{APRIL.lwa.copiesCombined}</div>
+          <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+            <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Combined copies</div>
+            <div style={{ fontSize: T.kpi, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{APRIL.lwa.copiesCombined}</div>
             <div style={{ display: "flex", gap: 8 }}>
-              <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{APRIL.lwa.copiesButton} via button</span>
-              <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BG, color: INK3, fontWeight: 500 }}>{APRIL.lwa.copiesCursor} via cursor</span>
+              <span style={{ fontSize: T.micro, padding: "2px 8px", borderRadius: R.pill, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{APRIL.lwa.copiesButton} via button</span>
+              <span style={{ fontSize: T.micro, padding: "2px 8px", borderRadius: R.pill, background: BG, color: INK3, fontWeight: 500 }}>{APRIL.lwa.copiesCursor} via cursor</span>
             </div>
           </div>
         </Grid>
@@ -1248,17 +1247,17 @@ function Monthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "24px 0" }} />
 
       {/* Signal */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", borderLeft: `3px solid ${BLUE}` }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "18px 20px", borderLeft: `3px solid ${BLUE}` }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Prompt engagement
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <p style={{ fontSize: T.md, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: FONT }}>
           Most prompters sent a single prompt in April (median: 1). A smaller group is developing recurring use. Watch the share of repeat prompters as the key stickiness indicator in coming months.
         </p>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — LWA quality
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <p style={{ fontSize: T.md, color: INK2, lineHeight: 1.6, margin: 0, fontFamily: FONT }}>
           100% of lessons were reviewed before completion in April — up from 3% in March. Average time to save dropped to 23m 40s, suggesting users are getting more efficient with the tool while maintaining quality.
         </p>
       </div>
@@ -1357,14 +1356,14 @@ function MayMonthly() {
   const outsideHQ = MAY.users - usData.users;
 
   return (
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
+    <div style={{ maxWidth: PAGE_W, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
 
       {/* Header */}
       <div style={{ marginBottom: 20, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
         <div>
-          <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
-          <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
-          <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory</div>
+          <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
+          <div style={{ fontSize: T.h2, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
+          <div style={{ fontSize: T.sm, color: INK3 }}>IDB Knowledge Platform · Source: FullStory</div>
         </div>
         <button
           onClick={() => {
@@ -1415,13 +1414,13 @@ function MayMonthly() {
             a.href = url; a.download = `KP_Monthly_May_2026.csv`; a.click();
             URL.revokeObjectURL(url);
           }}
-          style={{ fontFamily: "inherit", fontSize: 10, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: 6, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
+          style={{ fontFamily: "inherit", fontSize: T.xs, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: R.md, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
         >↓ Export CSV</button>
       </div>
 
       {/* Cumulative totals */}
-      <div style={{ background: NAVY, borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
+      <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to Jun 1, 2026
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 16 }}>
@@ -1433,8 +1432,8 @@ function MayMonthly() {
             { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: "21.6%" },
           ].map((m, i) => (
             <div key={i}>
-              <div style={{ fontSize: 22, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
-              <div style={{ fontSize: 9, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+              <div style={{ fontSize: T.h2, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: T.micro, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
             </div>
           ))}
         </div>
@@ -1443,27 +1442,27 @@ function MayMonthly() {
       <LaunchTimeline />
 
       {/* ── GENERAL USABILITY ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (May)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (May)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="users" label="Users reached" value={String(MAY.users)} desc="Unique people who used KP at least once in May" accent bench={BENCH.monthly.users} momentum={APRIL.users} />
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(MAY.prompters)} desc={`${Math.round(MAY.prompters/MAY.users*100)}% of users reached`} accent momentum={APRIL.prompters} />
         <MCard meta="firstTime" label="New users" value={String(MAY.first_time)} desc={`First-time visitors · other ${MAY.users - MAY.first_time} are returning from prior months`} />
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{MAY.returningUsers}</div>
-          <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Already knew KP before May — first seen in an earlier month</div>
-          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D }}>{Math.round(MAY.returningUsers/MAY.users*100)}% of users reached</span>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
+          <div style={{ fontSize: T.kpi, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{MAY.returningUsers}</div>
+          <div style={{ fontSize: T.micro, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Already knew KP before May — first seen in an earlier month</div>
+          <span style={{ fontSize: T.micro, fontWeight: 600, padding: "2px 8px", borderRadius: R.pill, background: BLUE_L, color: BLUE_D }}>{Math.round(MAY.returningUsers/MAY.users*100)}% of users reached</span>
         </div>
-        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(MAY.users/BID_TOTAL*100*10)/10}%</div>
-          <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
-            <div style={{ width: `${Math.round(MAY.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
+        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
+          <div style={{ fontSize: T.kpi, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(MAY.users/BID_TOTAL*100*10)/10}%</div>
+          <div style={{ background: BLUE_M, borderRadius: R.pill, height: 6, overflow: "hidden", marginBottom: 6 }}>
+            <div style={{ width: `${Math.round(MAY.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: R.pill }} />
           </div>
-          <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+          <div style={{ fontSize: T.micro, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
             <span>{MAY.users} users</span><span>{BID_TOTAL.toLocaleString()} total</span>
           </div>
-          <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
+          <div style={{ fontSize: T.micro, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
         </div>
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${MAY.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
         <MCard meta="sessions" label="Sessions" value={MAY.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={APRIL.sessions} />
@@ -1473,38 +1472,38 @@ function MayMonthly() {
       </div>
 
       {/* CSAT block */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "18px 20px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
           <div>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6 }}>CSAT — Customer Satisfaction Score</div>
-            <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>76.5%</div>
-            <div style={{ fontSize: 10, color: INK3, marginTop: 4 }}>17 responses · May 2026</div>
+            <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6 }}>CSAT — Customer Satisfaction Score</div>
+            <div style={{ fontSize: T.kpi, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>76.5%</div>
+            <div style={{ fontSize: T.xs, color: INK3, marginTop: 4 }}>17 responses · May 2026</div>
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <div style={{ padding: "8px 12px", background: GREEN_L, border: `1px solid ${GREEN_M}`, borderRadius: 7, fontSize: 10, color: GREEN_INK }}>
+          <div style={{ padding: "8px 12px", background: GREEN_L, border: `1px solid ${GREEN_M}`, borderRadius: R.md, fontSize: T.xs, color: GREEN_INK }}>
             👍 <strong>Most valued:</strong> "Found quickly · Content clear · Simple and smooth · Useful for work" — most repeated combo on 5★ responses
           </div>
-          <div style={{ padding: "8px 12px", background: RED_L, border: `1px solid ${RED_M}`, borderRadius: 7, fontSize: 10, color: RED_INK }}>
+          <div style={{ padding: "8px 12px", background: RED_L, border: `1px solid ${RED_M}`, borderRadius: R.md, fontSize: T.xs, color: RED_INK }}>
             👎 <strong>Least valued:</strong> "Didn't find what I needed" · "Experience felt slow" · "I cannot search" — points to <strong>search relevance/discoverability</strong>, not technical errors
           </div>
         </div>
       </div>
 
       {/* Geo */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 20px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
           🌎 Geographic Reach — {MAY.users.toLocaleString()} users · {MAY.totalCountries} countries
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
-          <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: R.md }}>
+          <span style={{ fontSize: T.xl, flexShrink: 0 }}>🇺🇸</span>
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-              <span style={{ fontSize: 11, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
-              <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usData.pct}%</span>
+              <span style={{ fontSize: T.sm, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
+              <span style={{ fontSize: T.sm, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usData.pct}%</span>
             </div>
-            <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
-              <div style={{ width: `${usData.pct}%`, height: "100%", background: BLUE_DEEP, borderRadius: 99 }} />
+            <div style={{ background: BLUE_M, borderRadius: R.pill, height: 6, overflow: "hidden" }}>
+              <div style={{ width: `${usData.pct}%`, height: "100%", background: BLUE_DEEP, borderRadius: R.pill }} />
             </div>
           </div>
         </div>
@@ -1514,21 +1513,21 @@ function MayMonthly() {
             const diff = aprUsers != null ? c.users - aprUsers : null;
             return (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
-                <span style={{ fontSize: 13, flexShrink: 0 }}>{flag(c.code)}</span>
+                <span style={{ fontSize: T.base, flexShrink: 0 }}>{flag(c.code)}</span>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2, alignItems: "center" }}>
-                    <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
+                    <span style={{ fontSize: T.micro, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
                     <span style={{ display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}>
                       {diff != null && (
-                        <span style={{ fontSize: 8, fontWeight: 600, padding: "1px 5px", borderRadius: 99, background: diff >= 0 ? GREEN_L : RED_L, color: diff >= 0 ? GREEN : RED }}>
+                        <span style={{ fontSize: T.micro, fontWeight: 600, padding: "1px 5px", borderRadius: R.pill, background: diff >= 0 ? GREEN_L : RED_L, color: diff >= 0 ? GREEN : RED }}>
                           {diff >= 0 ? "+" : ""}{diff}
                         </span>
                       )}
-                      <span style={{ fontSize: 9, color: INK3, marginLeft: 4 }}>{c.users}</span>
+                      <span style={{ fontSize: T.micro, color: INK3, marginLeft: 4 }}>{c.users}</span>
                     </span>
                   </div>
-                  <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
-                    <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 15 ? BLUE_DEEP : c.users >= 8 ? BLUE : BLUE_SOFT, borderRadius: 99 }} />
+                  <div style={{ background: BG, borderRadius: R.pill, height: 3, overflow: "hidden" }}>
+                    <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 15 ? BLUE_DEEP : c.users >= 8 ? BLUE : BLUE_SOFT, borderRadius: R.pill }} />
                   </div>
                 </div>
               </div>
@@ -1536,11 +1535,11 @@ function MayMonthly() {
           })}
         </div>
         {regional.length > 12 && (
-          <button onClick={() => setShowAllCountries(!showAllCountries)} style={{ fontFamily: "inherit", fontSize: 9, fontWeight: 500, marginTop: 8, padding: "5px 12px", border: `1px solid ${BDR}`, borderRadius: 99, cursor: "pointer", background: SURF, color: BLUE_D }}>
+          <button onClick={() => setShowAllCountries(!showAllCountries)} style={{ fontFamily: "inherit", fontSize: T.micro, fontWeight: 500, marginTop: 8, padding: "5px 12px", border: `1px solid ${BDR}`, borderRadius: R.pill, cursor: "pointer", background: SURF, color: BLUE_D }}>
             {showAllCountries ? "▴ Show less" : `▾ Show all ${regional.length} countries`}
           </button>
         )}
-        <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
+        <div style={{ marginTop: 10, fontSize: T.micro, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
           Country data reflects session location by IP. Users who accessed the platform from multiple countries within the period may appear in more than one country. Green badge shows change vs April for Colombia — country roadshow held in May.
         </div>
       </div>
@@ -1549,7 +1548,7 @@ function MayMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── CONTEXTUAL SEARCH ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (May)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (May)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard meta="pillPageviews" label="Queries (pill views)" value={String(MAY.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
         <MCard meta="categoryUsers" label="Users in a category" value={String(snapshotAt("cs_category_users", "2026-05"))} desc="People who opened at least one knowledge category · from the ledger" momentum={snapshotAt("cs_category_users", "2026-04")} />
@@ -1561,19 +1560,19 @@ function MayMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── KNOWLEDGE ASSISTANT ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (May)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (May)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(MAY.prompters)} desc={`${Math.round(MAY.prompters/MAY.users*100)}% of users reached`} accent momentum={APRIL.prompters} />
         <MCard meta="prompts" label="Prompts sent" value={MAY.prompts != null ? String(MAY.prompts) : null} desc="Median: 1 per prompter" accent momentum={MAY.prompts ? APRIL.prompts : null} />
         <MCard meta="latency" label="Latency" value="1m 02s" desc="Avg response time in Open Search" small />
         <MCard meta="sourceClicks" label="Source panel clicks" value={String(MAY.sourceClicks)} desc="Clicks on source panel" momentum={APRIL.sourceClicks} />
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
           <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
-            <div style={{ fontSize: 28, fontWeight: 500, color: GREEN, letterSpacing: "-0.03em", lineHeight: 1 }}>👍 {MAY.thumbsUp}</div>
-            <div style={{ fontSize: 28, fontWeight: 500, color: RED, letterSpacing: "-0.03em", lineHeight: 1 }}>👎 {MAY.thumbsDown}</div>
+            <div style={{ fontSize: T.kpi, fontWeight: 500, color: GREEN, letterSpacing: "-0.03em", lineHeight: 1 }}>👍 {MAY.thumbsUp}</div>
+            <div style={{ fontSize: T.kpi, fontWeight: 500, color: RED, letterSpacing: "-0.03em", lineHeight: 1 }}>👎 {MAY.thumbsDown}</div>
           </div>
-          <div style={{ fontSize: 9, color: INK3, marginTop: 8 }}>AI responses rated by users</div>
+          <div style={{ fontSize: T.micro, color: INK3, marginTop: 8 }}>AI responses rated by users</div>
         </div>
         <MCard meta="promptGallery" label="Prompt Gallery clicks" value={String(MAY.promptGalleryClicks)} momentum={APRIL.promptGalleryClicks} />
         <MCard meta="recentSearch" label="Recent Search clicks" value={String(MAY.recentSearchClicks)} momentum={APRIL.recentSearchClicks} />
@@ -1584,7 +1583,7 @@ function MayMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── CONTENT ENGAGEMENT ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (May)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (May)</div>
       <ContentEngagementCard
         rows={engagementRows("2026-05")}
         note={"Downloads tracking began in June."}
@@ -1594,47 +1593,47 @@ function MayMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── LWA ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (May)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (May)</div>
 
       {/* Context block */}
-      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "12px 16px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 6 }}>Context — Q1 2026 Institutional baseline</div>
-        <p style={{ fontSize: 11, color: BLUE_D, lineHeight: 1.6, margin: 0 }}>
+      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.md, padding: "12px 16px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 6 }}>Context — Q1 2026 Institutional baseline</div>
+        <p style={{ fontSize: T.sm, color: BLUE_D, lineHeight: 1.6, margin: 0 }}>
           During Q1 2026, <strong>784 lessons</strong> were created across <strong>452 operations</strong> registered in the Client Portal — independent of the KP platform. This provides important context: LWA usage within KP represents an emerging channel alongside existing institutional lesson-creation practices.
         </p>
       </div>
 
-      <div style={{ fontSize: 9, color: INK3, fontStyle: "italic" }}>Adoption</div>
+      <div style={{ fontSize: T.micro, color: INK3, fontStyle: "italic" }}>Adoption</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
         <MCard label="LWA visits" value={String(MAY.lwa.visits)} accent />
         <MCard label="Unique users" value={String(MAY.lwa.uniqueUsers)} accent />
       </div>
 
-      <div style={{ fontSize: 9, color: INK3, fontStyle: "italic" }}>Usage & Completion</div>
+      <div style={{ fontSize: T.micro, color: INK3, fontStyle: "italic" }}>Usage & Completion</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
         <MCard label="Users who created lessons" value={String(MAY.lwa.usersCreated)} />
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Lessons started</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{MAY.lwa.lessonsStartedTotal}</div>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Lessons started</div>
+          <div style={{ fontSize: T.kpi, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{MAY.lwa.lessonsStartedTotal}</div>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{MAY.lwa.lessonsStartedExecution} Execution</span>
-            <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BG, color: INK3, fontWeight: 500 }}>{MAY.lwa.lessonsStartedPCR} PCR</span>
+            <span style={{ fontSize: T.micro, padding: "2px 8px", borderRadius: R.pill, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{MAY.lwa.lessonsStartedExecution} Execution</span>
+            <span style={{ fontSize: T.micro, padding: "2px 8px", borderRadius: R.pill, background: BG, color: INK3, fontWeight: 500 }}>{MAY.lwa.lessonsStartedPCR} PCR</span>
           </div>
         </div>
         <MCard label="Lessons completed" value={String(MAY.lwa.completed)} desc="Clicked 'Complete lesson'" accent />
         <MCard label="% Reviewed before completing" value={`${MAY.lwa.pctReviewed}%`} desc="Quality: with prior edits" />
       </div>
 
-      <div style={{ fontSize: 9, color: INK3, fontStyle: "italic" }}>Effort & Perceived value</div>
+      <div style={{ fontSize: T.micro, color: INK3, fontStyle: "italic" }}>Effort & Perceived value</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard label="Avg. time to save" value={MAY.lwa.avgTime} small desc="From first click to final save" />
         <MCard label="Lessons edited" value={String(MAY.lwa.edited)} desc="In unique sessions" />
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Combined copies</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{MAY.lwa.copiesCombined}</div>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Combined copies</div>
+          <div style={{ fontSize: T.kpi, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{MAY.lwa.copiesCombined}</div>
           <div style={{ display: "flex", gap: 8 }}>
-            <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{MAY.lwa.copiesButton} via button</span>
-            <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BG, color: INK3, fontWeight: 500 }}>{MAY.lwa.copiesCursor} via cursor</span>
+            <span style={{ fontSize: T.micro, padding: "2px 8px", borderRadius: R.pill, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{MAY.lwa.copiesButton} via button</span>
+            <span style={{ fontSize: T.micro, padding: "2px 8px", borderRadius: R.pill, background: BG, color: INK3, fontWeight: 500 }}>{MAY.lwa.copiesCursor} via cursor</span>
           </div>
         </div>
       </div>
@@ -1648,23 +1647,23 @@ function MayMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* Signal */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", borderLeft: `3px solid ${BLUE}` }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "18px 20px", borderLeft: `3px solid ${BLUE}` }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Pill engagement
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <p style={{ fontSize: T.md, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: FONT }}>
           Similar Projects returned as the most accessed pill in May with 40 interactions, after Lessons Learned briefly led in an earlier period. Literature appeared as the least used pill for the first time — a broader distribution of content categories signals growing platform exploration.
         </p>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — LWA efficiency
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <p style={{ fontSize: T.md, color: INK2, lineHeight: 1.6, margin: 0, fontFamily: FONT }}>
           Average time to save a lesson dropped sharply to 4m 55s in May (from 23m 40s in April), while completions rose to 17. Users are getting faster with the tool.
         </p>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginTop: 16, marginBottom: 8 }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginTop: 16, marginBottom: 8 }}>
           Signal — Country roadshow effect
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <p style={{ fontSize: T.md, color: INK2, lineHeight: 1.6, margin: 0, fontFamily: FONT }}>
           Colombia held a country roadshow in May, and its user count rose to 35 (+11 vs April's 24) — the clearest country-level lift of the month. This pattern will be worth tracking as other countries hold their own roadshows in subsequent months.
         </p>
       </div>
@@ -1752,8 +1751,8 @@ const JUNE = {
 function JuneMonthly() {
   const MONTH = "June 2026";
   const [showAllCountries, setShowAllCountries] = useState(false);
-  const SIGNAL_STYLE = { fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" };
-  const SIGNAL_STYLE_MB = { fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" };
+  const SIGNAL_STYLE = { fontSize: T.md, color: INK2, lineHeight: 1.6, margin: 0, fontFamily: FONT };
+  const SIGNAL_STYLE_MB = { fontSize: T.md, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: FONT };
 
   const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
 
@@ -1764,14 +1763,14 @@ function JuneMonthly() {
   const maxUsers = regional[0].users;
 
   return (
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
+    <div style={{ maxWidth: PAGE_W, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
 
       {/* Header */}
       <div style={{ marginBottom: 20, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
         <div>
-          <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
-          <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
-          <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory</div>
+          <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
+          <div style={{ fontSize: T.h2, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
+          <div style={{ fontSize: T.sm, color: INK3 }}>IDB Knowledge Platform · Source: FullStory</div>
         </div>
         <button
           onClick={() => {
@@ -1820,13 +1819,13 @@ function JuneMonthly() {
             a.href = url; a.download = `KP_Monthly_June_2026.csv`; a.click();
             URL.revokeObjectURL(url);
           }}
-          style={{ fontFamily: "inherit", fontSize: 10, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: 6, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
+          style={{ fontFamily: "inherit", fontSize: T.xs, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: R.md, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
         >↓ Export CSV</button>
       </div>
 
       {/* Cumulative totals */}
-      <div style={{ background: NAVY, borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
+      <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to Jun 30, 2026
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 16 }}>
@@ -1838,8 +1837,8 @@ function JuneMonthly() {
             { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: "23.8%" },
           ].map((m, i) => (
             <div key={i}>
-              <div style={{ fontSize: 22, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
-              <div style={{ fontSize: 9, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+              <div style={{ fontSize: T.h2, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: T.micro, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
             </div>
           ))}
         </div>
@@ -1848,27 +1847,27 @@ function JuneMonthly() {
       <LaunchTimeline />
 
       {/* ── GENERAL USABILITY ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (June)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (June)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="users" label="Users reached" value={String(JUNE.users)} desc="Unique people who used KP at least once in June" accent bench={BENCH.monthly.users} momentum={MAY.users} />
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(JUNE.prompters)} desc={`${Math.round(JUNE.prompters/JUNE.users*100)}% of users reached`} accent momentum={MAY.prompters} />
         <MCard meta="firstTime" label="New users" value={String(JUNE.first_time)} desc={`First-time visitors · other ${JUNE.users - JUNE.first_time} are returning from prior months`} />
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{JUNE.returningUsers}</div>
-          <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Already knew KP before June — first seen in an earlier month</div>
-          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D }}>{Math.round(JUNE.returningUsers/JUNE.users*100)}% of users reached</span>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
+          <div style={{ fontSize: T.kpi, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{JUNE.returningUsers}</div>
+          <div style={{ fontSize: T.micro, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Already knew KP before June — first seen in an earlier month</div>
+          <span style={{ fontSize: T.micro, fontWeight: 600, padding: "2px 8px", borderRadius: R.pill, background: BLUE_L, color: BLUE_D }}>{Math.round(JUNE.returningUsers/JUNE.users*100)}% of users reached</span>
         </div>
-        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(JUNE.users/BID_TOTAL*100*10)/10}%</div>
-          <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
-            <div style={{ width: `${Math.round(JUNE.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
+        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
+          <div style={{ fontSize: T.kpi, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(JUNE.users/BID_TOTAL*100*10)/10}%</div>
+          <div style={{ background: BLUE_M, borderRadius: R.pill, height: 6, overflow: "hidden", marginBottom: 6 }}>
+            <div style={{ width: `${Math.round(JUNE.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: R.pill }} />
           </div>
-          <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+          <div style={{ fontSize: T.micro, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
             <span>{JUNE.users} users</span><span>{BID_TOTAL.toLocaleString()} total</span>
           </div>
-          <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
+          <div style={{ fontSize: T.micro, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
         </div>
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${JUNE.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
         <MCard meta="sessions" label="Sessions" value={JUNE.sessions.toLocaleString()} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={MAY.sessions} />
@@ -1878,42 +1877,42 @@ function JuneMonthly() {
       </div>
 
       {/* CSAT block */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "18px 20px" }}>
         <div style={{ marginBottom: 14 }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6 }}>CSAT — Customer Satisfaction Score</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>58.3%</div>
-          <div style={{ fontSize: 10, color: INK3, marginTop: 4, display: "flex", alignItems: "center", gap: 8 }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6 }}>CSAT — Customer Satisfaction Score</div>
+          <div style={{ fontSize: T.kpi, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>58.3%</div>
+          <div style={{ fontSize: T.xs, color: INK3, marginTop: 4, display: "flex", alignItems: "center", gap: 8 }}>
             <span>12 responses · June 2026</span>
-            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: RED_L, color: RED }}>↓ 18.2pp vs May</span>
+            <span style={{ fontSize: T.micro, fontWeight: 600, padding: "2px 7px", borderRadius: R.pill, background: RED_L, color: RED }}>↓ 18.2pp vs May</span>
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <div style={{ padding: "8px 12px", background: GREEN_L, border: `1px solid ${GREEN_M}`, borderRadius: 7, fontSize: 10, color: GREEN_INK }}>
+          <div style={{ padding: "8px 12px", background: GREEN_L, border: `1px solid ${GREEN_M}`, borderRadius: R.md, fontSize: T.xs, color: GREEN_INK }}>
             👍 <strong>Most valued:</strong> same pattern as May — "Found quickly · Content clear · Simple and smooth · Useful for work" on 5★ responses
           </div>
-          <div style={{ padding: "8px 12px", background: RED_L, border: `1px solid ${RED_M}`, borderRadius: 7, fontSize: 10, color: RED_INK }}>
+          <div style={{ padding: "8px 12px", background: RED_L, border: `1px solid ${RED_M}`, borderRadius: R.md, fontSize: T.xs, color: RED_INK }}>
             👎 <strong>Least valued — technical failures, not UX:</strong> frequent crashes requiring restart, API connection issue, authorization failure, and a specific <strong>400 error on TC RG-T4150</strong>. Two additional comments on content clarity and not finding what was needed.
           </div>
-          <div style={{ padding: "8px 12px", background: AMBER_L, border: `1px solid ${AMBER_M}`, borderRadius: 7, fontSize: 10, color: AMBER_INK }}>
+          <div style={{ padding: "8px 12px", background: AMBER_L, border: `1px solid ${AMBER_M}`, borderRadius: R.md, fontSize: T.xs, color: AMBER_INK }}>
             ⚠ <strong>Recommendation:</strong> log the 400 error / TC RG-T4150 as a separate technical ticket — it is not general product feedback and should not be treated as a UX signal.
           </div>
         </div>
       </div>
 
       {/* Geo */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 20px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
           🌎 Geographic Reach — {JUNE.users.toLocaleString()} users · {JUNE.totalCountries} countries
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
-          <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: R.md }}>
+          <span style={{ fontSize: T.xl, flexShrink: 0 }}>🇺🇸</span>
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-              <span style={{ fontSize: 11, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
-              <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usData.pct}%</span>
+              <span style={{ fontSize: T.sm, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
+              <span style={{ fontSize: T.sm, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usData.pct}%</span>
             </div>
-            <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
-              <div style={{ width: `${usData.pct}%`, height: "100%", background: BLUE_DEEP, borderRadius: 99 }} />
+            <div style={{ background: BLUE_M, borderRadius: R.pill, height: 6, overflow: "hidden" }}>
+              <div style={{ width: `${usData.pct}%`, height: "100%", background: BLUE_DEEP, borderRadius: R.pill }} />
             </div>
           </div>
         </div>
@@ -1923,21 +1922,21 @@ function JuneMonthly() {
             const diff = mayUsers != null ? c.users - mayUsers : null;
             return (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
-                <span style={{ fontSize: 13, flexShrink: 0 }}>{flag(c.code)}</span>
+                <span style={{ fontSize: T.base, flexShrink: 0 }}>{flag(c.code)}</span>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2, alignItems: "center" }}>
-                    <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
+                    <span style={{ fontSize: T.micro, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
                     <span style={{ display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}>
                       {diff != null && (
-                        <span style={{ fontSize: 8, fontWeight: 600, padding: "1px 5px", borderRadius: 99, background: diff >= 0 ? GREEN_L : RED_L, color: diff >= 0 ? GREEN : RED }}>
+                        <span style={{ fontSize: T.micro, fontWeight: 600, padding: "1px 5px", borderRadius: R.pill, background: diff >= 0 ? GREEN_L : RED_L, color: diff >= 0 ? GREEN : RED }}>
                           {diff >= 0 ? "+" : ""}{diff}
                         </span>
                       )}
-                      <span style={{ fontSize: 9, color: INK3, marginLeft: 4 }}>{c.users}</span>
+                      <span style={{ fontSize: T.micro, color: INK3, marginLeft: 4 }}>{c.users}</span>
                     </span>
                   </div>
-                  <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
-                    <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 30 ? BLUE_DEEP : c.users >= 10 ? BLUE : BLUE_SOFT, borderRadius: 99 }} />
+                  <div style={{ background: BG, borderRadius: R.pill, height: 3, overflow: "hidden" }}>
+                    <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 30 ? BLUE_DEEP : c.users >= 10 ? BLUE : BLUE_SOFT, borderRadius: R.pill }} />
                   </div>
                 </div>
               </div>
@@ -1945,11 +1944,11 @@ function JuneMonthly() {
           })}
         </div>
         {regional.length > 12 && (
-          <button onClick={() => setShowAllCountries(!showAllCountries)} style={{ fontFamily: "inherit", fontSize: 9, fontWeight: 500, marginTop: 8, padding: "5px 12px", border: `1px solid ${BDR}`, borderRadius: 99, cursor: "pointer", background: SURF, color: BLUE_D }}>
+          <button onClick={() => setShowAllCountries(!showAllCountries)} style={{ fontFamily: "inherit", fontSize: T.micro, fontWeight: 500, marginTop: 8, padding: "5px 12px", border: `1px solid ${BDR}`, borderRadius: R.pill, cursor: "pointer", background: SURF, color: BLUE_D }}>
             {showAllCountries ? "▴ Show less" : `▾ Show all ${regional.length} countries`}
           </button>
         )}
-        <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
+        <div style={{ marginTop: 10, fontSize: T.micro, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
           Country data reflects session location by IP. Users who accessed the platform from multiple countries within the period may appear in more than one country. Green/red badges show change vs May for Brazil, Costa Rica, and Panama (June roadshows) and Colombia (May roadshow, now normalizing).
         </div>
       </div>
@@ -1958,7 +1957,7 @@ function JuneMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── CONTEXTUAL SEARCH ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (June)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (June)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard meta="pillPageviews" label="Queries (pill views)" value={String(JUNE.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
         <MCard meta="categoryUsers" label="Users in a category" value={String(snapshotAt("cs_category_users", "2026-06"))} desc="People who opened at least one knowledge category · from the ledger" momentum={snapshotAt("cs_category_users", "2026-05")} />
@@ -1970,26 +1969,26 @@ function JuneMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── KNOWLEDGE ASSISTANT ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (June)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (June)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(JUNE.prompters)} desc={`${Math.round(JUNE.prompters/JUNE.users*100)}% of users reached`} accent momentum={MAY.prompters} />
         <MCard meta="prompts" label="Prompts sent" value={JUNE.prompts != null ? String(JUNE.prompts) : null} desc="Median: 1 per prompter" accent momentum={JUNE.prompts ? MAY.prompts : null} />
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Latency</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>37s</div>
-          <div style={{ fontSize: 9, color: INK3, lineHeight: 1.4, marginBottom: 6 }}>Avg response time in Open Search</div>
-          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: GREEN_L, color: GREEN }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Latency</div>
+          <div style={{ fontSize: T.kpi, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>37s</div>
+          <div style={{ fontSize: T.micro, color: INK3, lineHeight: 1.4, marginBottom: 6 }}>Avg response time in Open Search</div>
+          <span style={{ fontSize: T.micro, fontWeight: 600, padding: "2px 7px", borderRadius: R.pill, background: GREEN_L, color: GREEN }}>
             ↓40% vs last month (1m 02s)
           </span>
         </div>
         <MCard meta="sourceClicks" label="Source panel clicks" value={String(JUNE.sourceClicks)} desc="Clicks on source panel" momentum={MAY.sourceClicks} />
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
           <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
-            <div style={{ fontSize: 28, fontWeight: 500, color: GREEN, letterSpacing: "-0.03em", lineHeight: 1 }}>👍 {JUNE.thumbsUp}</div>
-            <div style={{ fontSize: 28, fontWeight: 500, color: RED, letterSpacing: "-0.03em", lineHeight: 1 }}>👎 {JUNE.thumbsDown}</div>
+            <div style={{ fontSize: T.kpi, fontWeight: 500, color: GREEN, letterSpacing: "-0.03em", lineHeight: 1 }}>👍 {JUNE.thumbsUp}</div>
+            <div style={{ fontSize: T.kpi, fontWeight: 500, color: RED, letterSpacing: "-0.03em", lineHeight: 1 }}>👎 {JUNE.thumbsDown}</div>
           </div>
-          <div style={{ fontSize: 9, color: INK3, marginTop: 8 }}>AI responses rated by users</div>
+          <div style={{ fontSize: T.micro, color: INK3, marginTop: 8 }}>AI responses rated by users</div>
         </div>
         <MCard meta="promptGallery" label="Prompt Gallery clicks" value={String(JUNE.promptGalleryClicks)} momentum={MAY.promptGalleryClicks} />
         <MCard meta="recentSearch" label="Recent Search clicks" value={String(JUNE.recentSearchClicks)} momentum={MAY.recentSearchClicks} />
@@ -2000,7 +1999,7 @@ function JuneMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── CONTENT ENGAGEMENT ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (June)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (June)</div>
       <ContentEngagementCard
         rows={engagementRows("2026-06", 7)}
         note={"Downloads: 5 Word · 2 Excel."}
@@ -2010,23 +2009,23 @@ function JuneMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── LWA ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (June)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (June)</div>
 
-      <div style={{ fontSize: 9, color: INK3, fontStyle: "italic" }}>Adoption</div>
+      <div style={{ fontSize: T.micro, color: INK3, fontStyle: "italic" }}>Adoption</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
         <MCard label="LWA visits" value={String(JUNE.lwa.visits)} accent />
         <MCard label="Unique users" value={String(JUNE.lwa.uniqueUsers)} accent />
       </div>
 
-      <div style={{ fontSize: 9, color: INK3, fontStyle: "italic" }}>Usage & Completion</div>
+      <div style={{ fontSize: T.micro, color: INK3, fontStyle: "italic" }}>Usage & Completion</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
         <MCard label="Users who created lessons" value={String(JUNE.lwa.usersCreated)} />
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Lessons started</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{JUNE.lwa.lessonsStartedTotal}</div>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Lessons started</div>
+          <div style={{ fontSize: T.kpi, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{JUNE.lwa.lessonsStartedTotal}</div>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{JUNE.lwa.lessonsStartedExecution} Execution</span>
-            <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BG, color: INK3, fontWeight: 500 }}>{JUNE.lwa.lessonsStartedPCR} PCR</span>
+            <span style={{ fontSize: T.micro, padding: "2px 8px", borderRadius: R.pill, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{JUNE.lwa.lessonsStartedExecution} Execution</span>
+            <span style={{ fontSize: T.micro, padding: "2px 8px", borderRadius: R.pill, background: BG, color: INK3, fontWeight: 500 }}>{JUNE.lwa.lessonsStartedPCR} PCR</span>
           </div>
         </div>
         <MCard label="Lessons completed" value={String(JUNE.lwa.completed)} desc="Clicked 'Complete lesson'" accent />
@@ -2042,23 +2041,23 @@ function JuneMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* Signal */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", borderLeft: `3px solid ${BLUE}` }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "18px 20px", borderLeft: `3px solid ${BLUE}` }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Geographic shift
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <p style={{ fontSize: T.md, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: FONT }}>
           Brazil, Costa Rica, and Panama held country roadshows in June. Brazil surged to 74 users (+54 vs May) and Costa Rica jumped to 23 (+14) — a clear roadshow effect. Panama, however, dipped slightly (10, −2 vs May), suggesting attendance didn't translate to platform usage the same way. Colombia's earlier roadshow in May explains its high baseline (35 users) and the apparent normalization to 16 this month.
         </p>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — LWA slowdown
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <p style={{ fontSize: T.md, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: FONT }}>
           LWA activity dropped sharply in June — 22 visits, 0 completions, and 0 lessons created, compared to 98 visits and 17 completions in May. This is a confirmed final figure. The drop likely reflects the summer period and the absence of a structured country session driving LWA usage, as was the case in April and May.
         </p>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — CSAT shift: relevance → technical
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <p style={{ fontSize: T.md, color: INK2, lineHeight: 1.6, margin: 0, fontFamily: FONT }}>
           CSAT dropped 18.2pp from May (76.5%) to June (58.3%), but the <em>nature</em> of the complaints changed. May's negative feedback pointed to search relevance and discoverability ("didn't find what I needed," "cannot search") — a product/UX issue. June's negative feedback names concrete technical failures: crashes, an API connection issue, an authorization failure, and a specific 400 error on TC RG-T4150. This reframes part of the CSAT drop as a technical incident rather than a product gap, and should be tracked separately from general satisfaction trends.
         </p>
       </div>
@@ -2159,14 +2158,14 @@ function JulyMonthly() {
   const MCard = MonthMetricCard;
 
   return (
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
+    <div style={{ maxWidth: PAGE_W, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
 
       {/* Header */}
       <div style={{ marginBottom: 20, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
         <div>
-          <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
-          <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
-          <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory</div>
+          <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
+          <div style={{ fontSize: T.h2, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
+          <div style={{ fontSize: T.sm, color: INK3 }}>IDB Knowledge Platform · Source: FullStory</div>
         </div>
         <button
           onClick={() => {
@@ -2212,13 +2211,13 @@ function JulyMonthly() {
             a.href = url; a.download = `KP_Monthly_July_2026.csv`; a.click();
             URL.revokeObjectURL(url);
           }}
-          style={{ fontFamily: "inherit", fontSize: 10, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: 6, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
+          style={{ fontFamily: "inherit", fontSize: T.xs, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: R.md, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
         >↓ Export CSV</button>
       </div>
 
       {/* Cumulative totals (through June — July pending) */}
-      <div style={{ background: NAVY, borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
+      <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to Jul 31, 2026
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 16 }}>
@@ -2230,8 +2229,8 @@ function JulyMonthly() {
             { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: "24.9%" },
           ].map((m, i) => (
             <div key={i}>
-              <div style={{ fontSize: 22, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
-              <div style={{ fontSize: 9, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+              <div style={{ fontSize: T.h2, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: T.micro, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
             </div>
           ))}
         </div>
@@ -2240,27 +2239,27 @@ function JulyMonthly() {
       <LaunchTimeline />
 
       {/* ── GENERAL USABILITY ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (July)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (July)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="users" label="Users reached" value={String(JULY.users)} desc="Unique people who used KP at least once in July" accent bench={BENCH.monthly.users} momentum={JUNE.users} />
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(JULY.prompters)} desc={`${Math.round(JULY.prompters/JULY.users*100)}% of users reached`} accent momentum={JUNE.prompters} />
         <MCard meta="firstTime" label="New users" value={String(JULY.first_time)} desc={`First-time visitors · other ${JULY.users - JULY.first_time} are returning from prior months`} />
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{JULY.returningUsers}</div>
-          <div style={{ fontSize: 9, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Already knew KP before July — first seen in an earlier month</div>
-          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D }}>{Math.round(JULY.returningUsers/JULY.users*100)}% of users reached</span>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Returning users</div>
+          <div style={{ fontSize: T.kpi, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>{JULY.returningUsers}</div>
+          <div style={{ fontSize: T.micro, color: INK3, marginBottom: 6, lineHeight: 1.4 }}>Already knew KP before July — first seen in an earlier month</div>
+          <span style={{ fontSize: T.micro, fontWeight: 600, padding: "2px 8px", borderRadius: R.pill, background: BLUE_L, color: BLUE_D }}>{Math.round(JULY.returningUsers/JULY.users*100)}% of users reached</span>
         </div>
-        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(JULY.users/BID_TOTAL*100*10)/10}%</div>
-          <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
-            <div style={{ width: `${Math.round(JULY.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
+        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
+          <div style={{ fontSize: T.kpi, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(JULY.users/BID_TOTAL*100*10)/10}%</div>
+          <div style={{ background: BLUE_M, borderRadius: R.pill, height: 6, overflow: "hidden", marginBottom: 6 }}>
+            <div style={{ width: `${Math.round(JULY.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: R.pill }} />
           </div>
-          <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+          <div style={{ fontSize: T.micro, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
             <span>{JULY.users} users</span><span>{BID_TOTAL.toLocaleString()} total</span>
           </div>
-          <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
+          <div style={{ fontSize: T.micro, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants who used KP this month</div>
         </div>
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${JULY.tourCompletion}%`} desc="Users who finished the tour" bench={BENCH.monthly.tourCompletion} />
         <MCard meta="sessions" label="Sessions" value={String(JULY.sessions)} desc="Total for the period" bench={BENCH.monthly.sessions} momentum={JUNE.sessions} />
@@ -2270,20 +2269,20 @@ function JulyMonthly() {
       </div>
 
       {/* CSAT block */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "18px 20px" }}>
         <div style={{ marginBottom: 14 }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6 }}>CSAT — Customer Satisfaction Score</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>100%</div>
-          <div style={{ fontSize: 10, color: INK3, marginTop: 4, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6 }}>CSAT — Customer Satisfaction Score</div>
+          <div style={{ fontSize: T.kpi, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>100%</div>
+          <div style={{ fontSize: T.xs, color: INK3, marginTop: 4, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
             <span>4 responses · avg 4.75 / 5 ★ · July 2026</span>
-            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: GREEN_L, color: GREEN }}>↑ 41.7pp vs June</span>
+            <span style={{ fontSize: T.micro, fontWeight: 600, padding: "2px 7px", borderRadius: R.pill, background: GREEN_L, color: GREEN }}>↑ 41.7pp vs June</span>
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <div style={{ padding: "8px 12px", background: GREEN_L, border: `1px solid ${GREEN_M}`, borderRadius: 7, fontSize: 10, color: GREEN_INK }}>
+          <div style={{ padding: "8px 12px", background: GREEN_L, border: `1px solid ${GREEN_M}`, borderRadius: R.md, fontSize: T.xs, color: GREEN_INK }}>
             👍 <strong>All 4 responses positive:</strong> "Encontré rápidamente lo que buscaba" · "A plataforma foi útil para meu trabalho" · "The platform was useful for my work" · "El contenido fue claro"
           </div>
-          <div style={{ padding: "8px 12px", background: AMBER_L, border: `1px solid ${AMBER_M}`, borderRadius: 7, fontSize: 10, color: AMBER_INK }}>
+          <div style={{ padding: "8px 12px", background: AMBER_L, border: `1px solid ${AMBER_M}`, borderRadius: R.md, fontSize: T.xs, color: AMBER_INK }}>
             ⚠ <strong>Small sample:</strong> only 4 responses so far — strong recovery from June's technical incident (58.3%), but not yet representative. Expect the figure to settle as more responses arrive.
           </div>
         </div>
@@ -2296,44 +2295,44 @@ function JulyMonthly() {
         const usData = JULY.countries.find(c => c.code === "US");
         const maxUsers = regional[0].users;
         return (
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 20px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
           🌎 Geographic Reach — {JULY.users.toLocaleString()} users · {JULY.totalCountries} countries
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
-          <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: R.md }}>
+          <span style={{ fontSize: T.xl, flexShrink: 0 }}>🇺🇸</span>
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-              <span style={{ fontSize: 11, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
-              <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usData.pct}%</span>
+              <span style={{ fontSize: T.sm, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
+              <span style={{ fontSize: T.sm, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usData.pct}%</span>
             </div>
-            <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
-              <div style={{ width: `${usData.pct}%`, height: "100%", background: BLUE_DEEP, borderRadius: 99 }} />
+            <div style={{ background: BLUE_M, borderRadius: R.pill, height: 6, overflow: "hidden" }}>
+              <div style={{ width: `${usData.pct}%`, height: "100%", background: BLUE_DEEP, borderRadius: R.pill }} />
             </div>
           </div>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px 16px" }}>
           {(showAllCountries ? regional : regional.slice(0, 12)).map((c, i) => (
             <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
-              <span style={{ fontSize: 13, flexShrink: 0 }}>{flag(c.code)}</span>
+              <span style={{ fontSize: T.base, flexShrink: 0 }}>{flag(c.code)}</span>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
-                  <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
-                  <span style={{ fontSize: 9, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
+                  <span style={{ fontSize: T.micro, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
+                  <span style={{ fontSize: T.micro, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
                 </div>
-                <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
-                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 8 ? BLUE_DEEP : c.users >= 4 ? BLUE : BLUE_SOFT, borderRadius: 99 }} />
+                <div style={{ background: BG, borderRadius: R.pill, height: 3, overflow: "hidden" }}>
+                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 8 ? BLUE_DEEP : c.users >= 4 ? BLUE : BLUE_SOFT, borderRadius: R.pill }} />
                 </div>
               </div>
             </div>
           ))}
         </div>
         {regional.length > 12 && (
-          <button onClick={() => setShowAllCountries(!showAllCountries)} style={{ fontFamily: "inherit", fontSize: 9, fontWeight: 500, marginTop: 8, padding: "5px 12px", border: `1px solid ${BDR}`, borderRadius: 99, cursor: "pointer", background: SURF, color: BLUE_D }}>
+          <button onClick={() => setShowAllCountries(!showAllCountries)} style={{ fontFamily: "inherit", fontSize: T.micro, fontWeight: 500, marginTop: 8, padding: "5px 12px", border: `1px solid ${BDR}`, borderRadius: R.pill, cursor: "pointer", background: SURF, color: BLUE_D }}>
             {showAllCountries ? "▴ Show less" : `▾ Show all ${regional.length} countries`}
           </button>
         )}
-        <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
+        <div style={{ marginTop: 10, fontSize: T.micro, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
           Country data reflects session location by IP. Users who accessed the platform from multiple countries within the period may appear in more than one country. New this month: Italy 🇮🇹, Belize 🇧🇿 and Honduras 🇭🇳.
         </div>
       </div>
@@ -2344,7 +2343,7 @@ function JulyMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── CONTEXTUAL SEARCH ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (July)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (July)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard meta="pillPageviews" label="Queries (pill views)" value={String(JULY.pillPageviews)} desc="Total visits across all contextual search pills" accent bench={BENCH.monthly.pillPageviews} />
         <MCard meta="categoryUsers" label="Users in a category" value={String(snapshotAt("cs_category_users", "2026-07"))} desc="People who opened at least one knowledge category · from the ledger" momentum={snapshotAt("cs_category_users", "2026-06")} />
@@ -2356,24 +2355,24 @@ function JulyMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── KNOWLEDGE ASSISTANT ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (July)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (July)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(JULY.prompters)} desc={`${Math.round(JULY.prompters/JULY.users*100)}% of users reached`} accent momentum={JUNE.prompters} />
         <MCard meta="prompts" label="Prompts sent" value={String(JULY.prompts)} desc="Median: 1 per prompter" accent momentum={JUNE.prompts} />
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Latency (median)</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>27s</div>
-          <div style={{ fontSize: 9, color: INK3, lineHeight: 1.4, marginBottom: 6 }}>Median response time in Open Search</div>
-          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: GREEN_L, color: GREEN }}>↓27% vs June (37s)</span>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Latency (median)</div>
+          <div style={{ fontSize: T.kpi, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 6 }}>27s</div>
+          <div style={{ fontSize: T.micro, color: INK3, lineHeight: 1.4, marginBottom: 6 }}>Median response time in Open Search</div>
+          <span style={{ fontSize: T.micro, fontWeight: 600, padding: "2px 7px", borderRadius: R.pill, background: GREEN_L, color: GREEN }}>↓27% vs June (37s)</span>
         </div>
         <MCard meta="sourceClicks" label="Source panel clicks" value={String(JULY.sourceClicks)} desc="Clicks on source panel" momentum={JUNE.sourceClicks} />
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
           <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
-            <div style={{ fontSize: 28, fontWeight: 500, color: GREEN, letterSpacing: "-0.03em", lineHeight: 1 }}>👍 {JULY.thumbsUp}</div>
-            <div style={{ fontSize: 28, fontWeight: 500, color: RED, letterSpacing: "-0.03em", lineHeight: 1 }}>👎 {JULY.thumbsDown}</div>
+            <div style={{ fontSize: T.kpi, fontWeight: 500, color: GREEN, letterSpacing: "-0.03em", lineHeight: 1 }}>👍 {JULY.thumbsUp}</div>
+            <div style={{ fontSize: T.kpi, fontWeight: 500, color: RED, letterSpacing: "-0.03em", lineHeight: 1 }}>👎 {JULY.thumbsDown}</div>
           </div>
-          <div style={{ fontSize: 9, color: INK3, marginTop: 8 }}>AI responses rated by users</div>
+          <div style={{ fontSize: T.micro, color: INK3, marginTop: 8 }}>AI responses rated by users</div>
         </div>
         <MCard meta="promptGallery" label="Prompt Gallery clicks" value={String(JULY.promptGalleryClicks)} momentum={JUNE.promptGalleryClicks} />
         <MCard meta="recentSearch" label="Recent Search clicks" value={String(JULY.recentSearchClicks)} momentum={JUNE.recentSearchClicks} />
@@ -2384,7 +2383,7 @@ function JulyMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── CONTENT ENGAGEMENT ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (July)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (July)</div>
       <ContentEngagementCard
         rows={engagementRows("2026-07", 9)}
         note={"Downloads: 6 Word · 3 Excel."}
@@ -2394,23 +2393,23 @@ function JulyMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── LWA ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (July)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (July)</div>
 
-      <div style={{ fontSize: 9, color: INK3, fontStyle: "italic" }}>Adoption</div>
+      <div style={{ fontSize: T.micro, color: INK3, fontStyle: "italic" }}>Adoption</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
         <MCard label="LWA users" value={String(JULY.lwa.uniqueUsers)} accent momentum={JUNE.lwa.uniqueUsers} />
         <MCard label="LWA visits" value={String(JULY.lwa.visits)} accent momentum={JUNE.lwa.visits} />
       </div>
 
-      <div style={{ fontSize: 9, color: INK3, fontStyle: "italic" }}>Usage & Completion</div>
+      <div style={{ fontSize: T.micro, color: INK3, fontStyle: "italic" }}>Usage & Completion</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
         <MCard label="Users who created lessons" value={String(JULY.lwa.usersCreated)} />
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Lessons started</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{JULY.lwa.lessonsStartedTotal}</div>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Lessons started</div>
+          <div style={{ fontSize: T.kpi, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{JULY.lwa.lessonsStartedTotal}</div>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{JULY.lwa.lessonsStartedExecution} Execution</span>
-            <span style={{ fontSize: 9, padding: "2px 8px", borderRadius: 99, background: BG, color: INK3, fontWeight: 500 }}>{JULY.lwa.lessonsStartedPCR} PCR</span>
+            <span style={{ fontSize: T.micro, padding: "2px 8px", borderRadius: R.pill, background: BLUE_L, color: BLUE_D, fontWeight: 500 }}>{JULY.lwa.lessonsStartedExecution} Execution</span>
+            <span style={{ fontSize: T.micro, padding: "2px 8px", borderRadius: R.pill, background: BG, color: INK3, fontWeight: 500 }}>{JULY.lwa.lessonsStartedPCR} PCR</span>
           </div>
         </div>
         <MCard label="Lessons completed" value={String(JULY.lwa.completed)} desc="Clicked 'Complete lesson'" accent />
@@ -2426,29 +2425,29 @@ function JulyMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* Signal */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", borderLeft: `3px solid ${BLUE}` }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "18px 20px", borderLeft: `3px solid ${BLUE}` }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Adoption holds without a physical event
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <p style={{ fontSize: T.md, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: FONT }}>
           July's only activation was a single online awareness session (40 attendees, Jul 17) — no country roadshow. Yet 251 users and 36% within-month return held steady, and cumulative penetration reached 25% of staff and consultants. Evidence that a lightweight, low-cost online format can sustain engagement is the most strategically useful finding of the month: it points to a more scalable activation model than country-by-country roadshows.
         </p>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Volume dipped, loyal base held
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <p style={{ fontSize: T.md, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: FONT }}>
           July saw fewer users than prior months (237 vs 360 in June), explained by the northern-hemisphere summer and the absence of a physical roadshow. What matters is where the drop landed: acquisition slowed, but recurrence held — 91 users returned for 2+ sessions (36% of those reached), in line with prior months, and cumulative penetration still reached 25% of staff and consultants. The loyal base did not erode; the real test is whether volume recovers on its own as staff return in August, or needs another activation to lift.
         </p>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Two channels, not a migration
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <p style={{ fontSize: T.md, color: INK2, lineHeight: 1.6, margin: "0 0 16px 0", fontFamily: FONT }}>
           Open Search has been the dominant channel since release — that is not new: it carries between 81% and 92% of content engagement in every month from April to July. Contextual search peaked at 255 pill pageviews in June. In July both channels fell with the smaller summer volume — pill pageviews to 95 (-63%) and Open Search extraction by 45% — and the split moved to 81/19 from 84/16 in June, the least Open-Search-heavy of the four months.
         </p>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>
           Signal — Technical trust restored
         </div>
-        <p style={{ fontSize: 12, color: INK2, lineHeight: 1.6, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <p style={{ fontSize: T.md, color: INK2, lineHeight: 1.6, margin: 0, fontFamily: FONT }}>
           Latency dropped to a 27s median (↓27% vs June, its third consecutive improvement) and CSAT recovered to 100% with no technical complaints, reversing June's API-incident dip. The sample is small (4 responses), so the exact figure will move — but the direction, paired with the latency trend, indicates the reliability issues that shaped June's feedback have been addressed.
         </p>
       </div>
@@ -2576,28 +2575,28 @@ function ContentEngagementCard({ rows, note, split }) {
   const total = openSearch + contextual;
   const pctOS = Math.round(openSearch / total * 100);
   return (
-    <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "18px 20px" }}>
-      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}>
+    <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.lg, padding: "18px 20px" }}>
+      <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}>
         <span>Total content engagement</span><MetricInfo m={META.contentEngagement} />
       </div>
-      <div style={{ fontSize: 34, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1 }}>{total.toLocaleString()}</div>
-      <div style={{ fontSize: 10, color: BLUE, lineHeight: 1.5, marginTop: 6, marginBottom: 16 }}>
+      <div style={{ fontSize: T.display, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1 }}>{total.toLocaleString()}</div>
+      <div style={{ fontSize: T.xs, color: BLUE, lineHeight: 1.5, marginTop: 6, marginBottom: 16 }}>
         Times someone took content away — highlighted it, copied it, opened a source, or downloaded it.
       </div>
 
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4, fontSize: 9, fontWeight: 600, gap: 8 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4, fontSize: T.micro, fontWeight: 600, gap: 8 }}>
         <span style={{ color: BLUE_D }}>Open Search · {openSearch.toLocaleString()} ({pctOS}%)</span>
         <span style={{ color: INK3 }}>Contextual · {contextual.toLocaleString()} ({100 - pctOS}%)</span>
       </div>
-      <div style={{ display: "flex", borderRadius: 99, overflow: "hidden", height: 10, marginBottom: 16 }}>
+      <div style={{ display: "flex", borderRadius: R.pill, overflow: "hidden", height: 10, marginBottom: 16 }}>
         <div style={{ width: `${pctOS}%`, background: BLUE_D }} />
         <div style={{ width: `${100 - pctOS}%`, background: BLUE_SOFT_2 }} />
       </div>
 
       <div style={{ overflowX: "auto" }}>
-        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 10, minWidth: 260 }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: T.xs, minWidth: 260 }}>
           <thead>
-            <tr style={{ color: BLUE, textTransform: "uppercase", letterSpacing: "0.06em", fontSize: 8 }}>
+            <tr style={{ color: BLUE, textTransform: "uppercase", letterSpacing: "0.06em", fontSize: T.micro }}>
               <th style={{ textAlign: "left", padding: "0 0 6px 0", fontWeight: 500 }}></th>
               <th style={{ textAlign: "right", padding: "0 0 6px 8px", fontWeight: 500 }}>Open Search</th>
               <th style={{ textAlign: "right", padding: "0 0 6px 8px", fontWeight: 500 }}>Contextual</th>
@@ -2622,9 +2621,9 @@ function ContentEngagementCard({ rows, note, split }) {
           </tbody>
         </table>
       </div>
-      {note && <div style={{ fontSize: 9, color: BLUE, marginTop: 10, fontStyle: "italic" }}>{note}</div>}
-      {split && <div style={{ fontSize: 9, color: BLUE, marginTop: 4, fontStyle: "italic" }}>{split}</div>}
-      <div style={{ fontSize: 9, color: BLUE, marginTop: 8, lineHeight: 1.5, borderTop: `1px solid ${BLUE_M}`, paddingTop: 8 }}>
+      {note && <div style={{ fontSize: T.micro, color: BLUE, marginTop: 10, fontStyle: "italic" }}>{note}</div>}
+      {split && <div style={{ fontSize: T.micro, color: BLUE, marginTop: 4, fontStyle: "italic" }}>{split}</div>}
+      <div style={{ fontSize: T.micro, color: BLUE, marginTop: 8, lineHeight: 1.5, borderTop: `1px solid ${BLUE_M}`, paddingTop: 8 }}>
         Open Search and Contextual figures use the {SEGMENT_NAME} segment, which excludes the internal team (DEV). Reports published before October 2026 may show different values.
       </div>
     </div>
@@ -3055,15 +3054,15 @@ function FunnelChart({ steps, compare, compareLabel, note, derived }) {
         return (
           <div key={i}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 8, marginBottom: 4 }}>
-              <span style={{ fontSize: 11, color: INK2, fontWeight: i === 0 || i === steps.length - 1 ? 600 : 400 }}>{st.label}</span>
-              <span style={{ fontSize: 11, color: INK, fontWeight: 500, whiteSpace: "nowrap" }}>
+              <span style={{ fontSize: T.sm, color: INK2, fontWeight: i === 0 || i === steps.length - 1 ? 600 : 400 }}>{st.label}</span>
+              <span style={{ fontSize: T.sm, color: INK, fontWeight: 500, whiteSpace: "nowrap" }}>
                 {st.n} <span style={{ color: INK3, fontWeight: 400 }}>· {Math.round(pct)}%</span>
               </span>
             </div>
-            <div style={{ background: BG, borderRadius: 4, height: 18, overflow: "hidden", position: "relative" }}>
-              <div style={{ width: `${Math.max(pct, 0.8)}%`, height: "100%", background: i === steps.length - 1 ? BLUE_D : BLUE, borderRadius: 4, transition: "width .3s" }} />
+            <div style={{ background: BG, borderRadius: R.sm, height: 18, overflow: "hidden", position: "relative" }}>
+              <div style={{ width: `${Math.max(pct, 0.8)}%`, height: "100%", background: i === steps.length - 1 ? BLUE_D : BLUE, borderRadius: R.sm, transition: "width .3s" }} />
             </div>
-            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 3, fontSize: 9, color: INK3 }}>
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 3, fontSize: T.micro, color: INK3 }}>
               {drop != null && <span>{Math.round(drop)}% of previous step</span>}
               {st.time && <span>· {st.time} median</span>}
               {delta != null && (
@@ -3080,19 +3079,19 @@ function FunnelChart({ steps, compare, compareLabel, note, derived }) {
       {derived && (
         <div style={{ marginTop: 2, paddingLeft: 12, borderLeft: `2px solid ${BDR}` }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 8 }}>
-            <span style={{ fontSize: 10, color: INK2 }}>↳ {derived.label}</span>
-            <span style={{ fontSize: 10, color: INK, fontWeight: 500, whiteSpace: "nowrap" }}>
+            <span style={{ fontSize: T.xs, color: INK2 }}>↳ {derived.label}</span>
+            <span style={{ fontSize: T.xs, color: INK, fontWeight: 500, whiteSpace: "nowrap" }}>
               {derived.n} <span style={{ color: INK3, fontWeight: 400 }}>· {Math.round(derived.n / steps[derived.from].n * 100)}% of “{steps[derived.from].label}”</span>
             </span>
           </div>
-          <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 3, fontSize: 9, color: INK3 }}>
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 3, fontSize: T.micro, color: INK3 }}>
             <span>alternative exit — not on the path to copying</span>
             {derived.time && <span>· {derived.time} median</span>}
           </div>
-          {derived.note && <div style={{ fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5, marginTop: 3 }}>{derived.note}</div>}
+          {derived.note && <div style={{ fontSize: T.micro, color: INK3, fontStyle: "italic", lineHeight: 1.5, marginTop: 3 }}>{derived.note}</div>}
         </div>
       )}
-      {note && <div style={{ fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5, marginTop: 2 }}>{note}</div>}
+      {note && <div style={{ fontSize: T.micro, color: INK3, fontStyle: "italic", lineHeight: 1.5, marginTop: 2 }}>{note}</div>}
     </div>
   );
 }
@@ -3106,9 +3105,9 @@ function PillBreakdown({ rows, note }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
       <div style={{ overflowX: "auto" }}>
-        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11, minWidth: 290 }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: T.sm, minWidth: 290 }}>
           <thead>
-            <tr style={{ color: INK3, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+            <tr style={{ color: INK3, fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.08em" }}>
               <th style={{ textAlign: "left", padding: "0 0 6px", fontWeight: 500 }}>Pill</th>
               <th style={{ textAlign: "right", padding: "0 0 6px 10px", fontWeight: 500 }}>Opens</th>
               <th style={{ textAlign: "right", padding: "0 0 6px 10px", fontWeight: 500 }}>Highlight</th>
@@ -3130,7 +3129,7 @@ function PillBreakdown({ rows, note }) {
                         proporcion sin costar ancho, que en movil no sobra. */}
                     <div style={{
                       background: `linear-gradient(to right, ${BLUE_M} ${rate / (max * 100) * 100}%, ${BG} ${rate / (max * 100) * 100}%)`,
-                      borderRadius: 4, padding: "3px 6px", color: INK, fontWeight: 500, textAlign: "right",
+                      borderRadius: R.sm, padding: "3px 6px", color: INK, fontWeight: 500, textAlign: "right",
                     }}>{rate.toFixed(1)}%</div>
                   </td>
                 </tr>
@@ -3139,7 +3138,7 @@ function PillBreakdown({ rows, note }) {
           </tbody>
         </table>
       </div>
-      {note && <div style={{ fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>{note}</div>}
+      {note && <div style={{ fontSize: T.micro, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>{note}</div>}
     </div>
   );
 }
@@ -3153,9 +3152,9 @@ function PillMonthlyTable({ months, rows, note }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
       <div style={{ overflowX: "auto" }}>
-        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11, minWidth: 280 }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: T.sm, minWidth: 280 }}>
           <thead>
-            <tr style={{ color: INK3, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+            <tr style={{ color: INK3, fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.08em" }}>
               <th style={{ textAlign: "left", padding: "0 0 6px", fontWeight: 500 }}>Pill</th>
               {months.map((m, i) => (
                 <th key={i} style={{ textAlign: "right", padding: "0 0 6px 8px", fontWeight: 500 }}>{m}</th>
@@ -3171,7 +3170,7 @@ function PillMonthlyTable({ months, rows, note }) {
                     <div style={{
                       // La intensidad va solo en el fondo: el numero conserva su contraste (antes la opacidad lo apagaba).
                       background: v === 0 ? "transparent" : `color-mix(in srgb, ${BLUE_M} ${Math.round(25 + (v / max) * 75)}%, ${SURF})`,
-                      borderRadius: 4, padding: "3px 5px",
+                      borderRadius: R.sm, padding: "3px 5px",
                       color: v === 0 ? INK3 : INK, fontWeight: v === 0 ? 400 : 500,
                     }}>{v}</div>
                   </td>
@@ -3181,7 +3180,7 @@ function PillMonthlyTable({ months, rows, note }) {
           </tbody>
         </table>
       </div>
-      {note && <div style={{ fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>{note}</div>}
+      {note && <div style={{ fontSize: T.micro, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>{note}</div>}
     </div>
   );
 }
@@ -3477,7 +3476,7 @@ const COHORTS = {
 
 function Takeaways({ items, style }) {
   return (
-    <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.6, ...style }}>
+    <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.md, padding: "10px 14px", fontSize: T.xs, color: BLUE_D, lineHeight: 1.6, ...style }}>
       {items.map((t, i) => (
         <Fragment key={i}>
           {i > 0 && <><br /><br /></>}
@@ -3490,15 +3489,15 @@ function Takeaways({ items, style }) {
 
 function FunnelSection({ f }) {
   const Card = ({ block, children, accent }) => (
-    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px", ...(accent ? { borderLeft: `3px solid ${accent}` } : {}) }}>
-      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>{block.title}</div>
-      <div style={{ fontSize: 11, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>{block.intro}</div>
+    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "18px 20px", ...(accent ? { borderLeft: `3px solid ${accent}` } : {}) }}>
+      <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>{block.title}</div>
+      <div style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>{block.intro}</div>
       {children}
     </div>
   );
   return (
     <>
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔻 Conversion funnels (live via MCP)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔻 Conversion funnels (live via MCP)</div>
 
       <Card block={f.openSearch}>
         <FunnelChart steps={f.openSearch.steps} compare={f.openSearch.compare} compareLabel={f.openSearch.compareLabel} note={f.openSearch.note} derived={f.openSearch.derived} />
@@ -3508,7 +3507,7 @@ function FunnelSection({ f }) {
         <FunnelChart steps={f.contextual.steps} compare={f.contextual.compare} compareLabel={f.contextual.compareLabel} note={f.contextual.note} derived={f.contextual.derived} />
       </Card>
 
-      <Takeaways items={f.synthesis} style={{ borderRadius: 10, padding: "14px 18px" }} />
+      <Takeaways items={f.synthesis} style={{ borderRadius: R.lg, padding: "14px 18px" }} />
 
       {/* Los tres bloques que siguen son analisis cross-mes, no del mes: van
           solo en la vista mas reciente. Ausentes en los meses anteriores. */}
@@ -3547,21 +3546,21 @@ function SessionShot({ shot }) {
     <figure style={{ margin: "0 0 18px 0", borderTop: `1px solid ${BDR}`, borderBottom: `1px solid ${BDR}`, padding: "14px 0" }}>
       <a href={shot.src} target="_blank" rel="noopener noreferrer" style={{ display: "block", maxWidth: 720, marginBottom: 8 }}>
         <img src={shot.src} alt={shot.alt}
-             style={{ width: "100%", height: "auto", display: "block", border: `1px solid ${BDR}`, borderRadius: 8, background: SURF }} />
+             style={{ width: "100%", height: "auto", display: "block", border: `1px solid ${BDR}`, borderRadius: R.md, background: SURF }} />
       </a>
-      <figcaption style={{ maxWidth: 720, fontSize: 10, color: INK2, lineHeight: 1.6, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+      <figcaption style={{ maxWidth: 720, fontSize: T.xs, color: INK2, lineHeight: 1.6, fontFamily: FONT }}>
         {shot.caption}
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center", marginTop: 8 }}>
           <a href={shot.url} target="_blank" rel="noopener noreferrer"
-             style={{ fontSize: 9, color: BLUE_D, textDecoration: "underline", textUnderlineOffset: 2, border: `1px solid ${BDR}`, borderRadius: 20, padding: "3px 9px", whiteSpace: "nowrap" }}>
+             style={{ fontSize: T.micro, color: BLUE_D, textDecoration: "underline", textUnderlineOffset: 2, border: `1px solid ${BDR}`, borderRadius: R.pill, padding: "3px 9px", whiteSpace: "nowrap" }}>
             ▸ watch {shot.session} · {shot.place}
           </a>
           <a href={shot.src} target="_blank" rel="noopener noreferrer"
-             style={{ fontSize: 9, color: BLUE_D, textDecoration: "underline", textUnderlineOffset: 2, border: `1px solid ${BDR}`, borderRadius: 20, padding: "3px 9px", whiteSpace: "nowrap" }}>
+             style={{ fontSize: T.micro, color: BLUE_D, textDecoration: "underline", textUnderlineOffset: 2, border: `1px solid ${BDR}`, borderRadius: R.pill, padding: "3px 9px", whiteSpace: "nowrap" }}>
             ⤢ full size
           </a>
         </div>
-        <div style={{ fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5, marginTop: 8 }}>{shot.redaction}</div>
+        <div style={{ fontSize: T.micro, color: INK3, fontStyle: "italic", lineHeight: 1.5, marginTop: 8 }}>{shot.redaction}</div>
       </figcaption>
     </figure>
   );
@@ -3571,10 +3570,10 @@ function QualitativeSection({ q }) {
   const TONE = { green: GREEN, amber: AMBER, red: RED, blue: BLUE_D };
   return (
     <>
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔎 {q.kicker}</div>
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>{q.title}</div>
-        <div style={{ fontSize: 11, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>{q.intro}</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔎 {q.kicker}</div>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "18px 20px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>{q.title}</div>
+        <div style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>{q.intro}</div>
 
         {q.shot && <SessionShot shot={q.shot} />}
 
@@ -3582,20 +3581,20 @@ function QualitativeSection({ q }) {
           {q.themes.map((t, i) => (
             <div key={i} style={{ borderTop: i > 0 ? `1px solid ${BDR}` : "none", paddingTop: i > 0 ? 14 : 0 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 6 }}>
-                <span style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 600, color: ON_ACCENT, background: TONE[t.tone], borderRadius: 4, padding: "3px 7px", whiteSpace: "nowrap" }}>{t.tag}</span>
-                <span style={{ fontSize: 12, fontWeight: 600, color: INK, lineHeight: 1.35 }}>{t.title}</span>
+                <span style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 600, color: ON_ACCENT, background: TONE[t.tone], borderRadius: R.sm, padding: "3px 7px", whiteSpace: "nowrap" }}>{t.tag}</span>
+                <span style={{ fontSize: T.md, fontWeight: 600, color: INK, lineHeight: 1.35 }}>{t.title}</span>
               </div>
-              <p style={{ fontSize: 11, color: INK2, lineHeight: 1.6, margin: "0 0 8px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>{t.body}</p>
+              <p style={{ fontSize: T.sm, color: INK2, lineHeight: 1.6, margin: "0 0 8px 0", fontFamily: FONT }}>{t.body}</p>
               {t.quote && (
-                <div style={{ fontSize: 10, color: INK2, fontStyle: "italic", lineHeight: 1.6, borderLeft: `2px solid ${BDR}`, paddingLeft: 10, margin: "0 0 8px 0", overflowWrap: "anywhere" }}>{t.quote}</div>
+                <div style={{ fontSize: T.xs, color: INK2, fontStyle: "italic", lineHeight: 1.6, borderLeft: `2px solid ${BDR}`, paddingLeft: 10, margin: "0 0 8px 0", overflowWrap: "anywhere" }}>{t.quote}</div>
               )}
-              <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 6, padding: "8px 11px", fontSize: 10, color: BLUE_D, lineHeight: 1.6, marginBottom: 8 }}>
+              <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.md, padding: "8px 11px", fontSize: T.xs, color: BLUE_D, lineHeight: 1.6, marginBottom: 8 }}>
                 <strong>So what.</strong> {t.soWhat}
               </div>
               <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                 {t.sessions.map((sn, j) => (
                   <a key={j} href={sn.url} target="_blank" rel="noopener noreferrer"
-                     style={{ fontSize: 9, color: BLUE_D, textDecoration: "underline", textUnderlineOffset: 2, border: `1px solid ${BDR}`, borderRadius: 20, padding: "3px 9px", whiteSpace: "nowrap" }}>
+                     style={{ fontSize: T.micro, color: BLUE_D, textDecoration: "underline", textUnderlineOffset: 2, border: `1px solid ${BDR}`, borderRadius: R.pill, padding: "3px 9px", whiteSpace: "nowrap" }}>
                     ▸ watch {sn.id} · {sn.place}
                   </a>
                 ))}
@@ -3606,14 +3605,14 @@ function QualitativeSection({ q }) {
 
         {q.alsoNoted && (
           <div style={{ marginTop: 16, borderTop: `1px solid ${BDR}`, paddingTop: 14 }}>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Also noted</div>
-            <ul style={{ margin: 0, paddingLeft: 16, fontSize: 10, color: INK2, lineHeight: 1.7, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+            <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Also noted</div>
+            <ul style={{ margin: 0, paddingLeft: 16, fontSize: T.xs, color: INK2, lineHeight: 1.7, fontFamily: FONT }}>
               {q.alsoNoted.map((a, i) => <li key={i} style={{ marginBottom: 4 }}>{a}</li>)}
             </ul>
           </div>
         )}
 
-        {q.note && <div style={{ fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5, marginTop: 14 }}>{q.note}</div>}
+        {q.note && <div style={{ fontSize: T.micro, color: INK3, fontStyle: "italic", lineHeight: 1.5, marginTop: 14 }}>{q.note}</div>}
       </div>
     </>
   );
@@ -3625,9 +3624,9 @@ function CohortTable({ cols, rows, note }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
       <div style={{ overflowX: "auto" }}>
-        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 11, minWidth: 300 }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: T.sm, minWidth: 300 }}>
           <thead>
-            <tr style={{ color: INK3, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+            <tr style={{ color: INK3, fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.08em" }}>
               <th style={{ textAlign: "left", padding: "0 0 6px", fontWeight: 500 }}>Cohort</th>
               <th style={{ textAlign: "right", padding: "0 0 6px 8px", fontWeight: 500 }}>Size</th>
               {cols.map((c, i) => (
@@ -3645,7 +3644,7 @@ function CohortTable({ cols, rows, note }) {
                   const pct = v / r.size * 100;
                   return (
                     <td key={j} style={{ padding: "4px 0 4px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
-                      <div style={{ background: `color-mix(in srgb, ${BLUE} ${Math.round((0.06 + Math.min(pct / 16, 1) * 0.22) * 100)}%, ${SURF})`, borderRadius: 4, padding: "3px 5px", color: INK }}>
+                      <div style={{ background: `color-mix(in srgb, ${BLUE} ${Math.round((0.06 + Math.min(pct / 16, 1) * 0.22) * 100)}%, ${SURF})`, borderRadius: R.sm, padding: "3px 5px", color: INK }}>
                         {v} <span style={{ color: INK2, fontWeight: 400 }}>· {pct.toFixed(1)}%</span>
                       </div>
                     </td>
@@ -3656,7 +3655,7 @@ function CohortTable({ cols, rows, note }) {
           </tbody>
         </table>
       </div>
-      {note && <div style={{ fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>{note}</div>}
+      {note && <div style={{ fontSize: T.micro, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>{note}</div>}
     </div>
   );
 }
@@ -3664,10 +3663,10 @@ function CohortTable({ cols, rows, note }) {
 function CohortSection({ c }) {
   return (
     <>
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔁 Retention by cohort</div>
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>{c.title}</div>
-        <div style={{ fontSize: 11, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>{c.intro}</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔁 Retention by cohort</div>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "18px 20px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>{c.title}</div>
+        <div style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, marginBottom: 16 }}>{c.intro}</div>
         <CohortTable cols={c.cols} rows={c.rows} note={c.note} />
         <Takeaways items={c.takeaways} style={{ marginTop: 14 }} />
       </div>
@@ -3707,13 +3706,13 @@ function MonthMetricCard({ label, value, desc, accent, small, bench, momentum, m
   if (variant === "april") {
     const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
     return (
-    <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}>
+    <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+      <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}>
         <span>{label}</span>
         {meta && META[meta] && <MetricInfo m={META[meta]} />}
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6, overflow: "hidden" }}>
-        {flagCode && <span style={{ fontSize: 20, lineHeight: 1, flexShrink: 0 }}>{flag(flagCode)}</span>}
+        {flagCode && <span style={{ fontSize: T.h3, lineHeight: 1, flexShrink: 0 }}>{flag(flagCode)}</span>}
         <div style={{
           fontSize: flagCode ? 14 : small ? 16 : 28,
           fontWeight: 500,
@@ -3725,13 +3724,13 @@ function MonthMetricCard({ label, value, desc, accent, small, bench, momentum, m
           color: value && value !== "—" ? (accent ? BLUE_D : INK) : BDR
         }}>{value || "—"}</div>
       </div>
-      {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginBottom: badge ? 6 : 0 }}>{desc}</div>}
+      {desc && <div style={{ fontSize: T.micro, color: accent ? BLUE : INK3, lineHeight: 1.4, marginBottom: badge ? 6 : 0 }}>{desc}</div>}
       {badge && (
         <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
-          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: badge.isGood ? GREEN_L : RED_L, color: badge.isGood ? GREEN : RED }}>
+          <span style={{ fontSize: T.micro, fontWeight: 600, padding: "2px 7px", borderRadius: R.pill, background: badge.isGood ? GREEN_L : RED_L, color: badge.isGood ? GREEN : RED }}>
             {badge.label} vs monthly avg
           </span>
-          <span style={{ fontSize: 9, color: INK3 }}>({bench})</span>
+          <span style={{ fontSize: T.micro, color: INK3 }}>({bench})</span>
         </div>
       )}
     </div>
@@ -3741,16 +3740,16 @@ function MonthMetricCard({ label, value, desc, accent, small, bench, momentum, m
   if (variant === "august") {
     const m = meta ? META[meta] : null;
     return (
-      <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px", position: "relative" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}>
+      <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: R.lg, padding: "16px 18px", position: "relative" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}>
           <span>{label}</span>
           {m && <MetricInfo m={m} />}
         </div>
         <div style={{ fontSize: small ? 16 : 28, fontWeight: 500, letterSpacing: small ? "-0.01em" : "-0.03em", lineHeight: 1.2, color: value && value !== "—" ? (accent ? BLUE_D : INK) : BDR }}>{value || "—"}</div>
-        {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6 }}>{desc}</div>}
+        {desc && <div style={{ fontSize: T.micro, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6 }}>{desc}</div>}
         {momentumBadge && (
           <div style={{ marginTop: 4 }}>
-            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: momentumBadge.label.startsWith("↑") ? GREEN_L : RED_L, color: momentumBadge.label.startsWith("↑") ? GREEN : RED }}>
+            <span style={{ fontSize: T.micro, fontWeight: 600, padding: "2px 7px", borderRadius: R.pill, background: momentumBadge.label.startsWith("↑") ? GREEN_L : RED_L, color: momentumBadge.label.startsWith("↑") ? GREEN : RED }}>
               {momentumBadge.label} vs {momentumLabel} ({momentum})
             </span>
           </div>
@@ -3760,25 +3759,25 @@ function MonthMetricCard({ label, value, desc, accent, small, bench, momentum, m
   }
 
   return (
-    <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-      <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}>
+    <div style={{ background: accent ? BLUE_L : SURF, border: `1px solid ${accent ? BLUE_M : BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+      <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: accent ? BLUE_D : INK3, marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}>
         <span>{label}</span>
         {meta && META[meta] && <MetricInfo m={META[meta]} />}
       </div>
       <div style={{ fontSize: small ? 16 : 28, fontWeight: 500, letterSpacing: small ? "-0.01em" : "-0.03em", lineHeight: 1.2, color: value && value !== "—" ? (accent ? BLUE_D : INK) : BDR }}>{value || "—"}</div>
-      {desc && <div style={{ fontSize: 9, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6, marginBottom: (badge || momentumBadge) ? 6 : 0 }}>{desc}</div>}
+      {desc && <div style={{ fontSize: T.micro, color: accent ? BLUE : INK3, lineHeight: 1.4, marginTop: 6, marginBottom: (badge || momentumBadge) ? 6 : 0 }}>{desc}</div>}
       {badge && (
         <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4, flexWrap: "wrap" }}>
-          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: badge.isGood ? GREEN_L : RED_L, color: badge.isGood ? GREEN : RED }}>
+          <span style={{ fontSize: T.micro, fontWeight: 600, padding: "2px 7px", borderRadius: R.pill, background: badge.isGood ? GREEN_L : RED_L, color: badge.isGood ? GREEN : RED }}>
             {badge.label} vs monthly avg
           </span>
-          <span style={{ fontSize: 9, color: INK3 }}>({bench})</span>
-          {momentumBadge && <span style={{ fontSize: 9, color: INK3 }}>· {momentumBadge.label} vs {momentumLabel} ({momentum})</span>}
+          <span style={{ fontSize: T.micro, color: INK3 }}>({bench})</span>
+          {momentumBadge && <span style={{ fontSize: T.micro, color: INK3 }}>· {momentumBadge.label} vs {momentumLabel} ({momentum})</span>}
         </div>
       )}
       {!badge && momentumBadge && (
         <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 4 }}>
-          <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: momentumBadge.label.startsWith("↑") ? GREEN_L : RED_L, color: momentumBadge.label.startsWith("↑") ? GREEN : RED }}>
+          <span style={{ fontSize: T.micro, fontWeight: 600, padding: "2px 7px", borderRadius: R.pill, background: momentumBadge.label.startsWith("↑") ? GREEN_L : RED_L, color: momentumBadge.label.startsWith("↑") ? GREEN : RED }}>
             {momentumBadge.label} vs {momentumLabel} ({momentum})
           </span>
         </div>
@@ -3801,17 +3800,17 @@ function MetricInfo({ m }) {
         onMouseLeave={() => setOpen(false)}
         onFocus={() => setOpen(true)}
         onBlur={() => setOpen(false)}
-        style={{ width: 16, height: 16, borderRadius: 99, border: `1px solid ${BDR_2}`, background: SURF, color: INK2, fontSize: 9, lineHeight: 1, padding: 0, cursor: "help", fontFamily: "inherit", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
+        style={{ width: 16, height: 16, borderRadius: R.pill, border: `1px solid ${BDR_2}`, background: SURF, color: INK2, fontSize: T.micro, lineHeight: 1, padding: 0, cursor: "help", fontFamily: "inherit", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
       >i</button>
       {open && (
-        <span role="tooltip" style={{ position: "absolute", bottom: "calc(100% + 6px)", left: "50%", transform: "translateX(-50%)", zIndex: 50, width: 240, background: INK, color: ON_ACCENT, borderRadius: 8, padding: "10px 12px", boxShadow: "0 4px 16px rgba(0,0,0,.22)", textTransform: "none", letterSpacing: 0, fontWeight: 400 }}>
+        <span role="tooltip" style={{ position: "absolute", bottom: "calc(100% + 6px)", left: "50%", transform: "translateX(-50%)", zIndex: 50, width: 240, background: INK, color: ON_ACCENT, borderRadius: R.md, padding: "10px 12px", boxShadow: "0 4px 16px rgba(0,0,0,.22)", textTransform: "none", letterSpacing: 0, fontWeight: 400 }}>
           <span style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 6 }}>
-            <span style={{ width: 6, height: 6, borderRadius: 99, background: dot, flexShrink: 0 }} />
-            <span style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em", color: ON_DARK_2 }}>{SRC_LABEL[m.src]}</span>
+            <span style={{ width: 6, height: 6, borderRadius: R.pill, background: dot, flexShrink: 0 }} />
+            <span style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.08em", color: ON_DARK_2 }}>{SRC_LABEL[m.src]}</span>
           </span>
-          <span style={{ display: "block", fontSize: 10, lineHeight: 1.5, color: ON_DARK }}>{m.def}</span>
+          <span style={{ display: "block", fontSize: T.xs, lineHeight: 1.5, color: ON_DARK }}>{m.def}</span>
           {m.id && (
-            <span style={{ display: "block", marginTop: 7, paddingTop: 6, borderTop: "1px solid rgba(255,255,255,.15)", fontSize: 9, color: ON_DARK_2 }}>
+            <span style={{ display: "block", marginTop: 7, paddingTop: 6, borderTop: "1px solid rgba(255,255,255,.15)", fontSize: T.micro, color: ON_DARK_2 }}>
               metric_id <code style={{ color: ON_DARK_2 }}>{m.id}</code>
             </span>
           )}
@@ -3834,14 +3833,14 @@ function AugustMonthly() {
   const maxUsers = regional[0].users;
 
   return (
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
+    <div style={{ maxWidth: PAGE_W, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
 
       {/* Header */}
       <div style={{ marginBottom: 8, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
         <div>
-          <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
-          <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
-          <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (live via MCP)</div>
+          <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
+          <div style={{ fontSize: T.h2, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
+          <div style={{ fontSize: T.sm, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (live via MCP)</div>
         </div>
         <button
           onClick={() => {
@@ -3879,13 +3878,13 @@ function AugustMonthly() {
             a.href = url; a.download = `KP_Monthly_August_2026_final.csv`; a.click();
             URL.revokeObjectURL(url);
           }}
-          style={{ fontFamily: "inherit", fontSize: 10, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: 6, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
+          style={{ fontFamily: "inherit", fontSize: T.xs, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: R.md, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
         >↓ Export CSV</button>
       </div>
 
       {/* Cumulative totals — pulled live via MCP */}
-      <div style={{ background: NAVY, borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
+      <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to Aug 31, 2026 · live via MCP
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
@@ -3896,30 +3895,30 @@ function AugustMonthly() {
             { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: "26.7%" },
           ].map((m, i) => (
             <div key={i}>
-              <div style={{ fontSize: 22, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
-              <div style={{ fontSize: 9, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+              <div style={{ fontSize: T.h2, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: T.micro, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
             </div>
           ))}
         </div>
       </div>
 
       {/* ── GENERAL USABILITY ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (August)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (August)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="users" label="Users reached" value={String(AUGUST.users)} desc="Unique people who used KP in August" accent momentum={JULY.users} />
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(AUGUST.prompters)} desc={`${Math.round(AUGUST.prompters/AUGUST.users*100)}% of users reached · live via MCP`} accent momentum={JULY.prompters} />
         <MCard meta="firstTime" label="New users" value={String(AUGUST.first_time)} desc={`First-time visitors · other ${AUGUST.users - AUGUST.first_time} are returning from prior months`} momentum={JULY.first_time} />
         <MCard meta="returningUsers" label="Returning users" value={String(AUGUST.returningUsers)} desc={`${Math.round(AUGUST.returningUsers/AUGUST.users*100)}% of users reached · already knew KP before August`} momentum={JULY.returningUsers} />
-        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(AUGUST.users/BID_TOTAL*100*10)/10}%</div>
-          <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
-            <div style={{ width: `${Math.round(AUGUST.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
+        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
+          <div style={{ fontSize: T.kpi, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(AUGUST.users/BID_TOTAL*100*10)/10}%</div>
+          <div style={{ background: BLUE_M, borderRadius: R.pill, height: 6, overflow: "hidden", marginBottom: 6 }}>
+            <div style={{ width: `${Math.round(AUGUST.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: R.pill }} />
           </div>
-          <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+          <div style={{ fontSize: T.micro, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
             <span>{AUGUST.users} users</span><span>{BID_TOTAL.toLocaleString()} total</span>
           </div>
-          <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants</div>
+          <div style={{ fontSize: T.micro, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants</div>
         </div>
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${AUGUST.tourCompletion}%`} desc="Users who finished the tour · live via MCP" momentum={JULY.tourCompletion} />
         <MCard meta="sessions" label="Sessions" value={String(AUGUST.sessions)} desc="Total for the month" momentum={JULY.sessions} />
@@ -3929,44 +3928,44 @@ function AugustMonthly() {
       </div>
 
       {/* Geo */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 20px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
           <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}><span>🌎 Geographic Reach — {AUGUST.totalCountries} countries</span><MetricInfo m={META.countries} /></span>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
-          <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: R.md }}>
+          <span style={{ fontSize: T.xl, flexShrink: 0 }}>🇺🇸</span>
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-              <span style={{ fontSize: 11, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
-              <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usData.pct}%</span>
+              <span style={{ fontSize: T.sm, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
+              <span style={{ fontSize: T.sm, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usData.pct}%</span>
             </div>
-            <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
-              <div style={{ width: `${usData.pct}%`, height: "100%", background: BLUE_DEEP, borderRadius: 99 }} />
+            <div style={{ background: BLUE_M, borderRadius: R.pill, height: 6, overflow: "hidden" }}>
+              <div style={{ width: `${usData.pct}%`, height: "100%", background: BLUE_DEEP, borderRadius: R.pill }} />
             </div>
           </div>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px 16px" }}>
           {(showAllCountries ? regional : regional.slice(0, 12)).map((c, i) => (
             <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
-              <span style={{ fontSize: 13, flexShrink: 0 }}>{flag(c.code)}</span>
+              <span style={{ fontSize: T.base, flexShrink: 0 }}>{flag(c.code)}</span>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
-                  <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
-                  <span style={{ fontSize: 9, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
+                  <span style={{ fontSize: T.micro, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
+                  <span style={{ fontSize: T.micro, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
                 </div>
-                <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
-                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 4 ? BLUE_DEEP : c.users >= 2 ? BLUE : BLUE_SOFT, borderRadius: 99 }} />
+                <div style={{ background: BG, borderRadius: R.pill, height: 3, overflow: "hidden" }}>
+                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 4 ? BLUE_DEEP : c.users >= 2 ? BLUE : BLUE_SOFT, borderRadius: R.pill }} />
                 </div>
               </div>
             </div>
           ))}
         </div>
         {regional.length > 12 && (
-          <button onClick={() => setShowAllCountries(!showAllCountries)} style={{ fontFamily: "inherit", fontSize: 9, fontWeight: 500, marginTop: 8, padding: "5px 12px", border: `1px solid ${BDR}`, borderRadius: 99, cursor: "pointer", background: SURF, color: BLUE_D }}>
+          <button onClick={() => setShowAllCountries(!showAllCountries)} style={{ fontFamily: "inherit", fontSize: T.micro, fontWeight: 500, marginTop: 8, padding: "5px 12px", border: `1px solid ${BDR}`, borderRadius: R.pill, cursor: "pointer", background: SURF, color: BLUE_D }}>
             {showAllCountries ? "▴ Show less" : `▾ Show all ${regional.length} countries`}
           </button>
         )}
-        <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
+        <div style={{ marginTop: 10, fontSize: T.micro, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
           <strong>This table is a wider population than the rest of the report.</strong> The country metric counts any activity with no segment and no host filter, so unlike every other figure here it includes the build team, the test host and localhost — which is why it sums to 378 against the month's 271 users. Read the shares, not the absolute counts. <strong>Netherlands has been removed:</strong> its 32 "users" were an automated monitor hitting the non-production test host once a day, the same one found in September and verified on Oct 1 — there were no Dutch users on production in August either. New face this month: Germany 🇩🇪.
         </div>
       </div>
@@ -3975,7 +3974,7 @@ function AugustMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── CONTEXTUAL SEARCH ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (August)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (August)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard meta="pillPageviews" label="Queries (pill views)" value={String(AUGUST.pillPageviews)} desc="Total visits across all contextual search pills · from the ledger" accent momentum={JULY.pillPageviews} />
         <MCard meta="categoryUsers" label="Users in a category" value={String(snapshotAt("cs_category_users", "2026-08"))} desc="People who opened at least one knowledge category · from the ledger" momentum={snapshotAt("cs_category_users", "2026-07")} />
@@ -3987,19 +3986,19 @@ function AugustMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── KNOWLEDGE ASSISTANT ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (August)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (August)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(AUGUST.prompters)} desc={`${Math.round(AUGUST.prompters/AUGUST.users*100)}% of users reached`} accent momentum={JULY.prompters} />
         <MCard meta="prompts" label="Prompts sent" value={String(AUGUST.prompts)} desc="Median: 1 per prompter · manual, admin console" accent momentum={JULY.prompts} />
         <MCard meta="latency" label="Latency" value={AUGUST.latency} desc="Average response time · from the admin console · 27s in July" small />
         <MCard meta="sourceClicks" label="Source panel clicks" value={String(AUGUST.sourceClicks)} desc="Clicks on source panel · from the ledger" momentum={JULY.sourceClicks} />
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
           <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
-            <div style={{ fontSize: 28, fontWeight: 500, color: GREEN, letterSpacing: "-0.03em", lineHeight: 1 }}>👍 {AUGUST.thumbsUp}</div>
-            <div style={{ fontSize: 28, fontWeight: 500, color: RED, letterSpacing: "-0.03em", lineHeight: 1 }}>👎 {AUGUST.thumbsDown}</div>
+            <div style={{ fontSize: T.kpi, fontWeight: 500, color: GREEN, letterSpacing: "-0.03em", lineHeight: 1 }}>👍 {AUGUST.thumbsUp}</div>
+            <div style={{ fontSize: T.kpi, fontWeight: 500, color: RED, letterSpacing: "-0.03em", lineHeight: 1 }}>👎 {AUGUST.thumbsDown}</div>
           </div>
-          <div style={{ fontSize: 9, color: INK3, marginTop: 8 }}>AI responses rated · live via MCP</div>
+          <div style={{ fontSize: T.micro, color: INK3, marginTop: 8 }}>AI responses rated · live via MCP</div>
         </div>
         <MCard meta="promptGallery" label="Prompt Gallery clicks" value={String(AUGUST.promptGalleryClicks)} momentum={JULY.promptGalleryClicks} />
         <MCard meta="recentSearch" label="Recent Search clicks" value={String(AUGUST.recentSearchClicks)} momentum={JULY.recentSearchClicks} />
@@ -4007,26 +4006,26 @@ function AugustMonthly() {
       </div>
 
       {/* CSAT block */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "18px 20px" }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "18px 20px" }}>
         <div style={{ marginBottom: 14 }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6, display: "flex", alignItems: "center", gap: 5 }}><span>CSAT — Customer Satisfaction Score</span><MetricInfo m={META.csat} /></div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>{AUGUST.csat}</div>
-          <div style={{ fontSize: 10, color: INK3, marginTop: 4, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 6, display: "flex", alignItems: "center", gap: 5 }}><span>CSAT — Customer Satisfaction Score</span><MetricInfo m={META.csat} /></div>
+          <div style={{ fontSize: T.kpi, fontWeight: 500, color: INK, letterSpacing: "-0.03em", lineHeight: 1 }}>{AUGUST.csat}</div>
+          <div style={{ fontSize: T.xs, color: INK3, marginTop: 4, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
             <span>5 responses · avg 2.80 / 5 ★ · August 2026 (full month, closed 2026-09-07)</span>
-            <span style={{ fontSize: 9, fontWeight: 600, padding: "2px 7px", borderRadius: 99, background: RED_L, color: RED }}>↓ 60.0pp vs July</span>
+            <span style={{ fontSize: T.micro, fontWeight: 600, padding: "2px 7px", borderRadius: R.pill, background: RED_L, color: RED }}>↓ 60.0pp vs July</span>
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <div style={{ padding: "8px 12px", background: GREEN_L, border: `1px solid ${GREEN_M}`, borderRadius: 7, fontSize: 10, color: GREEN_INK }}>
+          <div style={{ padding: "8px 12px", background: GREEN_L, border: `1px solid ${GREEN_M}`, borderRadius: R.md, fontSize: T.xs, color: GREEN_INK }}>
             👍 <strong>2 positive (5★, 4★):</strong> "I quickly found what I was looking for" · "The content was clear" · "The experience was simple and smooth" · "The platform was useful for my work"
           </div>
-          <div style={{ padding: "8px 12px", background: AMBER_L, border: `1px solid ${AMBER_M}`, borderRadius: 7, fontSize: 10, color: AMBER_INK }}>
+          <div style={{ padding: "8px 12px", background: AMBER_L, border: `1px solid ${AMBER_M}`, borderRadius: R.md, fontSize: T.xs, color: AMBER_INK }}>
             😐 <strong>1 neutral (3★):</strong> "The platform could be more useful to my work" — genuine product signal on perceived usefulness.
           </div>
-          <div style={{ padding: "8px 12px", background: RED_L, border: `1px solid ${RED_M_2}`, borderRadius: 7, fontSize: 10, color: RED_INK_2 }}>
+          <div style={{ padding: "8px 12px", background: RED_L, border: `1px solid ${RED_M_2}`, borderRadius: R.md, fontSize: T.xs, color: RED_INK_2 }}>
             👎 <strong>2 negative (1★, 1★):</strong> "The platform is empty, only showing access to a program" — reads as a technical or access-permissions fault, not a satisfaction judgement. · "plataforma confusa, abri e não aparecia nada e ao mover o mouse a página começou a recarregar... muito estranha essa UX" — describes a rendering/reload bug, also technical rather than a satisfaction judgement.
           </div>
-          <div style={{ padding: "8px 12px", background: AMBER_L, border: `1px solid ${AMBER_M}`, borderRadius: 7, fontSize: 10, color: AMBER_INK }}>
+          <div style={{ padding: "8px 12px", background: AMBER_L, border: `1px solid ${AMBER_M}`, borderRadius: R.md, fontSize: T.xs, color: AMBER_INK }}>
             ⚠ <strong>Read with caution: n=5.</strong> Full-month sample. Both negative reports describe technical/rendering issues (empty page on open, mouse-triggered reload) rather than dissatisfaction with content or usefulness — consistent with June's precedent of tracking technical complaints separately from satisfaction signal. Excluding both as technical tickets, the remaining three responses split 2 positive / 1 neutral.
           </div>
         </div>
@@ -4036,7 +4035,7 @@ function AugustMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── CONTENT ENGAGEMENT ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (August)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (August)</div>
       <ContentEngagementCard
         rows={engagementRows("2026-08", 6)}
         note={"Downloads: 3 Word · 3 Excel."}
@@ -4047,7 +4046,7 @@ function AugustMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── LWA (simplified) ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (August · people outside the build team)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (August · people outside the build team)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="lessonsGenerated" label="Created a lesson" value={String(AUGUST.lwa.creators)} desc="Nobody outside the team wrote one · live via MCP" accent />
         <MCard meta="lwaCopy" label="Copied one out" value={String(AUGUST.lwa.copied)} desc="No lesson taken away" />
@@ -4055,7 +4054,7 @@ function AugustMonthly() {
         <MCard meta="lwaView" label="Opened from the catalogue" value={String(AUGUST.lwa.viewed)} desc="No lesson reopened" />
         <MCard meta="lwaSharedView" label="Opened a shared lesson" value={String(AUGUST.lwa.sharedViewed)} desc="Nothing read from Shared with you" />
       </div>
-      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.5 }}>
+      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.md, padding: "10px 14px", fontSize: T.xs, color: BLUE_D, lineHeight: 1.5 }}>
         ℹ <strong>Restated on Sep 30, on the same basis as September:</strong> people in production, with the build team excluded. August has no LWA use by anyone outside the team. Counting the team as well, one person created {AUGUST.lwa.withTeam.created} lessons and nothing else happened — no shares, no copies, no catalogue opens. The figure published earlier for lessons generated, 10, was wrong: it came from a clicks metric with no host filter. September is the first month with any genuine use.
       </div>
 
@@ -4069,30 +4068,30 @@ function AugustMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* Signals — executive */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — August, closed</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — August, closed</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration reaches 27%</div>
-          <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.xs, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration reaches 27%</div>
+          <p style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: FONT }}>
             1,943 cumulative users — +125 net-new over the month, against July's close of 1,818, and 26.7% of staff and consultants reached. Adoption keeps compounding with no active campaign behind it.
           </p>
         </div>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>August closes above July on both counts</div>
-          <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.xs, fontWeight: 600, color: INK, marginBottom: 6 }}>August closes above July on both counts</div>
+          <p style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: FONT }}>
             271 users · 1,260 sessions, against July's 237 and 1,226 — up 14% and 3%. What read as a summer trough in July has reversed, and August is the strongest month for users since June. But the growth did not reach the far end of the funnel: copies fell to 24, the lowest of the series. More people came, and fewer took something away.
           </p>
         </div>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach widens, Netherlands dilutes</div>
-          <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.xs, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach widens, Netherlands dilutes</div>
+          <p style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: FONT }}>
             32 countries at close. Netherlands finishes #2 with 32 users and its share held at 8% — the erosion of earlier months (11% → 9% → 8%) has stopped. A count that keeps rising at a fixed share is still consistent with an automated source rather than a user base, and it stays flagged, pending confirmation. Argentina climbed to 17, level with Brazil, and Mexico to 10, level with Panama.
           </p>
         </div>
       </div>
 
       {/* Pending sections note */}
-      <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
+      <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: R.lg, padding: "16px 20px", fontSize: T.xs, color: INK3, lineHeight: 1.6 }}>
         <strong style={{ color: INK2 }}>Live via MCP:</strong> users, sessions, countries, prompters, onboarding, all 5 pills, feedback, gallery/recent/new search, downloads and LWA — all pulled directly from FullStory dashboard widgets by ID. <strong style={{ color: INK2 }}>Open Search and Contextual</strong> (highlights, copies, source clicks, pill views and Global Search) come from the monthly ledger, segment Sin DEV (copy), which excludes the internal team; they were restated in October 2026 and earlier versions of this report may show different values. <strong style={{ color: INK2 }}>Loaded manually:</strong> CSAT (40%, n=5, full month, closed Sep 7) and prompts sent (634, from the admin console — no FullStory metric covers this; the closest candidate returns 108 for July against the 415 on record, so it counts one submit button and not prompts). <strong style={{ color: INK2 }}>New and returning users</strong> are now computed on the Sin DEV population — first seen inside the month, built as a segment because metrics cannot express First Seen. The figures previously carried for July were org-wide and have been restated. <strong style={{ color: INK2 }}>Latency (29s)</strong> was loaded later, on Oct 1, from the admin console — FullStory has no metric for it. It is an average, not the median this field was originally labelled. Figures cover the closed month, Aug 1–31, pulled on Sep 1.
       </div>
 
@@ -4200,14 +4199,14 @@ function SeptemberMonthly() {
   const maxUsers = regional[0].users;
 
   return (
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
+    <div style={{ maxWidth: PAGE_W, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
 
       {/* Header */}
       <div style={{ marginBottom: 8, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
         <div>
-          <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
-          <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
-          <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (live via MCP)</div>
+          <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report</div>
+          <div style={{ fontSize: T.h2, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>{MONTH}</div>
+          <div style={{ fontSize: T.sm, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (live via MCP)</div>
         </div>
         <button
           onClick={() => {
@@ -4246,13 +4245,13 @@ function SeptemberMonthly() {
             a.href = url; a.download = `KP_Monthly_September_2026.csv`; a.click();
             URL.revokeObjectURL(url);
           }}
-          style={{ fontFamily: "inherit", fontSize: 10, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: 6, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
+          style={{ fontFamily: "inherit", fontSize: T.xs, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: R.md, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
         >↓ Export CSV</button>
       </div>
 
       {/* Cumulative totals — pulled live via MCP */}
-      <div style={{ background: NAVY, borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
+      <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to Sep 30, 2026 · September close (August close + September)
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
@@ -4263,30 +4262,30 @@ function SeptemberMonthly() {
             { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: "28.2%" },
           ].map((m, i) => (
             <div key={i}>
-              <div style={{ fontSize: 22, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
-              <div style={{ fontSize: 9, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+              <div style={{ fontSize: T.h2, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: T.micro, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
             </div>
           ))}
         </div>
       </div>
 
       {/* ── GENERAL USABILITY ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (September)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, marginTop: 8 }}>📊 General Usability (September)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="users" label="Users reached" value={String(SEPTEMBER.users)} desc="Unique people who used KP in September" accent momentum={AUGUST.users} />
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(SEPTEMBER.prompters)} desc={`${Math.round(SEPTEMBER.prompters/SEPTEMBER.users*100)}% of users reached · live via MCP`} accent momentum={AUGUST.prompters} />
         <MCard meta="firstTime" label="New users" value={String(SEPTEMBER.first_time)} desc={`First-time visitors · other ${SEPTEMBER.users - SEPTEMBER.first_time} are returning from prior months`} momentum={AUGUST.first_time} />
         <MCard meta="returningUsers" label="Returning users" value={String(SEPTEMBER.returningUsers)} desc={`${Math.round(SEPTEMBER.returningUsers/SEPTEMBER.users*100)}% of users reached · already knew KP before September`} momentum={AUGUST.returningUsers} />
-        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(SEPTEMBER.users/BID_TOTAL*100*10)/10}%</div>
-          <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
-            <div style={{ width: `${Math.round(SEPTEMBER.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
+        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
+          <div style={{ fontSize: T.kpi, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(SEPTEMBER.users/BID_TOTAL*100*10)/10}%</div>
+          <div style={{ background: BLUE_M, borderRadius: R.pill, height: 6, overflow: "hidden", marginBottom: 6 }}>
+            <div style={{ width: `${Math.round(SEPTEMBER.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: R.pill }} />
           </div>
-          <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+          <div style={{ fontSize: T.micro, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
             <span>{SEPTEMBER.users} users</span><span>{BID_TOTAL.toLocaleString()} total</span>
           </div>
-          <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants</div>
+          <div style={{ fontSize: T.micro, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants</div>
         </div>
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${SEPTEMBER.tourCompletion}%`} desc="Users who finished the tour · live via MCP" momentum={AUGUST.tourCompletion} />
         <MCard meta="sessions" label="Sessions" value={String(SEPTEMBER.sessions)} desc="Total for the month" momentum={AUGUST.sessions} />
@@ -4295,44 +4294,44 @@ function SeptemberMonthly() {
         <MCard meta="powerUsers" label="Power users" value={String(snapshotAt("power_users", "2026-09"))} desc={`${Math.round(snapshotAt("power_users", "2026-09") / SEPTEMBER.users * 100)}% of users reached · ≥8 visits in 28 days`} momentum={snapshotAt("power_users", "2026-08")} />      </div>
 
       {/* Geo */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 20px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
           <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}><span>🌎 Geographic Reach — {SEPTEMBER.totalCountries} countries</span><MetricInfo m={META.countries} /></span>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
-          <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: R.md }}>
+          <span style={{ fontSize: T.xl, flexShrink: 0 }}>🇺🇸</span>
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-              <span style={{ fontSize: 11, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
-              <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usData.pct}%</span>
+              <span style={{ fontSize: T.sm, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
+              <span style={{ fontSize: T.sm, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usData.pct}%</span>
             </div>
-            <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
-              <div style={{ width: `${usData.pct}%`, height: "100%", background: BLUE_DEEP, borderRadius: 99 }} />
+            <div style={{ background: BLUE_M, borderRadius: R.pill, height: 6, overflow: "hidden" }}>
+              <div style={{ width: `${usData.pct}%`, height: "100%", background: BLUE_DEEP, borderRadius: R.pill }} />
             </div>
           </div>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px 16px" }}>
           {(showAllCountries ? regional : regional.slice(0, 12)).map((c, i) => (
             <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
-              <span style={{ fontSize: 13, flexShrink: 0 }}>{flag(c.code)}</span>
+              <span style={{ fontSize: T.base, flexShrink: 0 }}>{flag(c.code)}</span>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
-                  <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
-                  <span style={{ fontSize: 9, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
+                  <span style={{ fontSize: T.micro, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
+                  <span style={{ fontSize: T.micro, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
                 </div>
-                <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
-                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 4 ? BLUE_DEEP : c.users >= 2 ? BLUE : BLUE_SOFT, borderRadius: 99 }} />
+                <div style={{ background: BG, borderRadius: R.pill, height: 3, overflow: "hidden" }}>
+                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 4 ? BLUE_DEEP : c.users >= 2 ? BLUE : BLUE_SOFT, borderRadius: R.pill }} />
                 </div>
               </div>
             </div>
           ))}
         </div>
         {regional.length > 12 && (
-          <button onClick={() => setShowAllCountries(!showAllCountries)} style={{ fontFamily: "inherit", fontSize: 9, fontWeight: 500, marginTop: 8, padding: "5px 12px", border: `1px solid ${BDR}`, borderRadius: 99, cursor: "pointer", background: SURF, color: BLUE_D }}>
+          <button onClick={() => setShowAllCountries(!showAllCountries)} style={{ fontFamily: "inherit", fontSize: T.micro, fontWeight: 500, marginTop: 8, padding: "5px 12px", border: `1px solid ${BDR}`, borderRadius: R.pill, cursor: "pointer", background: SURF, color: BLUE_D }}>
             {showAllCountries ? "▴ Show less" : `▾ Show all ${regional.length} countries`}
           </button>
         )}
-        <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
+        <div style={{ marginTop: 10, fontSize: T.micro, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
           <strong>This table is a wider population than the rest of the report.</strong> The country metric counts any activity with no segment and no host filter, so unlike every other figure here it includes the build team, the test host and localhost — which is why it sums to 400 against the month's 267 users. Read the shares, not the absolute counts. <strong>Netherlands has been removed:</strong> its 29 "users" were an automated monitor hitting the non-production test host once a day, verified on Oct 1 — there were no Dutch users on production at all. Rebuilding this table scoped to production is October work. Not in August's list: Bahamas, Canada, France, Puerto Rico, Saint Martin, Venezuela (1–7 users each).
         </div>
       </div>
@@ -4341,7 +4340,7 @@ function SeptemberMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── CONTEXTUAL SEARCH ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (September)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🔍 Contextual Search (September)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
         <MCard meta="pillPageviews" label="Queries (pill views)" value={String(SEPTEMBER.pillPageviews)} desc="Total visits across all contextual search pills · from the ledger" accent momentum={AUGUST.pillPageviews} />
         <MCard meta="categoryUsers" label="Users in a category" value={String(snapshotAt("cs_category_users", "2026-09"))} desc="People who opened at least one knowledge category · from the ledger" momentum={snapshotAt("cs_category_users", "2026-08")} />
@@ -4353,20 +4352,20 @@ function SeptemberMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── KNOWLEDGE ASSISTANT ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (September)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>🤖 Knowledge Assistant — Open Search (September)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(SEPTEMBER.prompters)} desc={`${Math.round(SEPTEMBER.prompters/SEPTEMBER.users*100)}% of users reached`} accent momentum={AUGUST.prompters} />
         <MCard meta="prompts" label="Prompts sent" value={String(SEPTEMBER.prompts)} desc={`${Math.round(SEPTEMBER.prompts/SEPTEMBER.prompters)} per prompter · from the admin console`} accent momentum={AUGUST.prompts} />
         <MCard meta="latency" label="Latency" value={SEPTEMBER.latency} desc="Average response time · from the admin console · 29s in August" small />
         <MCard meta="csat" label="CSAT" value={SEPTEMBER.csat} desc="Top-2 box, 2 of 3 responses · avg 4.33 ★ · n=3 is still too small to read as a rate" small />
         <MCard meta="sourceClicks" label="Source panel clicks" value={String(SEPTEMBER.sourceClicks)} desc="Clicks on source panel · from the ledger" momentum={AUGUST.sourceClicks} />
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 8 }}>Response Feedback</div>
           <div style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
-            <div style={{ fontSize: 28, fontWeight: 500, color: GREEN, letterSpacing: "-0.03em", lineHeight: 1 }}>👍 {SEPTEMBER.thumbsUp}</div>
-            <div style={{ fontSize: 28, fontWeight: 500, color: RED, letterSpacing: "-0.03em", lineHeight: 1 }}>👎 {SEPTEMBER.thumbsDown}</div>
+            <div style={{ fontSize: T.kpi, fontWeight: 500, color: GREEN, letterSpacing: "-0.03em", lineHeight: 1 }}>👍 {SEPTEMBER.thumbsUp}</div>
+            <div style={{ fontSize: T.kpi, fontWeight: 500, color: RED, letterSpacing: "-0.03em", lineHeight: 1 }}>👎 {SEPTEMBER.thumbsDown}</div>
           </div>
-          <div style={{ fontSize: 9, color: INK3, marginTop: 8 }}>AI responses rated · live via MCP</div>
+          <div style={{ fontSize: T.micro, color: INK3, marginTop: 8 }}>AI responses rated · live via MCP</div>
         </div>
         <MCard meta="promptGallery" label="Prompt Gallery clicks" value={String(SEPTEMBER.promptGalleryClicks)} momentum={AUGUST.promptGalleryClicks} />
         <MCard meta="recentSearch" label="Recent Search clicks" value={String(SEPTEMBER.recentSearchClicks)} momentum={AUGUST.recentSearchClicks} />
@@ -4377,7 +4376,7 @@ function SeptemberMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── CONTENT ENGAGEMENT ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (September)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📄 Content Engagement (September)</div>
       <ContentEngagementCard
         rows={engagementRows("2026-09", 6)}
         note={"Downloads: 5 Word · 1 Excel."}
@@ -4388,7 +4387,7 @@ function SeptemberMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* ── LWA (simplified) ── */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (September · people outside the build team)</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8 }}>📝 Lessons Writing Assistant — LWA (September · people outside the build team)</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
         <MCard meta="lessonsGenerated" label="Created a lesson" value={String(SEPTEMBER.lwa.creators)} desc="People who wrote at least one lesson · live via MCP" accent />
         <MCard meta="lwaCopy" label="Copied one out" value={String(SEPTEMBER.lwa.copied)} desc="Took the generated lesson to use elsewhere · live via MCP" />
@@ -4396,7 +4395,7 @@ function SeptemberMonthly() {
         <MCard meta="lwaView" label="Opened from the catalogue" value={String(SEPTEMBER.lwa.viewed)} desc="Nobody outside the team reopened a lesson" />
         <MCard meta="lwaSharedView" label="Opened a shared lesson" value={String(SEPTEMBER.lwa.sharedViewed)} desc="Nobody outside the team read one they received" />
       </div>
-      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.5 }}>
+      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.md, padding: "10px 14px", fontSize: T.xs, color: BLUE_D, lineHeight: 1.5 }}>
         ℹ <strong>People, not clicks, and the build team is excluded.</strong> At this volume a click count flatters the feature — one person clicking five times is one person. These are individuals in production, with the team that builds the platform removed using the same email list the Sin DEV segment uses. Counting everyone, the month looks bigger and means less: {SEPTEMBER.lwa.withTeam.creators} people created {SEPTEMBER.lwa.withTeam.created} lessons, with {SEPTEMBER.lwa.withTeam.shared} shares, {SEPTEMBER.lwa.withTeam.copied} copies and {SEPTEMBER.lwa.withTeam.viewed} catalogue opens. A further 13 lessons and 30 shares happened on localhost and staging and are excluded throughout. <strong>The shape that matters:</strong> three people wrote a lesson and one took it away — every share, every catalogue open and every shared-lesson read in September was the team testing. So the writing half of LWA has real users; the sharing half does not yet.
       </div>
 
@@ -4410,29 +4409,29 @@ function SeptemberMonthly() {
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
       {/* Signals — executive */}
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — the month</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — the month</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach flat on August, but people came back more</div>
-          <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.xs, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach flat on August, but people came back more</div>
+          <p style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: FONT }}>
             267 users and 1,432 sessions, against August's 271 and 1,260. Reach is flat — four fewer people — but sessions are up 14%, so the same audience came back more often. 110 of the 267 are new and 157 already knew KP: a 59/41 returning split.
           </p>
         </div>
-<div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Extraction jumps, and all of it is Open Search</div>
-          <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+<div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.xs, fontWeight: 600, color: INK, marginBottom: 6 }}>Extraction jumps, and all of it is Open Search</div>
+          <p style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: FONT }}>
             Open Search highlights went from 141 to 392 (+178%) and copies from 45 to 123 (+173%) on flat reach, with the internal team excluded. Contextual search moved the other way: 2 highlights and 1 copy in September against 14 and 19 in August, and the pills were opened 77 times against 119. Counting both surfaces, highlights rose 154% (155 to 394) and copies 94% (64 to 124). The one contextual entry point that grew is Global Search, through chips and the search bar: 61 events against 19. The split closed at 89/11 Open Search versus contextual, from 80/20 in August. The qualitative pass fits this: a handful of very heavy sessions where people work through their own documents.
           </p>
         </div>
-<div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration reaches 28%, on a stable method</div>
-          <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+<div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.xs, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration reaches 28%, on a stable method</div>
+          <p style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: FONT }}>
             2,053 cumulative users — August's verified close plus this month's 110 first-timers — and 17,274 sessions the same way. Prompters reaches 923, with the drift correction reading 4 for the third cut running. The subtraction control on sessions came back at 1,431 against the 1,432 written here: a one-event boundary difference, not a method problem.
           </p>
         </div>
-<div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>The Netherlands anomaly was a robot, and reach is clean</div>
-          <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+<div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.xs, fontWeight: 600, color: INK, marginBottom: 6 }}>The Netherlands anomaly was a robot, and reach is clean</div>
+          <p style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: FONT }}>
             Flagged all month, resolved on Oct 1. The 29 Dutch "users" were one automated check firing at 16:55 UTC every single day from Groningen — a fresh anonymous ID each run, one second long, landing on the non-production test host and dying on an authentication error. There were zero Dutch sessions on production. <strong>It never touched the headline numbers:</strong> the Sin DEV segment requires a visit to the production home page, which this robot never reached, so the 292 users and 1,432 sessions never included it. What it did distort is the country table, which is measured org-wide across all hosts.
           </p>
         </div>
@@ -4441,7 +4440,7 @@ function SeptemberMonthly() {
       <QualitativeSection q={QUALITATIVE.september} />
 
       {/* Pending sections note */}
-      <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
+      <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: R.lg, padding: "16px 20px", fontSize: T.xs, color: INK3, lineHeight: 1.6 }}>
         <strong style={{ color: INK2 }}>Live via MCP:</strong> every number above except the three loaded by hand and the Open Search and Contextual figures, pulled from FullStory by metric ID for Sep 1–30 on the Sin DEV segment. Open Search and Contextual (highlights, copies, source clicks, pill views and Global Search) come from the monthly ledger, segment Sin DEV (copy). July's baseline was re-checked before writing and matched exactly.
         <br/><br/><strong style={{ color: INK2 }}>Read twice before writing.</strong> A first pass at 00:25 UTC on Oct 1 found the data still indexing — sessions moved from 1,379 to 1,432 within minutes and some reads came back cached. Nothing was written then. Every figure here was computed twice at 07:00 UTC and only kept where the two reads agreed. Closed as final on Oct 5, when users, sessions, prompters, highlights and copies were recomputed and the cumulative controls reproduced (users 1,912 − 1,802 = 110; sessions 15,988 − 14,557 = 1,431; prompters drift 4).
         <br/><br/><strong style={{ color: INK2 }}>Cumulative totals</strong> are not a single query. FullStory keeps about 12 months and silently truncates anything older, so users and sessions are built from August's verified close plus this month's new users and sessions, and prompters corrects for the drift the truncation causes. Each one is checked against a subtraction control before it is written. Method and worked examples live in the checklist.
@@ -4521,17 +4520,17 @@ function OctoberMonthly() {
   const pctOf = (a, b) => Math.round(a / b * 100);
   const chips = L(M, "cs_chips"), searchBar = L(M, "cs_search_bar");
   const downloads = OCTOBER.wordDownloads + OCTOBER.excelDownloads;
-  const heading = (t, extra) => <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, ...extra }}>{t}</div>;
+  const heading = (t, extra) => <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, ...extra }}>{t}</div>;
   const grid = (min) => ({ display: "grid", gridTemplateColumns: `repeat(auto-fit, minmax(${min}px, 1fr))`, gap: 10 });
 
   return (
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
+    <div style={{ maxWidth: PAGE_W, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
 
       <div style={{ marginBottom: 8, display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
         <div>
-        <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report — October</div>
-        <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>October 2026 — Oct 1–{day}</div>
-        <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (segment Sin DEV) and the ledger · FullStory data through {through} (full month) · closed Nov 4 with console data, retention and the full qualitative sweep</div>
+        <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report — October</div>
+        <div style={{ fontSize: T.h2, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>October 2026 — Oct 1–{day}</div>
+        <div style={{ fontSize: T.sm, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (segment Sin DEV) and the ledger · FullStory data through {through} (full month) · closed Nov 4 with console data, retention and the full qualitative sweep</div>
         </div>
         <button
           onClick={() => {
@@ -4555,13 +4554,13 @@ function OctoberMonthly() {
             a.href = url; a.download = `KP_Monthly_October_2026_to_${OCTOBER.through}.csv`; a.click();
             URL.revokeObjectURL(url);
           }}
-          style={{ fontFamily: "inherit", fontSize: 10, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: 6, cursor: "pointer", background: SURF, color: INK2 }}
+          style={{ fontFamily: "inherit", fontSize: T.xs, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: R.md, cursor: "pointer", background: SURF, color: INK2 }}
         >↓ Export CSV</button>
       </div>
 
       {/* Cumulative totals */}
-      <div style={{ background: NAVY, borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
+      <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to {through}, 2026 · October close (September close + October)
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 16 }}>
@@ -4572,8 +4571,8 @@ function OctoberMonthly() {
             { label: `Penetration of ${BID_TOTAL.toLocaleString()}`, value: `${penetration}%` },
           ].map((m, i) => (
             <div key={i}>
-              <div style={{ fontSize: 22, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
-              <div style={{ fontSize: 9, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+              <div style={{ fontSize: T.h2, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: T.micro, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
             </div>
           ))}
         </div>
@@ -4585,16 +4584,16 @@ function OctoberMonthly() {
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(OCTOBER.prompters)} desc={`${pctOf(OCTOBER.prompters, OCTOBER.users)}% of users reached`} accent momentum={SEPTEMBER.prompters} />
         <MCard meta="firstTime" label="New users" value={String(OCTOBER.first_time)} desc={`First-time visitors · other ${returning} are returning from prior months`} momentum={SEPTEMBER.first_time} />
         <MCard meta="returningUsers" label="Returning users" value={String(returning)} desc={`${pctOf(returning, OCTOBER.users)}% of users reached · already knew KP before October`} momentum={SEPTEMBER.returningUsers} />
-        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
-          <div style={{ fontSize: 28, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(OCTOBER.users/BID_TOTAL*100*10)/10}%</div>
-          <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden", marginBottom: 6 }}>
-            <div style={{ width: `${Math.round(OCTOBER.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: 99 }} />
+        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
+          <div style={{ fontSize: T.kpi, fontWeight: 500, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(OCTOBER.users/BID_TOTAL*100*10)/10}%</div>
+          <div style={{ background: BLUE_M, borderRadius: R.pill, height: 6, overflow: "hidden", marginBottom: 6 }}>
+            <div style={{ width: `${Math.round(OCTOBER.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: R.pill }} />
           </div>
-          <div style={{ fontSize: 9, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+          <div style={{ fontSize: T.micro, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
             <span>{OCTOBER.users} users</span><span>{BID_TOTAL.toLocaleString()} total</span>
           </div>
-          <div style={{ fontSize: 9, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants</div>
+          <div style={{ fontSize: T.micro, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants</div>
         </div>
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${OCTOBER.tourCompletion}%`} desc="Users who finished the tour" momentum={SEPTEMBER.tourCompletion} />
         <MCard meta="sessions" label="Sessions" value={String(OCTOBER.sessions)} desc="Total for the month" momentum={SEPTEMBER.sessions} />
@@ -4603,44 +4602,44 @@ function OctoberMonthly() {
         <MCard meta="powerUsers" label="Power users" value={String(snapshotAt("power_users", "2026-10"))} desc={`${pctOf(snapshotAt("power_users", "2026-10"), OCTOBER.users)}% of users reached · ≥8 visits in 28 days`} momentum={snapshotAt("power_users", "2026-09")} />      </div>
 
       {/* Geo */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 20px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 12 }}>
           🌎 Geographic Reach — {OCTOBER.totalCountries} countries
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: 8 }}>
-          <span style={{ fontSize: 18, flexShrink: 0 }}>🇺🇸</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: R.md }}>
+          <span style={{ fontSize: T.xl, flexShrink: 0 }}>🇺🇸</span>
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-              <span style={{ fontSize: 11, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
-              <span style={{ fontSize: 11, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usPct}%</span>
+              <span style={{ fontSize: T.sm, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
+              <span style={{ fontSize: T.sm, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usPct}%</span>
             </div>
-            <div style={{ background: BLUE_M, borderRadius: 99, height: 6, overflow: "hidden" }}>
-              <div style={{ width: `${usPct}%`, height: "100%", background: BLUE_DEEP, borderRadius: 99 }} />
+            <div style={{ background: BLUE_M, borderRadius: R.pill, height: 6, overflow: "hidden" }}>
+              <div style={{ width: `${usPct}%`, height: "100%", background: BLUE_DEEP, borderRadius: R.pill }} />
             </div>
           </div>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: "6px 16px" }}>
           {(showAllCountries ? regional : regional.slice(0, 12)).map((c, i) => (
             <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
-              <span style={{ fontSize: 13, flexShrink: 0 }}>{flag(c.code)}</span>
+              <span style={{ fontSize: T.base, flexShrink: 0 }}>{flag(c.code)}</span>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
-                  <span style={{ fontSize: 9, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
-                  <span style={{ fontSize: 9, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
+                  <span style={{ fontSize: T.micro, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
+                  <span style={{ fontSize: T.micro, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
                 </div>
-                <div style={{ background: BG, borderRadius: 99, height: 3, overflow: "hidden" }}>
-                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 4 ? BLUE_DEEP : c.users >= 2 ? BLUE : BLUE_SOFT, borderRadius: 99 }} />
+                <div style={{ background: BG, borderRadius: R.pill, height: 3, overflow: "hidden" }}>
+                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 4 ? BLUE_DEEP : c.users >= 2 ? BLUE : BLUE_SOFT, borderRadius: R.pill }} />
                 </div>
               </div>
             </div>
           ))}
         </div>
         {regional.length > 12 && (
-          <button onClick={() => setShowAllCountries(!showAllCountries)} style={{ fontFamily: "inherit", fontSize: 9, fontWeight: 500, marginTop: 8, padding: "5px 12px", border: `1px solid ${BDR}`, borderRadius: 6, cursor: "pointer", background: SURF, color: INK2 }}>
+          <button onClick={() => setShowAllCountries(!showAllCountries)} style={{ fontFamily: "inherit", fontSize: T.micro, fontWeight: 500, marginTop: 8, padding: "5px 12px", border: `1px solid ${BDR}`, borderRadius: R.md, cursor: "pointer", background: SURF, color: INK2 }}>
             {showAllCountries ? "▴ Show less" : `▾ Show all ${regional.length} countries`}
           </button>
         )}
-        <div style={{ marginTop: 10, fontSize: 9, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
+        <div style={{ marginTop: 10, fontSize: T.micro, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
           <strong>Not comparable with September's table.</strong> This one counts people with activity on the production site, on the Sin DEV segment, so the internal team and the test hosts are out; September's table counted any activity with no segment and no host filter (400 against 292 users). The people shown here ({countryTotal}) are fewer than the {OCTOBER.users} users of the month because FullStory could not place some of them in a country.
         </div>
       </div>
@@ -4675,7 +4674,7 @@ function OctoberMonthly() {
         <MCard meta="latency" label="Latency" value={OCTOBER.latency} desc="Average response time · admin console · 25s in September" small momentum={25} />
         <MCard meta="csat" label="CSAT" value={OCTOBER.csat} desc={`n=${OCTOBER.csatResponses} · 67% on n=3 in September · too few to read as a rate`} small />
       </div>
-      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.5 }}>
+      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.md, padding: "10px 14px", fontSize: T.xs, color: BLUE_D, lineHeight: 1.5 }}>
         ℹ <strong>Faster, but it answers less.</strong> Latency fell from 25s to 14s while the share of questions the console logs as unanswered rose from 46% to 76%, and missing sources doubled. A faster "no answer" is not an improvement. Read the four together every month: a change that moves one and hurts another is a trade-off to decide, not a win. On green chips here, up is good for answer rate and extraction; for missing sources and latency a red chip (down) is the good direction.
       </div>
 
@@ -4695,7 +4694,7 @@ function OctoberMonthly() {
         <MCard meta="lwaView" label="Opened from the catalogue" value={String(OCTOBER.lwa.viewed)} desc="Person outside the team who opened a lesson from the catalogue · live via MCP" />
         <MCard meta="lwaSharedView" label="Opened a shared lesson" value={String(OCTOBER.lwa.sharedViewed)} desc="Nobody outside the team read one they received" />
       </div>
-      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: 8, padding: "10px 14px", fontSize: 10, color: BLUE_D, lineHeight: 1.5 }}>
+      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.md, padding: "10px 14px", fontSize: T.xs, color: BLUE_D, lineHeight: 1.5 }}>
         ℹ <strong>People, not clicks, and the build team is excluded.</strong> At this volume a click count flatters the feature — one person clicking five times is one person. Each step counts unique people on the production site and removes the build team's accounts by hand, because FullStory cannot attach that exclusion to a metric. The same method reproduces September's published 3, 1, 0, 0 and 0.
       </div>
 
@@ -4705,29 +4704,29 @@ function OctoberMonthly() {
 
       <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
 
-      <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — October</div>
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — October</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach finished below September</div>
-          <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.xs, fontWeight: 600, color: INK, marginBottom: 6 }}>Reach finished below September</div>
+          <p style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: FONT }}>
             {OCTOBER.users} users and {OCTOBER.sessions} sessions through Oct {day}, against September's 267 and 1,432 for the whole month. {OCTOBER.first_time} are first-timers. The month is closed below September; the retention table below shows every cohort dipping in October at once.
           </p>
         </div>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Fewer people start a search; what happens after is unchanged</div>
-          <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.xs, fontWeight: 600, color: INK, marginBottom: 6 }}>Fewer people start a search; what happens after is unchanged</div>
+          <p style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: FONT }}>
             28% of those who enter run a search, against 45% in September. Once they do, 37% highlight and 70% of those copy, about the same as September. Open Search highlights ({L(M, "os_highlight")}) and copies ({L(M, "os_copy")}) are far below September's 392 and 123, a month driven by a handful of very heavy sessions.
           </p>
         </div>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration reaches {penetration}%, and 440 people have opened a category</div>
-          <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.xs, fontWeight: 600, color: INK, marginBottom: 6 }}>Penetration reaches {penetration}%, and 440 people have opened a category</div>
+          <p style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: FONT }}>
             {cumUsers.toLocaleString("en-US")} cumulative users — September's close of 2,053 plus {OCTOBER.first_time} first-timers — and {cumSessions.toLocaleString("en-US")} sessions the same way. Since October 2025, {snapshotAt("cs_category_users_cum", M)} people have opened at least one knowledge category, {snapshotAt("cs_category_users", M)} of them this month.
           </p>
         </div>
-        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "16px 18px" }}>
-          <div style={{ fontSize: 10, fontWeight: 600, color: INK, marginBottom: 6 }}>Contextual search is already ahead of September on openings</div>
-          <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.xs, fontWeight: 600, color: INK, marginBottom: 6 }}>Contextual search is already ahead of September on openings</div>
+          <p style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: FONT }}>
             {L(M, "cs_queries")} pill views against September's 77, and {OCTOBER.pills.lessons} sessions on Lessons Learned against 23. The gap is in what follows: 43 people open a pill, but only 2 copy.
           </p>
         </div>
@@ -4736,7 +4735,7 @@ function OctoberMonthly() {
       <CohortSection c={COHORTS.october} />
       <QualitativeSection q={QUALITATIVE.october} />
 
-      <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
+      <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: R.lg, padding: "16px 20px", fontSize: T.xs, color: INK3, lineHeight: 1.6 }}>
         <strong style={{ color: INK2 }}>October is closed.</strong> It covers Oct 1–{day}. The chips on each card compare it with September's full month: green means it went up, red means it went down. Closed on Nov 4 with the console data, the answer-quality guardrails, the retention cohorts and the full-month qualitative sweep.
         <br/><br/><strong style={{ color: INK2 }}>Where the numbers come from.</strong> Users, sessions, prompters, onboarding, feedback and search clicks are read from FullStory on the Sin DEV segment, twice each, and kept only where both reads agreed. New users are the cumulative unique users to date minus September's close, not the first-seen segment. Highlights, copies, source clicks, pill views and Global Search come from the ledger (data/kp_ledger.csv, segment Sin DEV (copy)); the cumulative totals use its snapshots. Prompts sent and latency are the admin console's October figures, loaded by hand as in earlier months.
         <br/><br/><strong style={{ color: INK2 }}>Retention and sessions.</strong> The cohort table extends August's with the September and October columns, same recipe, with a size control. The qualitative sweep adds four sessions from Oct 28–31 to the nine read earlier. Countries, funnels and pills are computed on the Sin DEV segment over Oct 1–{day}; the country table is not comparable with September's. CSAT is loaded by hand from the survey list (two responses so far this month, both 5 stars), and it is carried for continuity, not as a satisfaction rate.
@@ -4786,20 +4785,20 @@ function NovemberMonthly() {
   const penetration = (cumUsers / BID_TOTAL * 100).toFixed(1);
   const returning = NOVEMBER.users - NOVEMBER.first_time;
   const pctOf = (a, b) => Math.round(a / b * 100);
-  const heading = (t, extra) => <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, ...extra }}>{t}</div>;
+  const heading = (t, extra) => <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK2, fontWeight: 500, marginBottom: -8, ...extra }}>{t}</div>;
   const grid = (min) => ({ display: "grid", gridTemplateColumns: `repeat(auto-fit, minmax(${min}px, 1fr))`, gap: 10 });
 
   return (
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
+    <div style={{ maxWidth: PAGE_W, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
 
       <div style={{ marginBottom: 8 }}>
-        <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report — Month to date</div>
-        <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>November 2026 — Nov 1–{day} ({day} of 30 days)</div>
-        <div style={{ fontSize: 11, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (segment Sin DEV) and the ledger · Updated daily, last complete day: {through}</div>
+        <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Monthly Report — Month to date</div>
+        <div style={{ fontSize: T.h2, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>November 2026 — Nov 1–{day} ({day} of 30 days)</div>
+        <div style={{ fontSize: T.sm, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (segment Sin DEV) and the ledger · Updated daily, last complete day: {through}</div>
       </div>
 
-      <div style={{ background: NAVY, borderRadius: 10, padding: "16px 20px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
+      <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 14 }}>
           Cumulative totals — Sep 1, 2025 to {through}, 2026 · month to date (October close + November)
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 16 }}>
@@ -4810,8 +4809,8 @@ function NovemberMonthly() {
             { label: `Penetration of ${BID_TOTAL.toLocaleString("en-US")}`, value: `${penetration}%` },
           ].map((m, i) => (
             <div key={i}>
-              <div style={{ fontSize: 22, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
-              <div style={{ fontSize: 9, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
+              <div style={{ fontSize: T.h2, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: T.micro, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.label}</div>
             </div>
           ))}
         </div>
@@ -4848,7 +4847,7 @@ function NovemberMonthly() {
         <MCard meta="newSearch" label="New Search clicks" value={String(NOVEMBER.newSearchClicks)} />
       </div>
 
-      <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: 10, padding: "16px 20px", fontSize: 10, color: INK3, lineHeight: 1.6 }}>
+      <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: R.lg, padding: "16px 20px", fontSize: T.xs, color: INK3, lineHeight: 1.6 }}>
         <strong style={{ color: INK2 }}>Month to date, {day} days in.</strong> November is partial: it covers Nov 1–{day}, complete days only, and two of those were a weekend. It is not compared with October's full month, and at this size a single person moves a card, so read it as a first signal. It is refreshed every day and the last complete day is shown at the top.
         <br/><br/><strong style={{ color: INK2 }}>Where the numbers come from.</strong> Users, prompters, onboarding, feedback and search clicks are read from FullStory on the Sin DEV segment; sessions count all environments, team included. New users are the cumulative unique users to date minus October's close, read the same day. Highlights, copies, source clicks and pill views come from the ledger (data/kp_ledger.csv, segment Sin DEV (copy)). Frequent and power users use a rolling 28-day window that ends on Nov {day} (so it reaches back to Oct {day + 4}), with the team accounts removed by hand.
         <br/><br/><strong style={{ color: INK2 }}>Not in this tab yet:</strong> Lessons Writing Assistant, countries, funnels, prompts sent and latency (admin console), retention cohorts, CSAT and the qualitative sweep. They land as the month fills in and with the close.
@@ -4890,19 +4889,19 @@ function Benchmark() {
   const maxIntensity = 23.5;
 
   return (
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 20 }}>
+    <div style={{ maxWidth: PAGE_W, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 20 }}>
 
       {/* Header */}
       <div>
-        <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Context</div>
-        <div style={{ fontSize: 22, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>IDB Product Benchmark — July 2026</div>
-        <div style={{ fontSize: 11, color: INK3 }}>Where KP sits among other IDB digital products · Sources: FullStory (KP) + Datadog RUM (rest)</div>
+        <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Context</div>
+        <div style={{ fontSize: T.h2, fontWeight: 500, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>IDB Product Benchmark — July 2026</div>
+        <div style={{ fontSize: T.sm, color: INK3 }}>Where KP sits among other IDB digital products · Sources: FullStory (KP) + Datadog RUM (rest)</div>
       </div>
 
       {/* One-line read */}
-      <div style={{ background: NAVY, borderRadius: 10, padding: "20px 24px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 10 }}>The one-line read</div>
-        <div style={{ fontSize: 15, fontWeight: 500, color: ON_ACCENT, lineHeight: 1.5, marginBottom: 18 }}>
+      <div style={{ background: NAVY, borderRadius: R.lg, padding: "20px 24px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: ON_DARK_2, marginBottom: 10 }}>The one-line read</div>
+        <div style={{ fontSize: T.lg, fontWeight: 500, color: ON_ACCENT, lineHeight: 1.5, marginBottom: 18 }}>
           KP's reach is mid-pack among IDB internal tools. Its frequency is the lowest — because it competes for a different moment: the occasional question, not the daily task.
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
@@ -4913,25 +4912,25 @@ function Benchmark() {
             { v: "36%", l: "Returned 2+ times" },
           ].map((m, i) => (
             <div key={i}>
-              <div style={{ fontSize: 26, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.v}</div>
-              <div style={{ fontSize: 8, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.l}</div>
+              <div style={{ fontSize: T.h1, fontWeight: 500, color: ON_ACCENT, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{m.v}</div>
+              <div style={{ fontSize: T.micro, color: ON_DARK_2, textTransform: "uppercase", letterSpacing: "0.08em" }}>{m.l}</div>
             </div>
           ))}
         </div>
       </div>
 
       {/* 1 · REACH */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "20px 24px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>1 · Reach</div>
-        <div style={{ fontSize: 16, fontWeight: 500, color: INK, marginBottom: 8 }}>Monthly active users across IDB digital products</div>
-        <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: "0 0 14px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "20px 24px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>1 · Reach</div>
+        <div style={{ fontSize: T.lg, fontWeight: 500, color: INK, marginBottom: 8 }}>Monthly active users across IDB digital products</div>
+        <p style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, margin: "0 0 14px 0", fontFamily: FONT }}>
           No internal IDB tool clears 400 monthly users on staff. Read against that ceiling, KP is not a small product — it is inside the normal band for bank-wide internal software.
         </p>
 
         {/* Copilot callout */}
-        <div style={{ background: BLUE_L, borderRadius: 8, padding: "10px 14px", marginBottom: 16, display: "flex", gap: 12, alignItems: "baseline" }}>
-          <span style={{ fontSize: 16, fontWeight: 500, color: BLUE_D, flexShrink: 0 }}>~2,900</span>
-          <span style={{ fontSize: 10, color: BLUE_D, lineHeight: 1.5 }}><strong>Microsoft Copilot</strong> — off scale, excluded from the chart below. A general-purpose assistant embedded in Office; not a comparable knowledge product, but it sets the ceiling of what "everyone uses it" looks like at the IDB.</span>
+        <div style={{ background: BLUE_L, borderRadius: R.md, padding: "10px 14px", marginBottom: 16, display: "flex", gap: 12, alignItems: "baseline" }}>
+          <span style={{ fontSize: T.lg, fontWeight: 500, color: BLUE_D, flexShrink: 0 }}>~2,900</span>
+          <span style={{ fontSize: T.xs, color: BLUE_D, lineHeight: 1.5 }}><strong>Microsoft Copilot</strong> — off scale, excluded from the chart below. A general-purpose assistant embedded in Office; not a comparable knowledge product, but it sets the ceiling of what "everyone uses it" looks like at the IDB.</span>
         </div>
 
         {/* Reach bars */}
@@ -4939,43 +4938,43 @@ function Benchmark() {
           {reachProducts.map((p, i) => (
             <div key={i} style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <div style={{ width: 200, flexShrink: 0 }}>
-                <div style={{ fontSize: 11, color: p.kp ? BLUE_D : INK2, fontWeight: p.kp ? 600 : 400 }}>{p.name}</div>
-                {p.sub && <div style={{ fontSize: 8, color: INK3 }}>{p.sub}</div>}
+                <div style={{ fontSize: T.sm, color: p.kp ? BLUE_D : INK2, fontWeight: p.kp ? 600 : 400 }}>{p.name}</div>
+                {p.sub && <div style={{ fontSize: T.micro, color: INK3 }}>{p.sub}</div>}
               </div>
-              <div style={{ flex: 1, background: BG, borderRadius: 4, height: 16, overflow: "hidden" }}>
-                <div style={{ width: `${(p.users/maxReach)*100}%`, height: "100%", background: p.kp ? BLUE_DEEP : BLUE_PALE, borderRadius: 4 }} />
+              <div style={{ flex: 1, background: BG, borderRadius: R.sm, height: 16, overflow: "hidden" }}>
+                <div style={{ width: `${(p.users/maxReach)*100}%`, height: "100%", background: p.kp ? BLUE_DEEP : BLUE_PALE, borderRadius: R.sm }} />
               </div>
-              <div style={{ width: 40, textAlign: "right", fontSize: 11, color: p.kp ? BLUE_D : INK2, fontWeight: p.kp ? 600 : 400 }}>{p.users}</div>
+              <div style={{ width: 40, textAlign: "right", fontSize: T.sm, color: p.kp ? BLUE_D : INK2, fontWeight: p.kp ? 600 : 400 }}>{p.users}</div>
             </div>
           ))}
         </div>
 
         {/* KP series */}
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, margin: "20px 0 10px 0" }}>Which KP number to use — post go-live series</div>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, margin: "20px 0 10px 0" }}>Which KP number to use — post go-live series</div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 8 }}>
           {kpSeries.map((k, i) => (
-            <div key={i} style={{ background: k.highlight ? BLUE_L : SURF, border: `1px solid ${k.highlight ? BLUE_M : BDR}`, borderRadius: 8, padding: "10px 12px" }}>
-              <div style={{ fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em", color: INK3, marginBottom: 4 }}>{k.month}</div>
-              <div style={{ fontSize: 20, fontWeight: 500, color: k.highlight ? BLUE_D : INK, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{k.value}</div>
-              <div style={{ fontSize: 8, color: k.highlight ? BLUE_D : INK3 }}>{k.pct}</div>
+            <div key={i} style={{ background: k.highlight ? BLUE_L : SURF, border: `1px solid ${k.highlight ? BLUE_M : BDR}`, borderRadius: R.md, padding: "10px 12px" }}>
+              <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.08em", color: INK3, marginBottom: 4 }}>{k.month}</div>
+              <div style={{ fontSize: T.h3, fontWeight: 500, color: k.highlight ? BLUE_D : INK, letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4 }}>{k.value}</div>
+              <div style={{ fontSize: T.micro, color: k.highlight ? BLUE_D : INK3 }}>{k.pct}</div>
             </div>
           ))}
         </div>
-        <p style={{ fontSize: 10, color: INK3, lineHeight: 1.5, margin: "12px 0 0 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <p style={{ fontSize: T.xs, color: INK3, lineHeight: 1.5, margin: "12px 0 0 0", fontFamily: FONT }}>
           April is the launch spike; May–June are the stable plateau; July is the outlier. The median neutralises the spike without dropping July. Every reasonable window — median Apr–Jun 379, mean Apr–Jul 395, mean Apr–Jun 443 — lands between 10% and 11% penetration, which is why 371 / 10.3% is the defensible headline rather than any single month.
         </p>
       </div>
 
       {/* 2 · INTENSITY */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "20px 24px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>2 · Intensity</div>
-        <div style={{ fontSize: 16, fontWeight: 500, color: INK, marginBottom: 8 }}>Sessions per user — how often people come back within the month</div>
-        <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: "0 0 14px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "20px 24px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>2 · Intensity</div>
+        <div style={{ fontSize: T.lg, fontWeight: 500, color: INK, marginBottom: 8 }}>Sessions per user — how often people come back within the month</div>
+        <p style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, margin: "0 0 14px 0", fontFamily: FONT }}>
           Only five products report both sessions and users, so this comparison is narrower than the reach chart. Fiduciary Interface, Convergence, Copilot and Aurora are excluded: users available, sessions not.
         </p>
 
         {/* Intensity legend */}
-        <div style={{ display: "flex", gap: 20, marginBottom: 10, fontSize: 8, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+        <div style={{ display: "flex", gap: 20, marginBottom: 10, fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.08em" }}>
           <span style={{ color: BLUE }}>Occasional lookup</span>
           <span style={{ color: PURPLE }}>Recurring</span>
           <span style={{ color: GREEN }}>Daily work tool</span>
@@ -4986,59 +4985,59 @@ function Benchmark() {
           {intensity.map((p, i) => (
             <div key={i} style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <div style={{ width: 200, flexShrink: 0 }}>
-                <div style={{ fontSize: 11, color: p.kp ? BLUE_D : INK2, fontWeight: p.kp ? 600 : 400 }}>{p.name}</div>
-                <div style={{ fontSize: 8, color: INK3 }}>{p.sub}</div>
+                <div style={{ fontSize: T.sm, color: p.kp ? BLUE_D : INK2, fontWeight: p.kp ? 600 : 400 }}>{p.name}</div>
+                <div style={{ fontSize: T.micro, color: INK3 }}>{p.sub}</div>
               </div>
-              <div style={{ flex: 1, background: BG, borderRadius: 4, height: 16, overflow: "hidden" }}>
-                <div style={{ width: `${(p.val/maxIntensity)*100}%`, height: "100%", background: p.color, borderRadius: 4 }} />
+              <div style={{ flex: 1, background: BG, borderRadius: R.sm, height: 16, overflow: "hidden" }}>
+                <div style={{ width: `${(p.val/maxIntensity)*100}%`, height: "100%", background: p.color, borderRadius: R.sm }} />
               </div>
-              <div style={{ width: 40, textAlign: "right", fontSize: 11, color: p.kp ? BLUE_D : INK2, fontWeight: p.kp ? 600 : 400 }}>{p.val}</div>
+              <div style={{ width: 40, textAlign: "right", fontSize: T.sm, color: p.kp ? BLUE_D : INK2, fontWeight: p.kp ? 600 : 400 }}>{p.val}</div>
             </div>
           ))}
         </div>
-        <p style={{ fontSize: 10, color: INK3, lineHeight: 1.5, margin: "14px 0 0 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+        <p style={{ fontSize: T.xs, color: INK3, lineHeight: 1.5, margin: "14px 0 0 0", fontFamily: FONT }}>
           <strong>Frequency measures product type, not product quality.</strong> Impact Management is used daily because the work happens inside it — it is mandatory and transactional. KP is an optional lookup tool, so comparing raw frequency structurally favours mandatory software. Digital Solution Portal (10 users) is shown for completeness only: one person entering twenty times moves that average on its own.
         </p>
       </div>
 
       {/* 3 · RETURN */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "20px 24px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>3 · Return</div>
-        <div style={{ fontSize: 16, fontWeight: 500, color: INK, marginBottom: 8 }}>Behind the 2.9 average there are two very different populations</div>
-        <p style={{ fontSize: 11, color: INK2, lineHeight: 1.5, margin: "0 0 14px 0", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "20px 24px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>3 · Return</div>
+        <div style={{ fontSize: T.lg, fontWeight: 500, color: INK, marginBottom: 8 }}>Behind the 2.9 average there are two very different populations</div>
+        <p style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, margin: "0 0 14px 0", fontFamily: FONT }}>
           The monthly average blends people who never came back with people who use KP regularly. Split apart, the number stops being a verdict and becomes a lever.
         </p>
 
         {/* Split bar */}
         <div style={{ display: "flex", gap: 4, marginBottom: 8, flexWrap: "wrap" }}>
-          <div style={{ flex: "1 1 200px", background: BG, borderRadius: 6, padding: "14px 16px", textAlign: "center", boxSizing: "border-box" }}>
-            <span style={{ fontSize: 12, color: INK2 }}>~160 · one single visit</span>
+          <div style={{ flex: "1 1 200px", background: BG, borderRadius: R.md, padding: "14px 16px", textAlign: "center", boxSizing: "border-box" }}>
+            <span style={{ fontSize: T.md, color: INK2 }}>~160 · one single visit</span>
           </div>
-          <div style={{ flex: "1 1 120px", background: BLUE_DEEP, borderRadius: 6, padding: "14px 16px", textAlign: "center", boxSizing: "border-box" }}>
-            <span style={{ fontSize: 12, color: ON_ACCENT, fontWeight: 600 }}>91 · came back</span>
+          <div style={{ flex: "1 1 120px", background: BLUE_DEEP, borderRadius: R.md, padding: "14px 16px", textAlign: "center", boxSizing: "border-box" }}>
+            <span style={{ fontSize: T.md, color: ON_ACCENT, fontWeight: 600 }}>91 · came back</span>
           </div>
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 9, color: INK3, marginBottom: 16 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: T.micro, color: INK3, marginBottom: 16 }}>
           <span>64% did not return within July</span>
           <span>36% recorded 2+ sessions</span>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-          <div style={{ border: `1px solid ${BDR}`, borderRadius: 8, padding: "14px 16px" }}>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: INK3, marginBottom: 6 }}>The real asset</div>
-            <p style={{ fontSize: 10, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>91 people already treat KP as a recurring tool. That base — not the headline average — is what the roadmap should be protecting and growing.</p>
+          <div style={{ border: `1px solid ${BDR}`, borderRadius: R.md, padding: "14px 16px" }}>
+            <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.08em", color: INK3, marginBottom: 6 }}>The real asset</div>
+            <p style={{ fontSize: T.xs, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: FONT }}>91 people already treat KP as a recurring tool. That base — not the headline average — is what the roadmap should be protecting and growing.</p>
           </div>
-          <div style={{ border: `1px solid ${BDR}`, borderRadius: 8, padding: "14px 16px" }}>
-            <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.08em", color: INK3, marginBottom: 6 }}>The lever</div>
-            <p style={{ fontSize: 10, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: "system-ui, -apple-system, sans-serif" }}>The goal is not to reach 23.5. It is the second visit: converting one-time users requires no new acquisition — they are already inside.</p>
+          <div style={{ border: `1px solid ${BDR}`, borderRadius: R.md, padding: "14px 16px" }}>
+            <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.08em", color: INK3, marginBottom: 6 }}>The lever</div>
+            <p style={{ fontSize: T.xs, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: FONT }}>The goal is not to reach 23.5. It is the second visit: converting one-time users requires no new acquisition — they are already inside.</p>
           </div>
         </div>
       </div>
 
       {/* METHOD */}
-      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: 10, padding: "20px 24px" }}>
-        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 10 }}>Method & caveats</div>
-        <ul style={{ margin: 0, paddingLeft: 16, fontSize: 10, color: INK2, lineHeight: 1.7, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "20px 24px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 10 }}>Method & caveats</div>
+        <ul style={{ margin: 0, paddingLeft: 16, fontSize: T.xs, color: INK2, lineHeight: 1.7, fontFamily: FONT }}>
           <li>KP figures from FullStory; all other products from Datadog RUM, 1–31 July 2026, bots excluded (–@device.type:Bot).</li>
           <li>Session criteria differ between FullStory and Datadog RUM — the frequency comparison is indicative, not exact.</li>
           <li>Internal vs external split by @iadb.org domain; email casing is inconsistent across IDB apps, so filters were run in both cases. Approximate in Convergence.</li>
@@ -5084,9 +5083,9 @@ function App() {
   // expanded: undefined para botones simples; true/false para los que abren un menu (aria-expanded + aria-haspopup).
   const ddBtn = (active, onClick, children, expanded) => (
     <button type="button" onClick={onClick} aria-pressed={expanded === undefined ? active : undefined} aria-expanded={expanded} aria-haspopup={expanded === undefined ? undefined : "menu"} style={{
-      fontFamily: "inherit", fontSize: 11, fontWeight: 500,
+      fontFamily: "inherit", fontSize: T.sm, fontWeight: 500,
       padding: "8px 14px", border: `1px solid ${active ? BLUE : BDR}`,
-      borderRadius: 6, cursor: "pointer", letterSpacing: "0.04em", textTransform: "uppercase",
+      borderRadius: R.md, cursor: "pointer", letterSpacing: "0.04em", textTransform: "uppercase",
       background: active ? BLUE : SURF, color: active ? ON_ACCENT : INK3,
       display: "flex", alignItems: "center", gap: 6,
     }}>
@@ -5097,7 +5096,7 @@ function App() {
   const ddMenu = (items, onPick, closeFn) => (
     <div style={{
       position: "absolute", top: "calc(100% + 4px)", right: 0, zIndex: 50,
-      background: SURF, border: `1px solid ${BDR}`, borderRadius: 8,
+      background: SURF, border: `1px solid ${BDR}`, borderRadius: R.md,
       boxShadow: "0 8px 24px rgba(10,35,66,0.12)", minWidth: 180, overflow: "hidden",
     }} role="menu" onKeyDown={(e) => { if (e.key === "Escape") closeFn(); }}>
       {items.map((item) => (
@@ -5107,17 +5106,17 @@ function App() {
             fontFamily: "inherit", display: "block", width: "100%", textAlign: "left",
             padding: "10px 14px", border: "none", cursor: "pointer",
             background: view === item.id ? BLUE_L : SURF,
-            color: view === item.id ? BLUE_D : INK2, fontSize: 11, fontWeight: 500,
+            color: view === item.id ? BLUE_D : INK2, fontSize: T.sm, fontWeight: 500,
           }}>
           {item.label}
-          {item.sub && <span style={{ display: "block", fontSize: 8, color: INK3, marginTop: 2 }}>{item.sub}</span>}
+          {item.sub && <span style={{ display: "block", fontSize: T.micro, color: INK3, marginTop: 2 }}>{item.sub}</span>}
         </button>
       ))}
     </div>
   );
 
   return (
-    <div style={{ fontFamily: "'DM Mono', monospace", background: BG, minHeight: "100vh", color: INK, fontSize: 13 }}
+    <div style={{ fontFamily: FONT, fontVariantNumeric: "tabular-nums", background: BG, minHeight: "100vh", color: INK, fontSize: T.base }}
       onClick={() => { if (monthOpen) setMonthOpen(false); if (launchOpen) setLaunchOpen(false); }}>
       <style>{A11Y_CSS}</style>
 
@@ -5129,16 +5128,16 @@ function App() {
         position: "sticky", top: 0, zIndex: 20,
       }}>
         <div>
-          <div style={{ fontSize: 9, letterSpacing: "0.14em", textTransform: "uppercase", color: BLUE, fontWeight: 500, marginBottom: 2 }}>
+          <div style={{ fontSize: T.micro, letterSpacing: "0.14em", textTransform: "uppercase", color: BLUE, fontWeight: 500, marginBottom: 2 }}>
             IDB Knowledge Platform
           </div>
-          <div onClick={egg.onTitleClick} style={{ fontSize: 14, fontWeight: 500, color: INK, userSelect: "none" }}>Post Go-live Key Metrics</div>
+          <div onClick={egg.onTitleClick} style={{ fontSize: T.base, fontWeight: 500, color: INK, userSelect: "none" }}>Post Go-live Key Metrics</div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }} onClick={(e) => e.stopPropagation()}>
           {/* 1. Seguimiento mensual: el reporte que se actualiza cada dia */}
           <div style={{ position: "relative" }}>
             {ddBtn(isMonth, () => { setMonthOpen(!monthOpen); setLaunchOpen(false); }, (
-              <>Monthly report: {isMonth ? currentMonth.label : MONTHS[0].label} <span aria-hidden="true" style={{ fontSize: 8 }}>▾</span></>
+              <>Monthly report: {isMonth ? currentMonth.label : MONTHS[0].label} <span aria-hidden="true" style={{ fontSize: T.micro }}>▾</span></>
             ), monthOpen)}
             {monthOpen && ddMenu(MONTHS, setView, () => setMonthOpen(false))}
           </div>
@@ -5149,7 +5148,7 @@ function App() {
           {/* 4. Lanzamiento y contexto (archivo) */}
           <div style={{ position: "relative" }}>
             {ddBtn(!!currentLaunch, () => { setLaunchOpen(!launchOpen); setMonthOpen(false); }, (
-              <>{currentLaunch ? currentLaunch.label : "Launch & benchmark"} <span aria-hidden="true" style={{ fontSize: 8 }}>▾</span></>
+              <>{currentLaunch ? currentLaunch.label : "Launch & benchmark"} <span aria-hidden="true" style={{ fontSize: T.micro }}>▾</span></>
             ), launchOpen)}
             {launchOpen && ddMenu(LAUNCH_VIEWS, setView, () => setLaunchOpen(false))}
           </div>
@@ -5161,7 +5160,7 @@ function App() {
       {egg.open && <WrappedEgg onClose={egg.close} onOpen={() => { egg.close(); setView("wrapped"); setMonthOpen(false); setLaunchOpen(false); window.scrollTo(0, 0); }} />}
       {view === "smoke" ? <SmokeTest /> : view === "week1" ? <Week1 data={WEEK1} /> : view === "week12" ? <Week1 data={WEEK12} /> : view === "may" ? <MayMonthly /> : view === "june" ? <JuneMonthly /> : view === "july" ? <JulyMonthly /> : view === "august" ? <AugustMonthly /> : view === "november" ? <NovemberMonthly /> : view === "october" ? <OctoberMonthly /> : view === "september" ? <SeptemberMonthly /> : view === "benchmark" ? <Benchmark /> : view === "usability" ? <UsabilityMetrics /> : view === "library" ? <CaseLibrary /> : view === "wrapped" ? <KPWrapped months={WRAPPED_MONTHS} /> : <Monthly />}
 
-      <div style={{ textAlign: "center", padding: 18, fontSize: 9, color: INK3, letterSpacing: "0.06em", borderTop: `1px solid ${BDR}` }}>
+      <div style={{ textAlign: "center", padding: 18, fontSize: T.micro, color: INK3, letterSpacing: "0.06em", borderTop: `1px solid ${BDR}` }}>
         IDB Knowledge Platform · Post Go-live Key Metrics · Go-live {GO_LIVE_DATE}
       </div>
     </div>
