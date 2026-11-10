@@ -1,7 +1,7 @@
 // Tab "Librería de casos": lo que los usuarios intentan hacer en la KP. Datos en src/data/caseLibrary.js.
 import { useMemo, useState } from "react";
 import { CASES, MODES, MODE_ORDER, RECOS, RECOS_FOOT, SNAPSHOT } from "./data/caseLibrary.js";
-import { BG, SURF, BDR, BDR_2, INK, INK2, INK3, BLUE, BLUE_D, BLUE_L, GREEN, GREEN_L, AMBER, AMBER_L, PURPLE, RED, ON_ACCENT, FONT, T, R, PAGE_W } from "./theme.js";
+import { BG, SURF, BDR, BDR_2, INK, INK2, INK3, BLUE, BLUE_D, BLUE_L, GREEN, GREEN_L, AMBER, AMBER_L, PURPLE, RED, ON_ACCENT, FONT, T, R, PAGE_W, SHADOW } from "./theme.js";
 
 // Color de cada modo (texto sobre SURF, todos >= 4.5:1).
 const MODE_COLOR = { consulta: BLUE_D, analisis: AMBER, integracion: PURPLE, extraccion: RED, transversal: INK2 };
@@ -32,7 +32,7 @@ function CaseCard({ c, hero }) {
     <article style={{ breakInside: "avoid", background: hero ? BLUE_L : SURF, border: `1px solid ${BDR}`, borderTop: `3px solid ${MODE_COLOR[c.tag] ?? BDR}`, borderRadius: R.lg, padding: hero ? "20px 20px" : "16px 18px", marginBottom: 12 }}>
       <p style={{ margin: 0, fontSize: hero ? T.lg : T.md, lineHeight: 1.6, color: INK }}>{c.title}</p>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, flexWrap: "wrap", marginTop: 12 }}>
-        <span style={{ fontSize: T.micro, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: MODE_COLOR[c.tag] ?? INK2 }}><span aria-hidden="true" style={{ marginRight: 4 }}>{MODES[c.tag]?.icon}</span>{MODES[c.tag]?.label ?? c.tag}</span>
+        <span style={{ fontSize: T.micro, fontWeight: 600, letterSpacing: "0.04em", textTransform: "uppercase", color: MODE_COLOR[c.tag] ?? INK2 }}><span aria-hidden="true" style={{ marginRight: 4 }}>{MODES[c.tag]?.icon}</span>{MODES[c.tag]?.label ?? c.tag}</span>
         <span style={{ fontSize: T.micro, fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", color: st.color, background: st.bg, borderRadius: R.pill, padding: "2px 8px" }}>{st.label}</span>
       </div>
       <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls={evId} style={{
@@ -75,17 +75,17 @@ export default function CaseLibrary() {
       <style>{`.kpl-grid{column-count:3;column-gap:12px}@media (max-width:900px){.kpl-grid{column-count:2}}@media (max-width:600px){.kpl-grid{column-count:1}}`}</style>
 
       <header>
-        <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.1em", color: INK3, marginBottom: 4 }}>Librería de casos · research</div>
+        <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.04em", color: INK3, marginBottom: 4 }}>Librería de casos · research</div>
         <h1 style={{ fontSize: T.h1, fontWeight: 700, color: INK, letterSpacing: "-0.02em", margin: "0 0 6px" }}>Lo que los usuarios intentan hacer cuando usan la KP</h1>
         <p style={{ fontSize: T.base, color: INK2, lineHeight: 1.6, margin: 0, maxWidth: 680 }}>
           {CASES.length} casos de uso documentados desde FullStory y research cualitativo · {confirmed} confirmados en sesión real o métrica, {CASES.length - confirmed} hipótesis. Cada tarjeta es una necesidad real que un usuario del Banco intenta resolver con la plataforma.
         </p>
       </header>
 
-      <section aria-label="Filtros de la librería" style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "14px 16px", display: "flex", flexDirection: "column", gap: 12 }}>
+      <section aria-label="Filtros de la librería" style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, boxShadow: SHADOW, padding: "14px 16px", display: "flex", flexDirection: "column", gap: 12 }}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center" }}>
           <div role="group" aria-label="Agrupar por" style={{ display: "flex", gap: 6, alignItems: "center" }}>
-            <span style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.08em", color: INK3 }}>Agrupar</span>
+            <span style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.04em", color: INK3 }}>Agrupar</span>
             <Pill active={groupBy === "modo"} onClick={() => { setGroupBy("modo"); setFilter(null); }}>Modo</Pill>
             <Pill active={groupBy === "estado"} onClick={() => { setGroupBy("estado"); setFilter(null); }}>Estado</Pill>
           </div>
@@ -99,7 +99,7 @@ export default function CaseLibrary() {
         </div>
       </section>
 
-      <section style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, padding: "14px 16px" }}>
+      <section style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, boxShadow: SHADOW, padding: "14px 16px" }}>
         <button type="button" onClick={() => setRecosOpen((o) => !o)} aria-expanded={recosOpen} aria-controls="kpl-recos" style={{
           fontFamily: "inherit", fontSize: T.sm, fontWeight: 600, letterSpacing: "0.04em", color: INK, background: "none", border: "none", padding: 0,
         }}>{recosOpen ? "▾" : "▸"} Recomendaciones para el roadmap</button>
