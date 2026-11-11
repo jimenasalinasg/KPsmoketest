@@ -419,12 +419,12 @@ export const CASES = [
  },
  {
   "id": "s14",
-  "surface": "sin_dato",
+  "surface": "assistant",
   "tag": "consulta",
   "title": "Necesitan confirmar si una política o lineamiento sigue vigente antes de aplicarlo.",
-  "evidence": "Hipótesis.",
+  "evidence": "Confirmado en 2 sesiones de nov 2026 (EE. UU.): una pregunta \"cuál es la política actual de procurement del Banco\" y abre las referencias; otra pide \"the latest tourism sector framework\". Lo que importa es la versión vigente, no cualquier versión.",
   "status": "confirmado",
-  "date": "2026-09-12"
+  "date": "2026-11-11"
  },
  {
   "id": "s15",
@@ -522,6 +522,33 @@ export const CASES = [
   "tag": "consulta",
   "title": "Escanean la pill de Datos abriendo y cerrando varias tarjetas seguidas para ver qué conjuntos de datos hay sobre la operación.",
   "evidence": "Confirmado en 3 sesiones de oct-nov 2026 (EE. UU., República Dominicana y Bolivia): en Datos expanden una tarjeta, la cierran y abren la siguiente, a veces con «Load more»; leen la descripción del dataset sin descargarlo. Buscan saber si existe el dato antes de usarlo.",
+  "status": "confirmado",
+  "date": "2026-11-11"
+ },
+ {
+  "id": "s54",
+  "surface": "assistant",
+  "tag": "consulta",
+  "title": "Personal de áreas corporativas pregunta por procesos internos del Banco (adquisiciones corporativas, procurement, responsabilidad social), no por operaciones con países.",
+  "evidence": "Confirmado en 3 sesiones del 4 al 10 de nov 2026 (Nicaragua y EE. UU.): \"¿Puedes ayudarme sobre adquisiciones corporativas?\" y luego \"¿Puedes revisar un proceso de adquisiciones corporativas…?\"; \"¿cuál es la web de Procure+?\"; \"I want to know about our efforts in Corporate Social [Responsibility]\". Es un público distinto al de operaciones, que llega al Assistant sin pasar por las pills.",
+  "status": "confirmado",
+  "date": "2026-11-11"
+ },
+ {
+  "id": "s55",
+  "surface": "assistant",
+  "tag": "consulta",
+  "title": "Buscan la cartera de una unidad del Grupo BID (por ejemplo BID Lab) que no aparece como filtro en la navegación por división o sector.",
+  "evidence": "Confirmado en 2 sesiones del 10 nov 2026 (EE. UU. y Costa Rica): una escribe \"IDB Lab\" en el buscador de proyectos, prueba filtros de división e instrumento, los limpia y pasa al Assistant con \"IDB Lab projects\"; la otra pregunta \"qué proyectos relacionados con BID Lab se encuentran…\". La navegación estructurada no les da esa vista.",
+  "status": "confirmado",
+  "date": "2026-11-11"
+ },
+ {
+  "id": "s56",
+  "surface": "assistant",
+  "tag": "extraccion",
+  "title": "Piden el listado de operaciones de un instrumento por su sigla (PBR/LBR, PBL) y tienen que explicarle a la KP qué significa.",
+  "evidence": "Confirmado en 2 sesiones del 4 al 5 nov 2026 (EE. UU.): una pide \"the list of all LBR (PBR) operations\", descarga la tabla en .xlsx y enseguida aclara \"LBR or PBR are loan based on results…\"; otra escribe \"PBL\" en el buscador de proyectos por instrumento, hace clic sin resultado y pasa al Assistant. Las siglas de instrumento no siempre se reconocen.",
   "status": "confirmado",
   "date": "2026-11-11"
  }
