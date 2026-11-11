@@ -1,10 +1,11 @@
 // Tab "Librería de casos": lo que los usuarios intentan hacer en la KP. Datos en src/data/caseLibrary.js.
 import { useMemo, useState } from "react";
-import { CASES, MODES, MODE_ORDER, RECOS, RECOS_FOOT, SNAPSHOT } from "./data/caseLibrary.js";
+import { CASES, MODES, MODE_ORDER, RECOS, RECOS_FOOT, SNAPSHOT, SURFACES, SURFACE_ORDER } from "./data/caseLibrary.js";
 import { BG, SURF, BDR, BDR_2, INK, INK2, INK3, BLUE, BLUE_D, BLUE_L, GREEN, GREEN_L, AMBER, AMBER_L, PURPLE, RED, ON_ACCENT, FONT, T, R, PAGE_W, SHADOW } from "./theme.js";
 
 // Color de cada modo (texto sobre SURF, todos >= 4.5:1).
 const MODE_COLOR = { consulta: BLUE_D, analisis: AMBER, integracion: PURPLE, extraccion: RED, transversal: INK2 };
+const SURFACE_COLOR = { assistant: BLUE_D, contextual: GREEN, lwa: PURPLE, sin_dato: INK3 };
 const STATUS = {
   confirmado: { label: "Confirmado", color: GREEN, bg: GREEN_L },
   hipotesis: { label: "Hipótesis", color: AMBER, bg: AMBER_L },
@@ -40,7 +41,10 @@ function CaseCard({ c, hero }) {
         textDecoration: "underline", textUnderlineOffset: 2,
       }}>{open ? "Ocultar evidencia ▴" : "Ver evidencia ▾"}</button>
       <div id={evId} hidden={!open} style={{ fontSize: T.base, lineHeight: 1.6, color: INK2, marginTop: 8, paddingTop: 8, borderTop: `1px solid ${BDR}` }}>{c.evidence}</div>
-      <div style={{ fontSize: T.micro, color: INK3, marginTop: 8 }}>{c.id} · {fmtDate(c.date)}</div>
+      <div style={{ fontSize: T.micro, color: INK3, marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
+        <span style={{ color: SURFACE_COLOR[c.surface] ?? INK3, fontWeight: 600 }}>{SURFACES[c.surface]?.short ?? "Sin confirmar"}</span>
+        <span aria-hidden="true">·</span><span>{c.id} · {fmtDate(c.date)}</span>
+      </div>
     </article>
   );
 }
@@ -54,14 +58,14 @@ export default function CaseLibrary() {
   const groups = useMemo(() => {
     const needle = q.trim().toLowerCase();
     const items = needle ? CASES.filter((c) => `${c.title} ${c.evidence}`.toLowerCase().includes(needle)) : CASES;
-    const keys = groupBy === "modo" ? MODE_ORDER : ["confirmado", "hipotesis"];
-    const field = groupBy === "modo" ? "tag" : "status";
+    const keys = groupBy === "modo" ? MODE_ORDER : groupBy === "superficie" ? SURFACE_ORDER : ["confirmado", "hipotesis"];
+    const field = groupBy === "modo" ? "tag" : groupBy === "superficie" ? "surface" : "status";
     return keys.map((k) => ({
       key: k,
-      label: groupBy === "modo" ? MODES[k].long : STATUS[k].label,
-      short: groupBy === "modo" ? MODES[k].label : STATUS[k].label,
+      label: groupBy === "modo" ? MODES[k].long : groupBy === "superficie" ? SURFACES[k].label : STATUS[k].label,
+      short: groupBy === "modo" ? MODES[k].label : groupBy === "superficie" ? SURFACES[k].short : STATUS[k].label,
       icon: groupBy === "modo" ? MODES[k].icon : null,
-      color: groupBy === "modo" ? MODE_COLOR[k] : STATUS[k].color,
+      color: groupBy === "modo" ? MODE_COLOR[k] : groupBy === "superficie" ? SURFACE_COLOR[k] : STATUS[k].color,
       items: items.filter((c) => c[field] === k).sort((a, b) => (a.status === b.status ? b.date.localeCompare(a.date) : a.status === "confirmado" ? -1 : 1)),
     })).filter((g) => g.items.length);
   }, [groupBy, q]);
@@ -87,6 +91,7 @@ export default function CaseLibrary() {
           <div role="group" aria-label="Agrupar por" style={{ display: "flex", gap: 6, alignItems: "center" }}>
             <span style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.04em", color: INK3 }}>Agrupar</span>
             <Pill active={groupBy === "modo"} onClick={() => { setGroupBy("modo"); setFilter(null); }}>Modo</Pill>
+            <Pill active={groupBy === "superficie"} onClick={() => { setGroupBy("superficie"); setFilter(null); }}>Superficie</Pill>
             <Pill active={groupBy === "estado"} onClick={() => { setGroupBy("estado"); setFilter(null); }}>Estado</Pill>
           </div>
           <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Buscar casos…" aria-label="Buscar casos"
@@ -132,6 +137,7 @@ export default function CaseLibrary() {
 
       <footer style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: R.lg, padding: "14px 18px", fontSize: T.xs, color: INK3, lineHeight: 1.7 }}>
         <strong style={{ color: INK2 }}>Estado:</strong> «Hipótesis» = patrón plausible sin sesión puntual de FullStory. «Confirmado» = visto en sesión real o métrica.
+        <br /><strong style={{ color: INK2 }}>Superficie:</strong> dónde se vio el caso: Knowledge Assistant (chat), búsqueda contextual (pills de una operación) o Lessons Writing Assistant. «Sin confirmar» = viene de research sin una sesión que muestre la superficie.
         <br /><strong style={{ color: INK2 }}>Privacidad:</strong> las sesiones se citan solo por país; no se publican nombres, correos ni ciudades de personas. Los códigos de operación son números públicos del BID.
         <br /><strong style={{ color: INK2 }}>Actualización:</strong> copia de la librería de research al {fmtDate(SNAPSHOT.date)}.
       </footer>

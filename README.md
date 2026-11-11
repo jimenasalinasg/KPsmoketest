@@ -109,6 +109,7 @@ Umbrales de frecuencia en `SEGMENT_RULES` (se aplican en FullStory; NN/g no publ
 Tab nativo (`src/CaseLibrary.jsx`, datos en `src/data/caseLibrary.js`): copia anonimizada de la libreria de research que vive en
 claude.ai (no se puede embeber: claude.ai no permite iframes desde otros dominios). Para actualizarla, volver a leer el documento
 `library/state` de esa libreria y reemplazar `CASES`. Repo publico: ciudades -> pais y sin usuarios de FullStory, nombres ni correos.
+Cada caso lleva `surface` (`assistant`, `contextual`, `lwa` o `sin_dato` si viene de research sin sesion); la vista agrupa y filtra por superficie.
 
 ### Pendiente
 
