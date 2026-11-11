@@ -331,14 +331,6 @@ export const CASES = [
   "date": "2026-09-12"
  },
  {
-  "id": "s8",
-  "tag": "integracion",
-  "title": "Quieren resumir un documento largo (informe, evaluación) para meterlo en una presentación.",
-  "evidence": "Hipótesis.",
-  "status": "hipotesis",
-  "date": "2026-09-12"
- },
- {
   "id": "s9",
   "tag": "consulta",
   "title": "Necesitan profundizar en un tema nuevo para ellos antes de una misión o reunión.",
