@@ -14,13 +14,14 @@ export const RECOS = [
  {
   "kind": "Big bet",
   "name": "Conexión MCP a sistemas del Banco, no solo documentos",
-  "note": "5 casos confirmados donde el usuario espera que la KP llegue más allá del corpus documental: buscan personas por nombre (directorio implícito), piden cifras de sistemas de datos, quieren indicadores cross-portafolio, mapean stakeholders. Ya en roadmap.",
+  "note": "6 casos confirmados donde el usuario espera que la KP llegue más allá del corpus documental: buscan personas por nombre (directorio implícito), piden archivos de repositorios internos como ezShare, piden cifras de sistemas de datos, quieren indicadores cross-portafolio, mapean stakeholders. Ya en roadmap.",
   "refs": [
    "s30",
    "s32",
    "s3",
    "s34",
-   "s39"
+   "s39",
+   "s50"
   ]
  },
  {
@@ -438,6 +439,14 @@ export const CASES = [
   "tag": "consulta",
   "title": "Quieren saber qué evaluaciones independientes de OVE existen sobre un país antes de usarlas como insumo.",
   "evidence": "Confirmado — sesión en Chrome/Windows (EE. UU.): termina el tour, cambia la interfaz a español, prueba el chip \"Por país\" y pasa al Asistente de Conocimiento. Primero pregunta \"¿Tienes acceso a evaluaciones de OVE?\" y después pide \"lista las evaluaciones del programa de país…\". Abre las referencias de cada respuesta y hace clics sin efecto (dead clicks) sobre ellas. La KP sirve para confirmar si hay una evaluación, pero la lista de evaluaciones por país todavía no sale directa.",
+  "status": "confirmado",
+  "date": "2026-11-11"
+ },
+ {
+  "id": "s50",
+  "tag": "consulta",
+  "title": "Piden a la KP que busque archivos concretos en las carpetas de proyecto de ezShare, como las versiones firmadas en PDF de un acuerdo de confidencialidad (NDA).",
+  "evidence": "Confirmado — sesión en Chrome/Windows (EE. UU.): abre una referencia [1] de la respuesta anterior, escribe \"Please search in the project folders in ezShare\", copia de la referencia el texto \"the signature versions (PDF files) of NDA…\" y lo pega en el prompt para buscarlo. Espera que la KP navegue un repositorio documental del Banco, que hoy no está en su corpus.",
   "status": "confirmado",
   "date": "2026-11-11"
  }
