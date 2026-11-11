@@ -432,5 +432,13 @@ export const CASES = [
   "evidence": "Confirmado — mismo patrón de \"heavy users\" del deck: sesiones largas que reformulan y profundizan en vez de resolver con una sola búsqueda.",
   "status": "confirmado",
   "date": "2026-09-12"
+ },
+ {
+  "id": "s49",
+  "tag": "consulta",
+  "title": "Quieren saber qué evaluaciones independientes de OVE existen sobre un país antes de usarlas como insumo.",
+  "evidence": "Confirmado — sesión en Chrome/Windows (EE. UU.): termina el tour, cambia la interfaz a español, prueba el chip \"Por país\" y pasa al Asistente de Conocimiento. Primero pregunta \"¿Tienes acceso a evaluaciones de OVE?\" y después pide \"lista las evaluaciones del programa de país…\". Abre las referencias de cada respuesta y hace clics sin efecto (dead clicks) sobre ellas. La KP sirve para confirmar si hay una evaluación, pero la lista de evaluaciones por país todavía no sale directa.",
+  "status": "confirmado",
+  "date": "2026-11-11"
  }
 ];
