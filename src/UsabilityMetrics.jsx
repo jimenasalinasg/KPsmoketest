@@ -161,6 +161,10 @@ function HistoryTable({ docs }) {
 export default function UsabilityMetrics() {
   const first = ledger.months[0], last = ledger.months.at(-1);
   const users = latestSnapshot("unique_users").value;
+  // Último día completo del acumulado, leído de la nota del ledger ("Nov 1-10 completo").
+  const usersNote = [...ledger.rows].reverse().find((r) => r.metric === "unique_users")?.note ?? "";
+  const thruMatch = usersNote.match(/\b([A-Z][a-z]{2}) 1-(\d{1,2}) complet/);
+  const usersThrough = thruMatch ? `${thruMatch[1]} ${thruMatch[2]}` : null;
   const returning = latestSnapshot("returning_rate_pct").value;
   const prompts = latestSnapshot("prompts_sent").value;
   const medianPrompt = latestSnapshot("median_prompts").value;
@@ -192,7 +196,7 @@ export default function UsabilityMetrics() {
       <SectionLabel>Access</SectionLabel>
       <Block band="access">
         <Cells>
-          <Kpi first label="Unique users" doc={docs.users} value={fmt(users)} note="Snapshot: last month-close + the month's delta" />
+          <Kpi first label="Unique users" doc={docs.users} value={fmt(users)} note={usersThrough ? `Cumulative through ${usersThrough} · last month-close + the month's delta` : "Snapshot: last month-close + the month's delta"} />
           <Kpi label="Penetration" doc={docs.penetration} sub={`Out of ${fmt(TOTAL_STAFF)} IDB staff & consultants`} value={`${penetration}%`} />
           <Kpi label="Avg. active time" doc={docs.avg_active_time_s} sub="Per page view · current month" value={`${latestSnapshot("avg_active_time_s").value.toFixed(1)} s`} note={`${latestSnapshot("avg_active_time_s").month}${latestSnapshot("avg_active_time_s").month === last ? " · month so far" : ""}`} />
           <Kpi label="Returning user rate" doc={docs.returning} sub="Within 14 days" value={`${tenths}/10`} note={`${returning}% · a rate, so it is robust to FullStory's retention window`} />
