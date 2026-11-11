@@ -441,5 +441,29 @@ export const CASES = [
   "evidence": "Confirmado — sesión en Chrome/Windows (EE. UU.): abre una referencia [1] de la respuesta anterior, escribe \"Please search in the project folders in ezShare\", copia de la referencia el texto \"the signature versions (PDF files) of NDA…\" y lo pega en el prompt para buscarlo. Espera que la KP navegue un repositorio documental del Banco, que hoy no está en su corpus.",
   "status": "confirmado",
   "date": "2026-11-11"
+ },
+ {
+  "id": "s51",
+  "tag": "analisis",
+  "title": "Revisan el marco de resultados de una operación (componentes e indicadores) abriendo los indicadores uno por uno en el detalle del proyecto.",
+  "evidence": "Confirmado en 2 sesiones de oct-nov 2026 (EE. UU. y Bolivia): desde la búsqueda contextual entran a «Project detail» y despliegan los indicadores en orden (1, 2, 3, 4, uno por segundo) y los componentes, y después saltan a Literatura, Datos y Lecciones de la misma operación.",
+  "status": "confirmado",
+  "date": "2026-11-11"
+ },
+ {
+  "id": "s52",
+  "tag": "consulta",
+  "title": "Filtran el portafolio por su propio país y entran a una operación en preparación o ejecución para ver sus lecciones aprendidas y datos.",
+  "evidence": "Confirmado en 2 sesiones de oct-nov 2026 (República Dominicana y Bolivia): «Por país», filtro del país, una operación del listado, Lecciones aprendidas y después Datos. Uso típico de oficina de país: parten de su cartera, no de un tema.",
+  "status": "confirmado",
+  "date": "2026-11-11"
+ },
+ {
+  "id": "s53",
+  "tag": "consulta",
+  "title": "Escanean la pill de Datos abriendo y cerrando varias tarjetas seguidas para ver qué conjuntos de datos hay sobre la operación.",
+  "evidence": "Confirmado en 3 sesiones de oct-nov 2026 (EE. UU., República Dominicana y Bolivia): en Datos expanden una tarjeta, la cierran y abren la siguiente, a veces con «Load more»; leen la descripción del dataset sin descargarlo. Buscan saber si existe el dato antes de usarlo.",
+  "status": "confirmado",
+  "date": "2026-11-11"
  }
 ];
