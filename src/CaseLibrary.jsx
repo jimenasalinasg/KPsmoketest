@@ -53,7 +53,7 @@ export default function CaseLibrary() {
   const [groupBy, setGroupBy] = useState("modo");
   const [filter, setFilter] = useState(null);
   const [q, setQ] = useState("");
-  const [recosOpen, setRecosOpen] = useState(false);
+  const [recosOpen, setRecosOpen] = useState(true);
 
   const groups = useMemo(() => {
     const needle = q.trim().toLowerCase();
