@@ -98,9 +98,9 @@ export const CASES = [
   "surface": "assistant",
   "tag": "consulta",
   "title": "Piden la última versión de una plantilla o formato institucional (ej. TOR en Word para consultores PEC) esperando que la KP la entregue directamente, no solo la encuentre.",
-  "evidence": "Sesión real (nov 2026, screenshot): prompt \"TOR template in word format for PEC consultants\" — busca obtener el archivo listo para usar, no una explicación sobre dónde encontrarlo.",
+  "evidence": "Sesión real (nov 2026, Jamaica, con screenshot): primero pide \"the most [recent] term of reference template in Word… for a PEC consultant\", abre tres referencias y reformula a \"TOR template in word format for PEC consultants\". La KP responde con una síntesis de varios TOR (formatos de entrega en Word/PDF/PowerPoint, objetivos de la consultoría PEC en SU-G1001, SU-L1039 y SU-L1055, informe inicial a una semana de la firma) en vez de entregar la plantilla. Busca el archivo listo para usar, no una explicación de qué contienen los TOR.",
   "status": "confirmado",
-  "date": "2026-11-09"
+  "date": "2026-11-12"
  },
  {
   "id": "s44",
