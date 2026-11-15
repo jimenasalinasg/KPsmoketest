@@ -4751,12 +4751,12 @@ function OctoberMonthly() {
 }
 
 const NOVEMBER = {
-  through: "2026-11-13",
-  users: 137,               // Sin DEV (sjHJR3590z6j), metric_definition con segmentId, 1-13 nov
-  sessions: 488,            // BhsN9vxRPN7V sin segmento (todos los entornos)
+  through: "2026-11-14",
+  users: 138,               // Sin DEV (sjHJR3590z6j), metric_definition con segmentId, 1-14 nov (sabado 14)
+  sessions: 495,            // BhsN9vxRPN7V sin segmento (todos los entornos)
   prompters: 35,            // Sin DEV, click A3vpsKJZw0X8
-  first_time: 42,           // control: usuarios Sin DEV desde 2025-11-15 hasta 13-nov (1865) menos hasta 31-oct (1823), misma consulta del dia
-  tourCompletion: 44,       // 44.1 redondeado
+  first_time: 42,           // control: usuarios Sin DEV desde 2025-11-16 hasta 14-nov (1865) menos hasta 31-oct (1823), misma consulta del dia
+  tourCompletion: 43,       // 43.5 redondeado
   thumbsUp: 0,
   thumbsDown: 0,
   promptGalleryClicks: 5,
@@ -4853,7 +4853,7 @@ function NovemberMonthly() {
       </div>
 
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: R.lg, padding: "16px 20px", fontSize: T.xs, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Month to date, {day} days in.</strong> November is partial: it covers Nov 1–{day}, complete days only, and three of those (Nov 1, 7 and 8) fell on a weekend. It is not compared with October's full month, and at this size a single person moves a card, so read it as a first signal. It is refreshed every day and the last complete day is shown at the top.
+        <strong style={{ color: INK2 }}>Month to date, {day} days in.</strong> November is partial: it covers Nov 1–{day}, complete days only, and {(() => { const w = Array.from({ length: day }, (_, i) => i + 1).filter((d) => [0, 6].includes(new Date(Date.UTC(2026, 10, d)).getUTCDay())); return `${w.length} of those (Nov ${w.length > 1 ? w.slice(0, -1).join(", ") + " and " + w[w.length - 1] : w[0]}) fell on a weekend`; })()}. It is not compared with October's full month, and at this size a single person moves a card, so read it as a first signal. It is refreshed every day and the last complete day is shown at the top.
         <br/><br/><strong style={{ color: INK2 }}>Where the numbers come from.</strong> Users, prompters, onboarding, feedback and search clicks are read from FullStory on the Sin DEV segment; sessions count all environments, team included. New users are the cumulative unique users to date minus October's close, read the same day. Highlights, copies, source clicks and pill views come from the ledger (data/kp_ledger.csv, segment Sin DEV (copy)). Frequent and power users use a rolling 28-day window that ends on Nov {day} (so it reaches back to Oct {day + 4}), with the team accounts removed by hand.
         <br/><br/><strong style={{ color: INK2 }}>Not in this tab yet:</strong> Lessons Writing Assistant, countries, funnels, prompts sent and latency (admin console), retention cohorts, CSAT and the qualitative sweep. They land as the month fills in and with the close.
       </div>
