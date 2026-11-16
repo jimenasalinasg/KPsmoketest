@@ -3492,6 +3492,82 @@ function Takeaways({ items, style }) {
   );
 }
 
+FUNNELS.november = {
+  openSearch: {
+    title: "Open Search",
+    intro: "Someone asks a question in the search box, then takes content away. Unique users, same session, segment Sin DEV. November to date (Nov 1–15).",
+    steps: [
+      { label: "Opens KP", n: 139 },
+      { label: "Runs a search", n: 36, time: "41s" },
+      { label: "Highlights content", n: 8, time: "1m 13s" },
+      { label: "Copies it", n: 5, time: "0.7s" },
+    ],
+    note: "3.6% end to end (5 of 139) after 15 days. 26% of those who enter run a search, close to October's 28%; 22% of searchers highlight, below October's 37%, and 5 of those 8 copy. Half a month and small numbers: one person moves these rates by several points.",
+  },
+  contextual: {
+    title: "Contextual search · pills",
+    intro: "Someone opens a pill — Similar Projects, Lessons Learned, Literature, Institutional Documents or Data — then takes content away. Same entry point as above.",
+    steps: [
+      { label: "Opens KP", n: 139 },
+      { label: "Opens a pill", n: 19, time: "57s" },
+      { label: "Highlights content", n: 2, time: "48s" },
+      { label: "Copies it", n: 0 },
+    ],
+    note: "14% of those who enter open a pill (19% in October); 2 highlight and nobody copied yet. Same pattern as October: the pills get opened and read, but little is taken away.",
+  },
+  synthesis: [
+    { lead: "Reading the two together.", body: "Both start from the same 139 people. Open Search pulls 26% into a query and the pills 14%. Halfway through the month the first step is close to October; what is weaker is what comes after, with fewer highlights and copies on both surfaces." },
+  ],
+};
+
+QUALITATIVE.november = {
+  kicker: "Qualitative — session sweep",
+  title: "What people actually do here · 15 sessions, Nov 1–15",
+  intro: "Main idea: November brings people from corporate areas and new kinds of requests (procurement, BID Lab, signed documents), and they keep running into the same walls: the tour reappearing, sign-in errors and answers that describe a file instead of giving it. Fifteen sessions read end to end, picked from people outside the team who wrote a prompt or opened a pill. A pattern to check, not a measurement.",
+  themes: [
+    {
+      tag: "New use case", tone: "green",
+      title: "Corporate areas ask about the Bank's own processes",
+      body: "3 of 15 asked about procurement, Procure+ or corporate social responsibility, not about operations with countries. It is a different audience that goes straight to the Assistant.",
+      soWhat: "Decide whether corporate policies are in scope; if they are, they need their own sources.",
+      sessions: [{ id: "S-01", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2599058149733803098:7539597611380940646", place: "Nicaragua" }, { id: "S-02", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8767706477470883920:406618410114183783", place: "US" }, { id: "S-03", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/4381841674866844405:4246670838989697588", place: "US" }],
+    },
+    {
+      tag: "Friction", tone: "amber",
+      title: "The tour comes back when they open the Assistant",
+      body: "In 4 of 15 sessions the full tour played two or three times: once on the home page and again on opening the Assistant. One person clicked Next for eight minutes before writing a question.",
+      soWhat: "Show the tour once per person, not once per surface.",
+      sessions: [{ id: "S-09", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/67609409589040511:4473051150397881639", place: "US" }, { id: "S-04", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2673966059000407161:6538456603853024203", place: "US" }, { id: "S-01", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2599058149733803098:7539597611380940646", place: "Nicaragua" }, { id: "S-05", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8650985004163167926:8780044103429452727", place: "Costa Rica" }],
+    },
+    {
+      tag: "Friction", tone: "amber",
+      title: "What they look for is not a filter",
+      body: "BID Lab's portfolio and instrument acronyms (PBR, PBL) are not in the filters. People try the project search, find nothing and move to the Assistant; one had to explain what LBR means after downloading the list.",
+      soWhat: "Add BID Lab as a unit and recognise instrument acronyms in search.",
+      sessions: [{ id: "S-04", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2673966059000407161:6538456603853024203", place: "US" }, { id: "S-05", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8650985004163167926:8780044103429452727", place: "Costa Rica" }, { id: "S-06", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/4573612796312222950:4593530053901507562", place: "US" }, { id: "S-07", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/639356894798455068:5567558752131036051", place: "US" }],
+    },
+    {
+      tag: "Opportunity", tone: "green",
+      title: "They want the file, not a description of it",
+      body: "A TOR template in Word, the signed PDFs of an agreement in ezShare, OVE's evaluations of a country: in each case the answer summarised what the documents say and the person rephrased or opened references looking for the document itself.",
+      soWhat: "When the request names a template or a file, answer with the link first.",
+      sessions: [{ id: "S-08", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/4282654232742870628:2596028697713935858", place: "Jamaica" }, { id: "S-15", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3912975034453554419:7349797847542864949", place: "US" }, { id: "S-14", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7700339469860114377:1495595327053697586", place: "US" }],
+    },
+    {
+      tag: "Bug", tone: "red",
+      title: "Sign-in errors on load, and a Data pill that fails",
+      body: "7 of 15 sessions logged token-refresh errors in their first seconds, as in September and October. Separately, opening Data on a closed project led to the 'technical difficulties' page.",
+      soWhat: "Same sign-in error for a third month: pass the error text to whoever owns it, with the Data pill case.",
+      sessions: [{ id: "S-09", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/67609409589040511:4473051150397881639", place: "US" }, { id: "S-03", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/4381841674866844405:4246670838989697588", place: "US" }, { id: "S-11", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8498154331827484921:4995804829850843062", place: "Colombia" }, { id: "S-13", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/4084266282714615360:6576839236173710399", place: "Bolivia" }],
+    },
+  ],
+  alsoNoted: [
+    "One person went through every pill of one operation, then the Assistant, then the FAQs and finished on Create your lesson (S-10, US).",
+    "Someone opened the Assistant and closed it at once to browse by country; the structured navigation is still the first choice for those who know their project (S-12, US).",
+  ],
+  note: "Sessions are cited by number and country only. No names, emails or cities are published. Operation codes are public IDB numbers.",
+};
+
 function FunnelSection({ f }) {
   const Card = ({ block, children, accent }) => (
     <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, boxShadow: SHADOW, padding: "18px 20px", ...(accent ? { borderLeft: `3px solid ${accent}` } : {}) }}>
@@ -4764,6 +4840,27 @@ const NOVEMBER = {
   newSearchClicks: 1,
   wordDownloads: 0,
   excelDownloads: 0,
+  // Consola de admin y encuestas: se cargan a mano al cierre. null = todavia no hay dato.
+  csat: null, csatResponses: null, csatAvg: null,
+  prompts: null, latency: null, unanswered: null, missingSources: null,
+  // Paises: usuarios unicos Sin DEV (copy) en knowledgeplatform.iadb.org, 1-15 nov (metrica 1292887714). Total 139 = usuarios del mes.
+  totalCountries: 24,
+  countries: [
+    { name: "United States (HQ)", code: "US", users: 88 },
+    { name: "Peru", code: "PE", users: 6 }, { name: "Brazil", code: "BR", users: 5 },
+    { name: "Costa Rica", code: "CR", users: 4 }, { name: "Panama", code: "PA", users: 4 },
+    { name: "Argentina", code: "AR", users: 3 }, { name: "Chile", code: "CL", users: 3 }, { name: "Ecuador", code: "EC", users: 3 },
+    { name: "El Salvador", code: "SV", users: 3 }, { name: "Mexico", code: "MX", users: 3 }, { name: "Uruguay", code: "UY", users: 3 },
+    { name: "Barbados", code: "BB", users: 2 }, { name: "Bolivia", code: "BO", users: 2 }, { name: "Colombia", code: "CO", users: 2 }, { name: "Nicaragua", code: "NI", users: 2 },
+    { name: "Australia", code: "AU", users: 1 }, { name: "Cayman Islands", code: "KY", users: 1 }, { name: "Dominican Republic", code: "DO", users: 1 },
+    { name: "France", code: "FR", users: 1 }, { name: "Guatemala", code: "GT", users: 1 }, { name: "Honduras", code: "HN", users: 1 },
+    { name: "Jamaica", code: "JM", users: 1 }, { name: "Spain", code: "ES", users: 1 }, { name: "Trinidad & Tobago", code: "TT", users: 1 },
+  ],
+  // Pills: sesiones unicas con vista de pagina por pill, Sin DEV, 1-15 nov (pageDef 68 LL, 257 Data, 70 Inst. Docs, 69 Lit, 67 SP).
+  pills: { lessons: 16, data: 9, institutional: 8, literature: 7, similar: 6 },
+  // LWA: personas fuera del equipo en produccion, 1-15 nov; misma receta que octubre (unicos por elemento, equipo descontado a mano).
+  // Total org-wide: crear 1, copiar 1, compartir 0, catalogo 0, compartidas 0; la persona no es del equipo.
+  lwa: { creators: 1, copied: 1, shared: 0, viewed: 0, sharedViewed: 0 },
 };
 
 // Easter egg: el tab aparece al desbloquearlo (5 clics en el titulo o codigo Konami; queda recordado en el navegador),
@@ -4792,6 +4889,22 @@ function NovemberMonthly() {
   const pctOf = (a, b) => Math.round(a / b * 100);
   const heading = (t, extra) => <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.04em", color: INK2, fontWeight: 500, marginBottom: -8, ...extra }}>{t}</div>;
   const grid = (min) => ({ display: "grid", gridTemplateColumns: `repeat(auto-fit, minmax(${min}px, 1fr))`, gap: 10 });
+  const [showAllCountries, setShowAllCountries] = useState(false);
+  const flag = (code) => code ? [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join("") : "🌐";
+  const regional = NOVEMBER.countries.filter(c => c.code !== "US");
+  const usData = NOVEMBER.countries.find(c => c.code === "US");
+  const countryTotal = NOVEMBER.countries.reduce((a, c) => a + c.users, 0);
+  const usPct = Math.round(usData.users / countryTotal * 100);
+  const maxUsers = regional[0].users;
+  const chips = L(M, "cs_chips"), searchBar = L(M, "cs_search_bar");
+  const downloads = NOVEMBER.wordDownloads + NOVEMBER.excelDownloads;
+  const pending = "Pending · admin console";
+  const signal = (title, body) => (
+    <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, boxShadow: SHADOW, padding: "16px 18px" }}>
+      <div style={{ fontSize: T.xs, fontWeight: 600, color: INK, marginBottom: 6 }}>{title}</div>
+      <p style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, margin: 0, fontFamily: FONT }}>{body}</p>
+    </div>
+  );
 
   return (
     <div style={{ maxWidth: PAGE_W, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
@@ -4827,35 +4940,148 @@ function NovemberMonthly() {
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(NOVEMBER.prompters)} desc={`${pctOf(NOVEMBER.prompters, NOVEMBER.users)}% of users reached`} accent />
         <MCard meta="firstTime" label="New users" value={String(NOVEMBER.first_time)} desc={`First-time visitors · other ${returning} are returning from prior months`} />
         <MCard meta="returningUsers" label="Returning users" value={String(returning)} desc={`${pctOf(returning, NOVEMBER.users)}% of users reached · already knew KP before November`} />
+        <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.lg, padding: "16px 18px" }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: BLUE_D, marginBottom: 8 }}>Penetration</div>
+          <div style={{ fontSize: T.kpi, fontWeight: 600, color: BLUE_D, letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 10 }}>{Math.round(NOVEMBER.users/BID_TOTAL*100*10)/10}%</div>
+          <div style={{ background: BLUE_M, borderRadius: R.pill, height: 6, overflow: "hidden", marginBottom: 6 }}>
+            <div style={{ width: `${Math.round(NOVEMBER.users/BID_TOTAL*100*10)/10}%`, height: "100%", background: BLUE_D, borderRadius: R.pill }} />
+          </div>
+          <div style={{ fontSize: T.micro, color: BLUE, display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+            <span>{NOVEMBER.users} users</span><span>{BID_TOTAL.toLocaleString("en-US")} total</span>
+          </div>
+          <div style={{ fontSize: T.micro, color: BLUE, lineHeight: 1.4 }}>Share of all IDB staff & consultants · month so far</div>
+        </div>
         <MCard meta="tourCompletion" label="% Onboarding completed" value={`${NOVEMBER.tourCompletion}%`} desc="Users who finished the tour" />
         <MCard meta="sessions" label="Sessions" value={String(NOVEMBER.sessions)} desc="Total for the month so far" />
         <MCard meta="activeTime" label="Avg. active time" value={`${snapshotAt("avg_active_time_s", M).toFixed(1)} s`} desc="Per page view · month so far" />
-        <MCard meta="frequentUsers" label="Frequent users" value={String(snapshotAt("frequent_users", M))} desc="≥4 visits in the 28 days up to Nov 3" />
-        <MCard meta="powerUsers" label="Power users" value={String(snapshotAt("power_users", M))} desc="≥8 visits in the 28 days up to Nov 3" />
+        <MCard meta="frequentUsers" label="Frequent users" value={String(snapshotAt("frequent_users", M))} desc={`≥4 visits in the 28 days up to Nov ${day}`} />
+        <MCard meta="powerUsers" label="Power users" value={String(snapshotAt("power_users", M))} desc={`≥8 visits in the 28 days up to Nov ${day}`} />
+      </div>
+
+      {/* Geo */}
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, boxShadow: SHADOW, padding: "16px 20px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: INK3, marginBottom: 12 }}>
+          🌎 Geographic Reach — {NOVEMBER.totalCountries} countries · Nov 1–{day}
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: R.md }}>
+          <span style={{ fontSize: T.xl, flexShrink: 0 }}>🇺🇸</span>
+          <div style={{ flex: 1 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
+              <span style={{ fontSize: T.sm, fontWeight: 500, color: BLUE_D }}>United States (HQ)</span>
+              <span style={{ fontSize: T.sm, color: BLUE_D, fontWeight: 500 }}>{usData.users} · {usPct}%</span>
+            </div>
+            <div style={{ background: BLUE_M, borderRadius: R.pill, height: 6, overflow: "hidden" }}>
+              <div style={{ width: `${usPct}%`, height: "100%", background: BLUE_DEEP, borderRadius: R.pill }} />
+            </div>
+          </div>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: "6px 16px" }}>
+          {(showAllCountries ? regional : regional.slice(0, 12)).map((c, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, padding: "3px 0" }}>
+              <span style={{ fontSize: T.base, flexShrink: 0 }}>{flag(c.code)}</span>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
+                  <span style={{ fontSize: T.micro, color: INK2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</span>
+                  <span style={{ fontSize: T.micro, color: INK3, flexShrink: 0, marginLeft: 4 }}>{c.users}</span>
+                </div>
+                <div style={{ background: BG, borderRadius: R.pill, height: 3, overflow: "hidden" }}>
+                  <div style={{ width: `${(c.users / maxUsers) * 100}%`, height: "100%", background: c.users >= 4 ? BLUE_DEEP : c.users >= 2 ? BLUE : BLUE_SOFT, borderRadius: R.pill }} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        {regional.length > 12 && (
+          <button onClick={() => setShowAllCountries(!showAllCountries)} style={{ fontFamily: "inherit", fontSize: T.micro, fontWeight: 500, marginTop: 8, padding: "5px 12px", border: `1px solid ${BDR}`, borderRadius: R.md, cursor: "pointer", background: SURF, color: INK2 }}>
+            {showAllCountries ? "▴ Show less" : `▾ Show all ${regional.length} countries`}
+          </button>
+        )}
+        <div style={{ marginTop: 10, fontSize: T.micro, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
+          Same recipe as October's table: people with activity on the production site, segment Sin DEV. The rows add up to {countryTotal}, a little more than the {NOVEMBER.users} users of the month, because a few people were seen in more than one country (travel or VPN).
+        </div>
       </div>
 
       {heading("🔍 Contextual Search (November · to date)")}
       <div style={grid(200)}>
         <MCard meta="pillPageviews" label="Queries (pill views)" value={String(L(M, "cs_queries"))} desc="Total visits across all contextual search pills · from the ledger" accent />
         <MCard meta="categoryUsers" label="Users in a category" value={String(snapshotAt("cs_category_users", M))} desc="People who opened at least one knowledge category · month so far · from the ledger" />
+        <MCard label="Global Search events" value={String(chips + searchBar)} desc={`Chips ${chips} · search bar ${searchBar} · from the ledger`} />
+        <MCard label="Most used pill — Lessons Learned" value={String(NOVEMBER.pills.lessons)} desc={`Data ${NOVEMBER.pills.data} · Institutional Documents ${NOVEMBER.pills.institutional} · sessions · live via MCP`} small />
+        <MCard label={<>Least used pill —<br/>Similar Projects</>} value={String(NOVEMBER.pills.similar)} desc={`Literature ${NOVEMBER.pills.literature} · sessions · live via MCP`} small />
       </div>
 
       {heading("🤖 Knowledge Assistant — Open Search (November · to date)")}
       <div style={grid(160)}>
         <MCard meta="prompters" label="Prompters (≥1 prompt)" value={String(NOVEMBER.prompters)} desc={`${pctOf(NOVEMBER.prompters, NOVEMBER.users)}% of users reached`} accent />
+        <MCard meta="prompts" label="Prompts sent" value="—" desc={`${pending}: loaded by hand at the close`} />
+        <MCard meta="latency" label="Latency" value="—" desc={`${pending}: loaded by hand at the close`} small />
         <MCard label="Highlights" value={String(L(M, "os_highlight"))} desc="Text highlighted in answers · from the ledger" />
         <MCard label="Copies" value={String(L(M, "os_copy"))} desc="Text copied from answers · from the ledger" />
         <MCard meta="sourceClicks" label="Source panel clicks" value={String(L(M, "os_source_panel"))} desc="Clicks on source panel · from the ledger" />
         <MCard label="Response feedback" value={`👍 ${NOVEMBER.thumbsUp} · 👎 ${NOVEMBER.thumbsDown}`} desc="AI responses rated" small />
+        <MCard meta="csat" label="CSAT" value="—" desc="Pending · survey list, loaded by hand at the close" small />
         <MCard meta="promptGallery" label="Prompt Gallery clicks" value={String(NOVEMBER.promptGalleryClicks)} />
         <MCard meta="recentSearch" label="Recent Search clicks" value={String(NOVEMBER.recentSearchClicks)} />
         <MCard meta="newSearch" label="New Search clicks" value={String(NOVEMBER.newSearchClicks)} />
       </div>
 
+      {heading("🛡️ Answer quality guardrails (November · to date)")}
+      <div style={grid(160)}>
+        <MCard label="Answer rate" value="—" desc={`${pending} · 24% in October`} accent />
+        <MCard label="Missing sources" value="—" desc={`${pending} · 58 in October`} />
+        <MCard label="Extraction" value="—" desc={`Open Search copies per 100 questions · needs prompts sent · ${L(M, "os_copy")} copies so far`} />
+        <MCard meta="latency" label="Latency" value="—" desc={`${pending} · 14s in October`} small />
+        <MCard meta="csat" label="CSAT" value="—" desc="Pending · survey list" small />
+      </div>
+      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.md, padding: "10px 14px", fontSize: T.xs, color: BLUE_D, lineHeight: 1.5 }}>
+        ℹ <strong>These four come from the admin console, not FullStory.</strong> They are loaded by hand at the close, so they stay empty during the month rather than being estimated. Read them together when they land: October answered faster (14s) but less (24% answered).
+      </div>
+
+      {heading("📄 Content Engagement (November · to date)")}
+      <ContentEngagementCard
+        rows={engagementRows(M, downloads)}
+        note={`Downloads: ${NOVEMBER.wordDownloads} Word · ${NOVEMBER.excelDownloads} Excel. Month to date.`}
+      />
+
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      {heading("📝 Lessons Writing Assistant — LWA (November · to date)")}
+      <div style={grid(160)}>
+        <MCard meta="lessonsGenerated" label="Created a lesson" value={String(NOVEMBER.lwa.creators)} desc="People outside the team who wrote at least one lesson · live via MCP" accent />
+        <MCard meta="lwaCopy" label="Copied one out" value={String(NOVEMBER.lwa.copied)} desc="People outside the team who took the generated lesson away · live via MCP" />
+        <MCard meta="lwaShare" label="Shared with a colleague" value={String(NOVEMBER.lwa.shared)} desc="Nobody outside the team shared one yet" />
+        <MCard meta="lwaView" label="Opened from the catalogue" value={String(NOVEMBER.lwa.viewed)} desc="Nobody outside the team opened one from the catalogue yet" />
+        <MCard meta="lwaSharedView" label="Opened a shared lesson" value={String(NOVEMBER.lwa.sharedViewed)} desc="Nobody outside the team read one they received" />
+      </div>
+      <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.md, padding: "10px 14px", fontSize: T.xs, color: BLUE_D, lineHeight: 1.5 }}>
+        ℹ <strong>People, not clicks, and the build team is excluded.</strong> Same method as October: unique people on the production site for each step, with the build team's accounts removed by hand. So far it is one person, who created a lesson and copied it.
+      </div>
+
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      <FunnelSection f={FUNNELS.november} />
+
+      <div style={{ borderTop: `2px solid ${BDR}`, margin: "8px 0" }} />
+
+      <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.04em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — November to date</div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
+        {signal("Half a month, and reach is on October's pace", `${NOVEMBER.users} users and ${NOVEMBER.sessions} sessions in ${day} days, ${NOVEMBER.first_time} of them first-timers. October closed at ${OCTOBER.users} users for the whole month; it is a first read, not a comparison.`)}
+        {signal("Searching holds; taking content away does not", `${NOVEMBER.prompters} people searched in Open Search. 8 highlighted and 5 copied; in the pills, 19 opened one and nobody has copied yet.`)}
+        {signal(`Penetration reaches ${penetration}%`, `${cumUsers.toLocaleString("en-US")} cumulative users — October's close of 2,132 plus ${NOVEMBER.first_time} first-timers. ${snapshotAt("cs_category_users_cum", M)} people have opened a knowledge category since October 2025, ${snapshotAt("cs_category_users", M)} of them this month.`)}
+        {signal("New audiences, same walls", "The session sweep finds people from corporate areas and new requests (procurement, BID Lab, signed files), and the same sign-in errors and repeated tour as before. See the qualitative section below.")}
+      </div>
+
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, boxShadow: SHADOW, padding: "16px 20px" }}>
+        <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: INK3, marginBottom: 6 }}>Retention by cohort</div>
+        <div style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5 }}>Lands at the close. The November column counts who came back during the month; with half the month gone it would undercount every cohort, so it is not shown until Nov 30 is complete.</div>
+      </div>
+
+      <QualitativeSection q={QUALITATIVE.november} />
+
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: R.lg, padding: "16px 20px", fontSize: T.xs, color: INK3, lineHeight: 1.6 }}>
-        <strong style={{ color: INK2 }}>Month to date, {day} days in.</strong> November is partial: it covers Nov 1–{day}, complete days only, and {(() => { const w = Array.from({ length: day }, (_, i) => i + 1).filter((d) => [0, 6].includes(new Date(Date.UTC(2026, 10, d)).getUTCDay())); return `${w.length} of those (Nov ${w.length > 1 ? w.slice(0, -1).join(", ") + " and " + w[w.length - 1] : w[0]}) fell on a weekend`; })()}. It is not compared with October's full month, and at this size a single person moves a card, so read it as a first signal. It is refreshed every day and the last complete day is shown at the top.
-        <br/><br/><strong style={{ color: INK2 }}>Where the numbers come from.</strong> Users, prompters, onboarding, feedback and search clicks are read from FullStory on the Sin DEV segment; sessions count all environments, team included. New users are the cumulative unique users to date minus October's close, read the same day. Highlights, copies, source clicks and pill views come from the ledger (data/kp_ledger.csv, segment Sin DEV (copy)). Frequent and power users use a rolling 28-day window that ends on Nov {day} (so it reaches back to Oct {day + 4}), with the team accounts removed by hand.
-        <br/><br/><strong style={{ color: INK2 }}>Not in this tab yet:</strong> Lessons Writing Assistant, countries, funnels, prompts sent and latency (admin console), retention cohorts, CSAT and the qualitative sweep. They land as the month fills in and with the close.
+        <strong style={{ color: INK2 }}>Month to date, {day} days in.</strong> November is partial: it covers Nov 1–{day}, complete days only, and {(() => { const w = Array.from({ length: day }, (_, i) => i + 1).filter((d) => [0, 6].includes(new Date(Date.UTC(2026, 10, d)).getUTCDay())); return `${w.length} of those (Nov ${w.length > 1 ? w.slice(0, -1).join(", ") + " and " + w[w.length - 1] : w[0]}) fell on a weekend`; })()}. It is not compared with October's full month, and at this size a single person moves a card, so read it as a first signal. The cards and the cumulative totals are refreshed every day; countries, pills, funnels, LWA and the session sweep were read for Nov 1–15.
+        <br/><br/><strong style={{ color: INK2 }}>Where the numbers come from.</strong> Users, prompters, onboarding, feedback, search clicks, countries, pills, funnels and LWA are read from FullStory on the Sin DEV segment (LWA removes the team by hand, as in October); sessions count all environments, team included. New users are the cumulative unique users to date minus October's close, read the same day. Highlights, copies, source clicks and pill views come from the ledger (data/kp_ledger.csv, segment Sin DEV (copy)). Frequent and power users use a rolling 28-day window that ends on Nov {day}, with the team accounts removed by hand.
+        <br/><br/><strong style={{ color: INK2 }}>Still empty:</strong> prompts sent, latency, answer rate and missing sources (admin console), CSAT (survey list) and retention cohorts. They are loaded at the close, not estimated.
       </div>
 
     </div>
