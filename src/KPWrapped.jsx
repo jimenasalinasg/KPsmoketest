@@ -288,7 +288,7 @@ export default function KPWrapped({ months: monthRows }) {
             return <span key={c.name} title={`${esName(c.name)}: ${c.users}`} style={{ width: size, height: size, borderRadius: "50%", display: "grid", placeItems: "center", textAlign: "center", padding: 4, fontSize: size > 70 ? 12 : 9, lineHeight: 1.1, color: i < 10 ? "var(--bg)" : "var(--ink)", background: i < 10 ? "var(--ink)" : "var(--track2)", overflow: "hidden" }}>{size > 46 ? <span>{esName(c.name)}<br /><b>{c.users}</b></span> : ""}</span>;
           })}
         </div>
-        <p className="kpw-note">Personas distintas por país, 1-ene → 3-nov (segmento Sin DEV, sitio de producción); no cambia con el rango. El país es el que detecta FullStory por la conexión: una VPN puede ubicar a alguien en otro país.</p>
+        <p className="kpw-note">Personas distintas por país, 1-ene → {Number(COUNTRIES.through.slice(8))}-nov (segmento Sin DEV, sitio de producción); no cambia con el rango. El país es el que detecta FullStory por la conexión: una VPN puede ubicar a alguien en otro país.</p>
       </Section>
 
       {/* 3 — Usuarios más fieles */}
@@ -348,7 +348,7 @@ export default function KPWrapped({ months: monthRows }) {
             </li>
           ))}
         </ol>
-        <p className="kpw-note">Sesiones que abrieron las pills de cada operación (/knowledge/&lt;código&gt;), 1-ene → 3-nov, segmento Sin DEV; no cambia con el rango. Los códigos son números de operación públicos del BID. {TOP_OPERATIONS.rows.filter((o) => o.code.startsWith("BR-")).length} de las 8 primeras son de Brasil.</p>
+        <p className="kpw-note">Sesiones que abrieron las pills de cada operación (/knowledge/&lt;código&gt;), 1-ene → {Number(TOP_OPERATIONS.through.slice(8))}-nov, segmento Sin DEV; no cambia con el rango. Los códigos son números de operación públicos del BID. {TOP_OPERATIONS.rows.filter((o) => o.code.startsWith("BR-")).length} de las 8 primeras son de Brasil.</p>
       </Section>
 
       {/* 5 — Así exploramos */}
@@ -383,7 +383,7 @@ export default function KPWrapped({ months: monthRows }) {
             </div>
           ))}
         </div>
-        <p className="kpw-note">Porcentaje de las {fmt(EXPLORERS.base)} personas que usaron KP entre el 1-ene y el 3-nov (segmento Sin DEV). Los tipos no son excluyentes: una misma persona puede ser curiosa e investigadora. Fuentes = panel de fuentes del asistente y links a fuente en las pills.</p>
+        <p className="kpw-note">Porcentaje de las {fmt(EXPLORERS.base)} personas que usaron KP entre el 1-ene y el {Number(EXPLORERS.through.slice(8))}-nov (segmento Sin DEV). Los tipos no son excluyentes: una misma persona puede ser curiosa e investigadora. Fuentes = panel de fuentes del asistente y links a fuente en las pills.</p>
       </Section>
 
       {/* Más rápido */}

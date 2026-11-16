@@ -12,14 +12,14 @@ export const GO_LIVE = "2026-03-31";
 
 // Sesiones con al menos una vista de cada pill, por mes. FullStory, metricas guardadas
 // PJyiZSAt3EXH (Lessons Learned), rhTcgj1srgne (Similar Projects), w0ktk3sF3v3I (Literature), eCemfOCLh5qU (Data)
-// y pagina 70 (Institutional Documents, misma definicion), segmento sjHJR3590z6j. Leido el 4-nov-2026; noviembre = 1-3.
+// y pagina 70 (Institutional Documents, misma definicion), segmento sjHJR3590z6j. Leido el 4-nov-2026; noviembre releido el 16-nov = 1-15.
 // Son VISTAS (sesiones que abrieron la pill), no clics dentro de la pill.
 export const PILL_SESSIONS = {
-  "Similar Projects":        { "2026-01": 9, "2026-02": 23, "2026-03": 37, "2026-04": 49, "2026-05": 21, "2026-06": 51, "2026-07": 13, "2026-08": 23, "2026-09": 19, "2026-10": 12, "2026-11": 1 },
-  "Lessons Learned":         { "2026-01": 5, "2026-02": 16, "2026-03": 26, "2026-04": 46, "2026-05": 17, "2026-06": 39, "2026-07": 26, "2026-08": 17, "2026-09": 19, "2026-10": 26, "2026-11": 1 },
-  "Literature":              { "2026-01": 4, "2026-02": 10, "2026-03": 18, "2026-04": 25, "2026-05": 10, "2026-06": 29, "2026-07": 10, "2026-08": 13, "2026-09": 8, "2026-10": 14, "2026-11": 1 },
-  "Institutional Documents": { "2026-01": 1, "2026-02": 9, "2026-03": 11, "2026-04": 16, "2026-05": 10, "2026-06": 27, "2026-07": 9, "2026-08": 11, "2026-09": 10, "2026-10": 16, "2026-11": 3 },
-  "Data":                    { "2026-01": 0, "2026-02": 0, "2026-03": 0, "2026-04": 0, "2026-05": 4, "2026-06": 22, "2026-07": 12, "2026-08": 15, "2026-09": 7, "2026-10": 20, "2026-11": 0 },
+  "Similar Projects":        { "2026-01": 9, "2026-02": 23, "2026-03": 37, "2026-04": 49, "2026-05": 21, "2026-06": 51, "2026-07": 13, "2026-08": 23, "2026-09": 19, "2026-10": 12, "2026-11": 6 },
+  "Lessons Learned":         { "2026-01": 5, "2026-02": 16, "2026-03": 26, "2026-04": 46, "2026-05": 17, "2026-06": 39, "2026-07": 26, "2026-08": 17, "2026-09": 19, "2026-10": 26, "2026-11": 21 },
+  "Literature":              { "2026-01": 4, "2026-02": 10, "2026-03": 18, "2026-04": 25, "2026-05": 10, "2026-06": 29, "2026-07": 10, "2026-08": 13, "2026-09": 8, "2026-10": 14, "2026-11": 7 },
+  "Institutional Documents": { "2026-01": 1, "2026-02": 9, "2026-03": 11, "2026-04": 16, "2026-05": 10, "2026-06": 27, "2026-07": 9, "2026-08": 11, "2026-09": 10, "2026-10": 16, "2026-11": 8 },
+  "Data":                    { "2026-01": 0, "2026-02": 0, "2026-03": 0, "2026-04": 0, "2026-05": 4, "2026-06": 22, "2026-07": 12, "2026-08": 15, "2026-09": 7, "2026-10": 20, "2026-11": 10 },
 };
 
 // Usuarios unicos Sin DEV de los meses organicos (antes del go-live), misma receta que los bloques mensuales.
@@ -117,11 +117,11 @@ export function loyalty(month, users) {
 export const pct = (x, d = 0) => `${(x * 100).toFixed(d)}%`;
 export const fmt = (n) => Math.round(n).toLocaleString("en-US");
 
-// ── Historias extra (4-nov-2026). Lecturas de FullStory, segmento Sin DEV, host knowledgeplatform.iadb.org, 1-ene → 3-nov.
+// ── Historias extra (4-nov-2026). Lecturas de FullStory, segmento Sin DEV, host knowledgeplatform.iadb.org, 1-ene → 15-nov (releidas el 16-nov; horas del dia siguen en octubre).
 // Estas sesiones usan el segmento Sin DEV (sesiones que pasan por el home, sin el equipo): otra base que las sesiones
 // del bloque mensual (todos los entornos). Sirven para comparar dias entre si, no para sumarlas a las del bloque.
 
-// Sesiones por dia, desde el 1-ene-2026 (indice 0) hasta el 3-nov-2026.
+// Sesiones por dia, desde el 1-ene-2026 (indice 0) hasta el 15-nov-2026 (noviembre releido el 16-nov).
 const D = {
   "01": [2,2,1,3,6,14,14,19,7,1,0,14,14,16,15,14,2,2,9,10,21,13,24,1,0,19,21,13,11,16,2],
   "02": [0,30,15,26,23,24,4,7,25,24,30,25,21,2,2,3,23,20,20,15,3,1,25,25,24,12,13,1],
@@ -133,10 +133,10 @@ const D = {
   "08": [2,1,21,18,17,7,8,3,2,17,14,11,13,15,1,1,16,27,21,41,16,1,3,73,28,18,14,8,1,2,8],
   "09": [21,22,65,13,3,3,7,21,52,11,4,3,2,19,23,16,17,12,3,3,14,17,11,11,12,5,1,19,18,18],
   "10": [12,9,2,2,9,12,34,20,10,1,2,7,9,36,12,4,0,1,15,16,12,9,10,2,4,13,10,25,17,25,3],
-  "11": [2,10,22],
+  "11": [2,10,22,22,19,18,4,5,16,61,35,20,24,4,3],
 };
 export const DAILY_SESSIONS = Object.entries(D).flatMap(([m, arr]) => arr.map((v, i) => ({ date: `${YEAR}-${m}-${String(i + 1).padStart(2, "0")}`, value: v })));
-export const DAILY_THROUGH = "2026-11-03";
+export const DAILY_THROUGH = "2026-11-15";
 
 const WEEKDAYS = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
 export function weekdayProfile(months) {
@@ -152,29 +152,29 @@ export function weekdayProfile(months) {
   return { rows, best, record, weekend, sum, days: days.length };
 }
 
-// Usuarios unicos por pais, 1-ene → 3-nov (no cambia con el rango). Total 1,655 personas.
-export const COUNTRIES = { through: "2026-11-03", total: 1655, rows: [
-  ["United States", 884], ["Brazil", 131], ["Colombia", 98], ["Argentina", 88], ["Panama", 57], ["Uruguay", 52], ["Costa Rica", 50],
-  ["Peru", 45], ["Mexico", 32], ["Paraguay", 31], ["El Salvador", 27], ["Ecuador", 24], ["Spain", 22], ["Barbados", 20], ["Bolivia", 20],
-  ["Chile", 20], ["Dominican Republic", 20], ["Cayman Islands", 18], ["Trinidad and Tobago", 18], ["Honduras", 17], ["Guatemala", 15],
-  ["Bahamas", 13], ["Jamaica", 13], ["Suriname", 13], ["Belize", 11], ["Nicaragua", 9], ["Guyana", 7], ["France", 5], ["Haiti", 5],
+// Usuarios unicos por pais, 1-ene → 15-nov (no cambia con el rango). Total 1,692 personas. Releido el 16-nov.
+export const COUNTRIES = { through: "2026-11-15", total: 1692, rows: [
+  ["United States", 906], ["Brazil", 131], ["Colombia", 99], ["Argentina", 89], ["Panama", 58], ["Uruguay", 53], ["Costa Rica", 52],
+  ["Peru", 48], ["Mexico", 32], ["Paraguay", 31], ["El Salvador", 30], ["Ecuador", 26], ["Spain", 23], ["Chile", 22], ["Bolivia", 21],
+  ["Dominican Republic", 21], ["Barbados", 20], ["Cayman Islands", 18], ["Honduras", 18], ["Trinidad and Tobago", 18], ["Guatemala", 15],
+  ["Bahamas", 13], ["Jamaica", 13], ["Suriname", 13], ["Belize", 11], ["Nicaragua", 10], ["Guyana", 7], ["France", 5], ["Haiti", 5],
   ["Canada", 4], ["United Kingdom", 3], ["Germany", 2], ["Australia", 1], ["Austria", 1], ["Belgium", 1], ["Italy", 1], ["Korea", 1],
   ["Portugal", 1], ["Puerto Rico", 1], ["Saint Martin", 1], ["Switzerland", 1], ["Venezuela", 1],
 ].map(([name, users]) => ({ name, users })) };
 // Paises miembros prestatarios del BID (26), para el conteo de cobertura regional.
 export const BORROWERS = ["Argentina", "Bahamas", "Barbados", "Belize", "Bolivia", "Brazil", "Chile", "Colombia", "Costa Rica", "Dominican Republic", "Ecuador", "El Salvador", "Guatemala", "Guyana", "Haiti", "Honduras", "Jamaica", "Mexico", "Nicaragua", "Panama", "Paraguay", "Peru", "Suriname", "Trinidad and Tobago", "Uruguay", "Venezuela"];
 
-// Operaciones mas consultadas: sesiones que abrieron /knowledge/<codigo>, 1-ene → 3-nov. Los codigos son numeros de operacion publicos del BID.
-export const TOP_OPERATIONS = { through: "2026-11-03", rows: [
+// Operaciones mas consultadas: sesiones que abrieron /knowledge/<codigo>, 1-ene → 15-nov (top 8 sin cambios desde el 3-nov). Los codigos son numeros de operacion publicos del BID.
+export const TOP_OPERATIONS = { through: "2026-11-15", rows: [
   ["CO-L1325", 14], ["BR-L1664", 11], ["UR-L1225", 11], ["BR-L1688", 10], ["ME-L1350", 10], ["BL-J0011", 9], ["BR-J0003", 9], ["PN-L1195", 9],
 ].map(([code, sessions]) => ({ code, sessions })) };
 
-// Tipos de explorador: personas unicas que hicieron cada cosa al menos una vez, 1-ene → 3-nov. NO son excluyentes.
-export const EXPLORERS = { through: "2026-11-03", base: 1655, rows: [
-  { key: "ask", name: "El Curioso", verb: "hizo al menos una pregunta al Knowledge Assistant", value: 750 },
-  { key: "pill", name: "El Explorador", verb: "abrió al menos una pill de conocimiento", value: 284 },
-  { key: "copy", name: "El Redactor", verb: "copió contenido para llevárselo a su trabajo", value: 230 },
-  { key: "src", name: "El Investigador", verb: "abrió las fuentes para verificar una respuesta", value: 137 },
+// Tipos de explorador: personas unicas que hicieron cada cosa al menos una vez, 1-ene → 15-nov. NO son excluyentes.
+export const EXPLORERS = { through: "2026-11-15", base: 1692, rows: [
+  { key: "ask", name: "El Curioso", verb: "hizo al menos una pregunta al Knowledge Assistant", value: 760 },
+  { key: "pill", name: "El Explorador", verb: "abrió al menos una pill de conocimiento", value: 294 },
+  { key: "copy", name: "El Redactor", verb: "copió contenido para llevárselo a su trabajo", value: 233 },
+  { key: "src", name: "El Investigador", verb: "abrió las fuentes para verificar una respuesta", value: 140 },
 ] };
 
 // Calidad de respuesta (consola de administracion): share de preguntas respondidas. Solo meses con dato.
