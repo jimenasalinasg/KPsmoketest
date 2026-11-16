@@ -4909,10 +4909,41 @@ function NovemberMonthly() {
   return (
     <div style={{ maxWidth: PAGE_W, margin: "0 auto", padding: "24px 20px", display: "flex", flexDirection: "column", gap: 16 }}>
 
-      <div style={{ marginBottom: 8 }}>
+      <div style={{ marginBottom: 8, display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 12, flexWrap: "wrap" }}>
+        <div style={{ minWidth: 0, flex: "1 1 320px" }}>
         <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.04em", color: INK3, marginBottom: 4 }}>Monthly Report — Month to date</div>
         <div style={{ fontSize: T.h2, fontWeight: 600, color: INK, letterSpacing: "-0.02em", marginBottom: 4 }}>November 2026 — Nov 1–{day} ({day} of 30 days)</div>
         <div style={{ fontSize: T.sm, color: INK3 }}>IDB Knowledge Platform · Source: FullStory (segment Sin DEV) and the ledger · Updated daily, last complete day: {through}</div>
+        </div>
+        <button
+          onClick={() => {
+            const P = "pending (loaded at the close)";
+            const rows = [
+              ["Metric", "Value"], ["Month", `November 2026 (Nov 1-${day}; month to date, partial)`],
+              ["Users reached", NOVEMBER.users], ["Sessions", NOVEMBER.sessions], ["Prompters", NOVEMBER.prompters],
+              ["New users", NOVEMBER.first_time], ["Returning users", returning], ["Tour completion %", NOVEMBER.tourCompletion + "%"],
+              ["Avg. active time (s)", snapshotAt("avg_active_time_s", M)], ["Frequent users (28 days)", snapshotAt("frequent_users", M)], ["Power users (28 days)", snapshotAt("power_users", M)],
+              ["Pill pageviews", L(M, "cs_queries")], ["Users in a category (month)", snapshotAt("cs_category_users", M)],
+              ["Global Search events", chips + searchBar], ["Open Search highlights", L(M, "os_highlight")],
+              ["Open Search copies", L(M, "os_copy")], ["Source panel clicks (OS)", L(M, "os_source_panel")],
+              ["Thumbs up", NOVEMBER.thumbsUp], ["Thumbs down", NOVEMBER.thumbsDown], ["Prompt Gallery clicks", NOVEMBER.promptGalleryClicks],
+              ["Recent Search clicks", NOVEMBER.recentSearchClicks], ["New Search clicks", NOVEMBER.newSearchClicks],
+              ["Word downloads", NOVEMBER.wordDownloads], ["Excel downloads", NOVEMBER.excelDownloads],
+              ["LWA: created a lesson (people, Nov 1-15)", NOVEMBER.lwa.creators], ["LWA: copied one out (people, Nov 1-15)", NOVEMBER.lwa.copied],
+              ["Countries (Nov 1-15)", NOVEMBER.totalCountries],
+              ["Prompts sent", NOVEMBER.prompts ?? P], ["Latency", NOVEMBER.latency ?? P], ["CSAT", NOVEMBER.csat ?? P],
+              ["Cumulative users (Sep 1 2025-" + NOVEMBER.through + ")", cumUsers], ["Cumulative prompters", cumPrompters], ["Cumulative sessions", cumSessions],
+              ["Cumulative penetration", penetration + "%"],
+            ];
+            const csv = rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n");
+            const blob = new Blob([csv], { type: "text/csv" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url; a.download = `KP_Monthly_November_2026_to_${NOVEMBER.through}.csv`; a.click();
+            URL.revokeObjectURL(url);
+          }}
+          style={{ fontFamily: "inherit", fontSize: T.xs, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: R.md, cursor: "pointer", background: SURF, color: INK2 }}
+        >↓ Export CSV</button>
       </div>
 
       <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
