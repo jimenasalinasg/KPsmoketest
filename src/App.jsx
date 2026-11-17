@@ -4827,12 +4827,12 @@ function OctoberMonthly() {
 }
 
 const NOVEMBER = {
-  through: "2026-11-15",
-  users: 139,               // Sin DEV (sjHJR3590z6j), metric_definition con segmentId, 1-15 nov (fin de semana 14-15)
-  sessions: 501,            // BhsN9vxRPN7V sin segmento (todos los entornos)
-  prompters: 36,            // Sin DEV, click A3vpsKJZw0X8
-  first_time: 42,           // control: usuarios Sin DEV desde 2025-11-17 hasta 15-nov (1864) menos hasta 31-oct (1822), misma consulta del dia
-  tourCompletion: 43,       // 42.9 redondeado
+  through: "2026-11-16",
+  users: 149,               // Sin DEV (sjHJR3590z6j), metric_definition con segmentId, 1-16 nov
+  sessions: 535,            // BhsN9vxRPN7V sin segmento (todos los entornos)
+  prompters: 39,            // Sin DEV, click A3vpsKJZw0X8
+  first_time: 44,           // control: usuarios Sin DEV desde 2025-11-18 hasta 16-nov (1859) menos hasta 31-oct (1815), misma consulta del dia
+  tourCompletion: 41,       // 41.1 redondeado
   thumbsUp: 0,
   thumbsDown: 0,
   promptGalleryClicks: 5,
@@ -4992,7 +4992,7 @@ function NovemberMonthly() {
       {/* Geo */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, boxShadow: SHADOW, padding: "16px 20px" }}>
         <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: INK3, marginBottom: 12 }}>
-          🌎 Geographic Reach — {NOVEMBER.totalCountries} countries · Nov 1–{day}
+          🌎 Geographic Reach — {NOVEMBER.totalCountries} countries · Nov 1–15
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: R.md }}>
           <span style={{ fontSize: T.xl, flexShrink: 0 }}>🇺🇸</span>
@@ -5028,7 +5028,7 @@ function NovemberMonthly() {
           </button>
         )}
         <div style={{ marginTop: 10, fontSize: T.micro, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
-          Same recipe as October's table: people with activity on the production site, segment Sin DEV. The rows add up to {countryTotal}, a little more than the {NOVEMBER.users} users of the month, because a few people were seen in more than one country (travel or VPN).
+          Same recipe as October's table: people with activity on the production site, segment Sin DEV. Read for Nov 1–15, when the month had 139 users. The rows add up to {countryTotal}, a little more than those 139, because a few people were seen in more than one country (travel or VPN).
         </div>
       </div>
 
