@@ -1,5 +1,6 @@
 // Tab "Librería de casos": lo que los usuarios intentan hacer en la KP. Datos en src/data/caseLibrary.js.
 import { useMemo, useState } from "react";
+import CaseMap from "./CaseMap.jsx";
 import { CASES, MODES, MODE_ORDER, RECOS, RECOS_FOOT, SNAPSHOT, SURFACES, SURFACE_ORDER } from "./data/caseLibrary.js";
 import { BG, SURF, BDR, BDR_2, INK, INK2, INK3, BLUE, BLUE_D, BLUE_L, GREEN, GREEN_L, AMBER, AMBER_L, PURPLE, RED, ON_ACCENT, FONT, T, R, PAGE_W, SHADOW } from "./theme.js";
 
@@ -85,6 +86,8 @@ export default function CaseLibrary() {
           {CASES.length} casos de uso documentados desde FullStory y research cualitativo · {confirmed} confirmados en sesión real o métrica, {CASES.length - confirmed} hipótesis. Cada tarjeta es una necesidad real que un usuario del Banco intenta resolver con la plataforma.
         </p>
       </header>
+
+      <CaseMap />
 
       <section aria-label="Filtros de la librería" style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, boxShadow: SHADOW, padding: "14px 16px", display: "flex", flexDirection: "column", gap: 12 }}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center" }}>
