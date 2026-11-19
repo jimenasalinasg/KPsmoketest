@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import ledgerCsv from "../data/kp_ledger.csv?raw";
 import { ledger, SEGMENT_NAME, ledgerSum, baseline, latestSnapshot } from "./data/ledgerView.js";
 import { buildDocs } from "./data/metricDocs.js";
-import { RED, BLUE, BLUE_D, BLUE_L, BLUE_M, GREEN, AMBER, SURF, BDR, INK, INK2, INK3, AMBER_PALE, ON_ACCENT, ON_DARK, ON_DARK_2, FONT, T, R, PAGE_W, SHADOW } from "./theme.js";
+import { PURPLE, RED, BLUE, BLUE_D, BLUE_L, BLUE_M, GREEN, AMBER, SURF, BDR, INK, INK2, INK3, AMBER_PALE, ON_ACCENT, ON_DARK, ON_DARK_2, FONT, T, R, PAGE_W, SHADOW } from "./theme.js";
 
 const TOTAL_STAFF = 7287;                 // IDB staff + consultores: divisor de la penetracion (no esta en el ledger)
 const MOST_USED_PILL = "Lessons Learned"; // HISTORICO (misma ventana que el ledger), de Fullstory (rhTcgj1srgne, PJyiZSAt3EXH, eCemfOCLh5qU, w0ktk3sF3v3I), 2025-10-01 a 2026-10-12: LL 381 > SP 369 > Lit 187 > Data 78. No esta en el ledger: recomputar con la ventana completa en cada cierre
@@ -23,10 +23,16 @@ const CSAT_LOW = [
   { reason: "Technical failures: crashes, API, access, blank page (Jun, Aug)", share: 40 },
   { reason: "Other: slowness, one-off comments", share: 20 },
 ];
-// Lecciones aprendidas registradas en Client Portal (export del equipo de producto, Lessons.xlsx / Lessons_Generated.xlsx,
-// recibido el 19-nov-2026). Lecciones unicas por LessonNumberId. Ciclo 1 = ene-dic 2025, ciclo 2 = ene-jul 2026.
-// No es el lessons_created del ledger (consola de la KP): son las lecciones que quedaron registradas en Client Portal.
-const CLIENT_PORTAL_LESSONS = { total: 1562, cycle2025: 785, cycle2026: 777, operations: 508, countries: 24, asOf: "2026-11-19" };
+// Lecciones aprendidas registradas en Client Portal, por ciclo de reporte (dato del equipo de producto, 19-nov-2026).
+// El ciclo de mitad de año abre en julio, cierra en septiembre y cubre ene-jun del año corriente.
+// El ciclo de inicio de año abre en enero, cierra en marzo y cubre ene-dic del año anterior.
+// 785 y 777 cuadran lección por lección con Lessons.xlsx / Lessons_Generated.xlsx; 545 viene del equipo de producto.
+const LWA_CYCLES = [
+  { name: "Mid-year 2025", window: "Jul–Sep 2025", covers: "Jan–Jun 2025", lessons: 545 },
+  { name: "Start of year 2026", window: "Jan–Mar 2026", covers: "Jan–Dec 2025", lessons: 785 },
+  { name: "Mid-year 2026", window: "Jul–Sep 2026", covers: "Jan–Jun 2026", lessons: 777 },
+];
+const LWA_TOTAL = LWA_CYCLES.reduce((a, c) => a + c.lessons, 0);
 const fmt = (n) => n.toLocaleString("en-US");
 const monthLabel = (m) => new Date(`${m}-01T00:00:00Z`).toLocaleString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
 const BODY = FONT;
@@ -243,9 +249,31 @@ export default function UsabilityMetrics() {
             note={`copy ${fmt(ledgerSum("cs_copy"))} + source/link ${fmt(ledgerSum("cs_source_link"))} + highlight ${fmt(csHighlight)} (detail ${fmt(ledgerSum("cs_highlight_detail"))} + sidebar cards ${fmt(ledgerSum("cs_highlight_cards"))}) + Global Search ${fmt(globalSearch)} (chips ${fmt(ledgerSum("cs_chips"))} + search bar ${fmt(ledgerSum("cs_search_bar"))})`} />
         </EngRow>
         <EngRow title="Lessons Writing Assistant" last>
-          <Kpi label="Lessons learned created" value={fmt(CLIENT_PORTAL_LESSONS.total)} small note={`Client Portal · lessons for Jan 2025 – Jul 2026: ${fmt(CLIENT_PORTAL_LESSONS.cycle2025)} (Jan–Dec 2025) + ${fmt(CLIENT_PORTAL_LESSONS.cycle2026)} (Jan–Jul 2026)`} />
+          <Kpi label="Lessons learned created" value={fmt(LWA_TOTAL)} small note="Client Portal · 3 reporting cycles, Jul 2025 – Sep 2026 · detail below" />
         </EngRow>
       </Block>
+
+      <SectionLabel>Lessons Writing Assistant · lessons registered in Client Portal</SectionLabel>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderTop: `4px solid ${PURPLE}`, borderRadius: R.lg, boxShadow: SHADOW, padding: "18px 20px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 18, alignItems: "stretch" }}>
+        <div style={{ minWidth: 0 }}>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: PURPLE, fontWeight: 600 }}>Total lessons</div>
+          <div style={{ fontSize: T.display, fontWeight: 700, color: INK, letterSpacing: "-0.03em", lineHeight: 1.05, marginTop: 6 }}>{fmt(LWA_TOTAL)}</div>
+          <div style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, marginTop: 6 }}>Lessons learned registered by project teams across the last three reporting cycles.</div>
+        </div>
+        {LWA_CYCLES.map((c) => (
+          <div key={c.name} style={{ minWidth: 0, background: BLUE_L, borderRadius: R.md, padding: "12px 14px", display: "flex", flexDirection: "column", gap: 6 }}>
+            <div style={{ fontSize: T.sm, fontWeight: 600, color: INK }}>{c.name} cycle</div>
+            <div style={{ fontSize: T.kpi, fontWeight: 700, color: PURPLE, lineHeight: 1 }}>{fmt(c.lessons)}</div>
+            <div style={{ height: 6, background: SURF, borderRadius: R.pill }}>
+              <div style={{ width: `${Math.round(c.lessons / Math.max(...LWA_CYCLES.map((x) => x.lessons)) * 100)}%`, height: "100%", background: PURPLE, borderRadius: R.pill }} />
+            </div>
+            <div style={{ fontSize: T.xs, color: INK2, lineHeight: 1.45 }}>Open {c.window}<br />Covers {c.covers}</div>
+          </div>
+        ))}
+        <p style={{ ...small, gridColumn: "1 / -1", margin: 0 }}>
+          The mid-year cycle opens in July, closes in September and covers January–June of the same year. The start-of-year cycle opens in January, closes in March and covers the whole previous year. Source: Client Portal, product team (Nov 19, 2026).
+        </p>
+      </div>
 
       <SectionLabel>What users value (CSAT, Apr–Nov · approximate)</SectionLabel>
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, boxShadow: SHADOW, padding: "16px 20px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20 }}>
