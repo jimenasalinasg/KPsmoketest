@@ -249,14 +249,30 @@ export default function UsabilityMetrics() {
             note={`copy ${fmt(ledgerSum("cs_copy"))} + source/link ${fmt(ledgerSum("cs_source_link"))} + highlight ${fmt(csHighlight)} (detail ${fmt(ledgerSum("cs_highlight_detail"))} + sidebar cards ${fmt(ledgerSum("cs_highlight_cards"))}) + Global Search ${fmt(globalSearch)} (chips ${fmt(ledgerSum("cs_chips"))} + search bar ${fmt(ledgerSum("cs_search_bar"))})`} />
         </EngRow>
         <EngRow title="Lessons Writing Assistant" last>
-          <Kpi label="Lessons learned created" value={fmt(LWA_TOTAL)} small note="Client Portal · 3 reporting cycles, Jul 2025 – Sep 2026 · detail below" />
+          <Kpi label="Lessons created · Client Portal (integration)" value={fmt(LWA_TOTAL)} small note="3 reporting cycles, Jul 2025 – Sep 2026 · detail below" />
+          <Kpi label="Lessons created · KP (platform)" value="Pending" small note="Full data coming · counted separately from Client Portal" warn />
         </EngRow>
       </Block>
 
-      <SectionLabel>Lessons Writing Assistant · lessons registered in Client Portal</SectionLabel>
+      <SectionLabel>Lessons Writing Assistant · where lessons are created</SectionLabel>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12, marginBottom: 12 }}>
+        {[
+          { tag: "Integration", name: "Client Portal", desc: "The assistant runs inside the reporting flow. Teams write lessons during the reporting cycle.", value: fmt(LWA_TOTAL), sub: "Jul 2025 – Sep 2026 · 3 cycles", color: PURPLE },
+          { tag: "Platform", name: "Knowledge Platform", desc: "People open the assistant on their own from the KP, outside the reporting cycle.", value: "Pending", sub: "Full data coming", color: BLUE_D },
+        ].map((x) => (
+          <div key={x.tag} style={{ minWidth: 0, background: SURF, border: `1px solid ${BDR}`, borderLeft: `4px solid ${x.color}`, borderRadius: R.lg, boxShadow: SHADOW, padding: "14px 16px" }}>
+            <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: x.color, fontWeight: 600 }}>{x.tag}</div>
+            <div style={{ fontSize: T.md, fontWeight: 600, color: INK, marginTop: 2 }}>{x.name}</div>
+            <div style={{ fontSize: T.kpi, fontWeight: 700, color: x.value === "Pending" ? INK3 : INK, lineHeight: 1.1, marginTop: 8 }}>{x.value}</div>
+            <div style={{ fontSize: T.xs, color: INK2 }}>{x.sub}</div>
+            <div style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, marginTop: 8 }}>{x.desc}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{ fontSize: T.sm, fontWeight: 600, color: INK, margin: "0 0 8px" }}>Integration · Client Portal by reporting cycle</div>
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderTop: `4px solid ${PURPLE}`, borderRadius: R.lg, boxShadow: SHADOW, padding: "18px 20px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 18, alignItems: "stretch" }}>
         <div style={{ minWidth: 0 }}>
-          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: PURPLE, fontWeight: 600 }}>Total lessons</div>
+          <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: PURPLE, fontWeight: 600 }}>Client Portal · total</div>
           <div style={{ fontSize: T.display, fontWeight: 700, color: INK, letterSpacing: "-0.03em", lineHeight: 1.05, marginTop: 6 }}>{fmt(LWA_TOTAL)}</div>
           <div style={{ fontSize: T.sm, color: INK2, lineHeight: 1.5, marginTop: 6 }}>Lessons learned registered by project teams across the last three reporting cycles.</div>
         </div>
