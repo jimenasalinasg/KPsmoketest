@@ -23,6 +23,10 @@ const CSAT_LOW = [
   { reason: "Technical failures: crashes, API, access, blank page (Jun, Aug)", share: 40 },
   { reason: "Other: slowness, one-off comments", share: 20 },
 ];
+// Lecciones aprendidas registradas en Client Portal (export del equipo de producto, Lessons.xlsx / Lessons_Generated.xlsx,
+// recibido el 19-nov-2026). Lecciones unicas por LessonNumberId. Ciclo 1 = ene-dic 2025, ciclo 2 = ene-jul 2026.
+// No es el lessons_created del ledger (consola de la KP): son las lecciones que quedaron registradas en Client Portal.
+const CLIENT_PORTAL_LESSONS = { total: 1562, cycle2025: 785, cycle2026: 777, operations: 508, countries: 24, asOf: "2026-11-19" };
 const fmt = (n) => n.toLocaleString("en-US");
 const monthLabel = (m) => new Date(`${m}-01T00:00:00Z`).toLocaleString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
 const BODY = FONT;
@@ -239,7 +243,7 @@ export default function UsabilityMetrics() {
             note={`copy ${fmt(ledgerSum("cs_copy"))} + source/link ${fmt(ledgerSum("cs_source_link"))} + highlight ${fmt(csHighlight)} (detail ${fmt(ledgerSum("cs_highlight_detail"))} + sidebar cards ${fmt(ledgerSum("cs_highlight_cards"))}) + Global Search ${fmt(globalSearch)} (chips ${fmt(ledgerSum("cs_chips"))} + search bar ${fmt(ledgerSum("cs_search_bar"))})`} />
         </EngRow>
         <EngRow title="Lessons Writing Assistant" last>
-          <Kpi label="Lessons learned created" doc={docs.lessons} value={fmt(lessons)} small note="Console · Client Portal + KP (not in FullStory)" warn />
+          <Kpi label="Lessons learned created" value={fmt(CLIENT_PORTAL_LESSONS.total)} small note="Client Portal · count of lessons registered" />
         </EngRow>
       </Block>
 
