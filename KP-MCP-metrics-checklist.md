@@ -53,7 +53,7 @@ Devuelven `{single:{value}}`. Se computan con el rango del mes cerrado
 ### LWA (Lessons Writing Assistant)
 
 Fuente: dashboard **"NEW - Lessons Writing Assistant"**, armado por
-`gabrielare@iadb.org` el 12-ago-2026. IDs **confirmados**.
+una persona del equipo el 12-ago-2026. IDs **confirmados**.
 
 | Campo                     | metric_id      | Nota |
 |---------------------------|----------------|------|
@@ -161,12 +161,11 @@ producción), se listan los usuarios con `get_sessions`, y se descuentan a mano 
 lista de Sin DEV. Con esta población (2 a 6 personas por acción) es perfectamente manejable; si
 algún día crece, hay que resolver la exclusión de otra forma.
 
-**La lista de Sin DEV tiene un hueco, confirmado.** Ni `mcorreal@iadb.org` ni `cindyp@iadb.org`
-están en los 28 mails. Confirmado por la PM el 30-sep-2026: **`cindyp` sí es del equipo,
-`mcorreal` no.**
+**La lista de Sin DEV tiene un hueco, confirmado.** Dos cuentas no estaban
+en los 28 mails. Confirmado por la PM el 30-sep-2026: **una sí es del equipo, la otra no.**
 
-- `mcorreal` es usuario real: los **3** creadores de septiembre fuera del equipo quedan firmes.
-- `cindyp` faltaba en el segmento Sin DEV. **Agregada por la PM el 30-sep-2026 15:28 UTC**: el
+- La cuenta que no es del equipo es un usuario real: los **3** creadores de septiembre fuera del equipo quedan firmes.
+- La cuenta del equipo faltaba en el segmento Sin DEV. **Agregada por la PM el 30-sep-2026 15:28 UTC**: el
   segmento pasa de 28 a **29 mails**. Se verificó después del cambio que no movió nada —
   jul 250, ago 287, sep 284 usuarios y 1.379 sesiones, todos idénticos— porque no tenía ni una
   sesión en `/home` de producción. Se hizo en el momento correcto: una vez que una cuenta del

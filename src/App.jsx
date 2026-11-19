@@ -3948,6 +3948,8 @@ function AugustMonthly() {
               ["New Search clicks", AUGUST.newSearchClicks],
               ["Latency (average)", AUGUST.latency ?? "pending"],
               ["CSAT", AUGUST.csat ?? "pending"],
+              ["LWA: created a lesson (people outside the team)", AUGUST.lwa.creators], ["LWA: copied one out (people)", AUGUST.lwa.copied],
+              ["LWA: shared with a colleague (people)", AUGUST.lwa.shared], ["LWA: opened from the catalogue (people)", AUGUST.lwa.viewed], ["LWA: opened a shared lesson (people)", AUGUST.lwa.sharedViewed],
               ["Cumulative users (Sep 1-Aug 31)", "1,943"],
               ["Cumulative prompters (Sep 1-Aug 31)", "859"],
               ["Cumulative penetration", "26.7%"],
@@ -4258,7 +4260,7 @@ const SEPTEMBER = {
   // aplicada a mano -- FullStory falla con `unspecified error` si se attachea un segmento con
   // excludeUserProperties a un metrico, asi que no se puede computar directo.
   lwa: {
-    creators: 3,            // crearon al menos una leccion (annan, katherynm, mcorreal)
+    creators: 3,            // crearon al menos una leccion (3 personas fuera del equipo)
     copied: 1,              // copiaron la leccion generada
     shared: 0,              // ninguno compartio con un colega
     viewed: 0,              // ninguno abrio una leccion del catalogo
@@ -4314,6 +4316,8 @@ function SeptemberMonthly() {
               ["New Search clicks", SEPTEMBER.newSearchClicks],
               ["Latency (average)", SEPTEMBER.latency ?? "pending"],
               ["CSAT", SEPTEMBER.csat ?? "pending"],
+              ["LWA: created a lesson (people outside the team)", SEPTEMBER.lwa.creators], ["LWA: copied one out (people)", SEPTEMBER.lwa.copied],
+              ["LWA: shared with a colleague (people)", SEPTEMBER.lwa.shared], ["LWA: opened from the catalogue (people)", SEPTEMBER.lwa.viewed], ["LWA: opened a shared lesson (people)", SEPTEMBER.lwa.sharedViewed],
               ["Cumulative users (Sep 1 2025–Sep 30 2026, September close)", "2,053"],
               ["Cumulative prompters (Sep 1 2025–Sep 30 2026, drift-corrected)", "923"],
               ["Cumulative sessions (Sep 1 2025–Sep 30 2026, September close)", "17,274"],
@@ -4625,6 +4629,8 @@ function OctoberMonthly() {
               ["Thumbs up", OCTOBER.thumbsUp], ["Thumbs down", OCTOBER.thumbsDown], ["Prompt Gallery clicks", OCTOBER.promptGalleryClicks],
               ["Recent Search clicks", OCTOBER.recentSearchClicks], ["New Search clicks", OCTOBER.newSearchClicks],
               ["CSAT (top-2 box, n=" + OCTOBER.csatResponses + ")", OCTOBER.csat], ["Prompts sent", OCTOBER.prompts], ["Latency", OCTOBER.latency],
+              ["LWA: created a lesson (people outside the team)", OCTOBER.lwa.creators], ["LWA: copied one out (people)", OCTOBER.lwa.copied],
+              ["LWA: shared with a colleague (people)", OCTOBER.lwa.shared], ["LWA: opened from the catalogue (people)", OCTOBER.lwa.viewed], ["LWA: opened a shared lesson (people)", OCTOBER.lwa.sharedViewed],
               ["Cumulative users (Sep 1 2025-" + OCTOBER.through + ")", cumUsers], ["Cumulative prompters", cumPrompters], ["Cumulative sessions", cumSessions],
               ["Cumulative penetration", penetration + "%"],
             ];
@@ -4929,7 +4935,8 @@ function NovemberMonthly() {
               ["Thumbs up", NOVEMBER.thumbsUp], ["Thumbs down", NOVEMBER.thumbsDown], ["Prompt Gallery clicks", NOVEMBER.promptGalleryClicks],
               ["Recent Search clicks", NOVEMBER.recentSearchClicks], ["New Search clicks", NOVEMBER.newSearchClicks],
               ["Word downloads", NOVEMBER.wordDownloads], ["Excel downloads", NOVEMBER.excelDownloads],
-              ["LWA: created a lesson (people, Nov 1-15)", NOVEMBER.lwa.creators], ["LWA: copied one out (people, Nov 1-15)", NOVEMBER.lwa.copied],
+              ["LWA: created a lesson (people outside the team, Nov 1-15)", NOVEMBER.lwa.creators], ["LWA: copied one out (people, Nov 1-15)", NOVEMBER.lwa.copied],
+              ["LWA: shared with a colleague (people, Nov 1-15)", NOVEMBER.lwa.shared], ["LWA: opened from the catalogue (people, Nov 1-15)", NOVEMBER.lwa.viewed], ["LWA: opened a shared lesson (people, Nov 1-15)", NOVEMBER.lwa.sharedViewed],
               ["Countries (Nov 1-15)", NOVEMBER.totalCountries],
               ["Prompts sent", NOVEMBER.prompts ?? P], ["Latency", NOVEMBER.latency ?? P], ["CSAT", NOVEMBER.csat ?? P],
               ["Cumulative users (Sep 1 2025-" + NOVEMBER.through + ")", cumUsers], ["Cumulative prompters", cumPrompters], ["Cumulative sessions", cumSessions],
