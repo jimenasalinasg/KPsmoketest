@@ -243,8 +243,7 @@ export default function UsabilityMetrics() {
             note={`copy ${fmt(ledgerSum("cs_copy"))} + source/link ${fmt(ledgerSum("cs_source_link"))} + highlight ${fmt(csHighlight)} (detail ${fmt(ledgerSum("cs_highlight_detail"))} + sidebar cards ${fmt(ledgerSum("cs_highlight_cards"))}) + Global Search ${fmt(globalSearch)} (chips ${fmt(ledgerSum("cs_chips"))} + search bar ${fmt(ledgerSum("cs_search_bar"))})`} />
         </EngRow>
         <EngRow title="Lessons Writing Assistant" last>
-          <Kpi label="Lessons learned created" doc={docs.lessons} value={fmt(lessons)} small note="Console · Client Portal + KP (not in FullStory)" warn />
-          <Kpi label="Lessons registered in Client Portal" value={fmt(CLIENT_PORTAL_LESSONS.total)} small note={`${fmt(CLIENT_PORTAL_LESSONS.cycle2025)} in the Jan–Dec 2025 cycle + ${fmt(CLIENT_PORTAL_LESSONS.cycle2026)} in Jan–Jul 2026 · ${CLIENT_PORTAL_LESSONS.operations} operations · ${CLIENT_PORTAL_LESSONS.countries} countries + regional · product team export`} />
+          <Kpi label="Lessons learned created" value={fmt(CLIENT_PORTAL_LESSONS.total)} small note="Client Portal · count of lessons registered" />
         </EngRow>
       </Block>
 
