@@ -5,11 +5,24 @@ import { useState, useRef, useEffect } from "react";
 import ledgerCsv from "../data/kp_ledger.csv?raw";
 import { ledger, SEGMENT_NAME, ledgerSum, baseline, latestSnapshot } from "./data/ledgerView.js";
 import { buildDocs } from "./data/metricDocs.js";
-import { BLUE, BLUE_D, BLUE_L, BLUE_M, GREEN, AMBER, SURF, BDR, INK, INK2, INK3, AMBER_PALE, ON_ACCENT, ON_DARK, ON_DARK_2, FONT, T, R, PAGE_W, SHADOW } from "./theme.js";
+import { RED, BLUE, BLUE_D, BLUE_L, BLUE_M, GREEN, AMBER, SURF, BDR, INK, INK2, INK3, AMBER_PALE, ON_ACCENT, ON_DARK, ON_DARK_2, FONT, T, R, PAGE_W, SHADOW } from "./theme.js";
 
 const TOTAL_STAFF = 7287;                 // IDB staff + consultores: divisor de la penetracion (no esta en el ledger)
 const MOST_USED_PILL = "Lessons Learned"; // HISTORICO (misma ventana que el ledger), de Fullstory (rhTcgj1srgne, PJyiZSAt3EXH, eCemfOCLh5qU, w0ktk3sF3v3I), 2025-10-01 a 2026-10-12: LL 381 > SP 369 > Lit 187 > Data 78. No esta en el ledger: recomputar con la ventana completa en cada cierre
 
+// CSAT (abr-nov 2026, ~52 encuestas de la lista "Surveys by month" de FullStory): lectura APROXIMADA de los resúmenes
+// mensuales ya publicados en las pestañas de cada mes, no un conteo por respuesta. Se muestra como rango.
+const CSAT_VALUED = [
+  { reason: "I quickly found what I was looking for", lo: 80, hi: 90 },
+  { reason: "The platform was useful for my work", lo: 65, hi: 75 },
+  { reason: "The content was clear", lo: 60, hi: 70 },
+  { reason: "The experience was simple and smooth", lo: 50, hi: 60 },
+];
+const CSAT_LOW = [
+  { reason: "Didn't find what they needed (May)", share: 40 },
+  { reason: "Technical failures: crashes, API, access, blank page (Jun, Aug)", share: 40 },
+  { reason: "Other: slowness, one-off comments", share: 20 },
+];
 const fmt = (n) => n.toLocaleString("en-US");
 const monthLabel = (m) => new Date(`${m}-01T00:00:00Z`).toLocaleString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
 const BODY = FONT;
@@ -229,6 +242,42 @@ export default function UsabilityMetrics() {
           <Kpi label="Lessons learned created" doc={docs.lessons} value={fmt(lessons)} small note="Console · Client Portal + KP (not in FullStory)" warn />
         </EngRow>
       </Block>
+
+      <SectionLabel>What users value (CSAT, Apr–Nov · approximate)</SectionLabel>
+      <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, boxShadow: SHADOW, padding: "16px 20px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20 }}>
+        <div style={{ minWidth: 0 }}>
+          <div style={{ fontSize: T.sm, fontWeight: 600, color: INK, marginBottom: 4 }}>Reasons picked in 4–5★ responses</div>
+          <div style={{ ...small, marginBottom: 10 }}>About 3 in 4 of the ~52 responses are positive. Share of positive responses that pick each reason.</div>
+          {CSAT_VALUED.map((r) => (
+            <div key={r.reason} style={{ marginBottom: 10 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 8, fontSize: T.sm, color: INK2, marginBottom: 4 }}>
+                <span style={{ minWidth: 0 }}>{r.reason}</span><span style={{ color: INK3, flexShrink: 0 }}>~{r.lo}–{r.hi}%</span>
+              </div>
+              <div style={{ position: "relative", height: 8, background: BLUE_L, borderRadius: R.pill }}>
+                <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: `${r.lo}%`, background: BLUE, borderRadius: R.pill }} />
+                <div style={{ position: "absolute", left: `${r.lo}%`, top: 0, bottom: 0, width: `${r.hi - r.lo}%`, background: BLUE_M }} />
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ minWidth: 0 }}>
+          <div style={{ fontSize: T.sm, fontWeight: 600, color: INK, marginBottom: 4 }}>Why the 1–3★ responses were low</div>
+          <div style={{ ...small, marginBottom: 10 }}>About 1 in 4 responses. None complain about the content itself.</div>
+          {CSAT_LOW.map((r) => (
+            <div key={r.reason} style={{ marginBottom: 10 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 8, fontSize: T.sm, color: INK2, marginBottom: 4 }}>
+                <span style={{ minWidth: 0 }}>{r.reason}</span><span style={{ color: INK3, flexShrink: 0 }}>~{r.share}%</span>
+              </div>
+              <div style={{ height: 8, background: BLUE_L, borderRadius: R.pill }}>
+                <div style={{ width: `${r.share}%`, height: "100%", background: RED, borderRadius: R.pill }} />
+              </div>
+            </div>
+          ))}
+        </div>
+        <p style={{ ...small, gridColumn: "1 / -1", margin: 0 }}>
+          <strong>Read:</strong> people value finding something useful for their work, fast. When the score is low, search or the platform failed — not the content. Approximate: read from the monthly CSAT summaries in each month's tab, not a count per response. Survey volume fell from 12–17 a month (May–Jun) to 2–5 since August, so each recent response weighs a lot.
+        </p>
+      </div>
 
       <SectionLabel>Monthly history</SectionLabel>
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, boxShadow: SHADOW, padding: "16px 20px" }}>
