@@ -4841,7 +4841,7 @@ const NOVEMBER = {
   wordDownloads: 0,
   excelDownloads: 0,
   // Consola de admin y encuestas: se cargan a mano al cierre. null = todavia no hay dato.
-  csat: null, csatResponses: null, csatAvg: null,
+  csat: "100%", csatResponses: 2, csatAvg: 5.0, // manual: lista de encuestas, 1-18 nov · 2 respuestas (5,5) · top-2 box 2/2 · avg 5.00 · n=2, no es una tasa
   prompts: null, latency: null, unanswered: null, missingSources: null,
   // Paises: usuarios unicos Sin DEV (copy) en knowledgeplatform.iadb.org, 1-15 nov (metrica 1292887714). Total 139 = usuarios del mes.
   totalCountries: 24,
@@ -5050,7 +5050,7 @@ function NovemberMonthly() {
         <MCard label="Copies" value={String(L(M, "os_copy"))} desc="Text copied from answers · from the ledger" />
         <MCard meta="sourceClicks" label="Source panel clicks" value={String(L(M, "os_source_panel"))} desc="Clicks on source panel · from the ledger" />
         <MCard label="Response feedback" value={`👍 ${NOVEMBER.thumbsUp} · 👎 ${NOVEMBER.thumbsDown}`} desc="AI responses rated" small />
-        <MCard meta="csat" label="CSAT" value="—" desc="Pending · survey list, loaded by hand at the close" small />
+        <MCard meta="csat" label="CSAT" value={NOVEMBER.csat} desc={`Top-2 box, ${NOVEMBER.csatResponses} of ${NOVEMBER.csatResponses} responses · avg ${NOVEMBER.csatAvg.toFixed(2)} ★ · survey list · n=${NOVEMBER.csatResponses} is far too small to read as a rate`} small />
         <MCard meta="promptGallery" label="Prompt Gallery clicks" value={String(NOVEMBER.promptGalleryClicks)} />
         <MCard meta="recentSearch" label="Recent Search clicks" value={String(NOVEMBER.recentSearchClicks)} />
         <MCard meta="newSearch" label="New Search clicks" value={String(NOVEMBER.newSearchClicks)} />
@@ -5062,7 +5062,7 @@ function NovemberMonthly() {
         <MCard label="Missing sources" value="—" desc={`${pending} · 58 in October`} />
         <MCard label="Extraction" value="—" desc={`Open Search copies per 100 questions · needs prompts sent · ${L(M, "os_copy")} copies so far`} />
         <MCard meta="latency" label="Latency" value="—" desc={`${pending} · 14s in October`} small />
-        <MCard meta="csat" label="CSAT" value="—" desc="Pending · survey list" small />
+        <MCard meta="csat" label="CSAT" value={NOVEMBER.csat} desc={`n=${NOVEMBER.csatResponses} · same as October (100% on n=2) · too few to read as a rate`} small />
       </div>
       <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.md, padding: "10px 14px", fontSize: T.xs, color: BLUE_D, lineHeight: 1.5 }}>
         ℹ <strong>These four come from the admin console, not FullStory.</strong> They are loaded by hand at the close, so they stay empty during the month rather than being estimated. Read them together when they land: October answered faster (14s) but less (24% answered).
@@ -5112,7 +5112,7 @@ function NovemberMonthly() {
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: R.lg, padding: "16px 20px", fontSize: T.xs, color: INK3, lineHeight: 1.6 }}>
         <strong style={{ color: INK2 }}>Month to date, {day} days in.</strong> November is partial: it covers Nov 1–{day}, complete days only, and {(() => { const w = Array.from({ length: day }, (_, i) => i + 1).filter((d) => [0, 6].includes(new Date(Date.UTC(2026, 10, d)).getUTCDay())); return `${w.length} of those (Nov ${w.length > 1 ? w.slice(0, -1).join(", ") + " and " + w[w.length - 1] : w[0]}) fell on a weekend`; })()}. It is not compared with October's full month, and at this size a single person moves a card, so read it as a first signal. The cards and the cumulative totals are refreshed every day; countries, pills, funnels, LWA and the session sweep were read for Nov 1–15.
         <br/><br/><strong style={{ color: INK2 }}>Where the numbers come from.</strong> Users, prompters, onboarding, feedback, search clicks, countries, pills, funnels and LWA are read from FullStory on the Sin DEV segment (LWA removes the team by hand, as in October); sessions count all environments, team included. New users are the cumulative unique users to date minus October's close, read the same day. Highlights, copies, source clicks and pill views come from the ledger (data/kp_ledger.csv, segment Sin DEV (copy)). Frequent and power users use a rolling 28-day window that ends on Nov {day}, with the team accounts removed by hand.
-        <br/><br/><strong style={{ color: INK2 }}>Still empty:</strong> prompts sent, latency, answer rate and missing sources (admin console), CSAT (survey list) and retention cohorts. They are loaded at the close, not estimated.
+        <br/><br/><strong style={{ color: INK2 }}>Still empty:</strong> prompts sent, latency, answer rate and missing sources (admin console) and retention cohorts. CSAT is loaded by hand from the survey list (two responses so far, both 5 stars). They are loaded at the close, not estimated.
       </div>
 
     </div>
