@@ -138,6 +138,24 @@ const D = {
 export const DAILY_SESSIONS = Object.entries(D).flatMap(([m, arr]) => arr.map((v, i) => ({ date: `${YEAR}-${m}-${String(i + 1).padStart(2, "0")}`, value: v })));
 export const DAILY_THROUGH = "2026-11-15";
 
+// Días y meses pico: el pico de cada mes medido contra el promedio de sus días hábiles (lun–vie).
+export function peakProfile(months) {
+  // D usa claves "01".."11": JS ordena "10" y "11" primero (son enteros canónicos), así que se ordena por fecha.
+  const days = DAILY_SESSIONS.filter((d) => months.includes(d.date.slice(0, 7))).sort((a, b) => a.date.localeCompare(b.date));
+  const byMonth = months.map((m) => {
+    const ds = days.filter((d) => d.date.startsWith(m));
+    if (!ds.length) return null;
+    const wd = ds.filter((d) => { const g = new Date(`${d.date}T00:00:00Z`).getUTCDay(); return g > 0 && g < 6; });
+    const avg = wd.reduce((a, d) => a + d.value, 0) / Math.max(1, wd.length);
+    const top = ds.reduce((a, d) => (d.value > a.value ? d : a));
+    return { month: m, total: ds.reduce((a, d) => a + d.value, 0), avg, top, ratio: avg ? top.value / avg : 0, partial: m === DAILY_THROUGH.slice(0, 7) };
+  }).filter(Boolean);
+  const ratioOf = Object.fromEntries(byMonth.map((r) => [r.top.date, r.ratio]));
+  const topDays = [...byMonth].sort((a, b) => b.ratio - a.ratio).slice(0, 5).map((r) => r.top.date);
+  const busiest = byMonth.filter((r) => !r.partial).reduce((a, r) => (a == null || r.total > a.total ? r : a), null);
+  return { days, byMonth, topDays, ratioOf, busiest, max: Math.max(1, ...days.map((d) => d.value)) };
+}
+
 const WEEKDAYS = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
 export function weekdayProfile(months) {
   const days = DAILY_SESSIONS.filter((d) => months.includes(d.date.slice(0, 7)));
