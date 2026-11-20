@@ -10,6 +10,58 @@ import { BLUE, BLUE_D, BLUE_L, BLUE_M, GREEN, AMBER, SURF, BDR, INK, INK2, INK3,
 const TOTAL_STAFF = 7287;                 // IDB staff + consultores: divisor de la penetracion (no esta en el ledger)
 const MOST_USED_PILL = "Lessons Learned"; // HISTORICO (misma ventana que el ledger), de Fullstory (rhTcgj1srgne, PJyiZSAt3EXH, eCemfOCLh5qU, w0ktk3sF3v3I), 2025-10-01 a 2026-10-12: LL 381 > SP 369 > Lit 187 > Data 78. No esta en el ledger: recomputar con la ventana completa en cada cierre
 
+// CSAT mensual (manual, de la lista de encuestas de FullStory; NO esta en el ledger). Top-2 box = respuestas >= 4 / total.
+// Copia de lo publicado en las vistas mensuales de App.jsx. sat = respuestas satisfechas; null si no se puede reconstruir.
+// Abril: publicado "75% de 5 respuestas", que no cuadra (4/5 = 80%); se muestra tal cual y queda fuera del agregado.
+const CSAT = [
+  { m: "2026-04", pct: 75, n: 5, sat: null, flag: "As published: 75% on 5 responses does not divide evenly; left out of the total" },
+  { m: "2026-05", pct: 76.5, n: 17, sat: 13 },
+  { m: "2026-06", pct: 58.3, n: 12, sat: 7, flag: "Technical incident (API / 400 errors)" },
+  { m: "2026-07", pct: 100, n: 4, sat: 4, avg: 4.75 },
+  { m: "2026-08", pct: 40, n: 5, sat: 2, avg: 2.8 },
+  { m: "2026-09", pct: 67, n: 3, sat: 2, avg: 4.33 },
+  { m: "2026-10", pct: 100, n: 2, sat: 2, avg: 5.0 },
+  { m: "2026-11", pct: null, n: null, sat: null, flag: "Pending · loaded by hand at the close" },
+];
+
+function CsatBlock() {
+  const pooled = CSAT.filter((r) => r.sat != null);
+  const sat = pooled.reduce((a, r) => a + r.sat, 0), n = pooled.reduce((a, r) => a + r.n, 0);
+  const maxN = Math.max(...CSAT.map((r) => r.n ?? 0));
+  const th = { padding: "6px 8px", textAlign: "right", fontWeight: 500, color: INK3, fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.06em", whiteSpace: "nowrap" };
+  const td = { padding: "6px 8px", textAlign: "right", fontVariantNumeric: "tabular-nums", borderTop: `1px solid ${BDR}`, verticalAlign: "middle" };
+  return (
+    <>
+      <Cells>
+        <Kpi first label="CSAT · aggregate" sub={`Top-2 box · ${monthLabel(pooled[0].m)} – ${monthLabel(pooled.at(-1).m)}`} value={`${(sat / n * 100).toFixed(1)}%`} note={`${sat} satisfied of ${n} responses, pooled (not an average of monthly %)`} />
+        <Kpi label="Responses" sub="All months with data" value={fmt(CSAT.reduce((a, r) => a + (r.n ?? 0), 0))} note="Under 20 a month: each response moves a month by 5 to 50 points" warn />
+      </Cells>
+      <div style={{ overflowX: "auto", padding: "4px 10px 8px" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: T.xs, color: INK2, minWidth: 520 }}>
+          <thead><tr><th style={{ ...th, textAlign: "left" }}>Month</th><th style={th}>CSAT</th><th style={th}>Satisfied</th><th style={{ ...th, textAlign: "left" }}>Responses</th><th style={th}>Avg ★</th><th style={{ ...th, textAlign: "left" }}>Note</th></tr></thead>
+          <tbody>
+            {CSAT.map((r) => (
+              <tr key={r.m}>
+                <td style={{ ...td, textAlign: "left", whiteSpace: "nowrap" }}>{monthLabel(r.m)}</td>
+                <td style={{ ...td, color: BLUE_D, fontWeight: 600 }}>{r.pct == null ? "–" : `${r.pct}%`}</td>
+                <td style={td}>{r.sat == null ? "–" : `${r.sat}/${r.n}`}</td>
+                <td style={{ ...td, textAlign: "left" }}>
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                    <span style={{ display: "inline-block", height: 8, width: r.n ? Math.max(4, (r.n / maxN) * 120) : 0, background: BLUE_M, borderRadius: 2 }} />
+                    {r.n ?? "–"}
+                  </span>
+                </td>
+                <td style={td}>{r.avg == null ? "–" : r.avg.toFixed(2)}</td>
+                <td style={{ ...td, textAlign: "left", color: INK3 }}>{r.flag ?? ""}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
+}
+
 const fmt = (n) => n.toLocaleString("en-US");
 const monthLabel = (m) => new Date(`${m}-01T00:00:00Z`).toLocaleString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
 const BODY = FONT;
@@ -228,6 +280,11 @@ export default function UsabilityMetrics() {
         <EngRow title="Lessons Writing Assistant" last>
           <Kpi label="Lessons learned created" doc={docs.lessons} value={fmt(lessons)} small note="Console · Client Portal + KP (not in FullStory)" warn />
         </EngRow>
+      </Block>
+
+      <SectionLabel>Satisfaction</SectionLabel>
+      <Block band="csat">
+        <CsatBlock />
       </Block>
 
       <SectionLabel>Monthly history</SectionLabel>
