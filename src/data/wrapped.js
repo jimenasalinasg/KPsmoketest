@@ -221,7 +221,6 @@ export const TOP_TOPICS = null; // [{ topic: "…", count: n }, …]
 export const SWEEPS = { sessions: 33, months: "ago–oct" };
 export const LEARNINGS = [
   { title: "No vienen a buscar: vienen a escribir.", body: "Pegan su propio borrador o matriz de riesgos y piden a KP que complete secciones. En septiembre, 4 de 10 sesiones trabajaron sobre un documento propio.", src: "Barridos de agosto y septiembre" },
-  { title: "Llegan con un código, no con una pregunta.", body: "Escriben el número de operación y siguen con lo mismo: ¿está aprobada?, ¿hay versión en portugués?, ¿quién la lidera? Pasó en 3 de 13 sesiones en octubre.", src: "Barrido de octubre" },
   { title: "Reescriben su pregunta a mano.", body: "Copian lo que preguntaron, lo pegan y cambian el final para afinar la búsqueda. Es la forma que encontraron de editar y volver a preguntar.", src: "Barridos de agosto y octubre" },
 ];
 // Retos para 2027, cada uno con su dato. M+1 = cohortes de agosto (16 de 125) y septiembre (13 de 110), tabla COHORTS de octubre.
@@ -247,4 +246,11 @@ export function shiftProfile(values = HOURS_ET.values) {
 // Evidencia para "¿Destino o capa?": el Lessons Writing Assistant ya vive dentro del ciclo operativo, en Client Portal.
 // Dato del equipo de producto (no FullStory), al 31-oct-2026. Ojo: el ledger tiene lessons_created = 1,559 (consola, oct-2026),
 // que mide otra cosa (lecciones creadas, no lecciones aprendidas registradas); no se mezclan.
+// Integración vs plataforma: lecciones aprendidas registradas con el Lessons Writing Assistant.
+// Client Portal: 3 ciclos de reporte (jul 2025 – sep 2026): 545 + 785 + 777 = 2,107 (equipo de producto, 19-nov-2026).
+// KP: lecciones generadas dentro de la plataforma, 4-ago-2025 → 19-nov-2026, sin pruebas ni borradores vacíos (58 de 80 filas; export del 20-nov-2026).
+export const LWA_SPLIT = {
+  portal: { lessons: 2107, period: "jul 2025 – sep 2026" },
+  kp: { lessons: 58, period: "ago 2025 – nov 2026" },
+};
 export const LWA_EVIDENCE = { lessons: 777, asOf: "2026-10-31", countries: 24 };
