@@ -1,4 +1,5 @@
 import { useState, Fragment } from "react";
+import TopInsights from "./TopInsights.jsx";
 import UsabilityMetrics from "./UsabilityMetrics.jsx";
 import CaseLibrary from "./CaseLibrary.jsx";
 import KPWrapped, { WrappedEgg, useWrappedEgg, useEndOfPageHint, GiftHint } from "./KPWrapped.jsx";
@@ -1044,6 +1045,8 @@ function Monthly() {
         </button>
       </div>
 
+      <TopInsights month="2026-04" />
+
       {/* Cumulative metrics since Sep 2025 */}
       <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px", marginBottom: 24 }}>
         <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: ON_DARK_2, marginBottom: 14 }}>
@@ -1422,6 +1425,8 @@ function MayMonthly() {
           style={{ fontFamily: "inherit", fontSize: T.xs, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: R.md, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
         >↓ Export CSV</button>
       </div>
+
+      <TopInsights month="2026-05" />
 
       {/* Cumulative totals */}
       <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
@@ -1828,6 +1833,8 @@ function JuneMonthly() {
         >↓ Export CSV</button>
       </div>
 
+      <TopInsights month="2026-06" />
+
       {/* Cumulative totals */}
       <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
         <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: ON_DARK_2, marginBottom: 14 }}>
@@ -2219,6 +2226,8 @@ function JulyMonthly() {
           style={{ fontFamily: "inherit", fontSize: T.xs, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: R.md, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
         >↓ Export CSV</button>
       </div>
+
+      <TopInsights month="2026-07" />
 
       {/* Cumulative totals (through June — July pending) */}
       <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
@@ -3948,6 +3957,8 @@ function AugustMonthly() {
               ["New Search clicks", AUGUST.newSearchClicks],
               ["Latency (average)", AUGUST.latency ?? "pending"],
               ["CSAT", AUGUST.csat ?? "pending"],
+              ["LWA: created a lesson (people outside the team)", AUGUST.lwa.creators], ["LWA: copied one out (people)", AUGUST.lwa.copied],
+              ["LWA: shared with a colleague (people)", AUGUST.lwa.shared], ["LWA: opened from the catalogue (people)", AUGUST.lwa.viewed], ["LWA: opened a shared lesson (people)", AUGUST.lwa.sharedViewed],
               ["Cumulative users (Sep 1-Aug 31)", "1,943"],
               ["Cumulative prompters (Sep 1-Aug 31)", "859"],
               ["Cumulative penetration", "26.7%"],
@@ -3962,6 +3973,8 @@ function AugustMonthly() {
           style={{ fontFamily: "inherit", fontSize: T.xs, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: R.md, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
         >↓ Export CSV</button>
       </div>
+
+      <TopInsights month="2026-08" />
 
       {/* Cumulative totals — pulled live via MCP */}
       <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
@@ -4258,7 +4271,7 @@ const SEPTEMBER = {
   // aplicada a mano -- FullStory falla con `unspecified error` si se attachea un segmento con
   // excludeUserProperties a un metrico, asi que no se puede computar directo.
   lwa: {
-    creators: 3,            // crearon al menos una leccion (annan, katherynm, mcorreal)
+    creators: 3,            // crearon al menos una leccion (3 personas fuera del equipo)
     copied: 1,              // copiaron la leccion generada
     shared: 0,              // ninguno compartio con un colega
     viewed: 0,              // ninguno abrio una leccion del catalogo
@@ -4314,6 +4327,8 @@ function SeptemberMonthly() {
               ["New Search clicks", SEPTEMBER.newSearchClicks],
               ["Latency (average)", SEPTEMBER.latency ?? "pending"],
               ["CSAT", SEPTEMBER.csat ?? "pending"],
+              ["LWA: created a lesson (people outside the team)", SEPTEMBER.lwa.creators], ["LWA: copied one out (people)", SEPTEMBER.lwa.copied],
+              ["LWA: shared with a colleague (people)", SEPTEMBER.lwa.shared], ["LWA: opened from the catalogue (people)", SEPTEMBER.lwa.viewed], ["LWA: opened a shared lesson (people)", SEPTEMBER.lwa.sharedViewed],
               ["Cumulative users (Sep 1 2025–Sep 30 2026, September close)", "2,053"],
               ["Cumulative prompters (Sep 1 2025–Sep 30 2026, drift-corrected)", "923"],
               ["Cumulative sessions (Sep 1 2025–Sep 30 2026, September close)", "17,274"],
@@ -4329,6 +4344,8 @@ function SeptemberMonthly() {
           style={{ fontFamily: "inherit", fontSize: T.xs, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: R.md, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
         >↓ Export CSV</button>
       </div>
+
+      <TopInsights month="2026-09" />
 
       {/* Cumulative totals — pulled live via MCP */}
       <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
@@ -4625,6 +4642,8 @@ function OctoberMonthly() {
               ["Thumbs up", OCTOBER.thumbsUp], ["Thumbs down", OCTOBER.thumbsDown], ["Prompt Gallery clicks", OCTOBER.promptGalleryClicks],
               ["Recent Search clicks", OCTOBER.recentSearchClicks], ["New Search clicks", OCTOBER.newSearchClicks],
               ["CSAT (top-2 box, n=" + OCTOBER.csatResponses + ")", OCTOBER.csat], ["Prompts sent", OCTOBER.prompts], ["Latency", OCTOBER.latency],
+              ["LWA: created a lesson (people outside the team)", OCTOBER.lwa.creators], ["LWA: copied one out (people)", OCTOBER.lwa.copied],
+              ["LWA: shared with a colleague (people)", OCTOBER.lwa.shared], ["LWA: opened from the catalogue (people)", OCTOBER.lwa.viewed], ["LWA: opened a shared lesson (people)", OCTOBER.lwa.sharedViewed],
               ["Cumulative users (Sep 1 2025-" + OCTOBER.through + ")", cumUsers], ["Cumulative prompters", cumPrompters], ["Cumulative sessions", cumSessions],
               ["Cumulative penetration", penetration + "%"],
             ];
@@ -4638,6 +4657,8 @@ function OctoberMonthly() {
           style={{ fontFamily: "inherit", fontSize: T.xs, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: R.md, cursor: "pointer", background: SURF, color: INK2 }}
         >↓ Export CSV</button>
       </div>
+
+      <TopInsights month="2026-10" />
 
       {/* Cumulative totals */}
       <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
@@ -4827,12 +4848,12 @@ function OctoberMonthly() {
 }
 
 const NOVEMBER = {
-  through: "2026-11-16",
-  users: 149,               // Sin DEV (sjHJR3590z6j), metric_definition con segmentId, 1-16 nov
-  sessions: 535,            // BhsN9vxRPN7V sin segmento (todos los entornos)
-  prompters: 39,            // Sin DEV, click A3vpsKJZw0X8
-  first_time: 44,           // control: usuarios Sin DEV desde 2025-11-18 hasta 16-nov (1859) menos hasta 31-oct (1815), misma consulta del dia
-  tourCompletion: 41,       // 41.1 redondeado
+  through: "2026-11-19",
+  users: 178,               // Sin DEV (sjHJR3590z6j), metric_definition con segmentId, 1-19 nov
+  sessions: 651,            // BhsN9vxRPN7V sin segmento (todos los entornos)
+  prompters: 48,            // Sin DEV, click A3vpsKJZw0X8
+  first_time: 51,           // control: usuarios Sin DEV desde 2025-11-21 hasta 19-nov (1826) menos hasta 31-oct (1775), misma consulta del dia
+  tourCompletion: 40,       // 40.48 redondeado
   thumbsUp: 0,
   thumbsDown: 0,
   promptGalleryClicks: 5,
@@ -4841,7 +4862,7 @@ const NOVEMBER = {
   wordDownloads: 0,
   excelDownloads: 0,
   // Consola de admin y encuestas: se cargan a mano al cierre. null = todavia no hay dato.
-  csat: null, csatResponses: null, csatAvg: null,
+  csat: "100%", csatResponses: 2, csatAvg: 5.0, // manual: lista de encuestas, 1-18 nov · 2 respuestas (5,5) · top-2 box 2/2 · avg 5.00 · n=2, no es una tasa
   prompts: null, latency: null, unanswered: null, missingSources: null,
   // Paises: usuarios unicos Sin DEV (copy) en knowledgeplatform.iadb.org, 1-15 nov (metrica 1292887714). Total 139 = usuarios del mes.
   totalCountries: 24,
@@ -4929,7 +4950,8 @@ function NovemberMonthly() {
               ["Thumbs up", NOVEMBER.thumbsUp], ["Thumbs down", NOVEMBER.thumbsDown], ["Prompt Gallery clicks", NOVEMBER.promptGalleryClicks],
               ["Recent Search clicks", NOVEMBER.recentSearchClicks], ["New Search clicks", NOVEMBER.newSearchClicks],
               ["Word downloads", NOVEMBER.wordDownloads], ["Excel downloads", NOVEMBER.excelDownloads],
-              ["LWA: created a lesson (people, Nov 1-15)", NOVEMBER.lwa.creators], ["LWA: copied one out (people, Nov 1-15)", NOVEMBER.lwa.copied],
+              ["LWA: created a lesson (people outside the team, Nov 1-15)", NOVEMBER.lwa.creators], ["LWA: copied one out (people, Nov 1-15)", NOVEMBER.lwa.copied],
+              ["LWA: shared with a colleague (people, Nov 1-15)", NOVEMBER.lwa.shared], ["LWA: opened from the catalogue (people, Nov 1-15)", NOVEMBER.lwa.viewed], ["LWA: opened a shared lesson (people, Nov 1-15)", NOVEMBER.lwa.sharedViewed],
               ["Countries (Nov 1-15)", NOVEMBER.totalCountries],
               ["Prompts sent", NOVEMBER.prompts ?? P], ["Latency", NOVEMBER.latency ?? P], ["CSAT", NOVEMBER.csat ?? P],
               ["Cumulative users (Sep 1 2025-" + NOVEMBER.through + ")", cumUsers], ["Cumulative prompters", cumPrompters], ["Cumulative sessions", cumSessions],
@@ -4945,6 +4967,8 @@ function NovemberMonthly() {
           style={{ fontFamily: "inherit", fontSize: T.xs, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: R.md, cursor: "pointer", background: SURF, color: INK2 }}
         >↓ Export CSV</button>
       </div>
+
+      <TopInsights month="2026-11" />
 
       <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
         <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: ON_DARK_2, marginBottom: 14 }}>
@@ -5050,7 +5074,7 @@ function NovemberMonthly() {
         <MCard label="Copies" value={String(L(M, "os_copy"))} desc="Text copied from answers · from the ledger" />
         <MCard meta="sourceClicks" label="Source panel clicks" value={String(L(M, "os_source_panel"))} desc="Clicks on source panel · from the ledger" />
         <MCard label="Response feedback" value={`👍 ${NOVEMBER.thumbsUp} · 👎 ${NOVEMBER.thumbsDown}`} desc="AI responses rated" small />
-        <MCard meta="csat" label="CSAT" value="—" desc="Pending · survey list, loaded by hand at the close" small />
+        <MCard meta="csat" label="CSAT" value={NOVEMBER.csat} desc={`Top-2 box, ${NOVEMBER.csatResponses} of ${NOVEMBER.csatResponses} responses · avg ${NOVEMBER.csatAvg.toFixed(2)} ★ · survey list · n=${NOVEMBER.csatResponses} is far too small to read as a rate`} small />
         <MCard meta="promptGallery" label="Prompt Gallery clicks" value={String(NOVEMBER.promptGalleryClicks)} />
         <MCard meta="recentSearch" label="Recent Search clicks" value={String(NOVEMBER.recentSearchClicks)} />
         <MCard meta="newSearch" label="New Search clicks" value={String(NOVEMBER.newSearchClicks)} />
@@ -5062,7 +5086,7 @@ function NovemberMonthly() {
         <MCard label="Missing sources" value="—" desc={`${pending} · 58 in October`} />
         <MCard label="Extraction" value="—" desc={`Open Search copies per 100 questions · needs prompts sent · ${L(M, "os_copy")} copies so far`} />
         <MCard meta="latency" label="Latency" value="—" desc={`${pending} · 14s in October`} small />
-        <MCard meta="csat" label="CSAT" value="—" desc="Pending · survey list" small />
+        <MCard meta="csat" label="CSAT" value={NOVEMBER.csat} desc={`n=${NOVEMBER.csatResponses} · same as October (100% on n=2) · too few to read as a rate`} small />
       </div>
       <div style={{ background: BLUE_L, border: `1px solid ${BLUE_M}`, borderRadius: R.md, padding: "10px 14px", fontSize: T.xs, color: BLUE_D, lineHeight: 1.5 }}>
         ℹ <strong>These four come from the admin console, not FullStory.</strong> They are loaded by hand at the close, so they stay empty during the month rather than being estimated. Read them together when they land: October answered faster (14s) but less (24% answered).
@@ -5112,7 +5136,7 @@ function NovemberMonthly() {
       <div style={{ background: SURF, border: `1px dashed ${BDR}`, borderRadius: R.lg, padding: "16px 20px", fontSize: T.xs, color: INK3, lineHeight: 1.6 }}>
         <strong style={{ color: INK2 }}>Month to date, {day} days in.</strong> November is partial: it covers Nov 1–{day}, complete days only, and {(() => { const w = Array.from({ length: day }, (_, i) => i + 1).filter((d) => [0, 6].includes(new Date(Date.UTC(2026, 10, d)).getUTCDay())); return `${w.length} of those (Nov ${w.length > 1 ? w.slice(0, -1).join(", ") + " and " + w[w.length - 1] : w[0]}) fell on a weekend`; })()}. It is not compared with October's full month, and at this size a single person moves a card, so read it as a first signal. The cards and the cumulative totals are refreshed every day; countries, pills, funnels, LWA and the session sweep were read for Nov 1–15.
         <br/><br/><strong style={{ color: INK2 }}>Where the numbers come from.</strong> Users, prompters, onboarding, feedback, search clicks, countries, pills, funnels and LWA are read from FullStory on the Sin DEV segment (LWA removes the team by hand, as in October); sessions count all environments, team included. New users are the cumulative unique users to date minus October's close, read the same day. Highlights, copies, source clicks and pill views come from the ledger (data/kp_ledger.csv, segment Sin DEV (copy)). Frequent and power users use a rolling 28-day window that ends on Nov {day}, with the team accounts removed by hand.
-        <br/><br/><strong style={{ color: INK2 }}>Still empty:</strong> prompts sent, latency, answer rate and missing sources (admin console), CSAT (survey list) and retention cohorts. They are loaded at the close, not estimated.
+        <br/><br/><strong style={{ color: INK2 }}>Still empty:</strong> prompts sent, latency, answer rate and missing sources (admin console) and retention cohorts. CSAT is loaded by hand from the survey list (two responses so far, both 5 stars). They are loaded at the close, not estimated.
       </div>
 
     </div>

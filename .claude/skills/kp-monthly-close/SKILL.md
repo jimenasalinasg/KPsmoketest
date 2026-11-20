@@ -295,7 +295,7 @@ Playwright (que ningún `@iadb.org` ni apellido de la muestra aparezca en el DOM
 es obligatoria antes de commitear.
 
 **Excluir al equipo de producto.** El segmento Sin DEV no filtra al PM. Si en la
-muestra aparece `jimenasa@iadb.org` u otra cuenta del equipo, descartarla y sacar
+muestra aparece la cuenta de la PM u otra cuenta del equipo, descartarla y sacar
 otra: con n=8 una sesión propia contamina el resultado.
 
 **Esquema de codificación fijo** — es lo que hace que diciembre sea comparable

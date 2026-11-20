@@ -138,6 +138,24 @@ const D = {
 export const DAILY_SESSIONS = Object.entries(D).flatMap(([m, arr]) => arr.map((v, i) => ({ date: `${YEAR}-${m}-${String(i + 1).padStart(2, "0")}`, value: v })));
 export const DAILY_THROUGH = "2026-11-15";
 
+// Días y meses pico: el pico de cada mes medido contra el promedio de sus días hábiles (lun–vie).
+export function peakProfile(months) {
+  // D usa claves "01".."11": JS ordena "10" y "11" primero (son enteros canónicos), así que se ordena por fecha.
+  const days = DAILY_SESSIONS.filter((d) => months.includes(d.date.slice(0, 7))).sort((a, b) => a.date.localeCompare(b.date));
+  const byMonth = months.map((m) => {
+    const ds = days.filter((d) => d.date.startsWith(m));
+    if (!ds.length) return null;
+    const wd = ds.filter((d) => { const g = new Date(`${d.date}T00:00:00Z`).getUTCDay(); return g > 0 && g < 6; });
+    const avg = wd.reduce((a, d) => a + d.value, 0) / Math.max(1, wd.length);
+    const top = ds.reduce((a, d) => (d.value > a.value ? d : a));
+    return { month: m, total: ds.reduce((a, d) => a + d.value, 0), avg, top, ratio: avg ? top.value / avg : 0, partial: m === DAILY_THROUGH.slice(0, 7) };
+  }).filter(Boolean);
+  const ratioOf = Object.fromEntries(byMonth.map((r) => [r.top.date, r.ratio]));
+  const topDays = [...byMonth].sort((a, b) => b.ratio - a.ratio).slice(0, 5).map((r) => r.top.date);
+  const busiest = byMonth.filter((r) => !r.partial).reduce((a, r) => (a == null || r.total > a.total ? r : a), null);
+  return { days, byMonth, topDays, ratioOf, busiest, max: Math.max(1, ...days.map((d) => d.value)) };
+}
+
 const WEEKDAYS = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
 export function weekdayProfile(months) {
   const days = DAILY_SESSIONS.filter((d) => months.includes(d.date.slice(0, 7)));
@@ -163,6 +181,16 @@ export const COUNTRIES = { through: "2026-11-15", total: 1692, rows: [
 ].map(([name, users]) => ({ name, users })) };
 // Paises miembros prestatarios del BID (26), para el conteo de cobertura regional.
 export const BORROWERS = ["Argentina", "Bahamas", "Barbados", "Belize", "Bolivia", "Brazil", "Chile", "Colombia", "Costa Rica", "Dominican Republic", "Ecuador", "El Salvador", "Guatemala", "Guyana", "Haiti", "Honduras", "Jamaica", "Mexico", "Nicaragua", "Panama", "Paraguay", "Peru", "Suriname", "Trinidad and Tobago", "Uruguay", "Venezuela"];
+
+// Sesiones que abrieron la pagina de una operacion (/knowledge/<codigo>) sobre el total de sesiones del mes, segmento Sin DEV.
+// Consultas del 20-nov-2026. Totales = sesiones diarias de D (oct verificado: 343). Noviembre: 1-19 nov (total 351, consulta directa).
+// El 1-jun explica 32 de las 90 de junio (132 sesiones ese dia).
+export const OPS_SHARE = {
+  through: "2026-11-19",
+  rows: [["2026-01", 15, 306], ["2026-02", 36, 443], ["2026-03", 54, 661], ["2026-04", 84, 1334], ["2026-05", 40, 820], ["2026-06", 90, 726],
+    ["2026-07", 43, 370], ["2026-08", 45, 428], ["2026-09", 37, 446], ["2026-10", 49, 343], ["2026-11", 30, 351]].map(([month, ops, total]) => ({ month, ops, total, share: ops / total })),
+  notes: { "2026-06": "un solo día (1 de junio) explica un tercio del mes" },
+};
 
 // Operaciones mas consultadas: sesiones que abrieron /knowledge/<codigo>, 1-ene → 15-nov (top 8 sin cambios desde el 3-nov). Los codigos son numeros de operacion publicos del BID.
 export const TOP_OPERATIONS = { through: "2026-11-15", rows: [
@@ -193,7 +221,6 @@ export const TOP_TOPICS = null; // [{ topic: "…", count: n }, …]
 export const SWEEPS = { sessions: 33, months: "ago–oct" };
 export const LEARNINGS = [
   { title: "No vienen a buscar: vienen a escribir.", body: "Pegan su propio borrador o matriz de riesgos y piden a KP que complete secciones. En septiembre, 4 de 10 sesiones trabajaron sobre un documento propio.", src: "Barridos de agosto y septiembre" },
-  { title: "Llegan con un código, no con una pregunta.", body: "Escriben el número de operación y siguen con lo mismo: ¿está aprobada?, ¿hay versión en portugués?, ¿quién la lidera? Pasó en 3 de 13 sesiones en octubre.", src: "Barrido de octubre" },
   { title: "Reescriben su pregunta a mano.", body: "Copian lo que preguntaron, lo pegan y cambian el final para afinar la búsqueda. Es la forma que encontraron de editar y volver a preguntar.", src: "Barridos de agosto y octubre" },
 ];
 // Retos para 2027, cada uno con su dato. M+1 = cohortes de agosto (16 de 125) y septiembre (13 de 110), tabla COHORTS de octubre.
@@ -219,4 +246,11 @@ export function shiftProfile(values = HOURS_ET.values) {
 // Evidencia para "¿Destino o capa?": el Lessons Writing Assistant ya vive dentro del ciclo operativo, en Client Portal.
 // Dato del equipo de producto (no FullStory), al 31-oct-2026. Ojo: el ledger tiene lessons_created = 1,559 (consola, oct-2026),
 // que mide otra cosa (lecciones creadas, no lecciones aprendidas registradas); no se mezclan.
+// Integración vs plataforma: lecciones aprendidas registradas con el Lessons Writing Assistant.
+// Client Portal: 3 ciclos de reporte (jul 2025 – sep 2026): 545 + 785 + 777 = 2,107 (equipo de producto, 19-nov-2026).
+// KP: lecciones generadas dentro de la plataforma, 4-ago-2025 → 19-nov-2026, sin pruebas ni borradores vacíos (58 de 80 filas; export del 20-nov-2026).
+export const LWA_SPLIT = {
+  portal: { lessons: 2107, period: "jul 2025 – sep 2026" },
+  kp: { lessons: 58, period: "ago 2025 – nov 2026" },
+};
 export const LWA_EVIDENCE = { lessons: 777, asOf: "2026-10-31", countries: 24 };

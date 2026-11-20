@@ -7,7 +7,7 @@ import {
   YEAR, ALL_MONTHS, MONTH_LABEL, MILESTONES, ORGANIC_USERS, SEGMENT_RULES,
   monthsInRange, sumCovered, fieldByMonth, pillRanking, featureRanking, loyalty, pct, fmt,
   weekdayProfile, COUNTRIES, BORROWERS, TOP_OPERATIONS, EXPLORERS, ANSWER_RATE, TOP_TOPICS, DAILY_THROUGH,
-  LEARNINGS, SWEEPS, RETURN_M1, answerRef, HOURS_ET, shiftProfile, LWA_EVIDENCE,
+  LEARNINGS, SWEEPS, RETURN_M1, answerRef, HOURS_ET, shiftProfile, peakProfile, OPS_SHARE, LWA_SPLIT,
 } from "./data/wrapped.js";
 
 const ES = { "United States": "Estados Unidos", Brazil: "Brasil", Panama: "Panamá", Peru: "Perú", Mexico: "México", Spain: "España", "Dominican Republic": "Rep. Dominicana", "Cayman Islands": "Islas Caimán", "Trinidad and Tobago": "Trinidad y Tobago", Belize: "Belice", Haiti: "Haití", Canada: "Canadá", France: "Francia", "United Kingdom": "Reino Unido", Germany: "Alemania", Belgium: "Bélgica", Italy: "Italia", Switzerland: "Suiza", Korea: "Corea", "Saint Martin": "San Martín", Bahamas: "Bahamas", Suriname: "Surinam" };
@@ -24,6 +24,7 @@ const THEMES = {
   "w2":       { bg: C.paper,  ink: C.night, acc: C.cobalt },
   "w-rec":    { bg: C.sun,    ink: C.night, acc: C.night },
   "w-day":    { bg: C.night,  ink: C.paper, acc: C.mint },
+  "w-peak":   { bg: C.paper,  ink: C.night, acc: C.coral },
   "w-hour":   { bg: C.cobalt, ink: C.paper, acc: C.sun },
   "w-map":    { bg: C.lime,   ink: C.night, acc: C.night },
   "w3":       { bg: C.paper,  ink: C.night, acc: C.coral },
@@ -34,6 +35,7 @@ const THEMES = {
   "w-fast":   { bg: C.mint,   ink: C.night, acc: C.night },
   "w-topics": { bg: C.paper,  ink: C.night, acc: C.cobalt },
   "w6":       { bg: C.night,  ink: C.paper, acc: C.lime },
+  "w-next":   { bg: C.paper,  ink: C.night, acc: C.violet },
   "w7":       { bg: C.night,  ink: C.paper, acc: C.lime },
 };
 
@@ -59,6 +61,7 @@ const CSS = `
 .kpw-d1{transition-delay:.05s}.kpw-d2{transition-delay:.1s}.kpw-d3{transition-delay:.15s}.kpw-d4{transition-delay:.2s}
 .kpw-bar{height:100%;background:var(--acc);width:0;transition:width .6s cubic-bezier(.2,.7,.2,1) .1s}
 .kpw-s.on .kpw-bar{width:var(--w)}
+@media (max-width:600px){.kpw-peak-total{display:none}}
 .kpw-grid{display:grid;gap:clamp(18px,3vw,40px);grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
 .kpw-stat{border-top:2px solid var(--ink);padding-top:14px}
 .kpw-stat b{display:block;font-weight:800;letter-spacing:-.05em;line-height:.85;font-size:clamp(48px,7.5vw,104px);color:var(--acc)}
@@ -146,6 +149,7 @@ export default function KPWrapped({ months: monthRows }) {
   const maxUsers = Math.max(1, ...userMonths.map((m) => usersBy[m]));
   const week = weekdayProfile(months);
   const shift = shiftProfile();
+  const peaks = peakProfile(months);
   const hourLabel = (h) => (h === 0 ? "12 a. m." : h < 12 ? `${h} a. m.` : h === 12 ? "12 m." : `${h - 12} p. m.`);
   const borrowersReached = COUNTRIES.rows.filter((c) => BORROWERS.includes(c.name)).length;
   const lat = months.map((m) => ({ m, v: rowsBy[m]?.latency })).filter((x) => x.v != null);
@@ -158,7 +162,7 @@ export default function KPWrapped({ months: monthRows }) {
   const ref = useRef(null);
   const [active, setActive] = useState(0);
   const [seen, setSeen] = useState(() => new Set([0]));
-  const SLIDES = TOP_TOPICS ? 15 : 14;
+  const SLIDES = TOP_TOPICS ? 16 : 15;
   useEffect(() => {
     const root = ref.current; if (!root) return;
     const secs = [...root.querySelectorAll("[data-wrap]")];
@@ -236,12 +240,12 @@ export default function KPWrapped({ months: monthRows }) {
       </Section>
 
       {/* Día favorito */}
-      <Section id="w-day" label="Día favorito" {...st(nx())}>
-        <div className="kpw-k kpw-rise">Nuestro día favorito</div>
+      <Section id="w-day" label="Cuándo usamos KP" {...st(nx())}>
+        <div className="kpw-k kpw-rise">Cuándo usamos KP</div>
         {week.sum > 0 ? <>
           <h2 className="kpw-h kpw-pop" style={{ textTransform: "capitalize", color: "var(--acc)" }}>{week.best.day}.</h2>
           <p className="kpw-p kpw-rise kpw-d1">El {week.best.day} concentró {pct(week.best.share)} de las sesiones del año. KP es una herramienta de trabajo: el fin de semana apenas suma {pct(week.weekend)}.</p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: "clamp(4px,1vw,10px)", alignItems: "end", height: "clamp(140px,26vh,220px)", marginTop: 28 }} role="img" aria-label={week.rows.map((r) => `${r.day} ${pct(r.share)}`).join(", ")}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: "clamp(4px,1vw,10px)", alignItems: "end", height: "clamp(90px,16vh,140px)", marginTop: 20 }} role="img" aria-label={week.rows.map((r) => `${r.day} ${pct(r.share)}`).join(", ")}>
             {week.rows.map((r) => (
               <div key={r.day} className="kpw-rise" style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", alignItems: "center", gap: 6, height: "100%" }}>
                 <span style={{ fontSize: 11, color: r === week.best ? "var(--acc)" : "var(--faint)" }}>{pct(r.share)}</span>
@@ -250,16 +254,9 @@ export default function KPWrapped({ months: monthRows }) {
               </div>
             ))}
           </div>
-          <p className="kpw-note">Sesiones por día de la semana (segmento Sin DEV), {week.days} días con datos hasta el {DAILY_THROUGH.slice(8)}-nov. Día calendario en UTC. La hora del día no se incluye: FullStory no la entrega con zona horaria confiable por MCP.</p>
-        </> : <p className="kpw-p kpw-rise">Sin datos diarios en este rango.</p>}
-      </Section>
-
-      {/* Hora favorita */}
-      <Section id="w-hour" label="Hora favorita" {...st(nx())}>
-        <div className="kpw-k kpw-rise">¿Turno mañana o turno tarde?</div>
-        <h2 className="kpw-h2 kpw-pop" style={{ color: "var(--acc)", fontSize: "clamp(40px,min(7vw,10vh),96px)" }}>Somos del {shift.winner.name.toLowerCase()}.</h2>
+          <div className="kpw-k kpw-rise" style={{ marginTop: 28 }}>Y somos del {shift.winner.name.toLowerCase()}</div>
         <p className="kpw-p kpw-rise kpw-d1">{pct(shift.winner.share)} de las sesiones pasan entre {shift.winner.range.replace(" – ", " y las ")}, hora de Washington. Y la hora pico es a las {hourLabel(shift.peak)}: la del segundo café ☕.</p>
-        <div className="kpw-rise kpw-d2" role="img" aria-label={HOURS_ET.values.map((v, h) => `${hourLabel(h)} ${v}`).join(", ")} style={{ display: "grid", gridTemplateColumns: "repeat(24,1fr)", gap: 3, alignItems: "end", height: "clamp(120px,22vh,200px)", marginTop: 28 }}>
+        <div className="kpw-rise kpw-d2" role="img" aria-label={HOURS_ET.values.map((v, h) => `${hourLabel(h)} ${v}`).join(", ")} style={{ display: "grid", gridTemplateColumns: "repeat(24,1fr)", gap: 3, alignItems: "end", height: "clamp(70px,12vh,110px)", marginTop: 16 }}>
           {HOURS_ET.values.map((v, h) => (
             <div key={h} title={`${hourLabel(h)}: ${v}`} style={{ height: `${Math.max(2, (v / HOURS_ET.values[shift.peak]) * 100)}%`, background: h === shift.peak ? "var(--acc)" : h >= 12 && h < 18 ? "var(--ink)" : "var(--track2)" }} />
           ))}
@@ -267,15 +264,42 @@ export default function KPWrapped({ months: monthRows }) {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(24,1fr)", gap: 3, marginTop: 6, font: "500 10px \"DM Mono\", monospace", color: "var(--faint)" }}>
           {HOURS_ET.values.map((_, h) => <span key={h} style={{ textAlign: "center" }}>{h % 6 === 0 ? hourLabel(h).replace(" ", "") : ""}</span>)}
         </div>
-        <div className="kpw-grid kpw-rise kpw-d3" style={{ marginTop: 26 }}>
-          {shift.shifts.map((x) => (
-            <div key={x.key} className="kpw-stat" style={{ "--acc": x === shift.winner ? "var(--acc)" : "var(--ink)" }}>
-              <b>{pct(x.share)}</b><span><strong style={{ color: "var(--ink)" }}>{x.name}</strong> · {x.range}</span>
-            </div>
-          ))}
-        </div>
-        <p className="kpw-note">Sesiones por hora en octubre (2 al 31), segmento Sin DEV, convertidas de UTC a la hora de Washington (UTC−4); no cambia con el rango. Una sesión que cruza dos horas cuenta en ambas. El pico de las 11 a. m. lo empuja un solo día: el 7 de octubre hubo 15 sesiones a esa hora.</p>
+                <p className="kpw-note">Sesiones por día de la semana (segmento Sin DEV), {week.days} días con datos hasta el {DAILY_THROUGH.slice(8)}-nov; día calendario en UTC. Por hora: Sesiones por hora en octubre (2 al 31), segmento Sin DEV, convertidas de UTC a la hora de Washington (UTC−4); no cambia con el rango. Una sesión que cruza dos horas cuenta en ambas. El pico de las 11 a. m. lo empuja un solo día: el 7 de octubre hubo 15 sesiones a esa hora.</p>
+        </> : <p className="kpw-p kpw-rise">Sin datos diarios en este rango.</p>}
       </Section>
+
+      {/* Días y meses pico */}
+      <Section id="w-peak" label="Días pico" {...st(nx())}>
+        <div className="kpw-k kpw-rise">Días y meses pico</div>
+        {peaks.days.length ? <>
+          <h2 className="kpw-h2 kpw-rise kpw-d1">El uso llega en olas: {peaks.topDays.length} días movieron el año.</h2>
+          <p className="kpw-p kpw-rise kpw-d1">{peaks.busiest ? `${monthLong(peaks.busiest.month)} fue el mes con más sesiones (${fmt(peaks.busiest.total)}). ` : ""}Los picos duran un día: al siguiente, el uso vuelve a su ritmo.</p>
+          <div className="kpw-rise kpw-d2" role="img" aria-label={`Sesiones por día; picos: ${peaks.topDays.map((d) => `${fmtDay(d)} ${peaks.days.find((x) => x.date === d).value}`).join(", ")}`}
+            style={{ display: "flex", alignItems: "flex-end", height: "clamp(120px,24vh,200px)", marginTop: 28 }}>
+            {peaks.days.map((d) => {
+              const hot = peaks.topDays.includes(d.date);
+              return <div key={d.date} title={`${d.date} · ${d.value}`} style={{ flex: 1, minWidth: 0, height: `${Math.max(1, (d.value / peaks.max) * 100)}%`, background: hot ? "var(--acc)" : "var(--track2)", boxShadow: hot ? "0 0 0 1px var(--acc)" : "none" }} />;
+            })}
+          </div>
+          <div style={{ display: "flex", fontSize: "clamp(9px,1.6vw,11px)", color: "var(--dim)", marginTop: 6 }}>
+            {peaks.byMonth.map((r) => (
+              <span key={r.month} style={{ flex: peaks.days.filter((d) => d.date.startsWith(r.month)).length, minWidth: 0, borderLeft: "1px solid var(--line)", paddingLeft: 3, overflow: "hidden", whiteSpace: "nowrap" }}>
+                {MONTH_LABEL(r.month)}<br /><span className="kpw-peak-total" style={{ color: r === peaks.busiest ? "var(--acc)" : "var(--faint)", fontWeight: r === peaks.busiest ? 700 : 400, fontVariantNumeric: "tabular-nums" }}>{fmt(r.total)}</span>
+              </span>
+            ))}
+          </div>
+          <div className="kpw-rise kpw-d3" style={{ marginTop: 22, display: "grid", gap: 16, gridTemplateColumns: "repeat(auto-fit,minmax(110px,1fr))" }}>
+            {peaks.topDays.map((d, i) => (
+              <div key={d} className="kpw-stat" style={{ borderTopColor: i === 0 ? "var(--acc)" : "var(--line)" }}>
+                <b style={{ fontSize: "clamp(26px,3vw,40px)" }}>{peaks.ratioOf[d].toFixed(1)}×</b>
+                <span><strong style={{ color: "var(--ink)" }}>{new Date(`${d}T00:00:00Z`).toLocaleString("es", { day: "numeric", month: "short", timeZone: "UTC" })}</strong> · {fmt(peaks.days.find((x) => x.date === d).value)} sesiones</span>
+              </div>
+            ))}
+          </div>
+          <p className="kpw-note">Sesiones por día del segmento Sin DEV (sesiones que pasan por el home, sin el equipo), del 1 de enero al {fmtDay(DAILY_THROUGH).replace(/^\S+ /, "")}. Cada pico (×) se mide contra un día hábil promedio de su mes; sus causas están por confirmar.</p>
+        </> : <p className="kpw-p kpw-rise">Sin datos diarios en este rango.</p>}
+      </Section>
+
 
       {/* Mapa */}
       <Section id="w-map" label="Mapa" {...st(nx())}>
@@ -336,19 +360,29 @@ export default function KPWrapped({ months: monthRows }) {
 
       {/* Operaciones más consultadas */}
       <Section id="w-ops" label="Operaciones" {...st(nx())}>
-        <div className="kpw-k kpw-rise">Las operaciones más consultadas</div>
-        <h2 className="kpw-h2 kpw-rise kpw-d1">Y la operación más explorada fue <span style={{ fontFamily: "\"DM Mono\", monospace", fontWeight: 500, letterSpacing: "-.04em" }}>{TOP_OPERATIONS.rows[0].code}</span>.</h2>
-        <p className="kpw-p kpw-rise kpw-d1">Abierta en {TOP_OPERATIONS.rows[0].sessions} sesiones. Detrás, una lista muy repartida: nadie se queda con una sola operación.</p>
-        <ol style={{ listStyle: "none", padding: 0, margin: "26px 0 0", display: "grid", columnGap: 24, gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))", borderTop: "2px solid var(--ink)" }}>
-          {TOP_OPERATIONS.rows.slice(0, 8).map((o, i) => (
-            <li key={o.code} className={`kpw-rise kpw-d${Math.min(i + 1, 4)}`} style={{ padding: "14px 0", borderBottom: "1px solid var(--line)" }}>
-              <div style={{ font: "500 11px \"DM Mono\", monospace", color: "var(--faint)" }}>{String(i + 1).padStart(2, "0")}</div>
-              <div style={{ fontFamily: "\"DM Mono\", monospace", fontWeight: 500, fontSize: i === 0 ? 26 : 20, letterSpacing: "-.03em" }}>{o.code}</div>
-              <div style={{ fontSize: 13, color: "var(--dim)" }}>{o.sessions} sesiones</div>
-            </li>
-          ))}
-        </ol>
-        <p className="kpw-note">Sesiones que abrieron las pills de cada operación (/knowledge/&lt;código&gt;), 1-ene → {Number(TOP_OPERATIONS.through.slice(8))}-nov, segmento Sin DEV; no cambia con el rango. Los códigos son números de operación públicos del BID. {TOP_OPERATIONS.rows.filter((o) => o.code.startsWith("BR-")).length} de las 8 primeras son de Brasil.</p>
+        <div className="kpw-k kpw-rise">De visita a herramienta de trabajo</div>
+        <h2 className="kpw-h2 kpw-rise kpw-d1">Cada vez más, llegamos con una operación en mente.</h2>
+        {(() => {
+          const rows = OPS_SHARE.rows.filter((r) => months.includes(r.month));
+          const partial = (m) => m === OPS_SHARE.through.slice(0, 7);
+          const full = rows.filter((r) => !partial(r.month));
+          const last = full.at(-1), may = full.find((r) => r.month === "2026-05");
+          const maxS = Math.max(...rows.map((r) => r.share));
+          return rows.length ? <>
+            {last && may && <p className="kpw-p kpw-rise kpw-d1"><strong style={{ color: "var(--acc)", fontSize: "1.4em" }}>{pct(last.share)}</strong> de las sesiones de {monthLong(last.month).toLowerCase()} abrieron una operación, frente a {pct(may.share)} en mayo. Pasada la curiosidad del go-live, se quedaron quienes usan KP para trabajar una operación concreta.</p>}
+            <div className="kpw-rise kpw-d2" role="img" aria-label={rows.map((r) => `${MONTH_LABEL(r.month)} ${pct(r.share)}`).join(", ")} style={{ display: "flex", alignItems: "flex-end", gap: "clamp(4px,1vw,12px)", height: "clamp(90px,15vh,130px)", marginTop: 18 }}>
+              {rows.map((r) => (
+                <div key={r.month} title={OPS_SHARE.notes[r.month] ?? ""} style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, height: "100%", justifyContent: "flex-end" }}>
+                  <span style={{ fontSize: 11, color: r === last ? "var(--ink)" : "var(--faint)", fontWeight: r === last ? 700 : 400, fontVariantNumeric: "tabular-nums" }}>{pct(r.share)}{OPS_SHARE.notes[r.month] ? "*" : ""}</span>
+                  <div style={{ width: "100%", height: `${(r.share / maxS) * 100}%`, background: r === last ? "var(--acc)" : "var(--track2)", opacity: partial(r.month) ? .45 : 1 }} />
+                  <span style={{ fontSize: 11, color: "var(--dim)" }}>{MONTH_LABEL(r.month)}</span>
+                </div>
+              ))}
+            </div>
+          </> : null;
+        })()}
+        <p className="kpw-p kpw-rise kpw-d3" style={{ marginTop: 22 }}>Las más exploradas: {TOP_OPERATIONS.rows.slice(0, 3).map((o, k) => <span key={o.code}>{k ? (k === 2 ? " y " : ", ") : ""}<strong style={{ fontFamily: "\"DM Mono\", monospace", color: "var(--ink)", whiteSpace: "nowrap" }}>{o.code}</strong> ({o.sessions})</span>)} sesiones. Una lista muy repartida: nadie se queda con una sola operación.</p>
+        <p className="kpw-note">Sesiones que abrieron las pills de cada operación (/knowledge/&lt;código&gt;), 1-ene → {Number(TOP_OPERATIONS.through.slice(8))}-nov, segmento Sin DEV; no cambia con el rango. Los códigos son números de operación públicos del BID. Porcentaje: sesiones que abrieron una operación sobre el total del mes; noviembre va al {Number(OPS_SHARE.through.slice(8))} (atenuado). *Junio: {OPS_SHARE.notes["2026-06"]}.</p>
       </Section>
 
       {/* 5 — Así exploramos */}
@@ -425,6 +459,36 @@ export default function KPWrapped({ months: monthRows }) {
         <p className="kpw-note">Los hitos son cambios de producto, no métricas de uso. Solo aparecen los documentados en el repositorio o visibles en los datos.</p>
       </Section>
 
+      {/* Hacia adelante: a case for integration */}
+      <Section id="w-next" label="Hacia adelante" {...st(nx())}>
+        <div className="kpw-k kpw-rise">Hacia adelante · A case for integration</div>
+        <h2 className="kpw-h2 kpw-rise kpw-d1">Las lecciones se escriben donde ya se trabaja.</h2>
+        <p className="kpw-p kpw-rise kpw-d1">El mismo asistente, en dos lugares. Dentro de Client Portal, integrado al ciclo de reporte, registró <strong style={{ color: "var(--ink)" }}>{Math.round(LWA_SPLIT.portal.lessons / LWA_SPLIT.kp.lessons)} veces más lecciones</strong> que abierto por su cuenta en la KP.</p>
+        <div className="kpw-rise kpw-d2" style={{ marginTop: 30, display: "grid", gap: 18 }}>
+          {[
+            { k: "portal", label: "Client Portal · integración", sub: LWA_SPLIT.portal.period, color: "var(--acc)" },
+            { k: "kp", label: "Knowledge Platform · plataforma", sub: LWA_SPLIT.kp.period, color: "var(--ink)" },
+          ].map((r) => (
+            <div key={r.k}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
+                <span style={{ fontSize: 15, fontWeight: 600 }}>{r.label} <span style={{ fontWeight: 400, color: "var(--dim)", fontSize: 13 }}>· {r.sub}</span></span>
+                <b style={{ fontSize: "clamp(28px,4vw,52px)", letterSpacing: "-.03em", fontVariantNumeric: "tabular-nums" }}>{fmt(LWA_SPLIT[r.k].lessons)}</b>
+              </div>
+              <div style={{ height: 14, background: "var(--line)", marginTop: 6 }}>
+                <div style={{ width: `${Math.max(1, (LWA_SPLIT[r.k].lessons / LWA_SPLIT.portal.lessons) * 100)}%`, height: "100%", background: r.color }} />
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="kpw-grid kpw-rise kpw-d3" style={{ marginTop: 30 }}>
+          <div className="kpw-stat" style={{ borderTopColor: "var(--acc)" }}>
+            <b style={{ fontSize: "clamp(22px,2.4vw,30px)", letterSpacing: "-.025em", lineHeight: 1.08, color: "var(--ink)" }}>¿Destino o capa?</b>
+            <span>Evaluamos llevar KP dentro de Copilot, Claude y los productos del ciclo operativo del Banco, como la preparación de proyectos, para que el conocimiento llegue a donde la gente ya trabaja. La pregunta para 2027: ¿qué más rendiría integrado que como destino aparte?</span>
+          </div>
+        </div>
+        <p className="kpw-note">Client Portal: lecciones registradas en tres ciclos de reporte (mitad de año 2025, inicio de año 2026 y mitad de año 2026), dato del equipo de producto. KP: lecciones generadas dentro de la plataforma, sin pruebas ni borradores vacíos. Los períodos son parecidos pero no idénticos. «¿Destino o capa?» es una decisión de producto en discusión, no un dato.</p>
+      </Section>
+
       {/* 7 — Cierre */}
       <Section id="w7" label="Cierre" {...st(nx())}>
         <div className="kpw-k kpw-rise">Lo que aprendimos de ustedes</div>
@@ -449,20 +513,8 @@ export default function KPWrapped({ months: monthRows }) {
             </div>
           ))}
         </div>
-        <div className="kpw-k kpw-rise kpw-d4" style={{ marginTop: 40 }}>La conversación abierta</div>
-        <div className="kpw-grid kpw-rise kpw-d4" style={{ marginTop: 18 }}>
-          <div className="kpw-stat" style={{ borderTopColor: "var(--acc)" }}>
-            <b style={{ fontSize: "clamp(22px,2.4vw,30px)", letterSpacing: "-.025em", lineHeight: 1.08, color: "var(--ink)" }}>¿Destino o capa?</b>
-            <span>Evaluamos llevar KP dentro de Copilot, Claude y los productos del ciclo operativo del Banco, como la preparación de proyectos, para que el conocimiento llegue a donde la gente ya trabaja.</span>
-          </div>
-          <div className="kpw-stat" style={{ borderTopColor: "var(--acc)" }}>
-            <b style={{ fontSize: "clamp(40px,5vw,72px)" }}>{fmt(LWA_EVIDENCE.lessons)}</b>
-            <span><strong style={{ color: "var(--ink)" }}>Ya hay evidencia.</strong> Lecciones aprendidas escritas con el Lessons Writing Assistant dentro de Client Portal, en los {LWA_EVIDENCE.countries} países con operaciones activas, más las operaciones regionales.</span>
-          </div>
-          <div aria-hidden="true" />
-        </div>
         <h2 className="kpw-h kpw-pop" style={{ marginTop: 56, fontSize: "clamp(48px,10vw,150px)", maxWidth: "none" }}>That's a wrap.<br /><span style={{ color: "var(--acc)" }}>See you in 2027.</span></h2>
-        <p className="kpw-note">Aprendizajes: patrones de {SWEEPS.sessions} sesiones leídas de principio a fin ({SWEEPS.months}), sin el equipo; son hipótesis a verificar, no mediciones. Retos: respuesta de la consola de administración (octubre no se usa como referencia: un solo usuario hizo una gran parte de las preguntas del mes); segunda visita de la tabla de cohortes (visita al home el mes siguiente); alcance = 1 − personas acumuladas / 7,287. «¿Destino o capa?» es una decisión de producto en discusión, no un dato. Lecciones del Lessons Writing Assistant en Client Portal: dato del equipo de producto al 31-oct-2026.</p>
+        <p className="kpw-note">Aprendizajes: patrones de {SWEEPS.sessions} sesiones leídas de principio a fin ({SWEEPS.months}), sin el equipo; son hipótesis a verificar, no mediciones. Retos: respuesta de la consola de administración (octubre no se usa como referencia: un solo usuario hizo una gran parte de las preguntas del mes); segunda visita de la tabla de cohortes (visita al home el mes siguiente); alcance = 1 − personas acumuladas / 7,287.</p>
       </Section>
 
       <nav className="kpw-nav" aria-label="Navegación de Wrapped">
