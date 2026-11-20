@@ -273,7 +273,7 @@ export default function KPWrapped({ months: monthRows }) {
         <div className="kpw-k kpw-rise">Días y meses pico</div>
         {peaks.days.length ? <>
           <h2 className="kpw-h2 kpw-rise kpw-d1">El uso llega en olas: {peaks.topDays.length} días movieron el año.</h2>
-          <p className="kpw-p kpw-rise kpw-d1">{peaks.busiest ? `${monthLong(peaks.busiest.month)} fue el mes con más sesiones (${fmt(peaks.busiest.total)}); debajo de cada mes, su total. ` : ""}Los picos duran un día: al siguiente, el uso vuelve a su ritmo. Cada uno suele coincidir con un momento de comunicación o de agenda.</p>
+          <p className="kpw-p kpw-rise kpw-d1">{peaks.busiest ? `${monthLong(peaks.busiest.month)} fue el mes con más sesiones (${fmt(peaks.busiest.total)}). ` : ""}Los picos duran un día: al siguiente, el uso vuelve a su ritmo.</p>
           <div className="kpw-rise kpw-d2" role="img" aria-label={`Sesiones por día; picos: ${peaks.topDays.map((d) => `${fmtDay(d)} ${peaks.days.find((x) => x.date === d).value}`).join(", ")}`}
             style={{ display: "flex", alignItems: "flex-end", height: "clamp(120px,24vh,200px)", marginTop: 28 }}>
             {peaks.days.map((d) => {
@@ -288,14 +288,15 @@ export default function KPWrapped({ months: monthRows }) {
               </span>
             ))}
           </div>
-          <div className="kpw-grid kpw-rise kpw-d3" style={{ marginTop: 28 }}>
+          <div className="kpw-rise kpw-d3" style={{ marginTop: 22, display: "grid", gap: 16, gridTemplateColumns: "repeat(auto-fit,minmax(110px,1fr))" }}>
             {peaks.topDays.map((d, i) => (
-              <p key={d} className="kpw-p" style={{ margin: 0 }}>
-                <strong style={{ color: "var(--acc)" }}>{i + 1}.</strong> {fmtDay(d)[0].toUpperCase() + fmtDay(d).slice(1)}: <strong style={{ color: "var(--ink)" }}>{fmt(peaks.days.find((x) => x.date === d).value)} sesiones</strong>, {peaks.ratioOf[d].toFixed(1)}× un día hábil normal de ese mes.
-              </p>
+              <div key={d} className="kpw-stat" style={{ borderTopColor: i === 0 ? "var(--acc)" : "var(--line)" }}>
+                <b style={{ fontSize: "clamp(26px,3vw,40px)" }}>{peaks.ratioOf[d].toFixed(1)}×</b>
+                <span><strong style={{ color: "var(--ink)" }}>{new Date(`${d}T00:00:00Z`).toLocaleString("es", { day: "numeric", month: "short", timeZone: "UTC" })}</strong> · {fmt(peaks.days.find((x) => x.date === d).value)} sesiones</span>
+              </div>
             ))}
           </div>
-          <p className="kpw-note">Sesiones por día del segmento Sin DEV (sesiones que pasan por el home, sin el equipo), del 1 de enero al {fmtDay(DAILY_THROUGH).replace(/^\S+ /, "")}. Para comparar días entre sí; no se suman a las sesiones de los reportes mensuales. Cada pico se mide contra el promedio de los días hábiles de su mes. Las causas de cada pico están por confirmar con el calendario de comunicaciones.</p>
+          <p className="kpw-note">Sesiones por día del segmento Sin DEV (sesiones que pasan por el home, sin el equipo), del 1 de enero al {fmtDay(DAILY_THROUGH).replace(/^\S+ /, "")}. Cada pico (×) se mide contra un día hábil promedio de su mes; sus causas están por confirmar.</p>
         </> : <p className="kpw-p kpw-rise">Sin datos diarios en este rango.</p>}
       </Section>
 
@@ -369,7 +370,7 @@ export default function KPWrapped({ months: monthRows }) {
           const maxS = Math.max(...rows.map((r) => r.share));
           return rows.length ? <>
             {last && may && <p className="kpw-p kpw-rise kpw-d1"><strong style={{ color: "var(--acc)", fontSize: "1.4em" }}>{pct(last.share)}</strong> de las sesiones de {monthLong(last.month).toLowerCase()} abrieron una operación, frente a {pct(may.share)} en mayo. Pasada la curiosidad del go-live, se quedaron quienes usan KP para trabajar una operación concreta.</p>}
-            <div className="kpw-rise kpw-d2" role="img" aria-label={rows.map((r) => `${MONTH_LABEL(r.month)} ${pct(r.share)}`).join(", ")} style={{ display: "flex", alignItems: "flex-end", gap: "clamp(4px,1vw,12px)", height: "clamp(110px,20vh,170px)", marginTop: 22 }}>
+            <div className="kpw-rise kpw-d2" role="img" aria-label={rows.map((r) => `${MONTH_LABEL(r.month)} ${pct(r.share)}`).join(", ")} style={{ display: "flex", alignItems: "flex-end", gap: "clamp(4px,1vw,12px)", height: "clamp(90px,15vh,130px)", marginTop: 18 }}>
               {rows.map((r) => (
                 <div key={r.month} title={OPS_SHARE.notes[r.month] ?? ""} style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, height: "100%", justifyContent: "flex-end" }}>
                   <span style={{ fontSize: 11, color: r === last ? "var(--ink)" : "var(--faint)", fontWeight: r === last ? 700 : 400, fontVariantNumeric: "tabular-nums" }}>{pct(r.share)}{OPS_SHARE.notes[r.month] ? "*" : ""}</span>
@@ -380,17 +381,8 @@ export default function KPWrapped({ months: monthRows }) {
             </div>
           </> : null;
         })()}
-        <p className="kpw-p kpw-rise kpw-d3" style={{ marginTop: 26 }}>La más explorada fue <strong style={{ fontFamily: "\"DM Mono\", monospace", color: "var(--ink)" }}>{TOP_OPERATIONS.rows[0].code}</strong>, abierta en {TOP_OPERATIONS.rows[0].sessions} sesiones. Detrás, una lista muy repartida:</p>
-        <ol style={{ listStyle: "none", padding: 0, margin: "14px 0 0", display: "grid", columnGap: 24, gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))", borderTop: "2px solid var(--ink)" }}>
-          {TOP_OPERATIONS.rows.slice(0, 6).map((o, i) => (
-            <li key={o.code} className={`kpw-rise kpw-d${Math.min(i + 1, 4)}`} style={{ padding: "14px 0", borderBottom: "1px solid var(--line)" }}>
-              <div style={{ font: "500 11px \"DM Mono\", monospace", color: "var(--faint)" }}>{String(i + 1).padStart(2, "0")}</div>
-              <div style={{ fontFamily: "\"DM Mono\", monospace", fontWeight: 500, fontSize: i === 0 ? 20 : 17, letterSpacing: "-.03em" }}>{o.code}</div>
-              <div style={{ fontSize: 13, color: "var(--dim)" }}>{o.sessions} sesiones</div>
-            </li>
-          ))}
-        </ol>
-        <p className="kpw-note">Sesiones que abrieron las pills de cada operación (/knowledge/&lt;código&gt;), 1-ene → {Number(TOP_OPERATIONS.through.slice(8))}-nov, segmento Sin DEV; no cambia con el rango. Los códigos son números de operación públicos del BID. {TOP_OPERATIONS.rows.slice(0, 6).filter((o) => o.code.startsWith("BR-")).length} de las 6 primeras son de Brasil. El porcentaje mensual es sesiones que abrieron una operación sobre el total de sesiones del mes (Sin DEV); noviembre va al {Number(OPS_SHARE.through.slice(8))} y se ve atenuado. *Junio: {OPS_SHARE.notes["2026-06"]}. No indica en qué etapa estaba la operación.</p>
+        <p className="kpw-p kpw-rise kpw-d3" style={{ marginTop: 22 }}>Las más exploradas: {TOP_OPERATIONS.rows.slice(0, 3).map((o, k) => <span key={o.code}>{k ? (k === 2 ? " y " : ", ") : ""}<strong style={{ fontFamily: "\"DM Mono\", monospace", color: "var(--ink)", whiteSpace: "nowrap" }}>{o.code}</strong> ({o.sessions})</span>)} sesiones. Una lista muy repartida: nadie se queda con una sola operación.</p>
+        <p className="kpw-note">Sesiones que abrieron las pills de cada operación (/knowledge/&lt;código&gt;), 1-ene → {Number(TOP_OPERATIONS.through.slice(8))}-nov, segmento Sin DEV; no cambia con el rango. Los códigos son números de operación públicos del BID. Porcentaje: sesiones que abrieron una operación sobre el total del mes; noviembre va al {Number(OPS_SHARE.through.slice(8))} (atenuado). *Junio: {OPS_SHARE.notes["2026-06"]}.</p>
       </Section>
 
       {/* 5 — Así exploramos */}
@@ -491,11 +483,7 @@ export default function KPWrapped({ months: monthRows }) {
         <div className="kpw-grid kpw-rise kpw-d3" style={{ marginTop: 30 }}>
           <div className="kpw-stat" style={{ borderTopColor: "var(--acc)" }}>
             <b style={{ fontSize: "clamp(22px,2.4vw,30px)", letterSpacing: "-.025em", lineHeight: 1.08, color: "var(--ink)" }}>¿Destino o capa?</b>
-            <span>Evaluamos llevar KP dentro de Copilot, Claude y los productos del ciclo operativo del Banco, como la preparación de proyectos, para que el conocimiento llegue a donde la gente ya trabaja.</span>
-          </div>
-          <div className="kpw-stat" style={{ borderTopColor: "var(--acc)" }}>
-            <b style={{ fontSize: "clamp(22px,2.4vw,30px)", letterSpacing: "-.025em", lineHeight: 1.08, color: "var(--ink)" }}>La pregunta para 2027</b>
-            <span>¿Qué otras capacidades de KP rendirían más integradas en los sistemas del Banco que como un destino aparte?</span>
+            <span>Evaluamos llevar KP dentro de Copilot, Claude y los productos del ciclo operativo del Banco, como la preparación de proyectos, para que el conocimiento llegue a donde la gente ya trabaja. La pregunta para 2027: ¿qué más rendiría integrado que como destino aparte?</span>
           </div>
         </div>
         <p className="kpw-note">Client Portal: lecciones registradas en tres ciclos de reporte (mitad de año 2025, inicio de año 2026 y mitad de año 2026), dato del equipo de producto. KP: lecciones generadas dentro de la plataforma, sin pruebas ni borradores vacíos. Los períodos son parecidos pero no idénticos. «¿Destino o capa?» es una decisión de producto en discusión, no un dato.</p>
