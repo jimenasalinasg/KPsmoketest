@@ -21,7 +21,8 @@ const CSAT = [
   { m: "2026-08", pct: 40, n: 5, sat: 2, avg: 2.8 },
   { m: "2026-09", pct: 67, n: 3, sat: 2, avg: 4.33 },
   { m: "2026-10", pct: 100, n: 2, sat: 2, avg: 5.0 },
-  { m: "2026-11", pct: null, n: null, sat: null, flag: "Pending · loaded by hand at the close" },
+  // Proxy FullStory (Sin DEV, 1-19 nov): 4 sesiones abren la encuesta, 2 la completan; 1 marca los 4 motivos positivos (>=4), la otra no deja leer la estrella.
+  { m: "2026-11", pct: null, label: "50–100%", n: 2, sat: null, satLabel: "≥1/2", flag: "Proxy through Nov 19 (FullStory sessions): 2 completed, 1 confirmed 4–5★, 1 unreadable · replaced at the close" },
 ];
 
 function CsatBlock() {
@@ -43,8 +44,8 @@ function CsatBlock() {
             {CSAT.map((r) => (
               <tr key={r.m}>
                 <td style={{ ...td, textAlign: "left", whiteSpace: "nowrap" }}>{monthLabel(r.m)}</td>
-                <td style={{ ...td, color: BLUE_D, fontWeight: 600 }}>{r.pct == null ? "–" : `${r.pct}%`}</td>
-                <td style={td}>{r.sat == null ? "–" : `${r.sat}/${r.n}`}</td>
+                <td style={{ ...td, color: BLUE_D, fontWeight: 600 }}>{r.pct == null ? (r.label ?? "–") : `${r.pct}%`}</td>
+                <td style={td}>{r.sat == null ? (r.satLabel ?? "–") : `${r.sat}/${r.n}`}</td>
                 <td style={{ ...td, textAlign: "left" }}>
                   <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
                     <span style={{ display: "inline-block", height: 8, width: r.n ? Math.max(4, (r.n / maxN) * 120) : 0, background: BLUE_M, borderRadius: 2 }} />
