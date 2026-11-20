@@ -35,7 +35,7 @@ const LWA_CYCLES = [
 // Lessons generated inside the KP (platform), not through Client Portal. Export of the KP lessons table shared by the product team on Nov 20, 2026:
 // 80 rows, Aug 4, 2025 → Nov 19, 2026 (11 in 2025, 69 in 2026). 28 distinct operations; 22 rows have no operation.
 // Quality read (by content): 2 empty drafts (status PRO), 20 generated from placeholder or test input ("aaa", "prueba", "Test1"), 58 with substantive content.
-const LWA_KP_LESSONS = 80;
+const LWA_KP_LESSONS = 80; // all rows, kept for reference; the dashboard shows only substantive lessons
 const LWA_KP_SUBSTANTIVE = 58;
 const LWA_TOTAL = LWA_CYCLES.reduce((a, c) => a + c.lessons, 0);
 const fmt = (n) => n.toLocaleString("en-US");
@@ -255,7 +255,7 @@ export default function UsabilityMetrics() {
         </EngRow>
         <EngRow title="Lessons Writing Assistant" last>
           <Kpi label="Lessons created · Client Portal (integration)" value={fmt(LWA_TOTAL)} small note="3 reporting cycles, Jul 2025 – Sep 2026 · detail below" />
-          <Kpi label="Lessons created · KP (platform)" value={fmt(LWA_KP_LESSONS)} small note={`Generated in the KP · Aug 2025 – Nov 19, 2026 · ${LWA_KP_SUBSTANTIVE} with substantive content`} />
+          <Kpi label="Lessons created · KP (platform)" value={fmt(LWA_KP_SUBSTANTIVE)} small note="Generated in the KP · Aug 2025 – Nov 19, 2026 · tests and empty drafts excluded" />
         </EngRow>
       </Block>
 
@@ -263,7 +263,7 @@ export default function UsabilityMetrics() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12, marginBottom: 12 }}>
         {[
           { tag: "Integration", name: "Client Portal", desc: "The assistant runs inside the reporting flow. Teams write lessons during the reporting cycle.", value: fmt(LWA_TOTAL), sub: "Jul 2025 – Sep 2026 · 3 cycles", color: PURPLE },
-          { tag: "Platform", name: "Knowledge Platform", desc: "People open the assistant on their own from the KP, outside the reporting cycle.", value: fmt(LWA_KP_LESSONS), sub: `Aug 2025 – Nov 19, 2026 · ${LWA_KP_SUBSTANTIVE} substantive, 22 tests or drafts`, color: BLUE_D },
+          { tag: "Platform", name: "Knowledge Platform", desc: "People open the assistant on their own from the KP, outside the reporting cycle.", value: fmt(LWA_KP_SUBSTANTIVE), sub: "Aug 2025 – Nov 19, 2026 · tests and drafts excluded", color: BLUE_D },
         ].map((x) => (
           <div key={x.tag} style={{ minWidth: 0, background: SURF, border: `1px solid ${BDR}`, borderLeft: `4px solid ${x.color}`, borderRadius: R.lg, boxShadow: SHADOW, padding: "14px 16px" }}>
             <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: x.color, fontWeight: 600 }}>{x.tag}</div>
