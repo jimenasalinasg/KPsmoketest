@@ -12,14 +12,14 @@ export const GO_LIVE = "2026-03-31";
 
 // Sesiones con al menos una vista de cada pill, por mes. FullStory, metricas guardadas
 // PJyiZSAt3EXH (Lessons Learned), rhTcgj1srgne (Similar Projects), w0ktk3sF3v3I (Literature), eCemfOCLh5qU (Data)
-// y pagina 70 (Institutional Documents, misma definicion), segmento sjHJR3590z6j. Leido el 4-nov-2026; noviembre releido el 16-nov = 1-15.
+// y pagina 70 (Institutional Documents, misma definicion), segmento sjHJR3590z6j. Leido el 4-nov-2026; noviembre releido el 20-nov = 1-19 (paginas 67/68/69/70/257 con el segmento; las metricas guardadas no excluyen al equipo).
 // Son VISTAS (sesiones que abrieron la pill), no clics dentro de la pill.
 export const PILL_SESSIONS = {
-  "Similar Projects":        { "2026-01": 9, "2026-02": 23, "2026-03": 37, "2026-04": 49, "2026-05": 21, "2026-06": 51, "2026-07": 13, "2026-08": 23, "2026-09": 19, "2026-10": 12, "2026-11": 6 },
+  "Similar Projects":        { "2026-01": 9, "2026-02": 23, "2026-03": 37, "2026-04": 49, "2026-05": 21, "2026-06": 51, "2026-07": 13, "2026-08": 23, "2026-09": 19, "2026-10": 12, "2026-11": 7 },
   "Lessons Learned":         { "2026-01": 5, "2026-02": 16, "2026-03": 26, "2026-04": 46, "2026-05": 17, "2026-06": 39, "2026-07": 26, "2026-08": 17, "2026-09": 19, "2026-10": 26, "2026-11": 21 },
-  "Literature":              { "2026-01": 4, "2026-02": 10, "2026-03": 18, "2026-04": 25, "2026-05": 10, "2026-06": 29, "2026-07": 10, "2026-08": 13, "2026-09": 8, "2026-10": 14, "2026-11": 7 },
-  "Institutional Documents": { "2026-01": 1, "2026-02": 9, "2026-03": 11, "2026-04": 16, "2026-05": 10, "2026-06": 27, "2026-07": 9, "2026-08": 11, "2026-09": 10, "2026-10": 16, "2026-11": 8 },
-  "Data":                    { "2026-01": 0, "2026-02": 0, "2026-03": 0, "2026-04": 0, "2026-05": 4, "2026-06": 22, "2026-07": 12, "2026-08": 15, "2026-09": 7, "2026-10": 20, "2026-11": 10 },
+  "Literature":              { "2026-01": 4, "2026-02": 10, "2026-03": 18, "2026-04": 25, "2026-05": 10, "2026-06": 29, "2026-07": 10, "2026-08": 13, "2026-09": 8, "2026-10": 14, "2026-11": 8 },
+  "Institutional Documents": { "2026-01": 1, "2026-02": 9, "2026-03": 11, "2026-04": 16, "2026-05": 10, "2026-06": 27, "2026-07": 9, "2026-08": 11, "2026-09": 10, "2026-10": 16, "2026-11": 11 },
+  "Data":                    { "2026-01": 0, "2026-02": 0, "2026-03": 0, "2026-04": 0, "2026-05": 4, "2026-06": 22, "2026-07": 12, "2026-08": 15, "2026-09": 7, "2026-10": 20, "2026-11": 12 },
 };
 
 // Usuarios unicos Sin DEV de los meses organicos (antes del go-live), misma receta que los bloques mensuales.

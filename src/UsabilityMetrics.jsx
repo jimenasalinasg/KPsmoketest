@@ -8,7 +8,7 @@ import { buildDocs } from "./data/metricDocs.js";
 import { PURPLE, RED, BLUE, BLUE_D, BLUE_L, BLUE_M, GREEN, AMBER, SURF, BDR, INK, INK2, INK3, AMBER_PALE, ON_ACCENT, ON_DARK, ON_DARK_2, FONT, T, R, PAGE_W, SHADOW } from "./theme.js";
 
 const TOTAL_STAFF = 7287;                 // IDB staff + consultores: divisor de la penetracion (no esta en el ledger)
-const MOST_USED_PILL = "Lessons Learned"; // HISTORICO (misma ventana que el ledger), de Fullstory (rhTcgj1srgne, PJyiZSAt3EXH, eCemfOCLh5qU, w0ktk3sF3v3I), 2025-10-01 a 2026-10-12: LL 381 > SP 369 > Lit 187 > Data 78. No esta en el ledger: recomputar con la ventana completa en cada cierre
+const MOST_USED_PILL = "Similar Projects"; // Sin DEV (sjHJR3590z6j), sesiones que abren cada pill (paginas 67/68/69/70/257), 2025-10-01 a 2026-11-19: SP 276 > LL 264 > Lit 156 > Inst. Docs 137 > Data 92. Las metricas guardadas (rhTcgj1srgne, PJyiZSAt3EXH...) NO excluyen al equipo y daban LL primero: no usarlas. Recomputar en cada cierre
 
 // CSAT mensual (manual, de la lista de encuestas de FullStory; NO esta en el ledger). Top-2 box = respuestas >= 4 / total.
 // Copia de lo publicado en las vistas mensuales de App.jsx. sat = respuestas satisfechas; null si no se puede reconstruir.
@@ -302,7 +302,7 @@ export default function UsabilityMetrics() {
         <EngRow title="Contextual Search">
           <Kpi label="Queries" doc={docs.queries} value={fmt(ledgerSum("cs_queries"))} small note="Sum of the ledger" />
           <Kpi label="Users in a category" doc={docs.csCategoryUsers} sub="Opened ≥1 knowledge category · cumulative" value={fmt(latestSnapshot("cs_category_users_cum").value)} small note={`Unique people since Oct 21, 2025 · ${latestSnapshot("cs_category_users_cum").month}${latestSnapshot("cs_category_users_cum").month === last ? " · to date" : ""}`} />
-          <Kpi label="Most used pill" doc={docs.mostUsedPill} value={MOST_USED_PILL} small note="From Fullstory · all months · not in the ledger" warn />
+          <Kpi label="Most used pill" doc={docs.mostUsedPill} value={MOST_USED_PILL} small note="276 sessions, Lessons Learned 264 · Oct 2025 – Nov 19, 2026 · Sin DEV · from Fullstory, not in the ledger" warn />
           <Kpi label="Content engagement" doc={docs.csEngagement} value={fmt(csEngagement)} small
             note={`copy ${fmt(ledgerSum("cs_copy"))} + source/link ${fmt(ledgerSum("cs_source_link"))} + highlight ${fmt(csHighlight)} (detail ${fmt(ledgerSum("cs_highlight_detail"))} + sidebar cards ${fmt(ledgerSum("cs_highlight_cards"))}) + Global Search ${fmt(globalSearch)} (chips ${fmt(ledgerSum("cs_chips"))} + search bar ${fmt(ledgerSum("cs_search_bar"))})`} />
         </EngRow>

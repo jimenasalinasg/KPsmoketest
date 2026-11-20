@@ -354,7 +354,7 @@ export default function KPWrapped({ months: monthRows }) {
               </li>
             ))}
           </ol>
-          <p className="kpw-note">Visualizaciones, no clics: cada número cuenta sesiones que abrieron esa pill al menos una vez (definiciones de página de FullStory, sin el equipo). El porcentaje es sobre las cinco pills juntas.{months.includes("2026-11") ? " Noviembre cubre del 1 al 3." : ""}</p>
+          <p className="kpw-note">Visualizaciones, no clics: cada número cuenta sesiones que abrieron esa pill al menos una vez (definiciones de página de FullStory, sin el equipo). El porcentaje es sobre las cinco pills juntas.{months.includes("2026-11") ? " Noviembre cubre del 1 al 19." : ""}</p>
         </> : <p className="kpw-p kpw-rise">Sin vistas de pills en este rango.</p>}
       </Section>
 
