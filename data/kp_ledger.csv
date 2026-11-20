@@ -218,3 +218,4 @@ baseline,os_downloads,25,additive,fullstory,unique users: Word 16 + Excel 9 up t
 2026-11,cs_highlight_cards,6,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window 2026-11-01..19; calibrated css/URL recipes from the checklist (4-nov-2026)
 2026-11,cs_highlight_detail,6,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window 2026-11-01..19; calibrated css/URL recipes from the checklist (4-nov-2026)
 2026-11,cs_copy,1,additive,"fullstory, segment 'Sin DEV (copy)' sjHJR3590z6j",single-month window 2026-11-01..19; calibrated css/URL recipes from the checklist (4-nov-2026)
+2026-11,median_prompts,1.5,snapshot,fullstory clicks on Open-Search-Button-textarea-Search by user + segment 'Sin DEV (copy)' sjHJR3590z6j,"Nov = days 1-19 (month to date, queried 2026-11-20): 10 users, values 7,5,3,2,2 and five 1s; the saved metric 1fbmp2OI4wee alone includes the team (13 users)"
