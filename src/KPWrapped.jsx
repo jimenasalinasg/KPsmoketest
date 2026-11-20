@@ -7,7 +7,7 @@ import {
   YEAR, ALL_MONTHS, MONTH_LABEL, MILESTONES, ORGANIC_USERS, SEGMENT_RULES,
   monthsInRange, sumCovered, fieldByMonth, pillRanking, featureRanking, loyalty, pct, fmt,
   weekdayProfile, COUNTRIES, BORROWERS, TOP_OPERATIONS, EXPLORERS, ANSWER_RATE, TOP_TOPICS, DAILY_THROUGH,
-  LEARNINGS, SWEEPS, RETURN_M1, answerRef, HOURS_ET, shiftProfile, LWA_EVIDENCE,
+  LEARNINGS, SWEEPS, RETURN_M1, answerRef, HOURS_ET, shiftProfile, LWA_EVIDENCE, peakProfile,
 } from "./data/wrapped.js";
 
 const ES = { "United States": "Estados Unidos", Brazil: "Brasil", Panama: "Panamá", Peru: "Perú", Mexico: "México", Spain: "España", "Dominican Republic": "Rep. Dominicana", "Cayman Islands": "Islas Caimán", "Trinidad and Tobago": "Trinidad y Tobago", Belize: "Belice", Haiti: "Haití", Canada: "Canadá", France: "Francia", "United Kingdom": "Reino Unido", Germany: "Alemania", Belgium: "Bélgica", Italy: "Italia", Switzerland: "Suiza", Korea: "Corea", "Saint Martin": "San Martín", Bahamas: "Bahamas", Suriname: "Surinam" };
@@ -24,6 +24,7 @@ const THEMES = {
   "w2":       { bg: C.paper,  ink: C.night, acc: C.cobalt },
   "w-rec":    { bg: C.sun,    ink: C.night, acc: C.night },
   "w-day":    { bg: C.night,  ink: C.paper, acc: C.mint },
+  "w-peak":   { bg: C.paper,  ink: C.night, acc: C.coral },
   "w-hour":   { bg: C.cobalt, ink: C.paper, acc: C.sun },
   "w-map":    { bg: C.lime,   ink: C.night, acc: C.night },
   "w3":       { bg: C.paper,  ink: C.night, acc: C.coral },
@@ -59,6 +60,7 @@ const CSS = `
 .kpw-d1{transition-delay:.05s}.kpw-d2{transition-delay:.1s}.kpw-d3{transition-delay:.15s}.kpw-d4{transition-delay:.2s}
 .kpw-bar{height:100%;background:var(--acc);width:0;transition:width .6s cubic-bezier(.2,.7,.2,1) .1s}
 .kpw-s.on .kpw-bar{width:var(--w)}
+@media (max-width:600px){.kpw-peak-total{display:none}}
 .kpw-grid{display:grid;gap:clamp(18px,3vw,40px);grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
 .kpw-stat{border-top:2px solid var(--ink);padding-top:14px}
 .kpw-stat b{display:block;font-weight:800;letter-spacing:-.05em;line-height:.85;font-size:clamp(48px,7.5vw,104px);color:var(--acc)}
@@ -146,6 +148,7 @@ export default function KPWrapped({ months: monthRows }) {
   const maxUsers = Math.max(1, ...userMonths.map((m) => usersBy[m]));
   const week = weekdayProfile(months);
   const shift = shiftProfile();
+  const peaks = peakProfile(months);
   const hourLabel = (h) => (h === 0 ? "12 a. m." : h < 12 ? `${h} a. m.` : h === 12 ? "12 m." : `${h - 12} p. m.`);
   const borrowersReached = COUNTRIES.rows.filter((c) => BORROWERS.includes(c.name)).length;
   const lat = months.map((m) => ({ m, v: rowsBy[m]?.latency })).filter((x) => x.v != null);
@@ -255,6 +258,37 @@ export default function KPWrapped({ months: monthRows }) {
       </Section>
 
       {/* Hora favorita */}
+      {/* Días y meses pico */}
+      <Section id="w-peak" label="Días pico" {...st(nx())}>
+        <div className="kpw-k kpw-rise">Días y meses pico</div>
+        {peaks.days.length ? <>
+          <h2 className="kpw-h2 kpw-rise kpw-d1">El uso llega en olas: {peaks.topDays.length} días movieron el año.</h2>
+          <p className="kpw-p kpw-rise kpw-d1">{peaks.busiest ? `${monthLong(peaks.busiest.month)} fue el mes con más sesiones (${fmt(peaks.busiest.total)}); debajo de cada mes, su total. ` : ""}Los picos duran un día: al siguiente, el uso vuelve a su ritmo. Cada uno suele coincidir con un momento de comunicación o de agenda.</p>
+          <div className="kpw-rise kpw-d2" role="img" aria-label={`Sesiones por día; picos: ${peaks.topDays.map((d) => `${fmtDay(d)} ${peaks.days.find((x) => x.date === d).value}`).join(", ")}`}
+            style={{ display: "flex", alignItems: "flex-end", height: "clamp(120px,24vh,200px)", marginTop: 28 }}>
+            {peaks.days.map((d) => {
+              const hot = peaks.topDays.includes(d.date);
+              return <div key={d.date} title={`${d.date} · ${d.value}`} style={{ flex: 1, minWidth: 0, height: `${Math.max(1, (d.value / peaks.max) * 100)}%`, background: hot ? "var(--acc)" : "var(--track2)", boxShadow: hot ? "0 0 0 1px var(--acc)" : "none" }} />;
+            })}
+          </div>
+          <div style={{ display: "flex", fontSize: "clamp(9px,1.6vw,11px)", color: "var(--dim)", marginTop: 6 }}>
+            {peaks.byMonth.map((r) => (
+              <span key={r.month} style={{ flex: peaks.days.filter((d) => d.date.startsWith(r.month)).length, minWidth: 0, borderLeft: "1px solid var(--line)", paddingLeft: 3, overflow: "hidden", whiteSpace: "nowrap" }}>
+                {MONTH_LABEL(r.month)}<br /><span className="kpw-peak-total" style={{ color: r === peaks.busiest ? "var(--acc)" : "var(--faint)", fontWeight: r === peaks.busiest ? 700 : 400, fontVariantNumeric: "tabular-nums" }}>{fmt(r.total)}</span>
+              </span>
+            ))}
+          </div>
+          <div className="kpw-grid kpw-rise kpw-d3" style={{ marginTop: 28 }}>
+            {peaks.topDays.map((d, i) => (
+              <p key={d} className="kpw-p" style={{ margin: 0 }}>
+                <strong style={{ color: "var(--acc)" }}>{i + 1}.</strong> {fmtDay(d)[0].toUpperCase() + fmtDay(d).slice(1)}: <strong style={{ color: "var(--ink)" }}>{fmt(peaks.days.find((x) => x.date === d).value)} sesiones</strong>, {peaks.ratioOf[d].toFixed(1)}× un día hábil normal de ese mes.
+              </p>
+            ))}
+          </div>
+          <p className="kpw-note">Sesiones por día del segmento Sin DEV (sesiones que pasan por el home, sin el equipo), del 1 de enero al {fmtDay(DAILY_THROUGH).replace(/^\S+ /, "")}. Para comparar días entre sí; no se suman a las sesiones de los reportes mensuales. Cada pico se mide contra el promedio de los días hábiles de su mes. Las causas de cada pico están por confirmar con el calendario de comunicaciones.</p>
+        </> : <p className="kpw-p kpw-rise">Sin datos diarios en este rango.</p>}
+      </Section>
+
       <Section id="w-hour" label="Hora favorita" {...st(nx())}>
         <div className="kpw-k kpw-rise">¿Turno mañana o turno tarde?</div>
         <h2 className="kpw-h2 kpw-pop" style={{ color: "var(--acc)", fontSize: "clamp(40px,min(7vw,10vh),96px)" }}>Somos del {shift.winner.name.toLowerCase()}.</h2>
