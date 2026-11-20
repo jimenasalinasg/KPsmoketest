@@ -182,6 +182,16 @@ export const COUNTRIES = { through: "2026-11-15", total: 1692, rows: [
 // Paises miembros prestatarios del BID (26), para el conteo de cobertura regional.
 export const BORROWERS = ["Argentina", "Bahamas", "Barbados", "Belize", "Bolivia", "Brazil", "Chile", "Colombia", "Costa Rica", "Dominican Republic", "Ecuador", "El Salvador", "Guatemala", "Guyana", "Haiti", "Honduras", "Jamaica", "Mexico", "Nicaragua", "Panama", "Paraguay", "Peru", "Suriname", "Trinidad and Tobago", "Uruguay", "Venezuela"];
 
+// Sesiones que abrieron la pagina de una operacion (/knowledge/<codigo>) sobre el total de sesiones del mes, segmento Sin DEV.
+// Consultas del 20-nov-2026. Totales = sesiones diarias de D (oct verificado: 343). Noviembre: 1-19 nov (total 351, consulta directa).
+// El 1-jun explica 32 de las 90 de junio (132 sesiones ese dia).
+export const OPS_SHARE = {
+  through: "2026-11-19",
+  rows: [["2026-01", 15, 306], ["2026-02", 36, 443], ["2026-03", 54, 661], ["2026-04", 84, 1334], ["2026-05", 40, 820], ["2026-06", 90, 726],
+    ["2026-07", 43, 370], ["2026-08", 45, 428], ["2026-09", 37, 446], ["2026-10", 49, 343], ["2026-11", 30, 351]].map(([month, ops, total]) => ({ month, ops, total, share: ops / total })),
+  notes: { "2026-06": "un solo día (1 de junio) explica un tercio del mes" },
+};
+
 // Operaciones mas consultadas: sesiones que abrieron /knowledge/<codigo>, 1-ene → 15-nov (top 8 sin cambios desde el 3-nov). Los codigos son numeros de operacion publicos del BID.
 export const TOP_OPERATIONS = { through: "2026-11-15", rows: [
   ["CO-L1325", 14], ["BR-L1664", 11], ["UR-L1225", 11], ["BR-L1688", 10], ["ME-L1350", 10], ["BL-J0011", 9], ["BR-J0003", 9], ["PN-L1195", 9],
