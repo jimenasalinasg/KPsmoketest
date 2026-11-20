@@ -1,4 +1,5 @@
 import { useState, Fragment } from "react";
+import TopInsights from "./TopInsights.jsx";
 import UsabilityMetrics from "./UsabilityMetrics.jsx";
 import CaseLibrary from "./CaseLibrary.jsx";
 import KPWrapped, { WrappedEgg, useWrappedEgg, useEndOfPageHint, GiftHint } from "./KPWrapped.jsx";
@@ -1044,6 +1045,8 @@ function Monthly() {
         </button>
       </div>
 
+      <TopInsights month="2026-04" />
+
       {/* Cumulative metrics since Sep 2025 */}
       <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px", marginBottom: 24 }}>
         <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: ON_DARK_2, marginBottom: 14 }}>
@@ -1422,6 +1425,8 @@ function MayMonthly() {
           style={{ fontFamily: "inherit", fontSize: T.xs, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: R.md, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
         >↓ Export CSV</button>
       </div>
+
+      <TopInsights month="2026-05" />
 
       {/* Cumulative totals */}
       <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
@@ -1828,6 +1833,8 @@ function JuneMonthly() {
         >↓ Export CSV</button>
       </div>
 
+      <TopInsights month="2026-06" />
+
       {/* Cumulative totals */}
       <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
         <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: ON_DARK_2, marginBottom: 14 }}>
@@ -2219,6 +2226,8 @@ function JulyMonthly() {
           style={{ fontFamily: "inherit", fontSize: T.xs, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: R.md, cursor: "pointer", background: SURF, color: INK2, display: "flex", alignItems: "center", gap: 6 }}
         >↓ Export CSV</button>
       </div>
+
+      <TopInsights month="2026-07" />
 
       {/* Cumulative totals (through June — July pending) */}
       <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
@@ -3965,6 +3974,8 @@ function AugustMonthly() {
         >↓ Export CSV</button>
       </div>
 
+      <TopInsights month="2026-08" />
+
       {/* Cumulative totals — pulled live via MCP */}
       <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
         <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: ON_DARK_2, marginBottom: 14 }}>
@@ -4334,6 +4345,8 @@ function SeptemberMonthly() {
         >↓ Export CSV</button>
       </div>
 
+      <TopInsights month="2026-09" />
+
       {/* Cumulative totals — pulled live via MCP */}
       <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
         <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: ON_DARK_2, marginBottom: 14 }}>
@@ -4645,6 +4658,8 @@ function OctoberMonthly() {
         >↓ Export CSV</button>
       </div>
 
+      <TopInsights month="2026-10" />
+
       {/* Cumulative totals */}
       <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
         <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: ON_DARK_2, marginBottom: 14 }}>
@@ -4952,6 +4967,8 @@ function NovemberMonthly() {
           style={{ fontFamily: "inherit", fontSize: T.xs, fontWeight: 500, padding: "7px 14px", border: `1px solid ${BDR}`, borderRadius: R.md, cursor: "pointer", background: SURF, color: INK2 }}
         >↓ Export CSV</button>
       </div>
+
+      <TopInsights month="2026-11" />
 
       <div style={{ background: NAVY, borderRadius: R.lg, padding: "16px 20px" }}>
         <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: ON_DARK_2, marginBottom: 14 }}>
