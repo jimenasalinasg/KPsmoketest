@@ -64,7 +64,7 @@ export const INSIGHTS = {
     partial: true,
     takeaway: "Early read: the returning core grows while new users keep shrinking.",
     items: [
-      { title: "Returning users dominate", signal: "178 users through Nov 19; 127 returning (71%).", soWhat: "The base is loyal; acquisition still lags.", action: "Confirm at month close; if the trend holds, prioritize an acquisition experiment for Q1." },
+      { title: "Returning users dominate", signal: "192 users through Nov 23; 132 returning (69%).", soWhat: "The base is loyal; acquisition still lags.", action: "Confirm at month close; if the trend holds, prioritize an acquisition experiment for Q1." },
       { title: "Asking stays low", signal: "27% of users sent a prompt (25% in October).", soWhat: "October's drop was not a one-off.", action: "Prototype suggested questions on operation search and test it with 5 users." },
       { title: "Lessons Learned is the top pill", signal: "16 users opened Lessons Learned, ahead of Data (9).", soWhat: "Demand for institutional learning keeps showing.", action: "Explore surfacing Client Portal lessons when users search an operation." },
     ],

@@ -4848,12 +4848,12 @@ function OctoberMonthly() {
 }
 
 const NOVEMBER = {
-  through: "2026-11-19",
-  users: 178,               // Sin DEV (sjHJR3590z6j), metric_definition con segmentId, 1-19 nov
-  sessions: 651,            // BhsN9vxRPN7V sin segmento (todos los entornos)
-  prompters: 48,            // Sin DEV, click A3vpsKJZw0X8
-  first_time: 51,           // control: usuarios Sin DEV desde 2025-11-21 hasta 19-nov (1826) menos hasta 31-oct (1775), misma consulta del dia
-  tourCompletion: 40,       // 40.48 redondeado
+  through: "2026-11-23",
+  users: 192,               // Sin DEV (sjHJR3590z6j), metric_definition con segmentId, 1-23 nov
+  sessions: 731,            // BhsN9vxRPN7V sin segmento (todos los entornos)
+  prompters: 52,            // Sin DEV, click A3vpsKJZw0X8
+  first_time: 60,           // control: usuarios Sin DEV desde 2025-11-25 hasta 23-nov (1819) menos hasta 31-oct (1759), misma consulta del dia
+  tourCompletion: 40,       // 39.36 redondeado
   thumbsUp: 0,
   thumbsDown: 0,
   promptGalleryClicks: 5,
