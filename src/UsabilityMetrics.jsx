@@ -10,20 +10,7 @@ import { PURPLE, RED, BLUE, BLUE_D, BLUE_L, BLUE_M, GREEN, AMBER, SURF, BDR, INK
 const TOTAL_STAFF = 7287;                 // IDB staff + consultores: divisor de la penetracion (no esta en el ledger)
 const MOST_USED_PILL = "Similar Projects"; // Sin DEV (sjHJR3590z6j), sesiones que abren cada pill (paginas 67/68/69/70/257), 2025-10-01 a 2026-11-19: SP 276 > LL 264 > Lit 156 > Inst. Docs 137 > Data 92. Las metricas guardadas (rhTcgj1srgne, PJyiZSAt3EXH...) NO excluyen al equipo y daban LL primero: no usarlas. Recomputar en cada cierre
 
-// CSAT mensual (manual, de la lista de encuestas de FullStory; NO esta en el ledger). Top-2 box = respuestas >= 4 / total.
-// Copia de lo publicado en las vistas mensuales de App.jsx. sat = respuestas satisfechas; null si no se puede reconstruir.
-// Abril: publicado "75% de 5 respuestas", que no cuadra (4/5 = 80%); se muestra tal cual y queda fuera del agregado.
-const CSAT = [
-  { m: "2026-04", pct: 75, n: 5, sat: null, flag: "As published: 75% on 5 responses does not divide evenly; left out of the total" },
-  { m: "2026-05", pct: 76.5, n: 17, sat: 13 },
-  { m: "2026-06", pct: 58.3, n: 12, sat: 7, flag: "Technical incident (API / 400 errors)" },
-  { m: "2026-07", pct: 100, n: 4, sat: 4, avg: 4.75 },
-  { m: "2026-08", pct: 40, n: 5, sat: 2, avg: 2.8 },
-  { m: "2026-09", pct: 67, n: 3, sat: 2, avg: 4.33 },
-  { m: "2026-10", pct: 100, n: 2, sat: 2, avg: 5.0 },
-  // Proxy FullStory (Sin DEV, 1-19 nov): 4 sesiones abren la encuesta, 2 la completan; 1 marca los 4 motivos positivos (>=4), la otra no deja leer la estrella.
-  { m: "2026-11", pct: null, label: "50–100%", n: 2, sat: null, satLabel: "≥1/2", flag: "Proxy through Nov 19 (FullStory sessions): 2 completed, 1 confirmed 4–5★, 1 unreadable · replaced at the close" },
-];
+import { CSAT } from "./data/csat.js";
 
 function CsatBlock() {
   const pooled = CSAT.filter((r) => r.sat != null);
