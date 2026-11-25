@@ -2,6 +2,7 @@
 // (bloques mensuales de App + ledger + lecturas de FullStory documentadas). Sin valores inventados.
 import { useEffect, useMemo, useRef, useState } from "react";
 import { latestSnapshot, ledger } from "./data/ledgerView.js";
+import { csatPooled } from "./data/csat.js";
 import { SURF, BDR, INK, INK2, INK3, BLUE, BLUE_D } from "./theme.js";
 import {
   YEAR, ALL_MONTHS, MONTH_LABEL, MILESTONES, ORGANIC_USERS, SEGMENT_RULES,
@@ -62,6 +63,7 @@ const CSS = `
 .kpw-bar{height:100%;background:var(--acc);width:0;transition:width .6s cubic-bezier(.2,.7,.2,1) .1s}
 .kpw-s.on .kpw-bar{width:var(--w)}
 @media (max-width:600px){.kpw-peak-total{display:none}}
+.kpw-grid.kpw-five{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}.kpw-grid.kpw-five .kpw-stat b{font-size:clamp(34px,4vw,58px)!important}
 .kpw-grid{display:grid;gap:clamp(18px,3vw,40px);grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
 .kpw-stat{border-top:2px solid var(--ink);padding-top:14px}
 .kpw-stat b{display:block;font-weight:800;letter-spacing:-.05em;line-height:.85;font-size:clamp(48px,7.5vw,104px);color:var(--acc)}
@@ -121,6 +123,7 @@ export default function KPWrapped({ months: monthRows }) {
   const sessions = sumCovered(fieldByMonth(monthRows, "sessions"), months);
   const newPeople = sumCovered(fieldByMonth(monthRows, "first_time"), months);
   const prompts = sumCovered(fieldByMonth(monthRows, "prompts"), months);
+  const csat = csatPooled();
   const cum = ledger.snapshot?.unique_users ?? {};
   const cumMonth = Object.keys(cum).filter((m) => m <= to).sort().at(-1);
   const cumUsers = cumMonth ? cum[cumMonth] : null;
@@ -206,10 +209,12 @@ export default function KPWrapped({ months: monthRows }) {
       <Section id="w2" label="El año en números" {...st(nx())}>
         <div className="kpw-k kpw-rise">El año en números · {rangeLabel}</div>
         <h2 className="kpw-h2 kpw-rise kpw-d1">Los números, primero.</h2>
-        <div className="kpw-grid" style={{ marginTop: 26 }}>
-          <div className="kpw-stat kpw-rise kpw-d1">{sessions.covered ? <><b>{fmt(sessions.value)}</b><span>veces nos visitaron {from === ALL_MONTHS[0] ? "este año" : `en ${rangeLabel}`} (sesiones).<Partial cov={sessions} /></span></> : <span>Sin datos de sesiones en este rango: se registran desde abril.</span>}</div>
-          <div className="kpw-stat kpw-rise kpw-d2" style={{ "--acc": "var(--ink)" }}>{newPeople.covered ? <><b>{fmt(newPeople.value)}</b><span>personas exploraron Knowledge Platform por primera vez.<Partial cov={newPeople} /></span></> : <span>Sin datos de usuarios nuevos en este rango.</span>}</div>
+        <div className="kpw-grid kpw-five" style={{ marginTop: 26 }}>
+          <div className="kpw-stat kpw-rise kpw-d1">{newPeople.covered ? <><b>{fmt(newPeople.value)}</b><span>personas usaron Knowledge Platform por primera vez.<Partial cov={newPeople} /></span></> : <span>Sin datos de usuarios nuevos en este rango.</span>}</div>
+          <div className="kpw-stat kpw-rise kpw-d2" style={{ "--acc": "var(--ink)" }}>{sessions.covered ? <><b>{fmt(sessions.value)}</b><span>veces nos visitaron {from === ALL_MONTHS[0] ? "este año" : `en ${rangeLabel}`} (sesiones).<Partial cov={sessions} /></span></> : <span>Sin datos de sesiones en este rango: se registran desde abril.</span>}</div>
           <div className="kpw-stat kpw-rise kpw-d3" style={{ "--acc": "var(--ink)" }}>{prompts.covered ? <><b>{fmt(prompts.value)}</b><span>preguntas le hicimos juntos al Knowledge Assistant.<Partial cov={prompts} /></span></> : <span>Sin datos de preguntas en este rango.</span>}</div>
+          <div className="kpw-stat kpw-rise kpw-d3" style={{ "--acc": "var(--ink)" }}><b>{fmt(LWA_SPLIT.portal.lessons + LWA_SPLIT.kp.lessons)}</b><span>lecciones aprendidas creadas con el Lessons Writing Assistant ({fmt(LWA_SPLIT.portal.lessons)} en Client Portal + {fmt(LWA_SPLIT.kp.lessons)} en KP).</span></div>
+          {csat.share != null && <div className="kpw-stat kpw-rise kpw-d4" style={{ "--acc": "var(--ink)" }}><b>{pct(csat.share)}</b><span>de satisfacción (CSAT): {csat.sat} de {csat.n} respuestas con 4 o 5 estrellas.</span></div>}
         </div>
         <div className="kpw-grid kpw-rise kpw-d4" style={{ marginTop: 34 }}>
           {cumUsers != null && <p className="kpw-p"><strong style={{ color: "var(--ink)" }}>{fmt(cumUsers)} personas</strong> han usado KP desde su lanzamiento orgánico (sept. 2025) — {pct(cumUsers / 7287, 1)} del staff y consultores del BID.</p>}
@@ -217,7 +222,7 @@ export default function KPWrapped({ months: monthRows }) {
             ? <p className="kpw-p"><strong style={{ color: "var(--ink)" }}>{growth > 0 ? "+" : ""}{pct(growth)}</strong> usuarios por mes después del go-live, frente al promedio de los meses orgánicos de {YEAR} ({pre.map(MONTH_LABEL).join(", ")}).</p>
             : <p className="kpw-p">Para comparar con el período orgánico, el rango debe incluir meses antes y después del go-live.</p>}
         </div>
-        <p className="kpw-note kpw-rise kpw-d4">Las sesiones cuentan visitas en todos los entornos, con el equipo incluido; personas y preguntas excluyen al equipo (segmento Sin DEV). Las preguntas vienen de la consola de administración, que se carga por mes cerrado. Cada persona cuenta una sola vez, en el mes en que llegó por primera vez: los usuarios mensuales nunca se suman. El promedio orgánico usa marzo del 1 al 30, sin el día del go-live.</p>
+        <p className="kpw-note kpw-rise kpw-d4">Las sesiones cuentan visitas en todos los entornos, con el equipo incluido; personas y preguntas excluyen al equipo (segmento Sin DEV). Las preguntas vienen de la consola de administración, que se carga por mes cerrado. Cada persona cuenta una sola vez, en el mes en que llegó por primera vez: los usuarios mensuales nunca se suman. El promedio orgánico usa marzo del 1 al 30, sin el día del go-live. Lecciones: Client Portal en tres ciclos de reporte (jul 2025 – sep 2026) y KP sin pruebas ni borradores (ago 2025 – nov 2026); no cambian con el rango. CSAT: respuestas de la encuesta de mayo a octubre juntas (abril y noviembre no se pueden reconstruir); no es un promedio de porcentajes.</p>
       </Section>
 
       {/* Mes récord */}
