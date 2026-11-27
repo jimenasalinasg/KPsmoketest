@@ -65,7 +65,7 @@ export const INSIGHTS = {
     takeaway: "Reach is back at October's level, carried by returning users; new users still trail.",
     items: [
       { title: "Returning users dominate", signal: "204 users through Nov 26; 140 returning (69%). 64 new, against 79 in all of October.", soWhat: "The base is loyal; acquisition still lags.", action: "Confirm at month close; if the trend holds, prioritize an acquisition experiment for Q1." },
-      { title: "Asking stays low", signal: "28% of users sent a prompt (57 of 204; 25% in October).", soWhat: "October's drop was not a one-off.", action: "Prototype suggested questions on operation search and test it with 5 users." },
+      { title: "Asking stays low", signal: "28% of users sent a prompt (57 of 204; 25% in October).", soWhat: "Not a one-off, but November had an access incident during which Open Search returned no results; part of the drop is that, not the product.", action: "Prototype suggested questions on operation search and test it with 5 users." },
       { title: "Lessons Learned is the top pill", signal: "25 sessions opened Lessons Learned, nearly double Data (13).", soWhat: "Demand for institutional learning keeps showing.", action: "Explore surfacing Client Portal lessons when users search an operation." },
     ],
   },
