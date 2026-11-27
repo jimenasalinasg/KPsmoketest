@@ -3531,48 +3531,51 @@ FUNNELS.november = {
 
 QUALITATIVE.november = {
   kicker: "Qualitative — session sweep",
-  title: "What people actually do here · 15 sessions, Nov 1–15",
-  intro: "Main idea: November brings people from corporate areas and new kinds of requests (procurement, BID Lab, signed documents), and they keep running into the same walls: the tour reappearing, sign-in errors and answers that describe a file instead of giving it. Fifteen sessions read end to end, picked from people outside the team who wrote a prompt or opened a pill. A pattern to check, not a measurement.",
+  title: "What people actually do here · 27 sessions, Nov 1–26",
+  intro: "Main idea: November brings people who ask how the Bank itself works (procurement, guidelines, indicators) and people who want a file or a list, and they keep running into the same walls: the tour reappearing, sign-in errors and answers that describe instead of delivering. 27 sessions read end to end: 15 from Nov 1–15 and 12 more from Nov 16–26, picked from people outside the team with long sessions. A pattern to check, not a measurement.",
   themes: [
     {
       tag: "New use case", tone: "green",
-      title: "Corporate areas ask about the Bank's own processes",
-      body: "3 of 15 asked about procurement, Procure+ or corporate social responsibility, not about operations with countries. It is a different audience that goes straight to the Assistant.",
-      soWhat: "Decide whether corporate policies are in scope; if they are, they need their own sources.",
-      sessions: [{ id: "S-01", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2599058149733803098:7539597611380940646", place: "Nicaragua" }, { id: "S-02", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8767706477470883920:406618410114183783", place: "US" }, { id: "S-03", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/4381841674866844405:4246670838989697588", place: "US" }],
+      title: "People ask how the Bank works, not only about operations",
+      body: "6 of 27 asked about the Bank's own rules: procurement, Procure+, corporate social responsibility, whether projects must include Impact Framework indicators, what to do when a Representative or operations chief changes, and example result indicators for a sector. They go straight to the Assistant.",
+      soWhat: "Decide whether Bank policies and guidelines are in scope; if they are, they need their own sources and should be answered with the official document.",
+      sessions: [{ id: "S-01", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2599058149733803098:7539597611380940646", place: "Nicaragua" }, { id: "S-02", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8767706477470883920:406618410114183783", place: "US" }, { id: "S-03", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/4381841674866844405:4246670838989697588", place: "US" }, { id: "S-18", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8686163539319335102:5085924459136697538", place: "US" }, { id: "S-21", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/171529110031407021:291727898255960439", place: "Haiti" }, { id: "S-26", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8483831089357006574:4717778470205327384", place: "Brazil" }],
     },
     {
       tag: "Friction", tone: "amber",
       title: "The tour comes back when they open the Assistant",
-      body: "In 4 of 15 sessions the full tour played two or three times: once on the home page and again on opening the Assistant. One person clicked Next for eight minutes before writing a question.",
+      body: "In 6 of 27 sessions the tour played again on opening the Assistant, after it had already run on the home page; some clicked the overlay several times before finding Next. One new person clicked through 13 steps before doing anything.",
       soWhat: "Show the tour once per person, not once per surface.",
-      sessions: [{ id: "S-09", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/67609409589040511:4473051150397881639", place: "US" }, { id: "S-04", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2673966059000407161:6538456603853024203", place: "US" }, { id: "S-01", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2599058149733803098:7539597611380940646", place: "Nicaragua" }, { id: "S-05", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8650985004163167926:8780044103429452727", place: "Costa Rica" }],
+      sessions: [{ id: "S-09", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/67609409589040511:4473051150397881639", place: "US" }, { id: "S-04", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2673966059000407161:6538456603853024203", place: "US" }, { id: "S-01", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2599058149733803098:7539597611380940646", place: "Nicaragua" }, { id: "S-05", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8650985004163167926:8780044103429452727", place: "Costa Rica" }, { id: "S-20", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/5505480281251794450:7842022096800647954", place: "Paraguay" }, { id: "S-21", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/171529110031407021:291727898255960439", place: "Haiti" }, { id: "S-22", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7139592509561356034:8823281941990722202", place: "Colombia" }],
     },
     {
       tag: "Friction", tone: "amber",
       title: "What they look for is not a filter",
-      body: "BID Lab's portfolio and instrument acronyms (PBR, PBL) are not in the filters. People try the project search, find nothing and move to the Assistant; one had to explain what LBR means after downloading the list.",
+      body: "BID Lab's portfolio and instrument acronyms (PBR, PBL) are not in the filters. People try the project search, find nothing and move on: one typed \"Colombia 2025\" in the project search, waited, cleared it and browsed by year instead; another filtered by instrument codes (TCP, CON, IGR, LON) one by one.",
       soWhat: "Add BID Lab as a unit and recognise instrument acronyms in search.",
-      sessions: [{ id: "S-04", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2673966059000407161:6538456603853024203", place: "US" }, { id: "S-05", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8650985004163167926:8780044103429452727", place: "Costa Rica" }, { id: "S-06", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/4573612796312222950:4593530053901507562", place: "US" }, { id: "S-07", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/639356894798455068:5567558752131036051", place: "US" }],
+      sessions: [{ id: "S-04", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2673966059000407161:6538456603853024203", place: "US" }, { id: "S-05", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8650985004163167926:8780044103429452727", place: "Costa Rica" }, { id: "S-06", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/4573612796312222950:4593530053901507562", place: "US" }, { id: "S-07", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/639356894798455068:5567558752131036051", place: "US" }, { id: "S-22", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7139592509561356034:8823281941990722202", place: "Colombia" }, { id: "S-20", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/5505480281251794450:7842022096800647954", place: "Paraguay" }],
     },
     {
       tag: "Opportunity", tone: "green",
-      title: "They want the file, not a description of it",
-      body: "A TOR template in Word, the signed PDFs of an agreement in ezShare, OVE's evaluations of a country: in each case the answer summarised what the documents say and the person rephrased or opened references looking for the document itself.",
-      soWhat: "When the request names a template or a file, answer with the link first.",
-      sessions: [{ id: "S-08", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/4282654232742870628:2596028697713935858", place: "Jamaica" }, { id: "S-15", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3912975034453554419:7349797847542864949", place: "US" }, { id: "S-14", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7700339469860114377:1495595327053697586", place: "US" }],
+      title: "They want the file or the list, not a description of it",
+      body: "A TOR template in Word, the signed PDFs of an agreement, OVE's evaluations of a country, all technical cooperations run by one executing agency, a list of a country's knowledge products: in each case the answer described instead of listing. One person waited half an hour and asked again; another replied \"I don't understand the difficulty\".",
+      soWhat: "When the request names a file or asks for a list, answer with links or a table first, and say plainly when the list cannot be built.",
+      sessions: [{ id: "S-08", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/4282654232742870628:2596028697713935858", place: "Jamaica" }, { id: "S-15", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/3912975034453554419:7349797847542864949", place: "US" }, { id: "S-14", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7700339469860114377:1495595327053697586", place: "US" }, { id: "S-16", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6095386194707974248:2451682861831445209", place: "Brazil" }, { id: "S-22", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/7139592509561356034:8823281941990722202", place: "Colombia" }],
     },
     {
       tag: "Bug", tone: "red",
-      title: "Sign-in errors on load, and a Data pill that fails",
-      body: "7 of 15 sessions logged token-refresh errors in their first seconds, as in September and October. Separately, opening Data on a closed project led to the 'technical difficulties' page.",
-      soWhat: "Same sign-in error for a third month: pass the error text to whoever owns it, with the Data pill case.",
-      sessions: [{ id: "S-09", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/67609409589040511:4473051150397881639", place: "US" }, { id: "S-03", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/4381841674866844405:4246670838989697588", place: "US" }, { id: "S-11", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8498154331827484921:4995804829850843062", place: "Colombia" }, { id: "S-13", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/4084266282714615360:6576839236173710399", place: "Bolivia" }],
+      title: "Sign-in errors, a stuck Assistant and cards that will not open",
+      body: "11 of 27 sessions logged token-refresh errors in their first seconds, as in September and October; one ended in a sign-in redirect loop. A plain greeting left the Assistant on \"Searching for information\" for over three minutes. A project card closed four times before it opened, and Data on a closed project led to the 'technical difficulties' page.",
+      soWhat: "Same sign-in error for a third month: pass the error text to whoever owns it, with the stuck greeting and the card that will not open.",
+      sessions: [{ id: "S-09", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/67609409589040511:4473051150397881639", place: "US" }, { id: "S-03", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/4381841674866844405:4246670838989697588", place: "US" }, { id: "S-11", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/8498154331827484921:4995804829850843062", place: "Colombia" }, { id: "S-13", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/4084266282714615360:6576839236173710399", place: "Bolivia" }, { id: "S-19", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2994935208579119709:8233092839308281482", place: "Colombia" }, { id: "S-27", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/2636587517223743559:8668730582786970698", place: "Costa Rica" }, { id: "S-17", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/429515138289551212:6577715582295066911", place: "Brazil" }, { id: "S-16", url: "https://app.fullstory.com/ui/o-22MBKV-na1/session/6095386194707974248:2451682861831445209", place: "Brazil" }],
     },
   ],
   alsoNoted: [
     "One person went through every pill of one operation, then the Assistant, then the FAQs and finished on Create your lesson (S-10, US).",
     "Someone opened the Assistant and closed it at once to browse by country; the structured navigation is still the first choice for those who know their project (S-12, US).",
+    "Lessons are read, not only opened: one person read two lessons of a Colombian operation, highlighted passages and clicked a card expecting it to expand (S-25, US).",
+    "Someone asked in Spanish, got no useful answer and pasted the same question in English (S-21, Haiti).",
+    "People copy their own question back out of the Assistant, a sign they reuse it elsewhere or plan to ask again (S-18, US; S-26, Brazil).",
   ],
   note: "Sessions are cited by number and country only. No names, emails or cities are published. Operation codes are public IDB numbers.",
 };
@@ -5142,7 +5145,7 @@ function NovemberMonthly() {
         {signal("Reach is on October's pace", `${NOVEMBER.users} users and ${NOVEMBER.sessions} sessions in ${day} days, ${NOVEMBER.first_time} of them first-timers. October closed at ${OCTOBER.users} users for the whole month; November should pass it at the close.`)}
         {signal("Searching holds; taking content away does not", `${NOVEMBER.prompters} people searched in Open Search, with ${L(M, "os_highlight")} highlights and ${L(M, "os_copy")} copies. In the pills, ${snapshotAt("cs_category_users", M)} people opened one and only ${L(M, "cs_copy")} copy was made.`)}
         {signal(`Penetration reaches ${penetration}%`, `${cumUsers.toLocaleString("en-US")} cumulative users — October's close of 2,132 plus ${NOVEMBER.first_time} first-timers. ${snapshotAt("cs_category_users_cum", M)} people have opened a knowledge category since October 2025, ${snapshotAt("cs_category_users", M)} of them this month.`)}
-        {signal("New audiences, same walls", "The session sweep finds people from corporate areas and new requests (procurement, BID Lab, signed files), and the same sign-in errors and repeated tour as before. See the qualitative section below.")}
+        {signal("New questions, same walls", "27 sessions read: people ask how the Bank works and want files or lists, and hit the same sign-in errors and repeated tour as before. See the qualitative section below.")}
       </div>
 
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, boxShadow: SHADOW, padding: "16px 20px" }}>
