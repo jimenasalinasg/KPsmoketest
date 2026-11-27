@@ -4848,15 +4848,15 @@ function OctoberMonthly() {
 }
 
 const NOVEMBER = {
-  through: "2026-11-23",
-  users: 192,               // Sin DEV (sjHJR3590z6j), metric_definition con segmentId, 1-23 nov
-  sessions: 731,            // BhsN9vxRPN7V sin segmento (todos los entornos)
-  prompters: 52,            // Sin DEV, click A3vpsKJZw0X8
-  first_time: 60,           // control: usuarios Sin DEV desde 2025-11-25 hasta 23-nov (1819) menos hasta 31-oct (1759), misma consulta del dia
-  tourCompletion: 40,       // 39.36 redondeado
+  through: "2026-11-26",
+  users: 204,               // Sin DEV (sjHJR3590z6j), metric_definition con segmentId, 1-26 nov
+  sessions: 789,            // BhsN9vxRPN7V sin segmento (todos los entornos)
+  prompters: 57,            // Sin DEV, click A3vpsKJZw0X8
+  first_time: 64,           // control: usuarios Sin DEV desde 2025-11-28 hasta 26-nov (1816) menos hasta 31-oct (1752), misma consulta del dia
+  tourCompletion: 40,       // 39.22 redondeado
   thumbsUp: 0,
   thumbsDown: 0,
-  promptGalleryClicks: 5,
+  promptGalleryClicks: 6,
   recentSearchClicks: 0,
   newSearchClicks: 1,
   wordDownloads: 0,
@@ -4864,21 +4864,40 @@ const NOVEMBER = {
   // Consola de admin y encuestas: se cargan a mano al cierre. null = todavia no hay dato.
   csat: "100%", csatResponses: 2, csatAvg: 5.0, // manual: lista de encuestas, 1-18 nov · 2 respuestas (5,5) · top-2 box 2/2 · avg 5.00 · n=2, no es una tasa
   prompts: null, latency: null, unanswered: null, missingSources: null,
-  // Paises: usuarios unicos Sin DEV (copy) en knowledgeplatform.iadb.org, 1-15 nov (metrica 1292887714). Total 139 = usuarios del mes.
-  totalCountries: 24,
+  // Paises: usuarios unicos Sin DEV (copy) en knowledgeplatform.iadb.org, 1-26 nov (metrica 1292887714, consulta del 27-nov). Total 204 = usuarios del mes.
+  totalCountries: 28,
   countries: [
-    { name: "United States (HQ)", code: "US", users: 88 },
-    { name: "Peru", code: "PE", users: 6 }, { name: "Brazil", code: "BR", users: 5 },
-    { name: "Costa Rica", code: "CR", users: 4 }, { name: "Panama", code: "PA", users: 4 },
-    { name: "Argentina", code: "AR", users: 3 }, { name: "Chile", code: "CL", users: 3 }, { name: "Ecuador", code: "EC", users: 3 },
-    { name: "El Salvador", code: "SV", users: 3 }, { name: "Mexico", code: "MX", users: 3 }, { name: "Uruguay", code: "UY", users: 3 },
-    { name: "Barbados", code: "BB", users: 2 }, { name: "Bolivia", code: "BO", users: 2 }, { name: "Colombia", code: "CO", users: 2 }, { name: "Nicaragua", code: "NI", users: 2 },
-    { name: "Australia", code: "AU", users: 1 }, { name: "Cayman Islands", code: "KY", users: 1 }, { name: "Dominican Republic", code: "DO", users: 1 },
-    { name: "France", code: "FR", users: 1 }, { name: "Guatemala", code: "GT", users: 1 }, { name: "Honduras", code: "HN", users: 1 },
-    { name: "Jamaica", code: "JM", users: 1 }, { name: "Spain", code: "ES", users: 1 }, { name: "Trinidad & Tobago", code: "TT", users: 1 },
+    { name: "United States (HQ)", code: "US", users: 123 },
+    { name: "Argentina", code: "AR", users: 8 },
+    { name: "Brazil", code: "BR", users: 8 },
+    { name: "Costa Rica", code: "CR", users: 8 },
+    { name: "Colombia", code: "CO", users: 7 },
+    { name: "Peru", code: "PE", users: 7 },
+    { name: "El Salvador", code: "SV", users: 6 },
+    { name: "Panama", code: "PA", users: 5 },
+    { name: "Mexico", code: "MX", users: 4 },
+    { name: "Barbados", code: "BB", users: 3 },
+    { name: "Chile", code: "CL", users: 3 },
+    { name: "Ecuador", code: "EC", users: 3 },
+    { name: "Spain", code: "ES", users: 3 },
+    { name: "Uruguay", code: "UY", users: 3 },
+    { name: "Bolivia", code: "BO", users: 2 },
+    { name: "Cayman Islands", code: "KY", users: 2 },
+    { name: "Nicaragua", code: "NI", users: 2 },
+    { name: "Australia", code: "AU", users: 1 },
+    { name: "Dominican Republic", code: "DO", users: 1 },
+    { name: "France", code: "FR", users: 1 },
+    { name: "Guatemala", code: "GT", users: 1 },
+    { name: "Guyana", code: "GY", users: 1 },
+    { name: "Haiti", code: "HT", users: 1 },
+    { name: "Honduras", code: "HN", users: 1 },
+    { name: "Jamaica", code: "JM", users: 1 },
+    { name: "Paraguay", code: "PY", users: 1 },
+    { name: "Suriname", code: "SR", users: 1 },
+    { name: "Trinidad & Tobago", code: "TT", users: 1 },
   ],
-  // Pills: sesiones unicas con vista de pagina por pill, Sin DEV, 1-15 nov (pageDef 68 LL, 257 Data, 70 Inst. Docs, 69 Lit, 67 SP).
-  pills: { lessons: 16, data: 9, institutional: 8, literature: 7, similar: 6 },
+  // Pills: sesiones unicas con vista de pagina por pill, Sin DEV, 1-26 nov (pageDef 68 LL, 257 Data, 70 Inst. Docs, 69 Lit, 67 SP).
+  pills: { lessons: 25, data: 13, institutional: 12, literature: 10, similar: 11 },
   // LWA: personas fuera del equipo en produccion, 1-15 nov; misma receta que octubre (unicos por elemento, equipo descontado a mano).
   // Total org-wide: crear 1, copiar 1, compartir 0, catalogo 0, compartidas 0; la persona no es del equipo.
   lwa: { creators: 1, copied: 1, shared: 0, viewed: 0, sharedViewed: 0 },
@@ -4952,7 +4971,7 @@ function NovemberMonthly() {
               ["Word downloads", NOVEMBER.wordDownloads], ["Excel downloads", NOVEMBER.excelDownloads],
               ["LWA: created a lesson (people outside the team, Nov 1-15)", NOVEMBER.lwa.creators], ["LWA: copied one out (people, Nov 1-15)", NOVEMBER.lwa.copied],
               ["LWA: shared with a colleague (people, Nov 1-15)", NOVEMBER.lwa.shared], ["LWA: opened from the catalogue (people, Nov 1-15)", NOVEMBER.lwa.viewed], ["LWA: opened a shared lesson (people, Nov 1-15)", NOVEMBER.lwa.sharedViewed],
-              ["Countries (Nov 1-15)", NOVEMBER.totalCountries],
+              ["Countries (Nov 1-" + day + ")", NOVEMBER.totalCountries],
               ["Prompts sent", NOVEMBER.prompts ?? P], ["Latency", NOVEMBER.latency ?? P], ["CSAT", NOVEMBER.csat ?? P],
               ["Cumulative users (Sep 1 2025-" + NOVEMBER.through + ")", cumUsers], ["Cumulative prompters", cumPrompters], ["Cumulative sessions", cumSessions],
               ["Cumulative penetration", penetration + "%"],
@@ -5016,7 +5035,7 @@ function NovemberMonthly() {
       {/* Geo */}
       <div style={{ background: SURF, border: `1px solid ${BDR}`, borderRadius: R.lg, boxShadow: SHADOW, padding: "16px 20px" }}>
         <div style={{ fontSize: T.micro, textTransform: "uppercase", letterSpacing: "0.04em", color: INK3, marginBottom: 12 }}>
-          🌎 Geographic Reach — {NOVEMBER.totalCountries} countries · Nov 1–15
+          🌎 Geographic Reach — {NOVEMBER.totalCountries} countries · Nov 1–{day}
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, padding: "8px 12px", background: BLUE_L, borderRadius: R.md }}>
           <span style={{ fontSize: T.xl, flexShrink: 0 }}>🇺🇸</span>
@@ -5052,7 +5071,7 @@ function NovemberMonthly() {
           </button>
         )}
         <div style={{ marginTop: 10, fontSize: T.micro, color: INK3, fontStyle: "italic", lineHeight: 1.5 }}>
-          Same recipe as October's table: people with activity on the production site, segment Sin DEV. Read for Nov 1–15, when the month had 139 users. The rows add up to {countryTotal}, a little more than those 139, because a few people were seen in more than one country (travel or VPN).
+          Same recipe as October's table: people with activity on the production site, segment Sin DEV. Read for Nov 1–{day}, when the month had {NOVEMBER.users} users. The rows add up to {countryTotal}, a little more than those {NOVEMBER.users}, because a few people were seen in more than one country (travel or VPN).
         </div>
       </div>
 
@@ -5062,7 +5081,7 @@ function NovemberMonthly() {
         <MCard meta="categoryUsers" label="Users in a category" value={String(snapshotAt("cs_category_users", M))} desc="People who opened at least one knowledge category · month so far · from the ledger" />
         <MCard label="Global Search events" value={String(chips + searchBar)} desc={`Chips ${chips} · search bar ${searchBar} · from the ledger`} />
         <MCard label="Most used pill — Lessons Learned" value={String(NOVEMBER.pills.lessons)} desc={`Data ${NOVEMBER.pills.data} · Institutional Documents ${NOVEMBER.pills.institutional} · sessions · live via MCP`} small />
-        <MCard label={<>Least used pill —<br/>Similar Projects</>} value={String(NOVEMBER.pills.similar)} desc={`Literature ${NOVEMBER.pills.literature} · sessions · live via MCP`} small />
+        <MCard label={<>Least used pill —<br/>Literature</>} value={String(NOVEMBER.pills.literature)} desc={`Similar Projects ${NOVEMBER.pills.similar} · sessions · live via MCP`} small />
       </div>
 
       {heading("🤖 Knowledge Assistant — Open Search (November · to date)")}
@@ -5120,8 +5139,8 @@ function NovemberMonthly() {
 
       <div style={{ fontSize: T.xs, textTransform: "uppercase", letterSpacing: "0.04em", color: INK2, fontWeight: 500, marginBottom: 4 }}>Signals — November to date</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 10 }}>
-        {signal("Half a month, and reach is on October's pace", `${NOVEMBER.users} users and ${NOVEMBER.sessions} sessions in ${day} days, ${NOVEMBER.first_time} of them first-timers. October closed at ${OCTOBER.users} users for the whole month; it is a first read, not a comparison.`)}
-        {signal("Searching holds; taking content away does not", `${NOVEMBER.prompters} people searched in Open Search. 8 highlighted and 5 copied; in the pills, 19 opened one and nobody has copied yet.`)}
+        {signal("Reach is on October's pace", `${NOVEMBER.users} users and ${NOVEMBER.sessions} sessions in ${day} days, ${NOVEMBER.first_time} of them first-timers. October closed at ${OCTOBER.users} users for the whole month; November should pass it at the close.`)}
+        {signal("Searching holds; taking content away does not", `${NOVEMBER.prompters} people searched in Open Search, with ${L(M, "os_highlight")} highlights and ${L(M, "os_copy")} copies. In the pills, ${snapshotAt("cs_category_users", M)} people opened one and only ${L(M, "cs_copy")} copy was made.`)}
         {signal(`Penetration reaches ${penetration}%`, `${cumUsers.toLocaleString("en-US")} cumulative users — October's close of 2,132 plus ${NOVEMBER.first_time} first-timers. ${snapshotAt("cs_category_users_cum", M)} people have opened a knowledge category since October 2025, ${snapshotAt("cs_category_users", M)} of them this month.`)}
         {signal("New audiences, same walls", "The session sweep finds people from corporate areas and new requests (procurement, BID Lab, signed files), and the same sign-in errors and repeated tour as before. See the qualitative section below.")}
       </div>
