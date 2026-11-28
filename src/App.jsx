@@ -4851,12 +4851,12 @@ function OctoberMonthly() {
 }
 
 const NOVEMBER = {
-  through: "2026-11-26",
-  users: 204,               // Sin DEV (sjHJR3590z6j), metric_definition con segmentId, 1-26 nov
-  sessions: 789,            // BhsN9vxRPN7V sin segmento (todos los entornos)
+  through: "2026-11-27",
+  users: 207,               // Sin DEV (sjHJR3590z6j), metric_definition con segmentId, 1-27 nov
+  sessions: 802,            // BhsN9vxRPN7V sin segmento (todos los entornos)
   prompters: 57,            // Sin DEV, click A3vpsKJZw0X8
-  first_time: 64,           // control: usuarios Sin DEV desde 2025-11-28 hasta 26-nov (1816) menos hasta 31-oct (1752), misma consulta del dia
-  tourCompletion: 40,       // 39.22 redondeado
+  first_time: 67,           // control: usuarios Sin DEV desde 2025-11-29 hasta 27-nov (1819) menos hasta 31-oct (1752), misma consulta del dia
+  tourCompletion: 38,       // 38.46 redondeado
   thumbsUp: 0,
   thumbsDown: 0,
   promptGalleryClicks: 6,
@@ -4867,11 +4867,11 @@ const NOVEMBER = {
   // Consola de admin y encuestas: se cargan a mano al cierre. null = todavia no hay dato.
   csat: "100%", csatResponses: 2, csatAvg: 5.0, // manual: lista de encuestas, 1-18 nov · 2 respuestas (5,5) · top-2 box 2/2 · avg 5.00 · n=2, no es una tasa
   prompts: null, latency: null, unanswered: null, missingSources: null,
-  // Paises: usuarios unicos Sin DEV (copy) en knowledgeplatform.iadb.org, 1-26 nov (metrica 1292887714, consulta del 27-nov). Total 204 = usuarios del mes.
-  totalCountries: 28,
+  // Paises: usuarios unicos Sin DEV (copy) en knowledgeplatform.iadb.org, 1-27 nov (metrica 1292887714, consulta del 28-nov). Total 207 = usuarios del mes.
+  totalCountries: 29,
   countries: [
     { name: "United States (HQ)", code: "US", users: 123 },
-    { name: "Argentina", code: "AR", users: 8 },
+    { name: "Argentina", code: "AR", users: 9 },
     { name: "Brazil", code: "BR", users: 8 },
     { name: "Costa Rica", code: "CR", users: 8 },
     { name: "Colombia", code: "CO", users: 7 },
@@ -4879,7 +4879,7 @@ const NOVEMBER = {
     { name: "El Salvador", code: "SV", users: 6 },
     { name: "Panama", code: "PA", users: 5 },
     { name: "Mexico", code: "MX", users: 4 },
-    { name: "Barbados", code: "BB", users: 3 },
+    { name: "Barbados", code: "BB", users: 4 },
     { name: "Chile", code: "CL", users: 3 },
     { name: "Ecuador", code: "EC", users: 3 },
     { name: "Spain", code: "ES", users: 3 },
@@ -4894,13 +4894,14 @@ const NOVEMBER = {
     { name: "Guyana", code: "GY", users: 1 },
     { name: "Haiti", code: "HT", users: 1 },
     { name: "Honduras", code: "HN", users: 1 },
+    { name: "Italy", code: "IT", users: 1 },
     { name: "Jamaica", code: "JM", users: 1 },
     { name: "Paraguay", code: "PY", users: 1 },
     { name: "Suriname", code: "SR", users: 1 },
     { name: "Trinidad & Tobago", code: "TT", users: 1 },
   ],
-  // Pills: sesiones unicas con vista de pagina por pill, Sin DEV, 1-26 nov (pageDef 68 LL, 257 Data, 70 Inst. Docs, 69 Lit, 67 SP).
-  pills: { lessons: 25, data: 13, institutional: 12, literature: 10, similar: 11 },
+  // Pills: sesiones unicas con vista de pagina por pill, Sin DEV, 1-27 nov (pageDef 68 LL, 257 Data, 70 Inst. Docs, 69 Lit, 67 SP).
+  pills: { lessons: 26, data: 13, institutional: 13, literature: 11, similar: 12 },
   // LWA: personas fuera del equipo en produccion, 1-15 nov; misma receta que octubre (unicos por elemento, equipo descontado a mano).
   // Total org-wide: crear 1, copiar 1, compartir 0, catalogo 0, compartidas 0; la persona no es del equipo.
   lwa: { creators: 1, copied: 1, shared: 0, viewed: 0, sharedViewed: 0 },
